@@ -1,0 +1,19 @@
+---
+title: "Baza danych dostawców - EF Core"
+author: rowanmiller
+ms.author: divega
+ms.date: 10/27/2016
+ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
+ms.technology: entity-framework-core
+uid: core/providers/index
+ms.openlocfilehash: 19c275b7e89c62e79c8bded977e39b2cfb2b439a
+ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.translationtype: MT
+ms.contentlocale: pl-PL
+ms.lasthandoff: 10/27/2017
+---
+# <a name="database-providers"></a><span data-ttu-id="f321d-102">Dostawcy bazy danych</span><span class="sxs-lookup"><span data-stu-id="f321d-102">Database Providers</span></span>
+
+<span data-ttu-id="f321d-103">Entity Framework Core korzysta z modelu dostawcy, aby umożliwić EF ma być używany do dostęp do wielu różnych baz danych.</span><span class="sxs-lookup"><span data-stu-id="f321d-103">Entity Framework Core uses a provider model to allow EF to be used to access many different databases.</span></span> <span data-ttu-id="f321d-104">Niektóre pojęcia są wspólne dla baz danych i znajdują się w głównej EF podstawowych składników.</span><span class="sxs-lookup"><span data-stu-id="f321d-104">Some concepts are common to most databases, and are included in the primary EF Core components.</span></span> <span data-ttu-id="f321d-105">Takie pojęcia zawierać wyrażenia zapytania składnika LINQ, transakcje, i śledzenia zmian obiektów raz są załadowane z bazy danych.</span><span class="sxs-lookup"><span data-stu-id="f321d-105">Such concepts include expressing queries in LINQ, transactions, and tacking changes to objects once they are loaded from the database.</span></span> <span data-ttu-id="f321d-106">Niektóre pojęcia są specyficzne dla określonego dostawcy.</span><span class="sxs-lookup"><span data-stu-id="f321d-106">Some concepts are specific to a particular provider.</span></span> <span data-ttu-id="f321d-107">Na przykład dostawcy programu SQL Server umożliwia skonfigurowanie tabel zoptymalizowanych pod kątem pamięci (funkcja specyficzna dla programu SQL Server).</span><span class="sxs-lookup"><span data-stu-id="f321d-107">For example, the SQL Server provider allows you to configure memory-optimized tables (a feature specific to SQL Server).</span></span> <span data-ttu-id="f321d-108">Inne pojęcia są specyficzne dla klasy dostawców.</span><span class="sxs-lookup"><span data-stu-id="f321d-108">Other concepts are specific to a class of providers.</span></span> <span data-ttu-id="f321d-109">Na przykład tworzenie dostawców EF Core relacyjnych baz danych na typowe `Microsoft.EntityFrameworkCore.Relational` biblioteki, która udostępnia interfejsy API do skonfigurowania mapowania kolumn i tabel ograniczeń klucza obcego, itp.</span><span class="sxs-lookup"><span data-stu-id="f321d-109">For example, EF Core providers for relational databases build on the common `Microsoft.EntityFrameworkCore.Relational` library, which provides APIs for configuring table and column mappings, foreign key constraints, etc.</span></span>
+
+<span data-ttu-id="f321d-110">EF podstawowi dostawcy są tworzone przez różnych źródeł.</span><span class="sxs-lookup"><span data-stu-id="f321d-110">EF Core providers are built by a variety of sources.</span></span> <span data-ttu-id="f321d-111">Nie wszyscy dostawcy są obsługiwane w ramach projektu Entity Framework Core.</span><span class="sxs-lookup"><span data-stu-id="f321d-111">Not all providers are maintained as part of the Entity Framework Core project.</span></span> <span data-ttu-id="f321d-112">Rozważając innych dostawców, należy ocenić jakości, licencjonowanie, obsługi, itp., aby upewnić się, że spełniają one wymagania.</span><span class="sxs-lookup"><span data-stu-id="f321d-112">When considering a third party provider, be sure to evaluate quality, licensing, support, etc. to ensure they meet your requirements.</span></span>
