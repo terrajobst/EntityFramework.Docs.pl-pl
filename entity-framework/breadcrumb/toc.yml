@@ -1,0 +1,45 @@
+- name: Docs
+  tocHref: /
+  topicHref: /
+  items:
+    - name: Entity Framework
+      tocHref: /ef/
+      topicHref: /ef/index
+      items:
+        - name: Porównanie programów EF Core i EF6
+          tocHref: /ef/efcore-and-ef6/
+          topicHref: /ef/efcore-and-ef6/index
+        - name: Entity Framework Core
+          tocHref: /ef/core/
+          topicHref: /ef/core/index
+          items:
+            - name: Co nowego?
+              tocHref: /ef/core/what-is-new/
+              topicHref: /ef/core/what-is-new/index
+            - name: Wprowadzenie
+              tocHref: /ef/core/get-started/
+              topicHref: /ef/core/get-started/index
+            - name: Tworzenie modelu
+              tocHref: /ef/core/modeling/
+              topicHref: /ef/core/modeling/index
+            - name: Wykonanie zapytania o dane
+              tocHref: /ef/core/querying/
+              topicHref: /ef/core/querying/index
+            - name: Zapisywanie danych
+              tocHref: /ef/core/saving/
+              topicHref: /ef/core/saving/index
+            - name: Dostawcy baz danych
+              tocHref: /ef/core/providers/
+              topicHref: /ef/core/providers/index
+            - name: Dokumentacja wiersza polecenia
+              tocHref: /ef/core/miscellaneous/cli/
+              topicHref: /ef/core/miscellaneous/cli/index
+            - name: Narzędzia i rozszerzenia
+              tocHref: /ef/core/extensions/
+              topicHref: /ef/core/extensions/index
+            - name: Różne
+              tocHref: /ef/core/miscellaneous/
+              topicHref: /ef/core/miscellaneous/index
+        - name: Entity Framework 6
+          tocHref: /ef/ef6/
+          topicHref: /ef/ef6/index
