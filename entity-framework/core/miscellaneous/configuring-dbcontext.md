@@ -6,25 +6,49 @@ ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 ms.technology: entity-framework-core
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 96abf3b94be3e1d19f833644f1c2f6f13fe0e730
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: de26e3b28851d4dc4e50f0490093dd05ad489b31
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/05/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurowanie obiektu DbContext
 
-W tym artykule przedstawiono wzorce konfigurowania `DbContext` z `DbContextOptions`. Opcje są używane głównie aby wybrać i skonfigurować Magazyn danych.
+W tym artykule przedstawiono wzorców podstawowych konfigurowania `DbContext` za pośrednictwem `DbContextOptions` nawiązać połączenia z bazą danych przy użyciu określonego dostawcy EF Core i opcjonalnie zachowania.
+
+## <a name="design-time-dbcontext-configuration"></a>Konfiguracja obiektu DbContext czasu projektowania
+
+Czasu projektowania EF podstawowych narzędzi, takich jak [migracje](xref:core/managing-schemas/migrations/index) muszą mieć możliwość odnajdywania i Utwórz wystąpienie pracy `DbContext` typu w celu zbierania szczegóły dotyczące typów jednostek aplikacji oraz sposobu mapowania ich na schemat bazy danych. Ten proces może być automatyczna, tak długo, jak łatwo utworzyć narzędzie `DbContext` w taki sposób, że będzie on podobnie skonfigurowany sposób może zostać skonfigurowana w czasie runt.
+
+Podczas żadnych wzorzec, który zawiera informacje o konfiguracji niezbędne do `DbContext` może działać w czasie wykonywania, narzędzi, które wymagają przy użyciu `DbContext` w czasie projektowania może pracować tylko z ograniczoną liczbą wzorców. Te są opisane bardziej szczegółowo w [tworzenie kontekstu w czasie projektowania](xref:core/miscellaneous/cli/dbcontext-creation) sekcji.
 
 ## <a name="configuring-dbcontextoptions"></a>Konfigurowanie DbContextOptions
 
-`DbContext`musi być wystąpieniem `DbContextOptions` w celu wykonania. Tę funkcję można skonfigurować przez zastąpienie `OnConfiguring`, lub zewnętrznie dostarczony przez argument konstruktora.
+`DbContext`musi być wystąpieniem `DbContextOptions` w celu wykonywania pracy. `DbContextOptions` Wystąpienia niesie informacje o konfiguracji, takich jak:
 
-Jeśli są używane, `OnConfiguring` jest wykonywana na podane opcje, co oznacza jest dodatek i może zastąpić opcje przekazany do argumentu konstruktora.
+- Dostawca bazy danych do użycia, zazwyczaj wybierana przez wywołanie metody, takie jak `UseSqlServer` lub`UseSqlite`
+- Wszystkie niezbędne parametry lub identyfikator wystąpienia bazy danych zazwyczaj przekazanego jako argument do metody wyboru dostawcy wymienione powyżej
+- Wszystkie selektory zachowanie opcjonalne poziomie dostawcy, zwykle także powiązane wewnątrz wywołania metody wyboru dostawcy
+- Wszelkie ogólne selektorów zachowanie EF Core, zwykle łańcuchowej po lub przed wywołaniem metody selektora dostawcy
+
+Poniższy przykład konfiguruje `DbContextOptions` korzysta z dostawcy programu SQL Server, połączenie zawarte w `connectionString` zmiennej, limit czasu polecenia poziomie dostawcy i selektor zachowanie EF Core sprawia, że wszystkie zapytania wykonywane w `DbContext` [śledzenia nie](xref:core/querying/tracking#no-tracking-queries) domyślnie:
+
+``` csharp
+optionsBuilder
+    .UseSqlServer(connectionString, providerOptions=>providerOptions.CommandTimeout(60))
+    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+```
+
+> [!NOTE]  
+> Metody selektora dostawcy i innych metod selektora zachowanie wymienione powyżej są metody rozszerzenia na `DbContextOptions` lub klasy opcji specyficznych dla dostawcy. Aby uzyskać dostęp do tych metod rozszerzenia może być konieczne przestrzeń nazw (zazwyczaj `Microsoft.EntityFrameworkCore`) w zakres i zawierać pakiet dodatkowe zależności w projekcie.
+
+`DbContextOptions` Mogą być dostarczane do `DbContext` przez zastąpienie `OnConfiguring` metody lub zewnętrznie za pośrednictwem argumentów konstruktora.
+
+Jeśli używana zarówno `OnConfiguring` ostatnio zastosowane i mogą zastąpić opcje przekazany do argumentu konstruktora.
 
 ### <a name="constructor-argument"></a>Argument konstruktora
 
-Kontekst kodu za pomocą konstruktora
+Kontekst kodu za pomocą konstruktora:
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -38,9 +62,9 @@ public class BloggingContext : DbContext
 ```
 
 > [!TIP]  
-> Podstawowy Konstruktor DbContext również zaakceptowanie wersji nieogólnego `DbContextOptions`. Przy użyciu wersji nieogólnego nie jest zalecane w przypadku aplikacji o wiele typów kontekstu.
+> Podstawowy Konstruktor DbContext również zaakceptowanie wersji nieogólnego `DbContextOptions`, ale przy użyciu wersji nieogólnego nie jest zalecane w przypadku aplikacji o wiele typów kontekstu.
 
-Kod aplikacji, można zainicjować na podstawie argumentów konstruktora
+Kod aplikacji, można zainicjować na podstawie argumentów konstruktora:
 
 ``` csharp
 var optionsBuilder = new DbContextOptionsBuilder<BloggingContext>();
@@ -53,9 +77,6 @@ using (var context = new BloggingContext(optionsBuilder.Options))
 ```
 
 ### <a name="onconfiguring"></a>OnConfiguring
-
-> [!WARNING]  
-> `OnConfiguring`Ostatnia i mogą zastąpić opcje uzyskane z Podpisane lub konstruktora. Takie podejście nie nadają się do testowania (chyba że zostanie rozpoczęta dla pełnej bazy danych).
 
 Kontekst kodu za pomocą `OnConfiguring`:
 
@@ -71,7 +92,7 @@ public class BloggingContext : DbContext
 }
 ```
 
-Kod aplikacji, aby zainicjować z `OnConfiguring`:
+Kod aplikacji w celu zainicjowania `DbContext` używającą `OnConfiguring`:
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -80,15 +101,18 @@ using (var context = new BloggingContext())
 }
 ```
 
-## <a name="using-dbcontext-with-dependency-injection"></a>Przy użyciu obiektu DbContext z iniekcji zależności
+> [!TIP]
+> Takie podejście nie nadają się do testowania, chyba, że testy target pełnej bazy danych.
 
-Obsługa EF przy użyciu `DbContext` z kontenera iniekcji zależności. Danego typu DbContext można dodać do kontenera usługi za pomocą `AddDbContext<TContext>`.
+### <a name="using-dbcontext-with-dependency-injection"></a>Przy użyciu obiektu DbContext z iniekcji zależności
 
-`AddDbContext`spowoduje, że oba danego typu DbContext `TContext`, i `DbContextOptions<TContext>` dostępne iniekcji z kontenera usług.
+EF Core obsługuje korzystanie z `DbContext` z kontenera iniekcji zależności. Danego typu DbContext można dodać do kontenera usługi za pomocą `AddDbContext<TContext>` metody.
 
-Zobacz [więcej odczytu](#more-reading) poniżej informacje na iniekcji zależności.
+`AddDbContext<TContext>`spowoduje, że oba danego typu DbContext `TContext`i odpowiadający mu `DbContextOptions<TContext>` dostępne iniekcji z kontenera usług.
 
-Dodawanie dbcontext do iniekcji zależności
+Zobacz [więcej odczytu](#more-reading) poniżej dodatkowe informacje na temat iniekcji zależności.
+
+Dodawanie `Dbcontext` do iniekcji zależności:
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)
@@ -97,7 +121,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Wymaga to dodawanie [argument konstruktora](#constructor-argument) Twojego typ DbContext, który akceptuje `DbContextOptions`.
+Wymaga to dodawanie [argument konstruktora](#constructor-argument) Twojego typ DbContext, który akceptuje `DbContextOptions<TContext>`.
 
 Kontekst kodu:
 
@@ -115,7 +139,17 @@ public class BloggingContext : DbContext
 Kod aplikacji (w ASP.NET Core):
 
 ``` csharp
-public MyController(BloggingContext context)
+public class MyController
+{
+    private readonly BloggingContext _context;
+
+    public MyController(BloggingContext context)
+    {
+      _context = context;
+    }
+
+    ...
+}
 ```
 
 Kod aplikacji (przy użyciu element ServiceProvider bezpośrednio, mniej typowe):
@@ -129,35 +163,8 @@ using (var context = serviceProvider.GetService<BloggingContext>())
 var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
 ```
 
-## <a name="using-idesigntimedbcontextfactorytcontext"></a>Za pomocą`IDesignTimeDbContextFactory<TContext>`
-
-Alternatywą dla powyższych opcji może również zapewniać implementację elementu `IDesignTimeDbContextFactory<TContext>`. Narzędzia EF umożliwia utworzenie wystąpienia DbContext z tej fabryki. Może to być wymagane w celu umożliwienia określonego środowiska czasu projektowania, takich jak migracji.
-
-Implementuje ten interfejs, aby włączyć usługi czasu projektowania dla typów kontekstu, które nie ma publicznego konstruktora domyślnego. Usługi w czasie projektowania automatycznie wykryje implementacje tego interfejsu, które znajdują się w tym samym zestawie co kontekst pochodnych.
-
-Przykład:
-
-``` csharp
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-
-namespace MyProject
-{
-    public class BloggingContextFactory : IDesignTimeDbContextFactory<BloggingContext>
-    {
-        public BloggingContext CreateDbContext(string[] args)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<BloggingContext>();
-            optionsBuilder.UseSqlite("Data Source=blog.db");
-
-            return new BloggingContext(optionsBuilder.Options);
-        }
-    }
-}
-```
-
 ## <a name="more-reading"></a>Więcej odczytu
 
 * Odczyt [wprowadzenie na platformy ASP.NET Core](../get-started/aspnetcore/index.md) Aby uzyskać więcej informacji o używaniu EF z platformy ASP.NET Core.
-* Odczyt [iniekcji zależności](https://docs.asp.net/en/latest/fundamentals/dependency-injection.html) Aby dowiedzieć się więcej o korzystaniu z Podpisane.
+* Odczyt [iniekcji zależności](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection) Aby dowiedzieć się więcej o korzystaniu z Podpisane.
 * Odczyt [testowanie](testing/index.md) Aby uzyskać więcej informacji.

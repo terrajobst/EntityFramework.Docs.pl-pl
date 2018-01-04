@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 ms.technology: entity-framework-core
 uid: core/querying/raw-sql
-ms.openlocfilehash: ddf3a841800684688d50dcf9323f4d83c851222f
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 79894c7b9fd9e40cdf14460abf5d872ee2f4b9f0
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="raw-sql-queries"></a>Zapytania SQL pierwotnych
 
@@ -29,6 +29,13 @@ Istnieje kilka pod uwagę podczas korzystania z pierwotnych zapytania SQL nastę
 * Nazwy kolumn w zestawie wyników muszą być zgodne nazwy kolumn, które są mapowane właściwości. Należy zauważyć, że ta różni się od EF6 gdzie mapowania właściwości/kolumn została zignorowana dla nieprzetworzonej zapytania SQL i nazw musiały być zgodne z nazwami właściwości kolumny zestawu wyników.
 
 * Zapytania SQL nie może zawierać powiązanych danych. Jednak w wielu przypadkach można utworzyć na podstawie zapytania za pomocą `Include` operatora, aby zwrócić dane dotyczące (zobacz [powiązanych danych w tym](#including-related-data)).
+
+* `SELECT`instrukcje przekazane do tej metody powinno być zazwyczaj zezwala na składanie: Jeśli Core EF należy ocenić operatorów zapytań dodatkowe na serwerze (np. tłumaczenie operatory LINQ zastosowane po `FromSql`), podane SQL będzie traktowany jako podzapytania. Oznacza to, SQL przekazany nie powinna zawierać żadnych znaków ani opcje, które nie są prawidłowe w podzapytaniu, takich jak:
+  * końcowe średnikami
+  * W programie SQL Server poziom zapytań końcowe wskazówki, np.`OPTION (HASH JOIN)`
+  * W programie SQL Server `ORDER BY` klauzuli, która nie jest powiązany z `TOP 100 PERCENT` w `SELECT` — klauzula
+
+* Instrukcje SQL innych niż `SELECT` są rozpoznawane automatycznie jako zezwalają na składanie. W konsekwencji pełnych wyników procedury składowane są zawsze zwracana do klienta i wszystkie operatory LINQ zastosowane po `FromSql` są obliczane w pamięci. 
 
 ## <a name="basic-raw-sql-queries"></a>Podstawowe raw zapytania SQL
 

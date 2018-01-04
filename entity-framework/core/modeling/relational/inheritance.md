@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
 ms.technology: entity-framework-core
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: a7f697dfe2b93c7b93a2dd14945732db4f37628c
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 55286adf08a6a1c3286b7059d747a62e1feffd22
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="inheritance-relational-database"></a>Dziedziczenie (relacyjnej bazy danych)
 
@@ -19,11 +19,14 @@ ms.lasthandoff: 10/27/2017
 
 Dziedziczenie w modelu EF służy do kontrolowania sposobu dziedziczenia klas jednostek jest reprezentowana w bazie danych.
 
+> [!NOTE]  
+> Obecnie tylko ze wzorcem (TPH) tabeli na hierarchii jest zaimplementowana w EF Core. Inne typowe wzorce, takich jak tabeli na typ (TPT) i tabeli na konkretnych type (TPC) nie są jeszcze dostępne.
+
 ## <a name="conventions"></a>Konwencje
 
 Według Konwencji dziedziczenia zostanie zamapowane przy użyciu wzorca tabeli na hierarchii (TPH). TPH używa pojedynczej tabeli, aby przechowywać dane dla wszystkich typów w hierarchii. Kolumna dyskryminatora służy do identyfikowania typu reprezentuje każdego wiersza.
 
-EF tylko ustawienia dziedziczenia, jeśli dwa lub więcej dziedziczonych typów jawnie znajdują się w modelu (zobacz [dziedziczenia](../inheritance.md) więcej szczegółów).
+EF Core tylko ustawienia dziedziczenia, jeśli dwa lub więcej dziedziczonych typów jawnie znajdują się w modelu (zobacz [dziedziczenia](../inheritance.md) więcej szczegółów).
 
 Poniżej przedstawiono przykładowy scenariusz dziedziczenia proste i dane przechowywane w tabeli relacyjnej bazy danych za pomocą wzorca TPH. *Rozróżniacza* kolumny identyfikuje typu *blogu* są przechowywane w każdym wierszu.
 
