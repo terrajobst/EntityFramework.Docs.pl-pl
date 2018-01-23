@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: a9481fe851cc264ab3eaecad052c2e683ae57a44
-ms.sourcegitcommit: 5367516f063cb42804ec92c31cdf76322554f2b5
-ms.translationtype: HT
+ms.openlocfilehash: e1cb194d7c7472af59eb44fe2a084fa16c40c186
+ms.sourcegitcommit: 3b21a7fdeddc7b3c70d9b7777b72bef61f59216c
+ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/08/2017
+ms.lasthandoff: 01/22/2018
 ---
 # <a name="cascade-delete"></a>Usuwanie kaskadowe
 
@@ -35,7 +35,7 @@ Istnieją cztery usunąć zachowania, wymienione w poniższych tabelach. W przyp
 
 | Nazwa zachowania | Wpływ na zależne od/podrzędny w pamięci | Wpływ na zależne od/podrzędny w bazie danych
 |-|-|-
-| **Kaskadowo** | Jednostki są usuwane. | Jednostki są usuwane.
+| **Cascade** | Jednostki są usuwane. | Jednostki są usuwane.
 | **ClientSetNull** (domyślna) | Właściwości klucza obcego są ustawione na wartość null | Brak
 | **SetNull** | Właściwości klucza obcego są ustawione na wartość null | Właściwości klucza obcego są ustawione na wartość null
 | **Ogranicz** | Brak | Brak
@@ -67,7 +67,7 @@ Na wysokim poziomie:
 
 ## <a name="entity-deletion-examples"></a>Przykłady usunięcie jednostki
 
-Poniższy kod jest częścią [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/) który można pobrać uruchomienia. Przykład pokazuje, co się stanie dla każdego zachowanie Usuń relacje zarówno opcjonalne i wymagane po usunięciu jednostki nadrzędnej.
+Poniższy kod jest częścią [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/) który można pobrać i uruchomić. Przykład pokazuje, co się stanie dla każdego zachowanie Usuń relacje zarówno opcjonalne i wymagane po usunięciu jednostki nadrzędnej.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
 

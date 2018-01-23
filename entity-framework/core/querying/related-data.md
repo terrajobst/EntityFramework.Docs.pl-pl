@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 ms.technology: entity-framework-core
 uid: core/querying/related-data
-ms.openlocfilehash: cd26bd2e6f85083f73d97b1356d0ba38f53e0b8f
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: ec69bb128890a1e0b72fe77014f37747585bb5a5
+ms.sourcegitcommit: 3b21a7fdeddc7b3c70d9b7777b72bef61f59216c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 01/22/2018
 ---
 # <a name="loading-related-data"></a>Trwa ładowanie powiązanych danych
 
@@ -41,6 +41,9 @@ Powiązane dane z wielu relacji można uwzględnić w jednym zapytaniu.
 Można przejść do relacji z obejmują wiele poziomów powiązanych danych przy użyciu `ThenInclude` metody. Poniższy przykład ładuje wszystkie blogi, ich powiązane ogłoszeń i autor każdego post.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#SingleThenInclude)]
+
+> [!NOTE]  
+> Bieżącej wersji programu Visual Studio oferują niepoprawny kod zakończenia opcje i może spowodować poprawne wyrażenia do błędy składniowe przy użyciu `ThenInclude` metody po właściwości nawigacji kolekcji. To jest symptomem błędów IntelliSense w https://github.com/dotnet/roslyn/issues/8237. Jest bezpiecznie zignorować te błędy składniowe fałszywe tak długo, jak kod jest poprawny i może zostać pomyślnie skompilowany. 
 
 Tworzenia łańcucha wielu wywołań `ThenInclude` aby kontynuować, tym więcej poziomy powiązanych danych.
 
