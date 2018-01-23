@@ -8,7 +8,7 @@ ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
 ms.openlocfilehash: a9481fe851cc264ab3eaecad052c2e683ae57a44
 ms.sourcegitcommit: 5367516f063cb42804ec92c31cdf76322554f2b5
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 11/08/2017
 ---
@@ -16,7 +16,7 @@ ms.lasthandoff: 11/08/2017
 
 Usuwanie kaskadowe jest zwykle używany w terminologii bazy danych w przypadku cech, który umożliwia usunięcie wiersza automatycznie wyzwalać usunięcie powiązane wiersze. Ściśle pojęciem objętych zachowania delete EF Core jest automatyczne usuwanie jednostce podrzędnej, gdy jest relacji do elementu nadrzędnego ma zostały Przerwano — ten i często nazywana "Usuwanie oddzielone".
 
-Podstawowe EF implementuje kilka różnych usuwania zachowań i umożliwia konfigurację zachowania delete poszczególnych relacji. Podstawowe EF implementuje również konwencje, które automatycznie konfigurują zachowania delete przydatna dla każdej relacji w oparciu [requiredness relacji] (.. /Modeling/Relationships.MD#Required-and-Optional-relationships).
+Podstawowe EF implementuje kilka różnych usuwania zachowań i umożliwia konfigurację zachowania delete poszczególnych relacji. Podstawowe EF implementuje również konwencje, które automatycznie konfigurują zachowania delete przydatna dla każdej relacji w oparciu [requiredness relacji] (../modeling/relationships.md#required-and-optional-relationships).
 
 ## <a name="delete-behaviors"></a>Usuń zachowania
 Usuń zachowania są zdefiniowane w *DeleteBehavior* modułu wyliczającego wpisz i mogą zostać przekazane do *OnDelete* interfejsu API fluent do kontroli czy usunięcie jednostki nadrzędne podmiot zabezpieczeń lub severing programu Relacja podmioty zależne od/podrzędny musi mieć efektem ubocznym WE podmioty zależne od/podrzędny.
