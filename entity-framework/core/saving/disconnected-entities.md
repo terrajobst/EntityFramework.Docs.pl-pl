@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 ms.technology: entity-framework-core
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 0ea02876b9594d54c971a7b70fcf7ce591e56ba0
-ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
+ms.openlocfilehash: 0b145217d40027c4b8e4746e9c5651652a28c9eb
+ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/22/2017
+ms.lasthandoff: 02/12/2018
 ---
 # <a name="disconnected-entities"></a>Odłączonych jednostek.
 
@@ -20,6 +20,9 @@ Jednak czasami jednostek będą pytani, przy użyciu jednego wystąpienia kontek
 
 > [!TIP]  
 > Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Disconnected/) w witrynie GitHub.
+
+> [!TIP]
+> Podstawowe EF śledzić tylko jedno wystąpienie jednostki z danej wartości klucza podstawowego. Najlepszym sposobem uniknięcia, to jest problem ma używać krótkim okresie kontekstu dla każdej jednostki pracy, pozwalający kontekście rozpoczyna się pusta, zawiera jednostek dołączone do niego, zapisuje te jednostki oraz kontekst jest usunięty i odrzucone.
 
 ## <a name="identifying-new-entities"></a>Identyfikowanie nowych jednostek
 
@@ -85,6 +88,10 @@ Czynności opisane w tym miejscu są:
 > SetValues oznaczy tylko modyfikowanie właściwości, które mają różne wartości określone w śledzonych jednostki. Oznacza to, że po wysłaniu aktualizacji, tylko te kolumny, które faktycznie zostały zmienione zostaną zaktualizowane. (I nic się nie zmieniło, aktualizacja nie zostanie wysłana na wszystkich.)
 
 ## <a name="working-with-graphs"></a>Praca z wykresów
+
+### <a name="identity-resolution"></a>Rozdzielczość tożsamości
+
+Jak wspomniano powyżej, EF Core śledzić tylko jedno wystąpienie jednostki z danej wartości klucza podstawowego. Podczas pracy z wykresy wykresu w idealnym przypadku należy utworzyć w taki sposób, że tego obiektu jest obsługiwany, i kontekstu powinna być używana dla tylko jednej jednostki pracy. Jeśli wykres zawiera duplikaty, następnie zostanie niezbędnych do przetwarzania przed wysłaniem ich do EF do konsolidowania wielu wystąpień w jeden wykres. To nie może być prosta których wystąpienia mają wartości powodujące konflikt i relacje, więc duplikaty Konsolidacja ma się odbywać tak szybko, jak to możliwe w potoku aplikacji w celu uniknięcia rozwiązywania konfliktów.
 
 ### <a name="all-newall-existing-entities"></a>Wszystkie nowe/wszystkich istniejących obiektów.
 

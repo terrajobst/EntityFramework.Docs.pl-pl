@@ -8,11 +8,11 @@ ms.topic: get-started-article
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 7e7ecaff29e9830bf3bcf742e6a5d54e1ced24de
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: f6ed19d3c5d2ae8d1f5756558e50c1f0dddd2f07
+ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/05/2017
+ms.lasthandoff: 02/12/2018
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Wprowadzenie do podstawowych EF na platformy ASP.NET Core nowej bazy danych
 
@@ -47,15 +47,15 @@ Zainstaluj pakiet dla EF Core powszechne bazy danych, który ma być docelowa. W
 
 * **Narzędzia > Menedżera pakietów NuGet > konsoli Menedżera pakietów**
 
-* Uruchom`Install-Package Microsoft.EntityFrameworkCore.SqlServer`
+* Uruchom `Install-Package Microsoft.EntityFrameworkCore.SqlServer`
 
 Użyjemy niektóre narzędzia Entity Framework Core utworzyć bazę danych z modelu EF Core. Dlatego zostanie zainstalowany pakiet narzędzi również:
 
-* Uruchom`Install-Package Microsoft.EntityFrameworkCore.Tools`
+* Uruchom `Install-Package Microsoft.EntityFrameworkCore.Tools`
 
 Użyjemy niektóre platformy ASP.NET Core szkieletów narzędzia do tworzenia widoków i kontrolerów później. Dlatego zostanie zainstalowany ten pakiet projektu:
 
-* Uruchom`Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design`
+* Uruchom `Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design`
 
 ## <a name="create-the-model"></a>Tworzenie modelu
 
@@ -86,7 +86,7 @@ Dodaj `AddDbContext` metody, aby zarejestrować go w trybie usługi:
 
  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs?name=ConfigureServices&highlight=7-8)]
 
-Uwaga: Rzeczywiste aplikacji gennerally spowodowałaby parametry połączenia w pliku konfiguracji. Dla uproszczenia możemy są definiowane w kodzie. Zobacz [parametry połączenia](../../miscellaneous/connection-strings.md) Aby uzyskać więcej informacji.
+Uwaga: Rzeczywiste aplikacji zwykle spowodowałaby parametry połączenia w pliku konfiguracji. Dla uproszczenia możemy są definiowane w kodzie. Zobacz [parametry połączenia](../../miscellaneous/connection-strings.md) Aby uzyskać więcej informacji.
 
 ## <a name="create-your-database"></a>Tworzenie bazy danych
 
@@ -118,7 +118,7 @@ Teraz, gdy jest włączona funkcja szkieletów, możemy utworzyć szkielet kontr
 
 Naciśnij klawisz F5, aby uruchomić i przetestować aplikację.
 
-* Przejdź do`/Blogs`
+* Przejdź do `/Blogs`
 * Utwórz łącze umożliwia utworzenie niektórych wpisów. Testowanie szczegóły i usunąć łącza.
 
 ![obraz](_static/create.png)
@@ -130,4 +130,4 @@ Naciśnij klawisz F5, aby uruchomić i przetestować aplikację.
 * [EF - nowej bazy danych SQLite](xref:core/get-started/netcore/new-db-sqlite) — samouczek EF konsoli i platform.
 * [Wprowadzenie do platformy ASP.NET Core MVC Mac lub Linux](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
 * [Wprowadzenie do platformy ASP.NET Core MVC za pomocą programu Visual Studio](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app/index)
-* [Wprowadzenie do platformy ASP.NET Core oraz Entity Framework Core za pomocą programu Visual Studio](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
+* [Rozpoczynanie pracy z platformą ASP.NET Core i programem Entity Framework Core przy użyciu programu Visual Studio](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
