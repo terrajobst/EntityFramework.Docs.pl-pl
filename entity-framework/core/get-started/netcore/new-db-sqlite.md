@@ -4,16 +4,16 @@ author: rick-anderson
 ms.author: riande
 ms.author2: tdykstra
 description: "Rozpoczynanie pracy z platformą .NET Core przy użyciu programu Entity Framework Core"
-keywords: .NET core, Entity Framework Core, programu VS, kod programu Visual Studio, Mac, Linux
+keywords: .NET Core, Entity Framework Core, VS Code, Visual Studio Code, Mac, Linux
 ms.date: 04/05/2017
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 ms.technology: entity-framework-core
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: 22fc0446dee71dd0d2402b47d76cc8b7307fbe5f
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: 3becf75e7a513a3aa18c3c2daf628b65327365b0
+ms.sourcegitcommit: 0858f157b806f4a881b94ddbeecf1ece1d53e1e0
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 02/21/2018
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Wprowadzenie do podstawowych EF w aplikacji konsoli .NET Core nowej bazy danych
 
@@ -25,7 +25,7 @@ W tym przewodniku spowoduje utworzenie aplikacji konsoli .NET Core, który wykon
 > [!TIP]  
 > Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/NetCore/ConsoleApp.SQLite) w witrynie GitHub.
 
-## <a name="prerequisites"></a>Wstępnie wymagane składniki
+## <a name="prerequisites"></a>Wymagania wstępne
 
 Do przeprowadzenia tego instruktażu potrzebne są następujące wymagania wstępne:
 * System operacyjny obsługuje .NET Core.
@@ -60,9 +60,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
   </ItemGroup>
   ```
 
- Uwaga: Przyszłej wersji `dotnet` będzie obsługiwać DotNetCliToolReferences za pośrednictwem`dotnet add tool`
-
-`ConsoleApp.SQLite.csproj`teraz powinny zawierać następujące:
+`ConsoleApp.SQLite.csproj` teraz powinny zawierać następujące:
 
 [!code[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/ConsoleApp.SQLite.csproj)]
 
@@ -121,4 +119,4 @@ Po utworzeniu modelu, można użyć [migracje](https://docs.microsoft.com/aspnet
 * [Oprogramowanie .NET core - nowej bazy danych SQLite](xref:core/get-started/netcore/new-db-sqlite) — samouczek EF konsoli i platform.
 * [Wprowadzenie do platformy ASP.NET Core MVC Mac lub Linux](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
 * [Wprowadzenie do platformy ASP.NET Core MVC za pomocą programu Visual Studio](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app/index)
-* [Wprowadzenie do platformy ASP.NET Core oraz Entity Framework Core za pomocą programu Visual Studio](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
+* [Rozpoczynanie pracy z platformą ASP.NET Core i programem Entity Framework Core przy użyciu programu Visual Studio](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
