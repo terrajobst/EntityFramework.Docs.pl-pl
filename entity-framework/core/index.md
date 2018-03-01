@@ -6,26 +6,28 @@ ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 ms.technology: entity-framework-core
 uid: core/index
-ms.openlocfilehash: 13de9cf98111b8e253e073c591fcec04206b4c4f
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: c76b4cd318151b502c549fa0a82800f9987ed94c
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="entity-framework-core-quick-overview"></a>Entity Framework Core szybki przegląd
 
 Program Entity Framework (EF) Core to lekkie, rozszerzalny, i technologii dostępu do wersji i platform popularnych danych programu Entity Framework.
 
-Podstawowe EF jest mapowania obiektów relacyjnych (O/RM), który umożliwia deweloperom platformy .NET do pracy z bazą danych przy użyciu obiektów platformy .NET. Eliminuje potrzebę większość deweloperów zazwyczaj trzeba napisać kod dostępu do danych. Jądro EF obsługuje wiele baz danych, zobacz [dostawcy bazy danych](providers/index.md) szczegółowe informacje.
+Podstawowe EF jest mapowania obiektów relacyjnych (O/RM), który umożliwia deweloperom platformy .NET do pracy z bazą danych przy użyciu obiektów platformy .NET. Dzięki temu większa część kodu dostępu do danych, który programiści muszą zwykle tworzyć, nie jest już potrzebna. Jądro EF obsługuje wiele baz danych, zobacz [dostawcy bazy danych](providers/index.md) szczegółowe informacje.
 
 Jeśli chcesz dowiedzieć się przez pisania kodu, zalecamy jednego z naszych [wprowadzenie](get-started/index.md) przewodniki ułatwiające rozpoczęcie pracy z EF Core.
 
-## <a name="latest-version-ef-core-20"></a>Najnowsza wersja: EF Core 2.0
+## <a name="what-is-new-in-ef-core"></a>Co to jest nowa w programie EF Core
 
-Jeśli znasz podstawowe EF i chcesz przejść bezpośrednio do szczegółów nowej wersji:
+Jeśli znasz podstawowe EF i chcesz przejść bezpośrednio do szczegółów najnowsze wersje:
 
-- **[Nowe funkcje w programie EF Core 2.0](what-is-new/index.md)**
-- **[Uaktualnianie istniejącej aplikacji EF Core 2.0](miscellaneous/1x-2x-upgrade.md)**
+- **[Nowości w programie EF Core 2.1 (obecnie w wersji zapoznawczej)](xref:core/what-is-new/ef-core-2.1)**
+- **[Co to jest nowe w programie EF Core 2.0 (najnowszej wersji)](xref:core/what-is-new/ef-core-2.0)**
+- **[Uaktualnianie istniejącej aplikacji EF Core 2.0](xref:core/miscellaneous/1x-2x-upgrade)**
+
 
 ## <a name="get-entity-framework-core"></a>Pobierz program Entity Framework Core
 

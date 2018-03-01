@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: b4ecb27edf94e7b9ad6c7fe65a891dcbf1593309
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: aacf8c8564a3966db6202c9ff1c1c02a19a10814
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 02/28/2018
 ---
 <a name="ef-core-package-manager-console-tools"></a>Narzędzia konsoli Menedżera pakietów Core EF
 =====================================
@@ -49,7 +49,7 @@ Projekt startowy jest emulowane przez narzędzia podczas wykonywania kodu projek
 Wspólne parametry:
 
 |                           |                             |
-| ------------------------- | --------------------------- |
+|:--------------------------|:----------------------------|
 | -Kontekst \<ciąg >        | DbContext do użycia.       |
 | -Projektu \<ciąg >        | Projekt do użycia.         |
 | -StartupProject \<ciąg > | Projekt startowy do użycia. |
@@ -72,10 +72,10 @@ Dodaje nowe migracji.
 
 Parametry:
 
-|                                    |                                                                                 |
-| ---------------------------------- | ------------------------------------------------------------------------------- |
-| ***-Nazwa*** \<ciąg >              | Nazwa migracji.                                                      |
-| <nobr>-OutputDir \<ciąg ></nobr>  | Katalog (i przestrzeni nazw sub) do użycia. Ścieżki są względem katalogu projektu. Wartość domyślna to "Migracji". |
+|                                   |                                                                                                                  |
+|:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
+| ***-Nazwa*** \<ciąg >             | Nazwa migracji.                                                                                       |
+| <nobr>-OutputDir \<ciąg ></nobr> | Katalog (i przestrzeni nazw sub) do użycia. Ścieżki są względem katalogu projektu. Wartość domyślna to "Migracji". |
 
 > [!NOTE]
 > Parametry w **bold** są wymagane i w *italics* są pozycyjnych.
@@ -86,9 +86,9 @@ Odrzuca bazy danych.
 
 Parametry:
 
-|          |                                                          |
-| -------- | -------------------------------------------------------- |
-| -WhatIf  | Pokaż bazę danych, która będą pomijane, ale nie jej porzucić. |
+|         |                                                          |
+|:--------|:---------------------------------------------------------|
+| -WhatIf | Pokaż bazę danych, która będą pomijane, ale nie jej porzucić. |
 
 ### <a name="get-dbcontext"></a>Get-DbContext
 
@@ -101,26 +101,26 @@ Usuwa ostatniej migracji.
 Parametry:
 
 |        |                                                                       |
-| ------ | --------------------------------------------------------------------- |
+|:-------|:----------------------------------------------------------------------|
 | -Force. | Nie Sprawdź, czy migracja zostały zastosowane do bazy danych. |
 
-### <a name="scaffold-dbcontext"></a>Szkieletu DbContext
+### <a name="scaffold-dbcontext"></a>Scaffold-DbContext
 
 Rusztowania DbContext i jednostki typy dla bazy danych.
 
 Parametry:
 
-|                                          |                                                                           |
-| ---------------------------------------- | ------------------------------------------------------------------------- |
-| <nobr>***-Połączenia*** \<ciąg ></nobr> | Parametry połączenia z bazą danych.                                    |
-| ***-Dostawca*** \<ciąg >                | Dostawca do użycia. (Np. Microsoft.EntityFrameworkCore.SqlServer)       |
-| -OutputDir \<ciąg >                     | Umieścić pliki katalogu. Ścieżki są względem katalogu projektu. |
-| -Kontekst \<ciąg >                       | Nazwa typu DbContext w celu wygenerowania.                                    |
-| -Schematy \<String [] >                     | Schematy tabele, aby wygenerować typy jednostek.                       |
-| -Tabele \<String [] >                      | Tabele, aby wygenerować typy jednostek.                                  |
+|                                          |                                                                                                  |
+|:-----------------------------------------|:-------------------------------------------------------------------------------------------------|
+| <nobr>***-Połączenia*** \<ciąg ></nobr> | Parametry połączenia z bazą danych.                                                           |
+| ***-Dostawca*** \<ciąg >                | Dostawca do użycia. (Np. Microsoft.EntityFrameworkCore.SqlServer)                              |
+| -OutputDir \<ciąg >                     | Umieścić pliki katalogu. Ścieżki są względem katalogu projektu.                      |
+| -Kontekst \<ciąg >                       | Nazwa typu DbContext w celu wygenerowania.                                                           |
+| -Schematy \<String [] >                     | Schematy tabele, aby wygenerować typy jednostek.                                              |
+| -Tabele \<String [] >                      | Tabele, aby wygenerować typy jednostek.                                                         |
 | -DataAnnotations                         | Użyj atrybutów, aby skonfigurować model (jeśli będzie to możliwe). Przypadku jego pominięcia jest używana tylko interfejsu API fluent. |
-| -UseDatabaseNames                        | Użyj nazwy tabel i kolumn bezpośrednio z bazy danych.                    |
-| -Force.                                   | Zastąpienie istniejących plików.                                                 |
+| -UseDatabaseNames                        | Użyj nazwy tabel i kolumn bezpośrednio z bazy danych.                                           |
+| -Force.                                   | Zastąpienie istniejących plików.                                                                        |
 
 ### <a name="script-migration"></a>Skrypt migracji
 
@@ -129,7 +129,7 @@ Generuje skrypt SQL z migracji.
 Parametry:
 
 |                   |                                                                    |
-| ----------------- | ------------------------------------------------------------------ |
+|:------------------|:-------------------------------------------------------------------|
 | *-From* \<ciąg > | Początkowy migracji. Wartość domyślna to 0 (początkowej bazy danych).      |
 | *— Do* \<ciąg >   | Końcowy migracji. Domyślnie ostatni migracji.              |
 | -Idempotentności       | Generuj skrypt, który może być używany z bazy danych w każdej migracji. |
@@ -140,8 +140,8 @@ Parametry:
 
 ### <a name="update-database"></a>Update-Database
 
-|                                     |                                                                                |
-| ----------------------------------- | ------------------------------------------------------------------------------ |
+|                                     |                                                                                                |
+|:------------------------------------|:-----------------------------------------------------------------------------------------------|
 | <nobr>*-Migration* \<ciąg ></nobr> | Migracja docelowych. W przypadku wartości "0" wszystkich migracji zostaną cofnięte. Domyślnie ostatni migracji. |
 
 > [!TIP]

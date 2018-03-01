@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: e1cb194d7c7472af59eb44fe2a084fa16c40c186
-ms.sourcegitcommit: 3b21a7fdeddc7b3c70d9b7777b72bef61f59216c
+ms.openlocfilehash: 1ab9d114e27aac0bec972df631a426c8ce87a518
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/22/2018
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="cascade-delete"></a>Usuwanie kaskadowe
 
@@ -33,21 +33,21 @@ Dla drugiej akcji powyższe ustawienie wartości klucza obcego do wartości null
 
 Istnieją cztery usunąć zachowania, wymienione w poniższych tabelach. W przypadku relacji opcjonalny (wartość null klucz obcy) on _jest_ można zapisać wartości null wartości klucza obcego, co powoduje następujące skutki:
 
-| Nazwa zachowania | Wpływ na zależne od/podrzędny w pamięci | Wpływ na zależne od/podrzędny w bazie danych
-|-|-|-
-| **Cascade** | Jednostki są usuwane. | Jednostki są usuwane.
-| **ClientSetNull** (domyślna) | Właściwości klucza obcego są ustawione na wartość null | Brak
-| **SetNull** | Właściwości klucza obcego są ustawione na wartość null | Właściwości klucza obcego są ustawione na wartość null
-| **Ogranicz** | Brak | Brak
+| Nazwa zachowania               | Wpływ na zależne od/podrzędny w pamięci    | Wpływ na zależne od/podrzędny w bazie danych  |
+|:----------------------------|:---------------------------------------|:---------------------------------------|
+| **Cascade**                 | Jednostki są usuwane.                   | Jednostki są usuwane.                   |
+| **ClientSetNull** (domyślna) | Właściwości klucza obcego są ustawione na wartość null | Brak                                   |
+| **SetNull**                 | Właściwości klucza obcego są ustawione na wartość null | Właściwości klucza obcego są ustawione na wartość null |
+| **Ogranicz**                | Brak                                   | Brak                                   |
 
 Wymagane relacje (klucza obcego nie dopuszcza wartości null) jest _nie_ można zapisać wartości null wartości klucza obcego, co powoduje następujące skutki:
 
-| Nazwa zachowania | Wpływ na zależne od/podrzędny w pamięci | Wpływ na zależne od/podrzędny w bazie danych
-|-|-|-
-| **CASCADE** (domyślna) | Jednostki są usuwane. | Jednostki są usuwane.
-| **ClientSetNull** | Zgłasza SaveChanges | Brak
-| **SetNull** | Zgłasza SaveChanges | Zgłasza SaveChanges
-| **Ogranicz** | Brak | Brak
+| Nazwa zachowania         | Wpływ na zależne od/podrzędny w pamięci | Wpływ na zależne od/podrzędny w bazie danych |
+|:----------------------|:------------------------------------|:--------------------------------------|
+| **CASCADE** (domyślna) | Jednostki są usuwane.                | Jednostki są usuwane.                  |
+| **ClientSetNull**     | Zgłasza SaveChanges                  | Brak                                  |
+| **SetNull**           | Zgłasza SaveChanges                  | Zgłasza SaveChanges                    |
+| **Ogranicz**          | Brak                                | Brak                                  |
 
 W tabelach powyżej *Brak* może spowodować naruszenie ograniczenia. Na przykład jeśli obiekt principal/podrzędny jest usuwany, ale nie podjęto żadnej akcji można zmienić klucza obcego zależne od/podrzędnego, następnie bazy danych prawdopodobnie zgłosi na SaveChanges z powodu naruszenia ograniczenia obcego.
 

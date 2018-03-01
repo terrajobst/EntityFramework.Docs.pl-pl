@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 4581e7ba-5e7f-452c-9937-0aaf790ba10a
 ms.technology: entity-framework-core
 uid: core/modeling/relational/indexes
-ms.openlocfilehash: 683b580bb155e0416f13c5d63e3280078fbcee21
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: f577fccfefc6908edf2ac47ae630323d7a9f5f2b
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="indexes"></a>Indeksy
 
@@ -31,23 +31,12 @@ Indeksy nie można skonfigurować za pomocą adnotacji danych.
 
 Aby skonfigurować nazwę indeksu, można użyć interfejsu API Fluent.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/IndexName.cs?highlight=9)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Samples/Relational/IndexName.cs?name=Model&highlight=9)]
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Blog>()
-            .HasIndex(b => b.Url)
-            .HasName("Index_Url");
-    }
-}
+Można również określić filtr.
 
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-}
-```
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Samples/Relational/IndexFilter.cs?name=Model&highlight=9)]
+
+Przy użyciu dostawcy programu SQL Server EF dodaje "IS NOT NULL" Filtruj wszystkie kolumny wartości null, które są częścią unikatowego indeksu. Aby zastąpić tę Konwencję, możesz podać `null` wartość.
+
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Samples/Relational/IndexNoFilter.cs?name=Model&highlight=10)]

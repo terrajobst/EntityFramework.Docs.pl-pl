@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 26b5fb326d20575ed2f3c6955c699e0c3757bf57
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: 8a52cb8259bb381729a33a8161aec4b73f69f45d
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 02/28/2018
 ---
 <a name="ef-core-net-command-line-tools"></a>Narzędzia wiersza polecenia platformy .NET Core EF
 ===============================
@@ -68,15 +68,15 @@ Projekt startowy jest emulowane przez narzędzia podczas wykonywania kodu projek
 Typowe opcje:
 
 |    |                                  |                             |
-| -- | -------------------------------- | --------------------------- |
+|:---|:---------------------------------|:----------------------------|
 |    | --json                           | Pokaż dane wyjściowe JSON.           |
 | -c | --kontekstu \<DBCONTEXT >           | DbContext do użycia.       |
 | -p | --projektu \<projektu >             | Projekt do użycia.         |
 | -s | --Projekt startowy \<projektu >     | Projekt startowy do użycia. |
-|    | --framework \<FRAMEWORK >         | Platformy docelowej.       |
+|    | --framework \<FRAMEWORK >         | Platforma docelowa.       |
 |    | --Konfiguracja \<CONFIGURATION > | Konfiguracja do użycia.   |
 |    | środowisko uruchomieniowe — \<identyfikator >          | Środowiska uruchomieniowego do użycia.         |
-| -h | — Pomoc                           | Pokaż informacje pomocy.      |
+| -h | --help                           | Pokaż informacje pomocy.      |
 | -v | -verbose                        | Pokaż pełne dane wyjściowe.        |
 |    | — Brak koloru                       | Nie kolorowanie danych wyjściowych.      |
 |    | --dane wyjściowe prefiksu                  | Dane wyjściowe z poziomu prefiks.   |
@@ -95,7 +95,7 @@ Odrzuca bazy danych.
 Opcje:
 
 |    |           |                                                          |
-| -- | --------- | -------------------------------------------------------- |
+|:---|:----------|:---------------------------------------------------------|
 | -f | --wymusić   | Nie potwierdzić.                                           |
 |    | --przebiegu próbnego | Pokaż bazę danych, która będą pomijane, ale nie jej porzucić. |
 
@@ -106,7 +106,7 @@ Aktualizuje bazę danych do określonego migracji.
 Argumenty:
 
 |              |                                                                                              |
-| ------------ | ---------------------------------------------------------------------------------------------|
+|:-------------|:---------------------------------------------------------------------------------------------|
 | \<MIGRACJA > | Migracja docelowych. Jeśli 0, będzie można przywrócić wszystkich migracji. Domyślnie ostatni migracji. |
 
 ### <a name="dotnet-ef-dbcontext-info"></a>informacje o dbcontext ef DotNet
@@ -124,21 +124,21 @@ Rusztowania DbContext i jednostki typy dla bazy danych.
 Argumenty:
 
 |               |                                                                     |
-| ------------- | ------------------------------------------------------------------- |
+|:--------------|:--------------------------------------------------------------------|
 | \<POŁĄCZENIA > | Parametry połączenia z bazą danych.                              |
 | \<DOSTAWCA >   | Dostawca do użycia. (Np. Microsoft.EntityFrameworkCore.SqlServer) |
 
 Opcje:
 
-|                 |                                         |                                                          |
-| --------------- | --------------------------------------- | -------------------------------------------------------- |
-| <nobr>-d</nobr> |       --adnotacji danych                | Użyj atrybutów, aby skonfigurować model (jeśli będzie to możliwe). Przypadku jego pominięcia jest używana tylko interfejsu API fluent. |
-|       -c        |       --kontekstu \<NAME >                 | Nazwa typu DbContext.                               |
-|       -f        |       --wymusić                           | Zastąpienie istniejących plików.                                |
-|       -o        |       --katalog wyjściowy \<ŚCIEŻKĘ >              | Umieścić pliki katalogu. Ścieżki są względem katalogu projektu. |
-|                 | <nobr>--schematu \<SCHEMA_NAME >...</nobr> | Schematy tabele, aby wygenerować typy jednostek.      |
-|       -t        |       --tabeli \<nazwa_tabeli >...          | Tabele, aby wygenerować typy jednostek.                 |
-|                 |       --nazwy w przypadku baz danych użycia              | Użyj nazwy tabel i kolumn bezpośrednio z bazy danych.   |
+|                 |                                         |                                                                                                  |
+|:----------------|:----------------------------------------|:-------------------------------------------------------------------------------------------------|
+| <nobr>-d</nobr> | --adnotacji danych                      | Użyj atrybutów, aby skonfigurować model (jeśli będzie to możliwe). Przypadku jego pominięcia jest używana tylko interfejsu API fluent. |
+| -c              | --kontekstu \<NAME >                       | Nazwa typu DbContext.                                                                       |
+| -f              | --wymusić                                 | Zastąpienie istniejących plików.                                                                        |
+| -o              | --katalog wyjściowy \<ŚCIEŻKĘ >                    | Umieścić pliki katalogu. Ścieżki są względem katalogu projektu.                      |
+|                 | <nobr>--schema \<SCHEMA_NAME>...</nobr> | Schematy tabele, aby wygenerować typy jednostek.                                              |
+| -t              | --tabeli \<nazwa_tabeli >...                | Tabele, aby wygenerować typy jednostek.                                                         |
+|                 | --nazwy w przypadku baz danych użycia                    | Użyj nazwy tabel i kolumn bezpośrednio z bazy danych.                                           |
 
 ### <a name="dotnet-ef-migrations-add"></a>Dodaj migracje ef DotNet
 
@@ -147,13 +147,13 @@ Dodaje nowe migracji.
 Argumenty:
 
 |         |                            |
-| ------- | -------------------------- |
-| \<NAZWA > | Nazwa migracji. |
+|:--------|:---------------------------|
+| \<NAME> | Nazwa migracji. |
 
 Opcje:
 
-|                 |                                   |                                                                |
-| --------------- |---------------------------------- | -------------------------------------------------------------- |
+|                 |                                   |                                                                                                                  |
+|:----------------|:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
 | <nobr>-o</nobr> | <nobr>--katalog wyjściowy \<ŚCIEŻKĘ ></nobr> | Katalog (i przestrzeni nazw sub) do użycia. Ścieżki są względem katalogu projektu. Wartość domyślna to "Migracji". |
 
 ### <a name="dotnet-ef-migrations-list"></a>Lista migracje ef DotNet
@@ -167,7 +167,7 @@ Usuwa ostatniej migracji.
 Opcje:
 
 |    |         |                                                                       |
-| -- | ------- | --------------------------------------------------------------------- |
+|:---|:--------|:----------------------------------------------------------------------|
 | -f | --wymusić | Nie Sprawdź, czy migracja zostały zastosowane do bazy danych. |
 
 ### <a name="dotnet-ef-migrations-script"></a>skrypt migracje ef DotNet
@@ -177,14 +177,14 @@ Generuje skrypt SQL z migracji.
 Argumenty:
 
 |         |                                                               |
-| ------- | ------------------------------------------------------------- |
+|:--------|:--------------------------------------------------------------|
 | \<Z > | Początkowy migracji. Wartość domyślna to 0 (początkowej bazy danych). |
-| \<ABY >   | Końcowy migracji. Domyślnie ostatni migracji.         |
+| \<TO>   | Końcowy migracji. Domyślnie ostatni migracji.         |
 
 Opcje:
 
 |    |                  |                                                                    |
-| -- | ---------------- | ------------------------------------------------------------------ |
+|:---|:-----------------|:-------------------------------------------------------------------|
 | -o | --dane wyjściowe \<pliku > | Plik można zapisać wynik.                                   |
 | -i | --idempotentności     | Generuj skrypt, który może być używany z bazy danych w każdej migracji. |
 
