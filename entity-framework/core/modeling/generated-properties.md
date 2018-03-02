@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
 ms.technology: entity-framework-core
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 2d79bf1339ebe522c39fe8971d908c30e1f4dca0
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 892494461bcf49ee10d05c972da0ba19ca003c35
+ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="generated-values"></a>Wygenerowany wartości
 
@@ -50,7 +50,7 @@ Podobnie jak `value generated on add`, jeśli określono wartości dla właściw
 
 ## <a name="conventions"></a>Konwencje
 
-Według Konwencji jest liczbą całkowitą lub identyfikator GUID typu danych kluczy podstawowych będzie Instalatora wartościami wygenerowany na Dodaj. Wszystkie inne właściwości będzie Instalatora nie generacji wartość.
+Według Konwencji kluczami podstawowymi złożone z systemem innym niż typ short, int, long lub identyfikator Guid będzie Instalatora wartościami wygenerowany na dodawanie. Wszystkie inne właściwości będzie Instalatora nie generacji wartość.
 
 ## <a name="data-annotations"></a>Adnotacji danych
 
@@ -85,7 +85,7 @@ Aby zmienić wzorzec generowania wartości dla danej właściwości można Użyj
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAdd.cs#Sample)]
 
 > [!WARNING]  
-> `ValueGeneratedOnAdd()`po prostu umożliwia EF wiedzieć, czy wartości są generowane dla jednostek dodany, nie gwarantuje, że EF umożliwią skonfigurowanie konkretny mechanizm do generowania wartości.  Zobacz [dodać wartość wygenerowaną na](#value-generated-on-add) sekcji, aby uzyskać więcej informacji.
+> `ValueGeneratedOnAdd()` po prostu umożliwia EF wiedzieć, czy wartości są generowane dla jednostek dodany, nie gwarantuje, że EF umożliwią skonfigurowanie konkretny mechanizm do generowania wartości.  Zobacz [dodać wartość wygenerowaną na](#value-generated-on-add) sekcji, aby uzyskać więcej informacji.
 
 ### <a name="value-generated-on-add-or-update-fluent-api"></a>Dodaj wartość wygenerowaną na lub aktualizacji (interfejsu API Fluent)
 
