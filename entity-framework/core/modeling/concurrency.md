@@ -2,35 +2,22 @@
 title: "Tokeny współbieżności - EF Core"
 author: rowanmiller
 ms.author: divega
-ms.date: 10/27/2016
+ms.date: 03/03/2018
 ms.assetid: bc8b1cb0-befe-4b67-8004-26e6c5f69385
 ms.technology: entity-framework-core
 uid: core/modeling/concurrency
-ms.openlocfilehash: 6574a9098d38c4aa525ffb4896adb01082420b5f
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: f3cf28d5c54e63aa76058e9fe1d9f3de5b37d579
+ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/05/2017
+ms.lasthandoff: 03/05/2018
 ---
 # <a name="concurrency-tokens"></a>Tokeny współbieżności
 
-Jeśli właściwość jest skonfigurowana jako tokenu współbieżności następnie EF sprawdzi żaden inny użytkownik zmodyfikował tę wartość w bazie danych podczas zapisywania zmian w tym rekordzie. EF korzysta ze wzorca optymistycznej współbieżności, czyli będzie przyjęto założenie, że nie zmieniono wartość i spróbuj zapisać dane, ale zgłoszenia, jeśli znajdzie się, że wartość została zmieniona.
-
-Na przykład firma Microsoft może być konieczne skonfigurowanie `LastName` na `Person` być tokenem współbieżności. Oznacza to, że jeśli jeden użytkownik próbuje zapisać pewnych zmian `Person`, ale został zmieniony przez innego użytkownika `LastName` , a następnie zostanie wygenerowany wyjątek. Może to być pożądane, dzięki czemu aplikacja może monituje użytkownika o upewnij się, że ten rekord nadal reprezentuje sama osoba rzeczywiste przed zapisaniem zmian.
-
 > [!NOTE]
-> Ta strona dokumenty, jak skonfigurować tokeny współbieżności. Zobacz [Obsługa współbieżności](../saving/concurrency.md) przykłady tego, jak użyć optymistycznej współbieżności dla aplikacji.
+> Ta strona dokumenty, jak skonfigurować tokeny współbieżności. Zobacz [obsługi konfliktom współbieżności](../saving/concurrency.md) szczegółowy opis działania formant współbieżności na podstawowe EF i przykłady sposobu obsługi konfliktom współbieżności w aplikacji.
 
-## <a name="how-concurrency-tokens-work-in-ef"></a>Jak działa tokeny współbieżności w EF
-
-Magazyny danych można wymusić tokeny współbieżności, sprawdzając, czy każdy rekord jest zaktualizowane lub usunięte nadal ma taką samą wartość tokenu współbieżności, który został przypisany, gdy pierwotnie kontekstu ładowania danych z bazy danych.
-
-Na przykład relacyjnych baz danych to osiągnąć przy wraz z tokenem współbieżności w `WHERE` klauzuli dowolnego `UPDATE` lub `DELETE` polecenia i sprawdzanie liczby wierszy, które miały wpływ. Jeśli token współbieżności nadal odpowiada jeden wiersz zostanie zaktualizowany. Jeśli wartość w bazie danych została zmieniona, żadne wiersze zostały zaktualizowane.
-
-```sql
-UPDATE [Person] SET [FirstName] = @p1
-WHERE [PersonId] = @p0 AND [LastName] = @p2;
-```
+Właściwości skonfigurowane jako tokeny współbieżności są używane do implementowania optymistyczne sterowanie współbieżnością.
 
 ## <a name="conventions"></a>Konwencje
 
