@@ -6,11 +6,11 @@ ms.date: 2/23/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 ms.technology: entity-framework-core
 uid: core/providers/index
-ms.openlocfilehash: 520afe85af5a2eacbfc2764fdc0a8addb78c07ab
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 6311f6a336198b45d307fa8c4318abd2e64e9df0
+ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 03/08/2018
 ---
 # <a name="database-providers"></a>Dostawcy bazy danych
 
@@ -71,7 +71,8 @@ install-package provider_package_name
 Po zakończeniu instalacji będzie skonfigurowania dostawcy w Twojej `DbContext`, albo w `OnConfiguring` metody lub w `AddDbContext` metodę, jeśli używasz kontener iniekcji zależności. Np. następujący wiersz Konfigurowanie dostawcy programu SQL Server z parametrami połączenia przekazany:
 
 ``` csharp
-  optionsBuilder.UseSqlServer("Server=(localdb)\mssqllocaldb;Database=MyDatabase;Trusted_Connection=True;");
+optionsBuilder.UseSqlServer(
+    "Server=(localdb)\mssqllocaldb;Database=MyDatabase;Trusted_Connection=True;");
 ```  
 
 Dostawcy bazy danych można rozszerzyć EF Core, aby włączyć funkcję unikatowe dla baz danych. Niektóre pojęcia są wspólne dla baz danych i znajdują się w głównej EF podstawowych składników. Takie pojęcia zawierać wyrażenia zapytania składnika LINQ, transakcje i śledzenie zmian obiektów, gdy są załadowane z bazy danych. Niektóre pojęcia są specyficzne dla określonego dostawcy. Na przykład dostawcy programu SQL Server umożliwia [skonfigurować tabele zoptymalizowane pod kątem pamięci](xref:core/providers/sql-server/memory-optimized-tables) (funkcja specyficzna dla programu SQL Server). Inne pojęcia są specyficzne dla klasy dostawców. Na przykład tworzenie dostawców EF Core relacyjnych baz danych na typowe `Microsoft.EntityFrameworkCore.Relational` biblioteki, która udostępnia interfejsy API do skonfigurowania mapowania kolumn i tabel ograniczeń klucza obcego, itp. Dostawcy są zazwyczaj dystrybuowane jako pakietów NuGet.

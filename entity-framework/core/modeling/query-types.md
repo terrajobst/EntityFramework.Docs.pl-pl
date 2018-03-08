@@ -6,11 +6,11 @@ ms.date: 2/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 ms.technology: entity-framework-core
 uid: core/modeling/query-types
-ms.openlocfilehash: d03c4b1d5635530e63b93e051cb69583718deb4e
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 19a371c65da33e8209cc1ab3423a67c34ddae61e
+ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 03/08/2018
 ---
 # <a name="query-types"></a>Typy zapytań
 > [!NOTE]
@@ -55,6 +55,10 @@ Najpierw należy zdefiniować modelu prostego blogu i Post:
 Następnie określ widok proste bazy danych, który pozwoli nam się zapytanie o liczbę wpisów skojarzone z każdym blogu:
 
 [!code-csharp[Main](../../../efcore-dev/samples/QueryTypes/Program.cs#View)]
+
+Następnie określ klasę do przechowywania wyników z widoku bazy danych:
+
+[!code-csharp[Main](../../../efcore-dev/samples/QueryTypes/Program.cs#QueryType)]
 
 Firma Microsoft Skonfiguruj typ zapytania w _OnModelCreating_ przy użyciu ```modelBuilder.Query<T>``` interfejsu API.
 Używamy standardowej konfiguracji fluent API do skonfigurowania mapowania dla typu zapytania:

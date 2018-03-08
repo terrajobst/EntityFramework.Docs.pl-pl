@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 076e9251850ba10df323cd25922aa8b95b3a5491
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: db25ed55e3724ee71743e563f39a6e4b16c17589
+ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 03/08/2018
 ---
 <a name="entity-framework-core-tools"></a>Entity Framework podstawowe narzędzia
 ===========================
@@ -24,15 +24,9 @@ Zarówno narzędzia uwidaczniają te same funkcje. Jeśli projektujesz w program
 ----------
 Narzędzia obsługi projektach przeznaczonych dla platformy .NET Framework lub .NET Core.
 
-Jeśli projekt jest przeznaczony dla innej framework (na przykład aplikacja uniwersalna systemu Windows lub Xamarin), zaleca się utworzenie oddzielnej .NET Standard projektów i elementów docelowych między jedną z obsługiwanych platform.
+Jeśli chcesz użyć biblioteki klas, należy rozważyć, jeśli to możliwe przy użyciu biblioteki klas .NET Core lub .NET Framework. Spowoduje to co najmniej problemy z narzędzi platformy .NET. Jeśli zamiast tego chcesz użyć .NET Standard biblioteki klas, następnie należy użyć projekt startowy .NET Framework lub .NET Core tak, aby narzędzi conrete platformy docelowej, do którego można załadować biblioteki klas. Ten projekt startowy może być fikcyjny projektu z żadnego kodu rzeczywistych — jest wymagana jedynie zapewnienie elementu docelowego dla narzędzia.
 
-Docelowe między .NET Core, na przykład, kliknij prawym przyciskiem myszy projekt i wybierz **Edytuj \*.csproj**. Aktualizacja `TargetFramework` właściwości w następujący sposób. (Należy pamiętać, nazwa właściwości staje się w liczbie mnogiej.)
-
-``` xml
-<TargetFrameworks>netcoreapp2.0;netstandard2.0</TargetFrameworks>
-```
-
-Jeśli używasz programu .NET Standard biblioteki klas, nie trzeba między docelowych, jeśli Twój projekt startowy jest przeznaczony dla platformy .NET Framework lub .NET Core.
+Jeśli projekt jest przeznaczony dla innej framework (na przykład aplikacja uniwersalna systemu Windows lub Xamarin), następnie należy utworzyć oddzielne biblioteki klas .NET Standard. W takim przypadku należy wykonać wskazówki powyżej, aby również utworzyć projekt startowy, które mogą być używane przez narzędzia.
 
 <a name="startup-and-target-projects"></a>Uruchamianie i projektów docelowych
 ---------------------------
