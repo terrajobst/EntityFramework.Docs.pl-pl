@@ -6,11 +6,11 @@ ms.date: 2/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: 1e5e9839bae1e5da4082d90c02d098bb3b2b43bd
-ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
+ms.openlocfilehash: bb1e691e0f22bd36467d58c02bde22c63067207e
+ms.sourcegitcommit: fcaeaf085171dfb5c080ec42df1d1df8dfe204fb
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 03/15/2018
 ---
 # <a name="new-features-in-ef-core-21"></a>Nowe funkcje w programie EF Core 2.1
 > [!NOTE]  
@@ -124,7 +124,7 @@ var query = context.Customers.Select(
 
 Należy pamiętać, że to zapytanie zostanie przekonwertowana na stronę tylko dwa zapytania SQL: jeden dla klientów i kolejnego dla zleceń.
 
-### <a name="ownedattribute"></a>OwnedAttribute
+## <a name="ownedattribute"></a>OwnedAttribute
 
 Obecnie istnieje możliwość skonfigurowania [należące do typów jednostek](xref:core/modeling/owned-entities) przez po prostu Dodawanie adnotacji do typu z `[Owned]` , a następnie sprawdzając, czy jednostka właściciela jest dodawane do modelu:
 
@@ -145,7 +145,7 @@ public class Order
 
 ## <a name="database-provider-compatibility"></a>Zgodność dostawcy bazy danych
 
-Podstawowe EF 2.1 zaprojektowano tak, aby był zgodny z dostawcy bazy danych utworzone dla EF Core 2.0. Podczas gdy niektóre funkcje opisane powyżej (np. wartość konwersje) wymagają zaktualizowanej dostawcy innych użytkowników (np. podczas ładowania opóźnionego) uaktywni się z istniejącymi dostawcami.
+Podstawowe EF 2.1 zaprojektowano tak, aby był zgodny z dostawcy bazy danych utworzone dla EF Core 2.0. Podczas gdy niektóre funkcje opisane powyżej (np. wartość konwersje) wymagają zaktualizowanej dostawcy, innych użytkowników (np. podczas ładowania opóźnionego) uaktywni się z istniejącymi dostawcami.
 
 > [!TIP]
 > Jeśli okaże się żadnym nieoczekiwany niezgodności lub dowolnym wystawiania w nowych funkcji lub jeśli masz opinię na nich, zgłoś go za pomocą [naszych tracker problem](https://github.com/aspnet/EntityFrameworkCore/issues/new).
