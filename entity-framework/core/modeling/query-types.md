@@ -6,11 +6,11 @@ ms.date: 2/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 ms.technology: entity-framework-core
 uid: core/modeling/query-types
-ms.openlocfilehash: 19a371c65da33e8209cc1ab3423a67c34ddae61e
-ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
+ms.openlocfilehash: dfd08cd1c30debddc79740bbf05c39c22e973855
+ms.sourcegitcommit: 01b5cf3b7c983bcced91e7cc4c78391ced2d2caa
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/08/2018
+ms.lasthandoff: 03/17/2018
 ---
 # <a name="query-types"></a>Typy zapytań
 > [!NOTE]
@@ -20,7 +20,7 @@ Typy zapytań są typy wyników zapytania tylko do odczytu do dodania do modelu 
 
 Są one podobny do typów jednostek w tym:
 
-- Są one typy obiektów POCO C#, które są dodawane do modelu w ```OnModelCreating``` przy użyciu ```ModelBuilder.Query``` metody, lub za pomocą właściwości DbContext "set" (dla zapytania typy taka właściwość jest typu ```DbQuery<T>``` zamiast który ```DbSet<T>```).
+- Są one typy obiektów POCO C#, które są dodawane do modelu w ```OnModelCreating``` przy użyciu ```ModelBuilder.Query``` metody, lub za pomocą właściwości DbContext "set" (dla zapytania typy taka właściwość jest typu ```DbQuery<T>``` zamiast ```DbSet<T>```).
 - Obsługuje wiele funkcji mapowania jako typy jednostek regularne. Na przykład mapowania dziedziczenia, nawigacji (zobacz poniżej limitiations) i w sklepach relacyjne, możliwość konfigurowania obiektów schematu docelowej bazy danych za pośrednictwem ```ToTable```, ```HasColumn``` metod fluent api (lub adnotacji danych).
 
 Typy zapytań różnią się od podmiotu typy w tym ich:
