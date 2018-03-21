@@ -13,10 +13,11 @@
 ## [Entity Framework Core](core/index.md)
 
 ### [Nowości w programie EF Core](core/what-is-new/index.md)
+#### [Plany rozwoju programu EF Core](core/what-is-new/roadmap.md)
 #### [EF Core 2.1 (w wersji zapoznawczej)](core/what-is-new/ef-core-2.1.md)
-#### [EF Core 2.0 (najnowsza wersja wydana)](core/what-is-new/ef-core-2.0.md)
-#### [EF Core 1.1 (poprzednia wersja)](core/what-is-new/ef-core-1.1.md)
-#### [EF Core 1.0 (poprzednia wersja)](core/what-is-new/ef-core-1.0.md)
+#### [EF Core 2.0 (najnowsze wydanie)](core/what-is-new/ef-core-2.0.md)
+#### [EF Core 1.1](core/what-is-new/ef-core-1.1.md)
+#### [EF Core 1.0](core/what-is-new/ef-core-1.0.md)
 
 ### [Wprowadzenie](core/get-started/index.md)
 #### [Instalowanie programu EF Core](core/get-started/install/index.md)
