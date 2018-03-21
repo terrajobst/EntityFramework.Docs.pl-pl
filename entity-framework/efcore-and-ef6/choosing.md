@@ -5,11 +5,11 @@ ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 288f825b-b3e6-4096-971b-d0a1cb96770e
 uid: efcore-and-ef6/choosing
-ms.openlocfilehash: 9a113e0965fa75a03510199fb75165f6e9be0bbd
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: f0a632902384a65ea3cddf752ad262c7a2e89e2e
+ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 03/20/2018
 ---
 # <a name="ef-core-and-ef6-which-one-is-right-for-you"></a>EF Core i EF6: które z nich jest odpowiedni
 
@@ -17,13 +17,11 @@ Poniższe informacje pomogą wybór między Entity Framework Core i Entity Frame
 
 ## <a name="guidance-for-new-applications"></a>Wskazówki dotyczące nowych aplikacji
 
-Ponieważ EF Core jest nowym produktem i nadal brakuje niektórych funkcji O/RM o krytycznym znaczeniu, EF6 będą nadal wybór najbardziej odpowiedniej dla wielu aplikacji.
+Należy rozważyć użycie EF Core dla nowych aplikacji, jeśli chcesz wykorzystać wszystkie możliwości EF podstawowych i aplikacja nie wymaga dowolne funkcje, które nie zostały jeszcze zaimplementowane w EF Core.
 
-**Są to typy aplikacji, których firma Microsoft zaleca, przy użyciu EF Core dla:**
+EF6 wymaga programu .NET Framework 4.0 (lub nowszy) i jest obsługiwany tylko w systemie Windows (np. jego nie działa w .NET Core i nie jest obsługiwany w innych systemach operacyjnych), ale jest nadal działało wybór dla nowych aplikacji, jak długo te ograniczenia są dopuszczalne i pplication nie wymaga nowych funkcji w EF podstawowych, które nie są dostępne do EF6.
 
-* Nowe aplikacje, które nie wymagają funkcji, które nie zostały jeszcze zaimplementowane w EF Core. Przegląd [porównanie funkcji](features.md) aby zobaczyć, jeśli podstawowe EF może być dobrym wyborem dla aplikacji.
-
-* Aplikacji przeznaczonych dla platformy .NET Core, takich jak aplikacje systemu Windows platformy Uniwersalnej i ASP.NET Core. Te aplikacje nie można użyć EF6, ponieważ wymaga programu .NET Framework (np. .NET Framework 4.5).
+Przegląd [porównanie funkcji](features.md) aby zobaczyć, jeśli podstawowe EF może być dobrym wyborem dla aplikacji.
 
 ## <a name="guidance-for-existing-ef6-applications"></a>Wskazówki dotyczące istniejących aplikacji EF6
 

@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/8/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 6b278a5ae270b6a84269dffd72eeca609b168cdd
-ms.sourcegitcommit: 3b6159db8a6c0653f13c7b528367b4e69ac3d51e
+ms.openlocfilehash: d950e74ed4cef7d4274aabcf3eda7b0b735574c6
+ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/28/2017
+ms.lasthandoff: 03/20/2018
 ---
 <a name="migrations-with-multiple-providers"></a>Migracje z wielu dostawców
 ==================================
@@ -20,7 +20,7 @@ Pierwszym sposobem służy do generowania dwóch migracje dla każdej zmiany mod
 
 Aby wykonać to jest umieszczenie każdego zestawu migracji [w osobny zestaw] [ 2] i ręcznie przełączać między dwiema migracjami dodawaniem active dostawcy (i zestawu migracji).
 
-Innym rozwiązaniem pracy przy użyciu narzędzi powoduje, że ma utworzyć nowy typ pochodzi z Twojego DbContext i zastępuje active dostawcy. Ten typ jest używany na projekt czas podczas dodawania lub stosowania migracji.
+Innym rozwiązaniem jest sprawia, że pracy przy użyciu narzędzi do utworzenia nowego typu, który pochodzi od użytkownika DbContext i zastępuje active dostawcy. Ten typ jest używany na projekt czas podczas dodawania lub stosowania migracji.
 
 ``` csharp
 class MySqliteDbContext : MyDbContext
