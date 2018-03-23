@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: c3c1940b-136d-45d8-aa4f-cb5040f8980a
 ms.technology: entity-framework-core
 uid: core/miscellaneous/rc2-rtm-upgrade
-ms.openlocfilehash: 7a1d85949a5f9e1ad7efdbf585a608d815e8ce63
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 4bb4c5736708413f6581cad250b089b7bc22a559
+ms.sourcegitcommit: 90139dbd6f485473afda0788a5a314c9aa601ea0
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 03/23/2018
 ---
 # <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Uaktualnianie z EF Core 1.0 RC2 do wersji RTM
 
@@ -32,7 +32,7 @@ RC2, definicji kolumny w przypadku migracji tablicą jak `table.Column<string>(n
 
 Wszystkie istniejące migracji, które zostały szkieletu przed użyciem RTM nie będą miały `maxLength` : określono nieprawidłowy argument. Oznacza to, maksymalna długość obsługiwana przez bazę danych, który będzie używany (`nvarchar(max)` w programie SQL Server). Może to być poprawnie dla niektórych kolumn, ale kolumny będące częścią klucza, klucz obcy lub indeks muszą zostać zaktualizowane maksymalną długość. Według Konwencji 450 jest maksymalną długość używane dla kluczy, kluczy obcych i indeksowanych kolumn. Jeśli długość skonfigurowano jawnie w modelu, następnie należy użyć tej długości zamiast tego.
 
-**Tożsamość platformy ASP.NET**
+**ASP.NET Identity**
 
 Ta zmiana wpływa na projektów, użyj tożsamości platformy ASP.NET, które zostały utworzone z wersji pre-RTM szablonu projektu. Szablon projektu zawiera migracji używany do tworzenia bazy danych. Tej migracji należy edytować, aby określić maksymalną długość `256` dla następujących kolumn.
 
@@ -50,7 +50,7 @@ Ta zmiana wpływa na projektów, użyj tożsamości platformy ASP.NET, które zo
 
    * NormalizedUserName
 
-   * Nazwa użytkownika
+   * UserName
 
 Nie można wprowadzić tej zmiany spowoduje następujący wyjątek podczas początkowej migracji jest stosowany do bazy danych.
 
@@ -69,6 +69,9 @@ Jeśli zostały przeznaczonych dla platformy .NET Core z RC2, trzeba było doda�
   }
 }
 ```
+
+> [!NOTE]  
+> Począwszy od wersji 1.0 RTM, [.NET Core SDK](https://www.microsoft.com/net/download/core) nie obsługuje już `project.json` lub tworzenie aplikacji platformy .NET Core za pomocą programu Visual Studio 2015. Firma Microsoft zaleca [migracji z project.json do csproj](https://docs.microsoft.com/dotnet/articles/core/migration/). Jeśli używasz programu Visual Studio, zaleca się uaktualniania do [programu Visual Studio 2017](https://www.visualstudio.com/downloads/).
 
 ## <a name="uwp-add-binding-redirects"></a>Platformy uniwersalnej systemu Windows: Dodaj przekierowania powiązania
 

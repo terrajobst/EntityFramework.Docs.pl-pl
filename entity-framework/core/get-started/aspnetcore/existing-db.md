@@ -1,28 +1,25 @@
 ---
-title: "Wprowadzenie do platformy ASP.NET Core - istniejącej bazy danych — EF Core"
+title: Wprowadzenie do platformy ASP.NET Core - istniejącej bazy danych — EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: afd99d68d2ba25ce58a21dc48d2c7ce27f208807
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: db2469d0badd428734425c1f568667f00bef2f4f
+ms.sourcegitcommit: 90139dbd6f485473afda0788a5a314c9aa601ea0
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 03/23/2018
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Wprowadzenie do podstawowych EF na platformy ASP.NET Core z istniejącej bazy danych
-
-> [!IMPORTANT]  
-> [.NET Core SDK](https://www.microsoft.com/net/download/core) nie obsługuje już `project.json` lub programu Visual Studio 2015. Wszyscy podczas programowania .NET Core jest zaleca się [migracji z project.json do csproj](https://docs.microsoft.com/dotnet/articles/core/migration/) i [programu Visual Studio 2017](https://www.visualstudio.com/downloads/).
 
 W tym przykładzie utworzysz aplikacji platformy ASP.NET Core MVC, który wykonuje dostęp do podstawowych danych przy użyciu programu Entity Framework. Odtwarzanie użyje do utworzenia modelu programu Entity Framework, na podstawie istniejącej bazy danych.
 
 > [!TIP]  
 > Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb) w witrynie GitHub.
 
-## <a name="prerequisites"></a>Wstępnie wymagane składniki
+## <a name="prerequisites"></a>Wymagania wstępne
 
 Do przeprowadzenia tego instruktażu potrzebne są następujące wymagania wstępne:
 
@@ -69,15 +66,15 @@ Aby użyć EF podstawowe, należy zainstalować pakiet dla powszechne bazy danyc
 
 * **Narzędzia > Menedżera pakietów NuGet > konsoli Menedżera pakietów**
 
-* Uruchom`Install-Package Microsoft.EntityFrameworkCore.SqlServer`
+* Uruchom `Install-Package Microsoft.EntityFrameworkCore.SqlServer`
 
 Użyjemy niektóre Entity Framework narzędzia do tworzenia modeli z bazy danych. Dlatego zostanie zainstalowany pakiet narzędzi również:
 
-* Uruchom`Install-Package Microsoft.EntityFrameworkCore.Tools`
+* Uruchom `Install-Package Microsoft.EntityFrameworkCore.Tools`
 
 Użyjemy niektóre platformy ASP.NET Core szkieletów narzędzia do tworzenia widoków i kontrolerów później. Dlatego zostanie zainstalowany ten pakiet projektu:
 
-* Uruchom`Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design`
+* Uruchom `Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design`
 
 ## <a name="reverse-engineer-your-model"></a>Odtworzyć modelu
 
@@ -144,7 +141,7 @@ Pojęcie iniekcji zależności jest podstawą do platformy ASP.NET Core. Usługi
 
 W ASP.NET Core konfiguracji jest zazwyczaj wykonywane w **Startup.cs**. Z tego wzorca, możemy przenieść konfiguracji dostawcy bazy danych do **Startup.cs**.
 
-* Otwórz`Models\BloggingContext.cs`
+* Otwórz `Models\BloggingContext.cs`
 * Usuń `OnConfiguring(...)` — metoda
 
 ``` csharp
@@ -198,7 +195,7 @@ Można teraz uruchomić aplikację, aby zobaczyć ją w akcji.
 
 * **Debugowanie -> Start bez debugowania**
 * Aplikacja kompilacji i Otwórz w przeglądarce sieci web
-* Przejdź do`/Blogs`
+* Przejdź do `/Blogs`
 * Kliknij przycisk **Utwórz nową**
 * Wprowadź **adres Url** nowy blog i kliknij **Utwórz**
 
