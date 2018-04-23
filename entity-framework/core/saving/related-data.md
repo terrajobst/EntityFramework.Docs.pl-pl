@@ -1,16 +1,16 @@
 ---
-title: "Dane — podstawowe EF dotyczące zapisywania"
+title: Dane — podstawowe EF dotyczące zapisywania
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 07b6680f-ffcf-412c-9857-f997486b386c
 ms.technology: entity-framework-core
 uid: core/saving/related-data
-ms.openlocfilehash: 078879163002cb66e0f0f439415789963181ec15
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: b0ed25267c85e82db18d8a89693b6040db7e4b34
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="saving-related-data"></a>Zapisywanie powiązanych danych
 
@@ -26,6 +26,9 @@ Jeśli tworzysz kilka nowych jednostek pokrewnych, dodawanie jeden z nich do kon
 W poniższym przykładzie blogu i trzy powiązane wpisy są wszystkie wstawione do bazy danych. Znajdowania i dodany, ponieważ są one dostępne za pośrednictwem wpisów `Blog.Posts` właściwości nawigacji.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#AddingGraphOfEntities)]
+
+> [!TIP]  
+> Właściwość EntityEntry.State służy do ustawiania stanu pojedynczej jednostki. Na przykład `context.Entry(blog).State = EntityState.Modified`.
 
 ## <a name="adding-a-related-entity"></a>Dodawanie jednostki pokrewne
 

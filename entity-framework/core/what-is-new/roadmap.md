@@ -6,18 +6,18 @@ ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 ms.technology: entity-framework-core
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: 5aef679df2ecdfe7f59458c8994d0d17b4a889ff
-ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
+ms.openlocfilehash: 6c10e64a4fa3bf26dc0da64bb9e102c8b76d3a6e
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/20/2018
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core plan
 
 > [!IMPORTANT]
 > Zauważ, że zestawy funkcji i harmonogramy przyszłych wersji zawsze mogą ulec zmianie, mimo że firma Microsoft podejmie próbę aktualności tej strony, może ona nie odzwierciedlać najnowszych plany na wszystkich razy.
 
-2018 lutego został wydany pierwszej wersji zapoznawczej EF Core 2.1. Teraz można znaleźć więcej informacji na temat tej wersji w [What's new in EF Core 2.1](xref:core/what-is-new/ef-core-2.1).
+Drugi preview EF Core 2.1 został wydany 2018 kwietnia. Teraz można znaleźć więcej informacji na temat tej wersji w [What's new in EF Core 2.1](xref:core/what-is-new/ef-core-2.1).
 
 Firma Microsoft planuje Zwolnij dodatkowe wersji zapoznawczych platformy EF Core co miesiąc 2.1 i ostateczną wersją na drugi kwartał kalendarzowy 2018.
 

@@ -1,16 +1,16 @@
 ---
-title: "Konwersje wartości - EF Core"
+title: Konwersje wartości - EF Core
 author: ajcvickers
 ms.author: divega
 ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 ms.technology: entity-framework-core
 uid: core/modeling/value-conversions
-ms.openlocfilehash: 50acba39cdec16caa9300fcaf47ab6242a4f69fb
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 329d2757059462468ca30772d37789343c03ba7b
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="value-conversions"></a>Konwersje wartości
 
@@ -137,6 +137,6 @@ Następnie wartości wyliczenia są zapisywane jako ciągi w bazie danych bez da
 
 Istnieje kilka znane ograniczenia bieżącego systemu umożliwić konwersję wartości:
 * Jak wspomniano powyżej, `null` nie może zostać przekonwertowany.
-* Nie istnieje obecnie sposób się konwersji z jedną właściwość z kolumnami multuple ani odwrotnie.
+* Nie istnieje obecnie sposób się konwersji właściwości jeden do wielu kolumn lub na odwrót.
 * Użyj konwersji wartości mogą mieć wpływ na możliwość EF Core translacji wyrażenia do bazy danych SQL. Ostrzeżenie jest rejestrowane w takich przypadkach.
 Usunięcie tych ograniczeń jest rozważane w przyszłości.

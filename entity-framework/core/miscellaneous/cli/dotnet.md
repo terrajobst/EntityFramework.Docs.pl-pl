@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 8a52cb8259bb381729a33a8161aec4b73f69f45d
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 396d31c9d0c0f47d299f49e82e557ed29b8420e7
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/16/2018
 ---
 <a name="ef-core-net-command-line-tools"></a>Narzędzia wiersza polecenia platformy .NET Core EF
 ===============================
@@ -65,6 +65,9 @@ Projekt docelowy jest w przypadku, gdy zostaną dodane wszystkie pliki (lub w ni
 
 Projekt startowy jest emulowane przez narzędzia podczas wykonywania kodu projektu. On również domyślnie projektu w bieżącym katalogu, ale można zmienić za pomocą **— projekt startowy** opcji.
 
+> [!NOTE]
+> Na przykład uaktualnienie bazy danych aplikacji sieci web, który został zainstalowany w innym projekcie Core EF będzie wyglądać następująco: `dotnet ef database update --project {project-path}` (z katalogu aplikacji sieci web)
+
 Typowe opcje:
 
 |    |                                  |                             |
@@ -107,7 +110,7 @@ Argumenty:
 
 |              |                                                                                              |
 |:-------------|:---------------------------------------------------------------------------------------------|
-| \<MIGRACJA > | Migracja docelowych. Jeśli 0, będzie można przywrócić wszystkich migracji. Domyślnie ostatni migracji. |
+| \<MIGRACJA &GT; | Migracja docelowych. Jeśli 0, będzie można przywrócić wszystkich migracji. Domyślnie ostatni migracji. |
 
 ### <a name="dotnet-ef-dbcontext-info"></a>informacje o dbcontext ef DotNet
 
@@ -125,8 +128,8 @@ Argumenty:
 
 |               |                                                                     |
 |:--------------|:--------------------------------------------------------------------|
-| \<POŁĄCZENIA > | Parametry połączenia z bazą danych.                              |
-| \<DOSTAWCA >   | Dostawca do użycia. (Np. Microsoft.EntityFrameworkCore.SqlServer) |
+| \<POŁĄCZENIA &GT; | Parametry połączenia z bazą danych.                              |
+| \<DOSTAWCA &GT;   | Dostawca do użycia. (Np. Microsoft.EntityFrameworkCore.SqlServer) |
 
 Opcje:
 
@@ -134,9 +137,10 @@ Opcje:
 |:----------------|:----------------------------------------|:-------------------------------------------------------------------------------------------------|
 | <nobr>-d</nobr> | --adnotacji danych                      | Użyj atrybutów, aby skonfigurować model (jeśli będzie to możliwe). Przypadku jego pominięcia jest używana tylko interfejsu API fluent. |
 | -c              | --kontekstu \<NAME >                       | Nazwa typu DbContext.                                                                       |
+|                 | -dir kontekstu \<ŚCIEŻKĘ >                   | Katalog mają zostać umieszczone w pliku DbContext. Ścieżki są względem katalogu projektu.             |
 | -f              | --wymusić                                 | Zastąpienie istniejących plików.                                                                        |
 | -o              | --katalog wyjściowy \<ŚCIEŻKĘ >                    | Umieścić pliki katalogu. Ścieżki są względem katalogu projektu.                      |
-|                 | <nobr>--schema \<SCHEMA_NAME>...</nobr> | Schematy tabele, aby wygenerować typy jednostek.                                              |
+|                 | <nobr>--schematu \<SCHEMA_NAME >...</nobr> | Schematy tabele, aby wygenerować typy jednostek.                                              |
 | -t              | --tabeli \<nazwa_tabeli >...                | Tabele, aby wygenerować typy jednostek.                                                         |
 |                 | --nazwy w przypadku baz danych użycia                    | Użyj nazwy tabel i kolumn bezpośrednio z bazy danych.                                           |
 
@@ -168,7 +172,7 @@ Opcje:
 
 |    |         |                                                                       |
 |:---|:--------|:----------------------------------------------------------------------|
-| -f | --wymusić | Nie Sprawdź, czy migracja zostały zastosowane do bazy danych. |
+| -f | --wymusić | Przywróć migracji, jeśli została zastosowana do bazy danych. |
 
 ### <a name="dotnet-ef-migrations-script"></a>skrypt migracje ef DotNet
 
@@ -178,8 +182,8 @@ Argumenty:
 
 |         |                                                               |
 |:--------|:--------------------------------------------------------------|
-| \<Z > | Początkowy migracji. Wartość domyślna to 0 (początkowej bazy danych). |
-| \<TO>   | Końcowy migracji. Domyślnie ostatni migracji.         |
+| \<Z &GT; | Początkowy migracji. Wartość domyślna to 0 (początkowej bazy danych). |
+| \<ABY &GT;   | Końcowy migracji. Domyślnie ostatni migracji.         |
 
 Opcje:
 

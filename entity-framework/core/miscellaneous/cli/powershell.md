@@ -1,14 +1,14 @@
 ---
-title: "Konsola Menedżera pakietów (Visual Studio) — podstawowe EF"
+title: Konsola Menedżera pakietów (Visual Studio) — podstawowe EF
 author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: aacf8c8564a3966db6202c9ff1c1c02a19a10814
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: a53455a78db4bc504c45abafdacf9a15381f608e
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/16/2018
 ---
 <a name="ef-core-package-manager-console-tools"></a>Narzędzia konsoli Menedżera pakietów Core EF
 =====================================
@@ -100,11 +100,11 @@ Usuwa ostatniej migracji.
 
 Parametry:
 
-|        |                                                                       |
-|:-------|:----------------------------------------------------------------------|
-| -Force. | Nie Sprawdź, czy migracja zostały zastosowane do bazy danych. |
+|        |                                                              |
+|:-------|:-------------------------------------------------------------|
+| -Force. | Przywróć migracji, jeśli została zastosowana do bazy danych. |
 
-### <a name="scaffold-dbcontext"></a>Scaffold-DbContext
+### <a name="scaffold-dbcontext"></a>Szkieletu DbContext
 
 Rusztowania DbContext i jednostki typy dla bazy danych.
 
@@ -115,6 +115,7 @@ Parametry:
 | <nobr>***-Połączenia*** \<ciąg ></nobr> | Parametry połączenia z bazą danych.                                                           |
 | ***-Dostawca*** \<ciąg >                | Dostawca do użycia. (Np. Microsoft.EntityFrameworkCore.SqlServer)                              |
 | -OutputDir \<ciąg >                     | Umieścić pliki katalogu. Ścieżki są względem katalogu projektu.                      |
+| -ContextDir \<ciąg >                    | Katalog mają zostać umieszczone w pliku DbContext. Ścieżki są względem katalogu projektu.             |
 | -Kontekst \<ciąg >                       | Nazwa typu DbContext w celu wygenerowania.                                                           |
 | -Schematy \<String [] >                     | Schematy tabele, aby wygenerować typy jednostek.                                              |
 | -Tabele \<String [] >                      | Tabele, aby wygenerować typy jednostek.                                                         |

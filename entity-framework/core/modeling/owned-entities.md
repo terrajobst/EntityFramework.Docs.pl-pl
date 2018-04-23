@@ -1,16 +1,16 @@
 ---
-title: "Należące do typów jednostek - EF Core"
+title: Należące do typów jednostek - EF Core
 author: julielerman
 ms.author: divega
 ms.date: 2/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 ms.technology: entity-framework-core
 uid: core/modeling/owned-entities
-ms.openlocfilehash: a6823377eb626ca92263c31351e1aef61db5a787
-ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
+ms.openlocfilehash: f2f05499a3e3494f420d916df2db19667a6f1e29
+ms.sourcegitcommit: 26f33758c47399ae933f22fec8e1d19fa7d2c0b7
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/19/2018
 ---
 # <a name="owned-entity-types"></a>Typy jednostek należące do firmy
 
@@ -21,7 +21,7 @@ Podstawowe EF umożliwia modelu typy jednostek, które mogą być wyświetlane t
 
 ## <a name="explicit-configuration"></a>Jawne konfiguracji
 
-Należy do jednostki, które typy nigdy nie znajdują się w podstawowej EF w modelu przez Konwencję. Można użyć `OwnsOne` metody w `OnModelCreating` lub Dodaj adnotację do typu z `OwnedAttrbibute` (nowy 2.1 Core EF) do konfigurowania typu jako typu należące do firmy.
+Należy do jednostki, które typy nigdy nie znajdują się w podstawowej EF w modelu przez Konwencję. Można użyć `OwnsOne` metody w `OnModelCreating` lub Dodaj adnotację do typu z `OwnedAttribute` (nowy 2.1 Core EF) do konfigurowania typu jako typu należące do firmy.
 
 W tym przykładzie adres jest typem z ma właściwości tożsamości. Aby określić adres wysyłkowy dla określonej kolejności służy jako właściwość typu kolejności. W `OnModelCreating`, używamy `OwnsOne` metodę, aby określić, że właściwość ShippingAddress jest własnością jednostki typu kolejności.
 

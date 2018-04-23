@@ -6,17 +6,17 @@ ms.date: 2/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: bb1e691e0f22bd36467d58c02bde22c63067207e
-ms.sourcegitcommit: fcaeaf085171dfb5c080ec42df1d1df8dfe204fb
+ms.openlocfilehash: db1648095aa4d612af53f4e10a30be36edc40da5
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/15/2018
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="new-features-in-ef-core-21"></a>Nowe funkcje w programie EF Core 2.1
 > [!NOTE]  
 > Ta wersja jest dostępny w wersji zapoznawczej.
 
-Oprócz wiele małych ulepszeń i poprawek usterek produktu więcej niż stu EF Core 2.1 zawiera kilka nowych funkcji:
+Oprócz wiele poprawek usterek i małych funkcjonalności i lepszą wydajność EF Core 2.1 zawiera niektóre atrakcyjnych nowe funkcje:
 
 ## <a name="lazy-loading"></a>powolne ładowanie
 Podstawowe EF zawiera teraz konieczne bloków konstrukcyjnych dla każdego do tworzenia klas jednostek, które można załadować ich właściwości nawigacji na żądanie. Również utworzono nowy pakiet, Microsoft.EntityFrameworkCore.Proxies, który wykorzystuje te bloki konstrukcyjne do utworzenia serwera proxy opóźnionego ładowania klas minimalny zestaw na podstawie zmodyfikowane klasy jednostki (np. klasy z właściwości nawigacji wirtualnego).
@@ -71,7 +71,7 @@ Wraz z wydaniem nowej będzie możliwe zapewnienie początkowej danych do wypeł
 Na przykład można użyj go do skonfigurowania danych inicjatora dla żądania Post w `OnModelCreating`:
 
 ``` csharp
-modelBuilder.Entity<Post>().SeedData(new Post{ Id = 1, Text = "Hello World!" });
+modelBuilder.Entity<Post>().HasData(new Post{ Id = 1, Text = "Hello World!" });
 ```
 
 Odczyt [sekcję na temat wstępnego wypełniania danych](xref:core/modeling/data-seeding) Aby uzyskać więcej informacji dotyczących tego tematu.  
@@ -143,9 +143,29 @@ public class Order
 }
 ```
 
+## <a name="new-dotnet-ef-global-tool"></a>Nowe narzędzie globalne dotnet ef
+
+_Dotnet ef_ polecenia został przekonwertowany na .NET interfejsu wiersza polecenia narzędzia globalnego, więc nie będzie trzeba użyć DotNetCliToolReference w projekcie, aby można było użyć migracji lub utworzyć szkielet obiektu DbContext z istniejącej bazy danych.
+
+## <a name="microsoftentityframeworkcoreabstractions-package"></a>Microsoft.EntityFrameworkCore.Abstractions pakietu
+Nowy pakiet zawiera atrybuty i interfejsów, które można w projektach podświetlony EF podstawowe funkcje bez konieczności przełączania zależność Core EF jako całość. Np. atrybut [posiadane] wprowadzona w wersji zapoznawczej 1 została przeniesiona w tym miejscu.
+
+## <a name="state-change-events"></a>Zdarzenia zmiany stanu
+
+Nowy `Tracked` i `StateChanged` zdarzeń na `ChangeTracker` może służyć do zapisu logikę, która reaguje na jednostki, wprowadzenie kontekstu DbContext lub zmianę ich stanu.
+
+## <a name="raw-sql-parameter-analyzer"></a>Nieprzetworzona analizatora parametru SQL
+
+Nowy analizator kodu jest dołączana Core EF, który wykryje potencjalnie niebezpiecznych użyć naszych interfejsów API raw SQL, tak samo, jak `FromSql` lub `ExecuteSqlCommand`. Np. dla następującej kwerendy, zostanie wyświetlone ostrzeżenie, ponieważ _minAge_ nie jest sparametryzowana:
+
+``` csharp
+var sql = $"SELECT * FROM People WHERE Age > {minAge}";
+var query = context.People.FromSql(sql);
+```
+
 ## <a name="database-provider-compatibility"></a>Zgodność dostawcy bazy danych
 
-Podstawowe EF 2.1 zaprojektowano tak, aby był zgodny z dostawcy bazy danych utworzone dla EF Core 2.0. Podczas gdy niektóre funkcje opisane powyżej (np. wartość konwersje) wymagają zaktualizowanej dostawcy, innych użytkowników (np. podczas ładowania opóźnionego) uaktywni się z istniejącymi dostawcami.
+Podstawowe EF 2.1 została zaprojektowana w celu był zgodny z dostawcy bazy danych utworzone dla EF Core 2.0 lub co najmniej wymagają minimalnych zmianach. Podczas gdy niektóre funkcje opisane powyżej (np. wartość konwersje) wymagają zaktualizowanej dostawcy, innych użytkowników (np. podczas ładowania opóźnionego) uaktywni się z istniejącymi dostawcami.
 
 > [!TIP]
 > Jeśli okaże się żadnym nieoczekiwany niezgodności lub dowolnym wystawiania w nowych funkcji lub jeśli masz opinię na nich, zgłoś go za pomocą [naszych tracker problem](https://github.com/aspnet/EntityFrameworkCore/issues/new).
