@@ -1,16 +1,16 @@
 ---
-title: "Wygenerowany wartości - EF Core"
+title: Wygenerowany wartości - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
 ms.technology: entity-framework-core
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 892494461bcf49ee10d05c972da0ba19ca003c35
-ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
+ms.openlocfilehash: 88ccc2da3c2b6cbba8920d7113c82e769b459897
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="generated-values"></a>Wygenerowany wartości
 
@@ -28,7 +28,7 @@ Wartość wygenerowana na dodawanie oznacza, że generowany wartość dla nowych
 
 W zależności od używanego dostawcy bazy danych wartości mogą być generowane po stronie klienta EF lub w bazie danych. Jeśli wartość jest generowany przez bazę danych, następnie EF może przypisać wartości tymczasowej po dodaniu jednostkę do kontekstu. Tej wartości tymczasowej następnie zostanie zastąpiony wartością generowany przez bazę danych podczas `SaveChanges()`.
 
-Jeśli dodasz jednostkę do kontekstu, który ma wartość przypisana do właściwości EF będzie podejmować próby wstawienia tej wartości, a nie generuje nowy. Właściwość została uznana za wartość przypisane, jeśli nie jest przypisany CLR wartość domyślna (`null` dla `string`, `0` dla `int`, `Guid.Empty` dla `Guid`itp.). Aby uzyskać więcej informacji, zobacz [jawnej wartości dla właściwości wygenerowanego](..\saving\explicit-values-generated-properties.md).
+Jeśli dodasz jednostkę do kontekstu, który ma wartość przypisana do właściwości EF będzie podejmować próby wstawienia tej wartości, a nie generuje nowy. Właściwość została uznana za wartość przypisane, jeśli nie jest przypisany CLR wartość domyślna (`null` dla `string`, `0` dla `int`, `Guid.Empty` dla `Guid`itp.). Aby uzyskać więcej informacji, zobacz [jawnej wartości dla właściwości wygenerowanego](../saving/explicit-values-generated-properties.md).
 
 > [!WARNING]  
 > Jak jest generowany wartości dla jednostek dodano będzie zależeć od używany dostawca bazy danych. Dostawcy bazy danych może automatycznie skonfigurować Generowanie wartości dla niektórych typów właściwości, ale inne może wymagać można skonfigurować ręcznie, jak jest generowany wartość.
@@ -39,13 +39,13 @@ Jeśli dodasz jednostkę do kontekstu, który ma wartość przypisana do właśc
 
 Wartość wygenerowana przy dodawaniu lub aktualizacji oznacza, że nowa wartość jest generowany za każdym razem, gdy zapisaniu rekordu (insert lub update).
 
-Podobnie jak `value generated on add`, jeśli określono wartości dla właściwości dla nowo dodanego wystąpienia jednostki, że wartość zostanie wstawiony zamiast wartości generowany. Istnieje również możliwość ustawienia jawną wartość podczas aktualizowania. Aby uzyskać więcej informacji, zobacz [jawnej wartości dla właściwości wygenerowanego](..\saving\explicit-values-generated-properties.md).
+Podobnie jak `value generated on add`, jeśli określono wartości dla właściwości dla nowo dodanego wystąpienia jednostki, że wartość zostanie wstawiony zamiast wartości generowany. Istnieje również możliwość ustawienia jawną wartość podczas aktualizowania. Aby uzyskać więcej informacji, zobacz [jawnej wartości dla właściwości wygenerowanego](../saving/explicit-values-generated-properties.md).
 
-> [!WARNING]  
+> [!WARNING]
 > Jak jest generowany wartości dla jednostek dodany i zaktualizowane będzie zależeć od używany dostawca bazy danych. Dostawcy bazy danych może automatycznie Instalator Generowanie wartości dla niektórych typów właściwości, a inne będzie można skonfigurować ręcznie, jak wartość jest generowany wymagają.
->
+> 
 > Na przykład w przypadku korzystania z programu SQL Server `byte[]` właściwości, które są ustawione, tak jak w dodać lub zaktualizować i oznaczone jako tokeny współbieżności będzie Instalatorowi `rowversion` typów danych - tak, aby wartości zostaną wygenerowane w bazie danych. Jednak jeśli użytkownik określi, że `DateTime` właściwości jest generowany na dodać lub zaktualizować, a następnie należy skonfigurować to rozwiązanie dla wartości do wygenerowania. Jest jeden ze sposobów, aby skonfigurować domyślną wartość `GETDATE()` (zobacz [wartości domyślne](relational/default-values.md)) do generowania wartości dla nowych wierszy. Następnie można użyć wyzwalacza bazy danych do generowania wartości podczas aktualizacji (na przykład następujący przykład wyzwalacz).
->
+> 
 > [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAddOrUpdate.sql)]
 
 ## <a name="conventions"></a>Konwencje

@@ -6,17 +6,17 @@ ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 1ab9d114e27aac0bec972df631a426c8ce87a518
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 0fc8929c56d4c657b7fb1e3c8e4b1a71659220c9
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="cascade-delete"></a>Usuwanie kaskadowe
 
-Usuwanie kaskadowe jest zwykle używany w terminologii bazy danych w przypadku cech, który umożliwia usunięcie wiersza automatycznie wyzwalać usunięcie powiązane wiersze. Ściśle pojęciem objętych zachowania delete EF Core jest automatyczne usuwanie jednostce podrzędnej, gdy jest relacji do elementu nadrzędnego ma zostały Przerwano — ten i często nazywana "Usuwanie oddzielone".
+Usuwanie kaskadowe jest zwykle używany w terminologii bazy danych w przypadku cech, który umożliwia usunięcie wiersza automatycznie wyzwalać usunięcie powiązane wiersze. Ściśle pojęciem objętych zachowania delete EF Core jest automatyczne usuwanie obiektu podrzędnego w przypadku relacji do elementu nadrzędnego zostały Przerwano — jest to często nazywane "Usuwanie oddzielone".
 
-Podstawowe EF implementuje kilka różnych usuwania zachowań i umożliwia konfigurację zachowania delete poszczególnych relacji. Podstawowe EF implementuje również konwencje, które automatycznie konfigurują zachowania delete przydatna dla każdej relacji w oparciu [requiredness relacji] (../modeling/relationships.md#required-and-optional-relationships).
+Podstawowe EF implementuje kilka różnych usuwania zachowań i umożliwia konfigurację zachowania delete poszczególnych relacji. Podstawowe EF implementuje również automatycznie konfigurować domyślne przydatne usunięcie zachowania dla każdej relacji na podstawie Konwencji [requiredness relacji](../modeling/relationships.md#required-and-optional-relationships).
 
 ## <a name="delete-behaviors"></a>Usuń zachowania
 Usuń zachowania są zdefiniowane w *DeleteBehavior* modułu wyliczającego wpisz i mogą zostać przekazane do *OnDelete* interfejsu API fluent do kontroli czy usunięcie jednostki nadrzędne podmiot zabezpieczeń lub severing programu Relacja podmioty zależne od/podrzędny musi mieć efektem ubocznym WE podmioty zależne od/podrzędny.
@@ -35,7 +35,7 @@ Istnieją cztery usunąć zachowania, wymienione w poniższych tabelach. W przyp
 
 | Nazwa zachowania               | Wpływ na zależne od/podrzędny w pamięci    | Wpływ na zależne od/podrzędny w bazie danych  |
 |:----------------------------|:---------------------------------------|:---------------------------------------|
-| **Cascade**                 | Jednostki są usuwane.                   | Jednostki są usuwane.                   |
+| **Kaskadowo**                 | Jednostki są usuwane.                   | Jednostki są usuwane.                   |
 | **ClientSetNull** (domyślna) | Właściwości klucza obcego są ustawione na wartość null | Brak                                   |
 | **SetNull**                 | Właściwości klucza obcego są ustawione na wartość null | Właściwości klucza obcego są ustawione na wartość null |
 | **Ogranicz**                | Brak                                   | Brak                                   |

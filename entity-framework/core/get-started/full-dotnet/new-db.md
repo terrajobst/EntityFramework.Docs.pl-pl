@@ -1,5 +1,5 @@
 ---
-title: "Wprowadzenie do platformy .NET Framework — nowej bazy danych — EF Core"
+title: Wprowadzenie do platformy .NET Framework — nowej bazy danych — EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -7,10 +7,10 @@ ms.assetid: 52b69727-ded9-4a7b-b8d5-73f3acfbbad3
 ms.technology: entity-framework-core
 uid: core/get-started/full-dotnet/new-db
 ms.openlocfilehash: bd7054c6834ae11bfdc352d63654e4304771e432
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="getting-started-with-ef-core-on-net-framework-with-a-new-database"></a>Wprowadzenie do podstawowych EF na .NET Framework za pomocą nowej bazy danych
 
@@ -19,11 +19,11 @@ W tym przewodniku zostanie utworzona aplikacja konsolowa, która wykonuje dostę
 > [!TIP]  
 > Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/FullNet/ConsoleApp.NewDb) w witrynie GitHub.
 
-## <a name="prerequisites"></a>Wstępnie wymagane składniki
+## <a name="prerequisites"></a>Wymagania wstępne
 
 Do przeprowadzenia tego instruktażu potrzebne są następujące wymagania wstępne:
 
-* [Visual Studio 2017 r.](https://www.visualstudio.com/downloads/)
+* [Visual Studio 2017](https://www.visualstudio.com/downloads/)
 
 * [Najnowszą wersję Menedżera pakietów NuGet](https://dist.nuget.org/index.html)
 
@@ -49,11 +49,11 @@ Aby użyć EF podstawowe, należy zainstalować pakiet dla powszechne bazy danyc
 
 * Narzędzia > Menedżera pakietów NuGet > konsoli Menedżera pakietów
 
-* Uruchom`Install-Package Microsoft.EntityFrameworkCore.SqlServer`
+* Uruchom `Install-Package Microsoft.EntityFrameworkCore.SqlServer`
 
 W dalszej części tego przewodnika również użyjemy narzędzi Framework niektóre jednostki do obsługi bazy danych. Dlatego zostanie zainstalowany pakiet narzędzi również.
 
-* Uruchom`Install-Package Microsoft.EntityFrameworkCore.Tools`
+* Uruchom `Install-Package Microsoft.EntityFrameworkCore.Tools`
 
 ## <a name="create-your-model"></a>Tworzenie modelu
 

@@ -7,10 +7,10 @@ ms.assetid: 88253ff3-174e-485c-b3f8-768243d01ee1
 ms.technology: entity-framework-core
 uid: core/modeling/index
 ms.openlocfilehash: 1ad0f6891fbc8ba2e4d102cc9997f053a9dddb66
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="creating-a-model"></a>Tworzenie modelu
 
