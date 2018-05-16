@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 396d31c9d0c0f47d299f49e82e557ed29b8420e7
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: d053d53bd50d2e7d16223c5b4e4009c9bb2298bb
+ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 05/14/2018
 ---
 <a name="ef-core-net-command-line-tools"></a>Narzędzia wiersza polecenia platformy .NET Core EF
 ===============================
@@ -19,14 +19,18 @@ Narzędzia wiersza polecenia programu Entity Framework Core .NET są rozszerzeni
 
 <a name="installing-the-tools"></a>Instalowanie narzędzi
 --------------------
-Zainstaluj narzędzia wiersza polecenia platformy .NET Core EF trzy kroki:
+> [!NOTE]
+> .NET Core SDK w wersji 2.1.300 i zawiera nowszą **dotnet ef** poleceń, które są zgodne z EF Core w wersji 2.0 i nowszych wersjach. Dlatego jeśli używane są nowe wersje zestawu SDK .NET Core i EF podstawowego środowiska wykonawczego, instalacja nie jest wymagana i pozostałej części tej sekcji można zignorować.
+>
+> Z drugiej strony **dotnet ef** narzędzie zawartych w wersji zestawu SDK programu .NET Core 2.1.300 i nowszych nie jest zgodny z wersją EF Core 1.0 i 1.1. Przed możesz pracować z projektu, który używa tych wersji EF rdzeni na komputerze, na którym zainstalowano program .NET Core SDK 2.1.300 lub nowszej zainstalowany, należy również zainstalować wersję 2.1.200 lub starsze zestawu SDK i skonfigurować aplikację do używania starszej wersji, modyfikując jego  [global.json](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json) pliku. Ten plik znajduje się zwykle w katalogu rozwiązania (jeden nad projektu). Następnie można przejść z poniższych instrukcji na temat.
+
+W poprzednich wersjach zestawu SDK .NET Core można zainstalować narzędzi wiersza polecenia platformy .NET Core EF przy użyciu następujące kroki:
 
 1. Edytuj plik projektu i dodać Microsoft.EntityFrameworkCore.Tools.DotNet jako element DotNetCliToolReference (patrz poniżej)
 2. Uruchom następujące polecenia:
 
        dotnet add package Microsoft.EntityFrameworkCore.Design
        dotnet restore
-
 
 Projekt wynikowy powinien wyglądać następująco:
 

@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/7/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: d41409dee034e84d22092a5f9111dd79c87dcec3
-ms.sourcegitcommit: b467368cc350e6059fdc0949e042a41cb11e61d9
+ms.openlocfilehash: 84d80175e719c950844b13688e1a4992614f25d8
+ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 05/14/2018
 ---
 <a name="custom-migrations-operations"></a>Operacje migracji niestandardowych
 ============================
@@ -33,7 +33,7 @@ static MigrationBuilder CreateUser(
     => migrationBuilder.Sql($"CREATE USER {name} WITH PASSWORD '{password}';");
 ```
 
-Jeśli migracji konieczność obsługi wielu dostawców bazy danych, możesz użyć `MigrationBuilder.ActiveProvider` właściwości. Oto przykład obsługi zarówno programu Microsoft SQL Server, jak i PostreSQL.
+Jeśli migracji konieczność obsługi wielu dostawców bazy danych, możesz użyć `MigrationBuilder.ActiveProvider` właściwości. Oto przykład obsługi zarówno programu Microsoft SQL Server, jak i PostgreSQL.
 
 ``` csharp
 static MigrationBuilder CreateUser(
