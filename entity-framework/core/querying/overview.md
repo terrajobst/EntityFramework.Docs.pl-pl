@@ -42,7 +42,7 @@ Podczas wywoływania LINQ operatory są po prostu budowania reprezentacji w pami
 
 Najbardziej typowe operacje, które powoduje zapytania są wysyłane do bazy danych są:
 * Iteracja wyniki w `for` pętli
-* Przy użyciu operatora, takich jak `ToList`, `ToArray`, `Single`,`Count`
+* Przy użyciu operatora, takich jak `ToList`, `ToArray`, `Single`, `Count`
 * Element dataBinding wyników zapytania do interfejsu użytkownika
 
 > [!WARNING]  

@@ -1,5 +1,5 @@
 ---
-title: "Ustawianie jawne wartości dla właściwości wygenerowanego - EF Core"
+title: Ustawianie jawne wartości dla właściwości wygenerowanego - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016

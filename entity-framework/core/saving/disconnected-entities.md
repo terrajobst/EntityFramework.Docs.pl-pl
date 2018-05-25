@@ -1,5 +1,5 @@
 ---
-title: "Odłączonych jednostek - EF Core"
+title: Odłączonych jednostek - EF Core
 author: ajcvickers
 ms.author: avickers
 ms.date: 10/27/2016
