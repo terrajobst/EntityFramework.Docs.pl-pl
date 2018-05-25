@@ -1,5 +1,5 @@
 ---
-title: "Zapytania asynchronicznego — podstawowe EF"
+title: Zapytania asynchronicznego — podstawowe EF
 author: rowanmiller
 ms.author: divega
 ms.date: 01/24/2017

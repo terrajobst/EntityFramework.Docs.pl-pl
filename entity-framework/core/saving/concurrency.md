@@ -1,5 +1,5 @@
 ---
-title: "Obsługa konfliktom współbieżności - EF Core"
+title: Obsługa konfliktom współbieżności - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 03/03/2018
