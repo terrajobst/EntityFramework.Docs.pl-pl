@@ -6,11 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 ms.technology: entity-framework-core
 uid: core/index
-ms.openlocfilehash: f9aac91545b97e56686e3a8d2eb9e83c849587d9
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: 3befcbd3ff3da5dd159e6e6cb5fe7140c81317c2
+ms.sourcegitcommit: a2b38dedc88ca3ccbfe7b1db9602ca02da8294cd
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 05/31/2018
+ms.locfileid: "34686665"
 ---
 # <a name="entity-framework-core-quick-overview"></a>Entity Framework Core szybki przegląd
 
@@ -26,9 +27,8 @@ Jeśli chcesz dowiedzieć się przez pisania kodu, zalecamy jednego z naszych [w
 
 Jeśli znasz podstawowe EF i chcesz przejść bezpośrednio do szczegółów najnowsze wersje:
 
-- **[Nowości w programie EF Core 2.1 (obecnie w wersji zapoznawczej)](xref:core/what-is-new/ef-core-2.1)**
-- **[Co to jest nowe w programie EF Core 2.0 (najnowszej wersji)](xref:core/what-is-new/ef-core-2.0)**
-- **[Uaktualnianie istniejącej aplikacji EF Core 2.0](xref:core/miscellaneous/1x-2x-upgrade)**
+- **[Co to jest nowa w programie EF Core 2.1](xref:core/what-is-new/ef-core-2.1)**
+- **[Uaktualnianie istniejącej aplikacji na rdzeń EF 2.x](xref:core/miscellaneous/1x-2x-upgrade)**
 
 
 ## <a name="get-entity-framework-core"></a>Pobierz program Entity Framework Core
