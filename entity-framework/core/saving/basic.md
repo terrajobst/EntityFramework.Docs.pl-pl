@@ -6,11 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: 850d842e-3fad-4ef2-be17-053768e97b9e
 ms.technology: entity-framework-core
 uid: core/saving/basic
-ms.openlocfilehash: deead323301dc4a0ee0748b4536ddff4596b99e6
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: 35bf14af43289ad6308a49482d3f45a7a8be9067
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754394"
 ---
 # <a name="basic-save"></a>Zapisz podstawowy
 
@@ -38,7 +39,7 @@ Po prostu zmodyfikuj wartości dla właściwości, a następnie wywołać *SaveC
 
 ## <a name="deleting-data"></a>Usuwanie danych
 
-Użyj *DbSet.Remove* metodę wystąpienia klas jednostek można usunąć.
+Użyj *DbSet.Remove* metodę, aby usunąć wystąpienia klas jednostek.
 
 Jeśli ta jednostka już istnieje w bazie danych, zostaną usunięte podczas *SaveChanges*. Jeśli jednostka nie został jeszcze zapisany w bazie danych (np. jego śledzenia dodany), a następnie zostaną usunięte z kontekstu i nie będzie już wstawiony, kiedy *SaveChanges* jest wywoływana.
 

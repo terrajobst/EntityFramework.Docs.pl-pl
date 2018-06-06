@@ -6,11 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 ms.technology: entity-framework-core
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 0b145217d40027c4b8e4746e9c5651652a28c9eb
-ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
+ms.openlocfilehash: dae6265fe2b9dd2cd5da78dc69d081950f374436
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/12/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754397"
 ---
 # <a name="disconnected-entities"></a>Odłączonych jednostek.
 
@@ -34,7 +35,7 @@ W pozostałej części tej sekcji omówiono przypadkach gdy niezbędne do okreś
 
 ### <a name="with-auto-generated-keys"></a>Z automatycznego generowania kluczy
 
-Wartość klucza automatycznie generowanych często może służyć do określenia, czy jednostka musi być wstawiane lub aktualizowane. Jeśli klucz nie został ustawiony, (tj. nadal posiada CLR domyślna wartość null, zero, itp.), jednostki musi być nowy i wymaga Wstawianie. Z drugiej strony Jeśli ustawiono wartość tego klucza, następnie je musi już zostały wcześniej zapisane i teraz konieczna jest aktualizacja. Innymi słowy Jeśli klucz ma wartość, następnie jednostki kwerendy, wysyłane do klienta i ma teraz wróć do zaktualizowania.
+Wartość klucza automatycznie generowanych często może służyć do określenia, czy jednostka musi być wstawiane lub aktualizowane. Jeśli klucz nie został ustawiony, (tj. nadal posiada CLR domyślna wartość null, zero, itp.), jednostki musi być nowy i wymaga Wstawianie. Z drugiej strony Jeśli ustawiono wartość tego klucza, następnie je musi już zostały wcześniej zapisane i teraz konieczna jest aktualizacja. Innymi słowy Jeśli klucz ma wartość, a następnie jednostki kwerendy, wysyłane do klienta i ma teraz wróć do zaktualizowania.
 
 Jest łatwy do sprawdzenia nie ustawiono klucza, gdy jest znany typ jednostki:
 

@@ -6,20 +6,19 @@ ms.date: 2/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: db1648095aa4d612af53f4e10a30be36edc40da5
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: 2372a6b2e3f3b7b1d9214a6ea321fe28cea45fff
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754428"
 ---
 # <a name="new-features-in-ef-core-21"></a>Nowe funkcje w programie EF Core 2.1
-> [!NOTE]  
-> Ta wersja jest dostępny w wersji zapoznawczej.
 
 Oprócz wiele poprawek usterek i małych funkcjonalności i lepszą wydajność EF Core 2.1 zawiera niektóre atrakcyjnych nowe funkcje:
 
 ## <a name="lazy-loading"></a>powolne ładowanie
-Podstawowe EF zawiera teraz konieczne bloków konstrukcyjnych dla każdego do tworzenia klas jednostek, które można załadować ich właściwości nawigacji na żądanie. Również utworzono nowy pakiet, Microsoft.EntityFrameworkCore.Proxies, który wykorzystuje te bloki konstrukcyjne do utworzenia serwera proxy opóźnionego ładowania klas minimalny zestaw na podstawie zmodyfikowane klasy jednostki (np. klasy z właściwości nawigacji wirtualnego).
+Podstawowe EF zawiera teraz konieczne bloków konstrukcyjnych dla każdego do tworzenia klas jednostek, które można załadować ich właściwości nawigacji na żądanie. Również utworzono nowy pakiet, Microsoft.EntityFrameworkCore.Proxies, który wykorzystuje te bloki konstrukcyjne do utworzenia serwera proxy opóźnionego ładowania klas minimalny zestaw na podstawie zmodyfikowane klasy jednostki (na przykład klasy z właściwości nawigacji wirtualnego).
 
 Odczyt [sekcję opóźnionego ładowania](xref:core/querying/related-data#lazy-loading) Aby uzyskać więcej informacji dotyczących tego tematu.
 
@@ -38,7 +37,7 @@ Do tej pory EF Core można mapują tylko właściwości typów obsługiwane prze
 Odczyt [sekcję konwersji wartości](xref:core/modeling/value-conversions) Aby uzyskać więcej informacji dotyczących tego tematu.  
 
 ## <a name="linq-groupby-translation"></a>Tłumaczenie LINQ GroupBy
-Przed wersji 2.1, w podstawowej EF operator GroupBy LINQ jest zawsze oceniane w pamięci. Obsługujemy teraz tłumaczenia go do klauzuli SQL GROUP BY w typowych przypadkach.
+Przed wersji 2.1 w podstawowej EF operator GroupBy LINQ zawsze oceniono w pamięci. Obsługujemy teraz tłumaczenia go do klauzuli SQL GROUP BY w typowych przypadkach.
 
 Ten przykład zawiera zapytanie z GroupBy używanych do obliczenia różne funkcje agregujące:
 
@@ -124,7 +123,7 @@ var query = context.Customers.Select(
 
 Należy pamiętać, że to zapytanie zostanie przekonwertowana na stronę tylko dwa zapytania SQL: jeden dla klientów i kolejnego dla zleceń.
 
-## <a name="ownedattribute"></a>OwnedAttribute
+## <a name="owned-attribute"></a>Atrybut [będących własnością]
 
 Obecnie istnieje możliwość skonfigurowania [należące do typów jednostek](xref:core/modeling/owned-entities) przez po prostu Dodawanie adnotacji do typu z `[Owned]` , a następnie sprawdzając, czy jednostka właściciela jest dodawane do modelu:
 
@@ -143,12 +142,14 @@ public class Order
 }
 ```
 
-## <a name="new-dotnet-ef-global-tool"></a>Nowe narzędzie globalne dotnet ef
+## <a name="command-line-tool-dotnet-ef-included-in-net-core-sdk"></a>Narzędzie wiersza polecenia platformy dotnet-ef zawarte w zestawie SDK programu .NET Core
 
-_Dotnet ef_ polecenia został przekonwertowany na .NET interfejsu wiersza polecenia narzędzia globalnego, więc nie będzie trzeba użyć DotNetCliToolReference w projekcie, aby można było użyć migracji lub utworzyć szkielet obiektu DbContext z istniejącej bazy danych.
+_Dotnet ef_ polecenia są teraz częścią programu .NET Core SDK, w związku z tym nie będzie konieczne użycie DotNetCliToolReference w projekcie, aby można było użyć migracji lub utworzyć szkielet obiektu DbContext z istniejącej bazy danych.
+
+Zobacz sekcję dotyczącą [Instalowanie narzędzi](xref:core/miscellaneous/cli/dotnet#installing-the-tools) Aby uzyskać więcej informacji o sposobie włączania narzędzi wiersza polecenia dla różnych wersji zestawu SDK programu .NET Core i EF Core.
 
 ## <a name="microsoftentityframeworkcoreabstractions-package"></a>Microsoft.EntityFrameworkCore.Abstractions pakietu
-Nowy pakiet zawiera atrybuty i interfejsów, które można w projektach podświetlony EF podstawowe funkcje bez konieczności przełączania zależność Core EF jako całość. Np. atrybut [posiadane] wprowadzona w wersji zapoznawczej 1 została przeniesiona w tym miejscu.
+Nowy pakiet zawiera atrybuty i interfejsów, które można w projektach podświetlony EF podstawowe funkcje bez konieczności przełączania zależność Core EF jako całość. Na przykład atrybut [posiadane] i interfejs ILazyLoader znajdują się w tym miejscu.
 
 ## <a name="state-change-events"></a>Zdarzenia zmiany stanu
 
@@ -165,7 +166,7 @@ var query = context.People.FromSql(sql);
 
 ## <a name="database-provider-compatibility"></a>Zgodność dostawcy bazy danych
 
-Podstawowe EF 2.1 została zaprojektowana w celu był zgodny z dostawcy bazy danych utworzone dla EF Core 2.0 lub co najmniej wymagają minimalnych zmianach. Podczas gdy niektóre funkcje opisane powyżej (np. wartość konwersje) wymagają zaktualizowanej dostawcy, innych użytkowników (np. podczas ładowania opóźnionego) uaktywni się z istniejącymi dostawcami.
+Zalecane jest używanie EF Core 2.1 z dostawców, które zostały zaktualizowane lub co najmniej przetestowane do pracy z EF Core 2.1.
 
 > [!TIP]
 > Jeśli okaże się żadnym nieoczekiwany niezgodności lub dowolnym wystawiania w nowych funkcji lub jeśli masz opinię na nich, zgłoś go za pomocą [naszych tracker problem](https://github.com/aspnet/EntityFrameworkCore/issues/new).

@@ -5,11 +5,12 @@ ms.author: divega
 ms.date: 03/03/2018
 ms.technology: entity-framework-core
 uid: core/saving/concurrency
-ms.openlocfilehash: 288d9c6fced5ebbaa2c366248c68547502c3698e
-ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
+ms.openlocfilehash: 2d8909585201a45eb020537847800f125b3b0120
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/05/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754391"
 ---
 # <a name="handling-concurrency-conflicts"></a>Obsługa konfliktom współbieżności
 
@@ -47,7 +48,7 @@ WHERE [PersonId] = @p0 AND [LastName] = @p2;
 
 ## <a name="resolving-concurrency-conflicts"></a>Rozwiązywanie konfliktów współbieżności
 
-Kontynuowanie poprzedni przykład, jeśli jeden użytkownik próbuje zapisać pewnych zmian `Person`, ale już inny użytkownik zmienił `LastName` zostanie wygenerowany wyjątek.
+Kontynuowanie poprzedni przykład, jeśli jeden użytkownik próbuje zapisać pewnych zmian `Person`, ale już inny użytkownik zmienił `LastName`, a następnie zostanie wygenerowany wyjątek.
 
 W tym momencie aplikacja może po prostu poinformować użytkownika, że aktualizacja nie zakończyła się niepowodzeniem z powodu zmian powodujących konflikt i przenieść na. Jednak może być pożądane, aby monitować użytkownika, upewnij się, że ten rekord nadal reprezentuje sama osoba rzeczywiste i spróbuj ponownie wykonać operację.
 
