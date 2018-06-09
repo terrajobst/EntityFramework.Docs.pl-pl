@@ -6,11 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 ms.technology: entity-framework-core
 uid: core/saving/transactions
-ms.openlocfilehash: fe4c0d6ad7ccb2e97dc94fbf2eb26a41e7fbcb19
-ms.sourcegitcommit: 7113e8675f26cbb546200824512078bf360225df
+ms.openlocfilehash: 21a03f8915cba926d55f8b122ae585bd8946eeee
+ms.sourcegitcommit: 5715caf923c3761e72b1b4ae589547584b459708
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/28/2018
+ms.lasthandoff: 06/09/2018
+ms.locfileid: "35250770"
 ---
 # <a name="using-transactions"></a>Używanie transakcji
 
@@ -128,7 +129,7 @@ Istnieje również możliwość można zarejestrować w jawnych transakcji.
 
 ### <a name="limitations-of-systemtransactions"></a>Ograniczenia obszaru nazw System.Transactions  
 
-1. Podstawowe EF zależy od dostawcy bazy danych, obsługa System.Transactions. Mimo że obsługa jest dość często wśród dostawców ADO.NET dla .NET Framework, interfejsu API tylko został ostatnio dodany do platformy .NET Core i dlatego obsługi nie jest tak szerokie. Jeśli dostawca nie implementuje obsługę System.Transactions, istnieje możliwość, że wywołań do tych interfejsów API będą ignorowane całkowicie. Klient SQL dla platformy .NET Core obsługuje z 2.1 lub nowszej. SqlClient programu .NET Core 2.0 spowoduje zgłoszenie wyjątku z próby użycia funkcji. 
+1. Podstawowe EF zależy od dostawcy bazy danych, obsługa System.Transactions. Mimo że pomocy technicznej jest dość często wśród dostawców ADO.NET dla programu .NET Framework, interfejsu API tylko został ostatnio dodany do platformy .NET Core i dlatego nie jest tak szerokie pomocy technicznej. Jeśli dostawca nie implementuje obsługę System.Transactions, istnieje możliwość, że wywołań do tych interfejsów API będą ignorowane całkowicie. Klient SQL dla platformy .NET Core obsługuje z 2.1 lub nowszej. SqlClient programu .NET Core 2.0 spowoduje zgłoszenie wyjątku z próby użycia funkcji. 
 
    > [!IMPORTANT]  
    > Zaleca się przetestowanie czy interfejsu API poprawne działanie u dostawcy przed polegać na niej zarządzania transakcji. Zachęcamy do kontaktowania się z Element utrzymujący dostawcy bazy danych, jeśli jej nie ma. 

@@ -6,15 +6,16 @@ ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 ms.technology: entity-framework-core
 uid: core/querying/raw-sql
-ms.openlocfilehash: 29b7e20e875bf791a88a92636c1df4bc4e31656b
-ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
+ms.openlocfilehash: 7ed9a8938f8b6dffa7149d64d7e869b0b0078169
+ms.sourcegitcommit: 3adf1267be92effc3c9daa893906a7f36834204f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 05/14/2018
+ms.lasthandoff: 06/08/2018
+ms.locfileid: "35232173"
 ---
 # <a name="raw-sql-queries"></a>Zapytania SQL pierwotnych
 
-Entity Framework Core pozwala na liście rozwijanej raw kwerendy SQL podczas pracy z relacyjnej bazy danych. Może to być przydatne, jeśli kwerenda, którą chcesz wykonać, nie można wyrazić za pomocą LINQ lub za pomocą zapytań LINQ wynikiem jest nieefektywne SQL wysyłane do bazy danych.
+Entity Framework Core pozwala na liście rozwijanej raw kwerendy SQL podczas pracy z relacyjnej bazy danych. Może to być przydatne, jeśli kwerenda, którą chcesz wykonać, nie można wyrazić za pomocą LINQ lub za pomocą zapytań LINQ wynikiem jest nieefektywne SQL wysyłane do bazy danych. Nieprzetworzona zapytania SQL może zwracać typów jednostek lub, w programie EF Core 2.1, [typy zapytań](xref:core/modeling/query-types) które są częścią modelu.
 
 > [!TIP]  
 > Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) w witrynie GitHub.
@@ -22,7 +23,6 @@ Entity Framework Core pozwala na liście rozwijanej raw kwerendy SQL podczas pra
 ## <a name="limitations"></a>Ograniczenia
 
 Istnieje kilka pod uwagę podczas korzystania z pierwotnych zapytania SQL następujące ograniczenia:
-* Zapytania SQL mogą służyć tylko do zwracanych typów jednostki, które są częścią modelu. Brak ulepszeniem na naszych zaległości do [Włącz zwracanie typy ad hoc z pierwotnych zapytania SQL](https://github.com/aspnet/EntityFramework/issues/1862).
 
 * Zapytanie SQL musi zwracać dane dla wszystkich właściwości typu jednostki lub zapytania.
 
