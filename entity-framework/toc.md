@@ -127,7 +127,7 @@
 #### [Uaktualnienie z wersji 1.0 RC2 do RTM](core/miscellaneous/rc2-rtm-upgrade.md)
 #### [Uaktualnianie do EF Core 2.0](core/miscellaneous/1x-2x-upgrade.md)
 
-### [⤤ Dokumentacja interfejsu API](https://docs.microsoft.com/dotnet/api/?view=efcore-2.0)
+### [⤤ Dokumentacja interfejsu API](https://docs.microsoft.com/dotnet/api/?view=efcore-2.1)
 
 ## [Entity Framework 6](ef6/index.md)
 ### [⤤ Dokumentacja](http://msdn.com/data/ef)
