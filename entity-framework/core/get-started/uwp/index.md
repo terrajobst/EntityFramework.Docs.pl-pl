@@ -11,6 +11,7 @@ ms.sourcegitcommit: c72d85805db0aa95f980514a18381fdc5e17c786
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 12/01/2017
+ms.locfileid: "26054800"
 ---
 # <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp"></a><span data-ttu-id="5e95b-102">Wprowadzenie do podstawowych EF na platformę uniwersalną systemu Windows (UWP)</span><span class="sxs-lookup"><span data-stu-id="5e95b-102">Getting Started with EF Core on Universal Windows Platform (UWP)</span></span>
 

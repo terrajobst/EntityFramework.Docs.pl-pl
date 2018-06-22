@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054257"
 ---
 # <a name="how-queries-work"></a><span data-ttu-id="1ef3f-102">Jak działają zapytań</span><span class="sxs-lookup"><span data-stu-id="1ef3f-102">How Queries Work</span></span>
 

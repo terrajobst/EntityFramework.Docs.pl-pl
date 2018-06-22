@@ -1,5 +1,5 @@
 ---
-title: "Rozpoczynanie pracy w środowisku .NET Framework — podstawowe EF"
+title: Rozpoczynanie pracy w środowisku .NET Framework — podstawowe EF
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 02/12/2018
+ms.locfileid: "29152377"
 ---
 # <a name="getting-started-with-ef-core-on-net-framework"></a><span data-ttu-id="733c1-102">Wprowadzenie do podstawowych EF w programie .NET Framework</span><span class="sxs-lookup"><span data-stu-id="733c1-102">Getting Started with EF Core on .NET Framework</span></span>
 

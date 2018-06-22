@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054296"
 ---
 # <a name="features-included-in-ef-core-10"></a><span data-ttu-id="8fe81-102">Funkcje uwzględnione w wersji 1.0 Core EF</span><span class="sxs-lookup"><span data-stu-id="8fe81-102">Features included in EF Core 1.0</span></span>
 

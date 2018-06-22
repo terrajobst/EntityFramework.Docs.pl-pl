@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29680163"
 ---
 # <a name="new-features-in-ef-core-20"></a><span data-ttu-id="c48eb-102">Nowe funkcje w programie EF Core 2.0</span><span class="sxs-lookup"><span data-stu-id="c48eb-102">New features in EF Core 2.0</span></span>
 

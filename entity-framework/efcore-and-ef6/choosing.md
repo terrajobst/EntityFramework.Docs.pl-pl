@@ -1,5 +1,5 @@
 ---
-title: "EF Core i EF6 — które jest odpowiednie dla Ciebie"
+title: EF Core i EF6 — które jest odpowiednie dla Ciebie
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -10,6 +10,7 @@ ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 03/20/2018
+ms.locfileid: "30002824"
 ---
 # <a name="ef-core-and-ef6-which-one-is-right-for-you"></a><span data-ttu-id="50f34-102">EF Core i EF6: które z nich jest odpowiedni</span><span class="sxs-lookup"><span data-stu-id="50f34-102">EF Core and EF6: Which One Is Right for You</span></span>
 

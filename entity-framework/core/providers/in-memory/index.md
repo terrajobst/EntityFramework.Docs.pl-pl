@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678989"
 ---
 # <a name="ef-core-in-memory-database-provider"></a><span data-ttu-id="37100-102">Dostawca programu EF podstawowej bazy danych w pamięci</span><span class="sxs-lookup"><span data-stu-id="37100-102">EF Core In-Memory Database Provider</span></span>
 

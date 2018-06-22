@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054158"
 ---
 # <a name="client-vs-server-evaluation"></a><span data-ttu-id="0e90e-102">Klient programu vs. Ocena serwera</span><span class="sxs-lookup"><span data-stu-id="0e90e-102">Client vs. Server Evaluation</span></span>
 

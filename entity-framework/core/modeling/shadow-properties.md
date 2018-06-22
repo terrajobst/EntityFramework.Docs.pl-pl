@@ -1,5 +1,5 @@
 ---
-title: "Właściwości — podstawowe EF w tle"
+title: Właściwości — podstawowe EF w tle
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 11/05/2017
+ms.locfileid: "26054563"
 ---
 # <a name="shadow-properties"></a><span data-ttu-id="b486b-102">Właściwości w tle</span><span class="sxs-lookup"><span data-stu-id="b486b-102">Shadow Properties</span></span>
 

@@ -9,6 +9,7 @@ ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 04/26/2018
+ms.locfileid: "31812563"
 ---
 <a name="ef-core-package-manager-console-tools"></a><span data-ttu-id="5d546-102">Narzędzia konsoli Menedżera pakietów Core EF</span><span class="sxs-lookup"><span data-stu-id="5d546-102">EF Core Package Manager Console Tools</span></span>
 =====================================

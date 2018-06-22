@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054134"
 ---
 # <a name="asynchronous-saving"></a><span data-ttu-id="ee4e1-102">Zapisywanie asynchroniczne</span><span class="sxs-lookup"><span data-stu-id="ee4e1-102">Asynchronous Saving</span></span>
 

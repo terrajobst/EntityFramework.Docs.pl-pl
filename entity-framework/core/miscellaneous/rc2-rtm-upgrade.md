@@ -11,6 +11,7 @@ ms.sourcegitcommit: 90139dbd6f485473afda0788a5a314c9aa601ea0
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 03/23/2018
+ms.locfileid: "30151043"
 ---
 # <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a><span data-ttu-id="14aca-102">Uaktualnianie z EF Core 1.0 RC2 do wersji RTM</span><span class="sxs-lookup"><span data-stu-id="14aca-102">Upgrading from EF Core 1.0 RC2 to RTM</span></span>
 

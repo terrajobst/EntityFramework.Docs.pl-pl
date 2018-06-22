@@ -1,5 +1,5 @@
 ---
-title: "Uaktualnianie z programu EF Core 1.0 RC1 do RC2 — podstawowe EF"
+title: Uaktualnianie z programu EF Core 1.0 RC1 do RC2 — podstawowe EF
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678630"
 ---
 # <a name="upgrading-from-ef-core-10-rc1-to-10-rc2"></a><span data-ttu-id="e77dc-102">Uaktualnianie z EF Core 1.0 RC1 do 1.0 RC2</span><span class="sxs-lookup"><span data-stu-id="e77dc-102">Upgrading from EF Core 1.0 RC1 to 1.0 RC2</span></span>
 

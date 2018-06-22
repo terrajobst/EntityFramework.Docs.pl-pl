@@ -1,5 +1,5 @@
 ---
-title: "Porównanie programów EF Core i EF6"
+title: Porównanie programów EF Core i EF6
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -10,6 +10,7 @@ ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 03/20/2018
+ms.locfileid: "30002759"
 ---
 # <a name="compare-ef-core--ef6"></a><span data-ttu-id="6398e-102">Porównanie programów EF Core i EF6</span><span class="sxs-lookup"><span data-stu-id="6398e-102">Compare EF Core & EF6</span></span>
 

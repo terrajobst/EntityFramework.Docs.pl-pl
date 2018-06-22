@@ -1,5 +1,5 @@
 ---
-title: "Microsoft SQL Server bazy danych dostawcy - tabel zoptymalizowanych pod kątem pamięci - EF Core"
+title: Microsoft SQL Server bazy danych dostawcy - tabel zoptymalizowanych pod kątem pamięci - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054146"
 ---
 # <a name="memory-optimized-tables-support-in-sql-server-ef-core-database-provider"></a><span data-ttu-id="d2719-102">Tabele zoptymalizowane pod kątem pamięci Obsługa w dostawcy bazy danych programu SQL Server EF Core</span><span class="sxs-lookup"><span data-stu-id="d2719-102">Memory-Optimized Tables support in SQL Server EF Core Database Provider</span></span>
 

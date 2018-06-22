@@ -1,5 +1,5 @@
 ---
-title: "Usługi czasu projektowania — podstawowe EF"
+title: Usługi czasu projektowania — podstawowe EF
 author: bricelam
 ms.author: bricelam
 ms.date: 10/26/2017
@@ -9,6 +9,7 @@ ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26054608"
 ---
 <a name="design-time-services"></a><span data-ttu-id="45ebc-102">Usługi w czasie projektowania</span><span class="sxs-lookup"><span data-stu-id="45ebc-102">Design-time services</span></span>
 ====================

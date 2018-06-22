@@ -1,5 +1,5 @@
 ---
-title: "Uaktualnianie z poprzedniej wersji EF 2 rdzeni — rdzenie EF"
+title: Uaktualnianie z poprzedniej wersji EF 2 rdzeni — rdzenie EF
 author: divega
 ms.author: divega
 ms.date: 8/13/2017
@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678617"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a><span data-ttu-id="1c6e0-102">Uaktualnianie aplikacji z poprzednich wersji 2.0 Core EF</span><span class="sxs-lookup"><span data-stu-id="1c6e0-102">Upgrading applications from previous versions to EF Core 2.0</span></span>
 

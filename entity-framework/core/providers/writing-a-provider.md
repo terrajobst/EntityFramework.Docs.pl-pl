@@ -1,5 +1,5 @@
 ---
-title: "Pisanie dostawca bazy danych — podstawowe EF"
+title: Pisanie dostawca bazy danych — podstawowe EF
 author: anmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678963"
 ---
 # <a name="writing-a-database-provider"></a><span data-ttu-id="1f3b4-102">Pisanie dostawcy bazy danych</span><span class="sxs-lookup"><span data-stu-id="1f3b4-102">Writing a Database Provider</span></span>
 

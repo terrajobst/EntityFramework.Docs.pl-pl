@@ -1,5 +1,5 @@
 ---
-title: "Indeksy — podstawowe EF"
+title: Indeksy — podstawowe EF
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054077"
 ---
 # <a name="indexes"></a><span data-ttu-id="ae5b5-102">Indeksy</span><span class="sxs-lookup"><span data-stu-id="ae5b5-102">Indexes</span></span>
 

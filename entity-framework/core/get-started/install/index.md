@@ -11,6 +11,7 @@ ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26054647"
 ---
 # <a name="installing-ef-core"></a><span data-ttu-id="6fd5b-102">Instalowanie EF Core</span><span class="sxs-lookup"><span data-stu-id="6fd5b-102">Installing EF Core</span></span>
 

@@ -10,6 +10,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054284"
 ---
 # <a name="porting-an-ef6-code-based-model-to-ef-core"></a><span data-ttu-id="d3d10-102">Eksportowanie EF6 opartej na kodzie modelu EF Core</span><span class="sxs-lookup"><span data-stu-id="d3d10-102">Porting an EF6 Code-Based Model to EF Core</span></span>
 

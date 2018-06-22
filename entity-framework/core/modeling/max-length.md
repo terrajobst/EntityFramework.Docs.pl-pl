@@ -1,5 +1,5 @@
 ---
-title: "Maksymalna długość - EF Core"
+title: Maksymalna długość - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054164"
 ---
 # <a name="maximum-length"></a><span data-ttu-id="d0d8c-102">Maksymalna długość</span><span class="sxs-lookup"><span data-stu-id="d0d8c-102">Maximum Length</span></span>
 
