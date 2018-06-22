@@ -10,6 +10,7 @@ ms.sourcegitcommit: 6e379265e4f087fb7cf180c824722c81750554dc
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26054761"
 ---
 # <a name="global-query-filters"></a>Zapytanie globalne filtry
 

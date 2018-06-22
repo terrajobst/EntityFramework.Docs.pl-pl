@@ -6,11 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 ms.technology: entity-framework-core
 uid: core/querying/related-data
-ms.openlocfilehash: 5f1fb9376300739ab0e306d9d60e7ec71aa2d2e7
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: dc8ef0b2f194fbedfaf58a9499719531a96f70da
+ms.sourcegitcommit: 3d69ea20a7a0cca4d8e5d68bcfd3d1ee16950390
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/26/2018
+ms.lasthandoff: 06/21/2018
+ms.locfileid: "36299360"
 ---
 # <a name="loading-related-data"></a>Trwa ładowanie powiązanych danych
 
@@ -208,7 +209,7 @@ public class Blog
 
     public ICollection<Post> Posts
     {
-        get => LazyLoader?.Load(this, ref _posts);
+        get => LazyLoader.Load(this, ref _posts);
         set => _posts = value;
     }
 }
@@ -234,12 +235,12 @@ public class Post
 
     public Blog Blog
     {
-        get => LazyLoader?.Load(this, ref _blog);
+        get => LazyLoader.Load(this, ref _blog);
         set => _blog = value;
     }
 }
 ```
-To nie wymaga typy jednostek, które były dziedziczone z i właściwości nawigacji, aby być wirtualna i umożliwia utworzony z wystąpień jednostek `new` do opóźnionego ładowania raz dołączona do kontekstu. Wymaga to jednak odwołanie do `ILazyLoader` usługi, składającą się do zestawu EF podstawowych typów jednostek. Aby uniknąć tego Core EF umożliwia `ILazyLoader.Load` metodę, aby zostać dodane jako pełnomocnik. Na przykład:
+To nie wymaga typy jednostek, które były dziedziczone z i właściwości nawigacji, aby być wirtualna i umożliwia utworzony z wystąpień jednostek `new` do opóźnionego ładowania raz dołączona do kontekstu. Wymaga to jednak odwołanie do `ILazyLoader` usługi, która jest zdefiniowana w [Microsoft.EntityFrameworkCore.Abstractions](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Abstractions/) pakietu. Ten pakiet zawiera minimalnego zestawu typów tak, że istnieje niewielki wpływ, w zależności od jej. Jednak aby uniknąć całkowicie w zależności od tego, wszystkie pakiety EF Core w typach jednostek, istnieje możliwość wprowadzenia `ILazyLoader.Load` metody jako pełnomocnik. Na przykład:
 ```Csharp
 public class Blog
 {
@@ -261,7 +262,7 @@ public class Blog
 
     public ICollection<Post> Posts
     {
-        get => LazyLoader?.Load(this, ref _posts);
+        get => LazyLoader.Load(this, ref _posts);
         set => _posts = value;
     }
 }
@@ -287,7 +288,7 @@ public class Post
 
     public Blog Blog
     {
-        get => LazyLoader?.Load(this, ref _blog);
+        get => LazyLoader.Load(this, ref _blog);
         set => _blog = value;
     }
 }

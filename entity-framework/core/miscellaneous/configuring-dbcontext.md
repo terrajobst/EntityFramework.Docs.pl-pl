@@ -11,6 +11,7 @@ ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 02/12/2018
+ms.locfileid: "29152393"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurowanie obiektu DbContext
 

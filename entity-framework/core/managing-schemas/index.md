@@ -1,5 +1,5 @@
 ---
-title: "Zarządzanie schematów bazy danych — podstawowe EF"
+title: Zarządzanie schematów bazy danych — podstawowe EF
 author: bricelam
 ms.author: divega
 ms.date: 10/30/2017
@@ -9,6 +9,7 @@ ms.sourcegitcommit: b467368cc350e6059fdc0949e042a41cb11e61d9
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26054740"
 ---
 # <a name="managing-database-schemas"></a>Zarządzanie schematów bazy danych
 Podstawowe EF udostępnia dwa sposoby podstawowego elementu synchronizacja EF Core schematu modelu i bazy danych. Aby wybrać między nimi, należy zdecydować, czy model EF Core lub schemat bazy danych jest źródło prawdy.

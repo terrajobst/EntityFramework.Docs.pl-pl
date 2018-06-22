@@ -11,6 +11,7 @@ ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 04/16/2018
+ms.locfileid: "31006653"
 ---
 # <a name="saving-related-data"></a>Zapisywanie powiązanych danych
 

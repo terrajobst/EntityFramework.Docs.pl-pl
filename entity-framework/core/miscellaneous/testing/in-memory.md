@@ -1,5 +1,5 @@
 ---
-title: "Testowanie za pomocą InMemory - EF Core"
+title: Testowanie za pomocą InMemory - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: d096484dcf9eff73d9943fa60db7a418b10ca0b3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 01/22/2018
+ms.locfileid: "27995590"
 ---
 # <a name="testing-with-inmemory"></a>Testowanie za pomocą InMemory
 

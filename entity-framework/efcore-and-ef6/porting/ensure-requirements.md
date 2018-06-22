@@ -1,5 +1,5 @@
 ---
-title: "Eksportowanie z EF6 do EF Core - weryfikacji wymagań"
+title: Eksportowanie z EF6 do EF Core - weryfikacji wymagań
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -10,6 +10,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054254"
 ---
 # <a name="before-porting-from-ef6-to-ef-core-validate-your-applications-requirements"></a>Przed eksportowanie z EF6 do EF Core: Sprawdzanie poprawności wymagań aplikacji
 

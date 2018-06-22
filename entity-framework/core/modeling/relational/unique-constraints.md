@@ -1,5 +1,5 @@
 ---
-title: "Klucze alternatywne (ograniczenia Unique) — podstawowe EF"
+title: Klucze alternatywne (ograniczenia Unique) — podstawowe EF
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054203"
 ---
 # <a name="alternate-keys-unique-constraints"></a>Klucze alternatywne (ograniczenia Unique)
 
