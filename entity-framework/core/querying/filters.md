@@ -1,55 +1,55 @@
 ---
-title: Zapytanie globalne filtry - EF Core
+title: Filtry zapytań globalnych - programu EF Core
 author: anpete
 ms.author: anpete
 ms.date: 11/03/2017
 ms.technology: entity-framework-core
 uid: core/querying/filters
-ms.openlocfilehash: 4e3c3c99d155f69e00fed99c415f519808ea1a68
-ms.sourcegitcommit: 6e379265e4f087fb7cf180c824722c81750554dc
+ms.openlocfilehash: 0c7858d660665b4f17aedea2101452048f9aff25
+ms.sourcegitcommit: fd50ac53b93a03825dcbb42ed2e7ca95ca858d5f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2017
-ms.locfileid: "26054761"
+ms.lasthandoff: 07/07/2018
+ms.locfileid: "37900296"
 ---
-# <a name="global-query-filters"></a>Zapytanie globalne filtry
+# <a name="global-query-filters"></a>Filtry zapytań globalnych
 
-Zapytanie globalne filtry są predykaty zapytań LINQ (wyrażenia logicznego zwykle przekazany do LINQ *gdzie* — operator zapytań) stosowany do typów jednostek w modelu metadanych (zazwyczaj w *OnModelCreating*). Takie filtry są automatycznie stosowane do wszelkich zapytań LINQ tych typów jednostek, w tym odwołań do właściwości nawigacji do którego istnieje odwołanie pośrednie, takie jak przy użyciu Include lub bezpośredniego typów jednostek. Niektóre typowe zastosowania tej funkcji są następujące:
+Filtry zapytań globalnych są predykatów zapytań LINQ (wyrażenia logicznego zwykle przekazywane do programu LINQ *gdzie* — operator zapytań) stosowane do typów jednostek w modelu metadanych (zwykle w *OnModelCreating*). Takie filtry są automatycznie stosowane do żadnych zapytań LINQ, obejmujące tych typów jednostek, w tym odwołania do właściwości nawigacji odwołanie pośrednio, takie jak przy użyciu Include lub bezpośredniego typów jednostek. Niektóre typowe aplikacje tej funkcji są następujące:
 
-* **Usuń soft** — definiuje typ jednostki *IsDeleted* właściwości.
-* **Wielodostępność** — definiuje typ jednostki *TenantId* właściwości.
+* **Usuwanie nietrwałe** — Określa typ jednostki *IsDeleted* właściwości.
+* **Wielodostępność** — Określa typ jednostki *TenantId* właściwości.
 
 ## <a name="example"></a>Przykład
 
-Poniższy przykład przedstawia użycie filtry globalne zapytania do zaimplementowania zachowania zapytania soft usunięcie i obsługi wielu dzierżawców w modelu prostego obsługi blogów.
+Poniższy przykład pokazuje sposób użycia globalne filtry kwerendy do implementacji zachowania kwerendy opcji soft-delete oraz obsługi wielu dzierżawców w modelu prostego do obsługi blogów.
 
 > [!TIP]
-> Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFrameworkCore/tree/dev/samples/QueryFilters) w witrynie GitHub.
+> Można wyświetlić w tym artykule [przykładowe](https://github.com/aspnet/EntityFrameworkCore/tree/dev/samples/QueryFilters) w witrynie GitHub.
 
-Najpierw należy zdefiniować jednostek:
+Najpierw należy zdefiniować jednostki:
 
-[!code-csharp[Main](../../../efcore-dev/samples/QueryFilters/Program.cs#Entities)]
+[!code-csharp[Main](../../../efcore-repo/samples/QueryFilters/Program.cs#Entities)]
 
-Należy zwrócić uwagę deklaracji __tenantId_ na _blogu_ jednostki. To będzie można użyć do skojarzenia każdego wystąpienia blogu z określonych dzierżawy. Jest także zdefiniowana _IsDeleted_ właściwość _Post_ typu jednostki. Służy to na śledzenie czy _Post_ wystąpienie zostało "wszystkie usunięte nietrwale". Tj. Wystąpienie jest oznaczone jako usunięte withouth fizycznie usunięcie danych.
+Należy pamiętać, deklaracja __tenantId_ na _blogu_ jednostki. To posłuży do powiązania każde wystąpienie blogu z określonej dzierżawy. Jest również definiowany _IsDeleted_ właściwość _wpis_ typu jednostki. To jest używany ten element, aby śledzić, czy _wpis_ wystąpienie zostało "wszystkie usunięte nietrwale". Czyli Wystąpienie jest oznaczony jako usunięty withouth fizycznym usunięciu danych bazowych.
 
-Skonfiguruj filtrów kwerendy w _OnModelCreating_ przy użyciu ```HasQueryFilter``` interfejsu API.
+Następnie skonfiguruj filtrów zapytania w _OnModelCreating_ przy użyciu ```HasQueryFilter``` interfejsu API.
 
-[!code-csharp[Main](../../../efcore-dev/samples/QueryFilters/Program.cs#Configuration)]
+[!code-csharp[Main](../../../efcore-repo/samples/QueryFilters/Program.cs#Configuration)]
 
-Wyrażenie predykatu przekazany do _HasQueryFilter_ wywołania teraz zostaną automatycznie zastosowane do żadnych zapytań LINQ dla tych typów.
+Predykatu wyrażenie przekazany do _HasQueryFilter_ wywołania teraz zostaną automatycznie zastosowane na żadne zapytania LINQ dla tych typów.
 
 > [!TIP]
-> Zwróć uwagę na użycie pola poziomu wystąpienia typu DbContext: ```_tenantId``` służy do określania bieżącej dzierżawie. Filtry na poziomie modelu użyje wartości z wystąpienia poprawny kontekst. Tj. Wystąpienie, które wykonuje zapytania.
+> Zwróć uwagę na użycie pola poziomu wystąpienia typu DbContext: ```_tenantId``` używane do ustawiania bieżącej dzierżawy. Filtry na poziomie modelu będzie używać wartości z wystąpienia poprawnego kontekstu. Czyli Wystąpienie, które jest wykonywane zapytanie.
 
 ## <a name="disabling-filters"></a>Wyłączanie filtrów
 
 Filtry mogą być wyłączone dla poszczególnych zapytań LINQ za pomocą ```IgnoreQueryFilters()``` operatora.
 
-[!code-csharp[Main](../../../efcore-dev/samples/QueryFilters/Program.cs#IgnoreFilters)]
+[!code-csharp[Main](../../../efcore-repo/samples/QueryFilters/Program.cs#IgnoreFilters)]
 
 ## <a name="limitations"></a>Ograniczenia
 
-Zapytanie globalne filtry mają następujące ograniczenia:
+Filtry zapytań globalnych mają następujące ograniczenia:
 
-* Filtry nie może zawierać odwołań do właściwości nawigacji.
-* Filtry można zdefiniować tylko dla elementu głównego typu jednostki z hierarchii dziedziczenia.
+* Filtry nie może zawierać odwołania do właściwości nawigacji.
+* Filtry można zdefiniować tylko dla głównego typu jednostki z hierarchii dziedziczenia.

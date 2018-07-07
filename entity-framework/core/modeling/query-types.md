@@ -1,80 +1,80 @@
 ---
-title: Typy zapytań - EF Core
+title: Typy zapytań — EF Core
 author: anpete
 ms.author: anpete
 ms.date: 2/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 ms.technology: entity-framework-core
 uid: core/modeling/query-types
-ms.openlocfilehash: f16e3a130f3a4f92b2bf6014f2df0ca4eec56a25
-ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
+ms.openlocfilehash: 89f5be356654dc02e353441a83e34c90fc727593
+ms.sourcegitcommit: fd50ac53b93a03825dcbb42ed2e7ca95ca858d5f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 05/14/2018
-ms.locfileid: "34163177"
+ms.lasthandoff: 07/07/2018
+ms.locfileid: "37900307"
 ---
 # <a name="query-types"></a>Typy zapytań
 > [!NOTE]
 > Ta funkcja jest nowa w programie EF Core 2.1
 
-Oprócz typy jednostek, model EF Core może zawierać _typy zapytań_, które mogą służyć do wykonywania kwerend bazy danych w odniesieniu do danych, który nie jest zamapowany na typy jednostek.
+Oprócz typów jednostek, mogą zawierać model programu EF Core _typy zapytań_, który może służyć do przeprowadzania zapytań bazy danych dla danych, które nie są mapowane na typy jednostek.
 
-Typy zapytań mają wiele podobieństw z typami jednostek:
+Typy zapytań mają wiele podobieństw przy użyciu typów jednostek:
 
-- Ich można również dodać do modelu albo w `OnModelCreating`, lub za pośrednictwem właściwości "set" na pochodnym _DbContext_.
-- Obsługuje wiele mapowanie funkcji, takich jak dziedziczenia mapowania właściwości nawigacji (zobacz ograniczenia poniżej), a relacyjne magazynów, możliwość konfigurowania obiektów bazy danych docelowych i kolumn za pomocą metody interfejsu API fluent lub adnotacji danych.
+- One mogą być również dodawane do modelu albo w `OnModelCreating`, lub za pośrednictwem "set" właściwości pochodnej _DbContext_.
+- Obsługiwane są też wiele tych samych funkcji mapowania, takich jak dziedziczenie mapowania właściwości nawigacji (zobacz poniżej ograniczenia) i w sklepach relacyjnych, możliwość konfigurowania obiektów bazy danych docelowych i kolumn za pomocą metody interfejsu API fluent lub adnotacji danych.
 
-Jednak są one różne od podmiotu typy w tym ich:
+Jednak różnią się one od jednostki typy w tym ich:
 
-- Nie wymagają klucza ma zostać zdefiniowana.
-- Nigdy nie są śledzone zmiany na _DbContext_ i w związku z tym nigdy nie wstawienia, zaktualizowane lub usunięte w bazie danych.
-- Nigdy nie są wykrywane przez Konwencję.
-- Tylko obsługuje podzestaw możliwości mapowania nawigacji — w szczególności:
+- Nie wymagają klucza do zdefiniowania.
+- Nigdy nie są śledzone zmiany na _DbContext_ i w związku z tym są nigdy nie wstawione, zaktualizowane lub usunięte w bazie danych.
+- Nigdy nie są odnajdywane przez Konwencję.
+- Tylko obsługują podzbiór funkcji map nawigacji — w szczególności:
   - Nigdy nie mogą one działać jako główny koniec relacji.
-  - Może zawierać tylko właściwości nawigacji odwołania wskazujący jednostek.
-  - Jednostki nie może zawierać właściwości nawigacji na typy zapytań.
-- Są opisane na _element ModelBuilder_ przy użyciu `Query` metody zamiast `Entity` metody.
+  - Może zawierać tylko właściwości nawigacji odwołania, wskazując jednostek.
+  - Jednostki nie może zawierać właściwości nawigacji, aby typy zapytań.
+- Szybkiego reagowania na _element ModelBuilder_ przy użyciu `Query` metody zamiast `Entity` metody.
 - Są mapowane na _DbContext_ za pośrednictwem właściwości typu `DbQuery<T>` zamiast `DbSet<T>`
-- Są mapowane do obiektów bazy danych przy użyciu `ToView` metody, a nie `ToTable`.
-- Mogą być mapowane na _kwerendy_ — Definiowanie zapytanie jest zapytaniem dodatkowej zadeklarowany w modelu, który działa źródła danych dla typu zapytania.
+- Są mapowane na obiekty bazy danych przy użyciu `ToView` metody, zamiast `ToTable`.
+- Mogą być mapowane na _kwerendy_ — Definiowanie zapytanie jest zapytaniem dodatkowej zadeklarowanych w modelu, który działa źródła danych dla typu zapytania.
 
 Niektóre scenariusze użycia główne typy zapytań to:
 
 - Służy jako typ zwracany dla ad hoc `FromSql()` zapytania.
-- Mapowanie do widoków bazy danych.
-- Mapowanie do tabel, które nie ma zdefiniowanego klucza podstawowego.
-- Mapowanie do zapytań, zdefiniowanego w modelu.
+- Mapowanie na widoki baz danych.
+- Mapowania tabel, które nie mają zdefiniowany klucz podstawowy.
+- Mapowanie do zapytań zdefiniowanych w modelu.
 
 > [!TIP]
-> Mapowanie typu zapytania do obiektu bazy danych jest osiągane przy użyciu `ToView` interfejsu API fluent. Z perspektywy EF Core obiekt bazy danych określony w ramach tej metody jest _widoku_, co oznacza, że jest ona traktowana jako źródła zapytań tylko do odczytu i nie może być elementem docelowym aktualizacji, Wstaw lub usuwanie operacji. Jednak nie oznacza to, że obiektu bazy danych jest faktycznie musi być widoku bazy danych — mogą być alternatywnie tabeli bazy danych, które będą traktowane jako tylko do odczytu. Z drugiej strony, dla typów jednostek EF Core przyjęto założenie, że obiekt bazy danych określona w `ToTable` metoda może być traktowana jako _tabeli_, co oznacza, że można użyć jako źródła zapytań, ale może wskazywane przez aktualizację, usuwanie i wstawianie operacje. W rzeczywistości należy określić nazwę widoku bazy danych w `ToTable` i wszystko powinny działać prawidłowo tak długo, jak widok jest skonfigurowany tak, aby nadaje się do aktualizacji w bazie danych.
+> Mapowanie typu zapytania do obiektu bazy danych jest osiągane przy użyciu `ToView` wygodnego interfejsu API. Z perspektywy programu EF Core jest podany w tej metodzie obiekt bazy danych _widoku_, co oznacza, że jest ona traktowana jako źródła zapytań tylko do odczytu i nie może być elementem docelowym aktualizacji, wstawiania lub operacje usuwania. Jednak oznacza to, że obiekt bazy danych jest faktycznie wymagana do widoku bazy danych — może też być tabeli bazy danych, które będą traktowane jako tylko do odczytu. Z drugiej strony, dla typów jednostek programu EF Core przyjęto założenie, że obiektu bazy danych określony w `ToTable` metoda może być traktowana jako _tabeli_, co oznacza, że mogą być używane jako źródło zapytania, ale wskazywane przez aktualizację, usuwanie i wstawianie operacje. W rzeczywistości, można określić nazwy widoku bazy danych w `ToTable` i wszystko powinno działać prawidłowo tak długo, jak widok jest skonfigurowany jako nadaje się do aktualizacji w bazie danych.
 
 ## <a name="example"></a>Przykład
 
-Poniższy przykład przedstawia użycie typu zapytania zbadać widok bazy danych.
+Poniższy przykład pokazuje, jak zapytania widoku bazy danych za pomocą typu zapytania.
 
 > [!TIP]
-> Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFrameworkCore/tree/dev/samples/QueryTypes) w witrynie GitHub.
+> Można wyświetlić w tym artykule [przykładowe](https://github.com/aspnet/EntityFrameworkCore/tree/dev/samples/QueryTypes) w witrynie GitHub.
 
-Najpierw należy zdefiniować modelu prostego blogu i Post:
+Najpierw należy zdefiniować prosty model blogu i Post:
 
-[!code-csharp[Main](../../../efcore-dev/samples/QueryTypes/Program.cs#Entities)]
+[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#Entities)]
 
-Następnie określ widok proste bazy danych, który pozwoli nam się zapytanie o liczbę wpisów skojarzone z każdym blogu:
+Następnie zdefiniuj widok prostej bazy danych, który umożliwi nam zapytania liczby stanowisk skojarzonych z każdym blog:
 
-[!code-csharp[Main](../../../efcore-dev/samples/QueryTypes/Program.cs#View)]
+[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#View)]
 
-Następnie określ klasę do przechowywania wyników z widoku bazy danych:
+Następnie zdefiniuj klasę zawierającą wyniki z widoku bazy danych:
 
-[!code-csharp[Main](../../../efcore-dev/samples/QueryTypes/Program.cs#QueryType)]
+[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#QueryType)]
 
 Firma Microsoft Skonfiguruj typ zapytania w _OnModelCreating_ przy użyciu `modelBuilder.Query<T>` interfejsu API.
 Używamy standardowej konfiguracji fluent API do skonfigurowania mapowania dla typu zapytania:
 
-[!code-csharp[Main](../../../efcore-dev/samples/QueryTypes/Program.cs#Configuration)]
+[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#Configuration)]
 
-Na koniec mamy kwerendy widoku bazy danych w standardowy sposób:
+Na koniec mamy zapytania widoku bazy danych w sposób standardowy:
 
-[!code-csharp[Main](../../../efcore-dev/samples/QueryTypes/Program.cs#Query)]
+[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#Query)]
 
 > [!TIP]
-> Należy zauważyć, że firma Microsoft również zdefiniowanych właściwości poziomu zapytania kontekstu (DbQuery) do działania jako katalog główny dla zapytań dotyczących tego typu.
+> Należy zauważyć, że również zdefiniowaliśmy właściwości zapytania poziom kontekstu (DbQuery) do działania jako główne zapytań dla tego typu.
