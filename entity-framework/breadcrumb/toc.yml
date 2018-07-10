@@ -13,10 +13,10 @@
           tocHref: /ef/core/
           topicHref: /ef/core/index
           items:
-            - name: Co nowego?
+            - name: Nowości
               tocHref: /ef/core/what-is-new/
               topicHref: /ef/core/what-is-new/index
-            - name: Wprowadzenie
+            - name: Rozpocznij
               tocHref: /ef/core/get-started/
               topicHref: /ef/core/get-started/index
             - name: Tworzenie modelu
@@ -28,9 +28,15 @@
             - name: Zapisywanie danych
               tocHref: /ef/core/saving/
               topicHref: /ef/core/saving/index
+            - name: Obsługiwane implementacje platformy .NET
+              tocHref: /ef/core/platforms/
+              topicHref: /ef/core/platofms/index
             - name: Dostawcy baz danych
               tocHref: /ef/core/providers/
               topicHref: /ef/core/providers/index
+            - name: Zarządzanie schematami bazy danych
+              tocHref: /ef/core/managing-schemas/
+              topicHref: /ef/core/managing-schemas/index
             - name: Dokumentacja wiersza polecenia
               tocHref: /ef/core/miscellaneous/cli/
               topicHref: /ef/core/miscellaneous/cli/index
@@ -43,3 +49,25 @@
         - name: Entity Framework 6
           tocHref: /ef/ef6/
           topicHref: /ef/ef6/index
+          items:
+            - name: Co nowego?
+              tocHref: /ef/ef6/what-is-new/
+              topicHref: /ef/ef6/what-is-new/index
+            - name: Rozpocznij
+              tocHref: /ef/ef6/get-started
+              topicHref: /ef/ef6/get-started
+            - name: Podstawy
+              tocHref: /ef/ef6/fundamentals/
+              topicHref: /ef/ef6/fundamentals/index
+            - name: Tworzenie modelu
+              tocHref: /ef/ef6/modeling/
+              topicHref: /ef/ef6/modeling/index
+            - name: Wykonanie zapytania o dane
+              tocHref: /ef/ef6/querying/
+              topicHref: /ef/ef6/querying/index
+            - name: Zapisywanie danych
+              tocHref: /ef/ef6/saving/
+              topicHref: /ef/ef6/saving/index
+            - name: Dodatkowe zasoby
+              tocHref: /ef/ef6/resources/
+              topicHref: /ef/ef6/resources/index
