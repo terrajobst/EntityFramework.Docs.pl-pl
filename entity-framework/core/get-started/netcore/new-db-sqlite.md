@@ -1,47 +1,44 @@
 ---
-title: Wprowadzenie .NET Core - nowej bazy danych — EF Core
+title: Wprowadzenie do programu .NET Core — Nowa baza danych — EF Core
 author: rick-anderson
 ms.author: riande
 ms.author2: tdykstra
-description: Rozpoczynanie pracy z platformą .NET Core przy użyciu programu Entity Framework Core
+description: Wprowadzenie do platformy .NET Core przy użyciu platformy Entity Framework Core
 keywords: .NET Core, Entity Framework Core, VS Code, Visual Studio Code, Mac, Linux
-ms.date: 04/05/2017
+ms.date: 06/05/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 ms.technology: entity-framework-core
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: fcace3c0f259b1a456d9ca1086e6a1549c070d57
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: e4eafed037325237345efbc3d7d42b32270a54e3
+ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812537"
+ms.lasthandoff: 07/08/2018
+ms.locfileid: "37911505"
 ---
-# <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Wprowadzenie do podstawowych EF w aplikacji konsoli .NET Core nowej bazy danych
+# <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Wprowadzenie do nowej bazy danych z programem EF Core w aplikacji Konsolowej .NET Core
 
-W tym przewodniku spowoduje utworzenie aplikacji konsoli .NET Core, który wykonuje dostęp do podstawowych danych względem bazy danych SQLite przy użyciu programu Entity Framework Core. Migracje użyje do utworzenia bazy danych z modelu. Zobacz [platformy ASP.NET Core - nową bazę danych](xref:core/get-started/aspnetcore/new-db) dla wersji programu Visual Studio przy użyciu platformy ASP.NET Core MVC.
+W tym instruktażu utworzysz aplikację konsoli .NET Core, która wykonuje dostęp do danych w bazie danych SQLite przy użyciu platformy Entity Framework Core. Migracje umożliwia tworzenie bazy danych z modelu. Zobacz [ASP.NET Core — Nowa baza danych](xref:core/get-started/aspnetcore/new-db) dla wersji programu Visual Studio przy użyciu platformy ASP.NET Core MVC.
 
 > [!TIP]  
-> Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/NetCore/ConsoleApp.SQLite) w witrynie GitHub.
+> Można wyświetlić w tym artykule [przykładowe](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/NetCore/ConsoleApp.SQLite) w witrynie GitHub.
 
 ## <a name="prerequisites"></a>Wymagania wstępne
 
-Do przeprowadzenia tego instruktażu potrzebne są następujące wymagania wstępne:
-* System operacyjny obsługuje .NET Core.
-* [.NET Core SDK](https://www.microsoft.com/net/core) 2.0 (mimo że instrukcje może służyć do tworzenia aplikacji z poprzedniej wersji z bardzo kilka zmian).
+[.NET Core SDK](https://www.microsoft.com/net/core) 2.1
 
 ## <a name="create-a-new-project"></a>Tworzenie nowego projektu
 
-* Utwórz nową `ConsoleApp.SQLite` folderu projektu i użyj `dotnet` polecenie, aby umieścić w nim aplikacji .NET Core.
+* Utwórz nowy projekt konsoli:
 
 ``` Console
-mkdir ConsoleApp.SQLite
+dotnet new console -o ConsoleApp.SQLite
 cd ConsoleApp.SQLite/
-dotnet new console
 ```
 
-## <a name="install-entity-framework-core"></a>Zainstaluj program Entity Framework Core
+## <a name="install-entity-framework-core"></a>Instalowanie platformy Entity Framework Core
 
-Aby użyć EF podstawowe, należy zainstalować pakiet dla powszechne bazy danych, który ma być docelowa. W tym przewodniku zastosowano SQLite. Lista dostępnych dostawców [dostawcy bazy danych](../../providers/index.md).
+Aby korzystać z programu EF Core, należy zainstalować pakiet dla dostawców bazy danych, który ma pod kątem. W tym instruktażu wykorzystano bazy danych SQLite. Aby uzyskać listę dostępnych dostawców zobacz [dostawcy baz danych](../../providers/index.md).
 
 * Zainstaluj Microsoft.EntityFrameworkCore.Sqlite i Microsoft.EntityFrameworkCore.Design
 
@@ -50,45 +47,30 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 dotnet add package Microsoft.EntityFrameworkCore.Design
 ```
 
-* Ręcznie Edytuj `ConsoleApp.SQLite.csproj` dodać DotNetCliToolReference do Microsoft.EntityFrameworkCore.Tools.DotNet:
-
-  ``` xml
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
-  </ItemGroup>
-  ```
-
-`ConsoleApp.SQLite.csproj` teraz powinny zawierać następujące:
-
-[!code[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/ConsoleApp.SQLite.csproj)]
-
- Uwaga: Numery wersji użyta powyżej były prawidłowe w czasie publikowania.
-
-*  Uruchom `dotnet restore` do zainstalowania nowych pakietów.
+* Uruchom `dotnet restore` zainstalować nowe pakiety.
 
 ## <a name="create-the-model"></a>Tworzenie modelu
 
-Definiowanie kontekstu i jednostki klasy, które tworzą modelu.
+Definiowanie klas jednostek i kontekstu, które tworzą model.
 
-* Utwórz nową *Model.cs* pliku z następującą zawartość.
+* Utwórz nową *Model.cs* pliku o następującej zawartości.
 
 [!code-csharp[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/Model.cs)]
 
-Porada: W rzeczywistej aplikacji można będzie umieścić każda klasa w osobnym pliku, a ciąg połączenia w pliku konfiguracji. Aby zachować samouczka proste, wprowadzamy wszystko w jednym pliku.
+Porada: W rzeczywistej aplikacji, możesz umieścić każda klasa w oddzielnym pliku, a parametry połączenia w pliku konfiguracji. W celu uproszczenia tego samouczka wszystko, co znajduje się w jednym pliku.
 
-## <a name="create-the-database"></a>Utwórz bazę danych
+## <a name="create-the-database"></a>Tworzenie bazy danych
 
-Po utworzeniu modelu, można użyć [migracje](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) tworzenia bazy danych.
+Po utworzeniu modelu, użyj [migracje](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) utworzyć bazę danych.
 
-* Uruchom `dotnet ef migrations add InitialCreate` utworzyć szkielet migracji do utworzenia wstępnego zestawu tabel dla modelu.
-* Uruchom `dotnet ef database update` na zastosowanie nowych migracji w bazie danych. To polecenie tworzy bazy danych przed zastosowaniem migracji.
+* Uruchom `dotnet ef migrations add InitialCreate` tworzenia szkieletu migracji i utworzyć początkowy zestaw tabel dla modelu.
+* Uruchom `dotnet ef database update` zastosować nową migrację do bazy danych. To polecenie tworzy bazę danych przed zastosowaniem migracji.
 
-> [!NOTE]  
-> Używając ścieżek względnych z SQLite ścieżka będzie względem zestawu głównego aplikacji. W tym przykładzie jest głównym pliku binarnego `bin/Debug/netcoreapp2.0/ConsoleApp.SQLite.dll`, więc będzie bazy danych SQLite w `bin/Debug/netcoreapp2.0/blogging.db`.
+*Blogging.db** bazy danych SQLite znajduje się w katalogu projektu.
 
 ## <a name="use-your-model"></a>Użyj modelu
 
-* Otwórz *Program.cs* i Zastąp zawartość następującym kodem:
+* Otwórz *Program.cs* i zastąp jego zawartość następującym kodem:
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/Program.cs)]
 
@@ -96,7 +78,7 @@ Po utworzeniu modelu, można użyć [migracje](https://docs.microsoft.com/aspnet
 
   `dotnet run`
 
-  Jeden blogu jest zapisywana w bazie danych i szczegółowe informacje o wszystkich blogi są wyświetlane w konsoli.
+  Blog jeden jest zapisywany w bazie danych i szczegółowe informacje o wszystkich blogów są wyświetlane w konsoli.
 
   ``` Console
   ConsoleApp.SQLite>dotnet run
@@ -108,13 +90,13 @@ Po utworzeniu modelu, można użyć [migracje](https://docs.microsoft.com/aspnet
 
 ### <a name="changing-the-model"></a>Zmiana modelu:
 
-- Jeśli wprowadzisz zmiany w modelu, możesz użyć `dotnet ef migrations add` polecenie, aby utworzyć szkielet nowy [migracji](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) dokonanie odpowiedniej schematu zmiany w bazie danych. Po zaznaczeniu tej opcji szkieletu kodu (i wszelkie wymagane zmiany wprowadzone), można użyć `dotnet ef database update` polecenie, aby zastosować zmiany do bazy danych.
-- Używa EF `__EFMigrationsHistory` tabeli w bazie danych, aby śledzić migracji, które zostały już zastosowane do bazy danych.
-- SQLite nie obsługuje wszystkich migracji (zmiany schematu) ze względu na ograniczenia w SQLite. Zobacz [ograniczenia SQLite](../../providers/sqlite/limitations.md). W przypadku nowych aplikacji rozważ porzucenie bazy danych i tworzenia nowego zamiast migracje po zmianie modelu.
+- W przypadku wprowadzenia zmian do modelu, można użyć `dotnet ef migrations add` polecenie, aby utworzyć szkielet nowego [migracji](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) się odpowiedni schemat zmienia się z bazą danych. Po zaznaczeniu tej opcji utworzony szkielet kodu (i wprowadzone wymagane zmiany), można użyć `dotnet ef database update` polecenie, aby zastosować zmiany do bazy danych.
+- Używa EF `__EFMigrationsHistory` tabeli w bazie danych, aby śledzić migracje, które zostały już zastosowane do bazy danych.
+- Bazy danych SQLite nie obsługuje wszystkich migracji (zmiany schematu) ze względu na ograniczenia w bazy danych SQLite. Zobacz [ograniczenia SQLite](../../providers/sqlite/limitations.md). W nowych wdrożeniach należy wziąć pod uwagę porzucenie bazy danych i tworzenia nowej, a nie przy użyciu migracji po zmianie modelu.
 
 ## <a name="additional-resources"></a>Dodatkowe zasoby
 
-* [Oprogramowanie .NET core - nowej bazy danych SQLite](xref:core/get-started/netcore/new-db-sqlite) — samouczek EF konsoli i platform.
-* [Wprowadzenie do platformy ASP.NET Core MVC Mac lub Linux](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
+* [.NET core — Nowa baza danych za pomocą SQLite](xref:core/get-started/netcore/new-db-sqlite) — samouczek programu EF konsoli dla wielu platform.
+* [Wprowadzenie do platformy ASP.NET Core MVC na komputerze Mac lub Linux](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
 * [Wprowadzenie do platformy ASP.NET Core MVC za pomocą programu Visual Studio](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app/index)
 * [Rozpoczynanie pracy z platformą ASP.NET Core i programem Entity Framework Core przy użyciu programu Visual Studio](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
