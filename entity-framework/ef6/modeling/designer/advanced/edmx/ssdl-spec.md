@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: a4af4b1a-40f4-48cc-b2e0-fa8f5d9d5419
 caps.latest.revision: 3
-ms.openlocfilehash: ac76d416d806e18b3acfabe746a7015191b3a9e1
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
-ms.translationtype: HT
+ms.openlocfilehash: a9977c80d9a9401afdcad2284a705bcb28790fb8
+ms.sourcegitcommit: 9ae4473425c5e76337c9d032b0e5dbfedf1fcf57
+ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912782"
+ms.lasthandoff: 07/09/2018
+ms.locfileid: "37914475"
 ---
 # <a name="ssdl-specification"></a>Specyfikacja SSDL
 Język definicji schematu Store (SSDL) to oparty na standardzie XML język, który opisuje model magazynu w aplikacji Entity Framework.
@@ -50,12 +50,8 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **skojarzen
 |:---------------|:------------|:---------------------------------------------------------------------------------|
 | **Nazwa**       | Tak         | Nazwa odpowiedniego ograniczenie klucza obcego w bazie danych. |
 
- 
-
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **skojarzenia** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla SSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -79,9 +75,6 @@ W poniższym przykładzie przedstawiono **skojarzenia** element, który używa *
    </ReferentialConstraint>
  </Association>
 ```
- 
-
- 
 
 ## <a name="associationset-element-ssdl"></a>Obiekt AssociationSet — Element (SSDL)
 
@@ -104,12 +97,8 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **Associati
 | **Nazwa**        | Tak         | Nazwa ograniczenia klucza obcego, że skojarzenie ustawione reprezentuje.                          |
 | **Skojarzenie** | Tak         | Nazwa skojarzenia, który definiuje kolumny, które uczestniczą w ograniczenie klucza obcego. |
 
- 
-
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **AssociationSet** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla SSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -122,9 +111,6 @@ W poniższym przykładzie przedstawiono **AssociationSet** elementu, który repr
    <End Role="Orders" EntitySet="Orders" />
  </AssociationSet>
 ```
- 
-
- 
 
 ## <a name="collectiontype-element-ssdl"></a>Element CollectionType (SSDL)
 
@@ -132,8 +118,6 @@ W poniższym przykładzie przedstawiono **AssociationSet** elementu, który repr
 
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **CollectionType** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla SSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -154,9 +138,6 @@ W poniższym przykładzie pokazano funkcję, która używa **CollectionType** el
      </ReturnType>
    </Function>
 ```
- 
-
- 
 
 ## <a name="commandtext-element-ssdl"></a>Element CommandText (SSDL)
 
@@ -185,13 +166,10 @@ W poniższym przykładzie przedstawiono **funkcja** element z element podrzędny
               Type="int"/>
  </Function>
 ```
- 
-
- 
 
 ## <a name="definingquery-element-ssdl"></a>Element DefiningQuery (SSDL)
 
- **DefiningQuery** element język definicji schematu magazynu (SSDL) pozwala na wykonanie instrukcji SQL bezpośrednio w bazie danych. **DefiningQuery** element jest najczęściej używany jak widok bazy danych, ale widok jest zdefiniowany w modelu pamięci masowej zamiast bazy danych. Widok zdefiniowany w **DefiningQuery** elementu mogą być mapowane na typ jednostki w modelu koncepcyjnym za pośrednictwem elementu obiekcie EntitySetMapping. Te mapowania są przeznaczone tylko do odczytu.  
+**DefiningQuery** element język definicji schematu magazynu (SSDL) pozwala na wykonanie instrukcji SQL bezpośrednio w bazie danych. **DefiningQuery** element jest najczęściej używany jak widok bazy danych, ale widok jest zdefiniowany w modelu pamięci masowej zamiast bazy danych. Widok zdefiniowany w **DefiningQuery** elementu mogą być mapowane na typ jednostki w modelu koncepcyjnym za pośrednictwem elementu obiekcie EntitySetMapping. Te mapowania są przeznaczone tylko do odczytu.  
 
 Poniższa składnia SSDL pokazuje deklaracji **EntitySet** następuje **DefiningQuery** element, który zawiera zapytanie służy do pobierania tego widoku.
 
@@ -207,13 +185,10 @@ Poniższa składnia SSDL pokazuje deklaracji **EntitySet** następuje **Defining
      </EntitySet>
  </Schema>
 ```
- 
 
 Aby włączyć scenariuszach odczytu i zapisu za pośrednictwem widoków, można użyć procedur składowanych platformy Entity Framework. Widok źródła danych lub widoku SQL jednostki można użyć jako tabeli podstawowej dla pobierania danych i przetwarzania przez procedury składowane zmiany.
 
 Możesz użyć **DefiningQuery** elementu docelowego programu Microsoft SQL Server Compact 3.5. Chociaż program SQL Server Compact 3.5 nie obsługuje procedur przechowywanych, można zaimplementować podobne funkcje za pomocą **DefiningQuery** elementu. Jest innym miejscu, gdzie mogą być przydatne podczas tworzenia procedur składowanych do pokonania niezgodność typów danych, używany w języku programowania i te źródła danych. Można napisać **DefiningQuery** które pobiera zestaw parametrów, a następnie wywołuje procedurę składowaną z innym zestawem parametrów, na przykład procedury przechowywanej, która powoduje usunięcie danych.
-
- 
 
 ## <a name="dependent-element-ssdl"></a>Element zależne (SSDL)
 
@@ -232,12 +207,8 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **zależne*
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Rola**       | Tak         | Taką samą wartość jak **roli** atrybut odpowiedni element End (jeśli jest używana); w przeciwnym razie nazwę tabeli, która zawiera kolumna źródłowa odwołania. |
 
- 
-
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **zależne** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla CSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -261,9 +232,6 @@ W poniższym przykładzie pokazano element Association używający **Referential
    </ReferentialConstraint>
  </Association>
 ```
- 
-
- 
 
 ## <a name="documentation-element-ssdl"></a>Element documentation (SSDL)
 
@@ -295,9 +263,6 @@ W poniższym przykładzie przedstawiono **dokumentacji** element jako element po
    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="end-element-ssdl"></a>Element end (SSDL)
 
@@ -323,12 +288,8 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **zakończe
 | **Rola**         | Nie          | Wartość **roli** atrybutu w elemencie jednostki albo zależnych od odpowiadającego im elementu ReferentialConstraint (jeśli są używane).                                                                                                                                                                                                                                             |
 | **Liczebność** | Tak         | **1**, **od 0 do 1**, lub **\*** w zależności od liczby wierszy, które mogą być na końcu ograniczenie klucza obcego. <br/> **1** wskazuje, że dokładnie jeden wiersz istnieje na końcu ograniczenie klucza obcego. <br/> **od 0 do 1** wskazuje, że istnieje zero lub jeden wiersz na końcu ograniczenie klucza obcego. <br/> **\*** oznacza, że wartość zero, jeden lub więcej wierszy na końcu ograniczenie klucza obcego. |
 
- 
-
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **zakończenia** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla CSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 #### <a name="example"></a>Przykład
 
@@ -352,7 +313,6 @@ W poniższym przykładzie przedstawiono **skojarzenia** element, który definiuj
    </ReferentialConstraint>
  </Association>
 ```
- 
 
 ### <a name="end-element-as-a-child-of-the-associationset-element"></a>Końcowy Element jako element podrzędny elementu AssociationSet
 
@@ -372,12 +332,8 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **zakończe
 | **Obiekt EntitySet**  | Tak         | Nazwa zestawu jednostek SSDL, który znajduje się na końcu ograniczenie klucza obcego.                                      |
 | **Rola**       | Nie          | Wartość jednej z **roli** atrybuty określone w jednym **zakończenia** elementu odpowiednie skojarzenia. |
 
- 
-
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **zakończenia** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla CSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 #### <a name="example"></a>Przykład
 
@@ -398,9 +354,6 @@ W poniższym przykładzie przedstawiono **EntityContainer** element z **Associat
    </AssociationSet>
  </EntityContainer>
 ```
- 
-
- 
 
 ## <a name="entitycontainer-element-ssdl"></a>Element EntityContainer (SSDL)
 
@@ -422,12 +375,8 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **EntityCon
 |:---------------|:------------|:------------------------------------------------------------------------|
 | **Nazwa**       | Tak         | Nazwa kontenera jednostek. Ta nazwa nie może zawierać kropek (.). |
 
- 
-
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **EntityContainer** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla SSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -448,13 +397,10 @@ W poniższym przykładzie przedstawiono **EntityContainer** element, który defi
    </AssociationSet>
  </EntityContainer>
 ```
- 
-
- 
 
 ## <a name="entityset-element-ssdl"></a>Element EntitySet (SSDL)
 
- **EntitySet** element język definicji schematu magazynu (SSDL) reprezentuje tabelę lub widok w bazie danych. Element EntityType SSDL reprezentuje wiersz w tabeli lub widoku. **EntityType** atrybutu **EntitySet** element określa typ jednostki SSDL konkretnego, który reprezentuje wierszy w zestawie jednostek SSDL. Mapowanie między zestaw jednostek CSDL a SSDL zestaw jednostek jest określona w obiekcie EntitySetMapping elementu.
+**EntitySet** element język definicji schematu magazynu (SSDL) reprezentuje tabelę lub widok w bazie danych. Element EntityType SSDL reprezentuje wiersz w tabeli lub widoku. **EntityType** atrybutu **EntitySet** element określa typ jednostki SSDL konkretnego, który reprezentuje wierszy w zestawie jednostek SSDL. Mapowanie między zestaw jednostek CSDL a SSDL zestaw jednostek jest określona w obiekcie EntitySetMapping elementu.
 
 **EntitySet** element może mieć następujących elementów podrzędnych (w podanej kolejności):
 
@@ -469,25 +415,15 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **EntitySet
 > [!NOTE]
 > Niektóre atrybuty (niewymienione w tym) może być kwalifikowana za pomocą **przechowywania** aliasu. Te atrybuty są używane przez kreatora Model aktualizacji, podczas aktualizowania modelu.
 
- 
-
 | Nazwa atrybutu | Jest wymagany | Wartość                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
 | **Nazwa**       | Tak         | Nazwa zestawu jednostek.                                                              |
 | **Typ EntityType** | Tak         | W pełni kwalifikowana nazwa typu jednostki, dla której zestaw jednostek zawiera wystąpienia. |
 | **Schemat**     | Nie          | Schemat bazy danych.                                                                     |
 | **Tabela**      | Nie          | Tabela bazy danych.                                                                      |
- 
- 
- 
- 
- 
- 
 
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **EntitySet** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla SSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -508,9 +444,6 @@ W poniższym przykładzie przedstawiono **EntityContainer** element, który ma d
    </AssociationSet>
  </EntityContainer>
 ```
- 
-
- 
 
 ## <a name="entitytype-element-ssdl"></a>Element EntityType (SSDL)
 
@@ -530,12 +463,8 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **EntityTyp
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Nazwa**       | Tak         | Nazwa typu jednostki. Ta wartość jest zwykle taka sama jak nazwa tabeli, w którym typ jednostki reprezentuje wiersz. Ta wartość może zawierać nie kropki (.). |
 
- 
-
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **EntityType** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla SSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -554,9 +483,6 @@ W poniższym przykładzie przedstawiono **EntityType** elementu o dwie właściw
    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="function-element-ssdl"></a>Function — Element (SSDL)
 
@@ -581,8 +507,6 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **funkcja**
 > [!NOTE]
 > Niektóre atrybuty (niewymienione w tym) może być kwalifikowana za pomocą **przechowywania** aliasu. Te atrybuty są używane przez kreatora Model aktualizacji, podczas aktualizowania modelu.
 
- 
-
 | Nazwa atrybutu             | Jest wymagany | Wartość                                                                                                                                                                                                              |
 |:---------------------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Nazwa**                   | Tak         | Nazwa procedury składowanej.                                                                                                                                                                                  |
@@ -595,8 +519,6 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **funkcja**
 | **ParameterTypeSemantics** | Nie          | Wyliczenie, które definiuje semantyka typów, używany do rozpoznawania przeciążenia funkcji. Wyliczenia jest zdefiniowany w manifeście dostawcy dla definicji funkcji. Wartość domyślna to **AllowImplicitConversion**. |
 | **Schemat**                 | Nie          | Nazwa schematu, w którym zdefiniowano procedury składowanej.                                                                                                                                                   |
 
- 
-
 <sup>1</sup> wbudowana funkcja jest funkcją, która jest zdefiniowana w bazie danych. Aby uzyskać informacje na temat funkcji, które są zdefiniowane w modelu magazynu Zobacz Element CommandText (SSDL).
 
 <sup>2</sup> funkcję bez parametrów jest funkcją, która przyjmuje żadnych parametrów i, gdy zostanie wywołana, nie wymaga nawiasów.
@@ -605,8 +527,6 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **funkcja**
 
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **funkcja** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla SSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -624,9 +544,6 @@ W poniższym przykładzie przedstawiono **funkcja** element, który odpowiada **
    <Parameter Name="newQuantity" Type="int" Mode="In" />
  </Function>
 ```
- 
-
- 
 
 ## <a name="key-element-ssdl"></a>Kluczowym elementem (SSDL)
 
@@ -656,9 +573,6 @@ W poniższym przykładzie przedstawiono **EntityType** element z kluczem, który
    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="ondelete-element-ssdl"></a>Element OnDelete (SSDL)
 
@@ -677,12 +591,8 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **OnDelete*
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------|
 | **Akcja**     | Tak         | **Kaskadowe** lub **Brak**. (Wartość **ograniczeniami** jest prawidłowy, ale ma takie samo zachowanie jako **Brak**.) |
 
- 
-
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **OnDelete** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla SSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -706,9 +616,6 @@ W poniższym przykładzie przedstawiono **skojarzenia** element, który definiuj
    </ReferentialConstraint>
  </Association>
 ```
- 
-
- 
 
 ## <a name="parameter-element-ssdl"></a>Parameter — Element (SSDL)
 
@@ -733,12 +640,8 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **parametru
 | **Skala**      | Nie          | Skala parametru.                                                                                                                                                                                                     |
 | **SRID**       | Nie          | Identyfikator odwołania przestrzennego systemu. Prawidłowy tylko dla parametrów typów przestrzennych. Aby uzyskać więcej informacji, zobacz [SRID](http://en.wikipedia.org/wiki/SRID) i [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 
- 
-
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **parametru** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla SSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -756,9 +659,6 @@ W poniższym przykładzie przedstawiono **funkcja** element, który ma dwa **par
    <Parameter Name="newQuantity" Type="int" Mode="In" />
  </Function>
 ```
- 
-
- 
 
 ## <a name="principal-element-ssdl"></a>Element jednostki (SSDL)
 
@@ -777,12 +677,8 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **jednostki
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Rola**       | Tak         | Taką samą wartość jak **roli** atrybut odpowiedni element End (jeśli jest używana); w przeciwnym razie nazwę tabeli, która zawiera odwołuje się do kolumny. |
 
- 
-
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **jednostki** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla CSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -806,9 +702,6 @@ W poniższym przykładzie pokazano element Association używający **Referential
    </ReferentialConstraint>
  </Association>
 ```
- 
-
- 
 
 ## <a name="property-element-ssdl"></a>Property — Element (SSDL)
 
@@ -835,12 +728,8 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **właściw
 | **SRID**                  | Nie          | Identyfikator odwołania przestrzennego systemu. Prawidłowy tylko w przypadku właściwości typów przestrzennych. Aby uzyskać więcej informacji, zobacz [SRID](http://en.wikipedia.org/wiki/SRID) i [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 | **Element StoreGeneratedPattern** | Nie          | **Brak**, **tożsamości** (jeśli odpowiadająca wartość w kolumnie jest tożsamość, która jest generowana w bazie danych) lub **obliczane** (jeśli odpowiadająca wartość w kolumnie jest obliczana w bazie danych). Nie obowiązuje dla właściwości RowType. |
 
- 
-
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **właściwość** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla SSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -859,9 +748,6 @@ W poniższym przykładzie przedstawiono **EntityType** element z dwóch podrzęd
    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="propertyref-element-ssdl"></a>Element PropertyRef (SSDL)
 
@@ -883,12 +769,8 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **PropertyR
 |:---------------|:------------|:-------------------------------------|
 | **Nazwa**       | Tak         | Nazwa właściwości, której dotyczy odwołanie. |
 
- 
-
 > [!NOTE]
 > Dowolna liczba atrybutów adnotacji (niestandardowe atrybuty XML) można stosować do **PropertyRef** elementu. Jednak atrybutów niestandardowych, które nie mogą należeć do przestrzeni nazw XML, który jest zarezerwowany dla CSDL. W pełni kwalifikowanej nazwy dowolne dwa atrybuty niestandardowe nie może być taka sama.
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -907,9 +789,6 @@ W poniższym przykładzie przedstawiono **PropertyRef** element używany do defi
    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="referentialconstraint-element-ssdl"></a>Element ReferentialConstraint (SSDL)
 
@@ -1015,9 +894,6 @@ W poniższym przykładzie pokazano funkcję magazynu, która używa **Collection
      </ReturnType>
    </Function>
 ```
- 
-
- 
 
 ## <a name="schema-element-ssdl"></a>Element schematu (SSDL)
 
@@ -1044,8 +920,6 @@ W poniższej tabeli opisano atrybuty mogą być stosowane do **schematu** elemen
 | **Alias**                 | Nie          | Identyfikator używany zamiast nazwy przestrzeni nazw. Na przykład jeśli **EntityType** o nazwie *klienta* znajduje się w przestrzeni nazw ExampleModel.Store i wartość **Alias** atrybut jest *StorageModel*, wówczas można użyć StorageModel.Customer jako w pełni kwalifikowana nazwa **typu EntityType.**                                                                                                                                                                                                                                                                                    |
 | **Dostawcy**              | Tak         | Dostawca danych.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | **ProviderManifestToken** | Tak         | Token, który wskazuje dostawcy, które manifest dostawcy, aby powrócić. Nie format tokenu jest zdefiniowany. Wartości dla tokenu są definiowane przez dostawcę. Uzyskać informacji dotyczących tokenów manifestu dostawcy programu SQL Server zobacz SqlClient programu Entity Framework.                                                                                                                                                                                                                                                                                                                        |
-
- 
 
 ### <a name="example"></a>Przykład
 
@@ -1134,9 +1008,6 @@ W poniższym przykładzie przedstawiono **schematu** element, który zawiera **E
    </Function>
  </Schema>
 ```
- 
-
- 
 
 ## <a name="annotation-attributes"></a>Atrybuty adnotacji
 
@@ -1166,9 +1037,6 @@ W poniższym przykładzie pokazano element EntityType, który ma atrybut adnotac
    </c:CustomElement>
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="annotation-elements-ssdl"></a>Elementów adnotacji (SSDL)
 
@@ -1199,9 +1067,6 @@ W poniższym przykładzie pokazano element EntityType, który ma element adnotac
    </c:CustomElement>
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="facets-ssdl"></a>Zestawy reguł (SSDL)
 

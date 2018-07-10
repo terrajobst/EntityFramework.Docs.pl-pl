@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 402fe960-754b-470f-976b-e5de3e9986b5
 caps.latest.revision: 3
-ms.openlocfilehash: df752722dafbeff3042acdc95a58741f6e0f271d
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
-ms.translationtype: HT
+ms.openlocfilehash: f924945b19dd6d73847ff3ec52c0b5a286c591bb
+ms.sourcegitcommit: 9ae4473425c5e76337c9d032b0e5dbfedf1fcf57
+ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912674"
+ms.lasthandoff: 07/09/2018
+ms.locfileid: "37914466"
 ---
 # <a name="relationships---ef-designer"></a>Relacje — projektancie platformy EF
 > [!NOTE]
@@ -53,7 +53,8 @@ Tworzenie skojarzenia z aktualizacjami projektancie platformy EF modelu zawarto�
     ![AddAssociation](~/ef6/media/addassociation.png)
 
     > [!NOTE]
-> Użytkownik może nie dodać właściwości nawigacji lub właściwości klucza obcego z jednostkami: końcach asocjacji, czyszcząc ** właściwość nawigacji ** i ** dodać właściwości klucza obcego do &lt;Nazwa typu jednostki&gt; jednostki ** pola wyboru. Jeśli dodasz tylko jedną właściwość nawigacji, stowarzyszenia będą traversable tylko w jednym kierunku. Jeśli dodasz żadnych właściwości nawigacji, użytkownik musi dodać właściwości klucza obcego w celu uzyskania dostępu do jednostek na końcach asocjacji.
+    > Użytkownik może nie dodać właściwości nawigacji lub właściwości klucza obcego z jednostkami: końcach asocjacji, czyszcząc ** właściwość nawigacji ** i ** dodać właściwości klucza obcego do &lt;Nazwa typu jednostki&gt; jednostki ** pola wyboru. Jeśli dodasz tylko jedną właściwość nawigacji, stowarzyszenia będą traversable tylko w jednym kierunku. Jeśli dodasz żadnych właściwości nawigacji, użytkownik musi dodać właściwości klucza obcego w celu uzyskania dostępu do jednostek na końcach asocjacji.
+    
 3.  Kliknij przycisk **OK**.
 
 ### <a name="to-delete-an-association"></a>Aby usunąć skojarzenie

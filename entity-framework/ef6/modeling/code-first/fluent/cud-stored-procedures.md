@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 9a7ae7f9-4072-4843-877d-506dd7eef576
 caps.latest.revision: 3
-ms.openlocfilehash: bb27d416dcf931a29005160be7eae3806803b1b6
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
-ms.translationtype: HT
+ms.openlocfilehash: 6f8466601bedb705775b11e0b2732b1c4215aeac
+ms.sourcegitcommit: 9ae4473425c5e76337c9d032b0e5dbfedf1fcf57
+ms.translationtype: MT
 ms.contentlocale: pl-PL
 ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914119"
+ms.locfileid: "37914469"
 ---
 # <a name="code-first-insert-update-and-delete-stored-procedures"></a>Pierwsze wstawienie kodu, aktualizowanie i usuwanie procedur składowanych
 > [!NOTE]
@@ -36,8 +36,8 @@ W ten sposób spowoduje, że Code First na potrzeby niektóre konwencje kompilac
 
 - Trzy procedury składowane o nazwie  **\<type_name\>_Wstaw**,  **\<type_name\>_aktualizuj** i  **\<type_ Nazwa\>_Usuń** (np. Blog_Insert i Blog_Update Blog_Delete).  
 - Nazwy parametrów odpowiadają nazwy właściwości.  
-    > [!NOTE]
-> Jeśli używasz HasColumnName() lub atrybut kolumny można zmienić nazwy kolumny dla danej właściwości ta nazwa jest używana dla parametrów zamiast nazwy właściwości.  
+  > [!NOTE]
+  > Jeśli używasz HasColumnName() lub atrybut kolumny można zmienić nazwy kolumny dla danej właściwości ta nazwa jest używana dla parametrów zamiast nazwy właściwości.  
 - **Procedura składowana insert** będzie mieć parametr dla każdej właściwości, z wyjątkiem tych oznaczone jako wygenerowane (tożsamość lub obliczona). Procedura składowana powinien zwrócić zestawu wyników z kolumny dla każdej właściwości wygenerowane.  
 - **Procedura składowana aktualizacji** będzie mieć parametr dla każdej właściwości, z wyjątkiem tych oznaczone wzorzec wygenerowane "Obliczane". Niektóre tokeny współbieżności wymaga parametru dla oryginalnej wartości, zobacz *tokeny współbieżności* sekcji poniżej, aby uzyskać szczegółowe informacje. Procedura składowana powinien zwrócić zestawu wyników z kolumny dla każdej właściwości obliczanej.  
 - **Usuń procedurę składowaną** powinien mieć parametr wartość klucza jednostki (lub wiele parametrów, jeśli jednostka ma klucz złożony). Ponadto procedury usuwania powinny mieć również parametry żadnych kluczy obcych skojarzenia niezależnie od tabeli docelowej (relacje, które nie mają odpowiednich właściwości klucza obcego zadeklarowane w jednostce). Niektóre tokeny współbieżności wymaga parametru dla oryginalnej wartości, zobacz *tokeny współbieżności* sekcji poniżej, aby uzyskać szczegółowe informacje.  
