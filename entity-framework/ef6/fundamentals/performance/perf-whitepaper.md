@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
 caps.latest.revision: 4
-ms.openlocfilehash: 00a6194896370db2578dad21dc641bbb183aa3fb
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: c01cf2b28e56fb73783bd9ed0d133bffa0a7dbe7
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914320"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949336"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Zagadnienia dotyczące wydajności na platformie EF, 4, 5 i 6
 David Obando, Eric Dettinger i inne osoby
@@ -213,7 +213,7 @@ Korzystając z platformy Entity Framework 6, deweloperzy mają możliwość wywo
 
 ### <a name="32-query-plan-caching"></a>3.2 buforowanie planu zapytania za pomocą
 
-Zapytanie jest wykonywane, po raz pierwszy, go przechodzi przez kompilator wewnętrzny plan do tłumaczenia koncepcyjny zapytanie na polecenia magazynu (np. T-SQL, który jest wykonywany po uruchomieniu testów programu SQL Server).  Jeśli włączone jest buforowanie planu zapytania, przy następnym zapytanie jest wykonywane sklepu polecenia są pobierane bezpośrednio z pamięci podręcznej planu zapytania do wykonania, z pominięciem kompilatora planu.
+Zapytanie jest wykonywane, po raz pierwszy, go przechodzi przez kompilator wewnętrzny plan do tłumaczenia koncepcyjny zapytanie na polecenia magazynu (na przykład T-SQL, który jest wykonywany po uruchomieniu testów programu SQL Server).  Jeśli włączone jest buforowanie planu zapytania, przy następnym zapytanie jest wykonywane sklepu polecenia są pobierane bezpośrednio z pamięci podręcznej planu zapytania do wykonania, z pominięciem kompilatora planu.
 
 Pamięci podręcznej planu zapytania jest współużytkowany przez obiekt ObjectContext wystąpienia w ramach tej samej domenie aplikacji. Nie należy przechowywać na wystąpienie obiektu ObjectContext do korzystania z buforowanie planu zapytania.
 
@@ -233,7 +233,7 @@ Pamięci podręcznej planu zapytania jest współużytkowany przez obiekt Object
                     ObjectQuery oQuery = query as ObjectQuery;
                     oQuery.EnablePlanCaching = false;
 ```
--   W zapytaniach parametrycznych zmiana wartości parametru nadal będzie trafień pamięci podręcznej zapytań. Jednak zmiana parametru aspektami (np. rozmiar, dokładności lub skali) spowoduje osiągnięcie inny wpis w pamięci podręcznej.
+-   W zapytaniach parametrycznych zmiana wartości parametru nadal będzie trafień pamięci podręcznej zapytań. Jednak zmiana parametru aspektami (na przykład rozmiaru, dokładności lub skali) spowoduje osiągnięcie inny wpis w pamięci podręcznej.
 -   Podczas korzystania z jednostki SQL, ciąg zapytania jest częścią klucza. Zmiana zapytanie na wszystkich spowoduje wpisy w pamięci podręcznej różne, nawet jeśli zapytania są funkcjonalnie równoważne. Obejmuje to zmiany wielkości liter lub była białym znakiem.
 -   Podczas korzystania z LINQ, zapytania są przetwarzane do generowania część klucza. Zmiana wyrażenia LINQ w związku z tym wygeneruje inny klucz.
 -   Inne ograniczenia techniczne mogą zastosować; Aby uzyskać więcej informacji, zobacz Autocompiled zapytania.
@@ -334,7 +334,7 @@ Spowoduje, że niektóre składniki użytkowania IQueryable złożone obiekty, a
 
 Zespół Doradczy klientów to omówiono w nim ich "Potencjalnych wydajności problemy z skompilowany LINQ zapytanie ponownie kompiluje" w blogu: <http://blogs.msdn.com/b/appfabriccat/archive/2010/08/06/potential-performance-issues-with-compiled-linq-query-re-compiles.aspx>.
 
-Jedno miejsce, gdzie może wystąpić ten jest podczas dodawania filtrów stopniowego do zapytania. Na przykład załóżmy, że masz strony klienci z kilku list rozwijanych opcjonalne filtrów (np. kraj i OrdersCount). Filtry te można utworzyć za pośrednictwem wyników IQueryable CompiledQuery, ale takie działanie spowoduje w nowym zapytaniu przechodzenia przez kompilator planu, za każdym razem, aby uruchomić go.
+Jedno miejsce, gdzie może wystąpić ten jest podczas dodawania filtrów stopniowego do zapytania. Na przykład załóżmy, że masz strony klienci z kilku list rozwijanych opcjonalne filtry (na przykład, kraj i OrdersCount). Filtry te można utworzyć za pośrednictwem wyników IQueryable CompiledQuery, ale takie działanie spowoduje w nowym zapytaniu przechodzenia przez kompilator planu, za każdym razem, aby uruchomić go.
 
 ``` csharp
     using (NorthwindEntities context = new NorthwindEntities())
@@ -403,7 +403,7 @@ Entity Framework obsługuje także buforowanie metadanych. To jest zasadniczo bu
 #### <a name="341-metadata-caching-algorithm"></a>3.4.1 pamięć podręczna metadanych algorytmu
 
 1.  Informacje o metadanych dla modelu, znajduje się w obiektu ItemCollection każdy obiekt EntityConnection.
-    -   Notatka boczna istnieją różne obiekty ItemCollection dla różnych części modelu, np. StoreItemCollections zawiera informacje o modelu bazy danych; ObjectItemCollection zawiera informacje o modelu danych; EdmItemCollection zawiera informacje o modelu koncepcyjnego.
+    -   Jako notatka boczna istnieją różne obiekty ItemCollection dla różnych części modelu. Na przykład StoreItemCollections zawiera informacje o modelu bazy danych; ObjectItemCollection zawiera informacje o modelu danych; EdmItemCollection zawiera informacje o modelu koncepcyjnego.
 
 2.  Jeśli dwa połączenia używają tych samych parametrach połączenia, będą miały to samo wystąpienie ItemCollection.
 3.  Parametry połączenia funkcjonalnie równoważne, ale różnych w formie tekstu może spowodować innych metadanych w pamięci podręcznej. Firma Microsoft tokenizację parametry połączenia, więc po prostu zmieniając kolejność tokenów powinna być rozwiązywana WE udostępnionych metadanych. Jednak dwa ciągi połączeń, które wydają się funkcjonalne może nie zostać ocenione jako identyczne po tokenizacji.
@@ -893,7 +893,7 @@ Podczas tworzenia modelu przez istniejącą bazę danych, która ma schemat TPT 
 
 Gdy używasz pierwszego modelu w Kreatorze Projektant jednostki, otrzymasz TPT wszystkie dziedziczenia w modelu. Jeśli chcesz przełączyć się do strategii TPH dziedziczenia z pierwszego modelu, można używać "jednostki projektanta bazy danych generowania Power Pack" dostępne z galerii Visual Studio ( \< http://visualstudiogallery.msdn.microsoft.com/df3541c3-d833-4b65-b942-989e7ec74c87/>).
 
-Za pomocą Code First skonfiguruj mapowanie modelu za pomocą dziedziczenia, platforma EF użyje TPH domyślnie, czyli wszystkich obiektów w hierarchii dziedziczenia zostaną zmapowane do tej samej tabeli. Zobacz sekcję "Mapowanie z interfejs Fluent API" artykułu "Kodu pierwszy w jednostki Framework4.1" w MSDN Magazine ( [ http://msdn.microsoft.com/magazine/hh126815.aspx ](https://msdn.microsoft.com/magazine/hh126815.aspx)) Aby uzyskać więcej informacji.
+Za pomocą Code First skonfiguruj mapowanie modelu za pomocą dziedziczenia, platforma EF użyje TPH domyślnie, dlatego wszystkie jednostki w hierarchii dziedziczenia zostaną zmapowane do tej samej tabeli. Zobacz sekcję "Mapowanie z interfejs Fluent API" artykułu "Kodu pierwszy w jednostki Framework4.1" w MSDN Magazine ( [ http://msdn.microsoft.com/magazine/hh126815.aspx ](https://msdn.microsoft.com/magazine/hh126815.aspx)) Aby uzyskać więcej informacji.
 
 ### <a name="72-------upgrading-from-ef4-to-improve-model-generation-time"></a>7.2 uaktualniasz EF4 w celu generowania modelu czasu
 
@@ -1105,7 +1105,7 @@ Brak coś takiego jak opracowanie wybór wczesne ładowanie, a ładowanie z opó
 
 Wzięliśmy to pytania wydajności, które obejmują problemów czas odpowiedzi serwera, źródłem problemu jest często zapytania z wieloma instrukcjami Include. Łącznie z powiązanymi obiektami w zapytaniu jest zaawansowanych, jest ważne, aby zrozumieć, co się dzieje w sposób niewidoczny.
 
-Trwa stosunkowo długo dla zapytania z wieloma instrukcjami Include w nim przechodzić przez kompilator naszego wewnętrznego planu w taki sposób, aby wygenerować polecenia magazynu. Większość tego czasu jest poświęcony próby zoptymalizowania wynikowe zapytanie. Polecenie wygenerowanego magazynu będzie zawierać Outer Join lub Unii, dla każdego dołączenia, w zależności od Twojego mapowania. Wysyła zapytanie tak, jak zostanie wyświetlone w dużych wykresów połączonych ze swojej bazy danych w jednym ładunku acerbate problemach przepustowości, szczególnie w przypadku, gdy jest dużo nadmiarowości w ładunku (tj. z wielu poziomów Include przechodzenia skojarzeń w kierunek jeden do wielu).
+Trwa stosunkowo długo dla zapytania z wieloma instrukcjami Include w nim przechodzić przez kompilator naszego wewnętrznego planu w taki sposób, aby wygenerować polecenia magazynu. Większość tego czasu jest poświęcony próby zoptymalizowania wynikowe zapytanie. Polecenie wygenerowanego magazynu będzie zawierać Outer Join lub Unii, dla każdego dołączenia, w zależności od Twojego mapowania. Kwerend, takich jak ta zostanie wyświetlone w dużych wykresów połączonych ze swojej bazy danych w jednym ładunku acerbate problemach przepustowości, szczególnie w przypadku, gdy jest dużo nadmiarowości w ładunku (na przykład, gdy wiele poziomów dołączania są używane do przechodzenia skojarzenia w kierunku jeden do wielu).
 
 Możesz sprawdzić, czy w przypadkach, w którym zapytań jest zwracany ładunków bardzo duże, uzyskując dostęp do podstawowych TSQL dla zapytania, używając ToTraceString i wykonując polecenie magazynu w SQL Server Management Studio, aby wyświetlić rozmiar ładunku. W takich przypadkach można wypróbować, aby zmniejszyć liczbę instrukcji dołączania w zapytaniu tylko Przenieś potrzebne dane. Lub można przerwać zapytania mniejszych sekwencji podzapytań, na przykład:
 
