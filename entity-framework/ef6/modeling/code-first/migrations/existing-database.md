@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: f0cc4f93-67dd-4664-9753-0a9f913814db
 caps.latest.revision: 3
-ms.openlocfilehash: 56a7179a522bc4d8eadf631b0db7be7b3fc9874e
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 77e139a29bb4708b00fc6198a57780ce75197252
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914258"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949106"
 ---
 # <a name="code-first-migrations-with-an-existing-database"></a>Migracje Code First przy użyciu istniejącej bazy danych
 > [!NOTE]
@@ -90,7 +90,7 @@ Gdy muszą być tego świadomym, poniżej przedstawiono kilka przykładów:
 
 **Jeśli użyto "dwóch opcji: Użyj pustej bazy danych jako punktu wyjścia" uzyskaną w kroku 3:**
 
--   Próby uruchomienia metodę początkowej migracji (czyli powracanie do pustej bazy danych) w dół względem lokalnej bazy danych może zakończyć się niepowodzeniem, ponieważ migracje podejmie próbę Porzuć indeksy i ograniczenia klucza obcego przy użyciu niepoprawnymi nazwami. Wpłynie to tylko lokalna baza danych od innych baz danych zostanie utworzona od podstaw przy użyciu metody w górę początkowej migracji.
+-   Próby uruchomienia metody szczegółów początkowej migracji (które powracanie do pustej bazy danych) względem lokalnej bazy danych może zakończyć się niepowodzeniem, ponieważ migracje podejmie próbę Porzuć indeksy i ograniczenia klucza obcego przy użyciu niepoprawnymi nazwami. Wpłynie to tylko lokalna baza danych od innych baz danych zostanie utworzona od podstaw przy użyciu metody w górę początkowej migracji.
     Jeśli chcesz użyć istniejącej lokalnej bazy danych do stanu pustego najłatwiej można to zrobić ręcznie, poprzez usunięcie bazy danych lub usunięcie wszystkich tabel. Po tej początkowej obniżenia poziomu których wszystkie obiekty bazy danych zostaną odtworzone z domyślnymi nazwami więc ten problem nie przedstawi się ponownie.
 -   Jeśli przyszłe zmiany w modelu wymagają, zmienianie lub porzucanie jeden z obiektów bazy danych, które są nazwane w różny sposób, to nie będzie działać względem istniejącej lokalnej bazy danych — od nazwy nie pasują do wartości domyślnych. Jednak będą działać względem bazy danych, które zostały utworzone "od zera", ponieważ te będą używane domyślne nazwy wybranego przez migracje.
     Można ręcznie wprowadzić te zmiany w istniejącej lokalnej bazy danych lub należy rozważyć utworzenie migracje ponownie utworzyć od podstaw — bazy danych, jak wpłynie to na innych komputerach.

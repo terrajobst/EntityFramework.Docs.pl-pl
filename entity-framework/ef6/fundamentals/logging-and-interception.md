@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
 caps.latest.revision: 3
-ms.openlocfilehash: 9c95b7490c11a28524a1468518261aa4bc317262
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 1d0e953309f3c81a2941d6850e169aaa31ae8de0
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914270"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949286"
 ---
 # <a name="logging-and-intercepting-database-operations"></a>Rejestrowanie i przechwytuje operacji bazy danych
 > [!NOTE]
@@ -134,7 +134,7 @@ Patrząc powyższych danych wyjściowych przykładu, każdy z czterech poleceń 
 
 Jak wspomniano powyżej logowanie do konsoli jest bardzo proste. Jest również łatwe logowanie do pamięci, plików, itp. przy użyciu różnych rodzajów z [TextWriter](https://msdn.microsoft.com/library/system.io.textwriter.aspx).  
 
-Jeśli znasz za pomocą LINQ to SQL może się okazać, że w składniku LINQ to SQL dziennika właściwość jest ustawiona do rzeczywistego TextWriter obiektu (np. Console.Out) podczas w programie EF ustawiono właściwość dziennika do metody, która akceptuje parametry (np. Console.Write — lub Console.Out.Write). Przyczyną jest oddzielenie EF z TextWriter, akceptując dowolnym delegatem, który może działać jako obiekt sink dla ciągów. Załóżmy, że masz już pewne struktury rejestrowania i definiuje metodę rejestrowania w następujący sposób:  
+Jeśli znasz za pomocą LINQ to SQL, można zauważyć, że w składniku LINQ to SQL ustawiono właściwość dziennika do rzeczywistego TextWriter obiektu (na przykład Console.Out) podczas w programie EF ustawiono właściwość dziennika do metody, która akceptuje ciąg (na przykład Console.Write — lub Console.Out.Write). Przyczyną jest oddzielenie EF z TextWriter, akceptując dowolnym delegatem, który może działać jako obiekt sink dla ciągów. Załóżmy, że masz już pewne struktury rejestrowania i definiuje metodę rejestrowania w następujący sposób:  
 
 ``` csharp
 public class MyLogger
@@ -275,7 +275,7 @@ Patrząc metod w interfejsach interceptor wobec jego okaże się, że każde wyw
 
 ### <a name="result-handling"></a>Obsługa wyników  
 
-DbCommandInterceptionContext\< \> klasa zawiera właściwości o nazwie wynik, OriginalResult, wyjątków i oryginalny wyjątek. Te właściwości są ustawione na wartość null/zero dla wywołania metod przejmowanie, które są wywoływane przed operacji executed—i.e.... Wykonywanie metod. Jeśli operacja jest wykonywana, a zakończy się pomyślnie, następnie wynik i OriginalResult są ustawione na wynik operacji. Następnie można zaobserwować te wartości w metodach przejmowanie, które są wywoływane po operacji executed—i.e.... Wykonane metody. Podobnie jeśli operacja zgłosi, następnie właściwości wyjątku i oryginalny wyjątek zostaną ustawione.  
+DbCommandInterceptionContext\< \> klasa zawiera właściwości o nazwie wynik, OriginalResult, wyjątków i oryginalny wyjątek. Te właściwości są ustawione na wartość null/zero dla wywołania metod przejmowanie, które są wywoływane przed wykonaniem operacji — czyli dla... Wykonywanie metod. Jeśli operacja jest wykonywana, a zakończy się pomyślnie, następnie wynik i OriginalResult są ustawione na wynik operacji. Następnie można zaobserwować te wartości w metodach przejmowanie, które są wywoływane po wykonaniu operacji — czyli na... Wykonane metody. Podobnie jeśli operacja zgłosi, następnie właściwości wyjątku i oryginalny wyjątek zostaną ustawione.  
 
 #### <a name="suppressing-execution"></a>Pomijanie wykonania  
 
