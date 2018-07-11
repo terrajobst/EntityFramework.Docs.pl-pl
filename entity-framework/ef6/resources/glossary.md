@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
 caps.latest.revision: 3
-ms.openlocfilehash: 8a06cfb2dbe79364c3f5cc21ecb32fd60d239e8a
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: cbd61838afc23dfb37cee7c624c65476c5270099
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914107"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949100"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework słownik
 ## <a name="code-first"></a>Najpierw kod
@@ -48,13 +48,13 @@ Wzorzec załadunku, powiązanych danych, gdzie obiekty powiązane są ładowane 
 Interfejs API, który może służyć do konfigurowania model Code First.
 
 ## <a name="foreign-key-association"></a>Skojarzenie klucza obcego
-Skojarzenia między jednostkami, której właściwość, która reprezentuje klucz obcy jest zawarta w klasie jednostki zależne (tj. ten produkt zawiera właściwość CategoryId).
+Skojarzenia między jednostkami, której właściwość, która reprezentuje klucz obcy znajduje się w klasie jednostki zależne. Na przykład produkt zawiera właściwość CategoryId.
 
 ## <a name="identifying-relationship"></a>Identyfikowanie relacji
 Relacja, w którym klucz podstawowy jednostki głównej jest częścią klucza podstawowego jednostki zależne. W tego rodzaju relacji jednostki zależne nie może istnieć bez jednostki głównej.
 
 ## <a name="independent-association"></a>Niezależnie od skojarzenia
-Skojarzenia między jednostkami w przypadku, gdy nie ma właściwości reprezentujący klucz obcy w klasie jednostki zależne (czyli klasy produktu zawiera relację z kategorii, ale nie ma właściwości CategoryId). Entity Framework użyje tworzenie niezależnych obiektów do śledzenia tej relacji.
+Skojarzenia między jednostkami w przypadku, gdy nie ma właściwości reprezentujący klucz obcy w klasie jednostki zależne. Na przykład klasa produktu zawiera relację z kategorii, ale nie ma właściwości CategoryId. Entity Framework śledzi stan skojarzenia, niezależnie od stanu jednostek końców dwóch skojarzenia.
 
 ## <a name="lazy-loading"></a>Ładowanie z opóźnieniem
 Wzorzec załadunku, powiązanych danych, gdzie obiekty powiązane są ładowane automatycznie podczas uzyskiwania dostępu do właściwości nawigacji.
@@ -63,7 +63,7 @@ Wzorzec załadunku, powiązanych danych, gdzie obiekty powiązane są ładowane 
 Tworzenie modelu Entity Framework, za pomocą projektanta EF następnie używany do tworzenia nowej bazy danych.
 
 ## <a name="navigation-property"></a>Właściwość nawigacji
-Właściwości jednostki, do której odwołuje się do innej jednostki (czyli produkt zawiera właściwość nawigacji kategorii i kategoria zawiera właściwość nawigacji produktów).
+Właściwość obiektu, który odwołuje się do innej jednostki. Na przykład produkt zawiera właściwość nawigacji kategorii i kategoria zawiera właściwość nawigacji produktów.
 
 ## <a name="poco"></a>OBIEKTÓW POCO
 Akronim obiektu CLR zwykły stary. Klasa prostych użytkownika, która nie ma zależności za pomocą dowolnej platformy. W kontekście EF Klasa jednostki, która nie pochodzi od EntityObject, implementuje żadnych interfejsów lub niesie ze sobą wszelkie atrybuty zdefiniowane w programie EF. Takie klasy jednostek, które są całkowicie niezależni od framework trwałości są również określane jako "trwałość zakresu".  

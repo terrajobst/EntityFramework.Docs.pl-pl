@@ -6,52 +6,52 @@ ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 ms.technology: entity-framework-core
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: e23f5d7b1ff95bead310fa8e618a88c161a4e10c
-ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
+ms.openlocfilehash: f319aabb53019e0f153c911dde5814328423081b
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34754447"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949169"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core plan
 
 > [!IMPORTANT]
-> Zauważ, że zestawy funkcji i harmonogramy przyszłych wersji zawsze mogą ulec zmianie, mimo że firma Microsoft podejmie próbę aktualności tej strony, może ona nie odzwierciedlać najnowszych plany na wszystkich razy.
+> Należy pamiętać, że zestawy funkcji i harmonogramy przyszłych wersji zawsze mogą ulec zmianie i czasu, mimo że firma Microsoft podejmie próbę tej strony na bieżąco, jego mogą nie odzwierciedlać najnowszych plany na wszystkich.
 
-Stabilna wersja EF Core 2.1 został wydany 30 maja 2018. Można znaleźć więcej informacji na temat tej wersji w [What's new in EF Core 2.1](xref:core/what-is-new/ef-core-2.1).
+Stabilna wersja programu EF Core 2.1 został wydany 30 maja 2018 r. Można znaleźć więcej informacji na temat tej wersji w [What's new in EF Core 2.1](xref:core/what-is-new/ef-core-2.1).
 
-Firma Microsoft nie została ukończona [wersji procesu planowania](#release-planning-process) w następnej wersji po 2.1.
+Nie możemy ukończyć [wersji procesu planowania](#release-planning-process) na kolejne wydanie po 2.1.
 
 ## <a name="schedule"></a>Harmonogram
 
-Harmonogram EF Core jest zsynchronizowana z [harmonogram .NET Core](https://github.com/dotnet/core/blob/master/roadmap.md) i [harmonogram platformy ASP.NET Core](https://github.com/aspnet/Home/wiki/Roadmap).
+Harmonogram dla platformy EF Core jest zsynchronizowany z [harmonogram platformy .NET Core](https://github.com/dotnet/core/blob/master/roadmap.md) i [harmonogram platformy ASP.NET Core](https://github.com/aspnet/Home/wiki/Roadmap).
 
 ## <a name="backlog"></a>Zaległości
 
-Używamy [punkt kontrolny zaległości](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3ABacklog+sort%3Areactions-%2B1-desc) w naszych śledzącym problem, aby zachować szczegółową listę problemów i funkcje. Klienci mogą komentarzy i głosowanie w górę, te.
+Używamy [punkt kontrolny zaległości](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3ABacklog+sort%3Areactions-%2B1-desc) w nasze narzędzia do śledzenia błędów do utrzymania szczegółowa lista funkcji i problemów. Klienci mogą komentarz i głosowanie w górę, te.
 
 Firma Microsoft często pozostaw otwarte, że firma Microsoft spodziewać firma Microsoft będzie działać na w pewnym momencie lub inną od społeczności można rozwiązania, ale nie oznacza celem ich rozwiązania w określonym przedziale czasu do czasu firma Microsoft przypisać je do określonego punktu kontrolnego w ramach naszych problemów [wersji procesu planowania](#release-planning-process).
 
-Jeśli firma Microsoft nie planuje kiedykolwiek wdrożenie funkcją, firma Microsoft zamknie prawdopodobnie problem. Problem, który możemy zamknąć może zostać ponownie rozważone w późniejszym czasie, jeśli uzyskany nowe informacje.
+Jeśli firma nie chce kiedykolwiek wdrożyć funkcję, firma Microsoft prawdopodobnie zostanie zamknięty problem. Problem, który możemy zamknięte można sposób w dowolnym momencie, jeśli możemy uzyskać nowe informacje o nim.
 
-Wszystkie inaczej mówiąc, firma Microsoft nie ma wystarczającej ilości informacji o przyszłej działalności, aby można było wskazywać, że ta funkcja X zostaną rozwiązane przez czas i wersji Y. Tak jak wszystkie projekty oprogramowania priorytetów, harmonogramy wersji i dostępnych zasobów można zmienić w dowolnym momencie.
+Wszystkie inaczej mówiąc, nie mamy wystarczającej ilości informacji o przyszłość, aby można było Załóżmy, że tej funkcji X zostaną rozwiązane przez czas/release Y. Tak jak wszystkie projekty oprogramowania priorytetów, harmonogramy wersji i dostępnych zasobów można zmienić w dowolnym momencie.
 
-## <a name="release-planning-process"></a>Proces planowania zlecenia
+## <a name="release-planning-process"></a>Proces planowania wydania
 
-Uzyskujemy często zadawane pytania dotyczące sposobu wybieramy opcję określonych funkcji, aby przejść do określonej wersji. Nasze zaległości na pewno nie automatycznie przekłada się na planów wprowadzenia produktu. Obecność funkcją EF6 również nie automatycznie oznacza funkcji musi być implementowane w EF Core.
+Uzyskujemy często zadawane pytania dotyczące sposobu Wybierzmy określonych funkcji, aby przejść do określonej wersji. Naszych planach na pewno nie przekłada się automatycznie w planach wydania. Obecność funkcją EF6 również nie automatycznie oznacza, że ta funkcja musi zostać wdrożone w programie EF Core.
 
-Trudno tutaj szczegółowo cały proces, który możemy wykonać, aby zaplanować zlecenia, częściowo, ponieważ zawiera ona wiele określonych funkcji, możliwości i priorytety i częściowo, ponieważ sam proces zwykle rozwoju w każdej wersji. Istnieje stosunkowo łatwa do podsumowania często zadawane pytania, którą spróbujemy odpowiedzieć przy podejmowaniu decyzji co do pracy w następnej kolejności:
+Trudno poniżej szczegółowo cały proces, który możemy wykonać, aby zaplanować wydanie, częściowo, ponieważ zawiera mnóstwo określone funkcje, możliwości i priorytety i częściowo, ponieważ sam proces jest zwykle ewoluuje z każdym wydaniem. Jednak jest stosunkowo łatwa do podsumowania często zadawanych pytań, którą spróbujemy odpowiedzieć przy podejmowaniu decyzji co do pracy po kliknięciu przycisku Dalej:
 
-1. **Ile deweloperzy naszym zdaniem użyje funkcji i ile lepiej spowoduje na ich/korzystanie z aplikacji?** Firma Microsoft agregować opinii z wielu źródeł do tego — komentarze i głosów problemów jest jednym z tych źródeł.
+1. **Deweloperzy liczbę naszym zdaniem będzie używać tej funkcji i jak dużo lepiej wprowadzi na ich/korzystanie z aplikacji?** Firma Microsoft agregacji opinii z wielu źródeł do tego — komentarze i głosów problemów jest jednym z tych źródeł.
 
-2. **Co to są osób obejścia można użyć, jeśli firma Microsoft nie jeszcze zaimplementować tę funkcję?** Na przykład wielu deweloperów mogą mapować tabelę sprzężenia w celu obejścia braku macierzystą obsługę wiele do wielu. Oczywiście nie wszystkich deweloperów można to zrobić, ale można wiele i jest to czynnik, które zlicza.
+2. **Co to są osób rozwiązania można użyć, jeśli firma Microsoft nie jeszcze zaimplementować tę funkcję?** Na przykład wielu programistów mogą Mapuj tabelę sprzężenia w celu obejścia Brak natywnej obsługi wiele do wielu. Oczywiście deweloperzy nie wszystkie można to zrobić, można wiele — a jest to czynnik, który zlicza.
 
-3. **Wdrożenie tej funkcji rozwijać architektura EF Core tak, aby przenosi nam bliżej do wykonania innych funkcji?** Firma Microsoft często preferować funkcje, które działają jako bloków konstrukcyjnych dla innych funkcji — na przykład dzielenia tabeli, która została wykonana dla typów należących do pomaga nam przejścia do TPT pomocy technicznej.
+3. **Wdrażanie tej funkcji ewolucji architektury programu EF Core tak, aby przemieszczał się nam przybliżyć do wykonania innych funkcji?** Dążymy do Preferuj funkcje, które działają jako bloków konstrukcyjnych dla innych funkcji — na przykład, dzielenie tabeli, która została wykonana dla typów będących własnością pomaga nam idą w kierunku TPT pomocy technicznej.
 
-4. **Funkcja rozszerzalność punktu?** Firma Microsoft zwykle preferować punkty rozszerzeń, ponieważ umożliwiają deweloperom co ułatwia utworzenie punktu zaczepienia w ich własnych zachowania i pobrać niektórych funkcji brakuje w ten sposób. Firma Microsoft planowane jest część jako rozpoczęcia pracy opóźnionego ładowania.
+4. **Funkcja punkt rozszerzeń?** Zwykle aby preferował punkty rozszerzeń, ponieważ umożliwiają one programistom łatwiej utworzenie punktu zaczepienia w ich własnych zachowania i otrzymujesz niektóre z brakującej funkcjonalności w ten sposób. Planujemy wykonanie niektórych z jako rozpoczęcia pracy z opóźnieniem ładowania.
 
-5. **Co to jest współdziałania funkcję w połączeniu z innymi produktami?** Firma Microsoft zwykle preferować funkcje, które umożliwiają Core EF ma być używany z innymi produktami lub w znacznym stopniu poprawić środowisko korzystania innych produktów, takich jak .NET Core najnowszej wersji programu Visual Studio, Microsoft Azure itp.
+5. **Co to jest współdziałanie funkcji w połączeniu z innymi produktami?** Firma Microsoft zwykle preferować funkcje, które umożliwiają programu EF Core można używać z innymi produktami lub znacznie poprawić środowisko korzystania innych produktów, takich jak .NET Core najnowszą wersję programu Visual Studio, Microsoft Azure, itp.
 
-6. **Jakie są możliwości osób, które są dostępne w funkcji i jak najlepiej wykorzystać te zasoby?** Każdy członek zespołu EF i nawet naszej społeczności mają różne poziomy obsługi w przypadku różnych obszarów i konieczne jest odpowiednio zaplanować. Nawet wtedy, gdy trzeba mieć "wszystkie wskazówki talii" pracy na określonych funkcji, takich jak tłumaczeń GroupBy lub wiele do wielu, byłoby praktyczne.
+6. **Jakie są możliwości osób, które są dostępne w funkcji oraz jak najlepiej wykorzystać te zasoby?** Każdy członek zespołu platformy EF i nawet naszej społeczności mają różne poziomy doświadczenie w różnych obszarach i mamy odpowiednio zaplanować. Nawet wtedy, gdy chcemy mieć "cały zespół na pokładzie" pracy w określonych funkcji, takich jak tłumaczenia GroupBy lub wiele do wielu, byłoby niepraktyczne.
 
-Jak wspomniano wcześniej, ten proces rozwoju środowisko w każdej wersji, a w przyszłości chcielibyśmy dodać więcej możliwości dla członków społeczności deweloperów Podaj dane wejściowe do planów wprowadzenia produktu, np. przez co ułatwia przeglądanie projektów proponowanych funkcji i z sam plan wersji.
+Jak wspomniano wcześniej, ten proces ewoluuje w każdej wersji, a w przyszłości prosimy o poświęcenie można dodać więcej możliwości dla członków społeczności deweloperów ułatwia udostępnianie danych wejściowych w planach wydania, na przykład, ułatwiając przejrzeć proponowane wersje robocze funkcji wersji plan i sam.

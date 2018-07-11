@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 56e00fa2-f9f0-48b3-8006-f8266ca7e74b
 caps.latest.revision: 3
-ms.openlocfilehash: e06dc1c35f8d74772e5c7d69b29553288fd652d0
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 8a656ca73a7e1a628f4053ff7ad47f5c1b17d878
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912710"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949182"
 ---
 # <a name="designer-code-generation-templates"></a>Szablonów generowania kodu projektanta
 Podczas tworzenia modelu przy użyciu programu Entity Framework Designer klas i kontekst pochodna są generowane automatycznie dla Ciebie. Oprócz generowania kodu domyślne oferujemy są również szablony, których można dostosować program code, który pobiera wygenerowany. Te szablony stanowią one szablonów tekstowych T4, dzięki czemu możesz dostosowywać szablony, jeśli to konieczne.
@@ -151,7 +151,7 @@ Będzie konieczne wybranie **Online** karcie podczas dodawania szablonu, aby go 
 
 ### <a name="what-are-the-web-sites-templates"></a>Co to są szablony "Witryny sieci Web"
 
-Szablony "Witryny sieci Web" (czyli **EF 5.x Generator DbContext dla języka C\# witryn sieci Web**) są przeznaczone do użytku w projektów witryny sieci Web utworzone za pomocą **pliku —&gt; New -&gt; witryny sieci Web...** . Są one różne od aplikacji sieci Web utworzone za pomocą **pliku —&gt; New -&gt; projektu...** , które używają szablonów standardowych. Firma Microsoft oferuje osobnymi szablonami, ponieważ system szablonu elementu w programie Visual Studio wymaga, aby je.
+Szablony "Witryny sieci Web" (na przykład **EF 5.x Generator DbContext dla języka C\# witryn sieci Web**) są przeznaczone do użytku w projektów witryny sieci Web utworzone za pomocą **pliku —&gt; New -&gt; witryny sieci Web...** . Są one różne od aplikacji sieci Web utworzone za pomocą **pliku —&gt; New -&gt; projektu...** , które używają szablonów standardowych. Firma Microsoft oferuje osobnymi szablonami, ponieważ system szablonu elementu w programie Visual Studio wymaga, aby je.
 
 ## <a name="using-a-template"></a>Przy użyciu szablonu
 

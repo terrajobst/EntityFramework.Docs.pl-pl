@@ -1,69 +1,69 @@
 ---
-title: Eksportowanie z EF6 do EF Core - weryfikacji wymagań
+title: Przenoszenie z programu EF6 do programu EF Core — sprawdzanie poprawności wymagań
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: d3b66f3c-9d10-4974-a090-8ad093c9a53d
 uid: efcore-and-ef6/porting/ensure-requirements
-ms.openlocfilehash: 2f45039e63546d266ec6ce0bfa66ef7e9fb3d7e7
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 65bdc8bb9574d37db697aa47c8e8c480cefcb4f7
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054254"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949117"
 ---
-# <a name="before-porting-from-ef6-to-ef-core-validate-your-applications-requirements"></a>Przed eksportowanie z EF6 do EF Core: Sprawdzanie poprawności wymagań aplikacji
+# <a name="before-porting-from-ef6-to-ef-core-validate-your-applications-requirements"></a>Przed przenoszenie z programu EF6 do programu EF Core: Sprawdzanie poprawności wymagań aplikacji
 
-Przed rozpoczęciem procesu przenoszenia należy sprawdzić, czy podstawowe EF spełnia wymagania dotyczące dostępu do danych aplikacji.
+Przed rozpoczęciem procesu przenoszenia należy sprawdzić, czy programu EF Core spełnia wymagania dotyczące dostępu do danych aplikacji.
 
 ## <a name="missing-features"></a>Brak funkcji
 
-Upewnij się, że podstawowe EF ma wszystkich funkcji potrzebnych do użycia w aplikacji. Zobacz [porównanie funkcji](../features.md) szczegółowe porównanie jak porównuje EF6 zestawu w EF podstawowych funkcji. Brakuje niektórych wymaganych funkcji, upewnij się, że można zniwelować braku te funkcje przed eksportowanie do EF Core.
+Upewnij się, że programu EF Core zawiera wszystkie funkcje potrzebne do użycia w aplikacji. Zobacz [porównanie funkcji](../features.md) szczegółowe porównanie porównanie zestaw w wersji EF Core funkcji platformy EF6. Jeśli brakuje dowolnej wymagane funkcje, upewnij się, że możesz kompensuje braku tych funkcji, przed eksportowanie do programu EF Core.
 
-## <a name="behavior-changes"></a>Zmiany sposobu działania
+## <a name="behavior-changes"></a>Zmiany zachowania
 
-Jest niepełna lista pewne zmiany w zachowaniu między EF6 i EF podstawowe. Należy zachować te pamiętać jako port aplikacji, ponieważ mogą one ulec zmianie sposób aplikacja działa, ale nie będą widoczne jako błędy kompilacji po wymiany na EF rdzeń.
+To jest niepełna lista zmian w zachowaniu między EF6 i EF Core. Należy zachować te należy pamiętać, jako port aplikacji zgodnie z ich może zmienić sposób, w jaki aplikacja działa, ale nie będą wyświetlane jako błędy kompilacji po zamianie do programu EF Core.
 
-### <a name="dbsetaddattach-and-graph-behavior"></a>Wykres i DbSet.Add/Attach zachowanie
+### <a name="dbsetaddattach-and-graph-behavior"></a>Zachowanie DbSet.Add/Attach i wykres
 
-W EF6 wywoływania `DbSet.Add()` na powoduje cykliczne wyszukiwanie wszystkich jednostek, do którego odwołuje się jego właściwości nawigacji jednostki. Wszystkie jednostki, które zostały znalezione i nie są już śledzone przez kontekst, również są oznaczone jako dodane. `DbSet.Attach()`zachowuje się tak samo, z wyjątkiem wszystkie jednostki są oznaczone jako bez zmian.
+W EF6 wywołanie `DbSet.Add()` na jednostki skutkuje Wyszukiwanie cykliczne dla wszystkich jednostek, do którego odwołuje się jego właściwości nawigacji. Wszystkie jednostki, które znajdują się i nie są już śledzone przez kontekście, są również oznaczane w miarę dodawania. `DbSet.Attach()` zachowuje się tak samo, z wyjątkiem wszystkie jednostki są oznaczone jako niezmieniony.
 
-**EF Core wykonuje podobne Wyszukiwanie cykliczne, ale niektóre nieco inne reguły.**
+**EF Core wykonuje wyszukiwanie cykliczne podobne, ale niektóre nieco inne reguły.**
 
-*  Obiekt główny jest zawsze w żądany stan (dodany do `DbSet.Add` bez zmian dla `DbSet.Attach`).
+*  Jednostka główna jest zawsze żądany stan (dodane do `DbSet.Add` bez zmian dla `DbSet.Attach`).
 
-*  **Dla obiektów, które zostały znalezione podczas cyklicznego wyszukiwania właściwości nawigacji:**
+*  **W przypadku jednostek, które zostały znalezione w czasie cykliczne wyszukiwanie właściwości nawigacji:**
 
-    *  **W przypadku klucza podstawowego jednostki wygenerowane**
+    *  **Jeśli klucz podstawowy jednostki jest generowany magazynu**
 
-        * Jeśli klucz podstawowy nie jest ustawiona na wartość, stan jest ustawiony do dodany. Wartość klucza podstawowego jest uznawany za "nie jest ustawiona" przypisane wartości domyślne CLR dla typu właściwości (tj. `0` dla `int`, `null` dla `string`itp.).
+        * Jeśli nie ustawiono klucza podstawowego z wartością, stan jest ustawiony do dodanych. Wartość klucza podstawowego jest uznawany za "nie jest ustawiona" Jeśli jest ona przypisana wartość domyślna CLR dla typu właściwości (na przykład `0` dla `int`, `null` dla `string`itp.).
 
-        * Jeśli klucz podstawowy jest ustawiona na wartość, stan ustawiono bez zmian.
+        * Jeśli klucz podstawowy jest ustawiona na wartość, stan jest ustawiony bez zmian.
 
-    *  Jeśli klucz podstawowy nie jest generowany przez bazę danych, jednostka jest umieszczany w tym samym stanie, jako element główny.
+    *  Jeśli klucz podstawowy nie jest generowany w bazie danych, jednostka jest umieszczany w tym samym stanie, jako katalog główny.
 
-### <a name="code-first-database-initialization"></a>Kod pierwszego inicjowania bazy danych
+### <a name="code-first-database-initialization"></a>Kod pierwszy inicjowanie bazy danych
 
-**EF6 ma dużą magic, którą wykonuje wokół wybranie połączenia z bazą danych i inicjowania bazy danych. Oto niektóre z tych reguł:**
+**EF6 ma znacznej ilości magic, który wykonuje wokół wybranie połączenia z bazą danych i inicjowania bazy danych. Oto niektóre z tych reguł:**
 
-* Jeśli konfiguracja nie jest wykonywana, EF6 wybierze bazy danych programu SQL Express lub LocalDb.
+* Jeśli konfiguracja nie jest wykonywana, EF6 wybierze bazę danych programu SQL Express lub LocalDb.
 
-* Jeśli parametry połączenia o tej samej nazwie jako kontekst jest w aplikacjach `App/Web.config` plików, to połączenie będzie używane.
+* Jeśli parametry połączenia z taką samą nazwę jak kontekstu znajduje się w aplikacji `App/Web.config` pliku, to połączenie będzie używane.
 
-* Jeśli baza danych nie istnieje, jest tworzony.
+* Jeśli baza danych nie istnieje, zostanie utworzony.
 
-* Jeśli żadna z tabel z modelu nie istnieją w bazie danych, schematu dla bieżącego modelu jest dodawany do bazy danych. Jeśli włączono migracje, następnie są one używane do utworzenia bazy danych.
+* Jeśli żadna z tabel z modelu istnieje w bazie danych, schematów dla bieżącego modelu jest dodawany do bazy danych. Jeśli migracja jest włączona, następnie służą one do utworzenia bazy danych.
 
-* Jeśli baza danych istnieje i EF6 wcześniej utworzyć schemat, schemat jest sprawdzane pod kątem zgodności z bieżącym modelem. Jeśli model został zmieniony od czasu utworzenia schematu, jest zgłaszany wyjątek.
+* Jeśli baza danych istnieje i EF6 poprzednio utworzono schemat, schemat jest sprawdzane pod kątem zgodności z bieżącego modelu. Wyjątek jest generowany, jeśli model został zmieniony od czasu utworzenia schematu.
 
-**Podstawowe EF nie wykonuje tego magic.**
+**EF Core nie wykonuje tego magic.**
 
-* Połączenie z bazą danych musi być jawnie skonfigurowany w kodzie.
+* Połączenie z bazą danych muszą być jawnie skonfigurowane w kodzie.
 
-* Inicjowanie nie jest wykonywana. Należy użyć `DbContext.Database.Migrate()` do zastosowania migracji (lub `DbContext.Database.EnsureCreated()` i `EnsureDeleted()` do tworzenia/usuwania bazy danych bez korzystania z migracji).
+* Inicjowanie nie jest wykonywane. Należy użyć `DbContext.Database.Migrate()` do zastosowania migracji (lub `DbContext.Database.EnsureCreated()` i `EnsureDeleted()` do tworzenia/usuwania bazy danych bez używania migracji).
 
-### <a name="code-first-table-naming-convention"></a>Kod konwencji nazewnictwa pierwszej tabeli.
+### <a name="code-first-table-naming-convention"></a>Pierwsza tabela kodu konwencje nazewnictwa
 
-EF6 uruchamia Nazwa klasy jednostki za pośrednictwem usługi określania liczby mnogiej do obliczenia jednostka jest zamapowana na domyślna nazwa tabeli.
+EF6 uruchamia Nazwa klasy jednostki za pośrednictwem usługi pluralizacja do obliczania jednostki jest mapowany na domyślną nazwę tabeli.
 
-Podstawowe EF używa nazwy `DbSet` właściwości jednostki jest widoczna w pochodnej kontekstu. Jeśli taka jednostka nie posiada `DbSet` właściwości, a następnie nazwę klasy jest używany.
+EF Core używa nazwy `DbSet` właściwości jednostki jest widoczna w w kontekście pochodnych. Jeśli jednostka ma `DbSet` właściwości, a następnie nazwę klasy jest używany.

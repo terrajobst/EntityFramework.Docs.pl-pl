@@ -1,39 +1,39 @@
 ---
-title: Szybki przegląd — podstawowe EF
+title: Krótkie omówienie - programu EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 ms.technology: entity-framework-core
 uid: core/index
-ms.openlocfilehash: 3befcbd3ff3da5dd159e6e6cb5fe7140c81317c2
-ms.sourcegitcommit: a2b38dedc88ca3ccbfe7b1db9602ca02da8294cd
+ms.openlocfilehash: 103e5e069687950a8411f2d92c7b5a191844e0ae
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34686665"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37948993"
 ---
-# <a name="entity-framework-core-quick-overview"></a>Entity Framework Core szybki przegląd
+# <a name="entity-framework-core-quick-overview"></a>Omówienie szybkiej programu Entity Framework Core
 
-Program Entity Framework (EF) Core to lekkie, rozszerzalny, i technologii dostępu do wersji i platform popularnych danych programu Entity Framework.
+Entity Framework (EF) Core to lekkie, rozszerzalne, i technologii dostępu do popularnych danych Entity Framework w wersji dla wielu platform.
 
-EF Core może służyć jako relacyjnego obiektu mapowania (O/RM) umożliwia deweloperom platformy .NET do pracy z bazą danych przy użyciu obiektów platformy .NET i wyeliminowanie konieczności większość kodu dostępu do danych zazwyczaj muszą zapisu. 
+EF Core może służyć jako maper obiektowo relacyjny (O/RM), dzięki czemu deweloperzy platformy .NET do pracy z bazą danych, używając obiektów platformy .NET i eliminując potrzebę większość kodu dostępu do danych zwykle potrzebują do zapisania.
 
-Jądro EF obsługuje wiele baz danych, zobacz [dostawcy bazy danych](providers/index.md) szczegółowe informacje.
+EF Core obsługuje wiele baz danych, zobacz [dostawcy baz danych](providers/index.md) Aby uzyskać szczegółowe informacje.
 
-Jeśli chcesz dowiedzieć się przez pisania kodu, zalecamy jednego z naszych [wprowadzenie](get-started/index.md) przewodniki ułatwiające rozpoczęcie pracy z EF Core.
+Jeśli chcesz dowiedzieć się, przez napisanie kodu, zalecamy jeden z naszych [wprowadzenie](get-started/index.md) przewodniki ułatwiające rozpoczęcie pracy z programem EF Core.
 
-## <a name="what-is-new-in-ef-core"></a>Co to jest nowa w programie EF Core
+## <a name="what-is-new-in-ef-core"></a>Co nowego w programie EF Core
 
-Jeśli znasz podstawowe EF i chcesz przejść bezpośrednio do szczegółów najnowsze wersje:
+Jeśli jesteś zaznajomiony z programem EF Core i chcesz przejść bezpośrednio do szczegółowe informacje o najnowszych wersjach:
 
-- **[Co to jest nowa w programie EF Core 2.1](xref:core/what-is-new/ef-core-2.1)**
-- **[Uaktualnianie istniejącej aplikacji na rdzeń EF 2.x](xref:core/miscellaneous/1x-2x-upgrade)**
+- **[What's new in EF Core 2.1](xref:core/what-is-new/ef-core-2.1)**
+- **[Uaktualnianie istniejącej aplikacji do programu EF Core 2.x](xref:core/miscellaneous/1x-2x-upgrade)**
 
 
-## <a name="get-entity-framework-core"></a>Pobierz program Entity Framework Core
+## <a name="get-entity-framework-core"></a>Pobierz platformy Entity Framework Core
 
-[Zainstaluj pakiet NuGet](https://docs.nuget.org/ndocs/quickstart/use-a-package) dostawcy bazy danych, którego chcesz użyć. Np. Aby zainstalować dostawcy programu SQL Server w aplikacji dla wielu platform przy użyciu `dotnet` narzędzia w wierszu polecenia:
+[Zainstaluj pakiet NuGet](https://docs.nuget.org/ndocs/quickstart/use-a-package) dostawcy bazy danych, którego chcesz użyć. Na przykład, aby zainstalować dostawcę programu SQL Server przy użyciu wieloplatformowego opracowywania aplikacji `dotnet` narzędzia w wierszu polecenia:
 
 ``` Console
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
@@ -44,13 +44,13 @@ Lub w programie Visual Studio przy użyciu konsoli Menedżera pakietów:
 ``` PowerShell
 Install-Package Microsoft.EntityFrameworkCore.SqlServer
 ```
-Zobacz [dostawcy bazy danych](providers/index.md) uzyskać informacji o dostępnych dostawców i [instalowanie Core EF](get-started/install/index.md) bardziej szczegółowe kroki instalacji.
+Zobacz [dostawcy baz danych](providers/index.md) uzyskać informacji na temat dostępnych dostawców i [Instalowanie programu EF Core](get-started/install/index.md) bardziej szczegółowe kroki instalacji.
 
 ## <a name="the-model"></a>Model
 
-Podstawowych EF dostępu do danych jest wykonywane przy użyciu modelu. Model składa się z klas jednostek i pochodne kontekst reprezentujący sesji z bazy danych, umożliwiając zapytania i zapisać dane. Zobacz [tworzenia modelu](modeling/index.md) Aby dowiedzieć się więcej.
+Z programem EF Core dostęp do danych odbywa się przy użyciu modelu. Model składa się z klas jednostek i pochodnej kontekstu, który reprezentuje sesję z bazą danych, dzięki czemu zapytania i zapisywać dane. Zobacz [tworzenia modelu](modeling/index.md) Aby dowiedzieć się więcej.
 
-Można wygenerować model z istniejącej bazy danych, ręcznie kod modelu do dopasowania bazy danych lub użyj EF migracji do tworzenia bazy danych z modelu (i rozwijać go zgodnie z modelem zmienia się wraz z upływem czasu).
+Możesz wygenerować model z istniejącej bazy danych, przekazania kodu z modelu, aby dopasować bazy danych lub użyj migracji EF, aby utworzyć bazę danych z modelu (i rozwój go jak model zmienia się wraz z upływem czasu).
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
@@ -89,9 +89,9 @@ namespace Intro
 }
 ```
 
-## <a name="querying"></a>Wykonywanie zapytania
+## <a name="querying"></a>Wykonywanie zapytań
 
-Wystąpienia klas jednostki są pobierane z bazy danych przy użyciu języka zapytań zintegrowanym (LINQ). Zobacz [danych zapytań](querying/index.md) Aby dowiedzieć się więcej.
+Wystąpienia klas jednostek są pobierane z bazy danych, używając Language Integrated Query (LINQ). Zobacz [zapytań danych](querying/index.md) Aby dowiedzieć się więcej.
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -105,7 +105,7 @@ using (var db = new BloggingContext())
 
 ## <a name="saving-data"></a>Zapisywanie danych
 
-Dane są tworzone, usunięte i zmodyfikowane w bazie danych za pomocą wystąpień klas jednostek. Zobacz [zapisywania danych](saving/index.md) Aby dowiedzieć się więcej.
+Dane są tworzone, usunięte i zmodyfikowane w bazie danych za pomocą wystąpień klas jednostek. Zobacz [zapisywanie danych](saving/index.md) Aby dowiedzieć się więcej.
 
 ``` csharp
 using (var db = new BloggingContext())

@@ -1,31 +1,31 @@
 ---
-title: Typy jednostek z konstruktorów - EF Core
+title: Typy jednostek z konstruktorów — EF Core
 author: ajcvickers
 ms.author: divega
 ms.date: 02/23/2018
 ms.assetid: 420AFFE7-B709-4A68-9149-F06F8746FB33
 ms.technology: entity-framework-core
 uid: core/modeling/constructors
-ms.openlocfilehash: 8cea624c295f99ef54cb8b4758642eade03c235e
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: 80c7ee04d3bb0dd45b66ec7d6fec5ee7e3343026
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812498"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949208"
 ---
-# <a name="entity-types-with-constructors"></a>Typy jednostek z konstruktorów
+# <a name="entity-types-with-constructors"></a>Typy jednostek za pomocą konstruktorów
 
 > [!NOTE]  
 > Ta funkcja jest nowa w programie EF Core 2.1.
 
-W programie EF Core 2.1, obecnie istnieje możliwość zdefiniować konstruktora z parametrami, a Core EF wywołać konstruktora, podczas tworzenia wystąpienia jednostki. Parametry Konstruktor może być powiązana z mapowanej właściwości lub do różnych rodzajów usług w celu ułatwienia zachowań, takich jak opóźnionego ładowania.
+Począwszy od programu EF Core 2.1 jest teraz można zdefiniować konstruktora z parametrami, a programem EF Core wywołania tego konstruktora, podczas tworzenia wystąpienia jednostki. Parametry Konstruktora może być powiązana z właściwości zamapowanych lub do różnych rodzajów usług w celu ułatwienia zachowania, takich jak ładowanych z opóźnieniem.
 
 > [!NOTE]  
-> Począwszy od EF Core 2.1 wszystkie powiązania konstruktora jest przez Konwencję. Planowany konfiguracji określonych konstruktorów do użycia w przyszłości.
+> Począwszy od programu EF Core 2.1 wszystkie powiązania Konstruktor jest przez Konwencję. Konfiguracja określonego konstruktora do użycia jest planowana w przyszłej wersji.
 
-## <a name="binding-to-mapped-properties"></a>Powiązanie do mapowanej właściwości
+## <a name="binding-to-mapped-properties"></a>Powiązywanie właściwości zamapowanych
 
-Należy wziąć pod uwagę typowe modelu/wpis w blogu:
+Należy rozważyć typowy modelu/wpis w blogu:
 
 ```Csharp
 public class Blog
@@ -50,7 +50,7 @@ public class Post
 }
 ```
 
-Gdy EF Core tworzy wystąpienia typu, takich jak dla wyników zapytania, utworzy pierwsze wywołanie konstruktora domyślnego i następnie ustaw wartość każdej właściwości z bazy danych. Jednak jeśli EF Core znajdzie sparametryzowanym konstruktorze z nazwy parametru i typów, które pasują do właściwości zamapować właściwości, a następnie zamiast tego zostanie wywołanie konstruktora sparametryzowane wartości tych właściwości, a nie jawnie ustawia każdej właściwości. Na przykład:
+Jeśli programu EF Core tworzy wystąpienia tych typów, takich jak wyniki zapytania, jest będzie pierwsze wywołanie domyślnego konstruktora bez parametrów i następnie ustaw wartość każdej właściwości z bazy danych. Jednak jeśli programu EF Core znajdzie sparametryzowania konstruktora przy użyciu nazwy i typy, które pasują do właściwości parametrów mapowane właściwości, a następnie zamiast tego będzie wywoływać sparametryzowanego konstruktora o wartości dla tych właściwości, a nie ustawi każdej właściwości jawnie. Na przykład:
 
 ```Csharp
 public class Blog
@@ -88,19 +88,19 @@ public class Post
     public Blog Blog { get; set; }
 }
 ```
-Niektóre rzeczy do uwzględnienia:
-* Nie wszystkie właściwości musi być parametrami konstruktora. Na przykład właściwość Post.Content nie jest ustawiany przez żadnego parametru konstruktora, więc EF Core zostanie ustawiony po wywołaniu konstruktora w zwykły sposób.
-* Nazwy i typy parametrów muszą być zgodne typy właściwości i nazwy, z wyjątkiem tego, że właściwości mogą być Pascal — z uwzględnieniem wielkości liter podczas parametry są pisane formatu.
-* Podstawowe EF nie można ustawić właściwości nawigacji (na przykład blogu lub ogłoszeń powyżej) przy użyciu konstruktora.
-* Konstruktor może być publiczne, prywatne, lub inne ułatwień dostępu.
+Niektóre kwestie, należy zwrócić uwagę:
+* Nie wszystkie właściwości konieczne parametry konstruktora. Na przykład właściwość Post.Content nie jest ustawiany przez żadnych parametrów konstruktora, więc programu EF Core zostanie ustawiony po wywołaniu konstruktora w normalny sposób.
+* Nazwy i typy parametrów muszą być zgodne typy właściwości i nazw, z tą różnicą, że właściwości mogą być Pascal — z uwzględnieniem wielkości liter podczas, gdy parametry są w formacie camelcase.
+* EF Core nie można ustawić właściwości nawigacji (na przykład blogu lub wpisy powyżej) przy użyciu konstruktora.
+* Konstruktor może być publiczne, prywatne, lub innych ułatwień dostępu.
 
 ### <a name="read-only-properties"></a>Właściwości tylko do odczytu
 
-Po właściwości są ustawiane za pośrednictwem konstruktora go warto utworzyć niektóre z nich tylko do odczytu. Obsługuje tę funkcję EF Core, ale jest kilka rzeczy, zaczekaj na:
-* Właściwości bez metody ustawiające nie są mapowane przez Konwencję. (To zwykle mapowania właściwości, które nie powinny być mapowane, takie jak właściwości obliczanej.)
-* Za pomocą wartości kluczy automatycznie generowanych wymaga właściwości klucza, która jest odczytu i zapisu, ponieważ wartości klucza musi być ustawiona przez generator kluczy, podczas wstawiania nowych jednostek.
+Gdy właściwości są ustawiane za pośrednictwem konstruktora sensowne może się niektóre z nich w trybie tylko do odczytu. Obsługuje tę funkcję programu EF Core, ale jest kilka rzeczy, zwróć uwagę na:
+* Właściwości bez metod ustawiających nie są zamapowane przez Konwencję. (To zwykle właściwości, które nie powinny być mapowane, takich jak obliczone właściwości mapy.)
+* Przy użyciu automatycznie generowanego klucza wartości wymaga właściwości klucza, która jest odczytu i zapisu, ponieważ wartość klucza musi być ustawiona przez generator kluczy, podczas wstawiania nowych jednostek.
 
-Prosty sposób, aby uniknąć tych czynności jest Użyj prywatnego setters. Na przykład:
+Prosty sposób, aby uniknąć tych rzeczy jest używać prywatnych metod ustawiających. Na przykład:
 ```Csharp
 public class Blog
 {
@@ -137,9 +137,9 @@ public class Post
     public Blog Blog { get; set; }
 }
 ```
-Podstawowe EF widzi właściwości prywatnej setter jako odczytu i zapisu, co oznacza, że wszystkie właściwości są mapowane jak poprzednio i klucz może nadal być generowane przez Magazyn.
+EF Core uznaje prywatnej setter właściwości odczytu / zapisu, co oznacza, że wszystkie właściwości są mapowane tak jak poprzednio, i klawisz mogą nadal być generowane przez Magazyn.
 
-Jest to alternatywa dla użycia prywatnej metody ustawiające właściwości naprawdę tylko do odczytu i Dodaj mapowanie dokładniejsze w OnModelCreating. Podobnie niektóre właściwości można całkowicie usunięty i zastąpiony tylko pola. Na przykład wziąć pod uwagę następujące typy jednostek:
+Alternatywa dla użycia prywatnych metod ustawiających jest właściwości tak naprawdę tylko do odczytu i Dodaj mapowanie dokładniejsze w OnModelCreating. Podobnie niektóre właściwości mogą całkowicie usunięty i zastąpiony tylko pola. Na przykład należy wziąć pod uwagę te typy jednostek:
 
 ```Csharp
 public class Blog
@@ -175,7 +175,7 @@ public class Post
     public Blog Blog { get; set; }
 }
 ```
-I tą konfiguracją w OnModelCreating:
+I tej konfiguracji w OnModelCreating:
 ```Csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
@@ -196,26 +196,26 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
         });
 }
 ```
-Rzeczy do uwzględnienia:
-* Klucz "property" jest polem. Nie jest `readonly` pola tak, aby mogły być używane klucze generowane przez Magazyn. 
+Kwestii, które należy zwrócić uwagę:
+* Klucz "property" jest polem. Nie jest `readonly` tak, aby klucze generowane przez Magazyn mogą być używane.
 * Inne właściwości są właściwości tylko do odczytu ustawiana tylko w konstruktorze.
-* Jeśli wartość klucza podstawowego tylko określone przez EF lub odczytu z bazy danych, oznacza to, że nie trzeba wpisywać go w konstruktorze. Pozostawia jako proste pole klucza "property" i ułatwia wyczyścić go nie należy ustawiać jawnie podczas tworzenia nowego blogi lub wpisów.
+* Jeśli wartość klucza podstawowego tylko nigdy nie jest ustawiony przez EF lub odczytu z bazy danych, następnie nie ma potrzeby umieszczenie go w konstruktorze. Pozostawia klucz "property" jako prostym polem i sprawia, że jasne, że jej nie powinna być ustawiona jawnie podczas tworzenia nowego blogów i wpisów.
 
 > [!NOTE]  
-> Ten kod spowoduje kompilatora ostrzeżenie "169" wskazujący, że pole jest nigdy używane. Ponieważ w rzeczywistości EF Core używa pola w sposób extralinguistic można zignorować to.
+> Ten kod będzie skutkować kompilatora ostrzeżenie "169" wskazujący, że pole nigdy nie jest używany. Może być został zignorowany, ponieważ w rzeczywistości programu EF Core jest za pomocą pola w sposób extralinguistic.
 
-## <a name="injecting-services"></a>Wstrzyknięcie usług
+## <a name="injecting-services"></a>Wprowadzanie usługi
 
-EF Core można również wprowadzić "usługi" do konstruktora typu jednostki. Na przykład następujące czynności mogą zostać dodane:
-* `DbContext` -bieżącego wystąpienia kontekstu, która może też wpisać jako typ pochodny typu DbContext
-* `ILazyLoader` -Usługa opóźnionego ładowania — zobacz [dokumentacji opóźnionego ładowania](../querying/related-data.md) więcej szczegółów
-* `Action<object, string>` -Delegowanie powolne ładowanie — zobacz [dokumentacji opóźnionego ładowania](../querying/related-data.md) więcej szczegółów
-* `IEntityType` -EF Core metadane skojarzone z tym typem jednostki
+EF Core mogą umożliwić również iniekcję "usługi" do konstruktora typu jednostki. Na przykład że może wprowadzone:
+* `DbContext` -wystąpienie kontekstu bieżącego można także wpisać jako pochodny typu DbContext
+* `ILazyLoader` -Usługa ładowanych z opóźnieniem — zobacz [dokumentacji powolne ładowanie](../querying/related-data.md) Aby uzyskać więcej informacji
+* `Action<object, string>` — obiekt delegowany ładowanych z opóźnieniem — zobacz [dokumentacji powolne ładowanie](../querying/related-data.md) Aby uzyskać więcej informacji
+* `IEntityType` -metadanych programu EF Core skojarzonych z tym typem jednostki
 
 > [!NOTE]  
-> Począwszy od EF Core 2.1 mogą zostać dodane tylko usługi znane EF Core. Obsługa wstrzykiwania usługi aplikacji jest rozważane w przyszłości.
+> Począwszy od programu EF Core 2.1 może zostać wprowadzona tylko usługi znane przez platformę EF Core. Obsługa wprowadzanie usługi aplikacji jest rozważane w przyszłej wersji.
 
-Na przykład można wprowadzony DbContext selektywne uzyskiwanie dostępu do bazy danych, aby uzyskać informacje o powiązanych jednostek bez ładowania je wszystkie. W poniższym przykładzie służy do uzyskania liczby wpisów w blogu bez ładowania wpisów:
+Na przykład można wprowadzonego typu DbContext na selektywny dostęp do bazy danych, aby uzyskać informacje o powiązanych jednostek bez ładowania ich wszystkich. W poniższym przykładzie służy do uzyskania liczby wpisów w blogu bez ładowania wpisy:
 
 ```Csharp
 public class Blog
@@ -253,10 +253,10 @@ public class Post
     public Blog Blog { get; set; }
 }
 ```
-Kilka istotnych Zwróć uwagę na ten temat:
-* Konstruktor jest prywatny, ponieważ jest ona wywoływana tylko przez podstawowe EF, i innego konstruktora publicznego do użytku ogólnego.
-* Kod przy użyciu usługi wprowadzony (tj. kontekst) jest obrony przed jego trwa `null` do obsługi przypadków gdzie EF Core nie jest tworzone wystąpienie.
-* Ponieważ usługa jest przechowywana we właściwości odczytu/zapisu zostaną zresetowane, gdy obiekt jest dołączony do nowego wystąpienia kontekstu.
+Kilka istotnych kwestii na ten temat:
+* Konstruktor jest prywatny, ponieważ tylko nigdy nie jest wywoływana przez platformę EF Core i ma innego konstruktora publicznego do użytku ogólnego.
+* Kod przy użyciu usługi wprowadzonego (kontekstu) jest obrony przed nim są `null` sposób obsługiwać przypadki, gdzie programu EF Core nie jest tworzone wystąpienie.
+* Ponieważ usługa jest przechowywana we właściwości odczytu/zapisu zostaną zresetowane, gdy jednostka jest dołączony do nowego wystąpienia kontekstu.
 
 > [!WARNING]  
-> Wstrzyknięcie DbContext, jak to często uważa się za wzorca oprogramowania od momentu jego couples Twojego typów jednostek bezpośrednio do EF Core. Należy rozważyć wszystkie opcje przed przy użyciu iniekcji usługi następująco.
+> Wprowadzanie DbContext następująco jest często uznawana za zapobieganie wzorca od czasu jej couples typów jednostek bezpośrednio do programu EF Core. Zastanów się uważnie wszystkie opcje przed przy użyciu iniekcji usługi w następujący sposób.

@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: ecaa5a27-b19e-4bf9-8142-a3fb00642270
 caps.latest.revision: 3
-ms.openlocfilehash: 361065def0e83a097d4bb0109d468983ce41cd86
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 9588ef85435d3c0218defdc098f1e7150fb7ef72
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914047"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949046"
 ---
 # <a name="connection-management"></a>Zarządzanie połączeniami
 Na tej stronie opisano zachowanie programu Entity Framework w odniesieniu do przekazywania połączenia do kontekstu i funkcjonalność **Database.Connection.Open()** interfejsu API.  
@@ -146,7 +146,7 @@ EF5 i wcześniejszych wersji jest to błąd, **ObjectContext.Connection.State** 
 ((IObjectContextAdapter)context).ObjectContext.Connection.State
 ```  
 
-Oddzielnie Jeśli otworzysz połączenie z bazą danych, wywołując Database.Connection.Open() będą one otwarte do momentu przy następnym wykonania kwerendy lub wywołanie niczego, co wymaga połączenia z bazą danych (np. SaveChanges()) ale po czy bazowego przechowywania połączenia zostanie zamknięte. Kontekst będzie, a następnie ponownie otworzyć i ponownie zamknij połączenie, każdym razem, gdy inna operacja bazy danych jest wymagane:  
+Oddzielnie, jeśli otworzysz połączenie z bazą danych, wywołując Database.Connection.Open() będą one otwarte do momentu przy następnym wykonania kwerendy lub wywołanie niczego, co wymaga połączenia z bazą danych (na przykład SaveChanges()), ale po czy bazowego przechowywania połączenie zostanie zamknięte. Kontekst będzie, a następnie ponownie otworzyć i ponownie zamknij połączenie, każdym razem, gdy inna operacja bazy danych jest wymagane:  
 
 ``` csharp
 using System;

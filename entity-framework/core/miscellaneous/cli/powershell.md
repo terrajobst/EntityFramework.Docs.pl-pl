@@ -1,28 +1,28 @@
 ---
-title: Konsola Menedżera pakietów (Visual Studio) — podstawowe EF
+title: Konsola Menedżera pakietów (Visual Studio) — EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: a53455a78db4bc504c45abafdacf9a15381f608e
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: 0799b0cb7c5d837fdbb7a4af510a9a4d9d34ec1a
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812563"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949041"
 ---
-<a name="ef-core-package-manager-console-tools"></a>Narzędzia konsoli Menedżera pakietów Core EF
+<a name="ef-core-package-manager-console-tools"></a>Narzędzia konsoli Menedżera pakietów programu EF Core
 =====================================
-Uruchom narzędzia konsoli Menedżera pakietów EF Core (PMC) w programie Visual Studio przy użyciu narzędzia NuGet [Konsola Menedżera pakietów][2].
-Te narzędzia Praca z projektami zarówno .NET Framework i .NET Core.
+Uruchomione narzędzia konsoli Menedżera pakietów (PMC) EF Core w programie Visual Studio za pomocą NuGet [Konsola Menedżera pakietów][2].
+Te narzędzia działają w projektach .NET Core i .NET Framework.
 
 > [!TIP]
-> Nie używasz programu Visual Studio? [EF podstawowe narzędzia wiersza polecenia] [ 1] są międzyplatformowa i uruchamiane w wierszu polecenia.
+> Nie można za pomocą programu Visual Studio? [Narzędzi wiersza polecenia programu EF Core] [ 1] dla wielu platform i wykonywania w wierszu polecenia.
 
 <a name="installing-the-tools"></a>Instalowanie narzędzi
 --------------------
-Zainstaluj narzędzia konsoli Menedżera pakietów Core EF, instalując pakiet Microsoft.EntityFrameworkCore.Tools NuGet.
-Można ją zainstalować, wykonując następujące polecenie w [Konsola Menedżera pakietów][2].
+Zainstaluj narzędzia konsoli Menedżera pakietów programu EF Core, instalując pakiet Microsoft.EntityFrameworkCore.Tools NuGet.
+Można ją zainstalować, wykonując następujące polecenie z poziomu [Konsola Menedżera pakietów][2].
 
 ``` powershell
 Install-Package Microsoft.EntityFrameworkCore.Tools
@@ -34,95 +34,95 @@ Jeśli wszystko działało poprawnie, należy uruchomić to polecenie:
 Get-Help about_EntityFrameworkCore
 ```
 > [!TIP]
-> Jeśli Twój projekt startowy jest przeznaczony dla platformy .NET Standard [między celem obsługiwanych struktur] [ 3] przed użyciem narzędzia.
+> Jeśli Twój projekt startowy jest przeznaczony dla .NET Standard [cross-target framework obsługiwane] [ 3] przed rozpoczęciem korzystania z narzędzia.
 
 > [!IMPORTANT]
-> Jeśli używasz **uniwersalnych systemu Windows** lub **Xamarin**, Przenieś swój kod EF do .NET Standard biblioteki klas i [między celem obsługiwanych struktur] [ 3] przed użyciem narzędzia. Określ biblioteki klas jako projekt startowy.
+> Jeśli używasz **Universal Windows** lub **Xamarin**, Przenieś swój kod programem EF do biblioteki klas .NET Standard i [cross-target framework obsługiwane] [ 3] przed rozpoczęciem korzystania z narzędzia. Określ bibliotekę klas jako projekt startowy.
 
-<a name="using-the-tools"></a>Korzystając z narzędzi
+<a name="using-the-tools"></a>Przy użyciu narzędzi
 ---------------
-Przy każdym wywołaniu polecenia obejmuje dwa projekty:
+Zawsze, gdy wywołuje polecenie zaangażowanych dwa projekty:
 
-Projekt docelowy jest w przypadku, gdy zostaną dodane wszystkie pliki (lub w niektórych przypadkach usunięte). Domyślnie projektu docelowego **domyślny projekt** wybrany w konsoli Menedżera pakietów, ale można również określić za pomocą parametru - projektu.
+Projekt docelowy jest w przypadku, gdy są dodawane wszystkie pliki (lub w niektórych przypadkach usunięte). Wartością domyślną jest projekt docelowy **domyślny projekt** wybrany w konsoli Menedżera pakietów, ale można również określić za pomocą parametru - projekt.
 
-Projekt startowy jest emulowane przez narzędzia podczas wykonywania kodu projektu. Domyślnie jedną **Ustaw jako projekt startowy** w Eksploratorze rozwiązań. Można również określić, za pomocą parametru - StartupProject.
+Projekt startowy jest emulowane przez narzędzia podczas wykonywania kodu projektu. Jego wartość domyślna to jeden **Ustaw jako projekt startowy** w Eksploratorze rozwiązań. Można również określić, za pomocą parametru - projekt startowy.
 
 Wspólne parametry:
 
 |                           |                             |
 |:--------------------------|:----------------------------|
-| -Kontekst \<ciąg >        | DbContext do użycia.       |
-| -Projektu \<ciąg >        | Projekt do użycia.         |
-| -StartupProject \<ciąg > | Projekt startowy do użycia. |
-| -Verbose                  | Pokaż pełne dane wyjściowe.        |
+| -Kontekstu \<ciąg >        | Kontekst DbContext do użycia.       |
+| -Projekt \<ciąg >        | Projekt do użycia.         |
+| Projekt startowy - \<ciąg > | Projekt startowy do użycia. |
+| -Verbose                  | Wyświetlić pełne dane wyjściowe.        |
 
-Aby wyświetlić Pomoc informacje dotyczące polecenia, za pomocą programu PowerShell w `Get-Help` polecenia.
-
-> [!TIP]
-> Parametry kontekstu, projektu i StartupProject obsługuje kartę rozszerzenia.
+Aby wyświetlić Pomoc dotyczącą polecenia, użyj programu PowerShell `Get-Help` polecenia.
 
 > [!TIP]
-> Ustaw **env:ASPNETCORE_ENVIRONMENT** przed uruchomieniem do określenia środowiska ASP.NET Core.
+> Parametry kontekstu, projekt i projekt startowy obsługują rozszerzenia karty.
+
+> [!TIP]
+> Ustaw **env:ASPNETCORE_ENVIRONMENT** przed uruchomieniem do określania środowiska ASP.NET Core.
 
 <a name="commands"></a>Polecenia
 --------
 
 ### <a name="add-migration"></a>Dodaj migracji
 
-Dodaje nowe migracji.
+Dodaje nową migrację.
 
 Parametry:
 
 |                                   |                                                                                                                  |
 |:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| ***-Nazwa*** \<ciąg >             | Nazwa migracji.                                                                                       |
-| <nobr>-OutputDir \<ciąg ></nobr> | Katalog (i przestrzeni nazw sub) do użycia. Ścieżki są względem katalogu projektu. Wartość domyślna to "Migracji". |
+| ***— Nazwa*** \<ciąg >             | Nazwa migracji.                                                                                       |
+| <nobr>-OutputDir \<ciąg ></nobr> | Katalog (i podrzędnej przestrzeni nazw) do użycia. Ścieżki są względne wobec katalogu projektu. Wartość domyślna to "Migracja". |
 
 > [!NOTE]
-> Parametry w **bold** są wymagane i w *italics* są pozycyjnych.
+> Parametry w **bold** są wymagane i te w *Kursywa* są pozycyjnych.
 
 ### <a name="drop-database"></a>Baza danych listy
 
-Odrzuca bazy danych.
+Porzuca bazy danych.
 
 Parametry:
 
 |         |                                                          |
 |:--------|:---------------------------------------------------------|
-| -WhatIf | Pokaż bazę danych, która będą pomijane, ale nie jej porzucić. |
+| -WhatIf | Pokaż bazę danych, która będzie można usunąć, ale nie należy usuwać jej. |
 
 ### <a name="get-dbcontext"></a>Get-DbContext
 
 Pobiera informacje o typie DbContext.
 
-### <a name="remove-migration"></a>Usuń migracji
+### <a name="remove-migration"></a>Usuń migrację
 
-Usuwa ostatniej migracji.
+Usuwa ostatni migracji.
 
 Parametry:
 
 |        |                                                              |
 |:-------|:-------------------------------------------------------------|
-| -Force. | Przywróć migracji, jeśli została zastosowana do bazy danych. |
+| -Force | Przywróć migracji, jeśli został zastosowany do bazy danych. |
 
-### <a name="scaffold-dbcontext"></a>Szkieletu DbContext
+### <a name="scaffold-dbcontext"></a>Tworzenie szkieletu DbContext
 
-Rusztowania DbContext i jednostki typy dla bazy danych.
+Szkielety mechanizmów DbContext i jednostek typów dla bazy danych.
 
 Parametry:
 
 |                                          |                                                                                                  |
 |:-----------------------------------------|:-------------------------------------------------------------------------------------------------|
-| <nobr>***-Połączenia*** \<ciąg ></nobr> | Parametry połączenia z bazą danych.                                                           |
-| ***-Dostawca*** \<ciąg >                | Dostawca do użycia. (Np. Microsoft.EntityFrameworkCore.SqlServer)                              |
-| -OutputDir \<ciąg >                     | Umieścić pliki katalogu. Ścieżki są względem katalogu projektu.                      |
-| -ContextDir \<ciąg >                    | Katalog mają zostać umieszczone w pliku DbContext. Ścieżki są względem katalogu projektu.             |
-| -Kontekst \<ciąg >                       | Nazwa typu DbContext w celu wygenerowania.                                                           |
-| -Schematy \<String [] >                     | Schematy tabele, aby wygenerować typy jednostek.                                              |
-| -Tabele \<String [] >                      | Tabele, aby wygenerować typy jednostek.                                                         |
-| -DataAnnotations                         | Użyj atrybutów, aby skonfigurować model (jeśli będzie to możliwe). Przypadku jego pominięcia jest używana tylko interfejsu API fluent. |
+| <nobr>***-Connection*** \<ciąg ></nobr> | Parametry połączenia z bazą danych.                                                           |
+| ***-Provider*** \<ciąg >                | Dostawca do użycia. (na przykład Microsoft.EntityFrameworkCore.SqlServer)                      |
+| -OutputDir \<ciąg >                     | Katalog, który można umieścić pliki w. Ścieżki są względne wobec katalogu projektu.                      |
+| -ContextDir \<ciąg >                    | Katalog, który można umieścić plik typu DbContext w. Ścieżki są względne wobec katalogu projektu.             |
+| -Kontekstu \<ciąg >                       | Nazwa typu DbContext do wygenerowania.                                                           |
+| -Schematów \<String [] >                     | Schematów tabel w celu wygenerowania typów jednostek dla.                                              |
+| -Tabele \<String [] >                      | Tabele, aby wygenerować typy jednostek dla.                                                         |
+| -DataAnnotations                         | Aby skonfigurować model (tam, gdzie jest to możliwe), należy użyć atrybutów. W przypadku pominięcia jest używana tylko interfejsu API fluent. |
 | -UseDatabaseNames                        | Użyj nazwy tabel i kolumn bezpośrednio z bazy danych.                                           |
-| -Force.                                   | Zastąpienie istniejących plików.                                                                        |
+| -Force                                   | Nadpisz istniejące pliki.                                                                        |
 
 ### <a name="script-migration"></a>Skrypt migracji
 
@@ -132,22 +132,22 @@ Parametry:
 
 |                   |                                                                    |
 |:------------------|:-------------------------------------------------------------------|
-| *-From* \<ciąg > | Początkowy migracji. Wartość domyślna to 0 (początkowej bazy danych).      |
-| *— Do* \<ciąg >   | Końcowy migracji. Domyślnie ostatni migracji.              |
-| -Idempotentności       | Generuj skrypt, który może być używany z bazy danych w każdej migracji. |
-| -Output \<ciąg > | Plik można zapisać wynik.                                   |
+| *-From* \<ciąg > | Począwszy od migracji. Wartość domyślna to 0 (początkowej bazy danych).      |
+| *— Do* \<ciąg >   | Końcowy migracji. Domyślnie do ostatniego migracji.              |
+| -Idempotentne       | Generowanie skryptu, który może służyć w bazie danych w każdej migracji. |
+| -Dane wyjściowe \<ciąg > | Plik można zapisać wynik.                                   |
 
 > [!TIP]
-> Do z, i parametry wyjściowe obsługuje kartę rozszerzenia.
+> To, z danych wyjściowych z obsługą i parametrów rozszerzenia karty.
 
-### <a name="update-database"></a>Update-Database
+### <a name="update-database"></a>Aktualizuj bazy danych
 
 |                                     |                                                                                                |
 |:------------------------------------|:-----------------------------------------------------------------------------------------------|
-| <nobr>*-Migration* \<ciąg ></nobr> | Migracja docelowych. W przypadku wartości "0" wszystkich migracji zostaną cofnięte. Domyślnie ostatni migracji. |
+| <nobr>*— Migracja* \<ciąg ></nobr> | Migracja docelowego. Jeśli jest to "0", będzie można przywrócić wszystkich migracji. Domyślnie do ostatniego migracji. |
 
 > [!TIP]
-> Parametr migracji obsługuje kartę rozszerzenia.
+> Parametr migracji obsługuje rozszerzenia karty.
 
 
   [1]: dotnet.md

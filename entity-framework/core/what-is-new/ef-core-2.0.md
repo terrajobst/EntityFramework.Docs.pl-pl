@@ -6,12 +6,12 @@ ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 4b319e7d4571e5e32ae7470601345e6f98807551
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 538458cf49ee86b9a5cba2f606adc04e583605e2
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37911544"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949130"
 ---
 # <a name="new-features-in-ef-core-20"></a>Nowe funkcje programu EF Core 2.0
 
@@ -93,7 +93,7 @@ public class BloggingContext : DbContext
     }
 }
 ```
-Definiujemy filtr na poziomie modelu, który implementuje wielodostępu i usuwania nietrwałego dla wystąpienia elementu ```Post``` typu jednostki. Zwróć uwagę na użycie właściwości poziomu wystąpienia typu DbContext: ```TenantId```. Filtry na poziomie modelu będzie używać wartości z wystąpienia poprawnego kontekstu. Czyli ten, który wykonuje zapytanie.
+Definiujemy filtr na poziomie modelu, który implementuje wielodostępu i usuwania nietrwałego dla wystąpienia elementu ```Post``` typu jednostki. Zwróć uwagę na użycie właściwości poziomu wystąpienia typu DbContext: ```TenantId```. Filtry na poziomie modelu będzie używać wartości z wystąpienia poprawny kontekst (czyli wystąpienia kontekstu wykonywanego zapytania).
 
 Filtry mogą być wyłączone dla poszczególnych zapytań LINQ, za pomocą operatora IgnoreQueryFilters().
 
@@ -134,7 +134,7 @@ Kilka kwestii, które należy zwrócić uwagę:
 
 - Zgodnie z Konwencją Nazwa metody jest używana jako nazwa funkcji (w tym przypadku funkcję zdefiniowaną przez użytkownika) podczas generowania SQL, ale można zastąpić nazwę i schematu podczas rejestracji — metoda
 - Obecnie obsługiwane są tylko funkcje skalarne
-- W bazie danych, np. programu EF Core migracje nie zajmie się jego tworzenia należy utworzyć zamapowanego — funkcja
+- Należy utworzyć zamapowanego funkcji w bazie danych. EF Core migracje nie zajmie się jego tworzenia
 
 ### <a name="self-contained-type-configuration-for-code-first"></a>Konfiguracja typu niezależna kodu pierwszy
 
@@ -177,7 +177,7 @@ Jest to zachowuje się podobnie jak jak buforowanie połączeń działa w dostaw
 Nowa metoda wprowadza pewne ograniczenia na co można zrobić ```OnConfiguring()``` metoda kontekstu DbContext.
 
 > [!WARNING]  
-> Należy unikać buforowanie DbContext Jeśli to Ty masz własne stanu (np. pola prywatne) w swojej otrzymanej klasy DbContext, który nie powinien być współużytkowane przez wiele żądań. EF Core tylko spowoduje zresetowanie stanu który zna przed dodaniem wystąpienia typu DbContext do puli.
+> Należy unikać używania buforowania DbContext, jeśli to Ty masz własne stanie (na przykład pola prywatne) w swojej otrzymanej klasy DbContext, który nie powinien być współużytkowane przez wiele żądań. EF Core tylko spowoduje zresetowanie stanu który zna przed dodaniem wystąpienia typu DbContext do puli.
 
 ### <a name="explicitly-compiled-queries"></a>Zapytania skompilowane jawnie
 
@@ -220,7 +220,7 @@ Ta Praca zwiększa SQL Server, który jest generowany dla sprzężenia grupowane
 
 ### <a name="string-interpolation-in-fromsql-and-executesqlcommand"></a>Interpolacja ciągów w FromSql i ExecuteSqlCommand
 
-C# 6 wprowadzono Interpolacja ciągów funkcja, która umożliwia wyrażeń języka C# do osadzenia bezpośrednio Literały ciągu, dzięki czemu ładny building ciągów w czasie wykonywania. W programie EF Core 2.0 dodaliśmy specjalne obsługę ciągów interpolowanych do naszych dwa podstawowe interfejsów API, które akceptują pierwotne ciągów SQL: ```FromSql``` i ```ExecuteSqlCommand```. Ta obsługa nowych umożliwia interpolacji ciągu C# ma być używany w sposób "bezpieczne". Np. w sposób, który chroni przed typowych pomyłek iniekcja SQL, które mogą wystąpić podczas dynamiczne budowanie SQL w czasie wykonywania.
+C# 6 wprowadzono Interpolacja ciągów funkcja, która umożliwia wyrażeń języka C# do osadzenia bezpośrednio Literały ciągu, dzięki czemu ładny building ciągów w czasie wykonywania. W programie EF Core 2.0 dodaliśmy specjalne obsługę ciągów interpolowanych do naszych dwa podstawowe interfejsów API, które akceptują pierwotne ciągów SQL: ```FromSql``` i ```ExecuteSqlCommand```. Ta obsługa nowych umożliwia interpolacji ciągu C# ma być używany w sposób "bezpieczne". Oznacza to w sposób zapewniający ochronę przed typowych pomyłek iniekcji SQL, które mogą wystąpić podczas dynamicznego tworzenia SQL w czasie wykonywania.
 
 Oto przykład:
 

@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 13886d24-2c74-4a00-89eb-aa0dee328d83
 caps.latest.revision: 3
-ms.openlocfilehash: da63d36e76b9658a17557707076073be4c1cd95e
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: d6a33434e582fcd7ce756b447d7f2cbab4ca43ec
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914233"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949030"
 ---
 # <a name="code-based-configuration"></a>Konfiguracja na podstawie kodu
 > [!NOTE]
@@ -126,6 +126,6 @@ W kodzie powyżej MyProviderServices i MyConnectionFactory reprezentują usługi
 
 Można również dodać dodatkową zależność programów obsługi, aby uzyskać ten sam efekt.  
 
-Należy pamiętać, można również opakować DbProviderFactory w ten sposób, że ten sposób będzie obowiązywać EF i nie korzysta z DbProviderFactory poza EF. Z tego powodu należy prawdopodobnie opakować DbProviderFactory, jak mają przed w dalszym ciągu.  
+Należy pamiętać, że DbProviderFactory można również opakować w ten sposób, ale spowoduje to więc mają wpływ tylko na EF i nie używa DbProviderFactory poza EF. Z tego powodu należy prawdopodobnie opakować DbProviderFactory, jak mają przed w dalszym ciągu.  
 
-Należy również mieć na uwadze usługi uruchamiane zewnętrznie z aplikacją — np. Uruchamianie migracji z konsoli Menedżera pakietów. Po uruchomieniu migracji z konsoli, spróbuje ona znaleźć Twoje DbConfiguration. Niezależnie od tego czy pobierze opakowana usługi zależy jednak gdzie on zarejestrowany program obsługi zdarzeń. Jeśli jest zarejestrowany w ramach konstrukcji swoje DbConfiguration kod powinien zostać wykonany, a powinien pobrać opakowane usługi. Zazwyczaj nie będzie to mieć miejsce, i oznacza to, że narzędzia nie będą otrzymywać opakowana usługi.  
+Należy również mieć na uwadze usług, które uruchamiasz zewnętrznie do Twojej aplikacji — na przykład podczas uruchamiania migracji z konsoli Menedżera pakietów. Po uruchomieniu migracji z konsoli, spróbuje ona znaleźć Twoje DbConfiguration. Niezależnie od tego czy pobierze opakowana usługi zależy jednak gdzie on zarejestrowany program obsługi zdarzeń. Jeśli jest zarejestrowany w ramach konstrukcji swoje DbConfiguration kod powinien zostać wykonany, a powinien pobrać opakowane usługi. Zazwyczaj nie będzie to mieć miejsce, i oznacza to, że narzędzia nie będą otrzymywać opakowana usługi.  

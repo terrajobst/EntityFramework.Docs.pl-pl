@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 32d19ac6-9186-4ae1-8655-64ee49da55d0
 caps.latest.revision: 3
-ms.openlocfilehash: 76bb350f2407e0e33a20d0c4f6961ba57d646818
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 88fd859b4f9a8069eeb08f32bb1d35ddcd21aec5
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914216"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949283"
 ---
 # <a name="dependency-resolution"></a>Rozpoznawanie zależności
 > [!NOTE]
@@ -31,7 +31,7 @@ public interface IDbDependencyResolver
 
 Metoda GetService zwykle jest wywoływana przez EF i jest obsługiwane przez implementację IDbDependencyResolver EF lub aplikacji. Gdy zostanie wywołana, argument typu jest typem klasy interfejsu lub base żądanej usługi i klucz obiektu jest wartość null lub obiekt dostarczający informacje kontekstowe o żądanej usługi.  
 
-Ten artykuł zawiera szczegółowe informacje o sposobie implementacji IDbDependencyResolver, ale zamiast tego działa jako odwołanie dla typów usługi (np. interfejsu i typów klasy bazowej), dla których EF wywołuje GetService i semantyka obiekt klucza dla każdego z tych wywołań. Ten dokument będzie aktualizowany podczas dodawania dodatkowych usług.  
+Ten artykuł zawiera szczegółowe informacje o sposobie implementacji IDbDependencyResolver, ale zamiast tego działa jako odwołanie dla typów usługi (oznacza to, że interfejs i podstawowej klasy typy), dla których EF wywołuje GetService i semantyka obiekt klucza dla każdego z nich wywołuje. Ten dokument będzie aktualizowany podczas dodawania dodatkowych usług.  
 
 ## <a name="services-resolved"></a>Usługi rozwiązane  
 
@@ -71,7 +71,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 
 **Wprowadzona w wersji**: EF6.0.0  
 
-**Obiekt zwrócony**: fabryka połączenia, który będzie używany podczas EF, tworzenia połączenia z bazą danych według Konwencji. Oznacza to gdy nie połączenia lub parametry połączenia znajduje się do programu EF, a nie ciągu połączenia można znaleźć w pliku app.config lub web.config, następnie ta usługa służy do tworzenia połączenia zgodnie z Konwencją. Zmiana fabryka połączenia można zezwolić EF użyć innego typu bazy danych (np. SQL Server Compact Edition) domyślnie.  
+**Obiekt zwrócony**: fabryka połączenia, który będzie używany podczas EF, tworzenia połączenia z bazą danych według Konwencji. Oznacza to gdy nie połączenia lub parametry połączenia znajduje się do programu EF, a nie ciągu połączenia można znaleźć w pliku app.config lub web.config, następnie ta usługa służy do tworzenia połączenia zgodnie z Konwencją. Zmiana fabryka połączenia można zezwolić EF użyć innego typu bazy danych (na przykład SQL Server Compact Edition) domyślnie.  
 
 **Klucz**: nie jest używany; będzie miał wartość null  
 

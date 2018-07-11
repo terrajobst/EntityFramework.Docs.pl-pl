@@ -1,50 +1,50 @@
 ---
-title: Jak odpytuje Praca - EF Core
+title: Jak zapytania praca - programu EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: de2e34cd-659b-4cab-b5ed-7a979c6bf120
 ms.technology: entity-framework-core
 uid: core/querying/overview
-ms.openlocfilehash: 7fd2940d559f82016d7a8fc3fdcf3af0d5b8bc8f
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 1d28d215302625cf2b6788359527a93a77b7e9fd
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054257"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949387"
 ---
 # <a name="how-queries-work"></a>Jak działają zapytań
 
-Entity Framework Core używa języka integracji zapytania (LINQ) wykonać zapytania o dane z bazy danych. LINQ umożliwia przy użyciu języka C# (lub z języka .NET) do zapisania jednoznacznie zapytań opartych na klas pochodnych kontekstu i jednostki.
+Entity Framework Core używa Language Integrated Query (LINQ) do zapytania o dane z bazy danych. LINQ umożliwia przy użyciu języka C# (lub wybranym języku .NET) do pisania zapytań silnie typizowaną oparte na klasach pochodnych kontekstu i jednostki.
 
 ## <a name="the-life-of-a-query"></a>Czas życia zapytania
 
-Poniżej znajduje się wysokiego poziomu Omówienie procesu, który przechodzi każdego zapytania.
+Poniżej znajduje się przegląd wysokiego poziomu procesu, który przechodzi każdego zapytania.
 
-1. Zapytania LINQ jest przetwarzany przez Entity Framework Core do budowania reprezentacji, który jest gotowy do przetwarzania dostawca bazy danych
+1. Zapytania LINQ są przetwarzane przez program Entity Framework Core do budowania reprezentacji, które jest gotowe do przetworzenia przez dostawcę bazy danych
    1. Wynik jest buforowany, dzięki czemu to przetwarzanie nie musi odbywać się za każdym razem, gdy zapytanie jest wykonywane
 2. Wynik jest przekazywany do dostawcy bazy danych
-   1. Dostawca bazy danych identyfikuje części zapytania, które może przyjąć w bazie danych
-   2. Te części zapytania są tłumaczone na język określonej kwerendy bazy danych (np. SQL relacyjnej bazy danych)
-   3. Co najmniej jednego zapytania są wysyłane do bazy danych i zestaw zwrócony wyników (wyniki są wartości z bazy danych, nie wystąpień jednostek)
+   1. Dostawca bazy danych identyfikuje części zapytania, które mogą być obliczane w bazie danych
+   2. Te części zapytania są tłumaczone na języka użytego zapytania bazy danych (na przykład SQL dla relacyjnej bazy danych)
+   3. Co najmniej jeden zapytania są wysyłane do bazy danych i zwróconym zestawie wyników (wyniki są wartości z bazy danych, a nie wystąpień jednostek)
 3. Dla każdego elementu w zestawie wyników
-   1. Jeśli jest to zapytanie śledzenia, EF sprawdza, czy dane reprezentuje jednostkę już w śledzenia zmian dla wystąpienia kontekstu
-      * Jeśli tak, zwracany jest istniejącej jednostki
-      * Jeśli nie jest tworzony nowy obiekt, skonfigurowano śledzenie zmian i nowy obiekt jest zwracany
-   2. Jeśli jest to zapytanie nie śledzenia, EF sprawdza, czy dane reprezentuje jednostkę już w zestawu wyników dla tego zapytania
-      * Jeśli tak, zostanie zwrócony istniejącej jednostki <sup>(1)</sup>
-      * W przeciwnym razie nowy obiekt zostanie utworzona i zwrócona
+   1. Jeśli jest to zapytania śledzenia, EF sprawdza, czy dane reprezentuje jednostkę już w śledzenie zmian dla wystąpienia kontekstu
+      * Jeśli tak, zwracany jest istniejąca jednostka
+      * W przeciwnym razie jest tworzona nowa jednostka skonfigurowano śledzenie zmian i zwracany jest nowa jednostka
+   2. Jeśli zapytania śledzenia nie EF sprawdza, czy dane reprezentuje jednostkę już w zestawu wyników dla tego zapytania
+      * Jeśli tak, jest zwracana istniejącej jednostki <sup>(1)</sup>
+      * Jeśli nie, nowy obiekt jest tworzony i zwracany
 
-<sup>(1) </sup> Nie ma zapytań, śledzenie użycia słabe odwołania do śledzenia jednostek, które już zostały zwrócone. Jeśli poprzedni wynik o tej samej tożsamości wykracza poza zakres i wyrzucanie elementów bezużytecznych działa, możesz uzyskać nowego wystąpienia jednostki.
+<sup>(1) </sup> Nie śledzenia zapytań za pomocą słabe odwołania do śledzenie jednostek, które już zostały zwrócone. Jeśli poprzedni wynik z tą samą tożsamością wykracza poza zakres, a następnie uruchamia wyrzucanie elementów bezużytecznych, może pojawić się nowe wystąpienie jednostki.
 
-## <a name="when-queries-are-executed"></a>Podczas wykonywania kwerendy
+## <a name="when-queries-are-executed"></a>Gdy zapytania są wykonywane.
 
-Podczas wywoływania LINQ operatory są po prostu budowania reprezentacji w pamięci zapytania. Zapytanie jest wysyłane do bazy danych tylko wtedy, gdy wyniki są używane.
+Po wywołaniu operatorów LINQ, są po prostu budowania reprezentacji w pamięci, zapytania. Zapytanie jest wysyłane do bazy danych tylko wtedy, gdy wyniki są używane.
 
-Najbardziej typowe operacje, które powoduje zapytania są wysyłane do bazy danych są:
-* Iteracja wyniki w `for` pętli
+Najbardziej typowe operacje, których wynikiem zapytania są wysyłane do bazy danych są:
+* Iteracja wyniki w parametrze `for` pętli
 * Przy użyciu operatora, takich jak `ToList`, `ToArray`, `Single`, `Count`
-* Element dataBinding wyników zapytania do interfejsu użytkownika
+* Powiązanie danych z wynikami zapytania do interfejsu użytkownika
 
 > [!WARNING]  
-> **Sprawdzanie poprawności danych wejściowych użytkownika:** podczas EF zapewnia ochronę przed atakami iniekcji kodu SQL, nie ma żadnych ogólne sprawdzania poprawności danych wejściowych. W związku z tym jeśli wartości były przekazywane do interfejsów API, które są używane w zapytaniach LINQ, przypisane do właściwości obiektu itp., pochodzi z niezaufanego źródła, a następnie odpowiednią sprawdzania poprawności, zgodnie z wymaganiami aplikacji należy wykonać. W tym wszystkie dane wejściowe użytkownika używane do dynamicznego tworzenia zapytania. Nawet w przypadku używania LINQ, jeśli akceptujesz wprowadzenia danych przez użytkownika do kompilacji wyrażeń, które należy się upewnić, niż tylko danego wyrażenia może być skonstruowany.
+> **Zawsze weryfikowały dane wejściowe użytkownika:** EF podczas zapewniania ochrony przed atakami polegającymi na iniekcji SQL, nie ma żadnych ogólnej walidacji danych wejściowych. W związku z tym jeśli wartości są przekazywane do interfejsów API, które są używane w kwerendach LINQ, przypisany do właściwości obiektu itd., pochodzi z niezaufanego źródła, a następnie odpowiednią sprawdzania poprawności, zgodnie z wymaganiami aplikacji powinny być wykonywane. Dotyczy to danych podawanych przez użytkownika używane do dynamicznego utworzenia kwerendy. Nawet wtedy, gdy za pomocą LINQ, jeśli akceptujesz, że dane wejściowe podane użytkownika, aby zbudować wyrażenia, potrzebne do upewnij się, niż tylko zamierzony wyrażenia można skonstruować.

@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
 caps.latest.revision: 4
-ms.openlocfilehash: 64cf28b858ad364243447a529f26475d449cf73e
-ms.sourcegitcommit: 45494121254ad4fdcec613d1dd22d850068d6f39
+ms.openlocfilehash: 5be3632fd3a3f04e12e2d3aa67de6c1d9c7b56a2
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37913452"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949324"
 ---
 # <a name="past-releases-of-entity-framework"></a>Przeszłymi wersjami programu Entity Framework
 
@@ -68,10 +68,10 @@ EF 6.1.0 środowiska uruchomieniowego wydanej w marcu 2014 do narzędzia NuGet.
 Ta pomocnicza aktualizacja obejmuje szereg istotnych nowe funkcje:
 
 - **Narzędzia konsolidacji** zapewnia spójny sposób do utworzenia nowego modelu platformy EF. Ta funkcja [rozszerza kreatora ADO.NET Entity Data Model, aby obsługiwać tworzenie modele Code First](~/ef6/modeling/code-first/workflows/existing-database.md), w tym odtwarzanie z istniejącej bazy danych. Funkcje te wcześniej były dostępne w wersji Beta jakość EF Power Tools.
-- **[Obsługa błędów zatwierdzania transakcji](~/ef6/fundamentals/connection-resiliency/commit-failures.md) ** zapewnia CommitFailureHandler, co sprawia, że korzystanie z możliwości nowo wprowadzonych w celu przechwycenia operacji transakcji. CommitFailureHandler umożliwia automatyczne odzyskiwanie po awarii połączenia, przy jednoczesnym Zatwierdzanie transakcji.
-- **[IndexAttribute](~/ef6/modeling/code-first/data-annotations.md) ** umożliwia indeksy, aby określić, umieszczając `[Index]` atrybutu na właściwości (lub właściwości) w modelu Code First. Kod najpierw następnie utworzy odpowiedni indeks w bazie danych.
+- **[Obsługa błędów zatwierdzania transakcji](~/ef6/fundamentals/connection-resiliency/commit-failures.md)**  zapewnia CommitFailureHandler, co sprawia, że korzystanie z możliwości nowo wprowadzonych w celu przechwycenia operacji transakcji. CommitFailureHandler umożliwia automatyczne odzyskiwanie po awarii połączenia, przy jednoczesnym Zatwierdzanie transakcji.
+- **[IndexAttribute](~/ef6/modeling/code-first/data-annotations.md)**  umożliwia indeksy, aby określić, umieszczając `[Index]` atrybutu na właściwości (lub właściwości) w modelu Code First. Kod najpierw następnie utworzy odpowiedni indeks w bazie danych.
 - **Mapowania publicznego interfejsu API** zapewnia dostęp do informacji EF ma na sposobie mapowania właściwości i typy kolumn i tabel w bazie danych. W poprzednich wersjach tego interfejsu API były wewnętrznego.
-- **[Możliwość konfigurowania interceptory za pomocą pliku App/Web.config](~/ef6/fundamentals/configuring/config-file.md) ** umożliwia interceptory do dodania bez konieczności ponownego kompilowania aplikacji.
+- **[Możliwość konfigurowania interceptory za pomocą pliku App/Web.config](~/ef6/fundamentals/configuring/config-file.md)**  umożliwia interceptory do dodania bez konieczności ponownego kompilowania aplikacji.
 - **System.Data.Entity.Infrastructure.Interception.DatabaseLogger**jest nowy interceptor, która ułatwia wszystkie operacje bazy danych w pliku dziennika. W połączeniu z poprzedniej funkcji, dzięki temu można łatwo [włączyć rejestrowanie operacji bazy danych dla wdrożonej aplikacji](~/ef6/fundamentals/configuring/config-file.md), bez konieczności ponownej kompilacji.
 - **Wykrywanie zmiany modelu migracje** został ulepszony, aby były szkieletu migracje bardziej precyzyjne; także udoskonalono wydajności procesu wykrywania zmian.
 - **Ulepszenia wydajności** w tym operacje niższych bazy danych podczas inicjowania, optymalizacje dla porównania równości wartości null w zapytaniach LINQ szybciej wyświetlać generowania (Tworzenie modelu) w dalszych scenariuszach i bardziej wydajne materializacja śledzonych jednostek z wielu skojarzeń.
@@ -95,14 +95,14 @@ Zobacz sekcję dotyczącą [uaktualnianie do programu Entity Framework 6](upgrad
 Ta wersja zawiera wiele nowych funkcji.
 Następujące funkcje działają w przypadku modeli utworzonych za pomocą Code First i projektancie platformy EF:
 
-- **[Zapytania asynchroniczne i Zapisz](~/ef6/fundamentals/async.md) ** alokowanej dla wzorca asynchronicznego opartego na zadaniach, które zostały wprowadzone w .NET 4.5.
-- **[Elastyczność połączenia](~/ef6/fundamentals/connection-resiliency/retry-logic.md) ** umożliwia automatyczne odzyskiwanie po awarii przejściowych połączenia.
-- **[Konfiguracja na podstawie kodu](~/ef6/fundamentals/configuring/code-based.md) ** zapewnia możliwość wykonywania konfiguracji — tradycyjnie zostało wykonane w pliku konfiguracji — w kodzie.
-- **[Rozpoznawanie zależności](~/ef6/fundamentals/configuring/dependency-resolution.md) ** wprowadza obsługę wspólnym lokalizatorze usług wzorzec i firma Microsoft została uwzględniona się niektóre elementy funkcji, którą można zastąpić za pomocą niestandardowych implementacji.
-- **[Rejestrowanie przejmowanie/SQL](~/ef6/fundamentals/logging-and-interception.md) ** zapewnia niskiego poziomu bloków konstrukcyjnych przejmowanie EF operacji za pomocą prostego rejestrowania SQL zbudowany na górze.
+- **[Zapytania asynchroniczne i Zapisz](~/ef6/fundamentals/async.md)**  alokowanej dla wzorca asynchronicznego opartego na zadaniach, które zostały wprowadzone w .NET 4.5.
+- **[Elastyczność połączenia](~/ef6/fundamentals/connection-resiliency/retry-logic.md)**  umożliwia automatyczne odzyskiwanie po awarii przejściowych połączenia.
+- **[Konfiguracja na podstawie kodu](~/ef6/fundamentals/configuring/code-based.md)**  zapewnia możliwość wykonywania konfiguracji — tradycyjnie zostało wykonane w pliku konfiguracji — w kodzie.
+- **[Rozpoznawanie zależności](~/ef6/fundamentals/configuring/dependency-resolution.md)**  wprowadza obsługę wspólnym lokalizatorze usług wzorzec i firma Microsoft została uwzględniona się niektóre elementy funkcji, którą można zastąpić za pomocą niestandardowych implementacji.
+- **[Rejestrowanie przejmowanie/SQL](~/ef6/fundamentals/logging-and-interception.md)**  zapewnia niskiego poziomu bloków konstrukcyjnych przejmowanie EF operacji za pomocą prostego rejestrowania SQL zbudowany na górze.
 - **Ulepszenia testowania** ułatwiają tworzenie testu wartości podwójnej precyzji dla typu DbContext i DbSet podczas [za pomocą platformy pozorowania](~/ef6/fundamentals/testing/mocking.md) lub [napisanie własnego testu wartości podwójnej precyzji](~/ef6/fundamentals/testing/writing-test-doubles.md).
-- **[Kontekst DbContext można teraz tworzyć przy użyciu DbConnection, który jest już otwarty](~/ef6/fundamentals/connection-management.md) ** umożliwiająca scenariuszach, gdzie byłaby pomocne może być otwarte połączenie, podczas tworzenia kontekstu (takie jak udostępnianie połączenia między składnikami gdzie Użytkownik może nie gwarantuje stan połączenia).
-- **[Ulepszona obsługa transakcji](~/ef6/saving/transactions.md) ** zapewnia obsługę zewnętrznej framework, jak również ulepszoną sposoby tworzenia transakcji w ramach transakcji.
+- **[Kontekst DbContext można teraz tworzyć przy użyciu DbConnection, który jest już otwarty](~/ef6/fundamentals/connection-management.md)**  umożliwiająca scenariuszach, gdzie byłaby pomocne może być otwarte połączenie, podczas tworzenia kontekstu (takie jak udostępnianie połączenia między składnikami gdzie Użytkownik może nie gwarantuje stan połączenia).
+- **[Ulepszona obsługa transakcji](~/ef6/saving/transactions.md)**  zapewnia obsługę zewnętrznej framework, jak również ulepszoną sposoby tworzenia transakcji w ramach transakcji.
 - **Typy wyliczeniowe, przestrzenne i lepszą wydajność, program .NET 4.0** —, przenosząc podstawowe składniki, które wcześniej w programie .NET Framework do pakietu NuGet programu EF, możemy teraz oferować pomoc techniczną wyliczenia, typów danych przestrzennych i ulepszenia wydajności z EF5 na platformie .NET 4.0.
 - **Zwiększono wydajność Enumerable.Contains w zapytaniach LINQ**.
 - **Ulepszone ciepło czasu (Generowanie widoku)**, szczególnie w przypadku dużych modeli.
@@ -114,14 +114,14 @@ Następujące funkcje działają w przypadku modeli utworzonych za pomocą Code 
 
 Następujące funkcje Zastosuj tylko do Code First:
 
-- **[Niestandardowe pierwszy konwencje związane z](~/ef6/modeling/code-first/conventions/custom.md) ** Zezwalaj pisania własnych Konwencji odpowiadającym, aby zapobiec powstawaniu powtarzających się konfiguracji. Firma Microsoft udostępnia prosty interfejs API konwencje uproszczone, a także niektórych bardziej złożonych bloków konstrukcyjnych umożliwia tworzenie bardziej skomplikowanych Konwencji.
-- **[Kod pierwszy mapowanie procedur składowanych wstawiania/aktualizowania/usuwania](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md) ** jest teraz obsługiwane.
-- **[Skrypty migracji Idempotentne](~/ef6/modeling/code-first/migrations/index.md) ** umożliwiają generowanie skryptu SQL, które można uaktualnić bazę danych w dowolnej wersji do najnowszej wersji.
-- **[Tabela migracji można skonfigurować w historii](~/ef6/modeling/code-first/migrations/history-customization.md) ** umożliwia dostosowanie definicji tabeli historii migracji. Jest to szczególnie przydatne dla dostawcy bazy danych wymagają odpowiedni typ danych itp. może być określony dla tabeli migracji historii, aby działać poprawnie.
+- **[Niestandardowe pierwszy konwencje związane z](~/ef6/modeling/code-first/conventions/custom.md)**  Zezwalaj pisania własnych Konwencji odpowiadającym, aby zapobiec powstawaniu powtarzających się konfiguracji. Firma Microsoft udostępnia prosty interfejs API konwencje uproszczone, a także niektórych bardziej złożonych bloków konstrukcyjnych umożliwia tworzenie bardziej skomplikowanych Konwencji.
+- **[Kod pierwszy mapowanie procedur składowanych wstawiania/aktualizowania/usuwania](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md)**  jest teraz obsługiwane.
+- **[Skrypty migracji Idempotentne](~/ef6/modeling/code-first/migrations/index.md)**  umożliwiają generowanie skryptu SQL, które można uaktualnić bazę danych w dowolnej wersji do najnowszej wersji.
+- **[Tabela migracji można skonfigurować w historii](~/ef6/modeling/code-first/migrations/history-customization.md)**  umożliwia dostosowanie definicji tabeli historii migracji. Jest to szczególnie przydatne dla dostawcy bazy danych wymagają odpowiedni typ danych itp. może być określony dla tabeli migracji historii, aby działać poprawnie.
 - **Wiele kontekstów na bazę danych** usunie poprzednie ograniczenie jeden model Code First na bazę danych, korzystając z migracji lub Code First automatycznie utworzyła bazę danych dla Ciebie.
-- **[DbModelBuilder.HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md) ** jest nowy kod pierwszy interfejs API umożliwiający domyślny schemat bazy danych dla modelu Code First, należy skonfigurować w jednym miejscu. Wcześniej Code First schemat domyślny: stałe zakodowany &quot;dbo&quot; i jedynym sposobem, aby skonfigurował schemat, do której będzie należał tabeli za pomocą ToTable interfejsu API.
+- **[DbModelBuilder.HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md)**  jest nowy kod pierwszy interfejs API umożliwiający domyślny schemat bazy danych dla modelu Code First, należy skonfigurować w jednym miejscu. Wcześniej Code First schemat domyślny: stałe zakodowany &quot;dbo&quot; i jedynym sposobem, aby skonfigurował schemat, do której będzie należał tabeli za pomocą ToTable interfejsu API.
 - **Metoda DbModelBuilder.Configurations.AddFromAssembly** pozwala łatwo dodać wszystkich klas konfiguracji zdefiniowany w zestawie, w przypadku korzystania z klas konfiguracji przy użyciu kodu pierwszy Fluent interfejsu API.
-- **[Operacje migracji niestandardowe](http://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/) ** umożliwia dodawanie dodatkowych operacji do użycia w migracji opartego na kodzie.
+- **[Operacje migracji niestandardowe](http://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/)**  umożliwia dodawanie dodatkowych operacji do użycia w migracji opartego na kodzie.
 - **Domyślny poziom izolacji transakcji jest zmieniana na READ_COMMITTED_SNAPSHOT** dla baz danych utworzonych przy użyciu Code First, co zapewnia lepszą skalowalność i mniej zakleszczenia.
 - **Jednostek i typów złożonych można teraz klasy nestedinside**. |
 
@@ -229,7 +229,7 @@ Te składniki są używane przez migracje Code First (zawarte w wersji 4.3 platf
 
 Można zauważyć, że otrzymano nieoczekiwany wersji numer 4.1.10715 pakietu.
 Użyliśmy korzystają z wersji poprawki na podstawie daty, zanim podjęliśmy decyzję o przyjęcie [Semantic Versioning](https://semver.org).
-Tej wersji można traktować jako EF 4.1 poprawka 1 (tj. 4.1.1).
+Pomyśl o tej wersji EF 4.1 poprawka 1 (lub EF 4.1.1).
 
 Oto lista zawartości razem utworzona Państwu dla 4.1.1 wersji:
 

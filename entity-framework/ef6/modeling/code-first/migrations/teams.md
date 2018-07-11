@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 4c2d9a95-de6f-4e97-9738-c1f8043eff69
 caps.latest.revision: 3
-ms.openlocfilehash: 76005fcf1a4a07f746da13cb1c67d8d185e675c6
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 6a29fe3ab3aa6b9a51bea54706490f143e860a48
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912731"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949305"
 ---
 # <a name="code-first-migrations-in-team-environments"></a>Migracje Code First na środowiska zespołowe
 > [!NOTE]
@@ -148,7 +148,7 @@ Następujący proces może służyć w tym podejściu, rozpoczynając od godziny
 3.  Uruchom **Update-Database** do zastosowania nowej migracji, które zostały zaewidencjonowane innym deweloperom.
     **
     *Uwaga: *** Jeśli nie dostaniesz żadnych ostrzeżeń polecenia Update-Database nie było żadnych nowych migracje od innych deweloperów i trzeba wykonywać dalszych scalania.*
-4.  Uruchom **migracji Dodaj &lt;wybierz\_\_nazwa&gt; — IgnoreChanges** (np. **scalania migracji Dodaj — IgnoreChanges**). To generuje migracji za pomocą wszystkich metadanych (w tym migawki bieżącego modelu), ale będzie ignorować wszelkie zmiany wykrycia podczas porównywania bieżący model z migawką w ostatnim migracji (co oznacza, Pobierz pusty **się** i **Dół** metody).
+4.  Uruchom **migracji Dodaj &lt;wybierz\_\_nazwa&gt; — IgnoreChanges** (na przykład **scalania migracji Dodaj — IgnoreChanges**). To generuje migracji za pomocą wszystkich metadanych (w tym migawki bieżącego modelu), ale będzie ignorować wszelkie zmiany wykrycia podczas porównywania bieżący model z migawką w ostatnim migracji (co oznacza, Pobierz pusty **się** i **Dół** metody).
 5.  Kontynuować tworzenie lub Prześlij do kontroli źródła (po wykonywania z testów jednostkowych oczywiście).
 
 W tym miejscu jest stan dla deweloperów \#2 użytkownika lokalnego kodu bazowego po zakończeniu korzystania z tej metody.
@@ -159,7 +159,7 @@ W tym miejscu jest stan dla deweloperów \#2 użytkownika lokalnego kodu bazoweg
 
 Ta opcja jest bardzo podobna do opcji 1, ale usuwa dodatkowe puste migracji —, ponieważ umożliwia prawdzie, kto chce, aby pliki dodatkowego kodu w swoich rozwiązaniach.
 
-**To podejście jest możliwe tylko, jeśli istnieje tylko w podstawowym kod lokalny najnowszych migracji, a jeszcze nie zostało przesłane do kontroli źródła (czyli ostatniej migracji został wygenerowany przez użytkownika, wykonując scalanie)**. Edytować metadane migracji, które inni deweloperzy już zastosowane do swojej bazy danych rozwoju — lub nawet co gorsza stosowane do produkcyjnej bazy danych — może spowodować nieoczekiwane działania niepożądane. W procesie zamierzamy wycofać migrację ostatni w naszym lokalnej bazy danych, a następnie ponownie zastosuj go ze zaktualizowanymi metadanymi.
+**To podejście jest możliwe tylko, jeśli istnieje tylko w podstawowym kod lokalny najnowszych migracji, a nie jeszcze został przesłany do kontroli źródła (na przykład, jeśli ostatni migracji został wygenerowany przez użytkownika, wykonując scalanie)**. Edytować metadane migracji, które inni deweloperzy już zastosowane do swojej bazy danych rozwoju — lub nawet co gorsza stosowane do produkcyjnej bazy danych — może spowodować nieoczekiwane działania niepożądane. W procesie zamierzamy wycofać migrację ostatni w naszym lokalnej bazy danych, a następnie ponownie zastosuj go ze zaktualizowanymi metadanymi.
 
 Podczas ostatniej migracji konieczne po prostu znajdować się w lokalnym kod podstawowy, nie ma żadnych ograniczeń liczbę lub kolejność migracji, które ją kontynuować. Może istnieć wiele migracji z wielu różnych deweloperów i Zastosuj te same czynności — firma Microsoft została właśnie zostało spojrzenie na dwa w celu uproszczenia.
 

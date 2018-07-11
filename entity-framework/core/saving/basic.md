@@ -1,55 +1,55 @@
 ---
-title: Zapisz podstawowy — podstawowe EF
+title: Zapisywanie podstawowe - programu EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 850d842e-3fad-4ef2-be17-053768e97b9e
 ms.technology: entity-framework-core
 uid: core/saving/basic
-ms.openlocfilehash: 35bf14af43289ad6308a49482d3f45a7a8be9067
-ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
+ms.openlocfilehash: ecf8f344a5baae37a5e7255a4affb1085f1b3ff3
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34754394"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949403"
 ---
-# <a name="basic-save"></a>Zapisz podstawowy
+# <a name="basic-save"></a>Zapisywanie podstawowe
 
-Informacje o sposobie dodawania, modyfikowania i usuwania danych przy użyciu klas kontekstu i jednostek.
+Dowiedz się, jak dodawanie, modyfikowanie i usuwanie danych przy użyciu klas jednostek i kontekstu.
 
 > [!TIP]  
-> Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Basics/) w witrynie GitHub.
+> Można wyświetlić w tym artykule [przykładowe](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Basics/) w witrynie GitHub.
 
 ## <a name="adding-data"></a>Dodawanie danych
 
-Użyj *DbSet.Add* metody w celu dodania nowych wystąpień klas jednostek. Dane zostanie wstawiony w bazie danych podczas wywoływania *SaveChanges*.
+Użyj *DbSet.Add* metodę, aby dodać nowe wystąpienia klas jednostek. Dane zostanie wstawiony w bazie danych podczas wywoływania *SaveChanges*.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#Add)]
 
 > [!TIP]  
-> Metody Add, Dołącz i aktualizacji wszystkie działają na wykresie pełne jednostek przekazany do nich, zgodnie z opisem w [dane dotyczące](related-data.md) sekcji. Alternatywnie EntityEntry.State właściwości można ustawić stanu pojedynczej jednostki. Na przykład `context.Entry(blog).State = EntityState.Modified`.
+> Metody Add, Dołącz i aktualizacji, wszystkie robocze na pełny wykres jednostek jest przekazywany do nich, zgodnie z opisem w [powiązanych danych](related-data.md) sekcji. Alternatywnie właściwość EntityEntry.State może służyć do ustawiania stanu pojedynczej jednostki. Na przykład `context.Entry(blog).State = EntityState.Modified`.
 
 ## <a name="updating-data"></a>Aktualizowanie danych
 
-EF automatycznie wykrywa zmiany wprowadzone do istniejącego obiektu, które są śledzone przez kontekst. W tym jednostki, które możesz obciążenia/zapytania z bazy danych i jednostek, które zostały wcześniej dodane i zapisane w bazie danych.
+EF automatycznie wykrywa zmiany wprowadzone do istniejącej jednostki, która jest śledzona przez kontekst. Obejmuje to jednostki, które możesz obciążenia/zapytań z bazy danych i jednostek, które zostały wcześniej dodane i zapisane w bazie danych.
 
-Po prostu zmodyfikuj wartości dla właściwości, a następnie wywołać *SaveChanges*.
+Po prostu zmodyfikuj wartości przypisane do właściwości, a następnie wywołać *SaveChanges*.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#Update)]
 
 ## <a name="deleting-data"></a>Usuwanie danych
 
-Użyj *DbSet.Remove* metodę, aby usunąć wystąpienia klas jednostek.
+Użyj *DbSet.Remove* metody, można usunąć wystąpień klas jednostek.
 
-Jeśli ta jednostka już istnieje w bazie danych, zostaną usunięte podczas *SaveChanges*. Jeśli jednostka nie został jeszcze zapisany w bazie danych (np. jego śledzenia dodany), a następnie zostaną usunięte z kontekstu i nie będzie już wstawiony, kiedy *SaveChanges* jest wywoływana.
+Jeśli ta jednostka już istnieje w bazie danych, zostaną usunięte podczas *SaveChanges*. Jeśli jednostka nie został jeszcze zapisany w bazie danych (czyli jego śledzenia dodawania) zostaną usunięte z kontekstu, a nie będzie już wstawiany gdy *SaveChanges* jest wywoływana.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#Remove)]
 
-## <a name="multiple-operations-in-a-single-savechanges"></a>Wiele operacji w jednej metody SaveChanges
+## <a name="multiple-operations-in-a-single-savechanges"></a>Wiele operacji w jednym SaveChanges
 
-Można połączyć wiele operacji dodawania/aktualizacji/usuwania w jednym wywołaniu *SaveChanges*.
+Można połączyć wiele operacji Dodawanie/aktualizowanie/usuwanie na jedno wywołanie *SaveChanges*.
 
 > [!NOTE]  
-> W przypadku dostawców większości bazy danych *SaveChanges* jest transakcyjna. Oznacza to, wszystkie operacje będą powodzenie lub Niepowodzenie i operacje będą nigdy nie lewej częściowo stosowane.
+> W przypadku większości dostawców bazy danych *SaveChanges* jest transakcyjna. Oznacza to wszystkie operacje będą sukcesem lub niepowodzeniem, a operacje nigdy nie lewej częściowo zastosowanych.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#MultipleOperations)]

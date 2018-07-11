@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 29958ae5-85d3-4585-9ba6-550b8ec9393a
 caps.latest.revision: 3
-ms.openlocfilehash: bed3c24746b6d754ce3aebb8288d189d6b2c5af2
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: d22f0d686e6b8e3922d37245386af7723bf08ba1
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912659"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949267"
 ---
 # <a name="upgrading-to-entity-framework-6"></a>Uaktualnianie do programu Entity Framework 6
 
@@ -85,7 +85,7 @@ Te typy są w *Core* przestrzenie nazw, ponieważ nie są używane bezpośrednio
 - System.Data.Objects.EntityFunctions = > dane systemowe. **Entity.DbFunctions**  
   > [!NOTE]
   > Ta klasa została zmieniona; Klasa o starej nazwie nadal istnieje i działa, ale teraz oznaczone jako przestarzałe).  
-- Przestrzenne klasy (np. DbGeography, DbGeometry) zostały przeniesione z System.Data.Spatial = > dane systemowe. **Jednostki.** Przestrzenne
+- Przestrzenne klasy (na przykład DbGeography, DbGeometry) zostały przeniesione z System.Data.Spatial = > dane systemowe. **Jednostki.** Przestrzenne
 
 > [!NOTE]
 > Niektóre typy w przestrzeni nazw System.Data znajdują się w System.Data.dll, który nie jest zestawem EF. Te typy nie zostały przeniesione, i dlatego ich przestrzenie nazw pozostają niezmienione.

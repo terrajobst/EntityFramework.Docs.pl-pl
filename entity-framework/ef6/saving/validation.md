@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
 caps.latest.revision: 3
-ms.openlocfilehash: 7f0b778d45d0618c9ebfb5a34110c5094d133cc7
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 758865255d7868337dc1d7801bd9ff77f0bb57a9
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914317"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949264"
 ---
 # <a name="data-validation"></a>Sprawdzanie poprawności danych
 > [!NOTE]
@@ -202,7 +202,7 @@ DbEntityValidationResult przechowuje DbEntityEntry i ICollection DbValidationErr
 
 Po wywołaniu funkcji SaveChanges wyzwala wszystkie operacje sprawdzania poprawności omówione w tym artykule. Ale nie trzeba polegać na SaveChanges. Możesz sprawdzić w innym miejscu w aplikacji.
 
-Spowoduje to wyzwolenie wszystkie operacje sprawdzania poprawności, te określone przez adnotacje lub interfejsu API Fluent, sprawdzanie poprawności utworzonych w IValidatableObject (np. Blog.Validate) i sprawdzania poprawności wykonywane w metodzie DbContext.ValidateEntity DbContext.GetValidationErrors.
+DbContext.GetValidationErrors wyzwoli wszystkie operacje sprawdzania poprawności, te określone przez adnotacje lub interfejsu API Fluent, sprawdzanie poprawności utworzonych w IValidatableObject (na przykład Blog.Validate) i sprawdzeń wykonywane w DbContext.ValidateEntity Metoda.
 
 Poniższy kod wywoła GetValidationErrors na bieżącym wystąpieniu typu DbContext. ValidationErrors są pogrupowane według typu jednostki do DbValidationRestuls. Kod wykonuje iterację najpierw za pomocą DbValidationResults zwracany przez metodę, a następnie za pomocą każdego ValidationError wewnątrz.
 

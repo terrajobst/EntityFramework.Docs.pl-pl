@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 9a7ae7f9-4072-4843-877d-506dd7eef576
 caps.latest.revision: 3
-ms.openlocfilehash: 6f8466601bedb705775b11e0b2732b1c4215aeac
-ms.sourcegitcommit: 9ae4473425c5e76337c9d032b0e5dbfedf1fcf57
+ms.openlocfilehash: 1f100ed888abd98df83c80d0de2086cfb1ba7b4f
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914469"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949082"
 ---
 # <a name="code-first-insert-update-and-delete-stored-procedures"></a>Pierwsze wstawienie kodu, aktualizowanie i usuwanie procedur składowanych
 > [!NOTE]
@@ -34,7 +34,7 @@ modelBuilder
 
 W ten sposób spowoduje, że Code First na potrzeby niektóre konwencje kompilacji oczekiwanego kształt procedur składowanych w bazie danych.  
 
-- Trzy procedury składowane o nazwie  **\<type_name\>_Wstaw**,  **\<type_name\>_aktualizuj** i  **\<type_ Nazwa\>_Usuń** (np. Blog_Insert i Blog_Update Blog_Delete).  
+- Trzy procedury składowane o nazwie  **\<type_name\>_Wstaw**,  **\<type_name\>_aktualizuj** i  **\<type_ Nazwa\>_Usuń** (na przykład Blog_Insert i Blog_Update Blog_Delete).  
 - Nazwy parametrów odpowiadają nazwy właściwości.  
   > [!NOTE]
   > Jeśli używasz HasColumnName() lub atrybut kolumny można zmienić nazwy kolumny dla danej właściwości ta nazwa jest używana dla parametrów zamiast nazwy właściwości.  
@@ -220,7 +220,7 @@ Aktualizowanie i usuwanie przechowywane procedury może być również konieczne
 
 - Jeśli jednostka zawiera tokeny współbieżności, procedury składowanej mogą opcjonalnie mieć parametr wyjściowy, która zwraca liczbę wierszy, zaktualizowane lub usunięte (wierszy). Taki parametr musi być skonfigurowany przy użyciu metody RowsAffectedParameter.  
 Domyślnie EF używa wartość zwrotną z elementu ExecuteNonQuery, aby określić, ile wierszy została zmieniona. Określanie parametru wyjściowego odnośnych wierszy jest przydatne, jeśli po wykonaniu dowolnej logiki w swojej procedury sproc, które mogłyby spowodować wartość zwracaną ExecuteNonQuery jest niepoprawny (z perspektywy firmy EF) na końcu wykonywania.  
-- Dla każdego współbieżności będzie token ma parametr o nazwie  **\<property_name\>_Original** (tj. Timestamp_Original). To zostaną przekazane oryginalnej wartości tej właściwości – wartości po otrzymaniu kwerendy od bazy danych.  
+- Dla każdego współbieżności będzie token ma parametr o nazwie  **\<property_name\>_Original** (na przykład Timestamp_Original). To zostaną przekazane oryginalnej wartości tej właściwości – wartości po otrzymaniu kwerendy od bazy danych.  
     - Tokeny współbieżności, które są obliczane przez bazy danych — takich jak sygnatury czasowe — będzie miał tylko oryginalny parametru wartości.  
     - Obliczane inne niż właściwości, które są ustawione jako tokeny współbieżności Ponadto będziesz mieć parametr nową wartość w ramach procedury aktualizacji. Używa konwencji nazewnictwa już omówiono nowe wartości. Przykładem takiego tokenu będzie przy użyciu adresu URL blogu jako tokenem współbieżności, nowa wartość jest wymagana, ponieważ to mogą być aktualizowane na nową wartość w kodzie (w przeciwieństwie do token sygnatury czasowej, które są aktualizowane tylko przez bazę danych).  
 
@@ -336,8 +336,8 @@ modelBuilder
 
 Jeśli zostanie podana żadna inna konfiguracja domyślnie jest używany następujący kształt procedury składowanej.  
 
-- Dwie procedury składowane o nazwie  **\<type_one\>\<type_two\>_Wstaw** i  **\<type_one\>\<type_two \>_Usuń** (tj. PostTag_Insert i PostTag_Delete).  
-- Parametry będą kluczowe wartości dla każdego typu. Nazwa każdego parametru jest **\<type_name\>_\<property_name\>** (tj. Post_PostId i Tag_TagId).
+- Dwie procedury składowane o nazwie  **\<type_one\>\<type_two\>_Wstaw** i  **\<type_one\>\<type_two \>_Usuń** (na przykład PostTag_Insert i PostTag_Delete).  
+- Parametry będą kluczowe wartości dla każdego typu. Nazwa każdego parametru jest **\<type_name\>_\<property_name\>** (na przykład Post_PostId i Tag_TagId).
 
 Poniżej przedstawiono przykład wstawiania i aktualizowania procedur składowanych.  
 

@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
 caps.latest.revision: 3
-ms.openlocfilehash: 4f5408951f14d70a6f49818985f57c6ee88bfb5d
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 4238c88cc149458ed11b96a0bf9aaed9aac40b2d
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914267"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949239"
 ---
 # <a name="working-with-transactions"></a>Praca z transakcji
 > [!NOTE]
@@ -110,7 +110,7 @@ Czasami chcesz transakcji jest szersze w zakresie i który obejmuje operacje, w 
 W tym celu należy zdefiniować i użyć konstruktora w swojej klasy kontekstu, który dziedziczy z jednego typu DbContext konstruktorów przyjmujących i) istniejących parametrów połączenia i ii) contextOwnsConnection boolean.  
 
 > [!NOTE]
-> Flaga contextOwnsConnection musi być równa FAŁSZ, gdy wywołuje się, w tym scenariuszu. Jest to ważne, ponieważ informuje Entity Framework, go nie powinna zamykać połączenia po jej zakończeniu z nim (np. patrz wiersz do 4 opisane poniżej):  
+> Flaga contextOwnsConnection musi być równa FAŁSZ, gdy wywołuje się, w tym scenariuszu. Jest to ważne, ponieważ informuje Entity Framework, go nie powinna zamykać połączenia po jej zakończeniu z nim (na przykład, zobacz wiersz do 4 opisane poniżej):  
 
 ``` csharp
 using (var conn = new SqlConnection("..."))
@@ -124,7 +124,7 @@ using (var conn = new SqlConnection("..."))
 
 Ponadto należy rozpocząć transakcję, samodzielnie (łącznie IsolationLevel, jeśli chcesz uniknąć ustawienie domyślne) i umożliwić Entity Framework wiedzieć, że jest istniejącej transakcji, już uruchomiona w ramach połączenia (zobacz wiersz 33 poniżej).  
 
-To bezpłatna, można wykonać operacji bazy danych bezpośrednio na element SqlConnection, samego lub dla kontekstu DbContext. Wszystkie operacje są wykonywane w ramach jednej transakcji. Możesz skorzystać z odpowiedzialności potwierdzenia lub wycofania transakcji i wywoływania metody Dispose() w nim, a także zamykania i usuwania połączenia z bazą danych. Np.:  
+To bezpłatna, można wykonać operacji bazy danych bezpośrednio na element SqlConnection, samego lub dla kontekstu DbContext. Wszystkie operacje są wykonywane w ramach jednej transakcji. Możesz skorzystać z odpowiedzialności potwierdzenia lub wycofania transakcji i wywoływania metody Dispose() w nim, a także zamykania i usuwania połączenia z bazą danych. Na przykład:  
 
 ``` csharp
 using System;
@@ -191,7 +191,7 @@ Można przekazać wartości null do Database.UseTransaction() wyczyść Entity F
 Wyjątek z Database.UseTransaction() zostanie wyświetlony w przypadku przekazania transakcji po:  
 - Entity Framework jest już w istniejącej transakcji  
 - Entity Framework jest już działające w ramach elementu TransactionScope  
-- Obiekt połączenia w ramach transakcji przekazywany jest pusty (czyli taki, który ma Brak połączenia — zwykle jest to znak, że transakcja została już zakończona.)  
+- Obiekt połączenia w ramach transakcji przekazywany jest pusty. Oznacza to, że transakcja nie jest skojarzona z połączeniem — zazwyczaj jest to znak, że transakcja została już zakończona.  
 - Obiekt połączenia w ramach transakcji przekazywany jest niezgodna z połączenia programu Entity Framework.  
 
 ## <a name="using-transactions-with-other-features"></a>Za pomocą transakcji z innymi funkcjami  

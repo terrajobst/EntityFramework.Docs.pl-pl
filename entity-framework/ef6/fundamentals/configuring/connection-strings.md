@@ -9,19 +9,19 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 294bb138-978f-4fe2-8491-fdf3cd3c60c4
 caps.latest.revision: 3
-ms.openlocfilehash: afb13998a6482b3e7a7e250892854ab7599f109d
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: ca597e68a5b3e2085612669ee81da10ba6969eeb
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912068"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949103"
 ---
 # <a name="connection-strings-and-models"></a>Parametry połączenia i modeli
 W tym temacie opisano, jak Entity Framework umożliwia odnalezienie połączenie bazy danych i jak można ją zmienić. Modele utworzone przy użyciu Code First i projektancie platformy EF zostały omówione w tym temacie.  
 
 Zazwyczaj aplikacja programu Entity Framework używa klasy pochodzącej od typu DbContext. Ta klasa pochodna wywoła jednym z konstruktorów w klasie bazowej DbContext do sterowania:  
 
-- Jak kontekst połączy się database—i.e. jak parametry połączenia to znaleziono użyć  
+- Jak kontekst połączy się z bazą danych — oznacza to, jak ciąg połączenia jest znaleziono użyć  
 - Kontekst użyje obliczania modelu za pomocą funkcji Code First czy załadować model utworzony za pomocą projektanta EF  
 - Dodatkowe opcje zaawansowane  
 

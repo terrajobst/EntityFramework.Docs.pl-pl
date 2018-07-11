@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: dc6110a0-80a0-4370-8190-cea942841cee
 caps.latest.revision: 4
-ms.openlocfilehash: 18df636685da2373549437b4830e11ac8ad2d2ec
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: cffd2deea3148a16ed704d1e5e7b365eda06f72b
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914083"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949049"
 ---
 # <a name="improving-startup-performance-with-ngen"></a>Zwiększanie wydajności uruchamiania za pomocą narzędzia NGen
 > [!NOTE]
@@ -28,7 +28,7 @@ Empiryczne obserwacje pokazują, że obrazy natywne zestawów środowiska urucho
 
 ## <a name="how-to-use-ngenexe"></a>Jak używać NGen.exe  
 
-Najbardziej podstawowa funkcja narzędzia NGen.exe jest "Zainstaluj" (tj. Utwórz i Zapisz na dysku) obrazów natywnych dla zestawu i wszystkich jego zależności bezpośrednich. Poniżej przedstawiono, jak można uzyskać, który:  
+Najbardziej podstawowa funkcja narzędzia NGen.exe jest "Zainstaluj" (oznacza to, aby utworzyć i zachować na dysku) obrazów natywnych dla zestawu i wszystkich jego zależności bezpośrednich. Poniżej przedstawiono, jak można uzyskać, który:  
 
 1. Otwórz okno wiersza polecenia jako administrator  
 2. Zmień bieżący katalog roboczy do lokalizacji zestawów, który chcesz wygenerować obrazów natywnych dla:  
@@ -57,17 +57,17 @@ NGen.exe obsługuje także inne funkcje, takie jak odinstalowywanie i wyświetla
 Jeśli chodzi o określić zestawy, które generuje obrazy natywne dla w aplikacji opartej na EF w wersji 6 lub nowszego, należy rozważyć następujące opcje:  
 
 - **Głównym zestawie środowiska uruchomieniowego EF, EntityFramework.dll**: Typowa aplikacja na podstawie EF jest wykonywany znacząca ilość kodu z tego zestawu podczas uruchamiania lub w jego pierwszego dostępu do bazy danych. W związku z tym tworzenie obrazów natywnych tego zestawu powoduje wygenerowanie największy wzrost wydajności uruchamiania.  
-- **Każdy zespół dostawcy EF używanych przez aplikację**: czas uruchamiania mogą również zyskać nieco dzięki np. generowanie obrazów macierzystych, które z tych opcji, jeśli aplikacja używa dostawcy EF dla programu SQL Server, można wygenerować obraz natywny dla EntityFramework.SqlServer.dll.  
+- **Każdy zespół dostawcy EF używanych przez aplikację**: czas uruchamiania mogą również zyskać nieco dzięki generowanie obrazów macierzystych, które z nich. Na przykład jeśli aplikacja używa dostawcy EF dla programu SQL Server należy wygenerować obraz natywny dla EntityFramework.SqlServer.dll.  
 - **Zestawy aplikacji i inne zależności**: [dokumentacji NGen.exe](https://msdn.microsoft.com/library/6t9t5wcf.aspx) opisano ogólne kryteria wyboru zestawy, które można wygenerować obrazów natywnych dla i wpływu na obrazy natywne dotyczący zabezpieczeń, Zaawansowane opcje, takie jak "trwałego powiązania" scenariuszy, takich jak przy użyciu obrazów natywnych w debugowania i profilowania w scenariuszach itp.  
 
 > [!TIP]
-> Upewnij się, starannie mierzenie wpływu na wydajność uruchamiania i ogólną wydajność aplikacji przy użyciu obrazów macierzystych i porównać ich rzeczywiste wymagania. Natomiast obrazy natywne pomoże ogólnie poprawy uruchomienia wydajność i w niektórych przypadkach zmniejszenie zużycia pamięci, nie wszystkie scenariusze skorzystają równomiernie. Na przykład w stanie stabilności wykonywania (tj. po co najmniej raz wywołania wszystkich metod, które są używane przez aplikację) kod wygenerowany przez kompilator JIT może w rzeczywistości przynieść wydajność nieco lepiej niż obrazy natywne.  
+> Upewnij się, starannie mierzenie wpływu na wydajność uruchamiania i ogólną wydajność aplikacji przy użyciu obrazów macierzystych i porównać ich rzeczywiste wymagania. Natomiast obrazy natywne pomoże ogólnie poprawy uruchomienia wydajność i w niektórych przypadkach zmniejszenie zużycia pamięci, nie wszystkie scenariusze skorzystają równomiernie. Na przykład w stanie stabilności wykonywania (gdy co najmniej raz wywołania wszystkich metod, które są używane przez aplikację) kod wygenerowany przez kompilator JIT może w rzeczywistości przynieść wydajność nieco lepiej niż obrazy natywne.  
 
 ## <a name="using-ngenexe-in-a-development-machine"></a>Za pomocą NGen.exe w komputerze deweloperskim  
 
 Podczas tworzenia .NET JIT kompilatora oferuje najlepsze rozwiązanie ogólne dla kodu, które zmieniają się często. Generowanie obrazów macierzystych skompilowanych zależności, takich jak zestawy środowiska uruchomieniowego EF może pomóc przyspieszyć programowanie i testowanie przez wycinanie kilka sekund na początku każdego wykonania.  
 
-Dobrym miejscem do śledzenia Znajdź zestawy środowiska uruchomieniowego EF jest lokalizacja pakietu NuGet dla rozwiązania, np. dla aplikacji przy użyciu programu EF 6.0.2 z programem SQL Server i przeznaczonych dla platformy .NET 4.5 lub nowszej można wpisać następujące w oknie wiersza polecenia (należy pamiętać otworzyć go jako administr aż operator):  
+Dobrym miejscem do śledzenia Znajdź zestawy środowiska uruchomieniowego EF jest lokalizacja pakietu NuGet dla rozwiązania. Na przykład w aplikacji przy użyciu programu EF 6.0.2 z programem SQL Server i przeznaczonych dla platformy .NET 4.5 lub nowszej w oknie wiersza polecenia można wpisać następujące (Pamiętaj otworzyć go jako administrator):  
 
 ``` console
 cd <Solution directory>\packages\EntityFramework.6.0.2\lib\net45
@@ -84,7 +84,7 @@ Zestaw narzędzi WiX obsługuje kolejkowania generowanie obrazów natywnych dla 
 
 ## <a name="verifying-that-native-images-are-being-used-for-ef"></a>Weryfikowanie, czy obrazy natywne są używane na platformie EF  
 
-Można sprawdzić, czy określona aplikacja używa natywny zestaw, wyszukując załadowanych zestawów, które mają rozszerzenie ". ni.dll"or". ni.exe", np. obraz natywny dla zestawu głównego środowiska uruchomieniowego EF zostanie wywołana metoda EntityFramework.ni.dll. Prosty sposób sprawdzić załadowanych zestawów .NET procesu jest użycie [Eksplorator procesów](https://technet.microsoft.com/sysinternals/bb896653).  
+Można sprawdzić, czy określona aplikacja używa natywny zestaw, wyszukując załadowanych zestawów, które mają rozszerzenie ". ni.dll"or". ni.exe". Na przykład obraz natywny dla zestawu głównego środowiska uruchomieniowego EF zostanie wywołana EntityFramework.ni.dll. Prosty sposób sprawdzić załadowanych zestawów .NET procesu jest użycie [Eksplorator procesów](https://technet.microsoft.com/sysinternals/bb896653).  
 
 ## <a name="other-things-to-be-aware-of"></a>Inne zagadnienia, które należy pamiętać o  
 

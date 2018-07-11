@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 122c38a2-f9e8-4ecc-9c72-a83bc9af7814
 caps.latest.revision: 4
-ms.openlocfilehash: 52bc05bd25da919052ee58bbcc19d57e12ebc9d3
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 400bf1428e6754a88dbc1264c346bb66282725a0
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912653"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949001"
 ---
 # <a name="get-entity-framework"></a>Pobieranie programu Entity Framework
 Entity Framework składa się z narzędziami EF dla programu Visual Studio i środowiska uruchomieniowego EF.
@@ -51,7 +51,7 @@ Od wersji 4.1 EF wydano nowe wersje środowiska uruchomieniowego EF jako [Entity
 Install-Package EntityFramework -Version <number>
 ```
 
-Należy pamiętać, że `<number>` reprezentuje określonej wersji EF do zainstalowania, np. 6.2.0 jest wersja numer EF 6.2.   
+Należy pamiętać, że `<number>` reprezentuje określoną wersję platformy EF do zainstalowania. Na przykład 6.2.0 stanowi wersję numer EF 6.2.   
 
 EF środowisk wykonawczych, zanim 4.1 były częścią środowiska .NET Framework i nie można zainstalować oddzielnie.
 

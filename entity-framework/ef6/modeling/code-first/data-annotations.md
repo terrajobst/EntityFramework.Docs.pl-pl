@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
 caps.latest.revision: 3
-ms.openlocfilehash: 65a0a38ca63f241d6141c32e48b5c690752517d6
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 91d1d8c2608df8f7b38e70b565a4225cf10ae21f
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914264"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949310"
 ---
 # <a name="code-first-data-annotations"></a>Adnotacje danych na pierwszym kodu
 > [!NOTE]
@@ -119,7 +119,7 @@ W przypadku kluczy złożonych Entity Framework wymaga do definiowania porządku
 
 W przypadku jednostek za pomocą kluczy złożonych obcego należy określić w tej samej kolumnie, porządkowanie, który był używany dla odpowiednich właściwości klucza podstawowego.
 
-Tylko względną kolejność w ramach właściwości klucza obcego muszą być takie same, dokładne wartości, które są przypisane do **kolejność** nie muszą być zgodne. Czyli w poniższym przykładzie 3 i 4 można użyć zamiast 1 i 2.
+Tylko względną kolejność w ramach właściwości klucza obcego muszą być takie same, dokładne wartości, które są przypisane do **kolejność** nie muszą być zgodne. Na przykład w następującej klasy 3 i 4 może służyć zamiast 1 i 2.
 
 ``` csharp
     public class PassportStamp
@@ -356,7 +356,7 @@ Na przykład, poniższy kod będzie skutkować indeksu tworzona **ocena** kolumn
     }
 ```
 
-Domyślnie, będą miały nazwę nadaną indeks **IX\_&lt;nazwa właściwości&gt;**  (czyli IX\_klasyfikacji w powyższym przykładzie). Mimo że można określić również nazwę indeksu. W poniższym przykładzie określono indeks powinien zostać nazwany **PostRatingIndex**.
+Domyślnie, będą miały nazwę nadaną indeks **IX\_&lt;nazwa właściwości&gt;**  (IX\_klasyfikacji w powyższym przykładzie). Mimo że można określić również nazwę indeksu. W poniższym przykładzie określono indeks powinien zostać nazwany **PostRatingIndex**.
 
 ``` csharp
     [Index("PostRatingIndex")]

@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 0fc4eef8-29b8-4192-9c77-08fd33d3db3a
 caps.latest.revision: 3
-ms.openlocfilehash: 58a895d0cccdd9caa076168d8314d997be2ae96c
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 135a51d93a06c0d64732438f067df4ce2675fbe2
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914044"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949074"
 ---
 # <a name="model-based-conventions"></a>Konwencje opartych na modelu
 > [!NOTE]
@@ -89,7 +89,7 @@ class DiscriminatorRenamingConvention : IStoreModelConvention<EdmProperty>
 
 Inny przykład bardziej złożonego modelu na podstawie Konwencji w akcji jest skonfigurować sposób noszą niezależnych skojarzenia (IAs).  Jest to sytuacja, w którym Model konwencje są stosowane, ponieważ usługi IAs są generowane przez EF i nie są dostępne w modelu, które mogą uzyskiwać dostęp do interfejsu API DbModelBuilder.  
 
-Gdy EF generuje IA, tworzy kolumnę o nazwie EntityType_KeyName, czyli skojarzenie klucza kolumnę o nazwie CustomerId ta aplikacja wygeneruje Customer_CustomerId kolumna o nazwie klienta.  Następujące paski Konwencji "\_" znak poza nazwa kolumny, która jest generowana dla IA.  
+Gdy EF generuje IA, tworzy kolumnę o nazwie EntityType_KeyName. Na przykład skojarzenie o nazwie klienta z kolumną klucza o nazwie CustomerId ta aplikacja wygeneruje kolumnę o nazwie Customer_CustomerId. Następujące paski Konwencji "\_" znak poza nazwa kolumny, która jest generowana dla IA.  
 
 ``` csharp
 using System.Data.Entity;
@@ -197,7 +197,7 @@ public class CustomKeyDiscoveryConvention : KeyDiscoveryConvention
 }
 ```  
 
-Następnie należy dodać naszej nowej Konwencji przed istniejącej Konwencji klucza. Po dodamy CustomKeyDiscoveryConvention, możemy usunąć IdKeyDiscoveryConvention.  Jeśli nie możemy usunąć istniejące IdKeyDiscoveryConvention, ta Konwencja będzie nadal pierwszeństwo Konwencji odnajdywania identyfikator, ponieważ jest uruchamiane, najpierw, ale w przypadku, gdy nie ma właściwości "key" zostanie znaleziony, zostanie uruchomiony Konwencji "id".  Zobaczymy to zachowanie, ponieważ każda Konwencja widzi modelu jako zaktualizowany zgodnie z Konwencją poprzedniego (a nie na obsługiwaniu na nim niezależnie i wszystkie połączone ze sobą) tak, że jeśli Konwencję poprzedniej aktualizacji np. Nazwa kolumny do dopasowania, stanie się coś istotnego do Twoje niestandardowe Konwencji (jeśli wcześniej nazwę nie zainteresowania), a następnie go będą stosowane do tej kolumny.  
+Następnie należy dodać naszej nowej Konwencji przed istniejącej Konwencji klucza. Po dodamy CustomKeyDiscoveryConvention, możemy usunąć IdKeyDiscoveryConvention.  Jeśli nie możemy usunąć istniejące IdKeyDiscoveryConvention, ta Konwencja będzie nadal pierwszeństwo Konwencji odnajdywania identyfikator, ponieważ jest uruchamiane, najpierw, ale w przypadku, gdy nie ma właściwości "key" zostanie znaleziony, zostanie uruchomiony Konwencji "id".  Zobaczymy to zachowanie, ponieważ każda Konwencja widzi modelu jako zaktualizowany zgodnie z Konwencją poprzedniego (a nie na obsługiwaniu na nim niezależnie i wszystkie połączone ze sobą) powoduje, że jeśli na przykład poprzedniego Konwencji zaktualizowany nazwę kolumny, aby dopasować stanie się coś odsetek swoje niestandardowe Konwencji (jeśli wcześniej nazwę nie zainteresowania), a następnie go będą stosowane do tej kolumny.  
 
 ``` csharp
 public class BlogContext : DbContext

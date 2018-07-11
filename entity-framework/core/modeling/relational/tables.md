@@ -1,32 +1,32 @@
 ---
-title: Mapowania tabeli - EF Core
+title: Mapowanie tabeli — EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: c807aa4c-7845-443d-b8d0-bfc9b42691a3
 ms.technology: entity-framework-core
 uid: core/modeling/relational/tables
-ms.openlocfilehash: 73957d9c77e6856bfb65e10e6b373c337101f7d9
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: ef6080b5d543c2a68a680be2b9effc1c9d531030
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054182"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949012"
 ---
-# <a name="table-mapping"></a>Mapowania tabeli
+# <a name="table-mapping"></a>Mapowanie tabeli
 
 > [!NOTE]  
-> Konfiguracja opisana w tej sekcji ma zastosowanie do relacyjnych baz danych w zasadzie. Metody rozszerzenia pokazane staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionego *Microsoft.EntityFrameworkCore.Relational* pakietu).
+> Ogólnie rzecz biorąc jest odpowiednie dla relacyjnych baz danych konfiguracji w tej sekcji. Metody rozszerzenia, pokazane tutaj staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionej *Microsoft.EntityFrameworkCore.Relational* pakietu).
 
-Mapowania tabeli identyfikuje danych tabeli należy z kwerendy i zapisane w bazie danych.
+Mapowanie tabeli identyfikuje dane, które tabeli powinien być odpytywane i zapisywane w bazie danych.
 
 ## <a name="conventions"></a>Konwencje
 
-Według Konwencji każdej jednostki będzie Instalatora, aby mapować do tabeli o takiej samej nazwie jak `DbSet<TEntity>` właściwość, która przedstawia jednostek w kontekście pochodnych. Jeśli nie `DbSet<TEntity>` wchodzi dla danej jednostki, jest używana nazwa klasy.
+Zgodnie z Konwencją każdej jednostki będą konfigurowane tak, aby zamapować na tabelę z taką samą nazwę jak `DbSet<TEntity>` właściwość, która udostępnia jednostki w kontekście pochodnych. Jeśli nie `DbSet<TEntity>` jest dołączony do danej jednostki, nazwa klasy jest używana.
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Adnotacje danych służy do konfigurowania tabeli, która mapuje typu.
+Korzystanie z adnotacji danych, aby skonfigurować tabelę, która mapuje typu.
 
 ``` csharp
 using System.ComponentModel.DataAnnotations.Schema;
@@ -51,9 +51,9 @@ public class Blog
 }
 ```
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Aby skonfigurować tabelę, która mapuje typu, można użyć interfejsu API Fluent.
+Interfejs Fluent API umożliwiają skonfigurowanie tabeli, która mapuje typu.
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;

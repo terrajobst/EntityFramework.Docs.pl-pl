@@ -1,32 +1,32 @@
 ---
-title: Mapowanie kolumny - EF Core
+title: Mapowanie kolumny — EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 05a47de9-1078-488e-a823-b516a4208f33
 ms.technology: entity-framework-core
 uid: core/modeling/relational/columns
-ms.openlocfilehash: 697b966dbac892e332fe65feaa4dd11f00dd8298
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: ac3ab2ce3faa54eb8e862d01dcecb48cb0d1f811
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054269"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949414"
 ---
-# <a name="column-mapping"></a>Mapowanie kolumny
+# <a name="column-mapping"></a>Mapowanie kolumn
 
 > [!NOTE]  
-> Konfiguracja opisana w tej sekcji ma zastosowanie do relacyjnych baz danych w zasadzie. Metody rozszerzenia pokazane staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionego *Microsoft.EntityFrameworkCore.Relational* pakietu).
+> Ogólnie rzecz biorąc jest odpowiednie dla relacyjnych baz danych konfiguracji w tej sekcji. Metody rozszerzenia, pokazane tutaj staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionej *Microsoft.EntityFrameworkCore.Relational* pakietu).
 
-Mapowanie kolumny określa dane, które kolumny powinny być pobierane z i zapisane w bazie danych.
+Mapowanie kolumny określa dane, które kolumny powinien być odpytywane i zapisywane w bazie danych.
 
 ## <a name="conventions"></a>Konwencje
 
-Konwencja każda właściwość będzie Instalatora, aby mapować do kolumny o takiej samej nazwie jak właściwość.
+Zgodnie z Konwencją każda właściwość zostanie skonfigurowana do mapowania kolumny z taką samą nazwę jak właściwość.
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Adnotacje danych służy do konfigurowania kolumn, z którą właściwość jest zamapowana.
+Korzystanie z adnotacji danych, aby skonfigurować kolumny, z którą właściwość jest zamapowana.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/DataAnnotations/Samples/Relational/Column.cs?highlight=3)] -->
 ``` csharp
@@ -38,9 +38,9 @@ public class Blog
 }
 ```
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Interfejsu API Fluent służy do konfigurowania kolumn, z którą właściwość jest zamapowana.
+Interfejs Fluent API umożliwiają skonfigurowanie kolumny, z którą właściwość jest zamapowana.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/Column.cs?highlight=7,8,9)] -->
 ``` csharp
