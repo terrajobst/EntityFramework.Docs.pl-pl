@@ -6,12 +6,12 @@ ms.date: 2/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: 44cbbc965755a694772dc4336ca2c1efc51fd6cd
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 660e2a9787b0a6d2544da785827caa20d51626c1
+ms.sourcegitcommit: 00cb52625b57c1ea339ded1454179fe89b6bcfea
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949234"
+ms.lasthandoff: 07/16/2018
+ms.locfileid: "39067563"
 ---
 # <a name="new-features-in-ef-core-21"></a>Nowe funkcje programu EF Core 2.1
 
@@ -105,7 +105,7 @@ Odczyt [sekcji System.Transactions](xref:core/saving/transactions#using-systemtr
 Na podstawie opinii klientów Zaktualizowaliśmy migracji można wstępnie wygenerować kolumn dla tabel w tej samej kolejności, ponieważ właściwości są deklarowane w klasach. Należy pamiętać, programem EF Core nie można zmienić kolejności po dodaniu nowych elementów członkowskich po utworzeniu początkowego tabeli.
 
 ## <a name="optimization-of-correlated-subqueries"></a>Optymalizacja skorelowany podzapytań
-Ulepszyliśmy nasze translacji zapytania, aby uniknąć wykonywania "N + 1" zapytania SQL w wielu typowych scenariuszy, w których użycie właściwości nawigacji w projekcji prowadzi do łączenie danych z zapytania katalogu głównego przy użyciu danych z skorelowane podzapytanie. Optymalizacja wymaga buforowanie wyników tworzą podzapytanie, a firma Microsoft wymaga, aby zmodyfikować zapytanie, aby zdecydować się na nowe zachowanie.
+Ulepszyliśmy nasze translacji zapytania, aby uniknąć wykonywania "N + 1" zapytania SQL w wielu typowych scenariuszy, w których użycie właściwości nawigacji w projekcji prowadzi do łączenie danych z zapytania katalogu głównego przy użyciu danych z skorelowane podzapytanie. Optymalizacja, wymagane jest buforowanie wyników z podzapytanie, a firma Microsoft wymaga, aby zmodyfikować zapytanie, aby zdecydować się na nowe zachowanie.
 
 Na przykład następujące zapytanie zwykle pobiera przetłumaczone na jednej kwerendzie dla klientów, a także N (gdzie "N" oznacza liczbę klientów zwrócił) oddzielnych zapytań dla zleceń:
 

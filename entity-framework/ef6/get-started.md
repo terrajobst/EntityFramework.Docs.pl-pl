@@ -9,27 +9,27 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 66ce9113-81d2-480f-8c16-d00ec405b2f7
 caps.latest.revision: 3
-ms.openlocfilehash: 7cdc2efc3e3f45e464728f0a17a120c6f0fc6e34
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 36857650bc546acd769e629a1e92948a63bfb786
+ms.sourcegitcommit: 00cb52625b57c1ea339ded1454179fe89b6bcfea
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912008"
+ms.lasthandoff: 07/16/2018
+ms.locfileid: "39067539"
 ---
 # <a name="get-started-with-entity-framework-6"></a>Wprowadzenie do platformy Entity Framework 6
 
 Ten przewodnik zawiera zbiór linków do artykułów dotyczących dokumentacji wybrane, przewodników i filmów wideo, które mogą pomóc Ci szybko rozpocząć pracę:
 
-## <a name="get-entity-frameworkef6fundamentalsinstallmd"></a>[Pobieranie programu Entity Framework](~/ef6/fundamentals/install.md)
+## <a name="get-entity-frameworkef6fundamentalsinstallmd"></a>[Pobieranie platformy Entity Framework](~/ef6/fundamentals/install.md)
 W tym miejscu będą dowiesz się, jak dodawanie Entity Framework do aplikacji i, jeśli chcesz używać projektancie platformy EF, sprawdź, czy otrzymasz ona zainstalowana w programie Visual Studio.
 
 ## <a name="creating-a-model-code-first-the-ef-designer-and-the-ef-workflowsef6modelingindexmd"></a>[Tworzenie modelu: kod najpierw projektancie platformy EF i przepływów pracy programu EF](~/ef6/modeling/index.md)
 Wolisz do określania modelu platformy EF pisania kodu lub rysunku pól i wierszy?
-Będą mapowania obiektów pojedyncze istniejącej bazy danych przy użyciu programu EF lub chcesz EF, tworzenia zoptymalizowanych pod kątem obiektów bazy danych?
+Będą mapowanie obiektów do istniejącej bazy danych przy użyciu programu EF lub chcesz EF, tworzenia zoptymalizowanych pod kątem obiektów bazy danych?
 W tym miejscu Twoje informacje o dwa różne podejścia do użycia EF6: Code First i projektancie platformy EF.
 Upewnij się, postępuj zgodnie z dyskusją i Obejrzyj wideo o różnych.
 
-## <a name="working-with-dbcontextef6fundamentalsworking-with-dbcontextmd"></a>[Praca z typu DbContext](~/ef6/fundamentals/working-with-dbcontext.md)
+## <a name="working-with-dbcontextef6fundamentalsworking-with-dbcontextmd"></a>[Praca z klasą DbContext](~/ef6/fundamentals/working-with-dbcontext.md)
 DbContext jest pierwszy i najważniejszy EF typ który należy poznać sposób użycia. Jego służy jako launchpad dla zapytań bazy danych i śledzi zmiany wprowadzane do obiektów, dzięki czemu mogą zostać utrwalone w bazie danych.
 
 ## <a name="ask-a-questionef6resourcesget-helpmd"></a>[Zadaj pytanie](~/ef6/resources/get-help.md)
@@ -60,7 +60,7 @@ Entity Framework 6 używa otwarty model opracowywania. Dowiedz się, jak możesz
   - [Tabela wg typu dziedziczenia mapowania](~/ef6/modeling/designer/inheritance/tpt.md)
   - [Procedura składowana mapowania aktualizacji](~/ef6/modeling/designer/stored-procedures/cud.md)
   - [Zapisane mapowanie procedur dla zapytania](~/ef6/modeling/designer/stored-procedures/query.md)
-  - [Podział jednostki](~/ef6/modeling/designer/entity-splitting.md)
+  - [Dzielenie jednostki](~/ef6/modeling/designer/entity-splitting.md)
   - [Dzielenie tabeli](~/ef6/modeling/designer/table-splitting.md)
   - [Definiowanie zapytania](~/ef6/modeling/designer/advanced/defining-query.md) (zaawansowane)
   - [Funkcje zwracające tabelę](~/ef6/modeling/designer/advanced/tvfs.md) (zaawansowane)

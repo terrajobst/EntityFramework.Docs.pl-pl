@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 65bb3db2-2226-44af-8864-caa575cf1b46
 caps.latest.revision: 3
-ms.openlocfilehash: f0319e97d8ca8cfc9c90dac51d2ecbe7a29c1929
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 92467e1a93f576eca627cf7b7d2351054a882c2c
+ms.sourcegitcommit: 00cb52625b57c1ea339ded1454179fe89b6bcfea
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912716"
+ms.lasthandoff: 07/16/2018
+ms.locfileid: "39067550"
 ---
 # <a name="querying-and-finding-entities"></a>Wykonywanie zapytań i wyszukiwanie jednostek
 W tym temacie omówiono różne sposoby, które można wyszukiwać dane przy użyciu platformy Entity Framework, w tym LINQ i metody Find. Techniki przedstawione w tym temacie stosuje się jednakowo do modeli utworzonych za pomocą Code First i projektancie platformy EF.  
@@ -41,7 +41,7 @@ using (var context = new BloggingContext())
 Należy pamiętać, że DbSet IDbSet zawsze tworzenie zapytań względem bazy danych i zawsze będzie obejmować komunikacji dwustronnej w bazie danych, nawet jeśli zwróconych już istnieje w kontekście. Zapytanie jest wykonywane względem bazy danych po:  
 
 - Są wyliczane przez **foreach** (C#) lub **dla każdego** — instrukcja (Visual Basic).  
-- Jego są wyliczane przez operację kolekcji takich jak [ToArray](https://msdn.microsoft.com/library/bb298736), [ToDictionary](https://msdn.microsoft.com/library/system.linq.enumerable.todictionary), lub tolist —[Wprowadź tutaj opis łącza](https://msdn.microsoft.com/library/bb342261).  
+- Jego są wyliczane przez operację kolekcji takich jak [ToArray](https://msdn.microsoft.com/library/bb298736), [ToDictionary](https://msdn.microsoft.com/library/system.linq.enumerable.todictionary), lub [tolist —](https://msdn.microsoft.com/library/bb342261).  
 - Operatory LINQ, takich jak [pierwszy](https://msdn.microsoft.com/library/bb291976) lub [wszelkie](https://msdn.microsoft.com/library/bb337697) są określone w najbardziej zewnętrznej część zapytania.  
 - Następujące metody są wywoływane: [obciążenia](https://msdn.microsoft.com/library/system.data.entity.dbextensions.load) metody rozszerzenia na DbSet [DbEntityEntry.Reload](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.reload.aspx)i Database.ExecuteSqlCommand.  
 
