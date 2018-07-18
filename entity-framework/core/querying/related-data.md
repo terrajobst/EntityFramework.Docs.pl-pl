@@ -1,146 +1,146 @@
 ---
-title: Trwa ładowanie powiązanych danych - EF Core
+title: Trwa ładowanie powiązanych danych — EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 ms.technology: entity-framework-core
 uid: core/querying/related-data
-ms.openlocfilehash: dc8ef0b2f194fbedfaf58a9499719531a96f70da
-ms.sourcegitcommit: 3d69ea20a7a0cca4d8e5d68bcfd3d1ee16950390
+ms.openlocfilehash: 05833055f4744940364da4fdea7ded9a90d67508
+ms.sourcegitcommit: a3aec015e0ad7ee31e0f75f00bbf2d286a3ac5c1
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 06/21/2018
-ms.locfileid: "36299360"
+ms.lasthandoff: 07/18/2018
+ms.locfileid: "39107256"
 ---
-# <a name="loading-related-data"></a>Trwa ładowanie powiązanych danych
+# <a name="loading-related-data"></a>Ładowanie powiązanych danych
 
-Program Entity Framework Core umożliwia przy użyciu właściwości nawigacji w modelu załadować powiązanych jednostek. Istnieją trzy typowe wzorce O/RM używana do załadowania powiązanych danych.
-* **Ładowanie wczesny** oznacza, że powiązane dane są ładowane z bazy danych w ramach początkowego zapytania.
-* **Ładowanie jawne** oznacza, że powiązane jest jawnie załadować danych z bazy danych w późniejszym czasie.
-* **Powolne ładowanie** oznacza, że pokrewne niewidocznie załadowaniu danych z bazy danych podczas uzyskiwania dostępu do właściwości nawigacji.
+Entity Framework Core umożliwia ładowanie powiązanych jednostek przy użyciu właściwości nawigacji w modelu. Istnieją trzy powszechnie używane wzorce Obiektowo używana do ładowania powiązane dane.
+* **Wczesne ładowanie** oznacza, że powiązane dane są ładowane z bazy danych w ramach początkowego zapytania.
+* **Jawne ładowanie** oznacza, że powiązanych danych jest jawnie załadowane z bazy danych w późniejszym czasie.
+* **Powolne ładowanie** oznacza, że powiązane przezroczyste załadowaniu danych z bazy danych podczas uzyskiwania dostępu do właściwości nawigacji.
 
 > [!TIP]  
-> Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) w witrynie GitHub.
+> Można wyświetlić w tym artykule [przykładowe](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) w witrynie GitHub.
 
-## <a name="eager-loading"></a>Ładowanie wczesny
+## <a name="eager-loading"></a>Wczesne ładowanie
 
-Można użyć `Include` metodę, aby określić powiązane dane mają zostać uwzględnione w wynikach zapytania. W poniższym przykładzie, blogów, z którego są zwracane w wynikach będzie miał ich `Posts` właściwości wypełniane przy użyciu powiązanych wpisów.
+Możesz użyć `Include` metodę, aby określić powiązanych danych, które mają zostać uwzględnione w wynikach kwerendy. W poniższym przykładzie, blogów, które są zwracane w wynikach będzie mieć ich `Posts` właściwość wypełniony pokrewnych wpisów.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#SingleInclude)]
 
 > [!TIP]  
-> Entity Framework Core będzie automatycznie konfigurowania właściwości nawigacji z innymi obiektami, które wcześniej zostały załadowane do wystąpienia kontekstu. Dlatego nawet wtedy, gdy wyraźnie nie zawierają danych dla właściwości nawigacji, właściwość nadal może być wypełniana w przypadku niektórych lub wszystkich powiązanych jednostek wcześniej załadowane.
+> Entity Framework Core będą automatycznie konfigurowania właściwości nawigacji do innych jednostek, które wcześniej zostały załadowane do wystąpienia kontekstu. Dlatego nawet wtedy, gdy jawnie nie zawiera danych dla właściwości nawigacji, nadal można wypełnić właściwość, jeśli niektóre lub wszystkie powiązane jednostki zostały wcześniej załadowane.
 
 
-Powiązane dane z wielu relacji można uwzględnić w jednym zapytaniu.
+Może zawierać dane związane z wieloma relacjami w ramach pojedynczego zapytania.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleIncludes)]
 
 ### <a name="including-multiple-levels"></a>W tym wiele poziomów
 
-Można przejść do relacji z obejmują wiele poziomów powiązanych danych przy użyciu `ThenInclude` metody. Poniższy przykład ładuje wszystkie blogi, ich powiązane ogłoszeń i autor każdego post.
+Możesz przejść do szczegółów w relacji do uwzględnienia na wielu poziomach powiązanych danych przy użyciu `ThenInclude` metody. Poniższy przykład ładuje wszystkie blogi, ich pokrewnych wpisów i autor każdego wpisu.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#SingleThenInclude)]
 
 > [!NOTE]  
-> Bieżącej wersji programu Visual Studio oferują niepoprawny kod zakończenia opcje i może spowodować poprawne wyrażenia do błędy składniowe przy użyciu `ThenInclude` metody po właściwości nawigacji kolekcji. To jest symptomem błędów IntelliSense w https://github.com/dotnet/roslyn/issues/8237. Jest bezpiecznie zignorować te błędy składniowe fałszywe tak długo, jak kod jest poprawny i może zostać pomyślnie skompilowany. 
+> Bieżące wersje programu Visual Studio oferuje opcje uzupełniania niepoprawny kod i może spowodować, że poprawne wyrażenia do oflagowania z błędami składni, korzystając z `ThenInclude` metody właściwości nawigacji kolekcji. Jest to objaw błędów funkcji IntelliSense w https://github.com/dotnet/roslyn/issues/8237. Jest bezpiecznie zignorować te błędy składniowe fałszywe, tak długo, jak kod jest poprawny i mogą być pomyślnie skompilowane. 
 
-Tworzenia łańcucha wielu wywołań `ThenInclude` aby kontynuować, tym więcej poziomy powiązanych danych.
+Można połączyć w łańcuch wielu wywołań `ThenInclude` aby kontynuować, włączając dalsze poziomy powiązane dane.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleThenIncludes)]
 
-Możesz łączyć wszystko to zostać uwzględnione w jednym zapytaniu powiązane dane z różnych poziomach i wielu elementów głównych.
+Możesz połączyć wszystkie te które mają zostać objęte powiązane dane z wielu poziomów i wielu katalogów głównych tego samego zapytania.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#IncludeTree)]
 
-Można dołączyć wielu powiązanych jednostek dla jednego z jednostkami, które ma być. Na przykład podczas wykonywania zapytania `Blog`s, obejmują `Posts` , a następnie chcesz dołączyć zarówno `Author` i `Tags` z `Posts`. Aby to zrobić, należy określić każdy obejmować ścieżki od katalogu głównego. Na przykład `Blog -> Posts -> Author` i `Blog -> Posts -> Tags`. Oznacza to, że otrzymasz nadmiarowe sprzężeń, w większości przypadków będzie skonsolidować EF sprzężeń podczas generowania SQL.
+Możesz uwzględnić wiele powiązanych jednostek dla jednej jednostki, które jest uwzględniane. Na przykład podczas wykonywania zapytań dotyczących `Blog`s, obejmują `Posts` , a następnie oba `Author` i `Tags` z `Posts`. Aby to zrobić, należy określić każdy obejmować ścieżkę, począwszy od głównego. Na przykład `Blog -> Posts -> Author` i `Blog -> Posts -> Tags`. Oznacza to, zostanie nadmiarowe sprzężenia, w większości przypadków będzie konsolidować EF sprzężeń podczas generowania SQL.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 
 ### <a name="include-on-derived-types"></a>Obejmują na typy pochodne
 
-Powiązane dane z tego zdefiniowany dla typu pochodnego przy użyciu mogą obejmować `Include` i `ThenInclude`. 
+Może zawierać dane związane z tego zdefiniowany tylko w typie pochodnym przy użyciu `Include` i `ThenInclude`. 
 
-Podane następującego modelu:
+Biorąc pod uwagę następujący wzór:
 
-```Csharp
-    public class SchoolContext : DbContext
+```csharp
+public class SchoolContext : DbContext
+{
+    public DbSet<Person> People { get; set; }
+    public DbSet<School> Schools { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        public DbSet<Person> People { get; set; }
-        public DbSet<School> Schools { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<School>().HasMany(s => s.Students).WithOne(s => s.School);
-        }
+        modelBuilder.Entity<School>().HasMany(s => s.Students).WithOne(s => s.School);
     }
+}
 
-    public class Person
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
+public class Person
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
 
-    public class Student : Person
-    {
-        public School School { get; set; }
-    }
+public class Student : Person
+{
+    public School School { get; set; }
+}
 
-    public class School
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
+public class School
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
 
-        public List<Student> Students { get; set; }
-    }
+    public List<Student> Students { get; set; }
+}
 ```
 
-Zawartość `School` nawigacji wszystkich osób, które są studentów dzielenia na załadowaniem przy użyciu wielu wzorców:
+Zawartość `School` nawigacji wszystkie osoby, których uczniowie mogą być eagerly ładowane, przy użyciu wielu wzorców:
 
 - Używanie cast
-  ```Csharp
+  ```csharp
   context.People.Include(person => ((Student)person).School).ToList()
   ```
 
-- przy użyciu `as` — operator
-  ```Csharp
+- za pomocą `as` — operator
+  ```csharp
   context.People.Include(person => (person as Student).School).ToList()
   ```
 
-- za pomocą przeciążenia `Include` pobierającej parametr typu `string`
-  ```Csharp
+- za pomocą przeciążenia `Include` przyjmującą parametr typu `string`
+  ```csharp
   context.People.Include("Student").ToList()
   ```
 
 ### <a name="ignored-includes"></a>Ignorowane obejmuje
 
-Jeśli zmienisz zapytanie tak, aby nie będzie już zwracać wystąpień typów jednostek, które rozpoczął się zapytanie, operatorów include są ignorowane.
+Jeśli zmienisz zapytanie tak, aby nie zwraca wystąpienia typu jednostki, który rozpoczął się zapytania, operatory dołączania są ignorowane.
 
-W poniższym przykładzie operatory dołączania są oparte na `Blog`, ale następnie `Select` operator służy do zmiany zwracanego typu anonimowego przez zapytanie. W takim przypadku operatory include nie obowiązują.
+W poniższym przykładzie operatory dołączania są oparte na `Blog`, ale następnie `Select` operator jest używany do zmiany zwracanego typu anonimowego przez zapytanie. W tym przypadku operatory include nie mają wpływu.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#IgnoredInclude)]
 
-Domyślnie EF Core będzie rejestrować ostrzeżenie podczas obejmują operatory są ignorowane. Zobacz [rejestrowanie](../miscellaneous/logging.md) Aby uzyskać więcej informacji o wyświetlaniu dane wyjściowe rejestrowania. Można zmienić to zachowanie, gdy operator include jest ignorowana, aby zgłosić lub nie rób. Odbywa się podczas konfigurowania opcji kontekstu — zwykle w `DbContext.OnConfiguring`, lub `Startup.cs` Jeśli używasz platformy ASP.NET Core.
+Domyślnie EF Core zarejestruje ostrzeżenie obejmują gdy operatory są ignorowane. Zobacz [rejestrowania](../miscellaneous/logging.md) więcej informacji na temat wyświetlania danych wyjściowych rejestrowania. Można zmienić zachowanie, gdy include operator jest ignorowana, throw lub nic nie rób. Odbywa się podczas konfigurowania opcji kontekstu — zwykle w `DbContext.OnConfiguring`, lub `Startup.cs` korzystania z platformy ASP.NET Core.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/ThrowOnIgnoredInclude/BloggingContext.cs#OnConfiguring)]
 
-## <a name="explicit-loading"></a>Ładowanie jawne
+## <a name="explicit-loading"></a>Jawne ładowanie
 
 > [!NOTE]  
-> Ta funkcja została wprowadzona w EF Core 1.1.
+> Ta funkcja została wprowadzona w programie EF Core 1.1.
 
-Można w sposób jawny załadować właściwości nawigacji za pośrednictwem `DbContext.Entry(...)` interfejsu API.
+Można jawnie załadować właściwości nawigacji za pomocą `DbContext.Entry(...)` interfejsu API.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#Eager)]
 
-Można również jawnie załadować właściwość nawigacji, wykonując oddzielne zapytania, które zwraca powiązanych jednostek. Jeśli jest włączone śledzenie zmian, podczas ładowania jednostki, EF Core zostanie automatycznie Ustaw właściwości nawigacji entitiy nowo załadowanych do odwoływania się do żadnych jednostek już załadowany, a następnie ustaw właściwości nawigacji jednostki już załadowany do odwoływania się do nowo załadowanych jednostki.
+Właściwość nawigacji można także jawnie załadować, wykonując oddzielne zapytania, które zwraca powiązanych jednostek. Jeśli jest włączone śledzenie zmian, a następnie podczas ładowania jednostki, EF Core będą automatycznie ustawić właściwości nawigacji między jednostkami nowo załadowane do odwoływania się do żadnych jednostek już załadowany i ustawić właściwości nawigacji jednostki już załadowane do odwoływania się do Jednostka nowo załadowane.
 
-### <a name="querying-related-entities"></a>Wykonywanie zapytania powiązanych jednostek
+### <a name="querying-related-entities"></a>Tworzenie zapytań powiązanych jednostek
 
-Można również uzyskać kwerendy LINQ, która reprezentuje zawartość właściwości nawigacji.
+Można również uzyskać kwerenda LINQ, która reprezentuje zawartość właściwości nawigacji.
 
-Pozwala na wykonywanie czynności, takie jak uruchomienie operatora agregacji za pośrednictwem powiązanych jednostek bez ładowania ich do pamięci.
+Dzięki temu można korzystać z możliwości, takie jak uruchomienie aggregate-operator za pośrednictwem powiązanych jednostek bez ładowania ich do pamięci.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#NavQueryAggregate)]
 
@@ -148,26 +148,26 @@ Można również filtrować, które powiązanych jednostek są ładowane do pami
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#NavQueryFiltered)]
 
-## <a name="lazy-loading"></a>powolne ładowanie
+## <a name="lazy-loading"></a>Ładowanie z opóźnieniem
 
 > [!NOTE]  
 > Ta funkcja została wprowadzona w programie EF Core 2.1.
 
-Najprostszym sposobem użycia opóźnionego ładowania jest zainstalowanie [Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) pakietu i włączenie go w wyniku wywołania `UseLazyLoadingProxies`. Na przykład:
-```Csharp
+Najprostszym sposobem użycia ładowanych z opóźnieniem jest po zainstalowaniu [Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) pakietu i włączanie go z wywołaniem `UseLazyLoadingProxies`. Na przykład:
+```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
         .UseLazyLoadingProxies()
         .UseSqlServer(myConnectionString);
 ```
 Lub w przypadku używania AddDbContext:
-```Csharp
-    .AddDbContext<BloggingContext>(
-        b => b.UseLazyLoadingProxies()
-              .UseSqlServer(myConnectionString));
+```csharp
+.AddDbContext<BloggingContext>(
+    b => b.UseLazyLoadingProxies()
+          .UseSqlServer(myConnectionString));
 ```
-Podstawowe EF następnie umożliwi opóźnionego ładowania dla dowolnego właściwość nawigacji, która może zostać zastąpiona — która jest, musi ona być `virtual` i klasy, które mogą być dziedziczone z. Na przykład w następujących podmiotów `Post.Blog` i `Blog.Posts` właściwości nawigacji zostanie załadowany opóźnieniem.
-```Csharp
+EF Core będzie z opóźnieniem, ładowania dla dowolnej właściwości nawigacji, która może zostać przesłonięta — oznacza to, Włącz musi być `virtual` i klasy, które mogą być dziedziczone z. Na przykład w następujących elementach `Post.Blog` i `Blog.Posts` właściwości nawigacji będą ładowane z opóźnieniem.
+```csharp
 public class Blog
 {
     public int Id { get; set; }
@@ -185,10 +185,10 @@ public class Post
     public virtual Blog Blog { get; set; }
 }
 ```
-### <a name="lazy-loading-without-proxies"></a>Lazy — ładowania, bez serwerów proxy
+### <a name="lazy-loading-without-proxies"></a>Powolne ładowanie bez serwerów proxy
 
-Ładowanie opóźnieniem proxy pracy przez wstrzykiwanie `ILazyLoader` usługi do jednostki, zgodnie z opisem w [konstruktorów typów jednostek](../modeling/constructors.md). Na przykład:
-```Csharp
+Serwery proxy ładowanych z opóźnieniem pracy przez iniekcję `ILazyLoader` usługi do jednostki, zgodnie z opisem w [Konstruktorzy typów jednostek](../modeling/constructors.md). Na przykład:
+```csharp
 public class Blog
 {
     private ICollection<Post> _posts;
@@ -240,8 +240,8 @@ public class Post
     }
 }
 ```
-To nie wymaga typy jednostek, które były dziedziczone z i właściwości nawigacji, aby być wirtualna i umożliwia utworzony z wystąpień jednostek `new` do opóźnionego ładowania raz dołączona do kontekstu. Wymaga to jednak odwołanie do `ILazyLoader` usługi, która jest zdefiniowana w [Microsoft.EntityFrameworkCore.Abstractions](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Abstractions/) pakietu. Ten pakiet zawiera minimalnego zestawu typów tak, że istnieje niewielki wpływ, w zależności od jej. Jednak aby uniknąć całkowicie w zależności od tego, wszystkie pakiety EF Core w typach jednostek, istnieje możliwość wprowadzenia `ILazyLoader.Load` metody jako pełnomocnik. Na przykład:
-```Csharp
+To nie wymaga typów jednostek, dziedziczenie lub właściwości nawigacji, aby być wirtualne oraz umożliwia wystąpień jednostek utworzonych za pomocą `new` z opóźnieniem obciążenia raz przyłączonych do kontekstu. Jednak wymaga to dodania odwołania do `ILazyLoader` usługa, która jest zdefiniowana w [Microsoft.EntityFrameworkCore.Abstractions](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Abstractions/) pakietu. Ten pakiet zawiera minimalny zestaw typów, dzięki czemu istnieje niewielki wpływ w zależności od jego. Jednak aby całkowicie uniknąć zależności od tego, wszystkie pakiety programu EF Core w typów jednostek, istnieje możliwość wstawić `ILazyLoader.Load` metody jako pełnomocnik. Na przykład:
+```csharp
 public class Blog
 {
     private ICollection<Post> _posts;
@@ -293,8 +293,8 @@ public class Post
     }
 }
 ```
-Kod nad używa `Load` — metoda rozszerzenia, aby upewnić się, za pomocą obiektu delegowanego nieco czyszcząca:
-```Csharp
+Kod powyżej używa `Load` metodę rozszerzenia, aby wprowadzić nieco oczyszczarkę plików przy użyciu delegata:
+```csharp
 public static class PocoLoadingExtensions
 {
     public static TRelated Load<TRelated>(
@@ -311,19 +311,19 @@ public static class PocoLoadingExtensions
 }
 ```
 > [!NOTE]  
-> Parametr konstruktora delegata opóźnionego ładowania musi być wywoływana "lazyLoader". Konfigurację, aby użyć innej nazwy, którego planowana jest w przyszłości.
+> Parametr konstruktora delegata ładowanych z opóźnieniem należy wywołać "lazyLoader". Konfigurację, aby użyć innej nazwy, niż jest to planowana w przyszłej wersji.
 
 ## <a name="related-data-and-serialization"></a>Powiązane dane i serializacja
 
-Ponieważ właściwości nawigacji automatycznie konfigurowania będzie EF Core, można na końcu cykli na wykresie obiektu. Na przykład ładowanie blogu i powiązanych spowoduje wpisów w obiekcie blog, który odwołuje się do kolekcji wpisów. Każdy z tych stanowisk ma odwołanie do blogu.
+Ponieważ właściwości nawigacji automatycznie poprawki będą programu EF Core, można na końcu cykli w grafie obiektu. Na przykład blog i jej powiązane wpisy ładowania spowoduje obiekt blogu, który odwołuje się zbiór wpisów. Każda z tych wpisów mają odwołaniem zwrotnym do blogu.
 
-Niektórych struktur serializacji nie zezwalają na takie cykle. Na przykład struktury Json.NET zgłosi wyjątek po napotkaniu cyklu.
+Niektóre środowiska serializacji nie zezwalają na tych cykli. Na przykład na składnik Json.NET zgłosi następujący wyjątek, jeśli okaże się cyklu.
 
 > Newtonsoft.Json.JsonSerializationException: Self odwołujące się do pętli wykryto dla właściwości "Blog" z typem "MyApplication.Models.Blog".
 
-Jeśli używasz platformy ASP.NET Core, można skonfigurować struktury Json.NET do ignorowania cykle znalezionych w grafie obiektu. Jest to wykonywane w `ConfigureServices(...)` metoda `Startup.cs`.
+Jeśli używasz platformy ASP.NET Core, można skonfigurować program Json.NET, aby zignorować cykle, które znajdzie się na grafie obiektu. Jest to realizowane w `ConfigureServices(...)` method in Class metoda `Startup.cs`.
 
-``` csharp
+```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     ...
