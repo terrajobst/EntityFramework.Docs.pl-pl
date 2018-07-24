@@ -6,12 +6,12 @@ ms.date: 2/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 ms.technology: entity-framework-core
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 476a1dcaadcd99eba0cd4f5f0ac40c32a97af5c9
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 3eb7480625db4ebc3ce0b7a18d042139f888dab8
+ms.sourcegitcommit: 0935ff275ae739243297f5b97eb21414398125c6
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949430"
+ms.lasthandoff: 07/23/2018
+ms.locfileid: "39201896"
 ---
 # <a name="owned-entity-types"></a>Posiadane typy jednostek
 
@@ -70,7 +70,7 @@ public class Order
 
 W programie EF Core 2.0 i 2.1 tylko odwołanie do właściwości nawigacji może wskazywać należących do typów. Kolekcji typów będących własnością nie są obsługiwane. Odwołanie do tych urządzeń będących własnością, typy zawsze muszą mieć relację jeden do jednego z właścicielem, dlatego nie potrzebują własne wartości klucza. W poprzednim przykładzie wpisz adres nie trzeba zdefiniować właściwość klucza.  
 
-W celu zrozumienia, jak EF Core śledzi te obiekty, warto Pomyśl, czy klucz podstawowy został utworzony jako [w tle właściwość](xref:core/modeling/shadow-properties) należących do typu. Wartość klucza wystąpienia typu należące do firmy będzie taka sama jak wartość klucza wystąpienia właściciela.      
+Aby dowiedzieć się, jak EF Core śledzi te obiekty, warto Pomyśl, czy klucz podstawowy został utworzony jako [w tle właściwość](xref:core/modeling/shadow-properties) należących do typu. Wartość klucza wystąpienia typu należące do firmy będzie taka sama jak wartość klucza wystąpienia właściciela.      
 
 ## <a name="mapping-owned-types-with-table-splitting"></a>Posiadane typy z dzielenia tabeli mapowania
 
