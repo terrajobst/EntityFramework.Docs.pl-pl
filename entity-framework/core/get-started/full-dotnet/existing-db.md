@@ -6,56 +6,56 @@ ms.date: 10/27/2016
 ms.assetid: a29a3d97-b2d8-4d33-9475-40ac67b3b2c6
 ms.technology: entity-framework-core
 uid: core/get-started/full-dotnet/existing-db
-ms.openlocfilehash: 3cd69109e3cf8dbc103f9eea6e2553df17f29a98
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: 39e77ab8c124df67458cc5fa6db2882b65943ebe
+ms.sourcegitcommit: 4467032fd6ca223e5965b59912d74cf88a1dd77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812628"
+ms.lasthandoff: 08/01/2018
+ms.locfileid: "39388471"
 ---
-# <a name="getting-started-with-ef-core-on-net-framework-with-an-existing-database"></a>Wprowadzenie do podstawowych EF w programie .NET Framework z istniejącej bazy danych
+# <a name="getting-started-with-ef-core-on-net-framework-with-an-existing-database"></a>Wprowadzenie do programu EF Core w programie .NET Framework przy użyciu istniejącej bazy danych
 
-W tym przewodniku zostanie utworzona aplikacja konsolowa, która wykonuje dostęp do podstawowych danych w bazie danych programu Microsoft SQL Server przy użyciu programu Entity Framework. Odtwarzanie użyje do utworzenia modelu programu Entity Framework, na podstawie istniejącej bazy danych.
+W tym instruktażu utworzysz aplikację konsolową, która wykonuje dostęp do podstawowych danych względem bazy danych programu Microsoft SQL Server przy użyciu platformy Entity Framework. Odtwarzanie użyje do tworzenia modelu Entity Framework, w oparciu o istniejącą bazę danych.
 
 > [!TIP]  
-> Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/FullNet/ConsoleApp.ExistingDb) w witrynie GitHub.
+> Można wyświetlić w tym artykule [przykładowe](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/FullNet/ConsoleApp.ExistingDb) w witrynie GitHub.
 
 ## <a name="prerequisites"></a>Wymagania wstępne
 
 Do przeprowadzenia tego instruktażu potrzebne są następujące wymagania wstępne:
 
-* [Visual Studio 2017](https://www.visualstudio.com/downloads/)
+* [Program Visual Studio 2017](https://www.visualstudio.com/downloads/) — co najmniej w wersji 15.3
 
 * [Najnowszą wersję Menedżera pakietów NuGet](https://dist.nuget.org/index.html)
 
 * [Najnowszą wersję programu Windows PowerShell](https://docs.microsoft.com/powershell/scripting/setup/installing-windows-powershell)
 
-* [Blog bazy danych](#blogging-database)
+* [Do obsługi blogów bazy danych](#blogging-database)
 
-### <a name="blogging-database"></a>Blog bazy danych
+### <a name="blogging-database"></a>Do obsługi blogów bazy danych
 
-W tym samouczku używana **obsługi blogów** bazy danych w wystąpieniu bazy danych LocalDb jako istniejącej bazy danych.
+W tym samouczku **do obsługi blogów** bazy danych w ramach wystąpienia LocalDb jako istniejącej bazy danych.
 
 > [!TIP]  
-> Jeśli utworzono już **obsługi blogów** bazy danych jako część innego samouczek, można pominąć te kroki.
+> Jeśli masz już utworzoną **do obsługi blogów** bazy danych jako część innym samouczku, można pominąć te kroki.
 
 * Otwórz program Visual Studio
 
-* Narzędzia > łączenia z bazą danych...
+* Narzędzia > nawiązać połączenie z bazą danych...
 
 * Wybierz **programu Microsoft SQL Server** i kliknij przycisk **Kontynuuj**
 
-* Wprowadź **(localdb) \mssqllocaldb** jako **nazwa serwera**
+* Wprowadź **(localdb) \mssqllocaldb** jako **nazwy serwera**
 
 * Wprowadź **wzorca** jako **Nazwa bazy danych** i kliknij przycisk **OK**
 
-* Baza danych master jest teraz wyświetlany w obszarze **połączenia danych** w **Eksploratora serwera**
+* Baza danych master jest teraz wyświetlany w obszarze **połączeń danych** w **Eksploratora serwera**
 
-* Kliknij prawym przyciskiem myszy w bazie danych w **Eksploratora serwera** i wybierz **nowej kwerendy**
+* Kliknij prawym przyciskiem myszy w bazie danych w **Eksploratora serwera** i wybierz **nowe zapytanie**
 
-* Skopiuj skrypt wymienione poniżej do edytora zapytań
+* Skopiuj skrypt wymienione poniżej pod warunkiem do edytora zapytań
 
-* Kliknij prawym przyciskiem myszy w edytorze zapytań i wybierz **Execute**
+* Kliknij prawym przyciskiem myszy w edytorze zapytań, a następnie wybierz pozycję **wykonania**
 
 [!code-sql[Main](../_shared/create-blogging-database-script.sql)]
 
@@ -65,31 +65,31 @@ W tym samouczku używana **obsługi blogów** bazy danych w wystąpieniu bazy da
 
 * Plik > Nowy > Projekt...
 
-* Z menu po lewej stronie wybierz Szablony > Visual C# > systemu Windows
+* Z menu po lewej stronie wybierz Szablony > Visual C# > Windows
 
-* Wybierz **aplikacji konsoli** szablonu projektu
+* Wybierz **aplikację Konsolową** szablonu projektu
 
-* Upewnij się, ma być przeznaczona dla **.NET Framework 4.5.1** lub nowszy
+* Upewnij się, przeznaczonych do pracy **platformy .NET Framework 4.6.1** lub nowszej
 
-* Nadaj nazwę projektu, a następnie kliknij przycisk **OK**
+* Nazwij projekt, a następnie kliknij przycisk **OK**
 
 ## <a name="install-entity-framework"></a>Instalowanie programu Entity Framework
 
-Aby użyć EF podstawowe, należy zainstalować pakiet dla powszechne bazy danych, który ma być docelowa. W tym przewodniku zastosowano programu SQL Server. Lista dostępnych dostawców [dostawcy bazy danych](../../providers/index.md).
+Aby korzystać z programu EF Core, należy zainstalować pakiet dla dostawców bazy danych, który ma pod kątem. W tym przewodniku używa programu SQL Server. Aby uzyskać listę dostępnych dostawców zobacz [dostawcy baz danych](../../providers/index.md).
 
-* Narzędzia > Menedżera pakietów NuGet > konsoli Menedżera pakietów
+* Narzędzia > Menedżer pakietów NuGet > Konsola Menedżera pakietów
 
 * Uruchom `Install-Package Microsoft.EntityFrameworkCore.SqlServer`
 
-Aby włączyć odtwarzania z istniejącej bazy danych należy zbyt zainstalować kilka innych pakietów.
+Aby włączyć odtwarzania z istniejącej bazy danych, musimy zainstalować kilka innych pakietów, zbyt.
 
 * Uruchom `Install-Package Microsoft.EntityFrameworkCore.Tools`
 
-## <a name="reverse-engineer-your-model"></a>Odtworzyć modelu
+## <a name="reverse-engineer-your-model"></a>Model odtworzyć.
 
-Teraz nadszedł czas, aby utworzyć model EF na podstawie istniejącej bazy danych.
+Teraz nadszedł czas na tworzenie modelu platformy EF, w oparciu o istniejącą bazę danych.
 
-* Pakiet NuGet –> Narzędzia Menedżera –> Konsola Menedżera pakietów
+* Narzędzia -> pakietu NuGet Manager -> Konsola Menedżera pakietów
 
 * Uruchom następujące polecenie, aby utworzyć model z istniejącej bazy danych
 
@@ -97,7 +97,7 @@ Teraz nadszedł czas, aby utworzyć model EF na podstawie istniejącej bazy dany
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-Proces odtwarzania utworzony klas jednostek i pochodne kontekst na podstawie schematu istniejącej bazy danych. Klas jednostek to proste C# obiekty reprezentujące dane można będzie kwerend i zapisywanie.
+Procesu odtwarzania utworzone klasy jednostek i pochodnej kontekst na podstawie schematu istniejącej bazy danych. Klasy jednostki są proste obiekty języka C#, które reprezentują będziesz zapytań i zapisywanie danych.
 
 <!-- [!code-csharp[Main](samples/core/GetStarted/FullNet/ConsoleApp.ExistingDb/Blog.cs)] -->
 ``` csharp
@@ -121,7 +121,7 @@ namespace EFGetStarted.ConsoleApp.ExistingDb
 }
 ```
 
-Kontekst reprezentuje sesji z bazą danych i służy do wykonywania zapytań i zapisać wystąpień klas jednostek.
+Kontekst reprezentuje sesję z bazą danych i umożliwia zapytania i Zapisz wystąpień klas jednostek.
 
 <!-- [!code-csharp[Main](samples/core/GetStarted/FullNet/ConsoleApp.ExistingDb/BloggingContext.cs)] -->
 ``` csharp
@@ -161,7 +161,7 @@ namespace EFGetStarted.ConsoleApp.ExistingDb
 
 ## <a name="use-your-model"></a>Użyj modelu
 
-Można teraz używać modelu do uzyskania dostępu do danych.
+Można teraz używać modelu przeprowadzić dostępu do danych.
 
 * Otwórz *Program.cs*
 
@@ -197,6 +197,6 @@ namespace EFGetStarted.ConsoleApp.ExistingDb
 
 * Debuguj > Uruchom bez debugowania
 
-Zobaczysz jednego blogu jest zapisywana w bazie danych, a następnie szczegóły wszystkich blogi są podane w konsoli.
+Zobaczysz, że blogami jest zapisywany w bazie danych, a następnie szczegółowe informacje o wszystkich blogów są drukowane w konsoli.
 
 ![obraz](_static/output-existing-db.png)

@@ -6,12 +6,12 @@ ms.date: 8/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 ms.technology: entity-framework-core
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: dca9a3fb9e514b6eb22281a0f0140539681efb71
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 9be2368159fe7ab7b6951cc14a84ee63762ce90c
+ms.sourcegitcommit: 4467032fd6ca223e5965b59912d74cf88a1dd77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949259"
+ms.lasthandoff: 08/01/2018
+ms.locfileid: "39388455"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>Uaktualnianie aplikacji z poprzedniej wersji do programu EF Core 2.0
 
@@ -154,7 +154,7 @@ To tworzy/używa bazy danych o nazwie "Moja_baza_danych". Jeśli `UseInMemoryDat
 
 ### <a name="read-only-api-changes"></a>Zmiany interfejsu API tylko do odczytu
 
-`IsReadOnlyBeforeSave`, `IsReadOnlyAferSave`, i `IsStoreGeneratedAlways` zdezaktualizowane i zastąpione [BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39) i [AfterSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55). Te zachowania mają zastosowanie do wszystkich właściwości (nie tylko generowane przez Magazyn właściwości) i określić, jak wartość właściwości powinna być używana w przypadku wstawiania do wiersza bazy danych (`BeforeSaveBehavior`) lub podczas aktualizowania istniejącej bazy danych wiersza (`AfterSaveBehavior`).
+`IsReadOnlyBeforeSave`, `IsReadOnlyAfterSave`, i `IsStoreGeneratedAlways` zdezaktualizowane i zastąpione [BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39) i [AfterSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55). Te zachowania mają zastosowanie do wszystkich właściwości (nie tylko generowane przez Magazyn właściwości) i określić, jak wartość właściwości powinna być używana w przypadku wstawiania do wiersza bazy danych (`BeforeSaveBehavior`) lub podczas aktualizowania istniejącej bazy danych wiersza (`AfterSaveBehavior`).
 
 Właściwości są oznaczone jako [ValueGenerated.OnAddOrUpdate](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/ValueGenerated.cs) (na przykład w przypadku kolumn obliczanych) domyślnie zignoruje dowolną wartość aktualnie ustawiona we właściwości. Oznacza to, że wygenerowana przez Magazyn wartość, zawsze można uzyskać niezależnie od tego, czy dowolną wartość ma ustawić lub zmodyfikować śledzonych jednostki. Można to zmienić, ustawiając inną `Before\AfterSaveBehavior`.
 

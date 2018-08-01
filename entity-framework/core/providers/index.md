@@ -6,12 +6,12 @@ ms.date: 2/23/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 ms.technology: entity-framework-core
 uid: core/providers/index
-ms.openlocfilehash: 6f058698f78c787fc6c313486874b0af2183f97a
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: f51304a20bab2c80d2d546fc4685da0fa28d5f92
+ms.sourcegitcommit: 5c2634c546720902fe01935f4fc031d73aa3ebde
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949319"
+ms.lasthandoff: 08/01/2018
+ms.locfileid: "39393753"
 ---
 # <a name="database-providers"></a>Dostawcy baz danych
 
@@ -53,7 +53,7 @@ Mają firma Microsoft opracowuje dostawcę programu EF Core dla interfejsu API u
 Zespołu Oracle .NET ogłosiła, czy jest planowane wersji dostawcy firmy Microsoft dla platformy EF Core 2.0 w trzecim kwartale 2018 r. Zobacz ich [instrukcji kierunek dla platformy .NET Core i Entity Framework Core](http://www.oracle.com/technetwork/topics/dotnet/tech-info/odpnet-dotnet-ef-core-sod-4395108.pdf) Aby uzyskać więcej informacji.
 Pytania dotyczące tego dostawcy, w tym do osi czasu w wersji należy kierować [witryny społeczności Oracle](https://community.oracle.com/).
 
-W międzyczasie tworzył zespołu EF [dostawcy programu EF Core próbki dla baz danych Oracle](https://github.com/aspnet/EntityFrameworkCore/blob/dev/samples/OracleProvider/README.md). Celem projektu nie jest do utworzenia dostawcy programu EF Core należące do firmy Microsoft, ale do nam pomóc w określeniu luki funkcji relacyjnych i podstawowej platformy EF Core, którego potrzebujemy do rozwiązania w celu lepszej obsługi bazy danych Oracle i umożliwia szybkie rozpoczynanie opracowywania innych Oracle dostawcy dla platformy EF Core przez firmy Oracle lub innych firm.
+W międzyczasie tworzył zespołu EF [dostawcy programu EF Core próbki dla baz danych Oracle](https://github.com/aspnet/EntityFrameworkCore/tree/master/samples/OracleProvider). Celem projektu nie jest do utworzenia dostawcy programu EF Core należące do firmy Microsoft, ale do nam pomóc w określeniu luki funkcji relacyjnych i podstawowej platformy EF Core, którego potrzebujemy do rozwiązania w celu lepszej obsługi bazy danych Oracle i umożliwia szybkie rozpoczynanie opracowywania innych Oracle dostawcy dla platformy EF Core przez firmy Oracle lub innych firm.
 
 Firma Microsoft będzie należy wziąć pod uwagę wkładów, które zwiększają w przykładowej implementacji. Firma Microsoft będzie również Witaj i Zachęć pracach społeczności, aby utworzyć dostawcę programu Oracle typu open source dla platformy EF Core, korzystając z przykładu jako punktu wyjścia.
 
