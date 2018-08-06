@@ -27,8 +27,8 @@ Użyj ste tylko wtedy, gdy kontekst nie jest dostępna w ramach warstwy gdzie zo
 
 Ten element szablon generuje dwa .TT — pliki (szablon tekstowy):  
 
-- ** \<Nazwę modelu\>.tt** generuje plik typów jednostek i klasa pomocnika, która zawiera logikę śledzenia zmian, która jest używana przez własny śledzenia jednostek i metody rozszerzenia, które umożliwiają ustawianie stanu na własnym śledzenie jednostki.  
-- ** \<Nazwę modelu\>. Context.TT** generuje plik pochodnej kontekstu i klasa rozszerzenia, która zawiera **applychanges —** metody **ObjectContext** i **obiektu ObjectSet** klasy. Te metody zbadania informacji śledzenia zmian, które znajduje się na wykresie własnym śledzenia jednostek wywnioskowania zestaw operacji, które należy wykonać, aby zapisać zmiany w bazie danych.  
+- **\<Nazwę modelu\>.tt** generuje plik typów jednostek i klasa pomocnika, która zawiera logikę śledzenia zmian, która jest używana przez własny śledzenia jednostek i metody rozszerzenia, które umożliwiają ustawianie stanu na własnym śledzenie jednostki.  
+- **\<Nazwę modelu\>. Context.TT** generuje plik pochodnej kontekstu i klasa rozszerzenia, która zawiera **applychanges —** metody **ObjectContext** i **obiektu ObjectSet** klasy. Te metody zbadania informacji śledzenia zmian, które znajduje się na wykresie własnym śledzenia jednostek wywnioskowania zestaw operacji, które należy wykonać, aby zapisać zmiany w bazie danych.  
 
 ## <a name="get-started"></a>Rozpocznij  
 
