@@ -1,5 +1,5 @@
 ---
-title: Transakcje — podstawowe EF
+title: Transakcje — EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
