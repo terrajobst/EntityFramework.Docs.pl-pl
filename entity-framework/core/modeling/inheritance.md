@@ -1,42 +1,40 @@
 ---
-title: Dziedziczenie - EF Core
+title: Dziedziczenie — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 754be334-dd21-450e-9d22-2591e80012a2
-ms.technology: entity-framework-core
 uid: core/modeling/inheritance
-ms.openlocfilehash: f0394bc55dfbfea8277b1ddf898361165dd1fe51
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: c5fa9d13dec8cfc3e1cac69e471f509cbbb9e4c5
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054197"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995899"
 ---
 # <a name="inheritance"></a>Dziedziczenie
 
-Dziedziczenie w modelu EF służy do kontrolowania sposobu dziedziczenia klas jednostek jest reprezentowana w bazie danych.
+Dziedziczenie w modelu platformy EF jest używane do kontrolowania, jak dziedziczenia klas jednostek jest reprezentowana w bazie danych.
 
 ## <a name="conventions"></a>Konwencje
 
-Według Konwencji jest dostawca bazy danych, aby określić sposób dziedziczenia zostanie odwzorowane w bazie danych. Zobacz [dziedziczenia (relacyjnej bazy danych)](relational/inheritance.md) dla obsługi to u dostawcy relacyjnej bazy danych.
+Według Konwencji jest dostawca bazy danych, aby określić, jak dziedziczenie będzie reprezentowany w bazie danych. Zobacz [dziedziczenie (relacyjna baza danych)](relational/inheritance.md) dla jak jest to obsługiwane za pomocą dostawcy relacyjnej bazy danych.
 
-EF tylko umożliwią skonfigurowanie dziedziczenia, jeśli dwa lub więcej dziedziczonych typów jawnie znajdują się w modelu. EF nie będą skanować pod kątem podstawowej lub pochodnych typów, które w przeciwnym razie nie zostały uwzględnione w modelu. Typów można uwzględnić w modelu, w przypadku wystawianego *DbSet<TEntity>*  dla każdego typu w hierarchii dziedziczenia.
+EF skonfiguruje tylko dziedziczenie, jeśli co najmniej dwa dziedziczone typy są jawnie uwzględnione w modelu. EF nie będzie skanować dla typów podstawowych i pochodnych, które w przeciwnym razie nie zostały uwzględnione w modelu. Mogą zawierać typy w modelu, zapewniając *DbSet<TEntity>*  dla każdego typu w hierarchii dziedziczenia.
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/InheritanceDbSets.cs?highlight=3-4&name=Model)]
 
-Jeśli nie chcesz ujawnić *DbSet<TEntity>*  dla jednego lub więcej obiektów w hierarchii można użyć interfejsu API Fluent, aby upewnić się, że znajdują się w modelu.
-A jeśli użytkownik nie należy polegać na konwencje można określić typu podstawowego jawnie za pomocą `HasBaseType`.
+Jeśli nie chcesz udostępnić *DbSet<TEntity>*  dla co najmniej jednej jednostki w hierarchii można użyć Fluent API, aby upewnić się, że są one uwzględnione w modelu.
+A jeśli użytkownik nie należy polegać na konwencjach można określić typ podstawowy, w sposób jawny przy użyciu `HasBaseType`.
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/InheritanceModelBuilder.cs?highlight=7&name=Context)]
 
 > [!NOTE]
-> Można użyć `.HasBaseType((Type)null)` można usunąć typu jednostki z hierarchii.
+> Możesz użyć `.HasBaseType((Type)null)` można usunąć typu jednostki z hierarchii.
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Za pomocą adnotacji danych nie można skonfigurować dziedziczenia.
+Nie można użyć adnotacji danych, aby skonfigurować dziedziczenie.
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Interfejsu API Fluent dziedziczenia zależy od dostawcy bazy danych, którego używasz. Zobacz [dziedziczenia (relacyjnej bazy danych)](relational/inheritance.md) konfiguracji można wykonać dla dostawcy relacyjnej bazy danych.
+Interfejs Fluent API dziedziczenia zależy od dostawcy bazy danych, którego używasz. Zobacz [dziedziczenie (relacyjna baza danych)](relational/inheritance.md) konfiguracji można wykonać dla dostawcy relacyjnej bazy danych.

@@ -1,25 +1,23 @@
 ---
-title: Zarządzanie schematów bazy danych — podstawowe EF
+title: Zarządzanie schematami bazy danych — EF Core
 author: bricelam
-ms.author: divega
 ms.date: 10/30/2017
-ms.technology: entity-framework-core
-ms.openlocfilehash: 765c80f43832e51471928d5f653aa12c6bd7c7ac
-ms.sourcegitcommit: b467368cc350e6059fdc0949e042a41cb11e61d9
+ms.openlocfilehash: c1ebe33b5575cab76a54721ef86ecbcb7ff8b98b
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2017
-ms.locfileid: "26054740"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994388"
 ---
-# <a name="managing-database-schemas"></a>Zarządzanie schematów bazy danych
-Podstawowe EF udostępnia dwa sposoby podstawowego elementu synchronizacja EF Core schematu modelu i bazy danych. Aby wybrać między nimi, należy zdecydować, czy model EF Core lub schemat bazy danych jest źródło prawdy.
+# <a name="managing-database-schemas"></a>Zarządzanie schematami bazy danych
+EF Core zawiera dwa podstawowe sposoby synchronizacja schematu modelu i bazie danych EF Core. Aby wybrać między nimi, należy zdecydować, czy modelu platformy EF Core lub schemat bazy danych jest źródło prawdziwych danych.
 
-Model EF Core były źródłem prawdy, należy użyć [migracje][1]. Po wprowadzeniu dowolnych zmian do modelu EF Core takie podejście przyrostowo dotyczy odpowiedniej zmiany schematu bazy danych tak, aby pozostaje zgodne z modelem EF Core.
+Aby modelu platformy EF Core jako źródło prawdziwych danych, należy użyć [migracje][1]. Po wprowadzeniu dowolnych zmian do modelu platformy EF Core, to podejście przyrostowo dotyczy odpowiedniej zmiany schematu bazy danych, aby pozostaje zgodny z modelu platformy EF Core.
 
-Użyj [Reverse Engineering] [ 2] Jeśli chcesz, aby były źródłem prawdy schemat bazy danych. Takie podejście umożliwia tworzenie szkieletu obiektu DbContext i klas jednostek typu przez odtwarzanie schemat bazy danych do modelu EF Core.
+Użyj [odwrotnego Engineering] [ 2] Jeśli schemat bazy danych jako źródło prawdziwych danych. Takie podejście umożliwia tworzenia szkieletu typu DbContext i klasami typu jednostki przez odtwarzanie schemat bazy danych do modelu platformy EF Core.
 
 > [!NOTE]
-> [Tworzenie i upuść interfejsów API] [ 3] można również utworzyć schemat bazy danych z modelu EF Core. Są to jednak głównie do testowania, prototypowania i inne scenariusze, gdzie jest dopuszczalne porzucenie bazy danych.
+> [Tworzenie i upuszczanie interfejsów API] [ 3] można również utworzyć schemat bazy danych z modelu platformy EF Core. Jednak są one głównie do testowania, tworzenia prototypów i innych scenariuszy, w których porzucenie bazy danych jest do zaakceptowania.
 
 
   [1]: migrations/index.md

@@ -1,41 +1,39 @@
 ---
-title: Typy danych — podstawowe EF
+title: Typy danych — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 9d2e647f-29e4-483b-af00-74269eb06e8f
-ms.technology: entity-framework-core
 uid: core/modeling/relational/data-types
-ms.openlocfilehash: fd4668a3f9554eb9d3b1161d5dddce2fcdcac712
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: 9060f66c752be01090ce40be6bf3a32f348ce571
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/05/2017
-ms.locfileid: "26054545"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993524"
 ---
 # <a name="data-types"></a>Typy danych
 
 > [!NOTE]  
-> Konfiguracja opisana w tej sekcji ma zastosowanie do relacyjnych baz danych w zasadzie. Metody rozszerzenia pokazane staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionego *Microsoft.EntityFrameworkCore.Relational* pakietu).
+> Ogólnie rzecz biorąc jest odpowiednie dla relacyjnych baz danych konfiguracji w tej sekcji. Metody rozszerzenia, pokazane tutaj staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionej *Microsoft.EntityFrameworkCore.Relational* pakietu).
 
-Typ danych odwołuje się do bazy danych określonego typu kolumny, z którą właściwość jest zamapowana.
+Typ danych odnosi się do bazy danych określonego typu kolumny, z którą właściwość jest zamapowana.
 
 ## <a name="conventions"></a>Konwencje
 
-Według Konwencji dostawcy bazy danych wybiera typ danych na podstawie typu CLR właściwości. Uwzględnia ona, również inne metadane, takie jak skonfigurowanego [maksymalną długość](../max-length.md), czy właściwość jest częścią klucza podstawowego, itd.
+Zgodnie z Konwencją dostawcy bazy danych wybiera typ danych, w zależności od typu CLR właściwości. On uwzględnia również inne metadane, takie jak skonfigurowanych [maksymalną długość](../max-length.md), czy właściwość jest częścią klucza podstawowego, itp.
 
-Na przykład program SQL Server używa `datetime2(7)` dla `DateTime` właściwości, oraz `nvarchar(max)` dla `string` właściwości (lub `nvarchar(450)` dla `string` właściwości, które są używane jako klucz).
+Na przykład program SQL Server używa `datetime2(7)` dla `DateTime` właściwości, a `nvarchar(max)` dla `string` właściwości (lub `nvarchar(450)` dla `string` właściwości, które są używane jako klucz).
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Adnotacje danych służy do określenia typu dokładne dane dla kolumny.
+Korzystanie z adnotacji danych, aby określić dokładny typ danych dla kolumny.
 
-Na przykład następujący kod konfiguruje `Url` jako ciąg z systemem innym niż unicode o maksymalnej długości `200` i `Rating` dziesiętnego z dokładnością do `5` i skalować z `2`.
+Na przykład poniższy kod służy do konfigurowania `Url` jako ciąg znaków innego niż unicode o maksymalnej długości `200` i `Rating` jako dziesiętna z dokładnością do `5` i skalowanie z `2`.
 
 [!code-csharp[Main](../../../../samples/core/Modeling/DataAnnotations/Samples/Relational/DataType.cs?name=Entities&highlight=4,6)]
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Aby określić ten sam typ danych dla kolumny można również Użyj interfejsu API Fluent.
+Można również określić ten sam typ danych dla kolumn za pomocą Fluent interfejsu API.
 
 [!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Samples/Relational/DataType.cs?name=Model&highlight=9-10)]

@@ -1,43 +1,42 @@
 ---
-title: Informacje dotyczące wiersza polecenia - EF Core
+title: Informacje dotyczące wiersza polecenia — EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
-ms.technology: entity-framework-core
-ms.openlocfilehash: db25ed55e3724ee71743e563f39a6e4b16c17589
-ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
+ms.openlocfilehash: 757d6562f5d3bcd4f026def02f208f5827786873
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/08/2018
-ms.locfileid: "29769420"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997073"
 ---
-<a name="entity-framework-core-tools"></a>Entity Framework podstawowe narzędzia
+<a name="entity-framework-core-tools"></a>Entity Framework Core Tools
 ===========================
-Entity Framework podstawowe narzędzia pomóc podczas opracowywania aplikacji EF Core. Aby utworzyć szkielet typy DbContext i jednostki przez odtwarzanie schematu bazy danych oraz do zarządzania migracji są używane przede wszystkim.
+Entity Framework Core Tools pomocne podczas tworzenia aplikacji programu EF Core. Służą one głównie do tworzenia szkieletu typu DbContext i jednostki przez odtwarzanie schemat bazy danych oraz do zarządzania migracji.
 
-[Konsoli Menedżera pakietów (PMC) EF podstawowe narzędzia] [ 1] zapewnienie wyższego poziomu środowiska w programie Visual Studio. Uruchom je przy użyciu narzędzia NuGet [Konsola Menedżera pakietów][2]. Te narzędzia Praca z projektami zarówno .NET Framework i .NET Core.
+[Narzędzia konsoli Menedżera pakietów (PMC) EF Core] [ 1] zapewniając doskonałe środowisko w programie Visual Studio. Uruchamiaj je za pomocą NuGet [Konsola Menedżera pakietów][2]. Te narzędzia działają w projektach .NET Core i .NET Framework.
 
-[Narzędzia wiersza polecenia platformy .NET Core EF] [ 3] są rozszerzeniem [narzędzi interfejsu wiersza polecenia (CLI) platformy .NET Core] [ 4] , które są obsługujący wiele platform i mogą uruchamiać poza Visual Studio. Narzędzia te wymagają projekt zestawu SDK programu .NET Core (jeden z `Sdk="Microsoft.NET.Sdk"` lub podobne w pliku projektu).
+[Narzędzia wiersza polecenia platformy .NET Core EF] [ 3] stanowią rozszerzenie do [narzędzi interfejsu wiersza polecenia (CLI) platformy .NET Core] [ 4] , które są dla wielu platform i mogą być uruchamiane poza programem Visual Studio. Narzędzia te wymagają projektu .NET Core SDK (z `Sdk="Microsoft.NET.Sdk"` lub podobne w pliku projektu).
 
-Zarówno narzędzia uwidaczniają te same funkcje. Jeśli projektujesz w programie Visual Studio, zaleca się za pomocą narzędzia PMC, ponieważ zapewniają większą integrację.
+Oba narzędzia uwidaczniają taką samą funkcjonalność. Jeśli tworzysz w programie Visual Studio, zaleca się przy użyciu narzędzi konsolę zarządzania Pakietami, ponieważ zapewniają one bardziej zintegrowanego środowiska pracy.
 
 <a name="frameworks"></a>Struktury
 ----------
-Narzędzia obsługi projektach przeznaczonych dla platformy .NET Framework lub .NET Core.
+Narzędzia obsługują projekty przeznaczone dla .NET Framework lub .NET Core.
 
-Jeśli chcesz użyć biblioteki klas, należy rozważyć, jeśli to możliwe przy użyciu biblioteki klas .NET Core lub .NET Framework. Spowoduje to co najmniej problemy z narzędzi platformy .NET. Jeśli zamiast tego chcesz użyć .NET Standard biblioteki klas, następnie należy użyć projekt startowy .NET Framework lub .NET Core tak, aby narzędzi conrete platformy docelowej, do którego można załadować biblioteki klas. Ten projekt startowy może być fikcyjny projektu z żadnego kodu rzeczywistych — jest wymagana jedynie zapewnienie elementu docelowego dla narzędzia.
+Jeśli chcesz użyć biblioteki klas, następnie należy wziąć pod uwagę przy użyciu biblioteki klas platformy .NET Core lub .NET Framework, jeśli jest to możliwe. Spowoduje to co najmniej problemów za pomocą narzędzi platformy .NET. Jeśli zamiast tego chcesz użyć biblioteki klas .NET Standard, następnie należy użyć projekt startowy platformy .NET Framework lub .NET Core tak, aby narzędzi conrete platformę docelową, do którego można załadować biblioteki klas. Ten projekt startowy może być fikcyjnego projektu bez rzeczywistego kodu — jest to tylko potrzebne do udostępniać miejsce docelowe dla narzędzi.
 
-Jeśli projekt jest przeznaczony dla innej framework (na przykład aplikacja uniwersalna systemu Windows lub Xamarin), następnie należy utworzyć oddzielne biblioteki klas .NET Standard. W takim przypadku należy wykonać wskazówki powyżej, aby również utworzyć projekt startowy, które mogą być używane przez narzędzia.
+Jeśli projekt jest przeznaczony dla innej framework (na przykład, Universal Windows lub platformy Xamarin), następnie należy utworzyć oddzielne biblioteki klas .NET Standard. W takim przypadku postępuj zgodnie z wskazówki powyżej, aby również utworzyć projekt startowy, który może być używany przez narzędzi.
 
 <a name="startup-and-target-projects"></a>Uruchamianie i projektów docelowych
 ---------------------------
-Przy każdym wywołaniu polecenia obejmuje dwa projekty: Projekt startowy i projektu docelowego.
+Zawsze, gdy wywołuje polecenie zaangażowanych dwa projekty: projekt docelowy i projekt startowy.
 
-Projekt docelowy jest w przypadku, gdy zostaną dodane wszystkie pliki (lub w niektórych przypadkach usunięte).
+Projekt docelowy jest w przypadku, gdy są dodawane wszystkie pliki (lub w niektórych przypadkach usunięte).
 
 Projekt startowy jest emulowane przez narzędzia podczas wykonywania kodu projektu.
 
-Zarówno projekt startowy, jak i docelowy projekt może być taka sama.
+Zarówno projekt docelowy, jak i projekt startowy może być taki sam.
 
 
   [1]: powershell.md

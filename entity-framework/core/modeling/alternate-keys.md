@@ -1,30 +1,28 @@
 ---
-title: Klucze alternatywne - EF Core
+title: Klucze alternatywne — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 8a5931d4-b480-4298-af36-0e29d74a37c0
-ms.technology: entity-framework-core
 uid: core/modeling/alternate-keys
-ms.openlocfilehash: 09f86a8932b71ec8f30ee90a088091a00233c20f
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: b26d8bc1630af9e811d9c4e7da850a618bc8042e
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054068"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996974"
 ---
 # <a name="alternate-keys"></a>Klucze alternatywne
 
-Klucz alternatywny służy jako alternatywny identyfikator unikatowy dla każdego wystąpienia jednostki, oprócz klucza podstawowego. Klucze alternatywne może służyć jako element docelowy relacji. Korzystanie z relacyjnej bazy danych to mapuje do koncepcji unikatowego indeksu/ograniczenia na alternatywny kolumn kluczy i jeden lub więcej ograniczeń klucza obcego odwołujące się do kolumn na liście.
+Klucza alternatywnego służy jako alternatywne Unikatowy identyfikator dla każdego wystąpienia jednostki, oprócz klucz podstawowy. Klucze alternatywne może służyć jako element docelowy relacji. Przy użyciu relacyjnej bazy danych to mapuje do koncepcji unikatowego indeksu/ograniczenia na alternatywny kolumn kluczy i jeden lub więcej ograniczeń klucza obcego odwołujące się do kolumn na liście.
 
 > [!TIP]  
-> Jeśli chcesz wymusić unikatowości kolumny, a następnie chcesz zamiast klucza alternatywnego unikatowego indeksu, zobacz [indeksów](indexes.md). EF klucze alternatywne zapewniają większą funkcjonalność niż unikatowe indeksy ponieważ mogą zostać użyte jako element docelowy klucz obcy.
+> Jeśli chcesz wymusić unikatowość kolumny, a następnie chcesz, aby zamiast klucza alternatywnego unikatowego indeksu, zobacz [indeksów](indexes.md). W programie EF klucze alternatywne zapewnić większą funkcjonalność niż indeksy unikatowe, ponieważ może służyć jako cel klucza obcego.
 
-Klucze alternatywne zwykle są wprowadzane automatycznie w razie potrzeby i nie trzeba ręcznie skonfigurować je. Zobacz [konwencje](#conventions) więcej szczegółów.
+Klucze alternatywne są zwykle wprowadzane dla Ciebie w razie i nie trzeba ręcznie skonfigurować je. Zobacz [konwencje](#conventions) Aby uzyskać więcej informacji.
 
 ## <a name="conventions"></a>Konwencje
 
-Według Konwencji klucza alternatywnego wprowadzono automatycznie podczas określania właściwości, która nie jest kluczem podstawowym jako element docelowy relacji.
+Zgodnie z Konwencją klucza alternatywnego został wprowadzony dla Ciebie podczas określania właściwości, który nie jest kluczem podstawowym jako element docelowy relacji.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/AlternateKey.cs?highlight=12)] -->
 ``` csharp
@@ -62,13 +60,13 @@ public class Post
 }
 ```
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Nie można skonfigurować alternatywne klucze za pomocą adnotacji danych.
+Klucze alternatywne nie można skonfigurować przy użyciu adnotacji danych.
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Aby skonfigurować jedną właściwość klucza alternatywnego za można Użyj interfejsu API Fluent.
+Interfejs Fluent API umożliwiają skonfigurowanie jednej właściwości klucza alternatywnego.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeySingle.cs?highlight=7,8)] -->
 ``` csharp
@@ -92,7 +90,7 @@ class Car
 }
 ```
 
-Aby skonfigurować wiele właściwości klucza alternatywnego (znany jako alternatywny klucz złożony) umożliwia także interfejsu API Fluent.
+Można również skonfigurować wiele właściwości jako klucza alternatywnego (znanych jako alternatywne klucz złożony) za pomocą Fluent interfejsu API.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeyComposite.cs?highlight=7,8)] -->
 ``` csharp

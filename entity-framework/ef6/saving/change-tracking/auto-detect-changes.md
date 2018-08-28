@@ -2,19 +2,13 @@
 title: Automatyczne wykrywanie zmian — EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: a8d1488d-9a54-4623-a76b-e81329ff2756
-caps.latest.revision: 3
-ms.openlocfilehash: 62f2f026426346fc1230a2f5743c8cb7d232ec7f
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: bca33e12674c47cc7e047e85b11746c8e39246b4
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912002"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998102"
 ---
 # <a name="automatic-detect-changes"></a>Automatyczne wykrywanie zmian
 Korzystając z większości obiektów POCO ustalenia, jak jednostki został zmieniony (i w związku z tym aktualizacje, które muszą być wysyłane do bazy danych) odbywa się przez algorytm wykrywa zmiany. Wykryj zmiany działa został określony poprzez wykrycie różnic między bieżącej wartości właściwości jednostki i oryginalne wartości właściwości, które są przechowywane w migawce jednostki zapytania lub został dołączony. Techniki przedstawione w tym temacie stosuje się jednakowo do modeli utworzonych za pomocą Code First i projektancie platformy EF.  

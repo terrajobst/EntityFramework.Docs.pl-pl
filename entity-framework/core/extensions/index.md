@@ -1,133 +1,137 @@
 ---
-title: Narzędzia i rozszerzenia - EF Core
+title: Narzędzia i rozszerzenia — EF Core
 author: ErikEJ
-ms.author: divega
 ms.date: 7/3/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
-ms.technology: entity-framework-core
 uid: core/extensions/index
-ms.openlocfilehash: 6c8cb3e0d8552f274118e4020b7e2e8009af7e11
-ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
+ms.openlocfilehash: e9f9a6cbbceeb0379ddb5588b564b0d2a962795f
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/08/2018
-ms.locfileid: "29769442"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995516"
 ---
-# <a name="ef-core-tools--extensions"></a>EF podstawowe narzędzia & rozszerzenia
+# <a name="ef-core-tools--extensions"></a>EF Core Tools i rozszerzenia
 
-Narzędzia i rozszerzenia oferowanie dodatkowych funkcji Entity Framework podstawowych.
+Narzędzia i rozszerzenia oferowanie dodatkowych funkcji dla platformy Entity Framework Core.
 
 > [!IMPORTANT]  
-> Rozszerzenia są utworzony przez różnych źródeł i nie są obsługiwane jako część projektu Entity Framework Core. Rozważając rozszerzenia innych firm, należy ocenić jakości, licencjonowanie, zgodności i pomocy technicznej, itp., aby upewnić się, że spełniają one wymagania.
+> Rozszerzenia są skompilowanymi z różnych źródeł i nie są przechowywane jako część projektu platformy Entity Framework Core. Rozważając rozszerzenia innych firm, pamiętaj ocenić jakość, licencjonowanie, zgodności i pomocy technicznej, itp., aby upewnić się, że spełniają one wymagania.
 
 ## <a name="tools"></a>Narzędzia
 
 ### <a name="llblgen-pro"></a>LLBLGen Pro
 
-LLBLGen Pro to jednostka modelowania z obsługą programu Entity Framework oraz Entity Framework Core. Dzięki temu można łatwo zdefiniować modelu jednostki i mapowanie go do bazy danych, najpierw przy użyciu bazy danych lub model, więc możesz rozpocząć pracę od razu Pisanie zapytań.
+LLBLGen Pro jest jednostką modelowania rozwiązania z obsługą platformy Entity Framework i Entity Framework Core. Dzięki temu można łatwo zdefiniować model jednostki i dokonaj mapowania go do bazy danych, najpierw przy użyciu bazy danych lub model, dzięki czemu możesz rozpocząć pracę już teraz Pisanie zapytań.
 
-[witryny sieci Web](https://www.llblgen.com/)
+[Witryny sieci Web](https://www.llblgen.com/)
 
-### <a name="devart-entity-developer"></a>Jednostka Devart Developer
+### <a name="devart-entity-developer"></a>Devart jednostki dla deweloperów
 
-Deweloper jednostki jest zaawansowaną projektanta ORM dla ADO.NET Entity Framework, NHibernate LinqConnect, dostęp do danych strony firmy Telerik i LINQ do SQL. Można użyć pierwszej modelu i bazy danych — pierwszy podejście do projektowania modelu ORM oraz do generowania kodu C# i Visual Basic .NET dla niego. Go wprowadza nowe podejście do projektowania Modele ORM, zwiększa wydajność i ułatwia tworzenie aplikacji bazy danych.
+Deweloper jednostki jest zaawansowane Projektant ORM dla ADO.NET Entity Framework, NHibernate, LinqConnect, Telerik Data Access i LINQ to SQL. Można użyć modelu i bazy danych zbliża się do zaprojektować ORM model i wygenerować kodu C# lub Visual Basic .NET dla niego. Jego wprowadza nowe podejście do projektowania Modele ORM, zwiększa wydajność pracy i ułatwia tworzenie aplikacji bazy danych.
 
-[witryny sieci Web](https://www.devart.com/entitydeveloper/)
+[Witryny sieci Web](https://www.devart.com/entitydeveloper/)
 
-### <a name="ef-core-power-tools"></a>EF podstawowe narzędzia zasilania
+### <a name="ef-core-power-tools"></a>EF Core Power Tools
 
-Visual Studio 2017 + rozszerzenia. Można odtworzyć klasy DbContext i POCO z istniejącej bazy danych lub projektu bazy danych serwera SQL i wizualizacji i sprawdzić Twoje DbContext na różne sposoby.
+Visual Studio 2017 + rozszerzenie. Możesz odtwarzać klasy DbContext i POCO z istniejącej bazy danych lub projekt bazy danych SQL Server i wizualizować i sprawdzić swoje DbContext na różne sposoby.
 
-[Witryna typu wiki w witrynie GitHub](https://github.com/ErikEJ/SqlCeToolbox/wiki/EF-Core-Power-Tools)
+[Witryny typu wiki w witrynie GitHub](https://github.com/ErikEJ/SqlCeToolbox/wiki/EF-Core-Power-Tools)
 
 ## <a name="extensions"></a>Rozszerzenia
 
 ### <a name="microsoftentityframeworkcoreautohistory"></a>Microsoft.EntityFrameworkCore.AutoHistory
 
-Dodatek Microsoft.EntityFrameworkCore do obsługi automatycznie historii zmian danych rejestrowania.
+Wtyczki dla Microsoft.EntityFrameworkCore do obsługi automatycznie historii zmian danych rejestrowania.
 
 [Repozytorium GitHub](https://github.com/Arch/AutoHistory/)
 
 ### <a name="microsoftentityframeworkcoredynamiclinq"></a>Microsoft.EntityFrameworkCore.DynamicLinq
 
-Dynamiczne rozszerzenia Linq Microsoft.EntityFrameworkCore, która dodaje obsługę Async
+Dynamiczne rozszerzeń Linq dla Microsoft.EntityFrameworkCore, który dodaje asynchroniczna pomoc techniczna
 
  [Repozytorium GitHub](https://github.com/StefH/System.Linq.Dynamic.Core/)
 
 ### <a name="efcorepractices"></a>EFCore.Practices
 
-Próba przechwytywania niektórych dobrej lub najlepszych praktyk w interfejs API, który obsługuje testowania — w tym małe framework skanowania pod kątem N + 1 zapytania.
+Podjęto próbę do przechwytywania niektóre dobre lub najlepszych praktyk w interfejsie API obsługującego testów — w tym małe framework do skanowania w poszukiwaniu N + 1 zapytania.
 
 [Repozytorium GitHub](https://github.com/riezebosch/efcore-practices/tree/master/src/EFCore.Practices/)
 
 ### <a name="efsecondlevelcachecore"></a>EFSecondLevelCache.Core
 
-Drugi poziom buforowania biblioteki. Drugi poziom buforowania jest to pamięć podręczna zapytania. Wyniki polecenia EF będą przechowywane w pamięci podręcznej, dzięki czemu te same polecenia EF pobierze dane z pamięci podręcznej niż wykonywanie ich ponownie w bazie danych.
+Drugi poziom buforowania biblioteki. Drugi poziom buforowania jest pamięć podręczna zapytań. Wyniki polecenia EF będą przechowywane w pamięci podręcznej, więc, że te same polecenia EF będzie pobrać dane z pamięci podręcznej, zamiast ponownie ich wykonania w bazie danych.
 
 [Repozytorium GitHub](https://github.com/VahidN/EFSecondLevelCache.Core/)
 
 ### <a name="detachedentityframework"></a>Detached.EntityFramework
 
-Załadowanie i zapisanie wykresy całego odłączyć jednostek (jednostka z ich obiektów podrzędnych i list). Inspirowana przez [GraphDiff](https://github.com/refactorthis/GraphDiff/). Ma to również dodać niektóre dodatki plug-in do simplificate powtarzających się zadań, takich jak przeprowadzanie inspekcji i podział na strony.
+Załadowanie i zapisanie wykresy całego odłączonych jednostek (jednostka wraz z ich obiektów podrzędnych i listy). Czerp inspirację [GraphDiff](https://github.com/refactorthis/GraphDiff/). Chodzi o to również dodać niektóre wtyczki do simplificate powtarzających się zadań, takich jak przeprowadzanie inspekcji i dzielenia na strony.
 
 [Repozytorium GitHub](https://github.com/leonardoporro/Detached/)
 
 ### <a name="entityframeworkcoreprimarykey"></a>EntityFrameworkCore.PrimaryKey
 
-Pobrać klucza podstawowego (w tym klucze złożone) z dowolnej jednostki jako słownik.
+Pobieranie klucza podstawowego (w tym kluczy złożonych) z dowolnej jednostki jako słownik.
 
 [Repozytorium GitHub](https://github.com/NickStrupat/EntityFramework.PrimaryKey/)
 
 ### <a name="entityframeworkcorerx"></a>EntityFrameworkCore.Rx
 
-Rozszerzenie reaktywne otoki dla gorących dostrzegalne elementy jednostek Entity Framework.
+Reaktywne rozszerzenia otoki dla gorących dostrzegalne elementy jednostek platformy Entity Framework.
 
 [Repozytorium GitHub](https://github.com/NickStrupat/EntityFramework.Rx/)
 
 ### <a name="entityframeworkcoretriggers"></a>EntityFrameworkCore.Triggers
 
-Dodaj wyzwalaczy obiekty z wstawiania, aktualizowania i usuwania zdarzenia. Istnieją trzy zdarzenia dla każdego: przed, po i w przypadku awarii.
+Dodaj wyzwalacze do jednostek przy użyciu Wstawianie, aktualizowanie i usuwanie zdarzeń. Istnieją trzy zdarzenia dla każdego: przed, po i w przypadku awarii.
 
 [Repozytorium GitHub](https://github.com/NickStrupat/EntityFramework.Triggers/)
 
 ### <a name="entityframeworkcoretypedoriginalvalues"></a>EntityFrameworkCore.TypedOriginalValues
 
-Uzyskiwanie dostępu typu do OriginalValue z właściwości obiektu. Właściwości proste i złożone są obsługiwane, są nawigacji/kolekcji.
+Wpisane korzystać OriginalValue swoje właściwości jednostki. Proste i złożone są obsługiwane, są nawigacji/kolekcji.
 
 [Repozytorium GitHub](https://github.com/NickStrupat/EntityFramework.TypedOriginalValues/)
 
 ### <a name="geco"></a>Geco
 
-Geco zapewnia generator wstecznego modelu z obsługą określania liczby mnogiej/Singularization oraz szablonów do edycji oparte na ciągi interpolowane 6.0 C# i uruchomiona na platformie .net Core. Umożliwia także generator skryptów inicjatora scalania SQL skryptów i runner skryptu.
+Geco udostępnia generator odwrotnego modelu z obsługą Pluralizacja/Singularization oraz szablonów do edycji na podstawie ciągów języka C# 6.0 interpolowane i uruchamiania na.Net Core. Umożliwia także generator skryptów inicjatora ze skryptami scalania SQL i moduł uruchamiający skrypt.
 
 [Repozytorium Github](https://github.com/iQuarc/Geco)
 
 ### <a name="linqkitmicrosoftentityframeworkcore"></a>LinqKit.Microsoft.EntityFrameworkCore
 
-LinqKit.Microsoft.EntityFrameworkCore to bezpłatna zestaw rozszerzeń dla LINQ do SQL i EntityFrameworkCore użytkownicy zaawansowani. Z obsługą Include(...) i IDbAsync.
+LinqKit.Microsoft.EntityFrameworkCore to bezpłatny zestaw rozszerzeń dla programu LINQ do SQL i EntityFrameworkCore użytkownicy zaawansowani. Dzięki obsłudze Include(...) i IDbAsync.
 
 [Repozytorium GitHub](https://github.com/scottksmith95/LINQKit/)
 
 ### <a name="neinlinqentityframeworkcore"></a>NeinLinq.EntityFrameworkCore
 
-NeinLinq.EntityFrameworkCore udostępnia przydatne rozszerzenia dotyczące korzystania z LINQ dostawców, takich jak Entity Framework obsługujących niewielkie podzbiór funkcji .NET ponowne użycie funkcji, ponowne zapisywanie zapytań, nawet nadawania null bezpieczny i tworzenia zapytań dynamicznych przy użyciu predykatów można przetłumaczyć i selektorów.
+NeinLinq.EntityFrameworkCore zawiera przydatne rozszerzenia dotyczące korzystania z LINQ dostawców, takich jak Entity Framework, które obsługują tylko drobne podzbiór funkcji platformy .NET, ponowne użycie funkcji, ponowne napisanie zapytania, nawet nadawania wartość null i tworzenie zapytań dynamicznych za pomocą można przetłumaczyć predykatach i selektory.
 
 [Repozytorium GitHub](https://github.com/axelheer/nein-linq/)
 
 ### <a name="microsoftentityframeworkcoreunitofwork"></a>Microsoft.EntityFrameworkCore.UnitOfWork
 
-Dodatek Microsoft.EntityFrameworkCore do obsługi repozytorium, jednostki pracy i wielu bazy danych z obsługiwanych transakcji rozproszonej.
+Wtyczki dla Microsoft.EntityFrameworkCore do obsługi repozytorium, jednostkę pracy wzorców i wielu bazy danych z transakcji rozproszonych obsługiwane.
 
 [Repozytorium GitHub](https://github.com/Arch/UnitOfWork/)
 
 ### <a name="entityframeworklazyloading"></a>EntityFramework.LazyLoading
 
-Ładowania opóźnionego dla EF Core 1.1
+Powolne ładowanie dla platformy EF Core 1.1
 
 [Repozytorium GitHub](https://github.com/darxis/EntityFramework.LazyLoading)
 
 ### <a name="efcorebulkextensions"></a>EFCore.BulkExtensions
 
-Rozszerzenia EntityFrameworkCore operacje zbiorcze (Insert, Update, Delete).
+Rozszerzenia EntityFrameworkCore potrzeby zbiorczych operacji (Insert, Update, Delete).
 
 [Repozytorium GitHub](https://github.com/borisdj/EFCore.BulkExtensions)
+
+### <a name="bricelamentityframeworkcorepluralizer"></a>Bricelam.EntityFrameworkCore.Pluralizer
+
+Dodaje pluralizacja czasu projektowania do programu EF Core.
+
+[Repozytorium GitHub](https://github.com/bricelam/EFCore.Pluralizer)

@@ -1,22 +1,20 @@
 ---
-title: Testowanie przy użyciu programu Entity Framework - EF podstawowych składników
+title: Testowanie składników używający narzędzia Entity Framework - programu EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 1603be0c-69bc-4dd9-9a08-3d0129cdc6c1
-ms.technology: entity-framework-core
 uid: core/miscellaneous/testing/index
-ms.openlocfilehash: c82c25da393c39cf5e2deb46c7322e7395051937
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: fc751b9053c337e4911f4016b65b370d1276046b
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054206"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997840"
 ---
 # <a name="testing"></a>Testowanie
 
-Można przetestować składniki przy użyciu funkcji, która przybliża łączenia z bazą danych rzeczywistych, bez potrzeby rzeczywistej bazy danych operacji We/Wy.
+Można przetestować składników za pomocą coś, co przybliża z bazą danych rzeczywistych, bez konieczności operacji We/Wy bazy danych.
 
-Istnieją dwie główne opcje, aby to zrobić:
- * [Trybu w pamięci SQLite](sqlite.md) umożliwia pisanie wydajne testy względem dostawcy, który zachowuje się jak relacyjnej bazy danych.
- * [Dostawca InMemory](in-memory.md) jest lekki dostawcy, który ma minimalny zależności, ale nie zawsze zachowywać się jak relacyjnej bazy danych.
+Istnieją dwie główne opcje w ten sposób:
+ * [Tryb w pamięci SQLite](sqlite.md) pozwala na zapis efektywne testy względem dostawcy, który zachowuje się jak relacyjnej bazy danych.
+ * [Dostawca InMemory](in-memory.md) jest uproszczone dostawcę, który ma minimalne zależności, ale nie zawsze zachowują się jak relacyjnej bazy danych.

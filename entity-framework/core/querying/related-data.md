@@ -1,17 +1,15 @@
 ---
 title: Trwa ładowanie powiązanych danych — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
-ms.technology: entity-framework-core
 uid: core/querying/related-data
-ms.openlocfilehash: 05833055f4744940364da4fdea7ded9a90d67508
-ms.sourcegitcommit: a3aec015e0ad7ee31e0f75f00bbf2d286a3ac5c1
+ms.openlocfilehash: 65cfea07a40939c1c3615c97ec785a4082b21de5
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/18/2018
-ms.locfileid: "39107256"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994791"
 ---
 # <a name="loading-related-data"></a>Ładowanie powiązanych danych
 
@@ -21,7 +19,7 @@ Entity Framework Core umożliwia ładowanie powiązanych jednostek przy użyciu 
 * **Powolne ładowanie** oznacza, że powiązane przezroczyste załadowaniu danych z bazy danych podczas uzyskiwania dostępu do właściwości nawigacji.
 
 > [!TIP]  
-> Można wyświetlić w tym artykule [przykładowe](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) w witrynie GitHub.
+> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
 ## <a name="eager-loading"></a>Wczesne ładowanie
 
@@ -125,7 +123,7 @@ Domyślnie EF Core zarejestruje ostrzeżenie obejmują gdy operatory są ignorow
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/ThrowOnIgnoredInclude/BloggingContext.cs#OnConfiguring)]
 
-## <a name="explicit-loading"></a>Jawne ładowanie
+## <a name="explicit-loading"></a>jawne ładowanie
 
 > [!NOTE]  
 > Ta funkcja została wprowadzona w programie EF Core 1.1.

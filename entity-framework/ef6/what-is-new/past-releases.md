@@ -2,19 +2,13 @@
 title: Przeszłymi wersjami programu Entity Framework - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
-caps.latest.revision: 4
-ms.openlocfilehash: 5be3632fd3a3f04e12e2d3aa67de6c1d9c7b56a2
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 01a73558f9a8ef49ef20e4673001fd096d2aafb8
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949324"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998277"
 ---
 # <a name="past-releases-of-entity-framework"></a>Przeszłymi wersjami programu Entity Framework
 
@@ -140,7 +134,7 @@ Oto lista zawartości, które razem utworzona Państwu specjalnie dla wersji pro
     -   [Typy w kodzie najpierw danych przestrzennych](~/ef6/modeling/code-first/data-types/spatial.md)
     -   [Typy danych przestrzennych w Projektancie platformy EF](~/ef6/modeling/designer/data-types/spatial.md)
     -   [Obsługa dostawców dla typów przestrzennych](~/ef6/fundamentals/providers/spatial-support.md)
-    -   [Funkcje zwracające tabele](~/ef6/modeling/designer/advanced/tvfs.md)
+    -   [Funkcje zwracające tabelę](~/ef6/modeling/designer/advanced/tvfs.md)
     -   [Wiele diagramów na modelu](~/ef6/modeling/designer/multiple-diagrams.md)
 -   Konfigurowanie modelu
     -   [Tworzenie modelu](~/ef6/modeling/index.md)
@@ -177,7 +171,7 @@ Oto lista zawartości, które razem utworzona Państwu specjalnie dla wersji pro
         -   [Szablonów generowania kodu](~/ef6/modeling/designer/codegen/index.md)
         -   [Powracanie do obiektu ObjectContext](~/ef6/modeling/designer/codegen/legacy-objectcontext.md)
 -   Przy użyciu modelu
-    -   [Praca z typu DbContext](~/ef6/fundamentals/working-with-dbcontext.md)
+    -   [Praca z klasą DbContext](~/ef6/fundamentals/working-with-dbcontext.md)
     -   [Wykonywanie zapytań wyszukiwania jednostek](~/ef6/querying/index.md)
     -   [Praca z relacjami](~/ef6/fundamentals/relationships.md)
     -   [Trwa ładowanie powiązanych jednostek](~/ef6/querying/related-data.md)

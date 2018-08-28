@@ -1,17 +1,15 @@
 ---
 title: Typy zapytań — EF Core
 author: anpete
-ms.author: anpete
 ms.date: 2/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
-ms.technology: entity-framework-core
 uid: core/modeling/query-types
-ms.openlocfilehash: 5a2cd451da8833daf2c315419559eb4a2c705b13
-ms.sourcegitcommit: 4467032fd6ca223e5965b59912d74cf88a1dd77f
+ms.openlocfilehash: bacb121ca00a9b0aa00bfe201de4f95113472d70
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/01/2018
-ms.locfileid: "39388484"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996702"
 ---
 # <a name="query-types"></a>Typy zapytań
 > [!NOTE]
@@ -53,7 +51,7 @@ Niektóre scenariusze użycia główne typy zapytań to:
 Poniższy przykład pokazuje, jak zapytania widoku bazy danych za pomocą typu zapytania.
 
 > [!TIP]
-> Można wyświetlić w tym artykule [przykładowe](https://github.com/aspnet/EntityFrameworkCore/tree/master/samples/QueryTypes) w witrynie GitHub.
+> [Przykład](https://github.com/aspnet/EntityFrameworkCore/tree/master/samples/QueryTypes) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
 Najpierw należy zdefiniować prosty model blogu i Post:
 

@@ -1,36 +1,34 @@
 ---
-title: Klucze podstawowe - EF Core
+title: Klucze podstawowe - programu EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: c78f8f42-564a-45a4-aca7-3ede9f7ed2bc
-ms.technology: entity-framework-core
 uid: core/modeling/relational/primary-keys
-ms.openlocfilehash: fcb1871149c0f20a2576864028b4171904de1982
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 916f3adbcd08cb1037c7fbf68e99630feb321a61
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054179"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998071"
 ---
 # <a name="primary-keys"></a>Klucze podstawowe
 
 > [!NOTE]  
-> Konfiguracja opisana w tej sekcji ma zastosowanie do relacyjnych baz danych w zasadzie. Metody rozszerzenia pokazane staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionego *Microsoft.EntityFrameworkCore.Relational* pakietu).
+> Ogólnie rzecz biorąc jest odpowiednie dla relacyjnych baz danych konfiguracji w tej sekcji. Metody rozszerzenia, pokazane tutaj staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionej *Microsoft.EntityFrameworkCore.Relational* pakietu).
 
-Wprowadzono ograniczenia klucza podstawowego dla klucza poszczególnych typów jednostek.
+Wprowadzono ograniczenie klucza podstawowego klucza dla każdego typu jednostki.
 
 ## <a name="conventions"></a>Konwencje
 
-Według Konwencji, będzie miała nazwę klucza podstawowego w bazie danych `PK_<type name>`.
+Zgodnie z Konwencją, klucz podstawowy w bazie danych będą miały nazwę nadaną `PK_<type name>`.
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Za pomocą adnotacji danych można skonfigurować określone aspekty relacyjnej bazy danych klucza podstawowego.
+Konkretnych aspektów relacyjnej bazy danych klucza podstawowego można skonfigurować przy użyciu adnotacji danych.
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Aby skonfigurować nazwę ograniczenia klucza podstawowego w bazie danych, można użyć interfejsu API Fluent.
+Interfejs Fluent API umożliwiają skonfigurowanie nazwę ograniczenia klucza podstawowego w bazie danych.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/KeyName.cs?highlight=9)] -->
 ``` csharp

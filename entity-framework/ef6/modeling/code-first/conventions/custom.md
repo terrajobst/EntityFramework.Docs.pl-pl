@@ -2,19 +2,13 @@
 title: Niestandardowy kod Konwencji pierwsze - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: dd2bdbd9-ae9e-470a-aeb8-d0ba160499b7
-caps.latest.revision: 3
-ms.openlocfilehash: 24d6f1bd5eb2ff8be59b9eedd1c4156709fa42fb
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 79450790c6d3c8ce7fad209e3946e81d3fad4b75
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914252"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995831"
 ---
 # <a name="custom-code-first-conventions"></a>Konwencje pierwszy kod niestandardowy
 > [!NOTE]
@@ -206,7 +200,7 @@ W tym przykładzie użyjemy aktualizacja naszych atrybutu i zmień ją na atrybu
     }
 ```
 
-Gdy będziemy już mieć, firma Microsoft można ustawić typu wartość logiczna na naszych atrybut Konwencji stwierdzić, czy właściwość powinna być Unicode. Za pomocą Konwencji w ten sposób oznacza, że może zapewnić Konwencję ogólnych dla typów lub właściwości w modelu i następnie zastąpić te je dla podzbiorów, które różnią się.
+Gdy będziemy już mieć, firma Microsoft można ustawić typu wartość logiczna na naszych atrybut Konwencji stwierdzić, czy właściwość powinna być Unicode. Firma Microsoft może zrobić w Konwencji, które mamy już uzyskując ClrProperty klasy konfiguracji następująco:
 
 ``` csharp
     modelBuilder.Properties()
@@ -214,7 +208,7 @@ Gdy będziemy już mieć, firma Microsoft można ustawić typu wartość logiczn
                 .Configure(c => c.IsUnicode(c.ClrPropertyInfo.GetCustomAttribute<IsUnicode>().Unicode));
 ```
 
-Fluent API i adnotacje danych może również zastąpić Konwencji w szczególnych przypadkach. W naszym powyższym przykładzie Jeśli firma Microsoft gdyby użyto Fluent API, aby ustawić maksymalną długość właściwości następnie może mieć testujemy go przed lub po Konwencji, ponieważ dokładniejszą Fluent API wygra nad bardziej ogólnych Konwencji konfiguracji. Konwencje wbudowane Ponieważ konwencje niestandardowe mogą mieć wpływ domyślnych Konwencji Code First, może być przydatne do dodania konwencje do uruchomienia przed lub po innym Konwencji.
+Jest to dość proste, ale jest bardziej zwięzły sposób realizacji tego celu za pomocą Having metoda konwencje interfejsu API. Having metoda ma parametr typu Func&lt;PropertyInfo, T&gt; który akceptuje PropertyInfo taka sama jak Where metody, ale oczekuje się, aby zwrócić obiekt. Jeśli zwracany obiekt ma wartość null, a następnie właściwość nie zostanie skonfigurowany, co oznacza można odfiltrować właściwości z nią tak samo jak miejsca, ale różni się w tym będzie również przechwytywania zwróconego obiektu i przekazać go do metody konfiguracji. Działa to podobnie do poniższych:
 
 ``` csharp
     modelBuilder.Properties()
@@ -222,15 +216,15 @@ Fluent API i adnotacje danych może również zastąpić Konwencji w szczególny
                 .Configure((config, att) => config.IsUnicode(att.Unicode));
 ```
 
-W tym celu można użyć AddBefore i AddAfter metod zbierania konwencje na Twoje pochodnego typu DbContext.
+Atrybuty niestandardowe nie są Jedyny przypadek, kiedy używać Having metody przydaje się dowolnego miejsca, wymagających przeglądanie informacji o coś, co możesz filtrowania podczas konfigurowania właściwości lub typów.
 
  
 
-## <a name="configuring-types"></a>Poniższy kod zwiększałoby klasy Konwencji utworzony wcześniej tak, aby było uruchamiane przed wbudowanej w Konwencji klucza odnajdywania.
+## <a name="configuring-types"></a>Konfigurowanie typów
 
-Ma to być najbardziej przydatne podczas dodawania konwencje, które mają zostać uruchomione przed lub po wbudowanej Konwencji, lista wbudowanej konwencje można znaleźć tutaj: Namespace System.Data.Entity.ModelConfiguration.Conventions . Można również usunąć konwencje, które mają być stosowane do modelu.
+Do tej pory wszystkie nasze konwencje zostały dla właściwości, ale istnieje inny obszar konwencje interfejsu API na temat konfigurowania typów w modelu. Proces jest podobny do Konwencji, które zauważono pory, ale opcje konfigurowania wewnątrz będzie znajdować się w jednostce zamiast właściwości poziomu.
 
-Aby usunąć z Konwencją, należy użyć metody Remove. Oto przykład usuwania PluralizingTableNameConvention.
+Jedną z rzeczy, które konwencje poziomu typu mogą być bardzo przydatne podczas ulegnie zmianie tabeli konwencji nazewnictwa, aby mapować do istniejącego schematu, która różni się od domyślnej EF lub Utwórz nową bazę danych z różnych konwencji nazewnictwa. W tym celu najpierw należy metodę, która może zaakceptować TypeInfo dla typu w naszym modelu i zwraca nazwę tabeli dla tego typu, co należy:
 
 ``` csharp
     private string GetTableName(Type type)

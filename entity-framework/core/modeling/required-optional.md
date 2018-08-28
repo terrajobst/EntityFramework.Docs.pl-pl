@@ -1,32 +1,30 @@
 ---
-title: Właściwości wymaganych/opcjonalnych - EF Core
+title: Właściwości wymagane/opcjonalne — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: ddaa0a54-9f43-4c34-aae3-f95c96c69842
-ms.technology: entity-framework-core
 uid: core/modeling/required-optional
-ms.openlocfilehash: 2af1d49e12ef980f81cb9c00556dee471673ccae
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: b6716a5b03e1afc2933e317d606ef50f986c22c7
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054251"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995500"
 ---
-# <a name="required-and-optional-properties"></a>Właściwości wymaganych i opcjonalnych
+# <a name="required-and-optional-properties"></a>Wymagane i opcjonalne właściwości
 
-Właściwości są traktowane jako opcjonalne, jeśli jest on prawidłowy dla on zawierać `null`. Jeśli `null` nie jest prawidłową wartość do przypisania do właściwości, a następnie jest on uznawany za jest właściwością wymaganą.
+Właściwości są traktowane jako opcjonalne, jeśli jest on prawidłowy, aby mogła zawierać `null`. Jeśli `null` nie jest prawidłową wartością ma być przypisane do właściwości, a następnie jest on uznawany za jest właściwością wymaganą.
 
 ## <a name="conventions"></a>Konwencje
 
-Konwencja, właściwości, których typ CLR może zawierać wartości null zostanie skonfigurowana jako opcjonalny (`string`, `int?`, `byte[]`itp.). Właściwości, których typ CLR nie może zawierać wartości null zostanie skonfigurowana jako wymagany (`int`, `decimal`, `bool`itp.).
+Zgodnie z Konwencją, właściwość, której typ CLR może zawierać wartości null zostanie skonfigurowany jako opcjonalny (`string`, `int?`, `byte[]`itp.). Właściwości, których typ CLR nie może zawierać wartości null zostanie skonfigurowany zgodnie z wymogami (`int`, `decimal`, `bool`itp.).
 
 > [!NOTE]  
-> Właściwości, których typ CLR nie może zawierać wartości null nie można skonfigurować jako opcjonalny. Właściwość będą zawsze uznawane za wymagane przez program Entity Framework.
+> Właściwość, której typ CLR nie może zawierać wartości null nie można skonfigurować jako opcjonalną. Właściwość będzie zawsze być brana pod uwagę wymagane przez program Entity Framework.
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Aby wskazać, że właściwość jest wymagana, można użyć adnotacji danych.
+Korzystanie z adnotacji danych, aby wskazać, że właściwość jest wymagana.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/Required.cs?highlight=4)] -->
 ``` csharp
@@ -38,7 +36,7 @@ public class Blog
 }
 ```
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
 Aby wskazać, że właściwość jest wymagana, można użyć interfejsu API Fluent.
 

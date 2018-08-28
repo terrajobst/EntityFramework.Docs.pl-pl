@@ -2,19 +2,13 @@
 title: Zagadnienia dotyczące wydajności dla EF4, EF5 i EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-caps.latest.revision: 4
-ms.openlocfilehash: c01cf2b28e56fb73783bd9ed0d133bffa0a7dbe7
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: f71a13ec06ad46259b3f33216367723b53314a5c
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949336"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996751"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Zagadnienia dotyczące wydajności na platformie EF, 4, 5 i 6
 David Obando, Eric Dettinger i inne osoby
@@ -67,42 +61,42 @@ Istnieje kilka sposobów, aby zmniejszyć koszt wydajności zapytań, ciepło i 
 
 ### <a name="21-what-is-view-generation"></a>2.1 Generowanie widoku co to jest?
 
-Aby zrozumieć, jakie widoku Generowanie jest, firma Microsoft musisz najpierw zrozumieć, co to są "Mapowanie widoków". Aby uzyskać więcej informacji na temat różnych opcji udostępnianych przez EDMGen odwiedź stronę   . Zobacz sekcję "Konwencji relacji" pierwszy konwencje związane z zawiera informacje dotyczące sposobu uwzględniania właściwości klucza obcego na obiekty zależne, gdy za pomocą funkcji Code First. 2.4.2 przenoszenie modelu w osobnym zestawie
+Aby zrozumieć, jakie widoku Generowanie jest, firma Microsoft musisz najpierw zrozumieć, co to są "Mapowanie widoków". Widoki mapowania są reprezentacji pliku wykonywalnego przekształcenia określony w mapowaniu dla każdego zestawu jednostek i skojarzenia. Wewnętrznie te widoki mapowania przybrać CQTs (canonical zapytania drzewa). Istnieją dwa rodzaje widokach mapowania:
 
--   Gdy model znajduje się bezpośrednio w projekcie aplikacji i generowanie widoków przez zdarzenie sprzed kompilacji lub szablon T4, generowania widoku i sprawdzanie poprawności nastąpi zawsze wtedy, gdy projekt zostanie ponownie skompilowany, nawet jeśli nie można zmienić modelu.
--   Jeśli przenoszenie modelu w osobnym zestawie i odwoływać się do niego z projektu aplikacji, można zapisać wprowadzić inne zmiany aplikacji bez konieczności ponownie skompiluj projekt zawierający modelu.
+-   Widoki kwerendę: reprezentują one to konieczne, można przejść od schematu bazy danych do modelu koncepcyjnego transformacji.
+-   Aktualizowanie widoków: reprezentuje przekształcenie konieczne przechodzenie z modelu koncepcyjnego do schematu bazy danych.
 
-Uwaga: podczas przenoszenia modelu do oddzielnych zestawów Pamiętaj o skopiowaniu parametrów połączenia dla modelu w pliku konfiguracyjnym aplikacji projektu klienta. 2.4.3 wyłączyć sprawdzanie poprawności modelu opartego na edmx Modele EDMX są weryfikowane w czasie kompilacji, nawet jeśli model jest bez zmian.
+Należy pamiętać, że model koncepcyjny różnić się od schematu bazy danych na różne sposoby. Na przykład jeden pojedynczej tabeli mogą służyć do przechowywania danych dla dwóch typów jednostek innej. Dziedziczenie i mapowania nietrywialnymi pełnić rolę, w złożoność widokach mapowania.
 
-Jeśli model została już zweryfikowana, można pominąć sprawdzanie poprawności w czasie kompilacji przez ustawienie właściwości "Sprawdzanie poprawności w kompilacji" na wartość false w oknie dialogowym właściwości. Po zmianie z mapowania lub modelu, można tymczasowo ponownie włączyć sprawdzanie poprawności, aby zweryfikować zmiany.
+Proces przetwarzania tych widoków, na podstawie specyfikacji mapowanie to tak zwany generowania widoku. Generowanie widoku albo korzystać z miejsca dynamicznie podczas ładowania modelu lub w czasie kompilacji, używając "wstępnie wygenerowanych widoków"; te ostatnie są serializowane w postaci instrukcji języka SQL jednostki, C\# lub plik VB.
 
-Należy pamiętać, że wprowadzono ulepszenia wydajności do programu Entity Framework Designer dla programu Entity Framework 6 i koszt "Sprawdzanie poprawności w kompilacji" jest znacznie niższa niż w poprzednich wersjach projektanta. 3 buforowania w programie Entity Framework
+Po wygenerowaniu widoków, one również są weryfikowane. Z punktu widzenia wydajności większość koszt generowania widoku jest faktycznie weryfikacji widoków, który zapewnia, że połączenia między jednostkami sens i mają Kardynalność prawidłowe dla wszystkich obsługiwanych operacji.
 
-Entity Framework zawiera następujące rodzaje wbudowanej w pamięci podręcznej: Obiekt z pamięci podręcznej — obiekt ObjectStateManager wbudowaną wystąpienie obiektu ObjectContext śledzi w pamięci obiektów, które zostały pobrane przy użyciu tego wystąpienia. To jest również nazywany pierwszego poziomu w pamięci podręcznej.
+Podczas wykonywania zapytania za pośrednictwem zestawu jednostek zapytania jest połączony z odpowiedniego widoku zapytania, a wynik tej kompozycji jest uruchamiany przez kompilator planu, aby utworzyć reprezentacji zapytanie, które może zrozumieć magazyn zapasowy. Dla programu SQL Server ostateczny wynik tej kompilacji będzie instrukcję języka T-SQL ZAZNACZYĆ. Po raz pierwszy wykonać aktualizację za pośrednictwem zestawu jednostek, widok aktualizacji jest uruchamiane za pomocą podobnej do przekształcania go w instrukcji DML dla docelowej bazy danych.
 
-### <a name="22-factors-that-affect-view-generation-performance"></a>Buforowanie planu zapytania — ponowne użycie polecenia magazynu wygenerowany, gdy zapytanie jest wykonywane więcej niż jeden raz.
+### <a name="22-factors-that-affect-view-generation-performance"></a>2.2 czynniki, które mają wpływ na wydajność generowania widoku
 
-Metadane w pamięci podręcznej — Udostępnianie metadanych dla modelu w różnych połączeń do tego samego modelu. Oprócz pamięci podręczne, które EF zapewnia gotowych specjalny rodzaj dostawcy danych ADO.NET, znane jako dostawcy opakowujące aplikacje można również rozszerzyć Entity Framework z pamięcią podręczną zawiera wyniki pobrane z bazy danych, nazywany również pamięć podręczna drugiego poziomu. 3.1 obiektu pamięci podręcznej Domyślnie gdy jednostka jest zwracany w wynikach zapytania, przed EF materializuje, Obiekt ObjectContext sprawdzi, jeśli jednostki z tym samym kluczu został już załadowany w jego obiekcie ObjectStateManager.
+Wydajność krok generowania widoku zależy nie tylko rozmiar modelu, ale także na połączonych jak model jest. Jeśli dwie jednostki są połączone za pośrednictwem łańcuch dziedziczenia lub skojarzenia, są one określane jako podłączone. Podobnie jeśli dwie tabele są połączone za pomocą klucza obcego, są one połączone. Jak zwiększyć liczbę połączonych jednostek, jak i tabele w swoje schematy, generowanie widoku koszt zwiększa się.
 
-Jeśli jednostki z tych samych kluczy znajduje się już EF będzie dołączyć wyniki zapytania. Mimo że EF nadal będzie wystawiać zapytań w bazie danych, to zachowanie można pominąć większość koszt materializowanie jednostki wiele razy.
+Algorytmu, używanego do generowania i zweryfikować widoków jest wykładniczego w najgorszym przypadku, chociaż używamy niektóre optymalizacje tego. Największych czynniki, które wydaje się, że negatywnie wpłynąć na wydajność są następujące:
 
--   3.1.1 pobieranie jednostek z pamięci podręcznej obiektów korzystania z funkcji znajdowania typu DbContext
--   W przeciwieństwie do regularnych zapytania metody Find w DbSet (interfejsy API uwzględnione po raz pierwszy w EF 4.1) będzie wykonywać wyszukiwania w pamięci przed wystawieniem nawet zapytanie w bazie danych.
--   Należy zauważyć, że dwa różne wystąpienia obiektu ObjectContext dwóch różnych wystąpień obiektu ObjectStateManager, co oznacza, do których mają oddzielny obiekt w pamięci podręcznej.
+-   Rozmiar modelu odnoszące się do liczby jednostek i ilość skojarzenia między tymi jednostkami.
+-   Złożoność modelu, specjalnie dziedziczenia obejmujące wiele typów.
+-   Użycie niezależnych skojarzeń, zamiast skojarzeń klucza obcego.
 
-Znajdź używa wartość klucza podstawowego do podejmą próbę odnalezienia śledzone przez kontekst jednostki. Jeśli jednostki nie znajduje się w kontekście następnie wykonywane i oceniane w bazie danych zapytania i zwracana jest wartość null, jeśli jednostka nie zostanie odnaleziona w kontekście lub w bazie danych.
+W przypadku małych, prostych modeli kosztów może być wystarczająco mała, aby nie odblokowane za pomocą wstępnie wygenerowanych widoków. Jak zwiększyć rozmiar modelu i złożoność, dostępnych jest kilka opcji, które można zmniejszyć koszt generowania widoku i sprawdzania poprawności.
 
-### <a name="23-using-pre-generated-views-to-decrease-model-load-time"></a>Należy pamiętać, że znajdowanie zwraca również wartość jednostek, które zostały dodane do kontekstu, ale nie zostały zapisane w bazie danych.
+### <a name="23-using-pre-generated-views-to-decrease-model-load-time"></a>2.3 widoków Pre-Generated przy użyciu modelu zmniejszyć czas ładowania
 
-#### <a name="231-pre-generated-views-using-the-entity-framework-power-tools"></a>Brak jest brany pod uwagę wydajności do wykonania podczas korzystania z funkcji znajdowania.
+#### <a name="231-pre-generated-views-using-the-entity-framework-power-tools"></a>2.3.1 wstępnie wygenerowanych widoków za pomocą narzędzi Entity Framework Power Tools.
 
-Wywołania do tej metody, domyślnie wyzwoli weryfikacji obiektu pamięci podręcznej w celu wykrycia zmian, które wciąż oczekują na zatwierdzenie w bazie danych. Ten proces może zająć bardzo kosztowny w przypadku bardzo dużej liczby obiektów w pamięci podręcznej obiektów lub wykresie dużego obiektu dodawane do pamięci podręcznej obiektów, ale można również zostaną wyłączone.
+Możesz też rozważyć, za pomocą narzędzi Entity Framework Power Tools do generowania widoków plików EDMX i Code First modeli kliknij prawym przyciskiem myszy plik klasy modelu, a następnie wybierz pozycję "Generuj widoki" przy użyciu menu platformy Entity Framework. Entity Framework Power Tools działają tylko w kontekstach pochodzi od typu DbContext i znajduje się w temacie \< http://visualstudiogallery.msdn.microsoft.com/72a60b14-1581-4b9b-89f2-846072eff19d>.
 
-W niektórych przypadkach mogą postrzegać przez rząd wielkości różnicy podczas wywoływania Znajdź metodę po wyłączeniu automatycznego wykrywania zmian.
+Aby uzyskać więcej informacji na temat korzystania z wstępnie wygenerowanych widoków w programie Entity Framework 6 odwiedź [Pre-Generated mapowanie widoków](~/ef6/fundamentals/performance/pre-generated-views.md).
 
-#### <a name="232-how-to-use-pre-generated-views-with-a-model-created-by-edmgen"></a>Jeszcze drugi rząd wielkości jest traktowany, gdy obiekt jest rzeczywiście w pamięci podręcznej, a gdy obiekt ma być pobierane z bazy danych.
+#### <a name="232-how-to-use-pre-generated-views-with-a-model-created-by-edmgen"></a>2.3.2 sposób używania wstępnie wygenerowanych widoków z modelem, który został utworzony przez EDMGen
 
-Oto przykładowy Graf za pomocą pomiarów dokonanych przy użyciu niektóre z naszych microbenchmarks wyrażony w milisekundach, wynosi 5000 jednostek: Net45LogScale.NET 4.5 - skali logarytmicznej Przykład Znajdź ze zmianami auto-detect wyłączone: Co należy wziąć pod uwagę podczas korzystania z metody Znajdź jest: Jeśli obiekt nie jest w pamięci podręcznej z zalet wyszukiwania jest ujemna, ale składnia jest nadal jest prostsze niż zapytania według klucza.
+EDMGen to narzędzie jest dostarczany za pomocą platformy .NET, która działa z programu Entity Framework 4 i 5, ale nie z programu Entity Framework 6. EDMGen umożliwia generowanie pliku modelu warstwy obiektu i widoków z wiersza polecenia. Jedną z danych wyjściowych będzie plik widoków w języku wybranym języku VB lub C\#. Jest to plik kodu zawierający fragmenty jednostki SQL dla każdego zestawu jednostek. Aby włączyć wstępnie wygenerowanych widoków, po prostu Dołącz plik w projekcie.
 
 Jeśli ręcznie wprowadzić zmiany plików schematów dla modelu, należy ponownie wygenerować plik widoków. Można to zrobić, uruchamiając EDMGen z **/mode:ViewGeneration** flagi.
 

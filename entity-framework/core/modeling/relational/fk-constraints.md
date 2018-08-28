@@ -1,36 +1,34 @@
 ---
-title: Ograniczenia klucza obcego - EF Core
+title: Ograniczenia klucza obcego — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: dbaf4bac-1fd5-46c0-ac57-64d7153bc574
-ms.technology: entity-framework-core
 uid: core/modeling/relational/fk-constraints
-ms.openlocfilehash: 726f03e2ee4cd3ec851c9a861b75dd12f9203e9c
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: a83f72b5d832e349fb4a5fb3b2de0b82bd79ef2a
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054185"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993991"
 ---
 # <a name="foreign-key-constraints"></a>Ograniczenia klucza obcego
 
 > [!NOTE]  
-> Konfiguracja opisana w tej sekcji ma zastosowanie do relacyjnych baz danych w zasadzie. Metody rozszerzenia pokazane staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionego *Microsoft.EntityFrameworkCore.Relational* pakietu).
+> Ogólnie rzecz biorąc jest odpowiednie dla relacyjnych baz danych konfiguracji w tej sekcji. Metody rozszerzenia, pokazane tutaj staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionej *Microsoft.EntityFrameworkCore.Relational* pakietu).
 
 Wprowadzono ograniczenie klucza obcego dla każdej relacji w modelu.
 
 ## <a name="conventions"></a>Konwencje
 
-Według Konwencji o nazwie ograniczeń klucza obcego `FK_<dependent type name>_<principal type name>_<foreign key property name>`. Złożonych kluczy obcych `<foreign key property name>` staje się podkreślenia oddzielone listę nazw właściwości kluczy obcych.
+Zgodnie z Konwencją ograniczenia klucza obcego są nazywane `FK_<dependent type name>_<principal type name>_<foreign key property name>`. Złożone kluczy obcych `<foreign key property name>` staje się oddzielone znakiem podkreślenia listę nazw właściwości klucza obcego.
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Ograniczenie klucza obcego nazwy nie można skonfigurować za pomocą adnotacji danych.
+Nazwy ograniczenia klucza obcego nie można skonfigurować przy użyciu adnotacji danych.
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Aby skonfigurować nazwę ograniczenia klucza obcego relacji, można użyć interfejsu API Fluent.
+Interfejs Fluent API umożliwiają skonfigurowanie nazwę ograniczenia klucza obcego relacji.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/RelationshipConstraintName.cs?highlight=12)] -->
 ``` csharp

@@ -1,22 +1,20 @@
 ---
 title: Konwersje wartości - programu EF Core
 author: ajcvickers
-ms.author: divega
 ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
-ms.technology: entity-framework-core
 uid: core/modeling/value-conversions
-ms.openlocfilehash: d5189cef6d44fdf3fd6116a2952ce07ff3a389d4
-ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
+ms.openlocfilehash: d6b51a0a70ee527844b6fe995f39bec534dbaba8
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/07/2018
-ms.locfileid: "39614402"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996291"
 ---
 # <a name="value-conversions"></a>Konwersje wartości
 
 > [!NOTE]  
-> Ta funkcja jest nowa w programie EF Core 2.1.
+> Ta funkcja jest nowa na platformie EF Core 2.1.
 
 Konwertery wartości Zezwalaj na wartości właściwości, które ma zostać przekonwertowany, podczas odczytu / zapisu do bazy danych. Ta konwersja może być z jedną wartość na inny tego samego typu (na przykład ciągi, szyfrowanie) lub wartość jednego typu z wartością innego typu (na przykład konwertowania wartości wyliczenia do i z ciągów w bazie danych.)
 

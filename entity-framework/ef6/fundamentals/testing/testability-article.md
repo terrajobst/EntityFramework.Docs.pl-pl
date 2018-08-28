@@ -2,19 +2,13 @@
 title: Testowalność i Entity Framework 4.0
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 9430e2ab-261c-4e8e-8545-2ebc52d7a247
-caps.latest.revision: 3
-ms.openlocfilehash: 61773f8a23ff54ddb78aeeb5656c669b12f91478
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 17a9f09022531a81042979464de05fbbd2570759
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912824"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995232"
 ---
 # <a name="testability-and-entity-framework-40"></a>Testowalność i Entity Framework 4.0
 Scott Allen
@@ -762,7 +756,7 @@ IRepository&lt;T&gt; podejście zapewnia nam niektóre dodatkową kontrolę nad 
 
 IEntity może zostać uznana za mały naruszenie nieznajomości trwałości, ponieważ naszych jednostki są wymagane do zaimplementowania interfejsu. Należy pamiętać nieznajomości trwałości dotyczy wady i zalety i dla wielu funkcji FindById będzie przeważają ograniczenia nałożone przez interfejs. Interfejs nie ma wpływu na testowania.
 
-W obu przypadkach te elementy abstrakcji konsumentom stale trwały dzięki obsłudze POCO w ADO.NET Entity Framework 4.0, zakresu i wysoce testowalna.
+Utworzenie wystąpienia na żywo IRepository&lt;T&gt; wymaga obiektu ObjectContext EF4, dlatego konkretnej jednostki pracy wdrożenia należy zarządzać procesu tworzenia wystąpienia.
 
 ``` csharp
     public class SqlUnitOfWork : IUnitOfWork {
@@ -805,9 +799,9 @@ W obu przypadkach te elementy abstrakcji konsumentom stale trwały dzięki obsł
     }
 ```
 
-### <a name="using-the-custom-repository"></a>Dodatkowe funkcje EF4, takich jak niejawna powolne ładowanie umożliwia usłudze biznesowych kodu do pracy bez konieczności martwienia się o szczegółowe informacje o relacyjnego magazynu danych.
+### <a name="using-the-custom-repository"></a>Przy użyciu niestandardowych repozytorium
 
-Na koniec abstrakcji, tworzonej przez nas są łatwe do makiety lub fałszywe wewnątrz testów jednostkowych i możemy użyć tych testów wartości podwójnej precyzji do osiągnięcia szybkiego uruchamiania, wysoce izolowane i niezawodne testy. Robert C. Martin, " &lt;zasady pojedynczej odpowiedzialności&gt;"
+Za pomocą naszych niestandardowe repozytorium nie jest znacznie różnią się od przy użyciu repozytorium, w oparciu o IObjectSet&lt;T&gt;. Zamiast bezpośrednio do właściwości z zastosowaniem operatorów LINQ, najpierw musisz wywołać za pomocą jednego z repozytorium metod do pobrania element IQueryable&lt;T&gt; odwołania.
 
 ``` csharp
     public ViewResult Index() {
@@ -818,7 +812,7 @@ Na koniec abstrakcji, tworzonej przez nas są łatwe do makiety lub fałszywe we
     }
 ```
 
-Martina Fowlera katalog wzorców z wzorców architektury aplikacji przedsiębiorstwa Griffin Caprio " wstrzykiwanie zależności"
+Zwróć uwagę, że niestandardowy operator Include, wcześniej zaimplementowane będzie działać bez zmian. Metoda FindById z repozytorium usuwa zduplikowane logiki z akcji próby pobrania pojedynczej jednostki.
 
 ``` csharp
     public ViewResult Details(int id) {
@@ -827,13 +821,13 @@ Martina Fowlera katalog wzorców z wzorców architektury aplikacji przedsiębior
     }
 ```
 
-Grupa dyskusyjna danych, " Instruktaż: testów opartych na tworzenie aplikacji przy użyciu programu Entity Framework 4.0". Grupa dyskusyjna danych, " &lt;wzorców przy użyciu repozytorium i jednostki pracy za pomocą programu Entity Framework 4.0&gt;" Dave Astels " wprowadzenie BDD" Aaron Jensen " wprowadzenie do specyfikacji maszyny"
+Nie ma znaczące różnic w testowania dwa podejścia, w których firma Microsoft zostały zbadane. Zapewniamy fałszywych implementacje IRepository&lt;T&gt; przez utworzenie klas konkretnych wspierana przez zestaw HashSet&lt;pracowników&gt; — podobnie jak zrobiliśmy w ostatniej sekcji. Jednak niektórzy deweloperzy wolą używać makiety obiektów i testowanie struktur obiektu zamiast tworzenia elementów sztucznych. Zapoznamy się przy użyciu mocks do testowania naszej implementacji i omówiono różnice między mocks i sztucznych elementów w następnej sekcji.
 
-### <a name="testing-with-mocks"></a>Eric Lee " BDD narzędziu MSTest"
+### <a name="testing-with-mocks"></a>Testowanie za pomocą Mocks
 
-Eric Evans, " projektowania opartego na domenach" Martina Fowlera " Mocks nie są wycinków" Martina Fowlera " Test podwójnego" Jeremy Miller, Dyrektor ds " stanu i testowanie interakcji"
+Istnieją różne metody do tworzenia wywołań jakie Martina Fowlera "test podwójnego". Test podwójnego (na przykład stunt filmu double) jest obiektem tworzonych "występować w" rzeczywiste, obiekty w środowisku produkcyjnym podczas testów. Repozytoriów w pamięci, którą utworzyliśmy są testu wartości podwójnej precyzji dla repozytoriów, komunikujące się z programu SQL Server. Pokazaliśmy już, jak za pomocą tych podwaja testów podczas testów jednostkowych izolowania kodu i zachować testów przeprowadzanych codziennie przez szybkie.
 
-Moq, Biografia Scott Allen jest członek personelu technicznego w firmie Pluralsight i założycielem OdeToCode.com.  15 lat Wytwarzanie oprogramowania komercyjnego Scott pracował nad rozwiązania związane z 8-bitową urządzeń osadzonych do wysoce skalowalnych aplikacji sieci web platformy ASP.NET. Możesz docierać do Scotta na swoim blogu w OdeToCode lub Matta na Twitterze  . Repozytorium fałszywych faktycznie nie zapisu w bazie danych. Serwer SMTP fałszywych faktycznie nie Wyślij wiadomość e-mail za pośrednictwem sieci.
+Badanie wartości podwójnej precyzji, którą utworzyliśmy ma implementacje rzeczywistych, praca. W tle każdego z nich przechowuje kolekcję konkretnych obiektów i będą oni dodawać i Usuń obiekty z tej kolekcji, jak możemy manipulować repozytorium podczas testu. Niektórzy deweloperzy, takich jak tworzenie ich podwaja się test temu — przy użyciu rzeczywistego kodu i implementacje pracy.  Te testu wartości podwójnej precyzji są tak zwany *elementów sztucznych*. Mają one implementacje pracy, ale nie są prawdziwe, do użytku produkcyjnego. Repozytorium fałszywych faktycznie nie zapisu w bazie danych. Serwer SMTP fałszywych faktycznie nie Wyślij wiadomość e-mail za pośrednictwem sieci.
 
 ### <a name="mocks-versus-fakes"></a>Mocks w porównaniu z elementów sztucznych
 
@@ -979,8 +973,8 @@ W tym dokumencie firma Microsoft została przedstawiona różne podejścia do tw
 -   Martina Fowlera " [Mocks nie są wycinków](http://martinfowler.com/articles/mocksArentStubs.html)"
 -   Martina Fowlera " [Test podwójnego](http://martinfowler.com/bliki/TestDouble.html)"
 -   Jeremy Miller, Dyrektor ds " [stanu i testowanie interakcji](http://codebetter.com/blogs/jeremy.miller/articles/129544.aspx)"
--   Moq, \<http://code.google.com/p/moq/>
+-   [Moq](http://code.google.com/p/moq/)
 
 ### <a name="biography"></a>Biografia
 
-Scott Allen jest członek personelu technicznego w firmie Pluralsight i założycielem OdeToCode.com. 15 lat Wytwarzanie oprogramowania komercyjnego Scott pracował nad rozwiązania związane z 8-bitową urządzeń osadzonych do wysoce skalowalnych aplikacji sieci web platformy ASP.NET. Możesz docierać do Scotta na swoim blogu w OdeToCode lub Matta na Twitterze \< http://twitter.com/OdeToCode>.
+Scott Allen jest członek personelu technicznego w firmie Pluralsight i założycielem OdeToCode.com. 15 lat Wytwarzanie oprogramowania komercyjnego Scott pracował nad rozwiązania związane z 8-bitową urządzeń osadzonych do wysoce skalowalnych aplikacji sieci web platformy ASP.NET. Możesz docierać do Scotta na swoim blogu w OdeToCode lub Matta na Twitterze [ http://twitter.com/OdeToCode ](http://twitter.com/OdeToCode).

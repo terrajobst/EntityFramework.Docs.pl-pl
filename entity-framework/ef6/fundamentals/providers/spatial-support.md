@@ -2,19 +2,13 @@
 title: Obsługa dostawców dla typów przestrzennych - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 1097cb00-15f5-453d-90ed-bff9403d23e3
-caps.latest.revision: 3
-ms.openlocfilehash: 76020e2a3127b1026a5cb8f032686cc8ce9c0c5f
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 07eeecb5f5e3e3eab8548c4c7c0ed55c5ffb4f31
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912086"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998290"
 ---
 # <a name="provider-support-for-spatial-types"></a>Obsługa dostawców dla typów przestrzennych
 Entity Framework obsługuje pracę z danymi przestrzennymi za pośrednictwem DbGeography lub DbGeometry klasy. W ramach tych zajęć, zależą od funkcji specyficznych dla bazy danych udostępnianymi przez dostawcę programu Entity Framework. Nie wszyscy dostawcy obsługuje dane przestrzenne i tych, które wykonują może mieć dodatkowe wymagania wstępne, takich jak instalacja zestawów typów przestrzennych. Więcej informacji na temat Obsługa dostawców dla typów przestrzennych znajduje się poniżej.  

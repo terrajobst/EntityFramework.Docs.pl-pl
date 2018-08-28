@@ -1,29 +1,27 @@
 ---
-title: W tym & Wykluczanie właściwości — podstawowe EF
+title: Uwzględnianie i wykluczanie właściwości — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: e9dff604-3469-4a05-8f9e-18ac281d82a9
-ms.technology: entity-framework-core
 uid: core/modeling/included-properties
-ms.openlocfilehash: a6eaea4319f6a4d30c223265bf75a88731a38443
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 07b70e4517b67490e04a9ec9fa22b9b5d5217681
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054074"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998258"
 ---
-# <a name="including--excluding-properties"></a>W tym & Wykluczanie właściwości
+# <a name="including--excluding-properties"></a>Uwzględnianie i wykluczanie właściwości
 
-W tym właściwości w modelu oznacza, że EF ma metadane dotyczące tej właściwości i podejmie próbę odczytu i zapisu wartości z/do bazy danych.
+W tym właściwości w modelu oznacza, że EF ma metadane dotyczące tej właściwości i podejmie próbę odczytu i zapisu wartości z i do bazy danych.
 
 ## <a name="conventions"></a>Konwencje
 
-Według Konwencji właściwości publicznej metody pobierającej i ustawiającej będą uwzględniane w modelu.
+Zgodnie z Konwencją właściwości publicznej metody pobierającej i ustawiającej zostaną uwzględnione w modelu.
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Adnotacje danych służy do wykluczania właściwość z modelu.
+Korzystanie z adnotacji danych, które mają zostać wykluczone z właściwością z modelu.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/IgnoreProperty.cs?highlight=6)] -->
 ``` csharp
@@ -37,9 +35,9 @@ public class Blog
 }
 ```
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Aby wykluczyć właściwość z modelu, można użyć interfejsu API Fluent.
+Interfejs Fluent API umożliwia wykluczać właściwość z modelu.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/IgnoreProperty.cs?highlight=7,8)] -->
 ``` csharp

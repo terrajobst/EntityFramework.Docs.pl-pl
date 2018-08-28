@@ -1,29 +1,27 @@
 ---
-title: Pobieranie rozpoczęte — podstawowe EF
+title: Rozpoczynanie pracy — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
-ms.technology: entity-framework-core
 uid: core/get-started/index
-ms.openlocfilehash: 6bd9d9cc7dfc08261df2e066071632d9ecdfb548
-ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
+ms.openlocfilehash: 144cc8c8c9979e4ce24260c2975e6b10d4fdbb84
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/12/2018
-ms.locfileid: "29152406"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994926"
 ---
-# <a name="getting-started-with-entity-framework-core"></a>Wprowadzenie do korzystania z programu Entity Framework Core
+# <a name="getting-started-with-entity-framework-core"></a>Wprowadzenie do platformy Entity Framework Core
 
 ## <a name="installing-ef-coreinstallindexmd"></a>[Instalowanie programu EF Core](install/index.md)
 
-Podsumowanie czynności niezbędnych do dodawania EF Core do aplikacji w różnych platform i IDEs popularnych.
+Podsumowanie kroków niezbędnych do dodawania programu EF Core do aplikacji w różnych platform i popularnych środowisk IDE.
 
 ## <a name="step-by-step-tutorials"></a>Samouczki krok po kroku
 
-Te samouczki wprowadzające wymagają nie wcześniejsza wiedza Entity Framework Core lub konkretnego środowiska IDE. Będą one miały możesz instrukcje dotyczące tworzenia prostej aplikacji, która wysyła kwerendy i zapisuje dane z bazy danych. Firma Microsoft umieściła samouczków ułatwiających rozpoczęcie pracy dla różnych systemów operacyjnych i typów aplikacji.
+Te wprowadzających samouczków wymagają nie wcześniejsza wiedza Entity Framework Core lub konkretnego środowiska IDE. One spowoduje przejście krok po kroku przez proces tworzenia prostej aplikacji, który wykonuje kwerendę i zapisuje dane z bazy danych. Udostępniliśmy samouczkami, aby rozpocząć pracę w różnych systemach operacyjnych i typów aplikacji.
 
-Entity Framework Core, można utworzyć model na podstawie istniejącej bazy danych lub Utwórz bazę danych na podstawie modelu. Brak samouczków demonstrujących obie metody.
+Entity Framework Core, można utworzyć model, w oparciu o istniejącą bazę danych lub Utwórz bazę danych na podstawie modelu. Dostępne są samouczki, które pokazują, obie metody.
 
 > [!NOTE]  
-> Te samouczki i przykłady towarzyszący zostały zaktualizowane do używania EF Core 2.0 (z wyjątkiem samouczek platformy uniwersalnej systemu Windows, który nadal używa EF Core 1.1). Jednak w większości przypadków należy umożliwić tworzenie aplikacji korzystających z poprzednich wersjach z minimalnym modyfikację zgodnie z instrukcjami. 
+> Te samouczki i przykłady towarzyszący zostały zaktualizowane do użycia z programem EF Core 2.0 (z wyjątkiem samouczek platformy uniwersalnej systemu Windows, które nadal używa programu EF Core 1.1). Jednak w większości przypadków powinno być możliwe tworzenie aplikacji korzystających z poprzednimi wersjami, wprowadzając minimalne modyfikacje w instrukcji. 

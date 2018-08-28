@@ -2,19 +2,13 @@
 title: Specyfikacja MSL - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 13ae7bc1-74b4-4ee4-8d73-c337be841467
-caps.latest.revision: 4
-ms.openlocfilehash: 7448efc99f9fd9c6cdf930256a26347376fb354c
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 77dc7072c70b104188cd23974f32308960daebb6
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912785"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996034"
 ---
 # <a name="msl-specification"></a>Specyfikacja MSL
 Mapowanie specyfikacji języka (MSL) to język oparty na formacie XML, który opisuje mapowanie między modelu koncepcyjnym i modelu magazynu aplikacji platformy Entity Framework.
@@ -446,7 +440,7 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **DeleteFun
 
 | Nazwa atrybutu            | Jest wymagany | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Tak         | Przestrzeń nazw kwalifikowana nazwa procedury składowanej, na który jest mapowany funkcji usuwania. Procedura składowana musi być zadeklarowany w modelu magazynu. |
+| **functionName**          | Tak         | Przestrzeń nazw kwalifikowana nazwa procedury składowanej, na który jest mapowany funkcji usuwania. Procedura składowana musi być zadeklarowany w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru output, która zwraca liczbę uwzględnionych wierszy.                                                                               |
 
 #### <a name="example"></a>Przykład
@@ -510,7 +504,7 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **DeleteFun
 
 | Nazwa atrybutu            | Jest wymagany | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Tak         | Przestrzeń nazw kwalifikowana nazwa procedury składowanej, na który jest mapowany funkcji usuwania. Procedura składowana musi być zadeklarowany w modelu magazynu. |
+| **functionName**          | Tak         | Przestrzeń nazw kwalifikowana nazwa procedury składowanej, na który jest mapowany funkcji usuwania. Procedura składowana musi być zadeklarowany w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru output, która zwraca liczbę uwzględnionych wierszy.                                                                               |
 
 #### <a name="example"></a>Przykład
@@ -838,7 +832,7 @@ W poniższej tabeli opisano atrybuty, które mają zastosowanie do **FunctionImp
 | Nazwa atrybutu         | Jest wymagany | Wartość                                                                                   |
 |:-----------------------|:------------|:----------------------------------------------------------------------------------------|
 | **FunctionImportName** | Tak         | Nazwa funkcji importowania w modelu koncepcyjnym, który jest mapowany.           |
-| **FunctionName**       | Tak         | Nazwa kwalifikowana przez obszar nazw funkcji w modelu magazynu, który jest mapowany. |
+| **functionName**       | Tak         | Nazwa kwalifikowana przez obszar nazw funkcji w modelu magazynu, który jest mapowany. |
 
 ### <a name="example"></a>Przykład
 
@@ -895,7 +889,7 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **InsertFun
 
 | Nazwa atrybutu            | Jest wymagany | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Tak         | Przestrzeń nazw kwalifikowana nazwa procedury składowanej, na który jest mapowany funkcji wstawiania. Procedura składowana musi być zadeklarowany w modelu magazynu. |
+| **functionName**          | Tak         | Przestrzeń nazw kwalifikowana nazwa procedury składowanej, na który jest mapowany funkcji wstawiania. Procedura składowana musi być zadeklarowany w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru output, która zwraca liczbę wierszy dotyczy.                                                                               |
 
 #### <a name="example"></a>Przykład
@@ -946,7 +940,7 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **InsertFun
 
 | Nazwa atrybutu            | Jest wymagany | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Tak         | Przestrzeń nazw kwalifikowana nazwa procedury składowanej, na który jest mapowany funkcji wstawiania. Procedura składowana musi być zadeklarowany w modelu magazynu. |
+| **functionName**          | Tak         | Przestrzeń nazw kwalifikowana nazwa procedury składowanej, na który jest mapowany funkcji wstawiania. Procedura składowana musi być zadeklarowany w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru output, która zwraca liczbę uwzględnionych wierszy.                                                                               |
 
 #### <a name="example"></a>Przykład
@@ -1003,7 +997,7 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **mapowanie
 
 | Nazwa atrybutu | Jest wymagany | Wartość                                                 |
 |:---------------|:------------|:------------------------------------------------------|
-| **Miejsce**      | Tak         | **C-S**. To jest wartość stałą i nie można jej zmienić. |
+| **miejsce**      | Tak         | **C-S**. To jest wartość stałą i nie można jej zmienić. |
 
 ### <a name="example"></a>Przykład
 
@@ -1603,7 +1597,7 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **UpdateFun
 
 | Nazwa atrybutu            | Jest wymagany | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Tak         | Przestrzeń nazw kwalifikowana nazwa procedury składowanej zmapowany funkcji update. Procedura składowana musi być zadeklarowany w modelu magazynu. |
+| **functionName**          | Tak         | Przestrzeń nazw kwalifikowana nazwa procedury składowanej zmapowany funkcji update. Procedura składowana musi być zadeklarowany w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru output, która zwraca liczbę uwzględnionych wierszy.                                                                               |
 
 ### <a name="example"></a>Przykład

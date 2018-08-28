@@ -1,24 +1,22 @@
 ---
 title: Zapisywanie podstawowe - programu EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 850d842e-3fad-4ef2-be17-053768e97b9e
-ms.technology: entity-framework-core
 uid: core/saving/basic
-ms.openlocfilehash: ecf8f344a5baae37a5e7255a4affb1085f1b3ff3
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 23e0e4611f642d59048fca5a808d0782b22caa1e
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949403"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994804"
 ---
 # <a name="basic-save"></a>Zapisywanie podstawowe
 
 Dowiedz się, jak dodawanie, modyfikowanie i usuwanie danych przy użyciu klas jednostek i kontekstu.
 
 > [!TIP]  
-> Można wyświetlić w tym artykule [przykładowe](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Basics/) w witrynie GitHub.
+> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Basics/) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
 ## <a name="adding-data"></a>Dodawanie danych
 

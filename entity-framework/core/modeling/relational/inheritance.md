@@ -1,35 +1,33 @@
 ---
-title: Dziedziczenie (relacyjnej bazy danych) — podstawowe EF
+title: Dziedziczenie (relacyjna baza danych) — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
-ms.technology: entity-framework-core
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: 22eed0002b5903d3cfd18a7e4af0fcd2d46a5c4c
-ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
+ms.openlocfilehash: 019893ec8268ef9e59d581799a13d63610c80616
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/12/2018
-ms.locfileid: "29152366"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996325"
 ---
-# <a name="inheritance-relational-database"></a>Dziedziczenie (relacyjnej bazy danych)
+# <a name="inheritance-relational-database"></a>Dziedziczenie (relacyjna baza danych)
 
 > [!NOTE]  
-> Konfiguracja opisana w tej sekcji ma zastosowanie do relacyjnych baz danych w zasadzie. Metody rozszerzenia pokazane staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionego *Microsoft.EntityFrameworkCore.Relational* pakietu).
+> Ogólnie rzecz biorąc jest odpowiednie dla relacyjnych baz danych konfiguracji w tej sekcji. Metody rozszerzenia, pokazane tutaj staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionej *Microsoft.EntityFrameworkCore.Relational* pakietu).
 
-Dziedziczenie w modelu EF służy do kontrolowania sposobu dziedziczenia klas jednostek jest reprezentowana w bazie danych.
+Dziedziczenie w modelu platformy EF jest używane do kontrolowania, jak dziedziczenia klas jednostek jest reprezentowana w bazie danych.
 
 > [!NOTE]  
-> Obecnie tylko ze wzorcem (TPH) tabeli na hierarchii jest zaimplementowana w EF Core. Inne typowe wzorce, takich jak tabeli na typ (TPT) i tabeli na konkretnych type (TPC) nie są jeszcze dostępne.
+> Obecnie tylko tabela wg hierarchii (TPH) ze wzorcem jest zaimplementowana w wersji EF Core. Innych typowych wzorców, takich jak tabela wg typu (TPT), a tabela konkretny-wg typu (TPC) nie są jeszcze dostępne.
 
 ## <a name="conventions"></a>Konwencje
 
-Według Konwencji dziedziczenia zostanie zamapowane przy użyciu wzorca tabeli na hierarchii (TPH). TPH używa pojedynczej tabeli, aby przechowywać dane dla wszystkich typów w hierarchii. Kolumna dyskryminatora służy do identyfikowania typu reprezentuje każdego wiersza.
+Zgodnie z Konwencją dziedziczenia zostanie zamapowane przy użyciu wzorca Tabela wg hierarchii (TPH). TPH używa jednej tabeli do przechowywania danych dla wszystkich typów w hierarchii. Kolumna dyskryminatora jest używany do identyfikowania typu każdy wiersz reprezentuje.
 
-EF Core tylko ustawienia dziedziczenia, jeśli dwa lub więcej dziedziczonych typów jawnie znajdują się w modelu (zobacz [dziedziczenia](../inheritance.md) więcej szczegółów).
+EF Core tylko skonfigurować dziedziczenie, jeśli co najmniej dwa dziedziczone typy są jawnie uwzględnione w modelu (zobacz [dziedziczenia](../inheritance.md) Aby uzyskać więcej informacji).
 
-Poniżej przedstawiono przykładowy scenariusz dziedziczenia proste i dane przechowywane w tabeli relacyjnej bazy danych za pomocą wzorca TPH. *Rozróżniacza* kolumny identyfikuje typu *blogu* są przechowywane w każdym wierszu.
+Poniżej przedstawiono przykład przedstawiający Scenariusz proste dziedziczenie i dane przechowywane w tabeli relacyjnej bazy danych za pomocą wzorca TPH. *Dyskryminatora* kolumna określa, jakiego typu *blogu* są przechowywane w każdym wierszu.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/Conventions/Samples/InheritanceDbSets.cs)] -->
 ``` csharp
@@ -53,13 +51,13 @@ public class RssBlog : Blog
 
 ![obraz](_static/inheritance-tph-data.png)
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Za pomocą adnotacji danych nie można skonfigurować dziedziczenia.
+Nie można użyć adnotacji danych, aby skonfigurować dziedziczenie.
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Aby skonfigurować nazwę i typ kolumny rozróżniacza i wartości, które są używane do identyfikowania poszczególnych typów w hierarchii, można użyć interfejsu API Fluent.
+Interfejs Fluent API umożliwiają skonfigurowanie nazwy i typu kolumna dyskryminatora i wartości, które są używane do identyfikowania poszczególnych typów w hierarchii.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/InheritanceTPHDiscriminator.cs?highlight=7,8,9,10)] -->
 ``` csharp
@@ -88,9 +86,9 @@ public class RssBlog : Blog
 }
 ```
 
-## <a name="configuring-the-discriminator-property"></a>Konfigurowanie właściwości rozróżniacza
+## <a name="configuring-the-discriminator-property"></a>Konfigurowanie właściwość rozróżniacza
 
-W powyższych przykładach rozróżniacza zostanie utworzona jako [w tle właściwości](xref:core/modeling/shadow-properties) podstawowej jednostki w hierarchii. Ponieważ jest to właściwość w modelu, można skonfigurować tak samo jak inne właściwości. Na przykład, aby ustawić maksymalną długość, gdy jest używana wartość domyślna rozróżniacza przez Konwencję:
+W powyższych przykładach dyskryminatora jest tworzona jako [w tle właściwość](xref:core/modeling/shadow-properties) na podstawowej jednostce w hierarchii. Ponieważ właściwości w modelu, można skonfigurować tak jak inne właściwości. Na przykład, aby ustawić maksymalną długość, gdy jest używany domyślnie przez Konwencję dyskryminatora:
 
 ```C#
 modelBuilder.Entity<Blog>()
@@ -98,7 +96,7 @@ modelBuilder.Entity<Blog>()
     .HasMaxLength(200);
 ```
 
-Rozróżniacza również mogą być mapowane na rzeczywiste właściwość CLR w jednostce. Na przykład:
+Rozróżniacza również mogą być mapowane z właściwością rzeczywiste CLR w jednostce. Na przykład:
 ```C#
 class MyContext : DbContext
 {
@@ -124,7 +122,7 @@ public class RssBlog : Blog
 }
 ```
 
-Łączenie ze sobą te dwie rzeczy jest możliwe do mapowania rozróżniacza właściwością real i skonfigurować go:
+Łącząc te dwie rzeczy ze sobą istnieje możliwość zarówno mapy rozróżniacza z właściwością rzeczywistym i skonfiguruj go tak:
 ```C#
 modelBuilder.Entity<Blog>(b =>
 {

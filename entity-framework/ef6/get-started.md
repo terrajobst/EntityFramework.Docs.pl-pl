@@ -2,19 +2,13 @@
 title: Wprowadzenie do platformy Entity Framework 6 - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 66ce9113-81d2-480f-8c16-d00ec405b2f7
-caps.latest.revision: 3
-ms.openlocfilehash: 36857650bc546acd769e629a1e92948a63bfb786
-ms.sourcegitcommit: 00cb52625b57c1ea339ded1454179fe89b6bcfea
+ms.openlocfilehash: 0087899d2fc65bc91ad36e35d5157e50b5c4bd2d
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/16/2018
-ms.locfileid: "39067539"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998087"
 ---
 # <a name="get-started-with-entity-framework-6"></a>Wprowadzenie do platformy Entity Framework 6
 
@@ -27,7 +21,7 @@ W tym miejscu będą dowiesz się, jak dodawanie Entity Framework do aplikacji i
 Wolisz do określania modelu platformy EF pisania kodu lub rysunku pól i wierszy?
 Będą mapowanie obiektów do istniejącej bazy danych przy użyciu programu EF lub chcesz EF, tworzenia zoptymalizowanych pod kątem obiektów bazy danych?
 W tym miejscu Twoje informacje o dwa różne podejścia do użycia EF6: Code First i projektancie platformy EF.
-Upewnij się, postępuj zgodnie z dyskusją i Obejrzyj wideo o różnych.
+Upewnij się, postępuj zgodnie z dyskusją i obejrzeć wideo dotyczące różnicy.
 
 ## <a name="working-with-dbcontextef6fundamentalsworking-with-dbcontextmd"></a>[Praca z klasą DbContext](~/ef6/fundamentals/working-with-dbcontext.md)
 DbContext jest pierwszy i najważniejszy EF typ który należy poznać sposób użycia. Jego służy jako launchpad dla zapytań bazy danych i śledzi zmiany wprowadzane do obiektów, dzięki czemu mogą zostać utrwalone w bazie danych.

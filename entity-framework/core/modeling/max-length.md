@@ -1,32 +1,30 @@
 ---
-title: Maksymalna długość - EF Core
+title: Maksymalna długość numeru PIN — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: c39c5d43-018d-48b8-94f2-b8bc7c686c69
-ms.technology: entity-framework-core
 uid: core/modeling/max-length
-ms.openlocfilehash: 7325c0c3328477473392bf9e7c82f1696bb4f424
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: e54d3671f378b96a49eaf4cb312e72072813fc6d
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054164"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996194"
 ---
 # <a name="maximum-length"></a>Maksymalna długość
 
-Konfigurowanie maksymalnej długości udostępnia wskazówkę dla magazynu danych o typie danych odpowiednie dla danej właściwości. Maksymalna długość ma zastosowanie tylko do typów danych w tablicy, takich jak `string` i `byte[]`.
+Konfigurowanie maksymalnej długości stanowi wskazówkę z magazynem danych o typie danych odpowiednich dla danej właściwości. Maksymalna długość ma zastosowanie tylko do tablicy typów danych, takich jak `string` i `byte[]`.
 
 > [!NOTE]  
-> Entity Framework nie wszystkich sprawdzania poprawności maksymalną długość przed przekazaniem do dostawcy. Jest magazyn dostawcy lub danych, aby sprawdzić, czy odpowiednie. Na przykład gdy przeznaczonych dla programu SQL Server, co przekracza maksymalną długość spowodują wyjątek jako typ danych kolumny źródłowej nie zezwala na nadmiarowe dane mają być przechowywane.
+> Platformy Entity Framework wykonaj wszelkie weryfikacji o maksymalnej długości przed przekazaniem do dostawcy. Jest magazynu dostawcy lub danych, sprawdź, czy jest to odpowiednie. Na przykład gdy przeznaczonych dla programu SQL Server, która przekracza maksymalną długość spowodują wyjątek jako typ danych kolumny źródłowej nie zezwoli nadmiarowych danych mają być przechowywane.
 
 ## <a name="conventions"></a>Konwencje
 
-Konwencja jest pozostawiany do dostawcy bazy danych, aby wybrać odpowiedni typ danych właściwości. Dla właściwości, które mają długość dostawcy bazy danych będzie zazwyczaj wybierz typ danych, umożliwiający najdłuższym długość danych. Na przykład Microsoft SQL Server będzie używać `nvarchar(max)` dla `string` właściwości (lub `nvarchar(450)` Jeśli kolumna jest używana jako klucz).
+Zgodnie z Konwencją pozostało do dostawcy bazy danych, aby wybrać odpowiedni typ danych właściwości. Dla właściwości o długości dostawca bazy danych zazwyczaj wybierz typ danych, który umożliwia najdłuższy długość danych. Na przykład Microsoft SQL Server będzie używać `nvarchar(max)` dla `string` właściwości (lub `nvarchar(450)` Jeśli kolumna jest używana jako klucz).
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Aby skonfigurować maksymalną długość dla właściwości, można użyć adnotacji danych. W tym przykładzie przeznaczonych dla programu SQL Server, spowodowałoby `nvarchar(500)` używany typ danych.
+Korzystanie z adnotacji danych, aby skonfigurować maksymalną długość dla właściwości. W tym przykładzie przeznaczonych dla programu SQL Server, spowodowałoby `nvarchar(500)` typ danych jest używany.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/MaxLength.cs?highlight=4)] -->
 ``` csharp
@@ -38,9 +36,9 @@ public class Blog
 }
 ```
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Aby skonfigurować maksymalną długość dla właściwości, można użyć interfejsu API Fluent. W tym przykładzie przeznaczonych dla programu SQL Server, spowodowałoby `nvarchar(500)` używany typ danych.
+Interfejs Fluent API umożliwiają skonfigurowanie maksymalnej długości dla właściwości. W tym przykładzie przeznaczonych dla programu SQL Server, spowodowałoby `nvarchar(500)` typ danych jest używany.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/MaxLength.cs?highlight=7,8,9)] -->
 ``` csharp

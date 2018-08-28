@@ -1,36 +1,34 @@
 ---
-title: Sekwencje — podstawowe EF
+title: Sekwencje — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 94f81a92-3c72-4e14-912a-f99310374e42
-ms.technology: entity-framework-core
 uid: core/modeling/relational/sequences
-ms.openlocfilehash: 98a40aeecbec0fd9fb9cc108d6b5f98178dea403
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: eb9d9896966af0ad6b778047a1ed6af7358e8eb2
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054176"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994519"
 ---
 # <a name="sequences"></a>Sekwencje
 
 > [!NOTE]  
-> Konfiguracja opisana w tej sekcji ma zastosowanie do relacyjnych baz danych w zasadzie. Metody rozszerzenia pokazane staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionego *Microsoft.EntityFrameworkCore.Relational* pakietu).
+> Ogólnie rzecz biorąc jest odpowiednie dla relacyjnych baz danych konfiguracji w tej sekcji. Metody rozszerzenia, pokazane tutaj staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionej *Microsoft.EntityFrameworkCore.Relational* pakietu).
 
-Sekwencja generuje sekwencyjnych wartości liczbowe w bazie danych. Sekwencji nie są skojarzone z określonej tabeli.
+Sekwencja generuje kolejnych wartości liczbowe w bazie danych. Sekwencje nie są skojarzone z określonej tabeli.
 
 ## <a name="conventions"></a>Konwencje
 
-Według Konwencji sekwencji nie są wprowadzane w modelu.
+Zgodnie z Konwencją sekwencji nie są wprowadzane w modelu.
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Nie można skonfigurować sekwencji za pomocą adnotacji danych.
+Nie można skonfigurować przy użyciu adnotacji danych sekwencji.
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Interfejsu API Fluent służy do tworzenia sekwencji w modelu.
+Interfejs Fluent API umożliwia tworzenie sekwencji w modelu.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/Sequence.cs?highlight=7)] -->
 ``` csharp
@@ -52,7 +50,7 @@ public class Order
 }
 ```
 
-Można również skonfigurować dodatkowe aspekt sekwencji, takie jak schemat, wartość początkową i przyrostu.
+Można również skonfigurować dodatkowe aspekty sekwencji, takie jak jego schematu, wartość początkową i przyrostu.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/SequenceConfigured.cs?highlight=7,8,9)] -->
 ``` csharp
@@ -69,7 +67,7 @@ class MyContext : DbContext
 }
 ```
 
-Gdy wprowadzono sekwencji można użyć jej do generowania wartości właściwości w modelu. Na przykład można użyć [wartości domyślne](default-values.md) do wstawienia następnej wartości z sekwencji.
+Gdy wprowadzono sekwencji służy do generowania wartości właściwości w modelu. Na przykład, można użyć [wartości domyślne](default-values.md) do wstawienia następnej wartości z sekwencji.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/SequenceUsed.cs?highlight=11,12,13)] -->
 ``` csharp

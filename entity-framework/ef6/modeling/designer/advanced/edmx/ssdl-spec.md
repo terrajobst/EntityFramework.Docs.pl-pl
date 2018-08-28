@@ -2,19 +2,13 @@
 title: Specyfikacja SSDL - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: a4af4b1a-40f4-48cc-b2e0-fa8f5d9d5419
-caps.latest.revision: 3
-ms.openlocfilehash: a9977c80d9a9401afdcad2284a705bcb28790fb8
-ms.sourcegitcommit: 9ae4473425c5e76337c9d032b0e5dbfedf1fcf57
+ms.openlocfilehash: 35c560d88e5078a7fc4c07b76020f3ad7d0735e1
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914475"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995282"
 ---
 # <a name="ssdl-specification"></a>Specyfikacja SSDL
 Język definicji schematu Store (SSDL) to oparty na standardzie XML język, który opisuje model magazynu w aplikacji Entity Framework.
@@ -418,7 +412,7 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **EntitySet
 | Nazwa atrybutu | Jest wymagany | Wartość                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
 | **Nazwa**       | Tak         | Nazwa zestawu jednostek.                                                              |
-| **Typ EntityType** | Tak         | W pełni kwalifikowana nazwa typu jednostki, dla której zestaw jednostek zawiera wystąpienia. |
+| **Typ entityType** | Tak         | W pełni kwalifikowana nazwa typu jednostki, dla której zestaw jednostek zawiera wystąpienia. |
 | **Schemat**     | Nie          | Schemat bazy danych.                                                                     |
 | **Tabela**      | Nie          | Tabela bazy danych.                                                                      |
 
@@ -635,7 +629,7 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **parametru
 | **Nazwa**       | Tak         | Nazwa parametru.                                                                                                                                                                                                      |
 | **Typ**       | Tak         | Typ parametru.                                                                                                                                                                                                             |
 | **Tryb**       | Nie          | **W**, **się**, lub **InOut** w zależności od tego, czy parametr jest danych wejściowych, danych wyjściowych lub parametr input/output.                                                                                                                |
-| **Element MaxLength**  | Nie          | Maksymalna długość parametru.                                                                                                                                                                                            |
+| **Element maxLength**  | Nie          | Maksymalna długość parametru.                                                                                                                                                                                            |
 | **Precyzja**  | Nie          | Dokładność parametru.                                                                                                                                                                                                 |
 | **Skala**      | Nie          | Skala parametru.                                                                                                                                                                                                     |
 | **SRID**       | Nie          | Identyfikator odwołania przestrzennego systemu. Prawidłowy tylko dla parametrów typów przestrzennych. Aby uzyskać więcej informacji, zobacz [SRID](http://en.wikipedia.org/wiki/SRID) i [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
@@ -718,8 +712,8 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do **właściw
 | **Nazwa**                  | Tak         | Nazwa odpowiednią kolumnę.                                                                                                                                                                                           |
 | **Typ**                  | Tak         | Typ odpowiednią kolumnę.                                                                                                                                                                                           |
 | **Dopuszcza wartości null**              | Nie          | **Wartość true,** (wartość domyślna) lub **False** w zależności od tego, czy odpowiednia kolumna może mieć wartości null.                                                                                                                  |
-| **DefaultValue**          | Nie          | Wartość domyślna w kolumnie.                                                                                                                                                                                  |
-| **Element MaxLength**             | Nie          | Maksymalna długość odpowiednią kolumnę.                                                                                                                                                                                 |
+| **defaultValue**          | Nie          | Wartość domyślna w kolumnie.                                                                                                                                                                                  |
+| **Element maxLength**             | Nie          | Maksymalna długość odpowiednią kolumnę.                                                                                                                                                                                 |
 | **Wartości**           | Nie          | **Wartość true,** lub **False** w zależności od tego, czy odpowiadająca wartość w kolumnie będą przechowywane jako ciąg znaków o stałej długości.                                                                                                              |
 | **Precyzja**             | Nie          | Dokładność odpowiednią kolumnę.                                                                                                                                                                                      |
 | **Skala**                 | Nie          | Skala odpowiednią kolumnę.                                                                                                                                                                                          |
@@ -902,7 +896,7 @@ W poniższym przykładzie pokazano funkcję magazynu, która używa **Collection
 **Schematu** element może zawierać zero lub więcej z następujących elementów podrzędnych:
 
 -   Skojarzenie
--   Typ EntityType
+-   Typ entityType
 -   Obiekt EntityContainer
 -   Funkcja
 
@@ -1074,11 +1068,11 @@ Aspekty w język definicji schematu magazynu (SSDL) reprezentują ograniczenia d
 
 W poniższej tabeli opisano aspekty, które są obsługiwane przez SSDL:
 
-| Zestaw reguł           | Opis                                                                                                                                                                                                                                                 |
+| zestaw reguł           | Opis                                                                                                                                                                                                                                                 |
 |:----------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Sortowanie**   | Określa kolejność sortowania (lub sekwencji sortowania) do użycia podczas przeprowadzania porównania i kolejność operacji na wartościach właściwości.                                                                                                             |
 | **Wartości** | Określa, czy długość wartości kolumny mogą się różnić.                                                                                                                                                                                                  |
-| **Element MaxLength**   | Określa maksymalną długość wartości kolumny.                                                                                                                                                                                                           |
+| **Element maxLength**   | Określa maksymalną długość wartości kolumny.                                                                                                                                                                                                           |
 | **Precyzja**   | Dla właściwości typu **dziesiętna**, określa liczbę cyfr, może mieć wartości właściwości. Dla właściwości typu **czasu**, **daty/godziny**, i **DateTimeOffset**, określa liczbę cyfr ułamkowych części sekundy w wartości kolumny. |
 | **Skala**       | Określa liczbę cyfr po prawej stronie przecinka dziesiętnego dla wartości kolumny.                                                                                                                                                                      |
 | **Unicode**     | Wskazuje, czy wartość kolumny jest zapisywana w formacie Unicode.                                                                                                                                                                                                    |

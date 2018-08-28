@@ -1,36 +1,34 @@
 ---
-title: Wartości domyślne - EF Core
+title: Wartości domyślne — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: e541366a-130f-47dd-9997-1b110a11febe
-ms.technology: entity-framework-core
 uid: core/modeling/relational/default-values
-ms.openlocfilehash: 73b916b6d9f9c984c8ea010f2319eafa7d031a58
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 341f243ddddc345bb4236e5c34f814694b71e32a
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054191"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996255"
 ---
 # <a name="default-values"></a>Wartości domyślne
 
 > [!NOTE]  
-> Konfiguracja opisana w tej sekcji ma zastosowanie do relacyjnych baz danych w zasadzie. Metody rozszerzenia pokazane staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionego *Microsoft.EntityFrameworkCore.Relational* pakietu).
+> Ogólnie rzecz biorąc jest odpowiednie dla relacyjnych baz danych konfiguracji w tej sekcji. Metody rozszerzenia, pokazane tutaj staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionej *Microsoft.EntityFrameworkCore.Relational* pakietu).
 
-Wartość domyślna kolumny to wartość, która zostanie wstawiony, jeśli dodaje się nowego wiersza, ale nie określono wartości dla kolumny.
+Wartość domyślna w kolumnie jest wartość, która zostanie wstawiony, jeśli jest wstawiany nowego wiersza, ale nie określono wartości dla kolumny.
 
 ## <a name="conventions"></a>Konwencje
 
-Konwencja wartości domyślnej nie jest skonfigurowany.
+Zgodnie z Konwencją wartość domyślna jest nieskonfigurowany.
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Nie można ustawić wartość domyślną, za pomocą adnotacji danych.
+Nie można ustawić wartość domyślną, przy użyciu adnotacji danych.
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Określenie wartości domyślnej dla właściwości, można użyć interfejsu API Fluent.
+Interfejs Fluent API umożliwia określenie wartości domyślnej dla właściwości.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/DefaultValue.cs?highlight=9)] -->
 ``` csharp
@@ -54,7 +52,7 @@ public class Blog
 }
 ```
 
-Można również określić fragmentu SQL, które jest używane do obliczania wartości domyślnej.
+Można również określić fragment SQL, który jest używany do obliczania wartości domyślnej.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/DefaultValueSql.cs?highlight=9)] -->
 ``` csharp

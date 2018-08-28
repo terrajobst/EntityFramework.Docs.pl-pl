@@ -2,19 +2,13 @@
 title: Rejestrowanie i przechwytuje operacji bazy danych — EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
-caps.latest.revision: 3
-ms.openlocfilehash: 1d0e953309f3c81a2941d6850e169aaa31ae8de0
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 2e16502abf54be3f3b2f63fe69d2605ef13dea27
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949286"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994638"
 ---
 # <a name="logging-and-intercepting-database-operations"></a>Rejestrowanie i przechwytuje operacji bazy danych
 > [!NOTE]
@@ -167,7 +161,7 @@ W przypadku poleceń, które się to odbyć danych wyjściowych jest "wykonane w
 
 #### <a name="failed-execution"></a>Wykonywanie nie powiodło się  
 
-Pomijanie wykonania Jeśli ta opcja interceptor ustawia właściwości wyniku, zanim to polecenie zostało wykonane (w jednym z... Wykonywanie metod) następnie EF nie podejmie próby rzeczywistego wykonania polecenia, ale zamiast tego użyje po prostu zestaw wyników.  
+Dla poleceń, które się nie powieść, zostanie zgłoszony wyjątek dane wyjściowe zawierają komunikatu z wyjątku. Na przykład przy użyciu SqlQuery zapytania względem tabeli, która istnieje będzie wynik w dzienniku danych wyjściowych podobny do poniższego:  
 
 ``` SQL
 SELECT * from ThisTableIsMissing
@@ -175,9 +169,9 @@ SELECT * from ThisTableIsMissing
 -- Failed in 1 ms with error: Invalid object name 'ThisTableIsMissing'.
 ```  
 
-#### <a name="canceled-execution"></a>Innymi słowy interceptor można pominąć wykonywanie polecenia, ale ma EF kontynuowane tak, jakby było zostały wykonane polecenie.  
+#### <a name="canceled-execution"></a>Anulowano wykonywanie  
 
-Przykład sposobu użycia tego może być jest polecenia przetwarzania wsadowego, która była tradycyjnie wykonywana przy użyciu dostawcy zawijania. Interceptor będzie przechowywać polecenia do późniejszego wykonania jako zadania wsadowego, ale będzie "poudawać" do programu EF, że polecenie było wykonywane w zwykły.  
+Dla poleceń asynchronicznych, gdy zadanie zostanie anulowane może się zdarzyć, Niepowodzenie z powodu wyjątku, ponieważ jest to, jakie źródłowy dostawca ADO.NET często wykonuje, gdy podejmowana jest próba anulowania. Jeśli to nie jest realizowane, a zadanie zostanie anulowane nie pozostawia żadnych śladów dane wyjściowe będą wyglądać mniej więcej tak:  
 
 ```  
 update Blogs set Title = 'No' where Id = -1
@@ -185,26 +179,26 @@ update Blogs set Title = 'No' where Id = -1
 -- Canceled in 1 ms
 ```  
 
-## <a name="changing-log-content-and-formatting"></a>Należy pamiętać, że wymaga więcej niż to do zaimplementowania przetwarzania wsadowego, ale jest to przykład jak zmiana wyniku przejmowanie mogą być używane.  
+## <a name="changing-log-content-and-formatting"></a>Zmiana zawartości dziennika i formatowanie  
 
-### <a name="databaselogformatter"></a>Wykonanie również można pominąć, ustawiając właściwość wyjątku w jednej z... Wykonywanie metod.  
+### <a name="databaselogformatter"></a>DatabaseLogFormatter  
 
-Powoduje to EF kontynuować, tak, jakby wykonanie operacji miał nie powiodło się, zwracając dany wyjątek. Oczywiście, może to spowodować aplikacji awarię, ale może to być także wyjątek przejściowy lub innych wyjątków, który jest obsługiwany przez EF. Na przykład to może służyć w środowiskach testowych do testowania zachowanie aplikacji, gdy wykonywanie polecenia nie powiodło się. Zmiana wyniku Po wykonaniu  
+Dzieje się w tle Database.Log sprawia, że właściwość użyć obiektu DatabaseLogFormatter. Ten obiekt skutecznie wiąże implementację IDbCommandInterceptor (patrz poniżej) do delegata, który akceptuje ciągi i typu DbContext. Oznacza to, że metody DatabaseLogFormatter są wywoływane przed i po wykonaniu polecenia przez EF. Te metody DatabaseLogFormatter zbierania i sformatować dane wyjściowe dziennika i wysyłać je do obiektu delegowanego.  
 
-### <a name="customizing-databaselogformatter"></a>Jeśli ta opcja ustawia interceptor właściwości wyniku Po wykonaniu polecenia (w jednym z... Wykonania metody), a następnie platforma EF użyje wynik zmieniono zamiast wynik, który faktycznie został zwrócony przez operację.  
+### <a name="customizing-databaselogformatter"></a>Dostosowywanie DatabaseLogFormatter  
 
-Podobnie jeśli interceptor ustawia właściwość wyjątku po wykonaniu polecenia, następnie EF spowoduje zgłoszenie wyjątku zestaw tak, jakby operacji miał wyjątek. Interceptor można również ustawić właściwość wyjątku na wartość null, aby wskazać, że nie należy zgłosić wyjątek.  
+Zmiana, co jest rejestrowane i sposobu formatowania można osiągnąć, tworząc nową klasę pochodną DatabaseLogFormatter, która zastępuje metody zgodnie z potrzebami. Najbardziej typowe metody do przesłonięcia to:  
 
-- Może to być przydatne, jeśli nie można wykonać operacji, ale interceptor chce EF, aby kontynuować, tak, jakby zakończyło się operacji. Zwykle obejmuje to również ustawienie wynik tak, aby EF jakąś wartość wynik, aby pracować, jak długo.  
-- OriginalResult i oryginalny wyjątek  
-- Po wykonaniu operacji EF zostanie ustawiony wynik i OriginalResult właściwości, jeśli wykonanie nie zakończyła się niepowodzeniem lub właściwości wyjątku i oryginalny wyjątek, jeśli wykonanie nie powiodło się z powodu wyjątku.  
+- LogCommand — to zmienić, aby zmienić sposób polecenia są rejestrowane, przed wykonaniem. Domyślnie LogCommand wywołuje LogParameter dla każdego parametru; można może się tak samo w przesłonięcia lub obsługuje parametrów inaczej zamiast tego.  
+- LogResult — to zmienić, aby zmienić sposób wynik wykonania polecenia jest rejestrowane.  
+- LogParameter — to zmienić, aby zmienić formatowanie i zawartość parametru rejestrowania.  
 
-Właściwości OriginalResult i oryginalny wyjątek są przeznaczone tylko do odczytu i ustawionych tylko przez EF po rzeczywistego wykonania operacji. Te właściwości nie może ustawić interceptory.  
+Na przykład załóżmy, że Chcieliśmy się jednym wierszu, przed wysłaniem każdego polecenia w bazie danych. Można to zrobić za pomocą dwóch zastąpień:  
 
-- Oznacza to, że wszelkie interceptor może rozróżnić wystąpi wyjątek lub wynik, która została ustawiona przez niektóre interceptor, w przeciwieństwie do rzeczywistego wyjątek lub wynik, który wystąpił podczas operacji został wykonany.  
-- Rejestrowanie interceptory  
+- Zastąp LogCommand do formatu i zapisu w jednym wierszu programu SQL Server  
+- Zastąpienie LogResult, aby nic nie rób.  
 
-Po utworzeniu klasy, która implementuje co najmniej jeden z interfejsów przejmowanie mogą być rejestrowane struktury jednostek przy użyciu klasy DbInterception.
+Kod powinien wyglądać mniej więcej tak:
 
 ``` csharp
 public class OneLineFormatter : DatabaseLogFormatter
@@ -231,13 +225,13 @@ public class OneLineFormatter : DatabaseLogFormatter
 }
 ```  
 
-Interceptory można zarejestrować w taki sposób, na poziomie domeny aplikacji przy użyciu mechanizmu DbConfiguration konfiguracja na podstawie kodu.  
+Do rejestrowania danych wyjściowych po prostu wywołanie metody zapisu, która będzie wysyłać dane wyjściowe do delegata skonfigurowanego zapisu.  
 
-Przykład: Rejestrowanie NLog Teraz umieść to wszystko ze sobą przykładowi, przy użyciu IDbCommandInterceptor i NLog do:  
+(Zwróć uwagę, że ten kod jest uproszczony usuwania podziałów tylko jako przykład. Jego prawdopodobnie nie będą działać dobrze w przypadku wyświetlania złożonych SQL.)  
 
-### <a name="setting-the-databaselogformatter"></a>Ostrzeżenie dla dowolnego polecenia, który jest wykonywany bez asynchronicznie dziennika  
+### <a name="setting-the-databaselogformatter"></a>Ustawienie DatabaseLogFormatter  
 
-Błąd dla dowolnego polecenia, który zgłasza wyjątek podczas wykonywania Poniżej przedstawiono klasy, która wykonuje rejestrowanie, które powinny być rejestrowane, jak pokazano powyżej: Zwróć uwagę, jak ten kod używa kontekstu przejmowanie, aby dowiedzieć się, gdy polecenie jest wykonywane innych niż asynchronicznie, a także do wykrywania, gdy wystąpił błąd podczas wykonywania polecenia. Na przykład:  
+Nowa klasa DatabaseLogFormatter od momentu utworzenia go musi być zarejestrowane przy użyciu programu EF. Odbywa się przy użyciu konfiguracji na podstawie kodu. Mówiąc oznacza to, tworzenie nowej klasy, która wynika z DbConfiguration z tego samego zestawu jako swojej klasy DbContext, a następnie wywołując SetDatabaseLogFormatter w Konstruktorze tej nowej klasy. Na przykład:  
 
 ``` csharp
 public class MyDbConfiguration : DbConfiguration

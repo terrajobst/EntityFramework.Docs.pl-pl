@@ -2,19 +2,13 @@
 title: Szablony generowania kodu projektanta - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 56e00fa2-f9f0-48b3-8006-f8266ca7e74b
-caps.latest.revision: 3
-ms.openlocfilehash: 8a656ca73a7e1a628f4053ff7ad47f5c1b17d878
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 29e28dd4ebe0e5e6e3cddacb1d34202c2010f389
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949182"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994874"
 ---
 # <a name="designer-code-generation-templates"></a>Szablonów generowania kodu projektanta
 Podczas tworzenia modelu przy użyciu programu Entity Framework Designer klas i kontekst pochodna są generowane automatycznie dla Ciebie. Oprócz generowania kodu domyślne oferujemy są również szablony, których można dostosować program code, który pobiera wygenerowany. Te szablony stanowią one szablonów tekstowych T4, dzięki czemu możesz dostosowywać szablony, jeśli to konieczne.

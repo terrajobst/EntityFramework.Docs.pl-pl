@@ -1,33 +1,31 @@
 ---
-title: Indeksy — podstawowe EF
+title: Indeksy — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 85b92003-b692-417d-ac1d-76d40dce664b
-ms.technology: entity-framework-core
 uid: core/modeling/indexes
-ms.openlocfilehash: f57b545d53613cec6887734bf434958ee8fff4d8
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 87fe893243377e3ab83d419ae9bedf813ca50c3f
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054077"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995483"
 ---
 # <a name="indexes"></a>Indeksy
 
-Indeksy są wspólnej definicji w wielu sklepach danych. Podczas wdrażania ich w magazynie danych mogą się różnić, są one używane do lepiej wyszukiwań na podstawie kolumny (lub zestaw kolumn) skuteczne.
+Indeksy są typowe pojęcia w wielu magazynach danych. Podczas ich wdrażania w magazynie danych mogą się różnić, są one używane do lepiej wyszukiwań na podstawie kolumny (lub zestaw kolumn) wydajne.
 
 ## <a name="conventions"></a>Konwencje
 
-Konwencja indeks jest tworzony w każdej właściwości (lub zbiór właściwości), używanych jako klucz obcy.
+Zgodnie z Konwencją indeksu jest tworzony w każdej właściwości (lub zestaw właściwości), używany jako klucza obcego.
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Nie można utworzyć indeksy za pomocą adnotacji danych.
+Nie można utworzyć indeksy przy użyciu adnotacji danych.
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Interfejsu API Fluent służy do określenia indeksu dla jednej właściwości. Domyślnie indeksy są unikatowe.
+Interfejs Fluent API służy do określenia indeksu w jednej właściwości. Indeksy są domyślnie nie jest unikatowa.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Index.cs?highlight=7,8)] -->
 ``` csharp
@@ -58,7 +56,7 @@ Można również określić czy indeksu powinna być unikatowa, co oznacza, że 
             .IsUnique();
 ```
 
-Można również określić indeksu przez więcej niż jedną kolumnę.
+Można również określić indeks przez więcej niż jedną kolumnę.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/IndexComposite.cs?highlight=7,8)] -->
 ``` csharp
@@ -82,4 +80,4 @@ public class Person
 ```
 
 > [!TIP]  
-> Istnieje tylko jeden indeks na osobny zestaw właściwości. Jeśli Konfigurowanie indeksu na zbiór właściwości, które jest już zdefiniowana, indeksu przez Konwencję lub poprzednią konfigurację za pomocą interfejsu API Fluent następnie zmienia się definicji tego indeksu. Jest to przydatne, jeśli chcesz kontynuować konfigurowanie indeksu, który został utworzony przez Konwencję.
+> Istnieje tylko jeden indeks na odrębnym zestawem właściwości. W przypadku konfigurowania indeksu na zbiór właściwości, które ma już zdefiniowane, indeks przy Konwencji lub poprzedniej konfiguracji, za pomocą interfejsu API Fluent następnie spowoduje zmianę definicji indeksu. Jest to przydatne, jeśli chcesz dodatkowo skonfigurować indeks, który został utworzony przez Konwencję.

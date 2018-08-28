@@ -1,20 +1,20 @@
 ---
 title: Obsługiwane implementacje platformy .NET — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 08/30/2017
-ms.technology: entity-framework-core
 uid: core/platforms/index
-ms.openlocfilehash: 790628c407cc4374fee4ebde8201783955afdcc3
-ms.sourcegitcommit: fd50ac53b93a03825dcbb42ed2e7ca95ca858d5f
+ms.openlocfilehash: 347965818f0eab9a86411f66eaaf10cb3aa8d652
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/07/2018
-ms.locfileid: "37900333"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996441"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>Implementacji platformy .NET obsługiwanych przez platformę EF Core
 
 Chcemy, aby programu EF Core była dostępna wszędzie można napisać kod .NET i nadal pracujemy do tego celu. Podczas obsługi programu EF Core w .NET Core i .NET Framework jest objęta zautomatyzowanego testowania i wiele aplikacji znane go używać pomyślnie, platformy Mono, Xamarin i platformy uniwersalnej systemu Windows mają pewne problemy.
+
+## <a name="overview"></a>Omówienie
 
 W poniższej tabeli przedstawiono wskazówki dotyczące każdej implementacji .NET:
 
@@ -31,6 +31,18 @@ W poniższej tabeli przedstawiono wskazówki dotyczące każdej implementacji .N
 
 <sup>(3) </sup> Brak problemów i znane ograniczenia za pomocą platformy Xamarin, które mogą uniemożliwić niektóre aplikacje opracowane przy użyciu programu EF Core 2.0 z działa prawidłowo. Sprawdź listę [aktywne problemy](https://github.com/aspnet/entityframeworkCore/issues?q=is%3Aopen+is%3Aissue+label%3Aarea-xamarin) do rozwiązania problemu.
 
-<sup>(4) </sup> Wcześniejszych wersjach programu EF Core i .NET platformy uniwersalnej systemu Windows ma wiele problemów ze zgodnością, szczególnie w przypadku aplikacje skompilowane przy użyciu łańcucha narzędzi .NET Native. Nowa wersja .NET platformy UWP dodaje obsługę platformy .NET Standard 2.0 i zawiera natywne 2.0 platformy .NET, która naprawia większość problemów ze zgodnością wcześniej zgłoszone. EF Core 2.0.1 został przetestowany dokładniej za pomocą platformy uniwersalnej systemu Windows, ale nie zautomatyzowane testy.
+<sup>(4) </sup> Zobacz [Universal Windows Platform](#universal-windows-platform) dalszej części tego artykułu.
+
+## <a name="universal-windows-platform"></a>Platforma uniwersalna systemu Windows
+
+Wcześniejszych wersjach programu EF Core i .NET platformy uniwersalnej systemu Windows ma wiele problemów ze zgodnością, szczególnie w przypadku aplikacje skompilowane przy użyciu łańcucha narzędzi .NET Native. Nowa wersja .NET platformy UWP dodaje obsługę platformy .NET Standard 2.0 i zawiera natywne 2.0 platformy .NET, która naprawia większość problemów ze zgodnością wcześniej zgłoszone. EF Core 2.0.1 został przetestowany dokładniej za pomocą platformy uniwersalnej systemu Windows, ale nie zautomatyzowane testy.
+
+Podczas korzystania z programu EF Core w platformy uniwersalnej systemu Windows:
+
+* Aby zoptymalizować wydajność zapytań, należy unikać typów anonimowych w kwerendach LINQ. Wdrażanie aplikacji do sklepu z aplikacjami platformy uniwersalnej systemu Windows wymaga od aplikacji można skompilować przy użyciu platformy .NET Native. Zapytania z typami anonimowymi ma zmniejszenie wydajności platformy .NET Native.
+
+* Aby zoptymalizować `SaveChanges()` wydajności i użycia [ChangeTrackingStrategy.ChangingAndChangedNotifications](/dotnet/api/microsoft.entityframeworkcore.changetrackingstrategy) i zaimplementować [INotifyPropertyChanged](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged.aspx), [INotifyPropertyChanging ](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanging.aspx), i [interfejsu INotifyCollectionChanged](https://msdn.microsoft.com/en-us/library/system.collections.specialized.inotifycollectionchanged.aspx) w typy jednostek.
+
+## <a name="report-issues"></a>Zgłaszanie problemów
 
 Dla dowolnej kombinacji nie działa zgodnie z oczekiwaniami, zaleca się utworzenie nowych problemów w [narzędzie do śledzenia problemów programu EF Core](https://github.com/aspnet/entityframeworkcore/issues/new). Specyficzne dla platformy Xamarin problemów Użyj narzędzia do śledzenia błędów dla [Xamarin.Android](https://github.com/xamarin/xamarin-android/issues/new) lub [Xamarin.iOS](https://github.com/xamarin/xamarin-macios/issues/new).

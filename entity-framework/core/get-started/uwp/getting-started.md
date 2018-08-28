@@ -1,157 +1,166 @@
 ---
-title: Wprowadzenie do platformy uniwersalnej systemu Windows — nowej bazy danych — EF Core
+title: Wprowadzenie do platformy UWP — Nowa baza danych — EF Core
 author: rowanmiller
-ms.author: divega
-ms.date: 10/27/2016
-ms.topic: get-started-article
+ms.date: 08/08/2018
 ms.assetid: a0ae2f21-1eef-43c6-83ad-92275f9c0727
-ms.technology: entity-framework-core
 uid: core/get-started/uwp/getting-started
-ms.openlocfilehash: f743ff5392d1f30283a13d2e7fb8029be88387aa
-ms.sourcegitcommit: 96324e58c02b97277395ed43173bf13ac80d2012
+ms.openlocfilehash: c243ef2a1940af9bf4f4b32f17acfcce7f972862
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/01/2017
-ms.locfileid: "26054815"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996913"
 ---
-# <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp-with-a-new-database"></a>Wprowadzenie do podstawowych EF na platformę uniwersalną systemu Windows (UWP) z nową bazę danych
+# <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp-with-a-new-database"></a>Wprowadzenie do programu EF Core na platformie Universal Windows (UWP) przy użyciu nowej bazy danych
 
-> [!NOTE]
-> W tym samouczku używana Core EF 2.0.1 (wydane z platformy ASP.NET Core i .NET Core SDK 2.0.3). EF Core 2.0.0 brakuje niektórych ważnych poprawki wymagane do dobrej obsługi platformy uniwersalnej systemu Windows.
+W tym samouczku utworzysz aplikację platformy uniwersalnej Windows (UWP), która wykonuje dostęp do podstawowych danych lokalnej bazy danych SQLite przy użyciu platformy Entity Framework Core.
 
-W tym przewodniku będzie tworzenia aplikacji systemu Windows platformy Uniwersalnej, która wykonuje dostęp do podstawowych danych lokalnej bazy danych SQLite używający narzędzia Entity Framework.
+[Wyświetlanie przykładowych w tym artykule w witrynie GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/UWP).
+
+## <a name="prerequisites"></a>Wymagania wstępne
+
+* [Windows 10 Fall Creators Update (10.0; Kompilacja 16299) lub nowszym](https://support.microsoft.com/en-us/help/4027667/windows-update-windows-10).
+
+* [Visual Studio 2017 w wersji 15.7 lub nowszej](https://www.visualstudio.com/downloads/) z **Universal Windows Platform Development** obciążenia.
+
+* [Zestaw SDK programu .NET core 2.1 lub nowszej](https://www.microsoft.com/net/core) lub nowszej.
+
+## <a name="create-a-model-project"></a>Tworzenie projektu modelu
 
 > [!IMPORTANT]
-> **Należy rozważyć unikanie typy anonimowe w zapytaniach LINQ na platformy uniwersalnej systemu Windows**. Wdrażanie aplikacji do sklepu z aplikacjami platformy uniwersalnej systemu Windows wymaga aplikacji do skompilowania z platformą .NET Native. Zapytania z typy anonimowe ma pogorszenie wydajności na platformie .NET Native.
-
-> [!TIP]
-> Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/UWP/UWP.SQLite) w witrynie GitHub.
-
-## <a name="prerequisites"></a>Wstępnie wymagane składniki
-
-Poniższe elementy są wymagane w tym przewodniku:
-
-* [Windows 10 twórców spadku zaktualizować](https://support.microsoft.com/en-us/help/4027667/windows-update-windows-10) (10.0.16299.0)
-
-* [Oprogramowanie .NET core 2.0.0 SDK](https://www.microsoft.com/net/core) lub nowszym.
-
-* [Visual Studio 2017](https://www.visualstudio.com/downloads/) wersji 15,4 lub nowszym z **platformy uniwersalnej systemu Windows dla deweloperów** obciążenia.
-
-## <a name="create-a-new-model-project"></a>Utwórz nowy projekt modelu
-
-> [!WARNING]
-> Ze względu na ograniczenia w narzędziach .NET Core sposób interakcji z projektów uniwersalnych systemu Windows, które modelu musi być umieszczona w projekcie aplikacje platformy UWP, aby można było uruchamiać polecenia migracji w konsoli Menedżera pakietów
+> Ze względu na ograniczenia w taki sposób, narzędzia platformy .NET Core wchodzą w interakcję z projektów platformy UWP modelu musi być umieszczona w projekcie bez platformy UWP, aby można było uruchamiać polecenia migracji w **Konsola Menedżera pakietów** (PMC)
 
 * Otwórz program Visual Studio
 
-* Plik > Nowy > Projekt...
+* **Plik > Nowy > Projekt**
 
-* Z menu po lewej stronie wybierz Szablony > Visual C#
+* Z menu po lewej stronie wybierz **zainstalowane > Visual C# > .NET Standard**.
 
-* Wybierz **biblioteki klas (.NET Standard)** szablonu projektu
+* Wybierz **biblioteki klas (.NET Standard)** szablonu.
 
-* Nadaj nazwę projektu, a następnie kliknij przycisk **OK**
+* Nadaj projektowi nazwę *Blogging.Model*.
 
-## <a name="install-entity-framework"></a>Instalowanie programu Entity Framework
+* Nazwij rozwiązanie *do obsługi blogów*.
 
-Aby użyć EF podstawowe, należy zainstalować pakiet dla powszechne bazy danych, który ma być docelowa. W tym przewodniku zastosowano SQLite. Lista dostępnych dostawców [dostawcy bazy danych](../../providers/index.md).
+* Kliknij przycisk **OK**.
 
-* Narzędzia > Menedżera pakietów NuGet > konsoli Menedżera pakietów
+## <a name="install-entity-framework-core"></a>Instalowanie platformy Entity Framework Core
 
-* Uruchom`Install-Package Microsoft.EntityFrameworkCore.Sqlite`
+Aby korzystać z programu EF Core, należy zainstalować pakiet dla dostawców bazy danych, który ma pod kątem. Ten samouczek używa bazy danych SQLite. Aby uzyskać listę dostępnych dostawców zobacz [dostawcy baz danych](../../providers/index.md).
 
-W dalszej części tego przewodnika również użyjemy narzędzi Framework niektóre jednostki do obsługi bazy danych. Dlatego zostanie zainstalowany pakiet narzędzi również.
+* **Narzędzia > Menedżer pakietów NuGet > Konsola Menedżera pakietów**.
 
-* Uruchom`Install-Package Microsoft.EntityFrameworkCore.Tools`
+* Uruchom `Install-Package Microsoft.EntityFrameworkCore.Sqlite`
 
-* Przeprowadź edycję pliku .csproj i Zastąp `<TargetFramework>netstandard2.0</TargetFramework>` z`<TargetFrameworks>netcoreapp2.0;netstandard2.0</TargetFrameworks>`
+W dalszej części tego samouczka używana będzie niektóre narzędzia Entity Framework Core do obsługi bazy danych. Więc Zainstaluj również pakiet narzędzi.
 
-## <a name="create-your-model"></a>Tworzenie modelu
+* Uruchom `Install-Package Microsoft.EntityFrameworkCore.Tools`
 
-Teraz nadszedł czas do definiowania klas kontekstu i jednostek, wchodzące w skład modelu.
+## <a name="create-the-model"></a>Tworzenie modelu
 
-* Projekt > Dodaj klasę...
+Teraz nadszedł czas, do definiowania klas kontekstu i jednostek, które tworzą model.
 
-* Wprowadź *Model.cs* jako nazwy i kliknij przycisk **OK**
+* Usuń *Class1.cs*.
 
-* Zastąp zawartość pliku następującym kodem
+* Tworzenie *Model.cs* następującym kodem:
 
-[!code-csharp[Main](../../../../samples/core/GetStarted/UWP/UWP.Model/Model.cs)]
+  [!code-csharp[Main](../../../../samples/core/GetStarted/UWP/Blogging.Model/Model.cs)]
 
 ## <a name="create-a-new-uwp-project"></a>Utwórz nowy projekt platformy uniwersalnej systemu Windows
 
-* Otwórz program Visual Studio
+* W **Eksploratora rozwiązań**, kliknij prawym przyciskiem myszy rozwiązanie, a następnie wybierz **Dodaj > Nowy projekt**.
 
-* Plik > Nowy > Projekt...
+* Z menu po lewej stronie wybierz **zainstalowane > Visual C# > Windows Universal**.
 
-* Z menu po lewej stronie wybierz Szablony > Visual C# > uniwersalnych systemu Windows
+* Wybierz **pusta aplikacja (Windows Universal)** szablonu projektu.
 
-* Wybierz **pusta aplikacja (uniwersalna systemu Windows)** szablonu projektu
+* Nadaj projektowi nazwę *Blogging.UWP*i kliknij przycisk **OK**
 
-* Nadaj nazwę projektu, a następnie kliknij przycisk **OK**
+* Co najmniej równa wersje docelową i minimalną **Windows 10 Fall Creators Update (10.0; kompilacja 16299.0)**.
 
-* Ustaw docelowy i co najmniej wersji do co najmniej`Windows 10 Fall Creators Update (10.0; build 16299.0)`
+## <a name="create-the-initial-migration"></a>Tworzenie początkowej migracji
 
-## <a name="create-your-database"></a>Tworzenie bazy danych
+Teraz, gdy model, należy skonfigurować aplikację do tworzenia bazy danych przy pierwszym uruchomieniu. W tej sekcji opisano tworzenie początkowej migracji. W poniższej sekcji dodasz kod, który ma zastosowanie tej migracji, po uruchomieniu aplikacji.
 
-Teraz, gdy masz modelu można użyć migracji tworzenia bazy danych dla Ciebie.
+Narzędzia migracji wymagają projektu startowego bez platformy UWP, dzięki czemu można tworzyć najpierw.
 
-* Pakiet NuGet –> Narzędzia Menedżera –> Konsola Menedżera pakietów
+* W **Eksploratora rozwiązań**, kliknij prawym przyciskiem myszy rozwiązanie, a następnie wybierz **Dodaj > Nowy projekt**.
 
-* Wybierz projekt z modelem jako domyślny projekt i ustaw go jako projekt startowy
+* Z menu po lewej stronie wybierz **zainstalowane > Visual C# > .NET Core**.
 
-* Uruchom `Add-Migration MyFirstMigration` Aby utworzyć szkielet migracji do utworzenia wstępnego zestawu tabel dla modelu.
+* Wybierz **Aplikacja konsoli (.NET Core)** szablonu projektu.
 
-Ponieważ chcemy bazy danych ma zostać utworzony na urządzeniu, która aplikacja jest uruchamiana na dodamy kodu, zastosuj wszelkie oczekujące migracje do lokalnej bazy danych podczas uruchamiania aplikacji. Aplikacja jest uruchamiana, po raz pierwszy to zajmie się tworzenie firmie Microsoft w lokalnej bazie danych.
+* Nadaj projektowi nazwę *Blogging.Migrations.Startup*i kliknij przycisk **OK**.
 
-* Kliknij prawym przyciskiem myszy **App.xaml** w **Eksploratora rozwiązań** i wybierz **widoku kodu**
+* Dodaj odwołanie do projektu z *Blogging.Migrations.Startup* projekt *Blogging.Model* projektu.
 
-* Dodaj wyróżnione using na początku pliku
+Teraz możesz utworzyć początkowej migracji.
 
-* Dodaj wyróżniony kod, aby Zastosuj wszelkie oczekujące migracje
+* **Narzędzia > Menedżer pakietów NuGet > Konsola Menedżera pakietów**
 
-[!code-csharp[Main](../../../../samples/core/GetStarted/UWP/UWP.SQLite/App.xaml.cs?highlight=1,25-28)]
+* Wybierz *Blogging.Model* projektu jako **projekt domyślny**.
+
+* W **Eksploratora rozwiązań**ustaw *Blogging.Migrations.Startup* projekt jako projekt startowy.
+
+* Uruchom `Add-Migration InitialCreate`.
+
+  To polecenie scaffolds migracji, który tworzy początkowego zestawu tabel dla modelu.
+
+## <a name="create-the-database-on-app-startup"></a>Tworzenie bazy danych podczas uruchamiania aplikacji
+
+Ponieważ baza danych ma zostać utworzony na urządzeniu, która jest uruchamiana aplikacja, należy dodać kod Zastosuj wszelkie oczekujące migracji w lokalnej bazie danych podczas uruchamiania aplikacji. Przy pierwszym uruchomieniu aplikacji, to zajmie się tworzenie lokalnej bazy danych.
+
+* Dodaj odwołanie do projektu z *Blogging.UWP* projekt *Blogging.Model* projektu.
+
+* Otwórz *App.xaml.cs*.
+
+* Dodaj wyróżniony kod, aby zastosować wszelkie oczekujące migracji.
+
+  [!code-csharp[Main](../../../../samples/core/GetStarted/UWP/Blogging.UWP/App.xaml.cs?highlight=1-2,26-29)]
 
 > [!TIP]  
-> Jeśli wprowadzisz zmiany w przyszłości do modelu, możesz użyć `Add-Migration` polecenie, aby utworzyć szkielet nowe migracji, aby zastosować odpowiednie zmiany w bazie danych. Wszelkie oczekujące migracje zostaną zastosowane do lokalnej bazy danych na każdym urządzeniu, podczas uruchamiania aplikacji.
+> W przypadku zmiany modelu użycia `Add-Migration` polecenia do tworzenia szkieletu nową migrację do zastosowania odpowiednich zmian w bazie danych. Wszystkie oczekujące migracje zostaną zastosowane do lokalnej bazy danych na każdym urządzeniu, podczas uruchamiania aplikacji.
 >
->Używa EF `__EFMigrationsHistory` tabeli w bazie danych, aby śledzić migracji, które zostały już zastosowane do bazy danych.
+>Używa EF `__EFMigrationsHistory` tabeli w bazie danych, aby śledzić migracje, które zostały już zastosowane do bazy danych.
 
-## <a name="use-your-model"></a>Użyj modelu
+## <a name="use-the-model"></a>Użyj modelu
 
-Można teraz używać modelu do uzyskania dostępu do danych.
+Można teraz używać modelu przeprowadzić dostępu do danych.
 
-* Otwórz *MainPage.xaml*
+* Otwórz *MainPage.xaml*.
 
-* Dodawanie obsługi obciążenia strony i interfejsu użytkownika zawartości wskazanych poniżej
+* Dodawanie obsługi ładowania strony i UI zawartości, które przedstawiono poniżej
 
-[!code-xml[Main](../../../../samples/core/GetStarted/UWP/UWP.SQLite/MainPage.xaml?highlight=9,11-23)]
+[!code-xml[Main](../../../../samples/core/GetStarted/UWP/Blogging.UWP/MainPage.xaml?highlight=9,11-23)]
 
-Teraz dodamy kod, aby okablować interfejsu użytkownika z bazy danych
+Teraz Dodaj kod, aby Podłączanie do interfejsu użytkownika z bazą danych
 
-* Kliknij prawym przyciskiem myszy **MainPage.xaml** w **Eksploratora rozwiązań** i wybierz **widoku kodu**
+* Otwórz *MainPage.xaml.cs*.
 
-* Dodaj wyróżniony kod z poniższej listy
+* Dodaj wyróżniony kod z poniższej listy:
 
-[!code-csharp[Main](../../../../samples/core/GetStarted/UWP/UWP.SQLite/MainPage.xaml.cs?highlight=30-48)]
+[!code-csharp[Main](../../../../samples/core/GetStarted/UWP/Blogging.UWP/MainPage.xaml.cs?highlight=1,31-49)]
 
-Można teraz uruchomić aplikację, aby zobaczyć ją w akcji.
+Teraz można uruchomić aplikacji, aby zobaczyć go w działaniu.
 
-* Debuguj > Uruchom bez debugowania
+* W **Eksploratora rozwiązań**, kliknij prawym przyciskiem myszy *Blogging.UWP* projektu, a następnie wybierz pozycję **Wdróż**.
 
-* Aplikacja tworzenie i uruchamianie
+* Ustaw *Blogging.UWP* jako projekt startowy.
+
+* **Debuguj > Uruchom bez debugowania**
+
+  Aplikacja tworzy i uruchamia.
 
 * Wprowadź adres URL, a następnie kliknij przycisk **Dodaj** przycisku
 
-![obraz](_static/create.png)
+  ![obraz](_static/create.png)
 
-![obraz](_static/list.png)
+  ![obraz](_static/list.png)
+
+  Tada! Masz teraz platformy Entity Framework Core uruchomioną prostą aplikacją platformy uniwersalnej systemu Windows.
 
 ## <a name="next-steps"></a>Następne kroki
 
-> [!TIP]
-> `SaveChanges()`można poprawić wydajność dzięki implementacji [ `INotifyPropertyChanged` ](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged.aspx), [ `INotifyPropertyChanging` ](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanging.aspx), [ `INotifyCollectionChanged` ](https://msdn.microsoft.com/en-us/library/system.collections.specialized.inotifycollectionchanged.aspx) w Twojej typów jednostek i przy użyciu `ChangeTrackingStrategy.ChangingAndChangedNotifications`.
+Uzyskać zgodności i wydajności, którą należy wiedzieć podczas korzystania z programu EF Core przy użyciu platformy uniwersalnej systemu Windows, zobacz [implementacji platformy .NET obsługiwanych przez platformę EF Core](../../platforms/index.md#universal-windows-platform).
 
-Tada! Masz teraz prostej aplikacji platformy uniwersalnej systemu Windows z programu Entity Framework.
-
-Zapoznaj się z innymi artykułami w tej dokumentacji, aby dowiedzieć się więcej na temat funkcji programu Entity Framework.
+Zapoznaj się z innymi artykułami w tej dokumentacji, aby dowiedzieć się więcej na temat funkcji platformy Entity Framework Core.

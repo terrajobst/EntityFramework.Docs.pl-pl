@@ -1,16 +1,14 @@
 ---
 title: Filtry zapytań globalnych - programu EF Core
 author: anpete
-ms.author: anpete
 ms.date: 11/03/2017
-ms.technology: entity-framework-core
 uid: core/querying/filters
-ms.openlocfilehash: 6b7a4069917c93015a218c131ff0d0a3920fb69d
-ms.sourcegitcommit: 4467032fd6ca223e5965b59912d74cf88a1dd77f
+ms.openlocfilehash: 73efe62262cf45cc1841d7a86cf59249cf07c5ea
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/01/2018
-ms.locfileid: "39388408"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996668"
 ---
 # <a name="global-query-filters"></a>Filtry zapytań globalnych
 
@@ -24,7 +22,7 @@ Filtry zapytań globalnych są predykatów zapytań LINQ (wyrażenia logicznego 
 Poniższy przykład pokazuje sposób użycia globalne filtry kwerendy do implementacji zachowania kwerendy opcji soft-delete oraz obsługi wielu dzierżawców w modelu prostego do obsługi blogów.
 
 > [!TIP]
-> Można wyświetlić w tym artykule [przykładowe](https://github.com/aspnet/EntityFrameworkCore/tree/master/samples/QueryFilters) w witrynie GitHub.
+> [Przykład](https://github.com/aspnet/EntityFrameworkCore/tree/master/samples/QueryFilters) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
 Najpierw należy zdefiniować jednostki:
 

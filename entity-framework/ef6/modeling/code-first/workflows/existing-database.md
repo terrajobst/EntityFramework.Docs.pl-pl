@@ -2,19 +2,13 @@
 title: Najpierw kod istniejącej bazy danych — EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: a7e60b74-973d-4480-868f-500a3899932e
-caps.latest.revision: 3
-ms.openlocfilehash: 47581a7ae9ff534d26ce82365bcbe2b254247495
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 29f959265e0fd0d5e14c156519e6931fd8da0677
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912725"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995093"
 ---
 # <a name="code-first-to-an-existing-database"></a>Najpierw kod istniejącej bazy danych
 W tym przewodniku krok po kroku i wideo zawierają wprowadzenie do rozwiązania deweloperskiego Code First przeznaczonych dla istniejącej bazy danych. Kod umożliwia najpierw zdefiniować model za pomocą języka C\# lub klasy VB.Net. Opcjonalnie dodatkowej konfiguracji można wykonać przy użyciu atrybutów klas i właściwości lub za pomocą interfejsu API fluent.

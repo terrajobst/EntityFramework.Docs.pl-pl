@@ -1,26 +1,25 @@
 ---
-title: Tabelę historii migracji niestandardowej - EF Core
+title: Tabela historii migracje niestandardowe — EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/7/2017
-ms.technology: entity-framework-core
-ms.openlocfilehash: cb9892241f3d7f1fae6293bd60a8a5c3e7120969
-ms.sourcegitcommit: b467368cc350e6059fdc0949e042a41cb11e61d9
+ms.openlocfilehash: 7ee76cadd6fac4ec403918e88460e43067ae5815
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2017
-ms.locfileid: "26054728"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995699"
 ---
-<a name="custom-migrations-history-table"></a>Tabelę historii migracji niestandardowych
+<a name="custom-migrations-history-table"></a>Tabela historii migracje niestandardowe
 ===============================
-Domyślnie EF Core przechowuje informacje o z migracji, które zostały zastosowane do bazy danych rejestrowania ich w tabeli o nazwie `__EFMigrationsHistory`. Z różnych powodów można dostosować do własnych potrzeb.
+Domyślnie śledzi informacje o programu EF Core migracji, które zostały zastosowane do bazy danych, rejestrując je w tabeli o nazwie `__EFMigrationsHistory`. Z różnych powodów można dostosować do własnych potrzeb.
 
 > [!IMPORTANT]
-> W przypadku dostosowania tabeli historii migracji *po* stosowania migracji, jest odpowiedzialny za aktualizowanie istniejącej tabeli w bazie danych.
+> W przypadku dostosowania tabeli historii migracje *po* z zastosowaniem migracje, jesteś odpowiedzialny za aktualizowanie istniejącej tabeli w bazie danych.
 
 <a name="schema-and-table-name"></a>Nazwa schematu i tabeli
 ----------------------
-Można zmienić schematu i tabeli nazwy przy użyciu `MigrationsHistoryTable()` metody w `OnConfiguring()` (lub `ConfigureServices()` na platformy ASP.NET Core). Oto przykład przy użyciu dostawcy programu SQL Server EF Core.
+Można zmienić schematu i tabeli przy użyciu nazwy `MigrationsHistoryTable()` method in Class metoda `OnConfiguring()` (lub `ConfigureServices()` programu ASP.NET Core). Oto przykład przy użyciu dostawcy programu SQL Server programu EF Core.
 
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -31,7 +30,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder options)
 
 <a name="other-changes"></a>Inne zmiany
 -------------
-Aby skonfigurować dodatkowe aspekty tabeli, zastąpienia i Zastąp specyficznego dla dostawcy `IHistoryRepository` usługi. Oto przykład zmiany nazwy kolumny MigrationId do *identyfikator* na serwerze SQL.
+Aby skonfigurować dodatkowe aspekty tabeli, należy zastąpić i Zastąp właściwe dla dostawcy `IHistoryRepository` usługi. Oto przykład zmiany MigrationId nazwa kolumny, która ma *identyfikator* w programie SQL Server.
 
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -41,7 +40,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder options)
 ```
 
 > [!WARNING]
-> `SqlServerHistoryRepository`znajduje się wewnątrz wewnętrznego obszaru nazw i mogą ulec zmianie w przyszłych wersjach.
+> `SqlServerHistoryRepository` znajduje się wewnątrz wewnętrznego obszaru nazw i mogą ulec zmianie w przyszłych wersjach.
 
 ``` csharp
 class MyHistoryRepository : SqlServerHistoryRepository

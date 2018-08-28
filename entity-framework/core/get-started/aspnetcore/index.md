@@ -1,17 +1,15 @@
 ---
 title: Wprowadzenie do programu ASP.NET Core — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: bcf6d28a-5a2a-40b9-87ea-19ed9ef2e555
-ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/index
-ms.openlocfilehash: 81bc861c2a60388f2631c8b05c928a34a49b42cb
-ms.sourcegitcommit: 00cb52625b57c1ea339ded1454179fe89b6bcfea
+ms.openlocfilehash: b676f84218af77e51fb0558d04b775dda0375847
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/16/2018
-ms.locfileid: "39067502"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993550"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core"></a>Wprowadzenie do programu EF Core programu ASP.NET Core
 

@@ -1,28 +1,26 @@
 ---
-title: Śledzenie programu vs. Zapytania śledzenia nie - EF Core
+title: Śledzenie programu vs. Zapytania śledzenia nie — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
-ms.technology: entity-framework-core
 uid: core/querying/tracking
-ms.openlocfilehash: 9a22c893f3b1e9991560e25e0252287a2844b39e
-ms.sourcegitcommit: 3b6159db8a6c0653f13c7b528367b4e69ac3d51e
+ms.openlocfilehash: 985adc795f379199a3bacc985843f32f3168cf64
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/28/2017
-ms.locfileid: "26054785"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993358"
 ---
-# <a name="tracking-vs-no-tracking-queries"></a>Śledzenie programu vs. Zapytania dotyczące śledzenia nie
+# <a name="tracking-vs-no-tracking-queries"></a>Śledzenie programu vs. Bez śledzenia zapytań
 
-Czy program Entity Framework Core przechowuje informacje o wystąpienia jednostek w jego śledzący zmiany do śledzenia kontroli zachowania. Jeśli śledzenia jednostki wykryto w jednostce wszelkie zmiany zostaną utrwalone w bazie danych podczas `SaveChanges()`. Entity Framework Core będzie również konfigurowania właściwości nawigacji między jednostek, które są uzyskiwane z zapytania śledzenia i jednostkami, które wcześniej zostały załadowane do wystąpienia typu DbContext.
+Czy platformy Entity Framework Core przechowuje informacje o wystąpienie jednostki w jego śledzenie zmian do śledzenia zachowania formantów. Jeśli jednostka jest śledzona, wszelkie zmiany wykryte w jednostce zostaną utrwalone w bazie danych podczas `SaveChanges()`. Entity Framework Core będzie również konfigurowania właściwości nawigacji między jednostkami, które są uzyskiwane z zapytania śledzenia i jednostek, które wcześniej zostały załadowane do wystąpienia typu DbContext.
 
 > [!TIP]  
-> Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) w witrynie GitHub.
+> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
-## <a name="tracking-queries"></a>Zapytania dotyczące śledzenia
+## <a name="tracking-queries"></a>Śledzenia zapytań
 
-Domyślnie są śledzenia zapytań, które zwracają typów jednostek. Oznacza to, można wprowadzić zmiany do tych jednostek wystąpień i te zmiany utrwalonych przez `SaveChanges()`.
+Domyślnie są śledzenia zapytań, które zwracają typów jednostek. Oznacza to, można wprowadzić zmiany do tych wystąpień jednostki i utrwalonych te zmiany przez `SaveChanges()`.
 
 W poniższym przykładzie zostanie wykryte i utrwalone w bazie danych podczas zmiany klasyfikacji blogi `SaveChanges()`.
 
@@ -36,11 +34,11 @@ using (var context = new BloggingContext())
 }
 ```
 
-## <a name="no-tracking-queries"></a>Zapytania dotyczące śledzenia nie
+## <a name="no-tracking-queries"></a>Bez śledzenia zapytań
 
-Nie ma zapytań, śledzenia są przydatne, gdy wyniki są używane w scenariuszu tylko do odczytu. Są one szybsze można wykonać operacji, ponieważ nie istnieje potrzeba aby informacje o monitorowaniu zmian konfiguracji.
+Nie śledzenia zapytań są przydatne, gdy wyniki są używane w scenariuszu tylko do odczytu. Są one szybsze wykonywanie, ponieważ nie ma potrzeby informacje o monitorowaniu zmian konfiguracji.
 
-Można wymienić poszczególnych zapytań do śledzenia nie można:
+Można wymienić określone zapytanie do śledzenia nie można:
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=4)] -->
 ``` csharp
@@ -65,11 +63,11 @@ using (var context = new BloggingContext())
 ```
 
 > [!NOTE]  
-> Nie ma zapytań, śledzenie nadal rozpoznawać tożsamości w ramach zapytania przesłać. Jeśli zestaw wyników zawiera tej samej jednostki wiele razy, zostanie zwrócony tego samego wystąpienia klasy jednostki dla każdego wystąpienia w zestawie wyników. Jednak słabe odwołania są używane do śledzenia jednostek, które już zostały zwrócone. Jeśli poprzedni wynik o tej samej tożsamości wykracza poza zakres i wyrzucanie elementów bezużytecznych działa, możesz uzyskać nowego wystąpienia jednostki. Aby uzyskać więcej informacji, zobacz [jak działa zapytanie](overview.md).
+> Nie śledzenia zapytań w dalszym ciągu wykonywać rozwiązanie tożsamości w ramach zapytania przesłać. Jeśli zestaw wyników zawiera tej samej jednostki wiele razy, to samo wystąpienie elementu Klasa jednostki zostanie zwrócony dla każdego wystąpienia w zestawie wyników. Jednak słabe odwołania są używane do śledzenia jednostek, które już zostały zwrócone. Jeśli poprzedni wynik z tą samą tożsamością wykracza poza zakres, a następnie uruchamia wyrzucanie elementów bezużytecznych, może pojawić się nowe wystąpienie jednostki. Aby uzyskać więcej informacji, zobacz [jak działa zapytanie](overview.md).
 
 ## <a name="tracking-and-projections"></a>Śledzenie i projekcji
 
-Nawet jeśli typu wyników zapytania nie jest typem jednostki, jeśli wynik zawiera typy jednostek one nadal będą śledzone przez domyślne. W następującej kwerendy, która zwraca typu anonimowego wystąpienia `Blog` w wyniku będą śledzone zestawu.
+Nawet jeśli typ wyniku zapytania nie jest typem jednostki, jeśli wynik zawiera typy jednostek nadal będą one śledzone domyślnie. W następującym zapytaniu, która zwraca typ anonimowy, wystąpienia `Blog` w wyniku będą śledzone zestawu.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=7)] -->
 ``` csharp
@@ -85,7 +83,7 @@ using (var context = new BloggingContext())
 }
 ```
 
-Jeśli zestaw wyników nie zawiera żadnych typów jednostek, przeprowadzane jest Brak śledzenia. W następującej kwerendy, który zwraca typ anonimowy w przypadku niektórych wartości z jednostki (ale nie wystąpień rzeczywistego typu jednostki) nie należy nie śledzenia wykonywane.
+Jeśli zestaw wyników nie zawiera żadnych typów jednostek, Brak śledzenia jest wykonywana. W następującym zapytaniu, która zwraca typ anonimowy z niektórych wartości z jednostki (ale nie wystąpień typu rzeczywistego jednostek) nie jest Brak śledzenia wykonywane.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs)] -->
 ``` csharp

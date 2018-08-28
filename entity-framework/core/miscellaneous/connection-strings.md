@@ -1,25 +1,23 @@
 ---
-title: Parametry połączenia - EF Core
+title: Parametry połączenia — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: aeb0f5f8-b212-4f89-ae83-c642a5190ba0
-ms.technology: entity-framework-core
 uid: core/miscellaneous/connection-strings
-ms.openlocfilehash: b4ed01f0452d74ac49d3fde780caa5f1b25a6e97
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 942865effba7b491dd950886ea30b69a86f1186c
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054098"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997674"
 ---
 # <a name="connection-strings"></a>Parametry połączenia
 
-Większość dostawców bazy danych wymaga pewnej formy ciągu połączenia w celu połączenia z bazą danych. Czasami ta parametry połączenia zawierają poufne informacje, które wymagają ochrony. Należy również zmienić parametry połączenia, ponieważ przenoszenie aplikacji między środowiskach, na przykład programowania, testowania i produkcji.
+Większość dostawców bazy danych wymaga pewnego rodzaju parametry połączenia do łączenia z bazą danych. Czasami te parametry połączenia zawiera poufne informacje, które muszą być chronione. Również może być konieczna zmiana parametrów połączenia, ponieważ przenoszenie aplikacji między środowiskami, takie jak programowania, testowania i produkcji.
 
-## <a name="net-framework-applications"></a>Aplikacje środowiska .NET framework
+## <a name="net-framework-applications"></a>Aplikacji .NET framework
 
-Aplikacji .NET framework, takich jak WinForms, WPF konsoli i platformy ASP.NET 4 mają wzorzec ciągu połączenia próby sklonowania i przetestowane. Parametry połączenia należy dodać do pliku App.config aplikacji (Web.config Jeśli używasz programu ASP.NET). Jeśli parametry połączenia zawiera poufne informacje, takie jak nazwa użytkownika i hasło, chronić zawartość przy użyciu pliku konfiguracji [chronione konfiguracji](https://docs.microsoft.com/dotnet/framework/data/adonet/connection-strings-and-configuration-files#encrypting-configuration-file-sections-using-protected-configuration).
+Aplikacji .NET framework, takich jak WinForms, WPF, konsola i platformy ASP.NET 4 ma połączenie i przetestowanej wzorzec ciągu. Parametry połączenia należy dodać kod do pliku App.config aplikacji (Web.config, jeśli używasz programu ASP.NET). Jeśli parametry połączenia zawiera poufne informacje, takie jak nazwa użytkownika i hasło, chronić zawartość przy użyciu pliku konfiguracji [konfiguracji chronionej](https://docs.microsoft.com/dotnet/framework/data/adonet/connection-strings-and-configuration-files#encrypting-configuration-file-sections-using-protected-configuration).
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -33,9 +31,9 @@ Aplikacji .NET framework, takich jak WinForms, WPF konsoli i platformy ASP.NET 4
 ```
 
 > [!TIP]  
-> `providerName` Ustawienie nie jest wymagane na parametry połączenia podstawowej EF przechowywane w pliku App.config, ponieważ dostawca bazy danych są skonfigurowane za pomocą kodu.
+> `providerName` Ustawienie nie jest wymagane na parametry połączenia programu EF Core przechowywane w pliku App.config, ponieważ dostawca bazy danych jest skonfigurowana za pomocą kodu.
 
-Następnie można znaleźć przy użyciu ciągu połączenia `ConfigurationManager` interfejsu API w sieci w kontekście `OnConfiguring` metody. Może być konieczne dodanie odwołania do `System.Configuration` zestawu struktury, aby można było używać tego interfejsu API.
+Możesz odczytywać parametry połączenia za pomocą `ConfigurationManager` interfejsu API w sieci w kontekście `OnConfiguring` metody. Może być konieczne dodanie odwołania do `System.Configuration` zestawu struktury, aby można było używać tego interfejsu API.
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -52,7 +50,7 @@ public class BloggingContext : DbContext
 
 ## <a name="universal-windows-platform-uwp"></a>Platforma uniwersalna systemu Windows (UWP)
 
-Parametry połączenia w aplikacji platformy uniwersalnej systemu Windows są zwykle połączenie SQLite, które właśnie Określa nazwę pliku lokalnego. One zazwyczaj nie zawierają informacji poufnych, a nie trzeba można zmienić, ponieważ aplikacja jest wdrażana. Tak te parametry połączenia są zwykle małe pozostać w kodzie, jak pokazano poniżej. Jeśli chcesz przenieść je z kodu to platformy uniwersalnej systemu Windows obsługuje pojęcie ustawień, zobacz [ustawień aplikacji części dokumentacji platformy uniwersalnej systemu Windows](https://docs.microsoft.com/windows/uwp/app-settings/store-and-retrieve-app-data) szczegółowe informacje.
+Parametry połączenia w aplikacji platformy uniwersalnej systemu Windows są zazwyczaj połączenia bazy danych SQLite, po prostu określający nazwę pliku lokalnego. Są zazwyczaj nie zawierają informacji poufnych, a nie powinny być można zmienić, ponieważ aplikacja jest wdrażana. W efekcie te parametry połączenia są zwykle wystarczające pozostać w kodzie, jak pokazano poniżej. Jeśli chcesz przenieść je poza kod to platformy uniwersalnej systemu Windows obsługuje pojęcie ustawień, zobacz [ustawienia aplikacji w sekcji dokumentacji platformy uniwersalnej systemu Windows](https://docs.microsoft.com/windows/uwp/app-settings/store-and-retrieve-app-data) Aby uzyskać szczegółowe informacje.
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -67,9 +65,9 @@ public class BloggingContext : DbContext
 }
 ```
 
-## <a name="aspnet-core"></a>Platformy ASP.NET Core
+## <a name="aspnet-core"></a>ASP.NET Core
 
-W przypadku platformy ASP.NET Core jest bardzo elastyczny system konfiguracji i ciągu połączenia może być przechowywany w `appsettings.json`, wartość zmiennej środowiskowej, tajne magazynie użytkownika lub inne źródło konfiguracji. Zobacz [sekcji konfiguracji w dokumentacji platformy ASP.NET Core](https://docs.asp.net/en/latest/fundamentals/configuration.html) więcej szczegółów. W poniższym przykładzie przedstawiono parametry połączenia, przechowywane w `appsettings.json`.
+W programie ASP.NET Core jest bardzo elastyczny system konfiguracji i parametry połączenia mogą być przechowywane w `appsettings.json`, zmienną środowiskową, magazynu wpisów tajnych użytkownika lub innego źródła konfiguracji. Zobacz [konfiguracji w sekcji dokumentacji platformy ASP.NET Core](https://docs.asp.net/en/latest/fundamentals/configuration.html) Aby uzyskać więcej informacji. W poniższym przykładzie przedstawiono parametry połączenia przechowywana w `appsettings.json`.
 
 ``` json
 {
@@ -79,7 +77,7 @@ W przypadku platformy ASP.NET Core jest bardzo elastyczny system konfiguracji i 
 }
 ```
 
-Kontekst jest zazwyczaj skonfigurowany w `Startup.cs` ciągu połączenia jest odczytywana z konfiguracji. Uwaga `GetConnectionString()` metoda szuka wartości konfiguracji, w których klucz jest `ConnectionStrings:<connection string name>`.
+Kontekst jest zazwyczaj skonfigurowany w `Startup.cs` przy użyciu parametrów połączenia jest odczytywana z konfiguracji. Uwaga `GetConnectionString()` metoda szuka wartości konfiguracji, w których kluczem jest `ConnectionStrings:<connection string name>`.
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)

@@ -2,19 +2,13 @@
 title: Entity Framework słownik - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
-caps.latest.revision: 3
-ms.openlocfilehash: cbd61838afc23dfb37cee7c624c65476c5270099
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 4ad56c4d655e004d97c3537707fa6b13c7acf88e
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949100"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997722"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework słownik
 ## <a name="code-first"></a>Najpierw kod
@@ -41,7 +35,7 @@ Klasa lub obiekt, który reprezentuje dane aplikacji, takich jak klientów, prod
 ## <a name="entity-data-model"></a>Entity Data Model
 Model, który opisuje jednostek i relacji między nimi. EF używa EDM do opisu modelu koncepcyjnego, względem którego programy dla deweloperów. EDM opiera się na modelu Relacja jednostki, wynikające z odzyskiwania po awarii. Peter Chen. Podstawowym celem staje się wspólnego modelu danych na zestaw technologii firmy Microsoft dla deweloperów i serwer został pierwotnie opracowana EDM. EDM jest również używane jako część protokołu OData.
 
-## <a name="explicit-loading"></a>Jawne ładowanie
+## <a name="explicit-loading"></a>jawne ładowanie
 Wzorzec załadunku, powiązanych danych, gdzie obiekty powiązane są ładowane przez wywołanie interfejsu API.
 
 ## <a name="fluent-api"></a>Interfejs Fluent API

@@ -1,25 +1,23 @@
 ---
-title: Klucze (podstawowe) — podstawowe EF
+title: Klucze (podstawowe) — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 912ffef7-86a0-4cdc-a776-55f907459d20
-ms.technology: entity-framework-core
 uid: core/modeling/keys
-ms.openlocfilehash: f3bf3c7f2a28e065b350fe000a5164406cd5ca08
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 9e6946100ebabc6ba57cb792b3672219098b1e21
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054110"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994024"
 ---
-# <a name="keys-primary"></a>Klucze (podstawowy)
+# <a name="keys-primary"></a>Klucze (podstawowe)
 
-Klucz służy jako podstawowy identyfikator unikatowy dla każdego wystąpienia jednostki. Korzystając z relacyjnej bazy danych to mapy do koncepcji *klucz podstawowy*. Można również skonfigurować unikatowy identyfikator, który nie jest kluczem podstawowym (zobacz [klucze alternatywne](alternate-keys.md) Aby uzyskać więcej informacji).
+Klucz służy jako podstawowy identyfikator unikatowy dla każdego wystąpienia jednostki. Korzystając z relacyjnej bazy danych to mapuje do koncepcji *klucz podstawowy*. Można również skonfigurować unikatowy identyfikator, który nie jest kluczem podstawowym (zobacz [klucze alternatywne](alternate-keys.md) Aby uzyskać więcej informacji).
 
 ## <a name="conventions"></a>Konwencje
 
-Konwencja, właściwość o nazwie `Id` lub `<type name>Id` zostaną skonfigurowane jako klucza jednostki.
+Zgodnie z Konwencją, właściwość o nazwie `Id` lub `<type name>Id` zostaną skonfigurowane jako klucza jednostki.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/KeyId.cs?highlight=3)] -->
 ``` csharp
@@ -43,9 +41,9 @@ class Car
 }
 ```
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Aby skonfigurować jedną właściwość klucza jednostki za, można użyć adnotacji danych.
+Korzystanie z adnotacji danych, aby skonfigurować jedną właściwość jako klucz jednostki.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/KeySingle.cs?highlight=3,4)] -->
 ``` csharp
@@ -59,9 +57,9 @@ class Car
 }
 ```
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Aby skonfigurować jedną właściwość klucza jednostki za, można użyć interfejsu API Fluent.
+Interfejs Fluent API umożliwiają skonfigurowanie jednej właściwości klucza jednostki.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/KeySingle.cs?highlight=7,8)] -->
 ``` csharp
@@ -85,7 +83,7 @@ class Car
 }
 ```
 
-Aby skonfigurować wiele właściwości klucza obiektu (znany jako klucz złożony) umożliwia także interfejsu API Fluent. Klucze złożone można skonfigurować tylko za pomocą interfejsu API Fluent — konwencje nigdy nie będzie Instalatora klucz złożony i nie umożliwia adnotacji danych konfiguracji.
+Można również skonfigurować wiele właściwości, aby być kluczem jednostki (znanych jako klucz złożony) za pomocą Fluent interfejsu API. Klucze złożone można skonfigurować tylko przy użyciu interfejsu API Fluent — konwencje nigdy nie skonfiguruje klucz złożony i nie umożliwia adnotacje danych konfiguracji.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/KeyComposite.cs?highlight=7,8)] -->
 ``` csharp

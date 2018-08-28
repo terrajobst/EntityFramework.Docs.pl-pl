@@ -1,39 +1,37 @@
 ---
-title: Dane — podstawowe EF dotyczące zapisywania
+title: Zapisywanie powiązanych danych — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 07b6680f-ffcf-412c-9857-f997486b386c
-ms.technology: entity-framework-core
 uid: core/saving/related-data
-ms.openlocfilehash: b0ed25267c85e82db18d8a89693b6040db7e4b34
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: 7349c57c0dccd3c911178641d3b34a478a4f6194
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/16/2018
-ms.locfileid: "31006653"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994747"
 ---
 # <a name="saving-related-data"></a>Zapisywanie powiązanych danych
 
-Oprócz izolowanego jednostek można wprowadzić korzystanie z relacji zdefiniowanych w modelu.
+Oprócz izolowanych jednostek można wprowadzić korzystanie z relacji zdefiniowanych w modelu.
 
 > [!TIP]  
-> Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/RelatedData/) w witrynie GitHub.
+> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/RelatedData/) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
-## <a name="adding-a-graph-of-new-entities"></a>Dodawanie nowych jednostek wykres
+## <a name="adding-a-graph-of-new-entities"></a>Dodawanie wykresu nowych jednostek
 
-Jeśli tworzysz kilka nowych jednostek pokrewnych, dodawanie jeden z nich do kontekstu spowoduje, że inne osoby do dodania zbyt.
+Jeśli utworzysz kilka nowych jednostek powiązanych, dodając jeden z nich do kontekstu spowoduje, że inne osoby mają zostać dodane za.
 
-W poniższym przykładzie blogu i trzy powiązane wpisy są wszystkie wstawione do bazy danych. Znajdowania i dodany, ponieważ są one dostępne za pośrednictwem wpisów `Blog.Posts` właściwości nawigacji.
+W poniższym przykładzie blogu i trzy powiązane wpisy są wszystkie wstawione do bazy danych. Znalezione wpisy i dodawane, ponieważ są one dostępne za pośrednictwem `Blog.Posts` właściwości nawigacji.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#AddingGraphOfEntities)]
 
 > [!TIP]  
 > Właściwość EntityEntry.State służy do ustawiania stanu pojedynczej jednostki. Na przykład `context.Entry(blog).State = EntityState.Modified`.
 
-## <a name="adding-a-related-entity"></a>Dodawanie jednostki pokrewne
+## <a name="adding-a-related-entity"></a>Dodawanie powiązanej jednostki
 
-Jeśli nowy obiekt odwołanie z właściwości nawigacji jednostki, która jest już śledzony przez kontekst, jednostki będą wykrywane i wstawione do bazy danych.
+Jeśli odwołujesz Nowa jednostka z właściwości nawigacji jednostki, która jest już śledzony przez kontekst jednostki będą wykrywane i wstawione do bazy danych.
 
 W poniższym przykładzie `post` dodaje się jednostki, ponieważ jest ona dodawana do `Posts` właściwość `blog` jednostki, która została pobrana z bazy danych.
 
@@ -41,24 +39,24 @@ W poniższym przykładzie `post` dodaje się jednostki, ponieważ jest ona dodaw
 
 ## <a name="changing-relationships"></a>Zmiana relacji
 
-Jeśli zmienisz właściwości nawigacji jednostki odpowiednie zmiany będą kolumna klucza obcego w bazie danych.
+Jeśli zmienisz właściwości nawigacji jednostki, odpowiednie zmiany będą kolumna klucza obcego w bazie danych.
 
-W poniższym przykładzie `post` jednostki jest aktualizowana w celu należą do nowego `blog` jednostki ponieważ jego `Blog` właściwość nawigacji jest ustawiona, aby wskazywał `blog`. Należy pamiętać, że `blog` również zostaną wstawione do bazy danych, ponieważ jest on nową jednostkę, która odwołuje się właściwość nawigacji jednostki, która jest już śledzony przez kontekst (`post`).
+W poniższym przykładzie `post` jednostki zostanie zaktualizowany i będzie należeć do nowego `blog` jednostki ponieważ jej `Blog` właściwość nawigacji jest ustawiona, aby wskazywał `blog`. Należy pamiętać, że `blog` również zostaną wstawione do bazy danych, ponieważ jest nowa jednostka, która odwołuje się do właściwości nawigacji jednostki, która jest już śledzona przez kontekst (`post`).
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#ChangingRelationships)]
 
 ## <a name="removing-relationships"></a>Usuwanie relacji
 
-Można usunąć relacji ustawiając nawigacji odwołania `null`, lub usuwanie obiektu pokrewnego z nawigacji kolekcji.
+Możesz usunąć relację, ustawiając nawigacji odwołanie `null`, lub usuwanie obiektu pokrewnego nawigacji kolekcji.
 
-Usuwanie relacji może mieć skutki uboczne w jednostce zależnej, zgodnie z każdym usuwanie zachowanie skonfigurowane w relacji.
+Usunięcie relacji może mieć skutki uboczne jednostki zależne, zgodnie z każdym skonfigurowane w relacji zachowanie przy usuwaniu.
 
-Domyślnie dla wymaganych relacji zachowanie usuwania kaskadowego jest skonfigurowane, a obiekt podrzędny/zależnych zostaną usunięte z bazy danych. W przypadku relacji opcjonalne, usuwanie kaskadowe nie skonfigurowano domyślnie, ale zostanie ustawiona właściwość klucza obcego do wartości null.
+Domyślnie dla wymaganych relacji skonfigurowano zachowanie dotyczące usuwania cascade, a jednostki podrzędne/zależnych od ustawień lokalnych, które zostaną usunięte z bazy danych. W przypadku relacji opcjonalne usuwanie kaskadowe nie skonfigurowano domyślnie, ale zostanie ustawiona właściwość klucza obcego na wartość null.
 
-Zobacz [wymaganych i opcjonalnych relacje](../modeling/relationships.md#required-and-optional-relationships) Aby dowiedzieć się więcej o konfiguracji requiredness relacji.
+Zobacz [relacje wymaganych i opcjonalnych](../modeling/relationships.md#required-and-optional-relationships) Aby dowiedzieć się, jak można skonfigurować requiredness relacji.
 
-Zobacz [Cascade Delete](cascade-delete.md) więcej informacji na temat jak cascade delete zachowania działa jak może być jawnie skonfigurowane i jak są wybrane przez Konwencję.
+Zobacz [usuwanie kaskadowe](cascade-delete.md) szczegółowe informacje na temat sposobu usuwanie kaskadowe zachowania działa jak może być jawnie skonfigurowane i jak są wybrane przez Konwencję.
 
-W poniższym przykładzie usuwanie kaskadowe jest skonfigurowana dla relacji między `Blog` i `Post`, więc `post` jednostki są usuwane z bazy danych.
+W poniższym przykładzie skonfigurowano usuwanie kaskadowe relacji między `Blog` i `Post`, więc `post` została usunięta z bazy danych.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#RemovingRelationships)]

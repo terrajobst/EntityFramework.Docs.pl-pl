@@ -1,21 +1,19 @@
 ---
-title: Dostawca bazy danych InMemory - EF Core
+title: Dostawca InMemory bazy danych — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 9af0cba7-7605-4f8f-9cfa-dd616fcb880c
-ms.technology: entity-framework-core
 uid: core/providers/in-memory/index
-ms.openlocfilehash: 356af9390a8aafa5afe35f333cd1e6ac1988390d
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: ca802f55d973b9f79073c2507c1e0c7a853a1fce
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/28/2018
-ms.locfileid: "29678989"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993323"
 ---
-# <a name="ef-core-in-memory-database-provider"></a>Dostawca programu EF podstawowej bazy danych w pamięci
+# <a name="ef-core-in-memory-database-provider"></a>Dostawca programu EF Core bazy danych w pamięci
 
-Ten dostawca bazy danych umożliwia Entity Framework Core ma być używany z bazy danych w pamięci. Może to być przydatne podczas testowania, chociaż dostawcy bazy danych SQLite w trybie w pamięci może być bardziej odpowiednie zastąpienia testu relacyjnych baz danych. Dostawca jest przechowywany jako część [Entity Framework Core projektu](https://github.com/aspnet/EntityFrameworkCore).
+Ten dostawca bazy danych umożliwia platformy Entity Framework Core ma być używany z bazą danych w pamięci. Może to być przydatne w przypadku testowania, mimo że dostawcy bazy danych SQLite w trybie w pamięci może być bardziej odpowiednie zastąpienia testu dla relacyjnych baz danych. Dostawca jest przechowywane jako część [projektu programu Entity Framework Core](https://github.com/aspnet/EntityFrameworkCore).
 
 ## <a name="install"></a>Zainstaluj
 
@@ -32,16 +30,16 @@ Następujące zasoby pomoże Ci rozpocząć pracę z tym dostawcą.
 
 * [Przykładowe UnicornStore testów aplikacji](https://github.com/rowanmiller/UnicornStore/blob/master/UnicornStore/src/UnicornStore.Tests/Controllers/ShippingControllerTests.cs)
 
-## <a name="supported-database-engines"></a>Obsługiwanych aparatów bazy danych
+## <a name="supported-database-engines"></a>Obsługiwane baz danych
 
 * Wbudowane bazy danych w pamięci (przeznaczony tylko do celów testowych)
 
 ## <a name="supported-platforms"></a>Obsługiwane platformy
 
-* .NET framework (4.5.1 lub nowszej)
+* .NET framework (4.5.1 lub nowszy)
 
 * .NET Core
 
-* Mono (4.2.0 i jego nowszych wersjach)
+* Narzędzie mono (4.2.0 lub nowszy)
 
 * Platforma uniwersalna systemu Windows

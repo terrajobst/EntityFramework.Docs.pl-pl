@@ -2,19 +2,13 @@
 title: Model dostawcy platformy Entity Framework 6 — EF6
 author: divega
 ms.date: 2018-06-27
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
-caps.latest.revision: 3
-ms.openlocfilehash: 49b655bdbe1b256b7de517edec84945d1ee06f79
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: ebe9b426b164f619b716ac221d1d94354f8b1fe5
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912146"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997740"
 ---
 # <a name="the-entity-framework-6-provider-model"></a>Dostawca modelu Entity Framework 6
 
@@ -108,9 +102,9 @@ public class MyConfiguration : DbConfiguration
 
 ## <a name="resolving-additional-services"></a>Rozpoznawanie dodatkowych usług
 
-Jak wspomniano powyżej, w _dostawcy typów Przegląd_ sekcji DbProviderServices klasy można również do rozpoznania usług dodatkowych. IProviderInvariantName to usługa, która jest używana do określenia dla danego typu DbProviderFactory nazwę niezmienną dostawcy. Mechanizm IDbDpendencyResolver jest opisany bardziej szczegółowo w [Rozdziale zależności](~/ef6/fundamentals/configuring/dependency-resolution.md). Oznacza to, że jeśli dostawcy ADO.NET nie jest zarejestrowany w normalny sposób, ponieważ DbProviderFactory jest rozwiązywany za EF, następnie również będzie wymagany do rozwiązania tej usługi.
+Jak wspomniano powyżej, w _dostawcy typów Przegląd_ sekcji DbProviderServices klasy można również do rozpoznania usług dodatkowych. Jest to możliwe, ponieważ DbProviderServices implementuje IDbDependencyResolver i każdego zarejestrowanego typu DbProviderServices jest dodawany jako "domyślny mechanizm rozwiązywania konfliktów". Mechanizm IDbDpendencyResolver jest opisany bardziej szczegółowo w [Rozdziale zależności](~/ef6/fundamentals/configuring/dependency-resolution.md). Jednak nie jest niezbędne zapoznać się z pojęciami w tej specyfikacji do rozpoznania usług dodatkowych, dostawcy.
 
-Należy pamiętać, że program rozpoznawania nazw dla tej usługi jest automatycznie dodawane, korzystając z metody DbConfiguration.SetProviderFactory. Zgodnie z opisem w dostawcy typów Przegląd Powyższa sekcja, IDbProviderFactoryResolver jest używany do uzyskiwania poprawne DbProviderFactory z danego obiektu DbConnection.
+Najczęstszym sposobem dostawcy do rozpoznania usług, dodatkowe jest wywołanie DbProviderServices.AddDependencyResolver dla każdej usługi w konstruktorze klasy DbProviderServices. Na przykład SqlProviderServices (Dostawca EF dla programu SQL Server) ma kod podobny do tego inicjowania:
 
 ``` csharp
 private SqlProviderServices()
@@ -135,7 +129,7 @@ private SqlProviderServices()
 }
 ```
 
-Domyślna implementacja tej usługi podczas uruchamiania na .NET 4 używa rejestracji dostawcy ADO.NET.
+Ten konstruktor korzysta z następujących klas pomocniczych:
 
 *   SingletonDependencyResolver: zapewnia prosty sposób rozwiązania pojedynczego wystąpienia usług — oznacza to, usług, dla których tego samego wystąpienia jest zwracana zawsze nazywa GetService. Przejściowy usługi często są rejestrowane jako fabryki singleton, która będzie służyć do tworzenia wystąpienia przejściowego na żądanie.
 *   ExecutionStrategyResolver: program rozpoznawania nazw specyficzne dla zwracania IExecutionStrategy implementacji.

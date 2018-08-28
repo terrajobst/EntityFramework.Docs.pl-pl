@@ -2,19 +2,13 @@
 title: Najpierw kod do nowej bazy danych — EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
-caps.latest.revision: 3
-ms.openlocfilehash: 75057fc73b082f4c745171ed77cddc358229a130
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: bb44a3300bc8ffc9d7050c4784e7b76b29c61796
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912122"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994621"
 ---
 # <a name="code-first-to-a-new-database"></a>Najpierw kod do nowej bazy danych
 W tym przewodniku krok po kroku i wideo zawierają wprowadzenie do rozwiązania deweloperskiego Code First dla nowej bazy danych. Ten scenariusz obejmuje przeznaczonych dla bazy danych, która nie istnieje i utworzy Code First lub pustej bazy danych, który Code First doda nowe tabele zbyt. Kod umożliwia najpierw zdefiniować model za pomocą języka C\# lub klasy VB.Net. Opcjonalnie można wykonać dodatkowe czynności konfiguracyjne przy użyciu atrybutów klas i właściwości lub za pomocą interfejsu API fluent.

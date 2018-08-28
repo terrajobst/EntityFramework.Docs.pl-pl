@@ -1,32 +1,30 @@
 ---
-title: Tworzenie modelu - EF Core
+title: Tworzenie modelu — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 88253ff3-174e-485c-b3f8-768243d01ee1
-ms.technology: entity-framework-core
 uid: core/modeling/index
-ms.openlocfilehash: 1ad0f6891fbc8ba2e4d102cc9997f053a9dddb66
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: 9f702d5833b88e6eb77c0afefdae0ed3bc162ec8
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812440"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993936"
 ---
 # <a name="creating-a-model"></a>Tworzenie modelu
 
-Entity Framework korzysta z zestawu Konwencji do kompilacji jest model oparty na kształt z klas jednostek. Można określić dodatkowej konfiguracji do uzupełnienia i/lub zastąpienie co została wykryta przez Konwencję.
+Entity Framework używa zestawu Konwencji do zbudowania modelu oparte na kształt klas jednostek. Możesz określić dodatkowej konfiguracji w celu uzupełnienia i/lub zastąpić, co zostało wykryte przez Konwencję.
 
-W tym artykule omówiono konfiguracji, który można zastosować do modelu przeznaczonych dla dowolnego magazynu danych i tych, które mogą być stosowane, gdy wszystkie relacyjnej bazy danych. Dostawcy mogą również włączyć konfiguracji, które są specyficzne dla magazynu danych. Dokumentację dotyczącą określonej konfiguracji dostawcy znaleźć [dostawcy bazy danych](../providers/index.md) sekcji.
+W tym artykule opisano konfiguracji, które mogą być stosowane do modelu, przeznaczone dla dowolnego magazynu danych i tych, które można zastosować w przypadku przeznaczone dla dowolnej relacyjnej bazy danych. Dostawców może też umożliwiać konfiguracji, które są specyficzne dla określonego magazynu danych. Dokumentację dotyczącą konfiguracji określonego dostawcy znaleźć [dostawcy baz danych](../providers/index.md) sekcji.
 
 > [!TIP]  
-> Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples) w witrynie GitHub.
+> Można wyświetlić w tym artykule [przykładowe](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples) w witrynie GitHub.
 
 ## <a name="methods-of-configuration"></a>Metody konfiguracji
 
-### <a name="fluent-api"></a>Interfejsu API Fluent
+### <a name="fluent-api"></a>Interfejs Fluent API
 
-Można zastąpić `OnModelCreating` metodę w pochodnej kontekstu i użyj `ModelBuilder API` do skonfigurowania modelu. To jest najbardziej zaawansowanych metody konfiguracji i umożliwia konfigurację można określić bez modyfikowania klas jednostek. Konfiguracja interfejsu API Fluent ma najwyższy priorytet i spowoduje zastąpienie adnotacje konwencje i danych.
+Można zastąpić `OnModelCreating` metodę w pochodnej kontekstu i użyj `ModelBuilder API` do skonfigurowania modelu. To jest najbardziej zaawansowane metody konfiguracji i umożliwia konfigurację można określić bez konieczności wprowadzania zmian w Twoich zajęciach jednostki. Konfiguracja interfejsu API Fluent ma najwyższy priorytet i spowoduje zastąpienie danych i konwencje adnotacji.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Required.cs?range=5-15&highlight=5-10)] -->
 
@@ -44,9 +42,9 @@ Można zastąpić `OnModelCreating` metodę w pochodnej kontekstu i użyj `Model
     }
 ```
 
-### <a name="data-annotations"></a>Adnotacji danych
+### <a name="data-annotations"></a>Adnotacje danych
 
-Można również zastosować atrybutów (nazywane adnotacji danych) do klasy i właściwości. Adnotacje danych spowoduje zastąpienie Konwencji, ale zostaną zastąpione przez konfigurację interfejsu API Fluent.
+Atrybuty (znanych jako adnotacje danych) można zastosować także do klas i właściwości. Adnotacje danych spowoduje zastąpienie Konwencji, ale zostaną zastąpione przez interfejs Fluent API konfiguracji.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/Required.cs?range=11-16&highlight=4)] -->
 ``` csharp

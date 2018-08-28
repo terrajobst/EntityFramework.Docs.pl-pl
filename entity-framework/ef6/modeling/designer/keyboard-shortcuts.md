@@ -2,19 +2,13 @@
 title: Entity Framework Designer skrótów klawiaturowych - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 3c76cdd5-17c5-4c54-a6a5-cf21b974636b
-caps.latest.revision: 3
-ms.openlocfilehash: a4ed95647872949d9e34a6bb5d83d5d6119b0022
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 70c9705956b58f4d00908dd9cca6ad0e0a078fc6
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949330"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997766"
 ---
 # <a name="entity-framework-designer-keyboard-shortcuts"></a>Skróty klawiaturowe projektanta programu Entity Framework
 Ta strona zawiera listę skróty klawiaturowe, które są dostępne na różnych ekranach narzędzi Entity Framework Tools for Visual Studio.
@@ -68,9 +62,9 @@ Ta strona zawiera listę skróty klawiaturowe, które są dostępne na różnych
 | **ALT + k** | Ustaw opcję "Dołącz kolumny klucza obcego w modelu"                              | Nie jest dostępna dla wszystkich wyborów zawartość modelu.                 |
 | **ALT + i** | Ustaw opcję "Importuj wybrane procedur przechowywanych i funkcji do modelu entity" | Nie jest dostępna dla wszystkich wyborów zawartość modelu.                 |
 | **ALT + m** | Przełącza fokus do pola tekstowego "Model Namespace"                                        | Nie jest dostępna dla wszystkich wyborów zawartość modelu.                 |
-| **Miejsce** | Przełącz zaznaczenie elementu                                                               | Jeśli element ma elementy podrzędne, wszystkie elementy podrzędne zostaną także przełączać |
-| **Po lewej stronie**  | Zwiń drzewa podrzędnego                                                                       |                                                                     |
-| **Po prawej stronie** | Rozwiń drzewo podrzędne                                                                         |                                                                     |
+| **miejsce** | Przełącz zaznaczenie elementu                                                               | Jeśli element ma elementy podrzędne, wszystkie elementy podrzędne zostaną także przełączać |
+| **po lewej stronie**  | Zwiń drzewa podrzędnego                                                                       |                                                                     |
+| **po prawej stronie** | Rozwiń drzewo podrzędne                                                                         |                                                                     |
 | **W górę**    | Przejdź do poprzedniego elementu w drzewie                                                      |                                                                     |
 | **W dół**  | Przejdź do następnego elementu w drzewie                                                          |                                                                     |
 
@@ -111,23 +105,23 @@ Ta strona zawiera listę skróty klawiaturowe, które są dostępne na różnych
 | **F2**                                                                                  | Przejdź do trybu edycji             | Standardowa skrót klawiaturowy do wprowadzenia trybu edycji dla kontrolki tekstu.                                                                                                                                                               |
 | **SHIFT + F10**                                                                         | Wyświetla menu skrótów.       | Standardowa skrót klawiaturowy do wyświetlania wybranego elementu menu skrótów.                                                                                                                                                          |
 | **Kliknięcie lewym przyciskiem Control + Shift + myszy**  <br/> **Kontrolka + Shift + kółka myszy do przodu**  | Powiększenie semantyczne w            | Powiększa się w obszarze widoku diagramu pod kursorem myszy.                                                                                                                                                                 |
-| **Kliknij prawym przyciskiem myszy formant + Shift + myszy** <br/> **Kontrolka + Shift + kółka myszy do tyłu** | Powiększenie semantyczne Out           | OtherContextMenus.MicrosoftDataEntityDesignContext.Select.BaseType OtherContextMenus.MicrosoftDataEntityDesignContext.Select.Entity                                                                          |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Select.Property** <br/> **OtherContextMenus.MicrosoftDataEntityDesignContext.Select.Subtype**                        | OtherContextMenus.MicrosoftDataEntityDesignContext.SelectAll                     | OtherContextMenus.MicrosoftDataEntityDesignContext.SelectAssociation                                                                                                                                                                                         |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.ShowinDiagram** <br/> **OtherContextMenus.MicrosoftDataEntityDesignContext.ShowinModelBrowser**                       | OtherContextMenus.MicrosoftDataEntityDesignContext.StoredProcedureMapping                    | OtherContextMenus.MicrosoftDataEntityDesignContext.TableMapping OtherContextMenus.MicrosoftDataEntityDesignContext.Select.Entity                                                                                            |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.UpdateModelfromDatabase**                  | OtherContextMenus.MicrosoftDataEntityDesignContext.Validate                   | OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.10 OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.100                        |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.125**                                                              | OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.150 | OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.200                                                                                                                                                               |
+| **Kliknij prawym przyciskiem myszy formant + Shift + myszy** <br/> **Kontrolka + Shift + kółka myszy do tyłu** | Powiększenie semantyczne Out           | Powiększa w obszarze widoku diagramu pod kursorem myszy. Centra ponownie diagramu, podczas powiększania zbyt daleko dla bieżącego diagramu produkcyjnego.                                                                          |
+| **Control + Shift + '+'** <br/> **CTRL + kółka myszy do przodu**                        | Powiększ                     | Powiększa się w środku widoku diagramu.                                                                                                                                                                                         |
+| **Control + Shift + "-"** <br/> **CTRL + kółka myszy do tyłu**                       | Pomniejsz                    | Powiększa w obszarze kliknięto widoku diagramu. Centra ponownie diagramu, podczas powiększania zbyt daleko dla bieżącego diagramu produkcyjnego.                                                                                            |
+| **Control + Shift + narysować prostokąt z lewego przycisku myszy w dół**                  | Obszar powiększenia                   | Powiększa tematyka koncentruje się na obszar, który został wybrany. Po przytrzymaj klawisze Shift + formant, pojawi się, że kursor zmienia się na lupy, dzięki czemu można określić obszar umożliwiającą powiększenie fragmentu.                        |
+| **Klawisz Menu kontekstowe + 'M '**                                                              | Otwórz okno Szczegóły mapowania | Zostanie otwarte okno Szczegóły mapowania, aby edytować mapowania dla wybranej jednostki                                                                                                                                                               |
 
-## <a name="mapping-details-window"></a>OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.25
+## <a name="mapping-details-window"></a>Okno Szczegóły mapowania
 
-![OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.300](~/ef6/media/mappingdetailsshortcuts.png)
+![MappingDetailsShortcuts](~/ef6/media/mappingdetailsshortcuts.png)
 
 | Skrót                  | Akcja         | Uwagi                                                                                                                                 |
 |:--------------------------|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------|
-| **Karta**                   | OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.33 | OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.400                                                                     |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.50**            | Nawigacja     | OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.66 OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.75 |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.Custom** <br/> **Miejsce** | Wybierz         | OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.ZoomIn                                                                                          |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.ZoomOut**      | OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.ZoomtoFit      | View.EntityDataModelBrowser                                                                     |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.Custom**                 | View.EntityDataModelMappingDetails    | Wybiera element na liście rozwijanej.                                                                                               |
+| **Karta**                   | Przełącz kontekst | Przełącza między obszaru okno główne i narzędzi po lewej stronie                                                                     |
+| **Klawisze strzałek**            | Nawigacja     | Przemieszczać się w wierszach, lub po prawej stronie i po lewej stronie w kolumnach w obszarze głównego okna. Przenoszenie między przyciskami na pasku narzędzi po lewej stronie. |
+| **Wprowadź** <br/> **miejsce** | Wybierz         | Wybierze przycisk na pasku narzędzi po lewej stronie.                                                                                          |
+| **Alt + Strzałka w dół**      | Otwieranie listy      | Listę rozwijaną listę, jeśli komórka jest zaznaczona, który ma listy rozwijanej.                                                                     |
+| **Wprowadź**                 | Wybierz z listy    | Wybiera element na liście rozwijanej.                                                                                               |
 | **ESC**                   | Zamknij listę     | Zamyka listy rozwijanej.                                                                                                              |
 
 ## <a name="visual-studio-navigation"></a>Nawigacja w programie Visual Studio

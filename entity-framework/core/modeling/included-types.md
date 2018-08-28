@@ -1,33 +1,31 @@
 ---
-title: W tym & wykluczanie typów - EF Core
+title: Uwzględnianie i wykluczanie typów — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: cbe6935e-2679-4b77-8914-a8d772240cf1
-ms.technology: entity-framework-core
 uid: core/modeling/included-types
-ms.openlocfilehash: a8d7293a144968d2506bdcc76e55a1a0b1e3fd4b
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: a5a14f62524754fed179e9a41fac5e29faf185ca
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054128"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996153"
 ---
-# <a name="including--excluding-types"></a>W tym & wykluczanie typów
+# <a name="including--excluding-types"></a>Uwzględnianie i wykluczanie typów
 
-W tym typu w modelu oznacza, że EF ma metadane dotyczące typu, który będzie podejmować próby odczytu i zapisu wystąpień z/do bazy danych.
+W tym typu w modelu oznacza, że EF ma metadane o typ, który podejmie próbę odczytu i zapisu wystąpienia z i do bazy danych.
 
 ## <a name="conventions"></a>Konwencje
 
-Konwencja typy, które są widoczne w `DbSet` właściwości kontekstu znajdują się w modelu. Ponadto typy, które są wymienione w `OnModelCreating` uwzględniane są również metody. Na koniec żadnych typów, które zostały znalezione przez cyklicznie badać właściwości nawigacji wykrytych typów znajdują się również w modelu.
+Zgodnie z Konwencją, typy, które są widoczne w `DbSet` właściwości kontekstu znajdują się w modelu. Ponadto, typy, które są wymienione w `OnModelCreating` metody dostępne są również. Ponadto wszystkie typy, które znajdują się przez rekursywnie Eksplorowanie właściwości nawigacji odnalezionych typów znajdują się również w modelu.
 
-**Na przykład w poniższym fragmencie kodu odnalezieniu wszystkich trzech typów:**
+**Na przykład w poniższym fragmencie kodu wszystkich trzech typów zostaną wykryte:**
 
-* `Blog`ponieważ jest widoczna w `DbSet` właściwości w tym kontekście
+* `Blog` ponieważ jest ona uwidoczniona w `DbSet` właściwości w kontekście
 
-* `Post`ponieważ okaże się za pośrednictwem `Blog.Posts` właściwości nawigacji
+* `Post` ponieważ jest odnalezione `Blog.Posts` właściwość nawigacji
 
-* `AuditEntry`ponieważ jest wymieniony w`OnModelCreating`
+* `AuditEntry` ponieważ są one wymienione w `OnModelCreating`
 
 <!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/IncludedTypes.cs?highlight=3,7,16)] -->
 ``` csharp
@@ -66,9 +64,9 @@ public class AuditEntry
 }
 ```
 
-## <a name="data-annotations"></a>Adnotacji danych
+## <a name="data-annotations"></a>Adnotacje danych
 
-Aby wyłączyć typ z modelu, można użyć adnotacji danych.
+Korzystanie z adnotacji danych, aby wyłączyć typ z modelu.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/IgnoreType.cs?highlight=9)] -->
 ``` csharp
@@ -87,9 +85,9 @@ public class BlogMetadata
 }
 ```
 
-## <a name="fluent-api"></a>Interfejsu API Fluent
+## <a name="fluent-api"></a>Interfejs Fluent API
 
-Aby wyłączyć typ z modelu, można użyć interfejsu API Fluent.
+Aby wyłączyć typ z modelu, można użyć Fluent API.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/IgnoreType.cs?highlight=7)] -->
 ``` csharp

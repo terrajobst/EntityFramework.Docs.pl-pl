@@ -1,17 +1,15 @@
 ---
 title: Usuwanie — EF Core kaskadowe
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
-ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 7e1c87ae3a955c22b267a108ea7c2bb504e9acc3
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: afe00ddb1b487c6b1b2ea42708c9967a57cea04b
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949290"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995245"
 ---
 # <a name="cascade-delete"></a>Usuwanie kaskadowe
 
@@ -42,7 +40,7 @@ W przypadku relacji opcjonalne (dopuszcza wartości null z kluczem obcym) on _je
 | **Kaskadowe**                 | Jednostki są usuwane.                   | Jednostki są usuwane.                   |
 | **ClientSetNull** (opcja domyślna) | Właściwości klucza obcego są ustawione na wartość null | Brak                                   |
 | **SetNull**                 | Właściwości klucza obcego są ustawione na wartość null | Właściwości klucza obcego są ustawione na wartość null |
-| **Ograniczenia**                | Brak                                   | Brak                                   |
+| **ograniczenia**                | Brak                                   | Brak                                   |
 
 ### <a name="required-relationships"></a>Wymagane relacje
 W przypadku relacji (innych niż null z kluczem obcym), wymagane jest _nie_ można zapisać wartości null wartości klucza obcego, co powoduje następujące skutki:
@@ -52,7 +50,7 @@ W przypadku relacji (innych niż null z kluczem obcym), wymagane jest _nie_ moż
 | **Kaskadowe** (opcja domyślna) | Jednostki są usuwane.                | Jednostki są usuwane.                  |
 | **ClientSetNull**     | Zgłasza SaveChanges                  | Brak                                  |
 | **SetNull**           | Zgłasza SaveChanges                  | Zgłasza SaveChanges                    |
-| **Ograniczenia**          | Brak                                | Brak                                  |
+| **ograniczenia**          | Brak                                | Brak                                  |
 
 W tabelach powyżej *Brak* może doprowadzić do naruszenia ograniczenia. Na przykład jeśli jednostka jednostki/podrzędny jest usuwana, lecz nie podjęto żadnej akcji można zmienić klucza obcego z zależnych od ustawień lokalnych/podrzędny, następnie bazie danych prawdopodobnie zgłosi na SaveChanges z powodu naruszenia ograniczenia obcego.
 
