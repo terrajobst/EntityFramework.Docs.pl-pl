@@ -1,157 +1,166 @@
 ---
-title: Wprowadzenie do platformy uniwersalnej systemu Windows — nowej bazy danych — EF Core
+title: Wprowadzenie do platformy UWP — Nowa baza danych — EF Core
 author: rowanmiller
-ms.author: divega
-ms.date: 10/27/2016
-ms.topic: get-started-article
+ms.date: 08/08/2018
 ms.assetid: a0ae2f21-1eef-43c6-83ad-92275f9c0727
-ms.technology: entity-framework-core
 uid: core/get-started/uwp/getting-started
-ms.openlocfilehash: f743ff5392d1f30283a13d2e7fb8029be88387aa
-ms.sourcegitcommit: 96324e58c02b97277395ed43173bf13ac80d2012
+ms.openlocfilehash: c243ef2a1940af9bf4f4b32f17acfcce7f972862
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/01/2017
-ms.locfileid: "26054815"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996913"
 ---
-# <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp-with-a-new-database"></a><span data-ttu-id="467ee-102">Wprowadzenie do podstawowych EF na platformę uniwersalną systemu Windows (UWP) z nową bazę danych</span><span class="sxs-lookup"><span data-stu-id="467ee-102">Getting Started with EF Core on Universal Windows Platform (UWP) with a New Database</span></span>
+# <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp-with-a-new-database"></a><span data-ttu-id="a6c7c-102">Wprowadzenie do programu EF Core na platformie Universal Windows (UWP) przy użyciu nowej bazy danych</span><span class="sxs-lookup"><span data-stu-id="a6c7c-102">Getting Started with EF Core on Universal Windows Platform (UWP) with a New Database</span></span>
 
-> [!NOTE]
-> <span data-ttu-id="467ee-103">W tym samouczku używana Core EF 2.0.1 (wydane z platformy ASP.NET Core i .NET Core SDK 2.0.3).</span><span class="sxs-lookup"><span data-stu-id="467ee-103">This tutorial uses EF Core 2.0.1 (released alongside ASP.NET Core and .NET Core SDK 2.0.3).</span></span> <span data-ttu-id="467ee-104">EF Core 2.0.0 brakuje niektórych ważnych poprawki wymagane do dobrej obsługi platformy uniwersalnej systemu Windows.</span><span class="sxs-lookup"><span data-stu-id="467ee-104">EF Core 2.0.0 lacks some crucial bug fixes required for a good UWP experience.</span></span>
+<span data-ttu-id="a6c7c-103">W tym samouczku utworzysz aplikację platformy uniwersalnej Windows (UWP), która wykonuje dostęp do podstawowych danych lokalnej bazy danych SQLite przy użyciu platformy Entity Framework Core.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-103">In this tutorial, you build a Universal Windows Platform (UWP) application that performs basic data access against a local SQLite database using Entity Framework Core.</span></span>
 
-<span data-ttu-id="467ee-105">W tym przewodniku będzie tworzenia aplikacji systemu Windows platformy Uniwersalnej, która wykonuje dostęp do podstawowych danych lokalnej bazy danych SQLite używający narzędzia Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="467ee-105">In this walkthrough, you will build a Universal Windows Platform (UWP) application that performs basic data access against a local SQLite database using Entity Framework.</span></span>
+<span data-ttu-id="a6c7c-104">[Wyświetlanie przykładowych w tym artykule w witrynie GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/UWP).</span><span class="sxs-lookup"><span data-stu-id="a6c7c-104">[View this article's sample on GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/UWP).</span></span>
+
+## <a name="prerequisites"></a><span data-ttu-id="a6c7c-105">Wymagania wstępne</span><span class="sxs-lookup"><span data-stu-id="a6c7c-105">Prerequisites</span></span>
+
+* <span data-ttu-id="a6c7c-106">[Windows 10 Fall Creators Update (10.0; Kompilacja 16299) lub nowszym](https://support.microsoft.com/en-us/help/4027667/windows-update-windows-10).</span><span class="sxs-lookup"><span data-stu-id="a6c7c-106">[Windows 10 Fall Creators Update (10.0; Build 16299) or later](https://support.microsoft.com/en-us/help/4027667/windows-update-windows-10).</span></span>
+
+* <span data-ttu-id="a6c7c-107">[Visual Studio 2017 w wersji 15.7 lub nowszej](https://www.visualstudio.com/downloads/) z **Universal Windows Platform Development** obciążenia.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-107">[Visual Studio 2017 version 15.7 or later](https://www.visualstudio.com/downloads/) with the **Universal Windows Platform Development** workload.</span></span>
+
+* <span data-ttu-id="a6c7c-108">[Zestaw SDK programu .NET core 2.1 lub nowszej](https://www.microsoft.com/net/core) lub nowszej.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-108">[.NET Core 2.1 SDK or later](https://www.microsoft.com/net/core) or later.</span></span>
+
+## <a name="create-a-model-project"></a><span data-ttu-id="a6c7c-109">Tworzenie projektu modelu</span><span class="sxs-lookup"><span data-stu-id="a6c7c-109">Create a model project</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="467ee-106">**Należy rozważyć unikanie typy anonimowe w zapytaniach LINQ na platformy uniwersalnej systemu Windows**.</span><span class="sxs-lookup"><span data-stu-id="467ee-106">**Consider avoiding anonymous types in LINQ queries on UWP**.</span></span> <span data-ttu-id="467ee-107">Wdrażanie aplikacji do sklepu z aplikacjami platformy uniwersalnej systemu Windows wymaga aplikacji do skompilowania z platformą .NET Native.</span><span class="sxs-lookup"><span data-stu-id="467ee-107">Deploying a UWP application to the app store requires your application to be compiled with .NET Native.</span></span> <span data-ttu-id="467ee-108">Zapytania z typy anonimowe ma pogorszenie wydajności na platformie .NET Native.</span><span class="sxs-lookup"><span data-stu-id="467ee-108">Queries with anonymous types have worse performance on .NET Native.</span></span>
+> <span data-ttu-id="a6c7c-110">Ze względu na ograniczenia w taki sposób, narzędzia platformy .NET Core wchodzą w interakcję z projektów platformy UWP modelu musi być umieszczona w projekcie bez platformy UWP, aby można było uruchamiać polecenia migracji w **Konsola Menedżera pakietów** (PMC)</span><span class="sxs-lookup"><span data-stu-id="a6c7c-110">Due to limitations in the way .NET Core tools interact with UWP projects the model needs to be placed in a non-UWP project to be able to run migrations commands in the **Package Manager Console** (PMC)</span></span>
 
-> [!TIP]
-> <span data-ttu-id="467ee-109">Można wyświetlić w tym artykule [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/UWP/UWP.SQLite) w witrynie GitHub.</span><span class="sxs-lookup"><span data-stu-id="467ee-109">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/UWP/UWP.SQLite) on GitHub.</span></span>
+* <span data-ttu-id="a6c7c-111">Otwórz program Visual Studio</span><span class="sxs-lookup"><span data-stu-id="a6c7c-111">Open Visual Studio</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="467ee-110">Wstępnie wymagane składniki</span><span class="sxs-lookup"><span data-stu-id="467ee-110">Prerequisites</span></span>
+* <span data-ttu-id="a6c7c-112">**Plik > Nowy > Projekt**</span><span class="sxs-lookup"><span data-stu-id="a6c7c-112">**File > New > Project**</span></span>
 
-<span data-ttu-id="467ee-111">Poniższe elementy są wymagane w tym przewodniku:</span><span class="sxs-lookup"><span data-stu-id="467ee-111">The following items are required to complete this walkthrough:</span></span>
+* <span data-ttu-id="a6c7c-113">Z menu po lewej stronie wybierz **zainstalowane > Visual C# > .NET Standard**.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-113">From the left menu select **Installed > Visual C# > .NET Standard**.</span></span>
 
-* <span data-ttu-id="467ee-112">[Windows 10 twórców spadku zaktualizować](https://support.microsoft.com/en-us/help/4027667/windows-update-windows-10) (10.0.16299.0)</span><span class="sxs-lookup"><span data-stu-id="467ee-112">[Windows 10 Fall Creators Update](https://support.microsoft.com/en-us/help/4027667/windows-update-windows-10) (10.0.16299.0)</span></span>
+* <span data-ttu-id="a6c7c-114">Wybierz **biblioteki klas (.NET Standard)** szablonu.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-114">Select the **Class Library (.NET Standard)** template.</span></span>
 
-* <span data-ttu-id="467ee-113">[Oprogramowanie .NET core 2.0.0 SDK](https://www.microsoft.com/net/core) lub nowszym.</span><span class="sxs-lookup"><span data-stu-id="467ee-113">[.NET Core 2.0.0 SDK](https://www.microsoft.com/net/core) or later.</span></span>
+* <span data-ttu-id="a6c7c-115">Nadaj projektowi nazwę *Blogging.Model*.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-115">Name the project *Blogging.Model*.</span></span>
 
-* <span data-ttu-id="467ee-114">[Visual Studio 2017](https://www.visualstudio.com/downloads/) wersji 15,4 lub nowszym z **platformy uniwersalnej systemu Windows dla deweloperów** obciążenia.</span><span class="sxs-lookup"><span data-stu-id="467ee-114">[Visual Studio 2017](https://www.visualstudio.com/downloads/) version 15.4 or later with the **Universal Windows Platform Development** workload.</span></span>
+* <span data-ttu-id="a6c7c-116">Nazwij rozwiązanie *do obsługi blogów*.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-116">Name the solution *Blogging*.</span></span>
 
-## <a name="create-a-new-model-project"></a><span data-ttu-id="467ee-115">Utwórz nowy projekt modelu</span><span class="sxs-lookup"><span data-stu-id="467ee-115">Create a new model project</span></span>
+* <span data-ttu-id="a6c7c-117">Kliknij przycisk **OK**.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-117">Click **OK**.</span></span>
 
-> [!WARNING]
-> <span data-ttu-id="467ee-116">Ze względu na ograniczenia w narzędziach .NET Core sposób interakcji z projektów uniwersalnych systemu Windows, które modelu musi być umieszczona w projekcie aplikacje platformy UWP, aby można było uruchamiać polecenia migracji w konsoli Menedżera pakietów</span><span class="sxs-lookup"><span data-stu-id="467ee-116">Due to limitations in the way .NET Core tools interact with UWP projects the model needs to be placed in a non-UWP project to be able to run migrations commands in the Package Manager Console</span></span>
+## <a name="install-entity-framework-core"></a><span data-ttu-id="a6c7c-118">Instalowanie platformy Entity Framework Core</span><span class="sxs-lookup"><span data-stu-id="a6c7c-118">Install Entity Framework Core</span></span>
 
-* <span data-ttu-id="467ee-117">Otwórz program Visual Studio</span><span class="sxs-lookup"><span data-stu-id="467ee-117">Open Visual Studio</span></span>
+<span data-ttu-id="a6c7c-119">Aby korzystać z programu EF Core, należy zainstalować pakiet dla dostawców bazy danych, który ma pod kątem.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-119">To use EF Core, install the package for the database provider(s) you want to target.</span></span> <span data-ttu-id="a6c7c-120">Ten samouczek używa bazy danych SQLite.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-120">This tutorial uses SQLite.</span></span> <span data-ttu-id="a6c7c-121">Aby uzyskać listę dostępnych dostawców zobacz [dostawcy baz danych](../../providers/index.md).</span><span class="sxs-lookup"><span data-stu-id="a6c7c-121">For a list of available providers see [Database Providers](../../providers/index.md).</span></span>
 
-* <span data-ttu-id="467ee-118">Plik > Nowy > Projekt...</span><span class="sxs-lookup"><span data-stu-id="467ee-118">File > New > Project...</span></span>
+* <span data-ttu-id="a6c7c-122">**Narzędzia > Menedżer pakietów NuGet > Konsola Menedżera pakietów**.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-122">**Tools > NuGet Package Manager > Package Manager Console**.</span></span>
 
-* <span data-ttu-id="467ee-119">Z menu po lewej stronie wybierz Szablony > Visual C#</span><span class="sxs-lookup"><span data-stu-id="467ee-119">From the left menu select Templates > Visual C#</span></span>
+* <span data-ttu-id="a6c7c-123">Uruchom `Install-Package Microsoft.EntityFrameworkCore.Sqlite`</span><span class="sxs-lookup"><span data-stu-id="a6c7c-123">Run `Install-Package Microsoft.EntityFrameworkCore.Sqlite`</span></span>
 
-* <span data-ttu-id="467ee-120">Wybierz **biblioteki klas (.NET Standard)** szablonu projektu</span><span class="sxs-lookup"><span data-stu-id="467ee-120">Select the **Class Library (.NET Standard)** project template</span></span>
+<span data-ttu-id="a6c7c-124">W dalszej części tego samouczka używana będzie niektóre narzędzia Entity Framework Core do obsługi bazy danych.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-124">Later in this tutorial you will be using some Entity Framework Core tools to maintain the database.</span></span> <span data-ttu-id="a6c7c-125">Więc Zainstaluj również pakiet narzędzi.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-125">So install the tools package as well.</span></span>
 
-* <span data-ttu-id="467ee-121">Nadaj nazwę projektu, a następnie kliknij przycisk **OK**</span><span class="sxs-lookup"><span data-stu-id="467ee-121">Give the project a name and click **OK**</span></span>
+* <span data-ttu-id="a6c7c-126">Uruchom `Install-Package Microsoft.EntityFrameworkCore.Tools`</span><span class="sxs-lookup"><span data-stu-id="a6c7c-126">Run `Install-Package Microsoft.EntityFrameworkCore.Tools`</span></span>
 
-## <a name="install-entity-framework"></a><span data-ttu-id="467ee-122">Instalowanie programu Entity Framework</span><span class="sxs-lookup"><span data-stu-id="467ee-122">Install Entity Framework</span></span>
+## <a name="create-the-model"></a><span data-ttu-id="a6c7c-127">Tworzenie modelu</span><span class="sxs-lookup"><span data-stu-id="a6c7c-127">Create the model</span></span>
 
-<span data-ttu-id="467ee-123">Aby użyć EF podstawowe, należy zainstalować pakiet dla powszechne bazy danych, który ma być docelowa.</span><span class="sxs-lookup"><span data-stu-id="467ee-123">To use EF Core, install the package for the database provider(s) you want to target.</span></span> <span data-ttu-id="467ee-124">W tym przewodniku zastosowano SQLite.</span><span class="sxs-lookup"><span data-stu-id="467ee-124">This walkthrough uses SQLite.</span></span> <span data-ttu-id="467ee-125">Lista dostępnych dostawców [dostawcy bazy danych](../../providers/index.md).</span><span class="sxs-lookup"><span data-stu-id="467ee-125">For a list of available providers see [Database Providers](../../providers/index.md).</span></span>
+<span data-ttu-id="a6c7c-128">Teraz nadszedł czas, do definiowania klas kontekstu i jednostek, które tworzą model.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-128">Now it's time to define a context and entity classes that make up the model.</span></span>
 
-* <span data-ttu-id="467ee-126">Narzędzia > Menedżera pakietów NuGet > konsoli Menedżera pakietów</span><span class="sxs-lookup"><span data-stu-id="467ee-126">Tools > NuGet Package Manager > Package Manager Console</span></span>
+* <span data-ttu-id="a6c7c-129">Usuń *Class1.cs*.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-129">Delete *Class1.cs*.</span></span>
 
-* <span data-ttu-id="467ee-127">Uruchom`Install-Package Microsoft.EntityFrameworkCore.Sqlite`</span><span class="sxs-lookup"><span data-stu-id="467ee-127">Run `Install-Package Microsoft.EntityFrameworkCore.Sqlite`</span></span>
+* <span data-ttu-id="a6c7c-130">Tworzenie *Model.cs* następującym kodem:</span><span class="sxs-lookup"><span data-stu-id="a6c7c-130">Create *Model.cs* with the following code:</span></span>
 
-<span data-ttu-id="467ee-128">W dalszej części tego przewodnika również użyjemy narzędzi Framework niektóre jednostki do obsługi bazy danych.</span><span class="sxs-lookup"><span data-stu-id="467ee-128">Later in this walkthrough we will also be using some Entity Framework Tools to maintain the database.</span></span> <span data-ttu-id="467ee-129">Dlatego zostanie zainstalowany pakiet narzędzi również.</span><span class="sxs-lookup"><span data-stu-id="467ee-129">So we will install the tools package as well.</span></span>
+  [!code-csharp[Main](../../../../samples/core/GetStarted/UWP/Blogging.Model/Model.cs)]
 
-* <span data-ttu-id="467ee-130">Uruchom`Install-Package Microsoft.EntityFrameworkCore.Tools`</span><span class="sxs-lookup"><span data-stu-id="467ee-130">Run `Install-Package Microsoft.EntityFrameworkCore.Tools`</span></span>
+## <a name="create-a-new-uwp-project"></a><span data-ttu-id="a6c7c-131">Utwórz nowy projekt platformy uniwersalnej systemu Windows</span><span class="sxs-lookup"><span data-stu-id="a6c7c-131">Create a new UWP project</span></span>
 
-* <span data-ttu-id="467ee-131">Przeprowadź edycję pliku .csproj i Zastąp `<TargetFramework>netstandard2.0</TargetFramework>` z`<TargetFrameworks>netcoreapp2.0;netstandard2.0</TargetFrameworks>`</span><span class="sxs-lookup"><span data-stu-id="467ee-131">Edit the .csproj file and replace `<TargetFramework>netstandard2.0</TargetFramework>` with `<TargetFrameworks>netcoreapp2.0;netstandard2.0</TargetFrameworks>`</span></span>
+* <span data-ttu-id="a6c7c-132">W **Eksploratora rozwiązań**, kliknij prawym przyciskiem myszy rozwiązanie, a następnie wybierz **Dodaj > Nowy projekt**.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-132">In **Solution Explorer**, right-click the solution, and then choose **Add > New Project**.</span></span>
 
-## <a name="create-your-model"></a><span data-ttu-id="467ee-132">Tworzenie modelu</span><span class="sxs-lookup"><span data-stu-id="467ee-132">Create your model</span></span>
+* <span data-ttu-id="a6c7c-133">Z menu po lewej stronie wybierz **zainstalowane > Visual C# > Windows Universal**.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-133">From the left menu select **Installed > Visual C# > Windows Universal**.</span></span>
 
-<span data-ttu-id="467ee-133">Teraz nadszedł czas do definiowania klas kontekstu i jednostek, wchodzące w skład modelu.</span><span class="sxs-lookup"><span data-stu-id="467ee-133">Now it's time to define a context and entity classes that make up your model.</span></span>
+* <span data-ttu-id="a6c7c-134">Wybierz **pusta aplikacja (Windows Universal)** szablonu projektu.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-134">Select the **Blank App (Universal Windows)** project template.</span></span>
 
-* <span data-ttu-id="467ee-134">Projekt > Dodaj klasę...</span><span class="sxs-lookup"><span data-stu-id="467ee-134">Project > Add Class...</span></span>
+* <span data-ttu-id="a6c7c-135">Nadaj projektowi nazwę *Blogging.UWP*i kliknij przycisk **OK**</span><span class="sxs-lookup"><span data-stu-id="a6c7c-135">Name the project *Blogging.UWP*, and click **OK**</span></span>
 
-* <span data-ttu-id="467ee-135">Wprowadź *Model.cs* jako nazwy i kliknij przycisk **OK**</span><span class="sxs-lookup"><span data-stu-id="467ee-135">Enter *Model.cs* as the name and click **OK**</span></span>
+* <span data-ttu-id="a6c7c-136">Co najmniej równa wersje docelową i minimalną **Windows 10 Fall Creators Update (10.0; kompilacja 16299.0)**.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-136">Set the target and minimum versions to at least **Windows 10 Fall Creators Update (10.0; build 16299.0)**.</span></span>
 
-* <span data-ttu-id="467ee-136">Zastąp zawartość pliku następującym kodem</span><span class="sxs-lookup"><span data-stu-id="467ee-136">Replace the contents of the file with the following code</span></span>
+## <a name="create-the-initial-migration"></a><span data-ttu-id="a6c7c-137">Tworzenie początkowej migracji</span><span class="sxs-lookup"><span data-stu-id="a6c7c-137">Create the initial migration</span></span>
 
-[!code-csharp[Main](../../../../samples/core/GetStarted/UWP/UWP.Model/Model.cs)]
+<span data-ttu-id="a6c7c-138">Teraz, gdy model, należy skonfigurować aplikację do tworzenia bazy danych przy pierwszym uruchomieniu.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-138">Now that you have a model, set up the app to create a database the first time it runs.</span></span> <span data-ttu-id="a6c7c-139">W tej sekcji opisano tworzenie początkowej migracji.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-139">In this section, you create the initial migration.</span></span> <span data-ttu-id="a6c7c-140">W poniższej sekcji dodasz kod, który ma zastosowanie tej migracji, po uruchomieniu aplikacji.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-140">In the following section, you add code that applies this migration when the app starts.</span></span>
 
-## <a name="create-a-new-uwp-project"></a><span data-ttu-id="467ee-137">Utwórz nowy projekt platformy uniwersalnej systemu Windows</span><span class="sxs-lookup"><span data-stu-id="467ee-137">Create a new UWP project</span></span>
+<span data-ttu-id="a6c7c-141">Narzędzia migracji wymagają projektu startowego bez platformy UWP, dzięki czemu można tworzyć najpierw.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-141">Migrations tools require a non-UWP startup project, so create that first.</span></span>
 
-* <span data-ttu-id="467ee-138">Otwórz program Visual Studio</span><span class="sxs-lookup"><span data-stu-id="467ee-138">Open Visual Studio</span></span>
+* <span data-ttu-id="a6c7c-142">W **Eksploratora rozwiązań**, kliknij prawym przyciskiem myszy rozwiązanie, a następnie wybierz **Dodaj > Nowy projekt**.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-142">In **Solution Explorer**, right-click the solution, and then choose **Add > New Project**.</span></span>
 
-* <span data-ttu-id="467ee-139">Plik > Nowy > Projekt...</span><span class="sxs-lookup"><span data-stu-id="467ee-139">File > New > Project...</span></span>
+* <span data-ttu-id="a6c7c-143">Z menu po lewej stronie wybierz **zainstalowane > Visual C# > .NET Core**.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-143">From the left menu select **Installed > Visual C# > .NET Core**.</span></span>
 
-* <span data-ttu-id="467ee-140">Z menu po lewej stronie wybierz Szablony > Visual C# > uniwersalnych systemu Windows</span><span class="sxs-lookup"><span data-stu-id="467ee-140">From the left menu select Templates > Visual C# > Windows Universal</span></span>
+* <span data-ttu-id="a6c7c-144">Wybierz **Aplikacja konsoli (.NET Core)** szablonu projektu.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-144">Select the **Console App (.NET Core)** project template.</span></span>
 
-* <span data-ttu-id="467ee-141">Wybierz **pusta aplikacja (uniwersalna systemu Windows)** szablonu projektu</span><span class="sxs-lookup"><span data-stu-id="467ee-141">Select the **Blank App (Universal Windows)** project template</span></span>
+* <span data-ttu-id="a6c7c-145">Nadaj projektowi nazwę *Blogging.Migrations.Startup*i kliknij przycisk **OK**.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-145">Name the project *Blogging.Migrations.Startup*, and click **OK**.</span></span>
 
-* <span data-ttu-id="467ee-142">Nadaj nazwę projektu, a następnie kliknij przycisk **OK**</span><span class="sxs-lookup"><span data-stu-id="467ee-142">Give the project a name and click **OK**</span></span>
+* <span data-ttu-id="a6c7c-146">Dodaj odwołanie do projektu z *Blogging.Migrations.Startup* projekt *Blogging.Model* projektu.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-146">Add a project reference from the *Blogging.Migrations.Startup* project to the *Blogging.Model* project.</span></span>
 
-* <span data-ttu-id="467ee-143">Ustaw docelowy i co najmniej wersji do co najmniej`Windows 10 Fall Creators Update (10.0; build 16299.0)`</span><span class="sxs-lookup"><span data-stu-id="467ee-143">Set the target and minimum versions to at least `Windows 10 Fall Creators Update (10.0; build 16299.0)`</span></span>
+<span data-ttu-id="a6c7c-147">Teraz możesz utworzyć początkowej migracji.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-147">Now you can create your initial migration.</span></span>
 
-## <a name="create-your-database"></a><span data-ttu-id="467ee-144">Tworzenie bazy danych</span><span class="sxs-lookup"><span data-stu-id="467ee-144">Create your database</span></span>
+* <span data-ttu-id="a6c7c-148">**Narzędzia > Menedżer pakietów NuGet > Konsola Menedżera pakietów**</span><span class="sxs-lookup"><span data-stu-id="a6c7c-148">**Tools > NuGet Package Manager > Package Manager Console**</span></span>
 
-<span data-ttu-id="467ee-145">Teraz, gdy masz modelu można użyć migracji tworzenia bazy danych dla Ciebie.</span><span class="sxs-lookup"><span data-stu-id="467ee-145">Now that you have a model, you can use migrations to create a database for you.</span></span>
+* <span data-ttu-id="a6c7c-149">Wybierz *Blogging.Model* projektu jako **projekt domyślny**.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-149">Select the *Blogging.Model* project as the **Default project**.</span></span>
 
-* <span data-ttu-id="467ee-146">Pakiet NuGet –> Narzędzia Menedżera –> Konsola Menedżera pakietów</span><span class="sxs-lookup"><span data-stu-id="467ee-146">Tools –> NuGet Package Manager –> Package Manager Console</span></span>
+* <span data-ttu-id="a6c7c-150">W **Eksploratora rozwiązań**ustaw *Blogging.Migrations.Startup* projekt jako projekt startowy.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-150">In **Solution Explorer**, set the *Blogging.Migrations.Startup* project as the startup project.</span></span>
 
-* <span data-ttu-id="467ee-147">Wybierz projekt z modelem jako domyślny projekt i ustaw go jako projekt startowy</span><span class="sxs-lookup"><span data-stu-id="467ee-147">Select the model project as the Default project and set it as the startup project</span></span>
+* <span data-ttu-id="a6c7c-151">Uruchom `Add-Migration InitialCreate`.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-151">Run `Add-Migration InitialCreate`.</span></span>
 
-* <span data-ttu-id="467ee-148">Uruchom `Add-Migration MyFirstMigration` Aby utworzyć szkielet migracji do utworzenia wstępnego zestawu tabel dla modelu.</span><span class="sxs-lookup"><span data-stu-id="467ee-148">Run `Add-Migration MyFirstMigration` to scaffold a migration to create the initial set of tables for your model.</span></span>
+  <span data-ttu-id="a6c7c-152">To polecenie scaffolds migracji, który tworzy początkowego zestawu tabel dla modelu.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-152">This command scaffolds a migration that creates the initial set of tables for your model.</span></span>
 
-<span data-ttu-id="467ee-149">Ponieważ chcemy bazy danych ma zostać utworzony na urządzeniu, która aplikacja jest uruchamiana na dodamy kodu, zastosuj wszelkie oczekujące migracje do lokalnej bazy danych podczas uruchamiania aplikacji.</span><span class="sxs-lookup"><span data-stu-id="467ee-149">Since we want the database to be created on the device that the app runs on, we will add some code to apply any pending migrations to the local database on application startup.</span></span> <span data-ttu-id="467ee-150">Aplikacja jest uruchamiana, po raz pierwszy to zajmie się tworzenie firmie Microsoft w lokalnej bazie danych.</span><span class="sxs-lookup"><span data-stu-id="467ee-150">The first time that the app runs, this will take care of creating the local database for us.</span></span>
+## <a name="create-the-database-on-app-startup"></a><span data-ttu-id="a6c7c-153">Tworzenie bazy danych podczas uruchamiania aplikacji</span><span class="sxs-lookup"><span data-stu-id="a6c7c-153">Create the database on app startup</span></span>
 
-* <span data-ttu-id="467ee-151">Kliknij prawym przyciskiem myszy **App.xaml** w **Eksploratora rozwiązań** i wybierz **widoku kodu**</span><span class="sxs-lookup"><span data-stu-id="467ee-151">Right-click on **App.xaml** in **Solution Explorer** and select **View Code**</span></span>
+<span data-ttu-id="a6c7c-154">Ponieważ baza danych ma zostać utworzony na urządzeniu, która jest uruchamiana aplikacja, należy dodać kod Zastosuj wszelkie oczekujące migracji w lokalnej bazie danych podczas uruchamiania aplikacji.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-154">Since you want the database to be created on the device that the app runs on, add code to apply any pending migrations to the local database on application startup.</span></span> <span data-ttu-id="a6c7c-155">Przy pierwszym uruchomieniu aplikacji, to zajmie się tworzenie lokalnej bazy danych.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-155">The first time that the app runs, this will take care of creating the local database.</span></span>
 
-* <span data-ttu-id="467ee-152">Dodaj wyróżnione using na początku pliku</span><span class="sxs-lookup"><span data-stu-id="467ee-152">Add the highlighted using to the start of the file</span></span>
+* <span data-ttu-id="a6c7c-156">Dodaj odwołanie do projektu z *Blogging.UWP* projekt *Blogging.Model* projektu.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-156">Add a project reference from the *Blogging.UWP* project to the *Blogging.Model* project.</span></span>
 
-* <span data-ttu-id="467ee-153">Dodaj wyróżniony kod, aby Zastosuj wszelkie oczekujące migracje</span><span class="sxs-lookup"><span data-stu-id="467ee-153">Add the highlighted code to apply any pending migrations</span></span>
+* <span data-ttu-id="a6c7c-157">Otwórz *App.xaml.cs*.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-157">Open *App.xaml.cs*.</span></span>
 
-[!code-csharp[Main](../../../../samples/core/GetStarted/UWP/UWP.SQLite/App.xaml.cs?highlight=1,25-28)]
+* <span data-ttu-id="a6c7c-158">Dodaj wyróżniony kod, aby zastosować wszelkie oczekujące migracji.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-158">Add the highlighted code to apply any pending migrations.</span></span>
+
+  [!code-csharp[Main](../../../../samples/core/GetStarted/UWP/Blogging.UWP/App.xaml.cs?highlight=1-2,26-29)]
 
 > [!TIP]  
-> <span data-ttu-id="467ee-154">Jeśli wprowadzisz zmiany w przyszłości do modelu, możesz użyć `Add-Migration` polecenie, aby utworzyć szkielet nowe migracji, aby zastosować odpowiednie zmiany w bazie danych.</span><span class="sxs-lookup"><span data-stu-id="467ee-154">If you make future changes to your model, you can use the `Add-Migration` command to scaffold a new migration to apply the corresponding changes to the database.</span></span> <span data-ttu-id="467ee-155">Wszelkie oczekujące migracje zostaną zastosowane do lokalnej bazy danych na każdym urządzeniu, podczas uruchamiania aplikacji.</span><span class="sxs-lookup"><span data-stu-id="467ee-155">Any pending migrations will be applied to the local database on each device when the application starts.</span></span>
+> <span data-ttu-id="a6c7c-159">W przypadku zmiany modelu użycia `Add-Migration` polecenia do tworzenia szkieletu nową migrację do zastosowania odpowiednich zmian w bazie danych.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-159">If you change your model, use the `Add-Migration` command to scaffold a new migration to apply the corresponding changes to the database.</span></span> <span data-ttu-id="a6c7c-160">Wszystkie oczekujące migracje zostaną zastosowane do lokalnej bazy danych na każdym urządzeniu, podczas uruchamiania aplikacji.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-160">Any pending migrations will be applied to the local database on each device when the application starts.</span></span>
 >
-><span data-ttu-id="467ee-156">Używa EF `__EFMigrationsHistory` tabeli w bazie danych, aby śledzić migracji, które zostały już zastosowane do bazy danych.</span><span class="sxs-lookup"><span data-stu-id="467ee-156">EF uses a `__EFMigrationsHistory` table in the database to keep track of which migrations have already been applied to the database.</span></span>
+><span data-ttu-id="a6c7c-161">Używa EF `__EFMigrationsHistory` tabeli w bazie danych, aby śledzić migracje, które zostały już zastosowane do bazy danych.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-161">EF uses a `__EFMigrationsHistory` table in the database to keep track of which migrations have already been applied to the database.</span></span>
 
-## <a name="use-your-model"></a><span data-ttu-id="467ee-157">Użyj modelu</span><span class="sxs-lookup"><span data-stu-id="467ee-157">Use your model</span></span>
+## <a name="use-the-model"></a><span data-ttu-id="a6c7c-162">Użyj modelu</span><span class="sxs-lookup"><span data-stu-id="a6c7c-162">Use the model</span></span>
 
-<span data-ttu-id="467ee-158">Można teraz używać modelu do uzyskania dostępu do danych.</span><span class="sxs-lookup"><span data-stu-id="467ee-158">You can now use your model to perform data access.</span></span>
+<span data-ttu-id="a6c7c-163">Można teraz używać modelu przeprowadzić dostępu do danych.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-163">You can now use the model to perform data access.</span></span>
 
-* <span data-ttu-id="467ee-159">Otwórz *MainPage.xaml*</span><span class="sxs-lookup"><span data-stu-id="467ee-159">Open *MainPage.xaml*</span></span>
+* <span data-ttu-id="a6c7c-164">Otwórz *MainPage.xaml*.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-164">Open *MainPage.xaml*.</span></span>
 
-* <span data-ttu-id="467ee-160">Dodawanie obsługi obciążenia strony i interfejsu użytkownika zawartości wskazanych poniżej</span><span class="sxs-lookup"><span data-stu-id="467ee-160">Add the page load handler and UI content highlighted below</span></span>
+* <span data-ttu-id="a6c7c-165">Dodawanie obsługi ładowania strony i UI zawartości, które przedstawiono poniżej</span><span class="sxs-lookup"><span data-stu-id="a6c7c-165">Add the page load handler and UI content highlighted below</span></span>
 
-[!code-xml[Main](../../../../samples/core/GetStarted/UWP/UWP.SQLite/MainPage.xaml?highlight=9,11-23)]
+[!code-xml[Main](../../../../samples/core/GetStarted/UWP/Blogging.UWP/MainPage.xaml?highlight=9,11-23)]
 
-<span data-ttu-id="467ee-161">Teraz dodamy kod, aby okablować interfejsu użytkownika z bazy danych</span><span class="sxs-lookup"><span data-stu-id="467ee-161">Now we'll add code to wire up the UI with the database</span></span>
+<span data-ttu-id="a6c7c-166">Teraz Dodaj kod, aby Podłączanie do interfejsu użytkownika z bazą danych</span><span class="sxs-lookup"><span data-stu-id="a6c7c-166">Now add code to wire up the UI with the database</span></span>
 
-* <span data-ttu-id="467ee-162">Kliknij prawym przyciskiem myszy **MainPage.xaml** w **Eksploratora rozwiązań** i wybierz **widoku kodu**</span><span class="sxs-lookup"><span data-stu-id="467ee-162">Right-click **MainPage.xaml** in **Solution Explorer** and select **View Code**</span></span>
+* <span data-ttu-id="a6c7c-167">Otwórz *MainPage.xaml.cs*.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-167">Open *MainPage.xaml.cs*.</span></span>
 
-* <span data-ttu-id="467ee-163">Dodaj wyróżniony kod z poniższej listy</span><span class="sxs-lookup"><span data-stu-id="467ee-163">Add the highlighted code from the following listing</span></span>
+* <span data-ttu-id="a6c7c-168">Dodaj wyróżniony kod z poniższej listy:</span><span class="sxs-lookup"><span data-stu-id="a6c7c-168">Add the highlighted code from the following listing:</span></span>
 
-[!code-csharp[Main](../../../../samples/core/GetStarted/UWP/UWP.SQLite/MainPage.xaml.cs?highlight=30-48)]
+[!code-csharp[Main](../../../../samples/core/GetStarted/UWP/Blogging.UWP/MainPage.xaml.cs?highlight=1,31-49)]
 
-<span data-ttu-id="467ee-164">Można teraz uruchomić aplikację, aby zobaczyć ją w akcji.</span><span class="sxs-lookup"><span data-stu-id="467ee-164">You can now run the application to see it in action.</span></span>
+<span data-ttu-id="a6c7c-169">Teraz można uruchomić aplikacji, aby zobaczyć go w działaniu.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-169">You can now run the application to see it in action.</span></span>
 
-* <span data-ttu-id="467ee-165">Debuguj > Uruchom bez debugowania</span><span class="sxs-lookup"><span data-stu-id="467ee-165">Debug > Start Without Debugging</span></span>
+* <span data-ttu-id="a6c7c-170">W **Eksploratora rozwiązań**, kliknij prawym przyciskiem myszy *Blogging.UWP* projektu, a następnie wybierz pozycję **Wdróż**.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-170">In **Solution Explorer**, right-click the *Blogging.UWP* project and then select **Deploy**.</span></span>
 
-* <span data-ttu-id="467ee-166">Aplikacja tworzenie i uruchamianie</span><span class="sxs-lookup"><span data-stu-id="467ee-166">The application will build and launch</span></span>
+* <span data-ttu-id="a6c7c-171">Ustaw *Blogging.UWP* jako projekt startowy.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-171">Set *Blogging.UWP* as the startup project.</span></span>
 
-* <span data-ttu-id="467ee-167">Wprowadź adres URL, a następnie kliknij przycisk **Dodaj** przycisku</span><span class="sxs-lookup"><span data-stu-id="467ee-167">Enter a URL and click the **Add** button</span></span>
+* <span data-ttu-id="a6c7c-172">**Debuguj > Uruchom bez debugowania**</span><span class="sxs-lookup"><span data-stu-id="a6c7c-172">**Debug > Start Without Debugging**</span></span>
 
-![obraz](_static/create.png)
+  <span data-ttu-id="a6c7c-173">Aplikacja tworzy i uruchamia.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-173">The app builds and runs.</span></span>
 
-![obraz](_static/list.png)
+* <span data-ttu-id="a6c7c-174">Wprowadź adres URL, a następnie kliknij przycisk **Dodaj** przycisku</span><span class="sxs-lookup"><span data-stu-id="a6c7c-174">Enter a URL and click the **Add** button</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="467ee-170">Następne kroki</span><span class="sxs-lookup"><span data-stu-id="467ee-170">Next steps</span></span>
+  ![obraz](_static/create.png)
 
-> [!TIP]
-> <span data-ttu-id="467ee-171">`SaveChanges()`można poprawić wydajność dzięki implementacji [ `INotifyPropertyChanged` ](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged.aspx), [ `INotifyPropertyChanging` ](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanging.aspx), [ `INotifyCollectionChanged` ](https://msdn.microsoft.com/en-us/library/system.collections.specialized.inotifycollectionchanged.aspx) w Twojej typów jednostek i przy użyciu `ChangeTrackingStrategy.ChangingAndChangedNotifications`.</span><span class="sxs-lookup"><span data-stu-id="467ee-171">`SaveChanges()` performance can be improved by implementing [`INotifyPropertyChanged`](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged.aspx), [`INotifyPropertyChanging`](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanging.aspx), [`INotifyCollectionChanged`](https://msdn.microsoft.com/en-us/library/system.collections.specialized.inotifycollectionchanged.aspx) in your entity types and using `ChangeTrackingStrategy.ChangingAndChangedNotifications`.</span></span>
+  ![obraz](_static/list.png)
 
-<span data-ttu-id="467ee-172">Tada!</span><span class="sxs-lookup"><span data-stu-id="467ee-172">Tada!</span></span> <span data-ttu-id="467ee-173">Masz teraz prostej aplikacji platformy uniwersalnej systemu Windows z programu Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="467ee-173">You now have a simple UWP app running Entity Framework.</span></span>
+  <span data-ttu-id="a6c7c-177">Tada!</span><span class="sxs-lookup"><span data-stu-id="a6c7c-177">Tada!</span></span> <span data-ttu-id="a6c7c-178">Masz teraz platformy Entity Framework Core uruchomioną prostą aplikacją platformy uniwersalnej systemu Windows.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-178">You now have a simple UWP app running Entity Framework Core.</span></span>
 
-<span data-ttu-id="467ee-174">Zapoznaj się z innymi artykułami w tej dokumentacji, aby dowiedzieć się więcej na temat funkcji programu Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="467ee-174">Check out other articles in this documentation to learn more about Entity Framework's features.</span></span>
+## <a name="next-steps"></a><span data-ttu-id="a6c7c-179">Następne kroki</span><span class="sxs-lookup"><span data-stu-id="a6c7c-179">Next steps</span></span>
+
+<span data-ttu-id="a6c7c-180">Uzyskać zgodności i wydajności, którą należy wiedzieć podczas korzystania z programu EF Core przy użyciu platformy uniwersalnej systemu Windows, zobacz [implementacji platformy .NET obsługiwanych przez platformę EF Core](../../platforms/index.md#universal-windows-platform).</span><span class="sxs-lookup"><span data-stu-id="a6c7c-180">For compatibility and performance information that you should know when using EF Core with UWP, see [.NET implementations supported by EF Core](../../platforms/index.md#universal-windows-platform).</span></span>
+
+<span data-ttu-id="a6c7c-181">Zapoznaj się z innymi artykułami w tej dokumentacji, aby dowiedzieć się więcej na temat funkcji platformy Entity Framework Core.</span><span class="sxs-lookup"><span data-stu-id="a6c7c-181">Check out other articles in this documentation to learn more about Entity Framework Core features.</span></span>

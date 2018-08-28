@@ -1,36 +1,34 @@
 ---
-title: Ograniczenia klucza obcego - EF Core
+title: Ograniczenia klucza obcego — EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: dbaf4bac-1fd5-46c0-ac57-64d7153bc574
-ms.technology: entity-framework-core
 uid: core/modeling/relational/fk-constraints
-ms.openlocfilehash: 726f03e2ee4cd3ec851c9a861b75dd12f9203e9c
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: a83f72b5d832e349fb4a5fb3b2de0b82bd79ef2a
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054185"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993991"
 ---
-# <a name="foreign-key-constraints"></a><span data-ttu-id="8234a-102">Ograniczenia klucza obcego</span><span class="sxs-lookup"><span data-stu-id="8234a-102">Foreign Key Constraints</span></span>
+# <a name="foreign-key-constraints"></a><span data-ttu-id="02b04-102">Ograniczenia klucza obcego</span><span class="sxs-lookup"><span data-stu-id="02b04-102">Foreign Key Constraints</span></span>
 
 > [!NOTE]  
-> <span data-ttu-id="8234a-103">Konfiguracja opisana w tej sekcji ma zastosowanie do relacyjnych baz danych w zasadzie.</span><span class="sxs-lookup"><span data-stu-id="8234a-103">The configuration in this section is applicable to relational databases in general.</span></span> <span data-ttu-id="8234a-104">Metody rozszerzenia pokazane staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionego *Microsoft.EntityFrameworkCore.Relational* pakietu).</span><span class="sxs-lookup"><span data-stu-id="8234a-104">The extension methods shown here will become available when you install a relational database provider (due to the shared *Microsoft.EntityFrameworkCore.Relational* package).</span></span>
+> <span data-ttu-id="02b04-103">Ogólnie rzecz biorąc jest odpowiednie dla relacyjnych baz danych konfiguracji w tej sekcji.</span><span class="sxs-lookup"><span data-stu-id="02b04-103">The configuration in this section is applicable to relational databases in general.</span></span> <span data-ttu-id="02b04-104">Metody rozszerzenia, pokazane tutaj staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionej *Microsoft.EntityFrameworkCore.Relational* pakietu).</span><span class="sxs-lookup"><span data-stu-id="02b04-104">The extension methods shown here will become available when you install a relational database provider (due to the shared *Microsoft.EntityFrameworkCore.Relational* package).</span></span>
 
-<span data-ttu-id="8234a-105">Wprowadzono ograniczenie klucza obcego dla każdej relacji w modelu.</span><span class="sxs-lookup"><span data-stu-id="8234a-105">A foreign key constraint is introduced for each relationship in the model.</span></span>
+<span data-ttu-id="02b04-105">Wprowadzono ograniczenie klucza obcego dla każdej relacji w modelu.</span><span class="sxs-lookup"><span data-stu-id="02b04-105">A foreign key constraint is introduced for each relationship in the model.</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="8234a-106">Konwencje</span><span class="sxs-lookup"><span data-stu-id="8234a-106">Conventions</span></span>
+## <a name="conventions"></a><span data-ttu-id="02b04-106">Konwencje</span><span class="sxs-lookup"><span data-stu-id="02b04-106">Conventions</span></span>
 
-<span data-ttu-id="8234a-107">Według Konwencji o nazwie ograniczeń klucza obcego `FK_<dependent type name>_<principal type name>_<foreign key property name>`.</span><span class="sxs-lookup"><span data-stu-id="8234a-107">By convention, foreign key constraints are named `FK_<dependent type name>_<principal type name>_<foreign key property name>`.</span></span> <span data-ttu-id="8234a-108">Złożonych kluczy obcych `<foreign key property name>` staje się podkreślenia oddzielone listę nazw właściwości kluczy obcych.</span><span class="sxs-lookup"><span data-stu-id="8234a-108">For composite foreign keys `<foreign key property name>` becomes an underscore separated list of foreign key property names.</span></span>
+<span data-ttu-id="02b04-107">Zgodnie z Konwencją ograniczenia klucza obcego są nazywane `FK_<dependent type name>_<principal type name>_<foreign key property name>`.</span><span class="sxs-lookup"><span data-stu-id="02b04-107">By convention, foreign key constraints are named `FK_<dependent type name>_<principal type name>_<foreign key property name>`.</span></span> <span data-ttu-id="02b04-108">Złożone kluczy obcych `<foreign key property name>` staje się oddzielone znakiem podkreślenia listę nazw właściwości klucza obcego.</span><span class="sxs-lookup"><span data-stu-id="02b04-108">For composite foreign keys `<foreign key property name>` becomes an underscore separated list of foreign key property names.</span></span>
 
-## <a name="data-annotations"></a><span data-ttu-id="8234a-109">Adnotacji danych</span><span class="sxs-lookup"><span data-stu-id="8234a-109">Data Annotations</span></span>
+## <a name="data-annotations"></a><span data-ttu-id="02b04-109">Adnotacje danych</span><span class="sxs-lookup"><span data-stu-id="02b04-109">Data Annotations</span></span>
 
-<span data-ttu-id="8234a-110">Ograniczenie klucza obcego nazwy nie można skonfigurować za pomocą adnotacji danych.</span><span class="sxs-lookup"><span data-stu-id="8234a-110">Foreign key constraint names cannot be configured using data annotations.</span></span>
+<span data-ttu-id="02b04-110">Nazwy ograniczenia klucza obcego nie można skonfigurować przy użyciu adnotacji danych.</span><span class="sxs-lookup"><span data-stu-id="02b04-110">Foreign key constraint names cannot be configured using data annotations.</span></span>
 
-## <a name="fluent-api"></a><span data-ttu-id="8234a-111">Interfejsu API Fluent</span><span class="sxs-lookup"><span data-stu-id="8234a-111">Fluent API</span></span>
+## <a name="fluent-api"></a><span data-ttu-id="02b04-111">Interfejs Fluent API</span><span class="sxs-lookup"><span data-stu-id="02b04-111">Fluent API</span></span>
 
-<span data-ttu-id="8234a-112">Aby skonfigurować nazwę ograniczenia klucza obcego relacji, można użyć interfejsu API Fluent.</span><span class="sxs-lookup"><span data-stu-id="8234a-112">You can use the Fluent API to configure the foreign key constraint name for a relationship.</span></span>
+<span data-ttu-id="02b04-112">Interfejs Fluent API umożliwiają skonfigurowanie nazwę ograniczenia klucza obcego relacji.</span><span class="sxs-lookup"><span data-stu-id="02b04-112">You can use the Fluent API to configure the foreign key constraint name for a relationship.</span></span>
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/RelationshipConstraintName.cs?highlight=12)] -->
 ``` csharp
