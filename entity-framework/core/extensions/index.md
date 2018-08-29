@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 7/3/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: e9f9a6cbbceeb0379ddb5588b564b0d2a962795f
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e88bd01f79e05a9a3b0c0bbeecca89df178098a6
+ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995516"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43152455"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core Tools i rozszerzenia
 
@@ -37,6 +37,12 @@ Deweloper jednostki jest zaawansowane Projektant ORM dla ADO.NET Entity Framewor
 Visual Studio 2017 + rozszerzenie. Możesz odtwarzać klasy DbContext i POCO z istniejącej bazy danych lub projekt bazy danych SQL Server i wizualizować i sprawdzić swoje DbContext na różne sposoby.
 
 [Witryny typu wiki w witrynie GitHub](https://github.com/ErikEJ/SqlCeToolbox/wiki/EF-Core-Power-Tools)
+
+### <a name="entity-framework-visual-editor"></a>Edytor programu Entity Framework Visual
+
+Rozszerzenie programu Visual Studio 2017, które dodaje Projektant ORM dla projektowania wizualnego klasy Entity Framework 6, Core 2.0 i Core 2.1. Kod jest generowany przy użyciu szablonów T4, dzięki czemu można całkowicie dostosować, zgodnie z potrzebami wszystkie. Dziedziczenie, jednokierunkowe i skojarzenia dwukierunkowych są obsługiwane i są wyliczenia i możliwość kolorować klas i Dodaj bloki tekstu, aby wyjaśnić, potencjalnie specjalne części projektu.
+
+[Portal Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
 
 ## <a name="extensions"></a>Rozszerzenia
 
