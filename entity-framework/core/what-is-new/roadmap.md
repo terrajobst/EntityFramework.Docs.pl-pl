@@ -4,21 +4,33 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: cd4b7ddaafe9501c4bb9f2496e87f619d239ab62
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: fd9086c9911cdb0890117d44c2787780aad9a7cb
+ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995263"
+ms.lasthandoff: 09/06/2018
+ms.locfileid: "43821364"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core plan
 
 > [!IMPORTANT]
 > Należy pamiętać, że zestawy funkcji i harmonogramy przyszłych wersji zawsze mogą ulec zmianie i czasu, mimo że firma Microsoft podejmie próbę tej strony na bieżąco, jego mogą nie odzwierciedlać najnowszych plany na wszystkich.
 
+## <a name="last-release-ef-core-21"></a>Ostatnie wydania: programu EF Core 2.1
+
 Stabilna wersja programu EF Core 2.1 został wydany 30 maja 2018 r. Można znaleźć więcej informacji na temat tej wersji w [What's new in EF Core 2.1](xref:core/what-is-new/ef-core-2.1).
 
-Nie możemy ukończyć [wersji procesu planowania](#release-planning-process) na kolejne wydanie po 2.1.
+## <a name="future-releases"></a>Przyszłe wersje
+
+### <a name="ef-core-22"></a>EF Core 2.2
+
+To wydanie będzie zawierać wiele poprawek błędów i stosunkowo niewielką liczbą nowych funkcji. Szczegółowe informacje na temat tej wersji znajdują się w [ogłoszenie harmonogram działania dla platformy EF Core 2.2](https://github.com/aspnet/Announcements/issues/308). 
+
+### <a name="ef-core-30"></a>EF Core 3.0
+
+Chociaż nie możemy ukończyć [wersji procesu planowania](#release-planning-process) na kolejne wydanie po 2.2 aktualnie planujemy zapewnienie głównej wersji algined przy użyciu platformy .NET Core 3.0 i ASP.NET 3.0. 
+
+Możesz użyć [tego zapytania w naszym narzędzie do śledzenia problemów](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc) aby zobaczyć elementy robocze tenatively przypisane do tego przyszłej wersji.
 
 ## <a name="schedule"></a>Harmonogram
 

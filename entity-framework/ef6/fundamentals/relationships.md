@@ -3,12 +3,12 @@ title: Relacje, właściwości nawigacji i kluczy obcych — EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: c1d48f18a7dd25a6a48537f0de5379f861bf447a
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a1653afd609280ab572ef88a9fcf8a6275b79fd6
+ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998004"
+ms.lasthandoff: 09/06/2018
+ms.locfileid: "43821403"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Relacje, właściwości nawigacji i kluczy obcych
 Ten temat zawiera omówienie sposobu zarządzania relacje między jednostkami w Entity Framework. Daje ona również pewne wskazówki na temat sposobu mapowania i manipulowania nimi relacji.
@@ -71,59 +71,60 @@ Pozostałej części tej strony opisano, jak uzyskać dostęp i manipulowanie da
 
 ## <a name="creating-and-modifying-relationships"></a>Tworzenie i modyfikowanie relacji
 
-W *skojarzenie klucza obcego*, po zmianie stanu obiektu zależnego z EntityState.Unchanged stan zmieni się na EntityState.Modified relacji. W relacji niezależne zmiana relacji nie aktualizuje stan obiektu zależnego.
+W *skojarzenie klucza obcego*, gdy zmienisz tę relację, stan obiektu zależnego za pomocą `EntityState.Unchanged` stan zmieni się na `EntityState.Modified`. W relacji niezależne zmiana relacji nie aktualizuje stan obiektu zależnego.
 
 Poniższe przykłady pokazują, jak korzystać z właściwości klucza obcego i właściwości nawigacji do skojarzenia powiązanych obiektów. Za pomocą powiązań kluczy obcych można użyć jednej z metod można zmienić, tworzyć lub modyfikować relacje. Za pomocą skojarzeń niezależne nie można użyć właściwości klucza obcego.
 
--   Przypisując nową wartość do właściwości klucza obcego, jak w poniższym przykładzie.  
-    ``` csharp
-    course.DepartmentID = newCourse.DepartmentID;
-    ```
+- Przypisując nową wartość do właściwości klucza obcego, jak w poniższym przykładzie.  
+  ``` csharp
+  course.DepartmentID = newCourse.DepartmentID;
+  ```
 
--   Poniższy kod usuwa relację, ustawiając klucz obcy **null**. Należy zauważyć, że właściwość klucza obcego, musi być typ zerowalny.  
-    ``` csharp
-    course.DepartmentID = null;
-    ```  
-    >[!NOTE]
-    > W przypadku odwołania w stanie dodany (w tym przykładzie obiekt kurs) referencyjna właściwość nawigacji nie zostaną zsynchronizowane przy użyciu wartości kluczy nowy obiekt do momentu SaveChanges jest wywoływana. Synchronizacja nie występuje, ponieważ kontekst nie zawiera stałe klucze dla dodanych obiektów, dopóki nie zostaną one zapisane. Jeśli konieczne jest posiadanie nowych obiektów w pełni zsynchronizowane tak szybko, jak ustawić relację, użyj jednej z następujących methods.*
+- Poniższy kod usuwa relację, ustawiając klucz obcy **null**. Należy zauważyć, że właściwość klucza obcego, musi być typ zerowalny.  
+  ``` csharp
+  course.DepartmentID = null;
+  ```
 
--   Przypisując nowy obiekt z właściwością nawigacji. Poniższy kod tworzy relację między kurs i `department`. Jeśli obiekty są dołączone do kontekstu, `course` jest także dodawane do `department.Courses` kolekcji i obce odpowiedniej właściwości klucza na `course` obiektu ma ustawioną wartość właściwości klucza działu.  
-    ``` csharp
-    course.Department = department;
-    ```
+  >[!NOTE]
+  > W przypadku odwołania w stanie dodany (w tym przykładzie obiekt kurs) referencyjna właściwość nawigacji nie zostaną zsynchronizowane przy użyciu wartości kluczy nowy obiekt do momentu SaveChanges jest wywoływana. Synchronizacja nie występuje, ponieważ kontekst nie zawiera stałe klucze dla dodanych obiektów, dopóki nie zostaną one zapisane. Jeśli konieczne jest posiadanie nowych obiektów w pełni zsynchronizowane tak szybko, jak ustawić relację, użyj jednej z następujących methods.*
 
- -   Aby usunąć relację, ustaw właściwość nawigacji na `null`. Pracy z platformą Entity Framework, który jest oparty na .NET 4.0 powiązanego zakończenia musi być załadowany, zanim zostanie ustawiona na wartość null. Na przykład:  
-    ``` chsarp
-    context.Entry(course).Reference(c => c.Department).Load();  
-    course.Department = null;
-    ```  
-    Począwszy od Entity Framework 5.0, który jest oparty na .NET 4.5, można ustawić relację null bez powiązanym zakończeniem ładowania. Można również ustawić bieżącą wartość null, przy użyciu następującej metody.  
-    ``` csharp
-    context.Entry(course).Reference(c => c.Department).CurrentValue = null;
-    ```
+- Przypisując nowy obiekt z właściwością nawigacji. Poniższy kod tworzy relację między kurs i `department`. Jeśli obiekty są dołączone do kontekstu, `course` jest także dodawane do `department.Courses` kolekcji i obce odpowiedniej właściwości klucza na `course` obiektu ma ustawioną wartość właściwości klucza działu.  
+  ``` csharp
+  course.Department = department;
+  ```
 
--   Przez usunięcie lub dodanie obiektu w kolekcji jednostek. Na przykład można dodać obiektu typu `Course` do `department.Courses` kolekcji. Ta operacja tworzy relację między określonego **kurs** i określonego `department`. Jeśli obiekty są przyłączone do kontekstu, odwołanie działu i właściwość klucza obcego **kurs** obiektu zostanie ustawiony na odpowiednie `department`.  
-    ``` csharp
-    department.Courses.Add(newCourse);
-    ```
+- Aby usunąć relację, ustaw właściwość nawigacji na `null`. Pracy z platformą Entity Framework, który jest oparty na .NET 4.0 powiązanego zakończenia musi być załadowany, zanim zostanie ustawiona na wartość null. Na przykład:   
+  ``` csharp
+  context.Entry(course).Reference(c => c.Department).Load();
+  course.Department = null;
+  ```
+
+  Począwszy od Entity Framework 5.0, który jest oparty na .NET 4.5, można ustawić relację null bez powiązanym zakończeniem ładowania. Można również ustawić bieżącą wartość null, przy użyciu następującej metody.   
+  ``` csharp
+  context.Entry(course).Reference(c => c.Department).CurrentValue = null;
+  ```
+
+- Przez usunięcie lub dodanie obiektu w kolekcji jednostek. Na przykład można dodać obiektu typu `Course` do `department.Courses` kolekcji. Ta operacja tworzy relację między określonego **kurs** i określonego `department`. Jeśli obiekty są przyłączone do kontekstu, odwołanie działu i właściwość klucza obcego **kurs** obiektu zostanie ustawiony na odpowiednie `department`.  
+  ``` csharp
+  department.Courses.Add(newCourse);
+  ```
 
 - Za pomocą `ChangeRelationshipState` metodę, aby zmienić stan określonej relacji między dwa obiekty jednostki. Ta metoda jest najczęściej używana podczas pracy z usługą aplikacji N-warstwowych i *niezależnych skojarzenia* (nie można używać z skojarzenie klucza obcego). Ponadto do używania tej metody należy usunąć w dół do `ObjectContext`, jak pokazano w poniższym przykładzie.  
 W poniższym przykładzie istnieje relacja wiele do wielu między szkolenia i kursy. Wywoływanie `ChangeRelationshipState` metody i przekazywanie `EntityState.Added` parametr umożliwia `SchoolContext` wiedzieć, że dodano relację między dwoma obiektami:
+  ``` csharp
 
-``` csharp
+  ((IObjectContextAdapter)context).ObjectContext.
+    ObjectStateManager.
+    ChangeRelationshipState(course, instructor, c => c.Instructor, EntityState.Added);
+  ```
 
-       ((IObjectContextAdapter)context).ObjectContext.
-                 ObjectStateManager.
-                  ChangeRelationshipState(course, instructor, c => c.Instructor, EntityState.Added);
-```
+  Należy pamiętać, że Jeśli aktualizujesz (nie tylko dodanie) relację, należy usunąć stare relację po dodaniu nowego:
 
-    Note that if you are updating (not just adding) a relationship, you must delete the old relationship after adding the new one:
-
-``` csharp
-       ((IObjectContextAdapter)context).ObjectContext.
-                  ObjectStateManager.
-                  ChangeRelationshipState(course, oldInstructor, c => c.Instructor, EntityState.Deleted);
-```
+  ``` csharp
+  ((IObjectContextAdapter)context).ObjectContext.
+    ObjectStateManager.
+    ChangeRelationshipState(course, oldInstructor, c => c.Instructor, EntityState.Deleted);
+  ```
 
 ## <a name="synchronizing-the-changes-between-the-foreign-keys-and-navigation-properties"></a>Synchronizowanie zmian między kluczy obcych i właściwości nawigacji
 
