@@ -3,12 +3,12 @@ title: Dziedziczenie projektanta TPH - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 72d26a8e-20ab-4500-bd13-394a08e73394
-ms.openlocfilehash: 9a546f6450b5aa3b03c062d1ab2c6f9257ba8292
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1eb935414b20d6e93e9d470ccc845bc13626ed3a
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995007"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250847"
 ---
 # <a name="designer-tph-inheritance"></a>Dziedziczenie TPH projektanta
 Ten przewodnik krok po kroku pokazano, jak zaimplementować Tabela wg hierarchii (TPH) dziedziczenia w model koncepcyjny za pomocą funkcji Entity Framework Designer (Projektant EF). Dziedziczenie TPH używa jednej tabeli bazy danych do przechowywania danych dla wszystkich typów jednostek w hierarchii dziedziczenia.
@@ -54,7 +54,7 @@ Zostanie wyświetlona Projektancie jednostki, zapewniającą powierzchnię proje
 
 Oznacza to sposób, w jaki **osoby** tabela wygląda w bazie danych.
 
-![PersonTable](~/ef6/media/persontable.png) 
+![Tabela osoby](~/ef6/media/persontable.png) 
 
 ## <a name="implement-table-per-hierarchy-inheritance"></a>Implementowanie Tabela wg hierarchii dziedziczenia
 
@@ -94,14 +94,14 @@ Dwóch nowych typów jednostki zostały dodane do powierzchni projektowej. Strza
 -   W **Operator** kolumny **szczegóły mapowania** wybierz = z listy rozwijanej.
 -   W **wartość/właściwości** wpisz **przez instruktorów**. Wynik końcowy powinien wyglądać następująco:
 
-    ![MappingDetails2](~/ef6/media/mappingdetails2.png)
+    ![Szczegóły mapowania](~/ef6/media/mappingdetails2.png)
 
 -   Powtórz te kroki dla **uczniów** typu jednostki, ale Utwórz warunek równa **uczniów** wartość.  
     *Dlatego Chcieliśmy, aby usunąć **dyskryminatora** właściwość, jest, ponieważ nie można zamapować kolumny tabeli więcej niż jeden raz. Ta kolumna będzie służyć warunkowego mapowania, więc nie można używać właściwości mapowania także. Jedynym sposobem może służyć w obu przypadkach, gdy warunek będzie używać **Is Null** lub **Is Not Null** porównania.*
 
 Tabela wg hierarchii dziedziczenia jest teraz implementowane.
 
-![FinalTPH](~/ef6/media/finaltph.png)
+![Końcowe TPH](~/ef6/media/finaltph.png)
 
 ## <a name="use-the-model"></a>Użyj modelu
 

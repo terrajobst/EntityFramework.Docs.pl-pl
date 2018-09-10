@@ -3,12 +3,12 @@ title: Obsługa Enum - projektancie platformy EF - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: c6ae6d8f-1ace-47db-ad47-b1718f1ba082
-ms.openlocfilehash: d4c5528c4dc13ab7189421feebf84c2cb2f4b2bb
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a94a497e8c5b3213dd7eb4215de90164d437507d
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995640"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250638"
 ---
 # <a name="enum-support---ef-designer"></a>Pomoc techniczna dla wyliczenia — projektancie platformy EF
 > [!NOTE]
@@ -70,11 +70,11 @@ Kreator wykonuje następujące czynności:
 
 1.  W Entity Framework Designer kliknij prawym przyciskiem myszy nazwę właściwości, wybierz **przekonwertować wyliczenia**
 
-    ![ConvertToEnum](~/ef6/media/converttoenum.png)
+    ![Konwertuj na wyliczenie](~/ef6/media/converttoenum.png)
 
 2.  W **Dodaj wyliczenie** okna dialogowego wpisz **DepartmentNames** dla nazwy typu wyliczenia, Zmień typ podstawowy do **Int32**, a następnie dodaj następujące elementy członkowskie do typu: angielski, Matematyczne i oszczędnościami, jakie daje
 
-    ![AddEnumType](~/ef6/media/addenumtype.png)
+    ![Dodaj typ wyliczeniowy](~/ef6/media/addenumtype.png)
 
 3.  Naciśnij klawisz **OK**
 4.  Zapisz model i skompiluj projekt
@@ -85,7 +85,7 @@ Jeśli przyjrzymy się w oknie właściwości, zauważysz, że typ właściwośc
 
 Po przełączeniu do okna przeglądarki modelu pojawi się, czy typ został również dodany do węzła typach wyliczeniowych.
 
-![Element ModelBrowser](~/ef6/media/modelbrowser.png)
+![Przeglądarka modeli](~/ef6/media/modelbrowser.png)
 
 >[!NOTE]
 > Można również dodać nowe typy wyliczenia z tego okna, klikając prawym przyciskiem myszy i wybierając **Dodaj typ wyliczeniowy**. Po utworzeniu typu pojawi się na liście typów i będzie można skojarzyć z właściwością

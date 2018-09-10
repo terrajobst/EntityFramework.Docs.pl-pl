@@ -3,12 +3,12 @@ title: Relacje, właściwości nawigacji i kluczy obcych — EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: a1653afd609280ab572ef88a9fcf8a6275b79fd6
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 53f428360be4ea2e11a42676d22e584633ceedbc
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821403"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251222"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Relacje, właściwości nawigacji i kluczy obcych
 Ten temat zawiera omówienie sposobu zarządzania relacje między jednostkami w Entity Framework. Daje ona również pewne wskazówki na temat sposobu mapowania i manipulowania nimi relacji.
@@ -19,7 +19,7 @@ Relacyjne bazy danych (zwane również skojarzeń) relacje między tabelami są 
 
 Na poniższej ilustracji przedstawiono dwie tabele, które uczestniczą w relacji jeden do wielu. **Kurs** tabela jest tabelą zależne, ponieważ zawiera on **DepartmentID** kolumny, która łączy się **działu** tabeli.
 
-![Bazy danych 2](~/ef6/media/database2.png)
+![Dział i kurs tabel](~/ef6/media/database2.png)
 
 Platformy Entity Framework jednostki może być powiązane z innymi obiektami za pośrednictwem stowarzyszenia lub relacji. Każda relacja zawiera dwa końce, które opisują typ jednostki i liczebności typu (jednego, zero lub jeden lub wiele) dwie jednostki w tej relacji. Relacje mogą podlegać ograniczenia referencyjnego, w tym artykule opisano, które zakończenia w relacji jest główną rolę i który jest zależny roli.
 
@@ -33,7 +33,7 @@ Można użyć jednego lub obu typów skojarzeń w modelu. Jednak w przypadku czy
 
 Na poniższej ilustracji przedstawiono model koncepcyjny, który został utworzony za pomocą programu Entity Framework Designer. Model zawiera dwie jednostki, które uczestniczą w relacji jeden do wielu. Zarówno jednostki mają właściwości nawigacji. **Kurs** jednostki depend i ma **DepartmentID** zdefiniowana właściwość klucza obcego.
 
-![RelationshipEFDesigner](~/ef6/media/relationshipefdesigner.png)
+![Dział i kurs tabel z właściwości nawigacji](~/ef6/media/relationshipefdesigner.png)
 
 Poniższy fragment kodu przedstawia ten sam model, który został utworzony za pomocą Code First.
 

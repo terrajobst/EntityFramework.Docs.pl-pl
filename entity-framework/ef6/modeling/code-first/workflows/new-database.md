@@ -3,12 +3,12 @@ title: Najpierw kod do nowej bazy danych — EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
-ms.openlocfilehash: 50c6a4710bc50879304f64e781a46c4836f86882
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 8ed1bfbc3536acc0d83b9c8ecdd180aeb44eff83
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152481"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251053"
 ---
 # <a name="code-first-to-a-new-database"></a>Najpierw kod do nowej bazy danych
 W tym przewodniku krok po kroku i wideo zawierają wprowadzenie do rozwiązania deweloperskiego Code First dla nowej bazy danych. Ten scenariusz obejmuje przeznaczonych dla bazy danych, która nie istnieje i utworzy Code First lub pustą bazę danych tej Code First doda nowe tabele, aby. Kod umożliwia najpierw zdefiniować model za pomocą języka C\# lub klasy VB.Net. Opcjonalnie można wykonać dodatkowe czynności konfiguracyjne przy użyciu atrybutów klas i właściwości lub za pomocą interfejsu API fluent.
@@ -199,13 +199,13 @@ Możesz nawiązać połączenie tej bazy danych za pomocą Eksploratora serwera 
 -   Kliknij prawym przyciskiem myszy **połączeń danych** i wybierz **Dodaj połączenie...**
 -   Jeśli nie jest połączona z bazą danych za pomocą Eksploratora serwera przed, musisz wybrać programu Microsoft SQL Server jako źródło danych
 
-    ![SelectDataSource](~/ef6/media/selectdatasource.png)
+    ![Wybierz źródło danych](~/ef6/media/selectdatasource.png)
 
 -   Łączenie się z LocalDB lub SQL Express, w zależności od tego, który z nich został zainstalowany
 
 Firma Microsoft jest teraz Zbadaj schematu utworzonego Code First.
 
-![SchemaInitial](~/ef6/media/schemainitial.png)
+![Schemat początkowy](~/ef6/media/schemainitial.png)
 
 Które klasy do uwzględnienia w modelu, analizując właściwości DbSet, które zdefiniowaliśmy opracowaną w DbContext. Następnie używa domyślnego zestawu Code First konwencje do określenia nazwy tabel i kolumn, określanie typów danych, znajdowanie, kluczy podstawowych, itp. W dalszej części tego przewodnika, omówimy sposób można zastąpić tych konwencji.
 
@@ -266,7 +266,7 @@ namespace CodeFirstNewDatabaseSample.Migrations
 
 Nowa kolumna adres Url jest dodany do blogów tabeli w bazie danych:
 
-![SchemaWithUrl](~/ef6/media/schemawithurl.png)
+![Schemat adresu URL](~/ef6/media/schemawithurl.png)
 
 ## <a name="6-data-annotations"></a>6. Adnotacje danych
 
@@ -316,7 +316,7 @@ public class User
 
 Teraz zostanie dodana nowa tabela, do bazy danych:
 
-![SchemaWithUsers](~/ef6/media/schemawithusers.png)
+![Schemat z użytkownikami](~/ef6/media/schemawithusers.png)
 
 Pełna lista adnotacje obsługiwane przez EF jest:
 
@@ -365,7 +365,7 @@ public class BloggingContext : DbContext
 
 W kolumnie Nazwa wyświetlana została zmieniona na wyświetlanie\_nazwy:
 
-![SchemaWithDisplayNameRenamed](~/ef6/media/schemawithdisplaynamerenamed.png)
+![Schemat o nazwie wyświetlanej zmieniona](~/ef6/media/schemawithdisplaynamerenamed.png)
 
 ## <a name="summary"></a>Podsumowanie
 

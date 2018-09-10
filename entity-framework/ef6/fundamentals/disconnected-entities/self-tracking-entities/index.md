@@ -3,12 +3,12 @@ title: Samodzielnie śledzenia jednostek - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 5e60f5be-7bbb-4bf8-835e-0ac808d6c84a
-ms.openlocfilehash: 8b555d211facd737aedf120a1ecfdc88d3903107
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: bd22df9e14fe71ae065baf1d747b1642dd7bafce
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998019"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250871"
 ---
 # <a name="self-tracking-entities"></a>Samodzielnie śledzenia jednostek
 
@@ -28,7 +28,7 @@ Ten element szablon generuje dwa .TT — pliki (szablon tekstowy):
 
 Aby rozpocząć pracę, odwiedź stronę [Self-Tracking jednostek wskazówki](walkthrough.md) strony.  
 
-## <a name="considerations-when-working-with-self-tracking-entities"></a>Zagadnienia dotyczące pracy z własnym śledzenia jednostek  
+## <a name="functional-considerations-when-working-with-self-tracking-entities"></a>Uwagi dotyczące funkcjonalności podczas pracy z własnym śledzenia jednostek  
 > [!IMPORTANT]
 > Nie zaleca się przy użyciu szablonu samoobsługowego tracking jednostek. Tylko będą dostępne do obsługi istniejących aplikacji. Jeśli aplikacja wymaga pracy z wykresami odłączonych jednostek, należy wziąć pod uwagę inne alternatywy dla takich jak [słupkowych jednostek](http://trackableentities.github.io/), która jest podobna do samoobsługowego-Tracking-jednostek, które jest bardziej aktywnie rozwijany przez technologię Społeczność lub pisanie kodu niestandardowego za pomocą śledzenia interfejsów API zmian niskiego poziomu.
 
@@ -46,7 +46,7 @@ Podczas pracy z własnym śledzenie jednostek, należy wziąć pod uwagę nastę
 - Samodzielnie śledzenie jednostek nie są włączone do wykonywania ładowania z opóźnieniem.  
 - Serializacja binarna i serializacji obiektów zarządzania stan programu ASP.NET nie jest obsługiwane przez własny śledzenie jednostek. Można jednak dostosować szablon, aby dodać obsługę serializacji binarnej. Aby uzyskać więcej informacji, zobacz [za pomocą serializacji binarnej i ViewState z jednostkami Self-Tracking](http://go.microsoft.com/fwlink/?LinkId=199208).  
 
-### <a name="security-considerations"></a>Zagadnienia dotyczące zabezpieczeń  
+## <a name="security-considerations"></a>Zagadnienia dotyczące zabezpieczeń  
 
 Następujące zagadnienia dotyczące zabezpieczeń powinny brane pod uwagę podczas pracy z własnym śledzenie jednostki:  
 

@@ -4,12 +4,12 @@ author: anpete
 ms.date: 2/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 uid: core/modeling/query-types
-ms.openlocfilehash: bacb121ca00a9b0aa00bfe201de4f95113472d70
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 54d960e2e2236e2d4185dedc48f51035f5c10e93
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996702"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250728"
 ---
 # <a name="query-types"></a>Typy zapytań
 > [!NOTE]
@@ -17,10 +17,12 @@ ms.locfileid: "42996702"
 
 Oprócz typów jednostek, mogą zawierać model programu EF Core _typy zapytań_, który może służyć do przeprowadzania zapytań bazy danych dla danych, które nie są mapowane na typy jednostek.
 
-Typy zapytań mają wiele podobieństw przy użyciu typów jednostek:
+## <a name="compare-query-types-to-entity-types"></a>Porównanie typów zapytań do typów jednostek
 
-- One mogą być również dodawane do modelu albo w `OnModelCreating`, lub za pośrednictwem "set" właściwości pochodnej _DbContext_.
-- Obsługiwane są też wiele tych samych funkcji mapowania, takich jak dziedziczenie mapowania właściwości nawigacji (zobacz poniżej ograniczenia) i w sklepach relacyjnych, możliwość konfigurowania obiektów bazy danych docelowych i kolumn za pomocą metody interfejsu API fluent lub adnotacji danych.
+Typy zapytań są podobne do typów jednostek, w tym ich:
+
+- Można dodać do modelu albo w `OnModelCreating` lub za pośrednictwem "set" właściwości pochodnej _DbContext_.
+- Obsługuje wiele tych samych funkcji mapowania, takich jak właściwości mapowania i nawigację dziedziczenia. W sklepach relacyjnych można skonfigurować obiektów bazy danych docelowych i kolumn za pomocą metody interfejsu API fluent lub adnotacji danych.
 
 Jednak różnią się one od jednostki typy w tym ich:
 
@@ -36,6 +38,8 @@ Jednak różnią się one od jednostki typy w tym ich:
 - Są mapowane na obiekty bazy danych przy użyciu `ToView` metody, zamiast `ToTable`.
 - Mogą być mapowane na _kwerendy_ — Definiowanie zapytanie jest zapytaniem dodatkowej zadeklarowanych w modelu, który działa źródła danych dla typu zapytania.
 
+## <a name="usage-scenarios"></a>Scenariusze użytkowania
+
 Niektóre scenariusze użycia główne typy zapytań to:
 
 - Służy jako typ zwracany dla ad hoc `FromSql()` zapytania.
@@ -43,8 +47,9 @@ Niektóre scenariusze użycia główne typy zapytań to:
 - Mapowania tabel, które nie mają zdefiniowany klucz podstawowy.
 - Mapowanie do zapytań zdefiniowanych w modelu.
 
-> [!TIP]
-> Mapowanie typu zapytania do obiektu bazy danych jest osiągane przy użyciu `ToView` wygodnego interfejsu API. Z perspektywy programu EF Core jest podany w tej metodzie obiekt bazy danych _widoku_, co oznacza, że jest ona traktowana jako źródła zapytań tylko do odczytu i nie może być elementem docelowym aktualizacji, wstawiania lub operacje usuwania. Jednak oznacza to, że obiekt bazy danych jest faktycznie wymagana do widoku bazy danych — może też być tabeli bazy danych, które będą traktowane jako tylko do odczytu. Z drugiej strony, dla typów jednostek programu EF Core przyjęto założenie, że obiektu bazy danych określony w `ToTable` metoda może być traktowana jako _tabeli_, co oznacza, że mogą być używane jako źródło zapytania, ale wskazywane przez aktualizację, usuwanie i wstawianie operacje. W rzeczywistości, można określić nazwy widoku bazy danych w `ToTable` i wszystko powinno działać prawidłowo tak długo, jak widok jest skonfigurowany jako nadaje się do aktualizacji w bazie danych.
+## <a name="mapping-to-database-objects"></a>Mapowanie na obiekty bazy danych
+
+Mapowanie typu zapytania do obiektu bazy danych jest osiągane przy użyciu `ToView` wygodnego interfejsu API. Z perspektywy programu EF Core jest podany w tej metodzie obiekt bazy danych _widoku_, co oznacza, że jest ona traktowana jako źródła zapytań tylko do odczytu i nie może być elementem docelowym aktualizacji, wstawiania lub operacje usuwania. Jednak oznacza to, że obiekt bazy danych jest faktycznie wymagana do widoku bazy danych — może też być tabeli bazy danych, które będą traktowane jako tylko do odczytu. Z drugiej strony, dla typów jednostek programu EF Core przyjęto założenie, że obiektu bazy danych określony w `ToTable` metoda może być traktowana jako _tabeli_, co oznacza, że mogą być używane jako źródło zapytania, ale wskazywane przez aktualizację, usuwanie i wstawianie operacje. W rzeczywistości, można określić nazwy widoku bazy danych w `ToTable` i wszystko powinno działać prawidłowo tak długo, jak widok jest skonfigurowany jako nadaje się do aktualizacji w bazie danych.
 
 ## <a name="example"></a>Przykład
 

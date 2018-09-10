@@ -4,14 +4,14 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 88253ff3-174e-485c-b3f8-768243d01ee1
 uid: core/modeling/index
-ms.openlocfilehash: 9f702d5833b88e6eb77c0afefdae0ed3bc162ec8
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e4eed480178ce43cbc5ece8db8e584032da7b2b9
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993936"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250351"
 ---
-# <a name="creating-a-model"></a>Tworzenie modelu
+# <a name="creating-and-configuring-a-model"></a>Tworzenie i konfigurowanie modelu
 
 Entity Framework używa zestawu Konwencji do zbudowania modelu oparte na kształt klas jednostek. Możesz określić dodatkowej konfiguracji w celu uzupełnienia i/lub zastąpić, co zostało wykryte przez Konwencję.
 
@@ -20,9 +20,7 @@ W tym artykule opisano konfiguracji, które mogą być stosowane do modelu, prze
 > [!TIP]  
 > Można wyświetlić w tym artykule [przykładowe](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples) w witrynie GitHub.
 
-## <a name="methods-of-configuration"></a>Metody konfiguracji
-
-### <a name="fluent-api"></a>Interfejs Fluent API
+## <a name="use-fluent-api-to-configure-a-model"></a>Użyj interfejsu API fluent, aby skonfigurować model
 
 Można zastąpić `OnModelCreating` metodę w pochodnej kontekstu i użyj `ModelBuilder API` do skonfigurowania modelu. To jest najbardziej zaawansowane metody konfiguracji i umożliwia konfigurację można określić bez konieczności wprowadzania zmian w Twoich zajęciach jednostki. Konfiguracja interfejsu API Fluent ma najwyższy priorytet i spowoduje zastąpienie danych i konwencje adnotacji.
 
@@ -42,7 +40,7 @@ Można zastąpić `OnModelCreating` metodę w pochodnej kontekstu i użyj `Model
     }
 ```
 
-### <a name="data-annotations"></a>Adnotacje danych
+## <a name="use-data-annotations-to-configure-a-model"></a>Umożliwia konfigurowanie modelu adnotacji danych
 
 Atrybuty (znanych jako adnotacje danych) można zastosować także do klas i właściwości. Adnotacje danych spowoduje zastąpienie Konwencji, ale zostaną zastąpione przez interfejs Fluent API konfiguracji.
 

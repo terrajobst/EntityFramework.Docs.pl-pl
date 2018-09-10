@@ -4,18 +4,21 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
 uid: core/modeling/generated-properties
-ms.openlocfilehash: a3656eb1d2dc79ceead04e3a142a58e8afb3cbce
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 9ecfa924a0614f327f0bd202cb7dda95bea810af
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996780"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250702"
 ---
 # <a name="generated-values"></a>Generowane wartości
 
 ## <a name="value-generation-patterns"></a>Wzorce Generowanie wartości
 
-Istnieją trzy wzorce Generowanie wartości, które mogą służyć do właściwości.
+Istnieją trzy wzorce Generowanie wartości, które mogą być używane dla właściwości:
+* Generowanie wartości nie jest
+* Dodaj wartość wygenerowano
+* Wartość wygenerowaną na dodawanie lub aktualizowanie
 
 ### <a name="no-value-generation"></a>Generowanie wartości nie jest
 

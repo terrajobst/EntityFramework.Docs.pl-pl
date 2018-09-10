@@ -3,12 +3,12 @@ title: Wiele diagramów na modelu — EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: b95db5c8-de8d-43bd-9ccc-5df6a5e25e1b
-ms.openlocfilehash: f27afbd3b44ff3eb8044ab960f10b2856a603ee3
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e23bf92ce3199b2162ca9a42bd0f797375179d77
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993781"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250962"
 ---
 # <a name="multiple-diagrams-per-model"></a>Wiele diagramów na modelu
 > [!NOTE]
@@ -39,7 +39,7 @@ Po zakończeniu działania Kreator modelu Entity Data Model automatycznie otwier
 
 Poniższy zrzut ekranu przedstawia plik edmx otwarty w Projektancie platformy EF. Na zrzucie ekranu przedstawiono powierzchnia projektowania wizualnego (do lewej) i **przeglądarka modeli** okno (z prawej strony).
 
-![EFDesigner2](~/ef6/media/efdesigner2.png)
+![Projektancie platformy EF 2](~/ef6/media/efdesigner2.png)
 
 Aby cofnąć operacji w Projektancie platformy EF, kliknij przycisk klawisze Ctrl + Z.
 

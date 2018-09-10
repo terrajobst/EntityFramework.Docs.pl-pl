@@ -3,12 +3,12 @@ title: Rozpoznawanie zależności — EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 32d19ac6-9186-4ae1-8655-64ee49da55d0
-ms.openlocfilehash: 45681bb0cedecd502b1968b90b7f682d3257dd23
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: c6c56c3048e17a5c888ffe564e7606abf8b0c4ed
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998166"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251248"
 ---
 # <a name="dependency-resolution"></a>Rozpoznawanie zależności
 > [!NOTE]
@@ -25,13 +25,11 @@ public interface IDbDependencyResolver
 
 Metoda GetService zwykle jest wywoływana przez EF i jest obsługiwane przez implementację IDbDependencyResolver EF lub aplikacji. Gdy zostanie wywołana, argument typu jest typem klasy interfejsu lub base żądanej usługi i klucz obiektu jest wartość null lub obiekt dostarczający informacje kontekstowe o żądanej usługi.  
 
-Ten artykuł zawiera szczegółowe informacje o sposobie implementacji IDbDependencyResolver, ale zamiast tego działa jako odwołanie dla typów usługi (oznacza to, że interfejs i podstawowej klasy typy), dla których EF wywołuje GetService i semantyka obiekt klucza dla każdego z nich wywołuje. Ten dokument będzie aktualizowany podczas dodawania dodatkowych usług.  
+Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bezpiecznych wątkach, ponieważ może służyć jako pojedynczą. W wielu przypadkach, w których obiekt zwrócony, w którym to przypadku to fabryka sama fabryka musi być metodą o bezpiecznych wątkach, ale obiekt zwrócony z fabryki nie musi być metodą o bezpiecznych wątkach, ponieważ zażądano nowe wystąpienie z fabryki dla każdego zastosowania.
 
-## <a name="services-resolved"></a>Usługi rozwiązane  
+Ten artykuł zawiera szczegółowe informacje o sposobie implementacji IDbDependencyResolver, ale zamiast tego działa jako odwołanie dla typów usługi (oznacza to, że interfejs i podstawowej klasy typy), dla których EF wywołuje GetService i semantyka obiekt klucza dla każdego z nich wywołuje.
 
-Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bezpiecznych wątkach, ponieważ może służyć jako pojedynczą. W wielu przypadkach, w których obiekt zwrócony, w którym to przypadku to fabryka sama fabryka musi być metodą o bezpiecznych wątkach, ale obiekt zwrócony z fabryki nie musi być metodą o bezpiecznych wątkach, ponieważ zażądano nowe wystąpienie z fabryki dla każdego zastosowania.  
-
-### <a name="systemdataentityidatabaseinitializertcontext"></a>System.Data.Entity.IDatabaseInitializer < TContext\>  
+## <a name="systemdataentityidatabaseinitializertcontext"></a>System.Data.Entity.IDatabaseInitializer < TContext\>  
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -39,7 +37,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 
 **Klucz**: nie jest używany; będzie miał wartość null  
 
-### <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a>FUNC < System.Data.Entity.Migrations.Sql.MigrationSqlGenerator\>  
+## <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a>FUNC < System.Data.Entity.Migrations.Sql.MigrationSqlGenerator\>  
 
 **Wprowadzona w wersji**: EF6.0.0
 
@@ -50,7 +48,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 >[!NOTE]
 > Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
 
-### <a name="systemdataentitycorecommondbproviderservices"></a>System.Data.Entity.Core.Common.DbProviderServices  
+## <a name="systemdataentitycorecommondbproviderservices"></a>System.Data.Entity.Core.Common.DbProviderServices  
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -61,7 +59,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 >[!NOTE]
 > Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
 
-### <a name="systemdataentityinfrastructureidbconnectionfactory"></a>System.Data.Entity.Infrastructure.IDbConnectionFactory  
+## <a name="systemdataentityinfrastructureidbconnectionfactory"></a>System.Data.Entity.Infrastructure.IDbConnectionFactory  
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -72,7 +70,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 >[!NOTE]
 > Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
 
-### <a name="systemdataentityinfrastructureimanifesttokenservice"></a>System.Data.Entity.Infrastructure.IManifestTokenService  
+## <a name="systemdataentityinfrastructureimanifesttokenservice"></a>System.Data.Entity.Infrastructure.IManifestTokenService  
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -82,7 +80,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 
 **Klucz**: nie jest używany; będzie miał wartość null  
 
-### <a name="systemdataentityinfrastructureidbproviderfactoryservice"></a>System.Data.Entity.Infrastructure.IDbProviderFactoryService  
+## <a name="systemdataentityinfrastructureidbproviderfactoryservice"></a>System.Data.Entity.Infrastructure.IDbProviderFactoryService  
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -90,7 +88,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 
 **Klucz**: nie jest używany; będzie miał wartość null  
 
-### <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a>FUNC < DbContext, System.Data.Entity.Infrastructure.IDbModelCacheKey\>  
+## <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a>FUNC < DbContext, System.Data.Entity.Infrastructure.IDbModelCacheKey\>  
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -98,7 +96,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 
 **Klucz**: nie jest używany; będzie miał wartość null  
 
-### <a name="systemdataentityspatialdbspatialservices"></a>System.Data.Entity.Spatial.DbSpatialServices  
+## <a name="systemdataentityspatialdbspatialservices"></a>System.Data.Entity.Spatial.DbSpatialServices  
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -109,7 +107,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 >[!NOTE]
 > Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
 
-### <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a>FUNC < System.Data.Entity.Infrastructure.IDbExecutionStrategy\>  
+## <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a>FUNC < System.Data.Entity.Infrastructure.IDbExecutionStrategy\>  
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -120,7 +118,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 >[!NOTE]
 > Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
 
-### <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a>FUNC < DbConnection, string, System.Data.Entity.Migrations.History.HistoryContext\>  
+## <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a>FUNC < DbConnection, string, System.Data.Entity.Migrations.History.HistoryContext\>  
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -131,7 +129,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 >[!NOTE]
 > Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
 
-### <a name="systemdatacommondbproviderfactory"></a>System.Data.Common.DbProviderFactory  
+## <a name="systemdatacommondbproviderfactory"></a>System.Data.Common.DbProviderFactory  
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -142,7 +140,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 >[!NOTE]
 > Ta usługa nie jest zazwyczaj zmieniany bezpośrednio od implementacji domyślnej jest używana normalnej rejestracji dostawcy ADO.NET. Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
 
-### <a name="systemdataentityinfrastructureiproviderinvariantname"></a>System.Data.Entity.Infrastructure.IProviderInvariantName  
+## <a name="systemdataentityinfrastructureiproviderinvariantname"></a>System.Data.Entity.Infrastructure.IProviderInvariantName  
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -153,7 +151,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 >[!NOTE]
 > Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
 
-### <a name="systemdataentitycoremappingviewgenerationiviewassemblycache"></a>System.Data.Entity.Core.Mapping.ViewGeneration.IViewAssemblyCache  
+## <a name="systemdataentitycoremappingviewgenerationiviewassemblycache"></a>System.Data.Entity.Core.Mapping.ViewGeneration.IViewAssemblyCache  
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -161,7 +159,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 
 **Klucz**: nie jest używany; będzie miał wartość null  
 
-### <a name="systemdataentityinfrastructurepluralizationipluralizationservice"></a>System.Data.Entity.Infrastructure.Pluralization.IPluralizationService
+## <a name="systemdataentityinfrastructurepluralizationipluralizationservice"></a>System.Data.Entity.Infrastructure.Pluralization.IPluralizationService
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -169,7 +167,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 
 **Klucz**: nie jest używany; będzie miał wartość null  
 
-### <a name="systemdataentityinfrastructureinterceptionidbinterceptor"></a>System.Data.Entity.Infrastructure.Interception.IDbInterceptor  
+## <a name="systemdataentityinfrastructureinterceptionidbinterceptor"></a>System.Data.Entity.Infrastructure.Interception.IDbInterceptor  
 
 **Wprowadzona w wersji**: EF6.0.0
 
@@ -177,7 +175,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 
 **Klucz**: nie jest używany; będzie miał wartość null.  
 
-### <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a>FUNC < System.Data.Entity.DbContext, akcja < ciąg\>, System.Data.Entity.Infrastructure.Interception.DatabaseLogFormatter\>  
+## <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a>FUNC < System.Data.Entity.DbContext, akcja < ciąg\>, System.Data.Entity.Infrastructure.Interception.DatabaseLogFormatter\>  
 
 **Wprowadzona w wersji**: EF6.0.0  
 
@@ -185,7 +183,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 
 **Klucz**: nie jest używany; będzie miał wartość null.  
 
-### <a name="funcsystemdataentitydbcontext"></a>FUNC < System.Data.Entity.DbContext\>  
+## <a name="funcsystemdataentitydbcontext"></a>FUNC < System.Data.Entity.DbContext\>  
 
 **Wprowadzona w wersji**: EF6.1.0  
 
@@ -193,7 +191,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 
 **Klucz**: typ obiektu dla typu pochodnego typu DbContext potrzeby fabrykę.  
 
-### <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a>FUNC < System.Data.Entity.Core.Metadata.Edm.IMetadataAnnotationSerializer\>  
+## <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a>FUNC < System.Data.Entity.Core.Metadata.Edm.IMetadataAnnotationSerializer\>  
 
 **Wprowadzona w wersji**: EF6.1.0  
 
@@ -201,7 +199,7 @@ Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bez
 
 **Klucz**: Nazwa adnotacji, który jest serializowany lub deserializowany.  
 
-### <a name="funcsystemdataentityinfrastructuretransactionhandler"></a>FUNC < System.Data.Entity.Infrastructure.TransactionHandler\>  
+## <a name="funcsystemdataentityinfrastructuretransactionhandler"></a>FUNC < System.Data.Entity.Infrastructure.TransactionHandler\>  
 
 **Wprowadzona w wersji**: EF6.1.0  
 

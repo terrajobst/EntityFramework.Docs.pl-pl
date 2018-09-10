@@ -3,12 +3,12 @@ title: Pobieranie programu Entity Framework - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 122c38a2-f9e8-4ecc-9c72-a83bc9af7814
-ms.openlocfilehash: 91b78e56f60edf7ebc8769b1c385f8547f63cd3d
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 601f8d123d5494be6a658da1c4ad3743ed50385c
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152391"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250884"
 ---
 # <a name="get-entity-framework"></a>Pobieranie programu Entity Framework
 Entity Framework składa się z narzędziami EF dla programu Visual Studio i środowiska uruchomieniowego EF.
@@ -27,7 +27,7 @@ Najnowszą wersję programu Entity Framework jest dostępna jako [pakiet NuGet p
 
 Można zainstalować pakiet platformy EntityFramework, klikając prawym przyciskiem myszy **odwołania** folderu projektu i wybierając polecenie **Zarządzaj pakietami NuGet...**
 
-![ManageNuGetPackages](~/ef6/media/managenugetpackages.png)
+![Zarządzaj pakietami NuGet](~/ef6/media/managenugetpackages.png)
 
 ### <a name="installing-from-package-manager-console"></a>Instalowanie za pomocą konsoli Menedżera pakietów
 
@@ -55,7 +55,7 @@ Powyższych metod prześle Ci najnowsze wydania Entity Framework w pełni obsłu
 
 Do zainstalowania najnowszej wersji zapoznawczej platformy EntityFramework, możesz wybrać **Uwzględnij wydania wstępne** w oknie Zarządzanie pakietami NuGet. Jeśli nie wstępnej wersji są dostępne najnowsze zostanie automatycznie pobrana w pełni obsługiwana wersja programu Entity Framework.
 
-![IncludePreRelease](~/ef6/media/includeprerelease.png)
+![Uwzględnij wersję wstępną](~/ef6/media/includeprerelease.png)
 
 Alternatywnie, możesz uruchomić następujące polecenie w [Konsola Menedżera pakietów](http://docs.nuget.org/docs/start-here/using-the-package-manager-console).
 

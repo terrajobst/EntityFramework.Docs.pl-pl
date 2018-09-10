@@ -3,12 +3,12 @@ title: Powiązanie danych przy użyciu platformy WPF — EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: e90d48e6-bea5-47ef-b756-7b89cce4daf0
-ms.openlocfilehash: 0b1f4d5ea204cd80acf42caa499732610daa0e31
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e6df90db17d39d3aa91275800a6414fed40fb5db
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994826"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251157"
 ---
 # <a name="databinding-with-wpf"></a>Powiązanie danych przy użyciu platformy WPF
 Ten przewodnik krok po kroku pokazano, jak powiązać POCO typy kontrolek WPF w postaci "elementy główne szczegóły". Aplikacja używa interfejsów API programu Entity Framework do wypełniania obiekty z danymi z bazy danych, śledzenie zmian i utrwalanie danych w bazie danych.
@@ -142,17 +142,17 @@ Rozpocznijmy i wygenerować bazę danych.
 -   Kliknij prawym przyciskiem myszy **połączeń danych -&gt; Dodaj połączenie...**
 -   Jeśli nie jest połączona z bazą danych za pomocą Eksploratora serwera przed, musisz wybrać programu Microsoft SQL Server jako źródło danych
 
-    ![ChangeDataSource](~/ef6/media/changedatasource.png)
+    ![Zmień źródło danych](~/ef6/media/changedatasource.png)
 
 -   Łączenie się z LocalDB lub SQL Express, w zależności od tego, który z nich został zainstalowany, a następnie wprowadź **produktów** jako nazwa bazy danych
 
-    ![AddConnectionLocalDB](~/ef6/media/addconnectionlocaldb.png)
+    ![Dodaj połączenie LocalDB](~/ef6/media/addconnectionlocaldb.png)
 
-    ![AddConnectionExpress](~/ef6/media/addconnectionexpress.png)
+    ![Dodaj połączenie Express](~/ef6/media/addconnectionexpress.png)
 
 -   Wybierz **OK** i uzyskasz, jeśli chcesz utworzyć nową bazę danych, wybierz opcję **tak**
 
-    ![CreateDatabase](~/ef6/media/createdatabase.png)
+    ![Tworzenie bazy danych](~/ef6/media/createdatabase.png)
 
 -   Nowe bazy danych będą teraz wyświetlane w Eksploratorze serwera, kliknij prawym przyciskiem myszy na nim i wybierz **nowe zapytanie**
 -   Skopiuj następujące instrukcje SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy, zapytania i wybierz pozycję **wykonania**
@@ -186,15 +186,15 @@ Zamierzamy korzystania z programu Entity Framework Designer, który wchodzi w sk
 -   Spowoduje to uruchomienie **Kreator modelu Entity Data Model**
 -   Wybierz **Generuj z bazy danych** i kliknij przycisk **dalej**
 
-    ![ChooseModelContents](~/ef6/media/choosemodelcontents.png)
+    ![Wybierz zawartość modelu](~/ef6/media/choosemodelcontents.png)
 
 -   Wybierz połączenie do bazy danych utworzonej w pierwszej sekcji, wprowadź **ProductContext** jako nazwa parametrów połączenia i kliknij przycisk **dalej**
 
-    ![ChooseYourConnection](~/ef6/media/chooseyourconnection.png)
+    ![Wybierz połączenie](~/ef6/media/chooseyourconnection.png)
 
 -   Kliknij pole wyboru obok "Tabele", aby zaimportować wszystkie tabele i kliknij przycisk "Zakończ"
 
-    ![ChooseYourObjects](~/ef6/media/chooseyourobjects.png)
+    ![Wybierz obiekty](~/ef6/media/chooseyourobjects.png)
 
 Po zakończeniu procesu odtwarzania nowy model jest dodawane do projektu i otworzona w celu wyświetlania w Projektancie Entity Framework. Dodano również pliku App.config do projektu przy użyciu szczegółów połączenia dla bazy danych.
 
@@ -213,7 +213,7 @@ EF generuje kod z modelu przy użyciu szablonów T4. Szablonów dostarczanych z 
 -   Otwórz **Eksploratora rozwiązań** i Znajdź **ProductModel.edmx** pliku
 -   Znajdź **ProductModel.tt** pliku, który będzie można zagnieździć w pliku ProductModel.edmx
 
-    ![WpfProductModelTemplate](~/ef6/media/wpfproductmodeltemplate.png)
+    ![Szablon modelu produktu WPF](~/ef6/media/wpfproductmodeltemplate.png)
 
 -   Kliknij dwukrotnie plik ProductModel.tt, aby otworzyć go w edytorze programu Visual Studio
 -   Znajdź i Zamień dwa wystąpienia "**ICollection**"z"**observablecollection —**". Są to znajduje się mniej więcej w wierszach 296 i 484.
@@ -244,7 +244,7 @@ Dodawanie klas, które są zdefiniowane w modelu jako źródła danych dla tej a
 -   Wybierz obiekty danych okna dialogowego rozwijania może **WPFwithEFSample** dwa razy i wybierz pozycję **kategorii**  
     *Nie ma potrzeby wybrać **produktu** źródła danych, ponieważ można je uzyskać do niego za pośrednictwem **produktu**przez właściwość **kategorii** źródła danych*  
 
-    ![SelectDataObjects](~/ef6/media/selectdataobjects.png)
+    ![Wybierz obiekty danych](~/ef6/media/selectdataobjects.png)
 
 -   Kliknij przycisk **Zakończ.**
 -   Okno źródeł danych zostanie otwarty obok okna MainWindow.xaml *okna źródła danych nie są wyświetlane, wybierz opcję **widok —&gt; inne Windows -&gt; źródeł danych***
@@ -299,7 +299,7 @@ Nadszedł czas, aby dodać niektóre procedury obsługi zdarzeń do głównego o
 -   W oknie XAML kliknij  **&lt;okna** elementu, po wybraniu tej opcji okna głównego
 -   W **właściwości** wybierz okno **zdarzenia** w prawym górnym rogu, następnie kliknij dwukrotnie przycisk po prawej stronie pola tekstowego **Loaded** etykiety
 
-    ![MainWindowProperties](~/ef6/media/mainwindowproperties.png)
+    ![Główne okno właściwości](~/ef6/media/mainwindowproperties.png)
 
 -   Również dodać **kliknij** zdarzenie **Zapisz** przycisku przez dwukrotne kliknięcie przycisku Zapisz w projektancie. 
 
@@ -385,10 +385,10 @@ Ten kod deklaruje wystąpienie długotrwałych **ProductContext**. **ProductCont
 -   Skompilować i uruchomić aplikację. Jeśli użyto Code First, a następnie zostanie wyświetlony **WPFwithEFSample.ProductContext** baza danych została utworzona dla Ciebie.
 -   Wprowadź nazwę kategorii w górnym siatki produktu nazwy i w dół siatki *wypełniać kolumny Identyfikatora, ponieważ klucz podstawowy jest generowany przez bazę danych*
 
-    ![Screen1](~/ef6/media/screen1.png)
+    ![Okno główne z nowych kategorii i produktami](~/ef6/media/screen1.png)
 
 -   Naciśnij klawisz **Zapisz** przycisk, aby zapisać dane w bazie danych
 
 Po wywołaniu przez DbContext **SaveChanges**(), identyfikatory są wypełniane przy użyciu wartości z bazy danych, wygenerowane. Ponieważ firma Microsoft o nazwie **Odśwież**() po **SaveChanges**() **DataGrid** formanty są aktualizowane na nowe wartości.
 
-![Screen2](~/ef6/media/screen2.png)
+![Okno główne z identyfikatorami wypełnione](~/ef6/media/screen2.png)

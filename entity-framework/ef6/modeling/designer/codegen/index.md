@@ -3,12 +3,12 @@ title: Szablony generowania kodu projektanta - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 56e00fa2-f9f0-48b3-8006-f8266ca7e74b
-ms.openlocfilehash: 29e28dd4ebe0e5e6e3cddacb1d34202c2010f389
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e4d4aaa647baca9f85b85db1aadaade37abd6ff2
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994874"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251170"
 ---
 # <a name="designer-code-generation-templates"></a>Szablonów generowania kodu projektanta
 Podczas tworzenia modelu przy użyciu programu Entity Framework Designer klas i kontekst pochodna są generowane automatycznie dla Ciebie. Oprócz generowania kodu domyślne oferujemy są również szablony, których można dostosować program code, który pobiera wygenerowany. Te szablony stanowią one szablonów tekstowych T4, dzięki czemu możesz dostosowywać szablony, jeśli to konieczne.
@@ -151,7 +151,7 @@ Szablony "Witryny sieci Web" (na przykład **EF 5.x Generator DbContext dla jęz
 
 Aby rozpocząć korzystanie z szablonów generowania kodu, kliknij prawym przyciskiem myszy pusty miejscu na powierzchni projektowej, w Projektancie platformy EF i wybierz **Dodaj element generowanie kodu...** .
 
-![Add_Code_Gen_Item](~/ef6/media/add-code-gen-item.png)
+![Dodaj element generacji kodu](~/ef6/media/add-code-gen-item.png)
 
 Jeśli masz już zainstalowaną szablonu chcesz użyć (lub został on uwzględniony w programie Visual Studio), a następnie będzie on dostępny w obszarze **kodu** lub **danych** sekcji w menu po lewej stronie.
 
@@ -166,8 +166,8 @@ Jeśli używasz programu Visual Studio 2012, nowe pliki .tt będzie można zagni
 > [!NOTE]
 > W przypadku modeli utworzonych w programie Visual Studio 2012, musisz usunąć szablonów używanych dla domyślnego generowania kodu w przeciwnym razie otrzymasz klasy zduplikowane oraz wygenerowany kontekst. Domyślne pliki są  **&lt;nazwę modelu&gt;.tt** i  **&lt;nazwę modelu&gt;. context.tt**. 
 
-![VS2012_Templates](~/ef6/media/vs2012-templates.png)
+![Szablony VS2012](~/ef6/media/vs2012-templates.png)
 
 Jeśli używasz programu Visual Studio 2010 pliki tt są dodawane bezpośrednio do swojego projektu.  
 
-![VS2010_Templates](~/ef6/media/vs2010-templates.png)
+![Szablony VS2010](~/ef6/media/vs2010-templates.png)

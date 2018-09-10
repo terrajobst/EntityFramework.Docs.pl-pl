@@ -3,12 +3,12 @@ title: Wiązanie danych z WinForms - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
-ms.openlocfilehash: 7ceb8e85fe3d8f5ab9a5e58ef9c84599585d8f77
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 071172810f7dac45f42aca0efa7f329bac31e9cd
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994532"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251196"
 ---
 # <a name="databinding-with-winforms"></a>Wiązanie danych z WinForms
 Ten przewodnik krok po kroku pokazano, jak powiązać POCO typy formantów w formularzach systemu Windows (WinForms) w postaci "elementy główne szczegóły". Aplikacja używa platformy Entity Framework do wypełniania obiekty z danymi z bazy danych, śledzenie zmian i utrwalanie danych w bazie danych.
@@ -179,17 +179,17 @@ Rozpocznijmy i wygenerować bazę danych.
 -   Kliknij prawym przyciskiem myszy **połączeń danych -&gt; Dodaj połączenie...**
 -   Jeśli nie jest połączona z bazą danych za pomocą Eksploratora serwera przed, musisz wybrać programu Microsoft SQL Server jako źródło danych
 
-    ![ChangeDataSource](~/ef6/media/changedatasource.png)
+    ![Zmień źródło danych](~/ef6/media/changedatasource.png)
 
 -   Łączenie się z LocalDB lub SQL Express, w zależności od tego, który z nich został zainstalowany, a następnie wprowadź **produktów** jako nazwa bazy danych
 
-    ![AddConnectionLocalDB](~/ef6/media/addconnectionlocaldb.png)
+    ![Dodaj połączenie LocalDB](~/ef6/media/addconnectionlocaldb.png)
 
-    ![AddConnectionExpress](~/ef6/media/addconnectionexpress.png)
+    ![Dodaj połączenie Express](~/ef6/media/addconnectionexpress.png)
 
 -   Wybierz **OK** i uzyskasz, jeśli chcesz utworzyć nową bazę danych, wybierz opcję **tak**
 
-    ![CreateDatabase](~/ef6/media/createdatabase.png)
+    ![Tworzenie bazy danych](~/ef6/media/createdatabase.png)
 
 -   Nowe bazy danych będą teraz wyświetlane w Eksploratorze serwera, kliknij prawym przyciskiem myszy na nim i wybierz **nowe zapytanie**
 -   Skopiuj następujące instrukcje SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy, zapytania i wybierz pozycję **wykonania**
@@ -227,11 +227,11 @@ Zamierzamy korzystania z programu Entity Framework Designer, który wchodzi w sk
 
 -   Wybierz połączenie do bazy danych utworzonej w pierwszej sekcji, wprowadź **ProductContext** jako nazwa parametrów połączenia i kliknij przycisk **dalej**
 
-    ![ChooseYourConnection](~/ef6/media/chooseyourconnection.png)
+    ![Wybierz połączenie](~/ef6/media/chooseyourconnection.png)
 
 -   Kliknij pole wyboru obok "Tabele", aby zaimportować wszystkie tabele i kliknij przycisk "Zakończ"
 
-    ![ChooseYourObjects](~/ef6/media/chooseyourobjects.png)
+    ![Wybierz obiekty](~/ef6/media/chooseyourobjects.png)
 
 Po zakończeniu procesu odtwarzania nowy model jest dodawane do projektu i otworzona w celu wyświetlania w Projektancie Entity Framework. Dodano również pliku App.config do projektu przy użyciu szczegółów połączenia dla bazy danych.
 
@@ -250,7 +250,7 @@ EF generuje kod z modelu przy użyciu szablonów T4. Szablonów dostarczanych z 
 -   Otwórz **Eksploratora rozwiązań** i Znajdź **ProductModel.edmx** pliku
 -   Znajdź **ProductModel.tt** pliku, który będzie można zagnieździć w pliku ProductModel.edmx
 
-    ![ProductModelTemplate](~/ef6/media/productmodeltemplate.png)
+    ![Szablon modelu produktu](~/ef6/media/productmodeltemplate.png)
 
 -   Kliknij dwukrotnie plik ProductModel.tt, aby otworzyć go w edytorze programu Visual Studio
 -   Znajdź i Zamień dwa wystąpienia "**ICollection**"z"**ObservableListSource**". Te znajdują się w przybliżeniu wiersze 296 i 484.
@@ -278,13 +278,13 @@ Dodawanie klas, które są zdefiniowane w modelu jako źródła danych dla tej a
 -   Wybierz typ źródła danych okna wybierz **obiektu** i kliknij przycisk **dalej**
 -   Wybierz obiekty danych okna dialogowego rozwijania może **WinFormswithEFSample** dwa razy i wybierz pozycję **kategorii** nie ma potrzeby wybierz źródło danych produktu, ponieważ można je uzyskać do niego w produkcie Właściwość w źródle danych kategorii.
 
-    ![DataSource](~/ef6/media/datasource.png)
+    ![Źródło danych](~/ef6/media/datasource.png)
 
 -   Kliknij przycisk **Zakończ.** 
      *Okna źródła danych nie są wyświetlane, wybierz opcję *** Widok —&gt; inne Windows -&gt; źródeł danych**
 -   Naciśnij ikonę pinezki, więc okna źródeł danych, automatycznie ukrywać. Może być konieczne przycisk Odśwież okno zostało już widoczne.
 
-    ![DataSource2](~/ef6/media/datasource2.png)
+    ![Źródło danych 2](~/ef6/media/datasource2.png)
 
 -   W Eksploratorze rozwiązań kliknij dwukrotnie **Form1.cs** plik, aby otworzyć formularz główny w projektancie.
 -   Wybierz **kategorii** źródła danych i przeciągnij je na formularzu. Domyślnie nowe DataGridView (**categoryDataGridView**) i formanty nawigacji na pasku narzędzi są dodawane do projektanta. Te kontrolki są powiązane z BindingSource (**categoryBindingSource**) i powiązanie Navigator (**categoryBindingNavigator**) składników, które są również tworzone.
@@ -302,7 +302,7 @@ Dodawanie klas, które są zdefiniowane w modelu jako źródła danych dla tej a
     Do tej pory firma Microsoft skojarzony naszych formantów DataGridView BindingSource składniki w projektancie. W następnej sekcji dodamy kod kodu można ustawić categoryBindingSource.DataSource do kolekcji jednostek, które obecnie są śledzone przez DbContext. Gdy przeciągnąć i porzucony produktów z kategorii, WinForms trwało Dbamy konfigurowania właściwości productsBindingSource.DataSource categoryBindingSource i productsBindingSource.DataMember właściwości produktów. Ze względu na to powiązanie tylko produkty należące do aktualnie wybranej kategorii będą wyświetlane w productDataGridView.
 -   Włącz **Zapisz** przycisk na pasku nawigacji, klikając prawym przyciskiem myszy i wybierając **włączone**.
 
-    ![Formularz Form1 projektanta](~/ef6/media/form1-designer.png)
+    ![Projektant formularzy 1](~/ef6/media/form1-designer.png)
 
 -   Dodaj program obsługi zdarzeń zapisywania przycisku przez dwukrotne kliknięcie przycisku. Spowoduje to dodanie obsługi zdarzeń i wyświetlić kod związany z formularza. Kod **categoryBindingNavigatorSaveItem\_kliknij** programu obsługi zdarzeń zostanie dodana w następnej sekcji.
 
@@ -401,12 +401,12 @@ Ten kod deklaruje długotrwałych wystąpienie ProductContext. Obiekt ProductCon
 
 -   Kompiluj i uruchom aplikację i przetestowania funkcji.
 
-    ![Form1BeforeSave](~/ef6/media/form1beforesave.png)
+    ![Formularz 1 przed Zapisz](~/ef6/media/form1beforesave.png)
 
 -   Po zapisaniu wygenerowane klucze są wyświetlane na ekranie.
 
-    ![Form1AfterSave](~/ef6/media/form1aftersave.png)
+    ![Formularz Zapisz po 1](~/ef6/media/form1aftersave.png)
 
 -   Jeśli została użyta Code First, to będzie również informacja, że **WinFormswithEFSample.ProductContext** baza danych została utworzona dla Ciebie.
 
-    ![ServerObjExplorer](~/ef6/media/serverobjexplorer.png)
+    ![Eksplorator obiektu serwera](~/ef6/media/serverobjexplorer.png)

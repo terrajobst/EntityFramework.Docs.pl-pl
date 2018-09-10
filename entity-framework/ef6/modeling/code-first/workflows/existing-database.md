@@ -3,12 +3,12 @@ title: Najpierw kod istniejącej bazy danych — EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: a7e60b74-973d-4480-868f-500a3899932e
-ms.openlocfilehash: 29f959265e0fd0d5e14c156519e6931fd8da0677
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: fedfb921919582e2cdb5f3bc497f11889b972ad6
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995093"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251079"
 ---
 # <a name="code-first-to-an-existing-database"></a>Najpierw kod istniejącej bazy danych
 W tym przewodniku krok po kroku i wideo zawierają wprowadzenie do rozwiązania deweloperskiego Code First przeznaczonych dla istniejącej bazy danych. Kod umożliwia najpierw zdefiniować model za pomocą języka C\# lub klasy VB.Net. Opcjonalnie dodatkowej konfiguracji można wykonać przy użyciu atrybutów klas i właściwości lub za pomocą interfejsu API fluent.
@@ -33,15 +33,15 @@ Rozpocznijmy i wygenerować bazę danych.
 -   Kliknij prawym przyciskiem myszy **połączeń danych -&gt; Dodaj połączenie...**
 -   Jeśli nie jest połączona z bazą danych z **Eksploratora serwera** zanim będzie konieczne wybranie **programu Microsoft SQL Server** jako źródło danych
 
-    ![SelectDataSource](~/ef6/media/selectdatasource.png)
+    ![Wybierz źródło danych](~/ef6/media/selectdatasource.png)
 
 -   Połącz się z wystąpieniem usługi LocalDB, a następnie wprowadź **do obsługi blogów** jako nazwa bazy danych
 
-    ![LocalDBConnection](~/ef6/media/localdbconnection.png)
+    ![Połączenie LocalDB](~/ef6/media/localdbconnection.png)
 
 -   Wybierz **OK** i uzyskasz, jeśli chcesz utworzyć nową bazę danych, wybierz opcję **tak**
 
-    ![CreateDatabaseDialog](~/ef6/media/createdatabasedialog.png)
+    ![Tworzenie okna dialogowego baza danych](~/ef6/media/createdatabasedialog.png)
 
 -   Nowe bazy danych będą teraz wyświetlane w Eksploratorze serwera, kliknij prawym przyciskiem myszy na nim i wybierz **nowe zapytanie**
 -   Skopiuj następujące instrukcje SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy, zapytania i wybierz pozycję **wykonania**
@@ -92,15 +92,15 @@ Będziemy korzystać z narzędzi Entity Framework Tools for Visual Studio ułatw
 -   Spowoduje to uruchomienie **Kreator modelu Entity Data Model**
 -   Wybierz **Code First z bazy danych** i kliknij przycisk **dalej**
 
-    ![WizardOneCFE](~/ef6/media/wizardonecfe.png)
+    ![Kreator jeden CFE](~/ef6/media/wizardonecfe.png)
 
 -   Wybierz połączenie do bazy danych utworzonej w pierwszej sekcji, a następnie kliknij przycisk **dalej**
 
-    ![WizardTwoCFE](~/ef6/media/wizardtwocfe.png)
+    ![Kreator dwóch CFE](~/ef6/media/wizardtwocfe.png)
 
 -   Kliknij pole wyboru obok pozycji **tabel** importowania wszystkich tabel, a następnie kliknij przycisk **Zakończ**
 
-    ![WizardThreeCFE](~/ef6/media/wizardthreecfe.png)
+    ![Kreator trzy CFE](~/ef6/media/wizardthreecfe.png)
 
 Po procesu odtwarzania wykonaniu określonej liczby elementów będzie zostały dodane do projektu, możemy przyjrzeć się elementy dodane.
 

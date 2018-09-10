@@ -3,12 +3,12 @@ title: Niestandardowy kod Konwencji pierwsze - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: dd2bdbd9-ae9e-470a-aeb8-d0ba160499b7
-ms.openlocfilehash: 79450790c6d3c8ce7fad209e3946e81d3fad4b75
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a0e8080037cf86640275f498ed159c847ff5c057
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995831"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251066"
 ---
 # <a name="custom-code-first-conventions"></a>Konwencje pierwszy kod niestandardowy
 > [!NOTE]
@@ -115,7 +115,7 @@ Funkcją interesujące metody IsKey jest dodatek. Co oznacza, że jeśli wywołu
 
 Ten kod konfiguruje typy w naszym modelu ma klucz złożony składający się z nazwy kolumny klucza int i ciąg. Jeśli firma Microsoft umożliwia wyświetlenie modelu w Projektancie wyglądała następująco:
 
-![compositeKey](~/ef6/media/compositekey.png)
+![Klucz złożony](~/ef6/media/compositekey.png)
 
 Inny przykład Konwencji właściwość to skonfigurować wszystkie właściwości daty/godziny w swój model do mapowania typu datetime2 w programie SQL Server zamiast daty/godziny. Można to osiągnąć przy użyciu następujących czynności:
 
@@ -292,7 +292,7 @@ Domyślnie pracownika i Menedżera są mapowane na tej samej tabeli (pracownicy)
 
 Powyższy kod będzie zmapowana do struktury tabeli, która wygląda podobnie do poniższego:
 
-![tptExample](~/ef6/media/tptexample.jpg)
+![Przykład Tpt](~/ef6/media/tptexample.jpg)
 
 Można tego uniknąć, a obsługa TPH domyślnego mapowania na kilka sposobów:
 

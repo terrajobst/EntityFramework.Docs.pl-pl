@@ -3,12 +3,12 @@ title: Migracje Code First na środowiska zespołowe - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 4c2d9a95-de6f-4e97-9738-c1f8043eff69
-ms.openlocfilehash: 42f52e63fd6cfc1f02d6a721594f4a161eea9a7b
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 31f8476c64d36d4d1cf3d18deb59ebc482dcc975
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997302"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251235"
 ---
 # <a name="code-first-migrations-in-team-environments"></a>Migracje Code First na środowiska zespołowe
 > [!NOTE]
@@ -54,7 +54,7 @@ Klawisz, aby pomyślnie przy użyciu migracji w środowisku zespołowym, to pods
 
 Po pierwszej migracji możesz dodać do projektu, możesz uruchomić podobny **migracji Dodaj pierwszy** w konsoli Menedżera pakietów. Kroki wysokiego poziomu, które wykonuje to polecenie jest na ilustracji poniżej.
 
-![FirstMigration](~/ef6/media/firstmigration.png)
+![Pierwszej migracji](~/ef6/media/firstmigration.png)
 
 Bieżący model jest obliczana w kodzie (1). Obiekty bazy danych wymagane jest następnie obliczana z użyciem różnią się modelu (2) — ponieważ jest to pierwszy migracji modelu różnią się jedynie używa pusty model do porównania. Wymagane zmiany są przekazywane do generatora kodu, aby skompilować kod Wymagana migracja (3), która jest następnie dodawana do rozwiązania programu Visual Studio (4).
 
@@ -66,7 +66,7 @@ W tym momencie należy prawdopodobnie uruchomić **Update-Database** Aby zastoso
 
 Później możesz wrócić i wprowadzić pewne zmiany na modelu — w tym przykładzie dodamy **adresu Url** właściwości **blogu**. Następnie może wydać polecenie takich jak **AddUrl migracji Dodaj** zmienia się do tworzenia szkieletu migracji, aby zastosować odpowiednie bazy danych. Kroki wysokiego poziomu, które wykonuje to polecenie jest na ilustracji poniżej.
 
-![SecondMigration](~/ef6/media/secondmigration.png)
+![Drugi migracji](~/ef6/media/secondmigration.png)
 
 Podobnie jak wcześniej bieżący model jest obliczana na podstawie kodu (1). Tym razem istnieją migracji istniejących więc w poprzednim modelu są pobierane z najnowszych migracji (2). Te dwa modele są diffed można znaleźć wymaganych zmian w bazie danych (3), a następnie proces kończy się tak jak poprzednio.
 
@@ -96,14 +96,14 @@ Pierwszy Przyjrzyjmy się konkretny przykład konfliktu scalania. Będziemy dale
 
 Firma Microsoft będzie śledzić modelu platformy EF migracjach do większej liczby zmian. Punkt początkowy zarówno deweloperów zsynchronizowanych repozytorium kontroli źródła, jak pokazano na poniższym rysunku.
 
-![StartingPoint](~/ef6/media/startingpoint.png)
+![Punkt początkowy](~/ef6/media/startingpoint.png)
 
 Deweloper \#1 i deweloperów \#2 teraz sprawia, że pewne zmiany do modelu platformy EF w swoich lokalnych kod podstawowy. Deweloper \#dodaje 1 **ocena** właściwości **Blog** — i generuje **AddRating** migracji w celu zastosowania zmian w bazie danych. Deweloper \#2 dodaje **czytelnicy** właściwości **Blog** — i generuje odpowiedni **AddReaders** migracji. Uruchom zarówno deweloperów **Update-Database**, aby zastosować zmiany w swoich lokalnych baz danych, a następnie kontynuuj, tworzenia aplikacji.
 
 > [!NOTE]
 > Migracje mają prefiks sygnaturę czasową, dzięki czemu nasze grafika przedstawia, migracja AddReaders z deweloperów \#2 pochodzi po migracji AddRating Developer \#1. Czy dla deweloperów \#1 lub \#2 generowane migracji pierwszej sprawia, że nie ma wpływu problemów pracy w zespole lub procesu scalania ich, które omówimy w następnej sekcji.
 
-![LocalChanges](~/ef6/media/localchanges.png)
+![Lokalne zmiany](~/ef6/media/localchanges.png)
 
 To dzień, szczęście Deweloper \#1 po ich wprowadzeniu przedstawią ich zmiany. Ponieważ żaden inny użytkownik zaewidencjonował ponieważ one zsynchronizowane z własnym repozytorium, ich zmiany może przesłać tylko bez przeprowadzania żadnych scalania.
 
@@ -147,7 +147,7 @@ Następujący proces może służyć w tym podejściu, rozpoczynając od godziny
 
 W tym miejscu jest stan dla deweloperów \#2 użytkownika lokalnego kodu bazowego po zakończeniu korzystania z tej metody.
 
-![MergeMigration](~/ef6/media/mergemigration.png)
+![Scal migracji](~/ef6/media/mergemigration.png)
 
 ### <a name="option-2-update-the-model-snapshot-in-the-last-migration"></a>Opcja 2: Zaktualizuj migawkę modelu w ostatniej migracji
 
@@ -176,7 +176,7 @@ Następujący proces może służyć w tym podejściu, rozpoczynając od godziny
 
 W tym miejscu jest stan dla deweloperów \#2 użytkownika lokalnego kodu bazowego po zakończeniu korzystania z tej metody.
 
-![UpdatedMetadata](~/ef6/media/updatedmetadata.png)
+![Aktualizacja metadanych](~/ef6/media/updatedmetadata.png)
 
 ## <a name="summary"></a>Podsumowanie
 

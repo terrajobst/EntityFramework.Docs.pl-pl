@@ -3,29 +3,29 @@ title: Pierwsze adnotacje danych - EF6 kodu
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 0ab66afa3babafe657b3ddb32c02c3fba0ae310e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 57e2b988f81d9c82e10a07a5cd4f3a1decfd838a
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994589"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251209"
 ---
 # <a name="code-first-data-annotations"></a>Adnotacje danych na pierwszym kodu
 > [!NOTE]
-> **EF4.1 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 4.1. Jeśli używasz starszej wersji, niektóre lub wszystkie informacje, nie ma zastosowania.
+> **EF4.1 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 4.1. Jeśli używasz starszej wersji, niektóre lub wszystkie z tych informacji nie ma zastosowania.
 
-Zawartość na tej stronie są zaczerpnięte z, a artykuł pierwotnie napisane przez Julie Lerman (\<http://thedatafarm.com>).
+Zawartość na tej stronie są zaczerpnięte z artykułu pierwotnie napisane przez Julie Lerman (\<http://thedatafarm.com>).
 
-Entity Framework Code First pozwala na używanie własnych klas domeny do reprezentowania modelu, który EF opiera się na do wykonywania zapytań, śledzenia i zmienić aktualizacji funkcji. Kod najpierw wykorzystuje wzorzec programowania, nazywane Konwencji za pośrednictwem konfiguracji. Oznacza to, że kod najpierw zakłada, że Twoich zajęciach zgodne z konwencjami, używanych przez EF. W takim przypadku EF będzie można sprawdzić szczegóły go potrzebuje do wykonywania swojej pracy. Jednak jeśli Twoich zajęciach nie wykonuj tych konwencji, masz możliwość dodawania konfiguracje do swoich klas, aby zapewnić EF informacje, których potrzebuje.
+Entity Framework Code First pozwala na używanie własnych klas domeny do reprezentowania model, który zależy od platformy EF do wykonywania zapytań, zmień śledzenie i aktualizowanie funkcji. Kod najpierw wykorzystuje wzorzec programowania, określane jako Konwencja za pośrednictwem konfiguracji. Najpierw kod będzie założono, że Twoich zajęciach zgodne z konwencjami Entity Framework, w takim przypadku będą działać automatycznie informacje o tym, jak wykonać to zadanie. Jednak jeśli Twoich zajęciach nie wykonuj tych konwencji, masz możliwość dodawania konfiguracje do swojej klasy zapewniające EF niezbędne informacje.
 
-Kod daje najpierw dodaj te konfiguracje do swoich klas na dwa sposoby. Jeden używa proste atrybuty o nazwie DataAnnotations, a drugi to najpierw przy użyciu kodu jest interfejs Fluent API, który zapewnia sposób, aby opisać konfiguracje obowiązkowo, w kodzie.
+Kod daje najpierw dodaj te konfiguracje do swoich klas na dwa sposoby. Jeden używa proste atrybuty o nazwie DataAnnotations, a drugi używa Code First Fluent interfejsu API, który zapewnia sposób, aby opisać konfiguracje obowiązkowo, w kodzie.
 
 Ten artykuł koncentruje się na konfigurowanie Twoich zajęciach — wyróżnianie najczęściej wymagane konfiguracje, za pomocą DataAnnotations (w przestrzeni nazw System.ComponentModel.DataAnnotations). DataAnnotations również są zrozumiałe przez kilka aplikacji .NET, takich jak ASP.NET MVC, która umożliwia tych aplikacji korzystać z tej samej adnotacji dla walidacji po stronie klienta.
 
 
 ## <a name="the-model"></a>Model
 
-Zademonstruję kodu pierwszy DataAnnotations przy użyciu prostego pary klas: Blog i Post.
+Zademonstruję DataAnnotations pierwszy kodu przy użyciu prostego pary klas: Blog i Post.
 
 ``` csharp
     public class Blog
@@ -47,15 +47,15 @@ Zademonstruję kodu pierwszy DataAnnotations przy użyciu prostego pary klas: Bl
     }
 ```
 
-Jak są one klasy blogu i wpis wygodnie Konwencją pierwszy kodu i wymagane nie ulepszeń ułatwiające EF pracować z nimi. Ale można również użyć adnotacje na zapewnienie EF więcej informacji na temat klas i mapować je do bazy danych.
+Jak są one klasy blogu i wpis wygodnie Konwencją pierwszy kodu i wymagają nie ulepszeń, aby włączyć zgodności EF. Jednak również umożliwia adnotacje zapewnienie EF więcej informacji na temat klas i bazy danych, które mapują.
 
  
 
 ## <a name="key"></a>Key
 
-Entity Framework opiera się na każdej jednostki o wartości klucza, która jest używana do śledzenia jednostek. Jedną z Konwencji, od których zależy najpierw kod jest sposób jej działanie polega na właściwość, która jest kluczem w każdą z klas pierwszy kodu. Konwencja jest odszukaj właściwość o nazwie "Id" lub taką, która łączy nazwę klasy i "Id", takich jak "BlogId". Właściwość będą mapowane na kolumny klucza podstawowego w bazie danych.
+Entity Framework opiera się na każdej jednostki o wartości klucza, który służy do śledzenia jednostek. Jeden Konwencji Code First jest niejawne właściwości klucza; Kod najpierw sprawdza właściwości o nazwie "Id" lub kombinacji nazwy klasy i "Id", takich jak "BlogId". Ta właściwość będzie zmapowana do kolumny klucza podstawowego w bazie danych.
 
-Klasy blogu i wpis stosują taką Konwencję. Ale co zrobić, jeśli nie? Co zrobić, jeśli użyto nazwy w blogu *PrimaryTrackingKey* w zamian lub nawet *foo*? Jeśli kod najpierw nie może znaleźć właściwość, która pasuje do niniejszej Konwencji spowoduje zgłoszenie wyjątku, ze względu na wymagania programu Entity Framework, musi mieć właściwość klucza. Można użyć klucza adnotacji, aby określić, które właściwości, które ma być używany jako EntityKey.
+Klasy blogu i wpis stosują taką Konwencję. Co zrobić, jeśli ich nie? Co zrobić, jeśli użyto nazwy w blogu *PrimaryTrackingKey* w zamian lub nawet *foo*? Jeśli kod najpierw nie może znaleźć właściwość, która pasuje do niniejszej Konwencji spowoduje zgłoszenie wyjątku, ze względu na wymagania programu Entity Framework, musi mieć właściwość klucza. Można użyć klucza adnotacji, aby określić, które właściwości, które ma być używany jako EntityKey.
 
 ``` csharp
     public class Blog
@@ -70,11 +70,11 @@ Klasy blogu i wpis stosują taką Konwencję. Ale co zrobić, jeśli nie? Co zro
 
 Jeśli najpierw przy użyciu kodu jest funkcją generowanie bazy danych, tabela blogu będzie miała kolumny klucza podstawowego o nazwie PrimaryTrackingKey, który również jest zdefiniowany jako tożsamość domyślnie.
 
-![jj591583_figure01](~/ef6/media/jj591583-figure01.png)
+![Blog tabeli za pomocą klucza podstawowego](~/ef6/media/jj591583-figure01.png)
 
 ### <a name="composite-keys"></a>Klucze złożone
 
-Entity Framework obsługuje kluczy złożonych — klucze podstawowe, które składają się z więcej niż jednej właściwości. Na przykład usługi może mieć klasy usługi Passport, którego klucz podstawowy jest kombinacją PassportNumber i IssuingCountry.
+Entity Framework obsługuje kluczy złożonych — klucze podstawowe, które składają się z więcej niż jednej właściwości. Na przykład może mieć klasy usługi Passport, którego klucz podstawowy jest kombinacją PassportNumber i IssuingCountry.
 
 ``` csharp
     public class Passport
@@ -88,11 +88,11 @@ Entity Framework obsługuje kluczy złożonych — klucze podstawowe, które sk�
     }
 ```
 
-Gdyby i spróbuj użyć klasy powyżej w modelu platformy EF otrzymamy informacją InvalidOperationExceptions;
+Podjęto próbę użycia klasy powyżej w modelu platformy EF mogłoby spowodować `InvalidOperationException`:
 
 *Nie można określić złożonego podstawowego klucza porządkowanie dla typu "Paszport". Użyj metody HasKey lub ColumnAttribute, aby określić zamówienia złożone kluczy podstawowych.*
 
-W przypadku kluczy złożonych Entity Framework wymaga do definiowania porządku właściwości klucza. Można to zrobić za pomocą adnotacji kolumny w celu określania kolejności.
+Aby można było używać kluczy złożonych, platformy Entity Framework wymaga do definiowania porządku właściwości klucza. Można to zrobić przy użyciu adnotacji kolumny do określania kolejności.
 
 >[!NOTE]
 > Wartość kolejności jest względna (a nie na podstawie indeksu), dzięki czemu można używać dowolnej wartości. Na przykład 100 do 200 byłoby dopuszczalne zamiast 1 i 2.
@@ -111,7 +111,7 @@ W przypadku kluczy złożonych Entity Framework wymaga do definiowania porządku
     }
 ```
 
-W przypadku jednostek za pomocą kluczy złożonych obcego należy określić w tej samej kolumnie, porządkowanie, który był używany dla odpowiednich właściwości klucza podstawowego.
+Jeśli jednostki z kluczy obcych złożonych, należy określić w tej samej kolumnie, porządkowanie, który był używany dla odpowiednich właściwości klucza podstawowego.
 
 Tylko względną kolejność w ramach właściwości klucza obcego muszą być takie same, dokładne wartości, które są przypisane do **kolejność** nie muszą być zgodne. Na przykład w następującej klasy 3 i 4 może służyć zamiast 1 i 2.
 
@@ -148,7 +148,7 @@ Dodawanie wymaganych do właściwości Title wymusi EF (i MVC), aby upewnić si�
 
 Nie dodatkowych bez zmiany kodu lub języka znaczników w aplikacji, aplikacji MVC przeprowadzi weryfikację po stronie klienta, nawet dynamiczne tworzenie komunikat przy użyciu nazwy właściwości i adnotacji.
 
-![jj591583_figure02](~/ef6/media/jj591583-figure02.png)
+![Utwórz stronę o tytule jest wymagana błąd](~/ef6/media/jj591583-figure02.png)
 
 Wymagany atrybut wpłynie również na wygenerowanej bazy danych, wprowadzając mapowanej właściwości niedopuszczającej. Należy zauważyć, że pole tytułu została zmieniona na "nie ma wartości null".
 
@@ -157,7 +157,7 @@ Wymagany atrybut wpłynie również na wygenerowanej bazy danych, wprowadzając 
 
  
 
-![jj591583_figure03](~/ef6/media/jj591583-figure03.png)
+![Blogi dotyczące tabeli](~/ef6/media/jj591583-figure03.png)
 
  
 
@@ -174,7 +174,7 @@ Oto BloggerName o wymagania dotyczące długości. W przykładzie pokazano równ
 
 Adnotacja MaxLength wpłynie na bazie danych przez ustawienie właściwości długości do 10.
 
-![jj591583_figure04](~/ef6/media/jj591583-figure04.png)
+![Tabela blogi, zawierająca maksymalna długość w kolumnie BloggerName](~/ef6/media/jj591583-figure04.png)
 
 Adnotacja po stronie klienta w MVC i EF 4.1 po stronie serwera adnotacji zarówno podlegają weryfikacji ponownie dynamicznie tworzenie komunikat o błędzie: "pole BloggerName musi być typu string lub tablicy o maksymalnej długości"10"." Ten komunikat jest nieco długi. Wiele adnotacje umożliwiają określenie komunikat o błędzie z atrybutem komunikat o błędzie.
 
@@ -185,7 +185,7 @@ Adnotacja po stronie klienta w MVC i EF 4.1 po stronie serwera adnotacji zarówn
 
 Można również określić komunikat o błędzie w wymaganych adnotacji.
 
-![jj591583_figure05](~/ef6/media/jj591583-figure05.png)
+![Tworzenie strony przy użyciu niestandardowego komunikatu o błędzie](~/ef6/media/jj591583-figure05.png)
 
  
 
@@ -243,7 +243,7 @@ Teraz można dodać właściwość w klasie blogu do reprezentowania BlogDetails
 
 W bazie danych w tabeli blogu będzie zawierać wszystkie właściwości blogu, w tym właściwości zawarte w jego właściwość BlogDetail. Domyślnie każdej z nich jest poprzedzone nazwą typu złożonego BlogDetail.
 
-![jj591583_figure06](~/ef6/media/jj591583-figure06.png)
+![Blog tabelę z typu złożonego](~/ef6/media/jj591583-figure06.png)
 
 Inny interesujący Uwaga jest mimo, że właściwość DateCreated została zdefiniowana jako nieprzyjmujące wartości daty/godziny w klasie, pole odpowiedniej bazy danych dopuszcza wartości null. Należy użyć wymaganych adnotacji, jeśli chcesz mieć wpływ na schemat bazy danych.
 
@@ -284,7 +284,7 @@ Dodawanie następującej właściwości do klasy Blog:
 
 wyniki w kodzie, najpierw tworząc kolumnę sygnatur czasowych nie dopuszcza wartości null w tabeli bazy danych.
 
-![jj591583_figure07](~/ef6/media/jj591583-figure07.png)
+![Blogi tabeli z kolumną sygnatury czasu](~/ef6/media/jj591583-figure07.png)
 
  
 
@@ -310,7 +310,7 @@ Nie należy mylić w kolumnie Nazwa typu atrybutu o DataAnnotation typu danych. 
 
 Oto tabeli po jest zostały ponownie wygenerowane. Nazwa tabeli został zmieniony na InternalBlogs i opis kolumny z typu złożonego jest teraz BlogDescription. Ponieważ nazwa została określona w adnotacji, kod najpierw nie będzie używać konwencji początkowych nazwa kolumny o nazwie typu złożonego.
 
-![jj591583_figure08](~/ef6/media/jj591583-figure08.png)
+![Tabela blogi i kolumny, zmieniono jego nazwę](~/ef6/media/jj591583-figure08.png)
 
  
 
@@ -418,7 +418,7 @@ Podczas generowania bazy danych, kod najpierw widzi właściwość BlogId w klas
 
 Ograniczenia w bazie danych przedstawiono relację między InternalBlogs.PrimaryTrackingKey i Posts.BlogId. 
 
-![jj591583_figure09](~/ef6/media/jj591583-figure09.png)
+![Relacja między InternalBlogs.PrimaryTrackingKey i Posts.BlogId](~/ef6/media/jj591583-figure09.png)
 
 InverseProperty jest używany, jeśli masz wiele relacji między klasami.
 
@@ -443,7 +443,7 @@ Należy również dodać w klasie osoby odwołuje się tych właściwości. Klas
 
 Kod najpierw jest możliwość dopasowania właściwości do dwóch klas samodzielnie. W tabeli bazy danych dla wpisów powinien mieć jeden klucz obcy dla osoby CreatedBy i jeden dla UpdatedBy osoby, ale kod najpierw utworzy cztery będą właściwości klucza obcego: osoba\_identyfikator, osoba\_Id1, CreatedBy\_identyfikator i UpdatedBy\_identyfikatora.
 
-![jj591583_figure10](~/ef6/media/jj591583-figure10.png)
+![Wpisy tabeli za pomocą kluczy obcych dodatkowych](~/ef6/media/jj591583-figure10.png)
 
 Aby rozwiązać te problemy, można użyć adnotacji InverseProperty, aby określić wyrównanie właściwości.
 
@@ -457,7 +457,7 @@ Aby rozwiązać te problemy, można użyć adnotacji InverseProperty, aby okreś
 
 Ponieważ właściwość PostsWritten osobiście wie, to odnosi się do typu wpisu, utworzy relacji z elementem Post.CreatedBy. Podobnie Post.UpdatedBy połączyć PostsUpdated. I kod najpierw nie utworzy ich klucze obce dodatkowych.
 
-![jj591583_figure11](~/ef6/media/jj591583-figure11.png)
+![Wpisy tabeli bez kluczy obcych dodatkowych](~/ef6/media/jj591583-figure11.png)
 
  
 

@@ -3,19 +3,19 @@ title: Typy złożone - projektancie platformy EF - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 9a8228ef-acfd-4575-860d-769d2c0e18a1
-ms.openlocfilehash: d35504cbe60823249d54385962568802b3e41308
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2a516bd14131fd035a4d005e0fdf140f7ff4d65f
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994856"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250832"
 ---
 # <a name="complex-types---ef-designer"></a>Typy złożone - projektancie platformy EF
 W tym temacie pokazano, jak do mapowania typów złożonych z Entity Framework Designer (Projektant EF) oraz sposób wykonywania zapytań w przypadku jednostek, które zawierają właściwości typu złożonego.
 
 Na poniższej ilustracji przedstawiono główne systemu windows, które są używane podczas pracy z projektancie platformy EF.
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![Projektancie platformy EF](~/ef6/media/efdesigner.png)
 
 > [!NOTE]
 > Podczas tworzenia modelu koncepcyjnego ostrzeżenia dotyczące podmiotów niezmapowanych i skojarzenia może pojawić się na liście błędów. Można zignorować te ostrzeżenia, ponieważ po dokonaniu wyboru wygenerować bazę danych z modelu, błędy znikną.
@@ -45,7 +45,7 @@ Nowy typ złożony z wybranymi właściwościami zostanie dodany do **przegląda
 
 Właściwości złożonej typu nowo utworzony zastępuje wybranych właściwości. Wszystkie mapowania właściwości są zachowywane.
 
-![Refactor2](~/ef6/media/refactor2.png)
+![Refaktoryzuj 2](~/ef6/media/refactor2.png)
 
 ## <a name="create-a-new-complex-type"></a>Utwórz nowy typ złożony
 
@@ -53,7 +53,7 @@ Można również utworzyć nowy typ złożony, który nie zawiera właściwości
 
 Kliknij prawym przyciskiem myszy **typy złożone** folderu w przeglądarce modelu wskaż **typu złożonego działają funkcje AddNew...** . Alternatywnie, można wybrać **typy złożone** folder, a następnie naciśnij klawisz **Wstaw** kluczowe na klawiaturze.
 
-![AddNewComplextype](~/ef6/media/addnewcomplextype.png)
+![Dodaj typ złożony nowe](~/ef6/media/addnewcomplextype.png)
 
 Nowy typ złożony jest dodawany do folderu o domyślnej nazwie. Teraz można dodać właściwości do typu.
 
@@ -65,7 +65,7 @@ Można dodać właściwość, typ złożony sposoby wymienione poniżej.
 
 -   Kliknij prawym przyciskiem myszy typ złożony w przeglądarce modelu, wskaż opcję **Dodaj**, następnie wskaż **właściwość skalarną** lub **właściwość typu złożonego**, następnie wybierz typ żądanej właściwości. Alternatywnie można wybrać typ złożony, a następnie naciśnij klawisz **Wstaw** kluczowe na klawiaturze.  
 
-    ![AddPropertiestoComplexType](~/ef6/media/addpropertiestocomplextype.png)
+    ![Dodaj właściwości do typu złożonego](~/ef6/media/addpropertiestocomplextype.png)
 
     Nowa właściwość jest dodawany do typu złożonego o domyślnej nazwie.
 
@@ -108,7 +108,7 @@ Po zmianie nazwy typu złożonego, wszystkie odwołania do typu są aktualizowan
     Jest wyświetlana lista rozwijana lista właściwości skalarne.
 7.  Wybierz odpowiednie właściwości.
 
-    ![MapComplexType](~/ef6/media/mapcomplextype.png)
+    ![Mapowanie typu złożonego](~/ef6/media/mapcomplextype.png)
 
 8.  Powtórz kroki 6 i 7 dla każdej kolumny.
 
@@ -121,14 +121,14 @@ Importy funkcji są oparte na procedury składowane. Aby mapować importowanie f
 
 -   Kliknij dwukrotnie importowanych funkcja, która ma być mapowany do typu złożonego.
 
-    ![FunctionImports](~/ef6/media/functionimports.png)
+    ![Imports — funkcja](~/ef6/media/functionimports.png)
 
 -   Wypełnij ustawienia dla nowego importowanie funkcji w następujący sposób:
     -   Określ procedury składowanej, dla którego tworzysz importowanie funkcji, w **Nazwa procedury składowanej** pola. To pole jest listy rozwijanej, który wyświetla wszystkie procedury przechowywane w modelu magazynu.
     -   Określ nazwę funkcji importu w **nazwy importowanie funkcji** pola.
     -   Wybierz **złożonych** jako zwracany typ, a następnie określ określonych zwracany typ złożony, wybierając odpowiedni typ z listy rozwijanej.
 
-        ![EditFunctionImport](~/ef6/media/editfunctionimport.png)
+        ![Edytuj Import — funkcja](~/ef6/media/editfunctionimport.png)
 
 -   Kliknij przycisk **OK**.
     W modelu koncepcyjnym jest tworzony wpis importu funkcji.

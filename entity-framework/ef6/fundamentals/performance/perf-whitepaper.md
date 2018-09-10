@@ -3,12 +3,12 @@ title: Zagadnienia dotyczące wydajności dla EF4, EF5 i EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: f71a13ec06ad46259b3f33216367723b53314a5c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 3ec061559f6ad7cbdce59118c13543d9993ec5a5
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996751"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251313"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Zagadnienia dotyczące wydajności na platformie EF, 4, 5 i 6
 David Obando, Eric Dettinger i inne osoby
@@ -181,7 +181,7 @@ Znajdź używa wartość klucza podstawowego do podejmą próbę odnalezienia ś
 
 Brak jest brany pod uwagę wydajności do wykonania podczas korzystania z funkcji znajdowania. Wywołania do tej metody, domyślnie wyzwoli weryfikacji obiektu pamięci podręcznej w celu wykrycia zmian, które wciąż oczekują na zatwierdzenie w bazie danych. Ten proces może zająć bardzo kosztowny w przypadku bardzo dużej liczby obiektów w pamięci podręcznej obiektów lub wykresie dużego obiektu dodawane do pamięci podręcznej obiektów, ale można również zostaną wyłączone. W niektórych przypadkach mogą postrzegać przez rząd wielkości różnicy podczas wywoływania Znajdź metodę po wyłączeniu automatycznego wykrywania zmian. Jeszcze drugi rząd wielkości jest traktowany, gdy obiekt jest rzeczywiście w pamięci podręcznej, a gdy obiekt ma być pobierane z bazy danych. Oto przykładowy Graf za pomocą pomiarów dokonanych przy użyciu niektóre z naszych microbenchmarks wyrażony w milisekundach, wynosi 5000 jednostek:
 
-![Net45LogScale](~/ef6/media/net45logscale.png ".NET 4.5 - skali logarytmicznej")
+![Skala logarytmiczna .NET 4.5](~/ef6/media/net45logscale.png ".NET 4.5 - skali logarytmicznej")
 
 Przykład Znajdź ze zmianami auto-detect wyłączone:
 
@@ -825,9 +825,9 @@ Proste microbenchmarks, której nie upłynął tworzenie kontekstu pojawiły si�
 | EF6 | Zapytania Linq typu DbContext                 | 3420      | 47652864 |
 | EF6 | Linq do obiektu ObjectContext zapytania nie śledzenia | 3593      | 45260800 |
 
-![EF5Micro5000Warm](~/ef6/media/ef5micro5000warm.png)
+![Micro testy porównawcze EF5, 5000 ciepło iteracji](~/ef6/media/ef5micro5000warm.png)
 
-![EF6Micro5000Warm](~/ef6/media/ef6micro5000warm.png)
+![Micro testy porównawcze EF6, 5000 ciepło iteracji](~/ef6/media/ef6micro5000warm.png)
 
 Microbenchmarks są bardzo wrażliwe na niewielkie zmiany w kodzie. W tym przypadku różnicy między kosztów Entity Framework 5 i Entity Framework 6 są spowodowane przez dodanie [przejmowanie](~/ef6/fundamentals/logging-and-interception.md) i [transakcyjnych ulepszenia](~/ef6/saving/transactions.md). Te numery microbenchmarks są jednak namnożonego przetwarzania do bardzo małego fragmentu działanie programu Entity Framework. Rzeczywiste scenariusze dostępu do ciepłych zapytania nie powinien zostać wyświetlony regresji wydajności podczas uaktualniania programu Entity Framework 5 do programu Entity Framework 6.
 
@@ -858,9 +858,9 @@ Aby porównać wydajność rzeczywistych opcje inne zapytanie, utworzyliśmy 5 o
 | EF6 | Zapytania Linq typu DbContext                        | 1290      | 47529984 |
 
 
-![EF5WarmQuery1000](~/ef6/media/ef5warmquery1000.png)
+![EF5 ciepło zapytania 1000 iteracji](~/ef6/media/ef5warmquery1000.png)
 
-![EF6WarmQuery1000](~/ef6/media/ef6warmquery1000.png)
+![EF6 ciepło zapytania 1000 iteracji](~/ef6/media/ef6warmquery1000.png)
 
 > [!NOTE]
 > Aby informacje były kompletne dodaliśmy odmiany, gdzie możemy wykonać kwerendy SQL jednostki EntityCommand. Jednak ponieważ wyniki nie są zmaterializowanego takich zapytań, porównanie niekoniecznie jabłek do jabłka. Test obejmuje bliskie zbliżenia do materializowanie próby porównywania bardziej sprawiedliwa.

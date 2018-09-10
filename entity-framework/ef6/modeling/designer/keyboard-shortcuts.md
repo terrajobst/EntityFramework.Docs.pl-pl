@@ -3,12 +3,12 @@ title: Entity Framework Designer skrótów klawiaturowych - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 3c76cdd5-17c5-4c54-a6a5-cf21b974636b
-ms.openlocfilehash: 70c9705956b58f4d00908dd9cca6ad0e0a078fc6
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e3a9d968c26841c143b1b7b0ba9a168ecd13f469
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997766"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251131"
 ---
 # <a name="entity-framework-designer-keyboard-shortcuts"></a>Skróty klawiaturowe projektanta programu Entity Framework
 Ta strona zawiera listę skróty klawiaturowe, które są dostępne na różnych ekranach narzędzi Entity Framework Tools for Visual Studio.
@@ -17,7 +17,7 @@ Ta strona zawiera listę skróty klawiaturowe, które są dostępne na różnych
 
 ### <a name="step-one-choose-model-contents"></a>Jeden krok: Wybierz zawartość modelu
 
-![WizardOne](~/ef6/media/wizardone.png)
+![Kreator jeden](~/ef6/media/wizardone.png)
 
 | Skrót  | Akcja                                                     | Uwagi                                               |
 |:----------|:-----------------------------------------------------------|:----------------------------------------------------|
@@ -27,7 +27,7 @@ Ta strona zawiera listę skróty klawiaturowe, które są dostępne na różnych
 
 ### <a name="step-two-choose-your-connection"></a>Krok 2: Wybierz połączenie
 
-![WizardTwo](~/ef6/media/wizardtwo.png)
+![Kreator dwóch](~/ef6/media/wizardtwo.png)
 
 | Skrót  | Akcja                                                     | Uwagi                                                   |
 |:----------|:-----------------------------------------------------------|:--------------------------------------------------------|
@@ -41,7 +41,7 @@ Ta strona zawiera listę skróty klawiaturowe, które są dostępne na różnych
 
 ### <a name="step-three-choose-your-version"></a>Krok 3: Wybierz swoją wersję
 
-![WizardThree](~/ef6/media/wizardthree.png)
+![Trzy Kreatora](~/ef6/media/wizardthree.png)
 
 | Skrót  | Akcja                                             | Uwagi                                                                                 |
 |:----------|:---------------------------------------------------|:--------------------------------------------------------------------------------------|
@@ -51,7 +51,7 @@ Ta strona zawiera listę skróty klawiaturowe, które są dostępne na różnych
 
 ### <a name="step-four-choose-your-database-objects-and-settings"></a>Krok 4: Wybierz obiekty bazy danych i ustawień
 
-![WizardFour](~/ef6/media/wizardfour.png)
+![Kreator 4](~/ef6/media/wizardfour.png)
 
 | Skrót  | Akcja                                                                                    | Uwagi                                                               |
 |:----------|:------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
@@ -70,7 +70,7 @@ Ta strona zawiera listę skróty klawiaturowe, które są dostępne na różnych
 
 ## <a name="ef-designer-surface"></a>Powierzchnia projektowa EF
 
-![DesignerSurface](~/ef6/media/designersurface.png)
+![Powierzchnia projektowa](~/ef6/media/designersurface.png)
 
 | Skrót                                                                                | Akcja                      | Uwagi                                                                                                                                                                                                                               |
 |:----------------------------------------------------------------------------------------|:----------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -113,7 +113,7 @@ Ta strona zawiera listę skróty klawiaturowe, które są dostępne na różnych
 
 ## <a name="mapping-details-window"></a>Okno Szczegóły mapowania
 
-![MappingDetailsShortcuts](~/ef6/media/mappingdetailsshortcuts.png)
+![Mapowanie szczegóły skróty](~/ef6/media/mappingdetailsshortcuts.png)
 
 | Skrót                  | Akcja         | Uwagi                                                                                                                                 |
 |:--------------------------|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------|

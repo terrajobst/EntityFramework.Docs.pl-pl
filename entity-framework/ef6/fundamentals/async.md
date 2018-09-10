@@ -3,12 +3,12 @@ title: Asynchroniczne zapytania i Zapisz - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: 64051dea740b2183cb904d7fb4293d7048c218ca
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 35604fc16ea37415d39801831aa162d0d42c2a2f
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152440"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250754"
 ---
 # <a name="async-query-and-save"></a>Asynchroniczne zapytania i Zapisz
 > [!NOTE]
@@ -145,7 +145,7 @@ Ponieważ kod jest synchroniczne, możemy zaobserwować następujący przepływ 
 4.  Zapytanie zwraca, a wyniki są zapisywane do **konsoli**
 5.  Cytat dnia są zapisywane do **konsoli**
 
-![SyncOutput](~/ef6/media/syncoutput.png) 
+![Synchronizacja danych wyjściowych](~/ef6/media/syncoutput.png) 
 
  
 
@@ -227,7 +227,7 @@ Teraz, gdy kod jest asynchroniczna, można zaobserwować przepływu wykonywania 
 4.  Zapytanie o wszystkie **blogi** są wysyłane do bazy danych *ponownie wątków zarządzanych jest bezpłatna wykonywanie innych zadań, podczas gdy zapytania są przetwarzane w bazie danych. Od wszystkich innych wykonanie zostało ukończone, wątek będzie po prostu zatrzymanie przy wywołaniu oczekiwania jednak.*
 5.  Zapytanie zwraca, a wyniki są zapisywane do **konsoli**
 
-![AsyncOutput](~/ef6/media/asyncoutput.png) 
+![Dane wyjściowe Async](~/ef6/media/asyncoutput.png) 
 
  
 

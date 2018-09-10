@@ -3,12 +3,12 @@ title: Testowalność i Entity Framework 4.0
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 9430e2ab-261c-4e8e-8545-2ebc52d7a247
-ms.openlocfilehash: 17a9f09022531a81042979464de05fbbd2570759
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2a2384c7868ae3cf6af4f915c06ae9fdb622634c
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995232"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251326"
 ---
 # <a name="testability-and-entity-framework-40"></a>Testowalność i Entity Framework 4.0
 Scott Allen
@@ -194,13 +194,13 @@ Te definicje klas będzie się nieznacznie zmieniać omówimy różne podejścia
 
 Za pomocą POCOs w miejscu możemy utworzyć Entity Data Model (EDM) w programie Visual Studio (patrz rysunek 1). Firma Microsoft nie będzie używać EDM do generowania kodu dla naszych jednostek. Zamiast tego chcemy użyć jednostki, które firma Microsoft lovingly pracowali ręcznie. Firma Microsoft będzie używała tylko EDM Generowanie naszych schemat bazy danych, a następnie podaj metadane EF4 potrzebuje do mapowania obiektów do bazy danych.
 
-![eftest_01](~/ef6/media/eftest-01.jpg)
+![EF test_01](~/ef6/media/eftest-01.jpg)
 
 **Rysunek 1.**
 
 Uwaga: Jeśli chcesz najpierw opracowanie modelu EDM jest możliwe czyszczenie, generowanie kodu POCO z EDM. Można to zrobić za pomocą rozszerzenia programu Visual Studio 2010, dostarczane przez zespół Data programowania. Aby pobrać rozszerzenie, uruchom Menedżera rozszerzeń z menu Narzędzia w programie Visual Studio i znajdowania galerii szablonów w trybie online "POCO" (zobacz rysunek 2). Istnieje kilka szablonów POCO są dostępne na platformie EF. Aby uzyskać więcej informacji na temat korzystania z tego szablonu, zobacz " [Instruktaż: obiektów POCO szablonu programu Entity Framework](http://blogs.msdn.com/adonet/pages/walkthrough-poco-template-for-the-entity-framework.aspx)".
 
-![eftest_02](~/ef6/media/eftest-02.png)
+![EF test_02](~/ef6/media/eftest-02.png)
 
 **Rysunek 2**
 
@@ -415,13 +415,13 @@ Brak wspólnego kodu ustawień potrzebnych dla wszystkich tych klas testowych sz
 
 Możemy użyć EmployeeControllerTestBase jako klasa bazowa dla liczby świetlnymi testu (patrz rysunek 3). Każdy warunki początkowe testu przetestuje akcji określonego kontrolera. Na przykład jeden warunki początkowe testu koncentruje się na testowanie Akcja Utwórz używane podczas żądania HTTP GET (Aby wyświetlić widok na potrzeby tworzenia pracownika) i różnych warunków początkowych koncentruje się na Akcja Utwórz używana w żądaniu POST protokołu HTTP (do uwzględnienia informacji przesyłanych przez użytkownikowi utworzenie pracownika). Każdej klasy pochodnej odpowiada tylko ustawienia wymagane w tym kontekście określonego oraz w celu zapewnienia potwierdzenia potrzebne, aby zweryfikować wyniki dla kontekst określonego testu.
 
-![eftest_03](~/ef6/media/eftest-03.png)
+![EF test_03](~/ef6/media/eftest-03.png)
 
 **Rysunek 3.**
 
 Styl nazewnictwa Konwencji i testowania przedstawionych w tym miejscu nie jest wymagana dla kodu sprawdzalnego działa zgodnie — wystarczy jedno z podejść. Rysunek 4 przedstawia testów przeprowadzanych codziennie w Resharper mózgów Jet test runner wtyczki dla programu Visual Studio 2010.
 
-![eftest_04](~/ef6/media/eftest-04.png)
+![EF test_04](~/ef6/media/eftest-04.png)
 
 **Rysunek 4**
 

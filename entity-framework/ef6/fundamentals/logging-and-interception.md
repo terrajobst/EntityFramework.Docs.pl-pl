@@ -3,12 +3,12 @@ title: Rejestrowanie i przechwytuje operacji bazy danych — EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
-ms.openlocfilehash: 2e16502abf54be3f3b2f63fe69d2605ef13dea27
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 9a8be81af45d9f27caa8c26f66d219dc568b6604
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994638"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251274"
 ---
 # <a name="logging-and-intercepting-database-operations"></a>Rejestrowanie i przechwytuje operacji bazy danych
 > [!NOTE]
@@ -36,8 +36,6 @@ using (var context = new BlogContext())
 ```  
 
 Należy zauważyć, że kontekst. Console.Write — ustawiono Database.Log. To wszystko, co jest potrzebne do logowania SQL do konsoli.  
-
-### <a name="example-output"></a>Przykładowe dane wyjściowe  
 
 Dodajmy kilka prostych kodów zapytania/insert/update, dzięki czemu możemy zobaczyć pewne dane wyjściowe:  
 
@@ -98,7 +96,7 @@ WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
 
 (Należy pamiętać, że to dane wyjściowe przy założeniu, że już stało się inicjowanie bazy danych. Jeśli inicjowanie bazy danych nie ma już wystąpił, a następnie będzie można o wiele więcej danych wyjściowych, przedstawiający wszystkie prace migracje nie dzieje się w tle, aby sprawdzić lub Utwórz nową bazę danych.)  
 
-### <a name="what-gets-logged"></a>Co pobiera zarejestrowane?  
+## <a name="what-gets-logged"></a>Co pobiera zarejestrowane?  
 
 Gdy właściwość dziennika ma wartość wszystkie poniższe będą rejestrowane:  
 
@@ -124,7 +122,7 @@ Patrząc powyższych danych wyjściowych przykładu, każdy z czterech poleceń 
     - Zwróć uwagę, szczegóły parametrów właściwości klucza Obcego i tytuł  
     - Należy zauważyć, że te polecenia są wykonywane asynchronicznie  
 
-### <a name="logging-to-different-places"></a>Rejestrowanie w różnych miejscach  
+## <a name="logging-to-different-places"></a>Rejestrowanie w różnych miejscach  
 
 Jak wspomniano powyżej logowanie do konsoli jest bardzo proste. Jest również łatwe logowanie do pamięci, plików, itp. przy użyciu różnych rodzajów z [TextWriter](https://msdn.microsoft.com/library/system.io.textwriter.aspx).  
 
@@ -147,7 +145,7 @@ var logger = new MyLogger();
 context.Database.Log = s => logger.Log("EFApp", s);
 ```  
 
-### <a name="result-logging"></a>Rejestrowanie wyników  
+## <a name="result-logging"></a>Rejestrowanie wyników  
 
 Rejestrator domyślny tekst polecenia (SQL), parametry i dzienników wiersza "Executing" z sygnaturą czasową przed wysłaniem polecenia do bazy danych. "Ukończone" wiersz zawierający czas, który upłynął są rejestrowane następujące wykonanie polecenia.  
 
@@ -155,11 +153,11 @@ Należy pamiętać, że asynchroniczne "ukończony" wiersz polecenia nie jest re
 
 "Ukończone" wiersz zawiera różne informacje w zależności od typu polecenia i określa, czy wykonywanie zakończyło się pomyślnie.  
 
-#### <a name="successful-execution"></a>Pomyślne wykonanie  
+### <a name="successful-execution"></a>Pomyślne wykonanie  
 
 W przypadku poleceń, które się to odbyć danych wyjściowych jest "wykonane w x ms z wynikiem:" następuje niektóre wskazania wynik był. Dla poleceń, które zwracają wynik czytnik danych oznaczenie jest typ [obiekt DbDataReader](https://msdn.microsoft.com/library/system.data.common.dbdatareader.aspx) zwracane. Dla poleceń, które zwracają wartość całkowitą, takich jak aktualizacja przedstawionego powyżej wyniku, przedstawione polecenia jest tym liczbą całkowitą.  
 
-#### <a name="failed-execution"></a>Wykonywanie nie powiodło się  
+### <a name="failed-execution"></a>Wykonywanie nie powiodło się  
 
 Dla poleceń, które się nie powieść, zostanie zgłoszony wyjątek dane wyjściowe zawierają komunikatu z wyjątku. Na przykład przy użyciu SqlQuery zapytania względem tabeli, która istnieje będzie wynik w dzienniku danych wyjściowych podobny do poniższego:  
 
@@ -169,7 +167,7 @@ SELECT * from ThisTableIsMissing
 -- Failed in 1 ms with error: Invalid object name 'ThisTableIsMissing'.
 ```  
 
-#### <a name="canceled-execution"></a>Anulowano wykonywanie  
+### <a name="canceled-execution"></a>Anulowano wykonywanie  
 
 Dla poleceń asynchronicznych, gdy zadanie zostanie anulowane może się zdarzyć, Niepowodzenie z powodu wyjątku, ponieważ jest to, jakie źródłowy dostawca ADO.NET często wykonuje, gdy podejmowana jest próba anulowania. Jeśli to nie jest realizowane, a zadanie zostanie anulowane nie pozostawia żadnych śladów dane wyjściowe będą wyglądać mniej więcej tak:  
 
@@ -180,8 +178,6 @@ update Blogs set Title = 'No' where Id = -1
 ```  
 
 ## <a name="changing-log-content-and-formatting"></a>Zmiana zawartości dziennika i formatowanie  
-
-### <a name="databaselogformatter"></a>DatabaseLogFormatter  
 
 Dzieje się w tle Database.Log sprawia, że właściwość użyć obiektu DatabaseLogFormatter. Ten obiekt skutecznie wiąże implementację IDbCommandInterceptor (patrz poniżej) do delegata, który akceptuje ciągi i typu DbContext. Oznacza to, że metody DatabaseLogFormatter są wywoływane przed i po wykonaniu polecenia przez EF. Te metody DatabaseLogFormatter zbierania i sformatować dane wyjściowe dziennika i wysyłać je do obiektu delegowanego.  
 

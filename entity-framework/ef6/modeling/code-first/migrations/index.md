@@ -3,12 +3,12 @@ title: Migracje Code First - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
-ms.openlocfilehash: 216f850fb906cfc4b68eae76ae11ff167ed835ea
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 6c530545968a26d13051d1e682557092bde13bb0
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993387"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251040"
 ---
 # <a name="code-first-migrations"></a>Migracje Code First
 Migracje Code First jest zalecany sposób rozwijać schemat bazy danych w aplikacji korzystając z kodu pierwszego przepływu pracy. Migracje udostępniają zestaw narzędzi, które umożliwiają:
@@ -84,7 +84,7 @@ Zanim zaczniemy, za pomocą migracji potrzebujemy projektu i model Code First ch
 
 -   Uruchom aplikację i zostanie wyświetlony **MigrationsCodeDemo.BlogContext** baza danych została utworzona dla Ciebie.
 
-    ![DatabaseLocalDB](~/ef6/media/databaselocaldb.png)
+    ![Bazy danych LocalDB](~/ef6/media/databaselocaldb.png)
 
 ## <a name="enabling-migrations"></a>Włączanie migracji
 

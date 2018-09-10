@@ -3,12 +3,12 @@ title: Model dostawcy platformy Entity Framework 6 — EF6
 author: divega
 ms.date: 2018-06-27
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
-ms.openlocfilehash: e8b0552ec083d8ab276aa9de109650f423160269
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 7d9e2f49b9ef59fb63b024646911ec0d8dfcfc60
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821390"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251107"
 ---
 # <a name="the-entity-framework-6-provider-model"></a>Dostawca modelu Entity Framework 6
 
@@ -24,13 +24,13 @@ Przy użyciu platformy EF6 kodu core, który został wcześniej częścią progr
 
 Dostawca usługi EF jest naprawdę kolekcja właściwe dla dostawcy usług zdefiniowane przez typy CLR, które tych usług rozszerza z (dla klasy bazowej) ani nie implementuje (w przypadku interfejsu). Są dwa z tych usług podstawowych i niezbędne dla platformy EF w ogóle działać. Inne są opcjonalne i wystarczy do zaimplementowania Jeśli określonych jest wymagane i/lub domyślnej implementacji tych usług nie działa dla konkretnej bazy danych serwer docelowy.
 
-### <a name="fundamental-provider-types"></a>Typy podstawowe dostawców
+## <a name="fundamental-provider-types"></a>Typy podstawowe dostawców
 
-#### <a name="dbproviderfactory"></a>DbProviderFactory
+### <a name="dbproviderfactory"></a>DbProviderFactory
 
 EF zależy od tego, typ pochodzący od posiadania [System.Data.Common.DbProviderFactory](http://msdn.microsoft.com/en-us/library/system.data.common.dbproviderfactory.aspx) do wykonywania wszystkich dostęp do niskiego poziomu bazy danych. DbProviderFactory nie jest częścią platformy EF, lecz dotyczy klasy w .NET Framework, która służy punkt wejścia dla dostawcy ADO.NET, który może służyć przez EF, O/RMs lub bezpośrednio przez aplikację można uzyskać rodzajami połączeń, polecenia, parametry i inne abstrakcje ADO.NET dostawcy sposób niezależny od. Więcej informacji na temat DbProviderFactory można znaleźć w [dokumentacji MSDN dotyczącej ADO.NET](http://msdn.microsoft.com/en-us/library/a6cd7c08.aspx).
 
-#### <a name="dbproviderservices"></a>DbProviderServices
+### <a name="dbproviderservices"></a>DbProviderServices
 
 EF zależy od tego, mające typ pochodzący od DbProviderServices zapewniające dodatkowe funkcje wymagane przez EF na podstawie funkcje już udostępniane przez dostawcę danych ADO.NET. W starszych wersjach programu EF klasy DbProviderServices było częścią programu .NET Framework i został znaleziony w przestrzeni nazw System.Data.Common. Począwszy od platformy EF6 tej klasy jest teraz częścią EntityFramework.dll i znajduje się w przestrzeni nazw System.Data.Entity.Core.Common.
 
@@ -38,33 +38,33 @@ Więcej informacji na temat podstawowych funkcji implementacji DbProviderService
 
 W starszych wersjach programu EF implementacji DbProviderServices używać pochodzi bezpośrednio od dostawcy ADO.NET. Zostało to zrobione, rzutowanie DbProviderFactory na IServiceProvider i wywołanie metody GetService. To ściśle powiązane dostawcy EF DbProviderFactory. Ta sprzężenia zablokowany EF jest przenoszony z .NET Framework i w związku z tym dla platformy EF6 to ścisłego sprzężenia została usunięta, a implementacja DbProviderServices jest obecnie zarejestrowany bezpośrednio w pliku konfiguracji aplikacji lub oparte na kodzie Konfiguracja opisany bardziej szczegółowo _rejestrowanie DbProviderServices_ poniższej sekcji.
 
-### <a name="additional-services"></a>Usługi dodatkowe
+## <a name="additional-services"></a>Usługi dodatkowe
 
 Oprócz podstawowych usług opisanych powyżej są również wiele innych usług używanych przez EF, które są zawsze lub czasami specyficzne dla dostawcy. Domyślnej implementacji właściwe dla dostawcy, te usługi mogą być dostarczane przez implementację DbProviderServices. Aplikacje można również zastąpić implementacji tych usług lub dostarczać implementacje, gdy typem DbProviderServices nie dostarcza domyślny. Jest to opisane bardziej szczegółowo w _rozpoznawanie dodatkowych usług_ poniższej sekcji.
 
 Poniżej przedstawiono typy dodatkowych usług, które dostawcy mogą być przydatne do dostawcy. Więcej szczegółów na temat każdego z tych typów usług można znaleźć w dokumentacji interfejsu API.
 
-#### <a name="idbexecutionstrategy"></a>IDbExecutionStrategy
+### <a name="idbexecutionstrategy"></a>IDbExecutionStrategy
 
 Jest to opcjonalna usługa, która umożliwia dostawcy zaimplementować ponownych prób lub inne zachowanie, gdy zapytań i poleceń, które są wykonywane względem bazy danych. Jeśli nie dostarczono żadnej implementacji, EF będzie po prostu wykonaj polecenia i propagowanie wyjątki zgłaszane. Dla programu SQL Server ta usługa służy do zapewnienia zasady ponawiania, co jest szczególnie przydatne, jeśli działających w odniesieniu do serwerów bazy danych opartej na chmurze, takich jak SQL Azure.
 
-#### <a name="idbconnectionfactory"></a>IDbConnectionFactory
+### <a name="idbconnectionfactory"></a>IDbConnectionFactory
 
 Jest to opcjonalna usługa, która umożliwia dostawcy utworzyć obiekty DbConnection zgodnie z Konwencją, gdy podana nazwa bazy danych. Należy pamiętać, że gdy ta usługa może zostać rozpoznana przez implementację DbProviderServices została już obecne od EF 4.1 i może również być jawnie ustawione w pliku konfiguracji lub w kodzie. Dostawca tylko otrzymają Państwo rozpoznać tej usługi, jeśli on zarejestrowany jako domyślnego dostawcę (zobacz _domyślny dostawca_ poniżej) i jeśli domyślna fabryka połączenia nie został ustawiony gdzie indziej.
 
-#### <a name="dbspatialservices"></a>DbSpatialServices
+### <a name="dbspatialservices"></a>DbSpatialServices
 
 Jest to opcjonalne usług, które umożliwia dostawcy dodać obsługę typów przestrzennych geometry i położenia geograficznego. Implementacja tej usługi należy podać w kolejności dla aplikacji EF za pomocą typów przestrzennych. DbSptialServices zostanie poproszony o na dwa sposoby. Po pierwsze, właściwe dla dostawcy usług przestrzennych, są żądane przy użyciu obiektu DbProviderInfo (zawierający niezmiennej token nazwy, a manifestu) jako klucza. Po drugie DbSpatialServices można monit o wpisanie bez klucza. Służy to rozwiązać "globalne przestrzenne dostawcę" użytą podczas tworzenia autonomicznego DbGeography lub DbGeometry typów.
 
-#### <a name="migrationsqlgenerator"></a>MigrationSqlGenerator
+### <a name="migrationsqlgenerator"></a>MigrationSqlGenerator
 
 Jest to opcjonalna usługa, która umożliwia migracji EF, służący do generowania SQL używane podczas tworzenia i modyfikowania schematy bazy danych przez rozwiązanie Code First. Implementacja jest wymagana w celu zapewnienia obsługi migracji. Jeśli podano implementację go będzie również użyte podczas tworzenia bazy danych przy użyciu metody Database.Create lub inicjatory bazy danych.
 
-#### <a name="funcdbconnection-string-historycontextfactory"></a>FUNC < DbConnection, string, HistoryContextFactory >
+### <a name="funcdbconnection-string-historycontextfactory"></a>FUNC < DbConnection, string, HistoryContextFactory >
 
 Jest to opcjonalna usługa, która umożliwia dostawcy skonfigurować mapowanie HistoryContext do `__MigrationHistory` tabeli używanej przez migracje EF. HistoryContext jest pierwszy typu DbContext kodu i można skonfigurować przy użyciu normalnych wygodnego interfejsu API można zmienić elementów, takich jak nazwy tabeli i specyfikacji mapowania kolumn. Domyślna implementacja tej usługi dla wszystkich dostawców zwracane przez EF mogą działać w przypadku serwera bazy danych, jeśli wszystkie domyślne tabel i kolumn mapowania są obsługiwane przez tego dostawcę. W takim przypadku dostawca nie musi dostarczyć implementację tej usługi.
 
-#### <a name="idbproviderfactoryresolver"></a>IDbProviderFactoryResolver
+### <a name="idbproviderfactoryresolver"></a>IDbProviderFactoryResolver
 
 Jest to opcjonalne zapewniającej uzyskiwanie DbProviderFactory poprawne z danego obiektu DbConnection. Domyślna implementacja tej usługi dla wszystkich dostawców zwracane przez EF jest przeznaczony do pracy dla wszystkich dostawców. Jednak podczas uruchamiania na .NET 4, DbProviderFactory nie jest dostępny publicznie w jeden jego DbConnections. W związku z tym EF używa niektóre heurystyki do wyszukiwania zarejestrowanych dostawców w celu znalezienia dopasowania. Istnieje możliwość, że w przypadku niektórych dostawców te algorytmy heurystyczne zakończy się niepowodzeniem, a w takich sytuacjach dostawcy należy podać nową metodę implementacji.
 

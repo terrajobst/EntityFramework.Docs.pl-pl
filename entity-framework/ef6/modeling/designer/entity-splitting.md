@@ -3,19 +3,19 @@ title: Dzielenie projektanta jednostek — EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: aa2dd48a-1f0e-49dd-863d-d6b4f5834832
-ms.openlocfilehash: 214561f0a0381bced3ceae0b6acfcd45f5dd65c5
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 06199be977276cd3656e2550df79bac24276ec51
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995622"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250601"
 ---
 # <a name="designer-entity-splitting"></a>Projektant jednostki dzielenia
 Ten poradnik pokazuje jak do mapowania typu encji dwie tabele, modyfikując model przy użyciu narzędzia Entity Framework Designer (Projektant EF). Jednostki można zamapować na wiele tabel, tabele udostępniania wspólny klucz. Pojęcia, które są stosowane do mapowania typu jednostki z dwiema tabelami są łatwo rozszerzyć mapowania typu jednostki w więcej niż dwie tabele.
 
 Na poniższej ilustracji przedstawiono główne systemu windows, które są używane podczas pracy z projektancie platformy EF.
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![Projektancie platformy EF](~/ef6/media/efdesigner.png)
 
 ## <a name="prerequisites"></a>Wymagania wstępne
 
@@ -93,7 +93,7 @@ W tym kroku zaktualizujemy **osoby** typu jednostki, łączyć dane z **osoby** 
 -   Na powierzchni projektowej wybierz **PersonInfo** jednostki, a następnie naciśnij klawisz **Usuń** przycisku na klawiaturze.
 -   Kliknij przycisk **nie** po wyświetleniu monitu, jeśli chcesz usunąć **PersonInfo** tabelę z modelu, firma Microsoft zamiar zamapować na **osoby** jednostki.
 
-    ![DeleteTables](~/ef6/media/deletetables.png)
+    ![Usuwanie tabel](~/ef6/media/deletetables.png)
 
 Następne kroki wymagają **szczegóły mapowania** okna. Jeśli nie widzisz tego okna, kliknij prawym przyciskiem myszy projekt powierzchni i wybierz **szczegóły mapowania**.
 
@@ -103,7 +103,7 @@ Następne kroki wymagają **szczegóły mapowania** okna. Jeśli nie widzisz teg
 
 **Osoby** typ jednostki jest obecnie zmapowane do **osoby** i **PersonInfo** tabel.
 
-![Mapping2](~/ef6/media/mapping2.png)
+![Mapowanie 2](~/ef6/media/mapping2.png)
 
 ## <a name="use-the-model"></a>Użyj modelu
 
@@ -136,9 +136,9 @@ Poniższe instrukcje języka T-SQL były wykonywane w bazie danych, w wyniku dzi
 
 -   Następujące dwa **Wstaw** instrukcje zostały wykonane w wyniku wykonania z kontekstu. SaveChanges(). Przyjmują, dane z **osoby** jednostki i podziel go między **osoby** i **PersonInfo** tabel.
 
-    ![Insert1](~/ef6/media/insert1.png)
+    ![Włóż dysk 1](~/ef6/media/insert1.png)
 
-    ![Insert2](~/ef6/media/insert2.png)
+    ![Wstaw 2](~/ef6/media/insert2.png)
 -   Następujące **wybierz** zostało wykonane w wyniku wyliczanie osób w bazie danych. Łączy ona dane z **osoby** i **PersonInfo** tabeli.
 
     ![Wybierz](~/ef6/media/select.png)

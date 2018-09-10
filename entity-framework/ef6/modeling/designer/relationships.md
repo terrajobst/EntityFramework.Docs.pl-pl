@@ -3,12 +3,12 @@ title: Relacje — projektancie platformy EF - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 402fe960-754b-470f-976b-e5de3e9986b5
-ms.openlocfilehash: 72efe76956c930a787449e6cce453ab0317adc7c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e1912a5e00e51b4f07b1ac83848fdbe0aa4755aa
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994651"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250715"
 ---
 # <a name="relationships---ef-designer"></a>Relacje — projektancie platformy EF
 > [!NOTE]
@@ -16,7 +16,7 @@ ms.locfileid: "42994651"
 
 Skojarzenia definiowania relacji między typami encji w modelu. W tym temacie pokazano, jak mapować skojarzenia z Entity Framework Designer (Projektant EF). Na poniższej ilustracji przedstawiono główne systemu windows, które są używane podczas pracy z projektancie platformy EF.
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![Projektancie platformy EF](~/ef6/media/efdesigner.png)
 
 > [!NOTE]
 > Podczas tworzenia modelu koncepcyjnego ostrzeżenia dotyczące podmiotów niezmapowanych i skojarzenia może pojawić się na liście błędów. Można zignorować te ostrzeżenia, ponieważ po dokonaniu wyboru wygenerować bazę danych z modelu, błędy znikną.
@@ -44,7 +44,7 @@ Tworzenie skojarzenia z aktualizacjami projektancie platformy EF modelu zawarto�
 1.  Kliknij prawym przyciskiem myszy pusty obszar powierzchni projektu, wskaż opcję **Dodaj nowe**i wybierz **skojarzenie...** .
 2.  Wypełnij ustawienia dla skojarzenia w **Dodawanie skojarzenia** okna dialogowego.
 
-    ![AddAssociation](~/ef6/media/addassociation.png)
+    ![Dodaj skojarzenie](~/ef6/media/addassociation.png)
 
     > [!NOTE]
     > Użytkownik może nie dodać właściwości nawigacji lub właściwości klucza obcego z jednostkami: końcach asocjacji, czyszcząc ** właściwość nawigacji ** i ** dodać właściwości klucza obcego do &lt;Nazwa typu jednostki&gt; jednostki ** pola wyboru. Jeśli dodasz tylko jedną właściwość nawigacji, stowarzyszenia będą traversable tylko w jednym kierunku. Jeśli dodasz żadnych właściwości nawigacji, użytkownik musi dodać właściwości klucza obcego w celu uzyskania dostępu do jednostek na końcach asocjacji.
@@ -76,7 +76,7 @@ Gdy używasz projektancie platformy EF umożliwiają dodawanie lub edytowanie og
 -   Z **zależne** listy rozwijanej wybierz jednostki zależne w ograniczeniu referencyjnym.
 -   Dla każdego klucza podmiotu zabezpieczeń, kluczu zależnych, wybierz odpowiedni klucz zależne z listy rozwijanej w **zależne klucz** kolumny.
 
-    ![RefConstraint](~/ef6/media/refconstraint.png)
+    ![Ograniczenie REF](~/ef6/media/refconstraint.png)
 
 -   Kliknij przycisk **OK**.
 
@@ -97,7 +97,7 @@ Można określić sposób mapowania bazy danych w skojarzenie **szczegóły mapo
     **Szczegóły mapowania** okno wyświetla obu końcach asocjacji i właściwości klucza dla typu jednostki, w każdej **zakończenia**.
 -   Dla każdej właściwości klucza, kliknij przycisk **kolumny** pola, a następnie wybierz kolumnę, do którego będzie zmapowana właściwości.
 
-    ![MappingDetails4](~/ef6/media/mappingdetails4.png)
+    ![Szczegóły mapowania 4](~/ef6/media/mappingdetails4.png)
 
 ### <a name="edit-an-association-mapping"></a>Edytuj mapowanie skojarzenia
 

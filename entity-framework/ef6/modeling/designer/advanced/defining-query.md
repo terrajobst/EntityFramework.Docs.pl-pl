@@ -3,12 +3,12 @@ title: Definiowanie zapytania — projektancie platformy EF - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: e52a297e-85aa-42f6-a922-ba960f8a4b22
-ms.openlocfilehash: 60d5310589bb9bc3fdb971673422e80537357e55
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 8415a265cdbe078422e0467ee97da955a81b873d
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996310"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250975"
 ---
 # <a name="defining-query---ef-designer"></a>Definiowanie zapytania — projektancie platformy EF
 W tym instruktażu przedstawiono sposób dodawania, definiując kwerendy i odpowiednia jednostka typu do modelu, używając projektancie platformy EF. Definiowanie zapytania jest najczęściej używany do zapewnia funkcje podobne do dostarczony przez widok bazy danych, ale widok jest zdefiniowany w modelu, a nie bazy danych. Definiowanie zapytań pozwala wykonać instrukcję SQL, który jest określony w **DefiningQuery** element z pliku edmx. Aby uzyskać więcej informacji, zobacz **DefiningQuery** w [Specyfikacja SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).
@@ -54,11 +54,11 @@ Ten przewodnik korzysta z programu Visual Studio 2012 lub nowszego.
 -   W Eksploratorze rozwiązań kliknij prawym przyciskiem myszy **DefiningQueryModel.edmx** plik i wybierz **Otwórz za pomocą...** .
 -   Wybierz **Edytor (tekstu) XML**.
 
-    ![Edytorem XMLEditor](~/ef6/media/xmleditor.png)
+    ![Edytor XML](~/ef6/media/xmleditor.png)
 
 -   Kliknij przycisk **tak** Jeśli zostanie wyświetlony monit z następującym komunikatem:
 
-    ![Warning2](~/ef6/media/warning2.png)
+    ![Ostrzeżenie 2](~/ef6/media/warning2.png)
 
  
 
@@ -136,7 +136,7 @@ W Projektancie platformy EF, należy otworzyć modelu.
 -   Kliknij dwukrotnie DefiningQueryModel.edmx.
 -   Powiedz **tak** się następujący komunikat:
 
-    ![Warning2](~/ef6/media/warning2.png)
+    ![Ostrzeżenie 2](~/ef6/media/warning2.png)
 
  
 
@@ -172,7 +172,7 @@ W tym kroku użyjemy, okno Szczegóły mapowania, aby zamapować koncepcyjnej i 
     **Szczegóły mapowania** zostanie wyświetlone okno.
 -   Wybierz **GradeReport** z **&lt;Dodaj tabelę lub widok&gt;** listy rozwijanej (znajdującej się w **tabeli**s).  
     Domyślne mapowania między koncepcyjnej i magazynu **GradeReport** typu jednostki są wyświetlane.  
-    ![MappingDetails3](~/ef6/media/mappingdetails.png)
+    ![Mapowanie Details3](~/ef6/media/mappingdetails.png)
 
 W rezultacie **obiekcie EntitySetMapping** element zostanie dodany do sekcji mapowania pliku edmx. 
 

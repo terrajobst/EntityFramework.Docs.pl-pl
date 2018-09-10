@@ -3,12 +3,12 @@ title: Powracanie do obiektu ObjectContext w Entity Framework Designer - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 36550569-a1de-47cb-ba6d-544794ffd500
-ms.openlocfilehash: b52bfc36c97e1a3c7cd2d3716feb1ae48c68a56e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e90af3e973c71e2ce872e3edc24aafc1b2ccce0f
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997315"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250338"
 ---
 # <a name="reverting-to-objectcontext-in-entity-framework-designer"></a>Powracanie do obiektu ObjectContext w programie Entity Framework Designer
 Za pomocą poprzedniej wersji programu Entity Framework modelu utworzone za pomocą projektanta EF wygeneruje kontekstu, który pochodzi od obiektu ObjectContext i klas jednostek, które pochodną EntityObject.
@@ -23,11 +23,11 @@ W programie Visual Studio 2012 uzyskuje się kod DbContext generowane domyślnie
 
 Generowanie klas pochodnych typu DbContext i POCO odbywa się przez dwa .TT — pliki w projekcie, po rozwinięciu pola pliku edmx w Eksploratorze rozwiązań zobaczą te pliki. Usuń oba te pliki z projektu.
 
-![CodeGenFiles](~/ef6/media/codegenfiles.png)
+![Pliki generacji kodu](~/ef6/media/codegenfiles.png)
 
 Jeśli używasz VB.NET będzie konieczne wybranie **Pokaż wszystkie pliki** przycisk, aby wyświetlić zagnieżdżone pliki.
 
-![ShowAllFiles](~/ef6/media/showallfiles.png)
+![Pokaż wszystkie pliki](~/ef6/media/showallfiles.png)
 
 ### <a name="2-re-enable-objectcontext-code-generation"></a>2. Ponowne włączenie generowania kodu obiektu ObjectContext
 
@@ -35,4 +35,4 @@ Otwieranie modelu w Projektancie platformy EF, kliknij prawym przyciskiem myszy 
 
 W oknie Zmień właściwości **strategia generowania kodu** z **Brak** do **domyślne**.
 
-![CodeGenStrategy](~/ef6/media/codegenstrategy.png)
+![Strategia generacji kodu](~/ef6/media/codegenstrategy.png)

@@ -3,12 +3,12 @@ title: Połączenie odporności logikę ponawiania prób i - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: 47181292873009c7bce2047787503258ffa35d9d
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: d7e58abfa17c5537cdc9b0068e7c2a3c2e390038
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997488"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250521"
 ---
 # <a name="connection-resiliency-and-retry-logic"></a>Logika połączenia odporności, a następnie spróbuj ponownie
 > [!NOTE]
@@ -68,11 +68,9 @@ SqlAzureExecutionStrategy ponowi próbę natychmiast po raz pierwszy błąd prze
 
 Strategii wykonywania ponowi tylko ograniczoną liczbę wyjątków, które są zwykle tansient, nadal konieczne będzie obsługiwać inne błędy, a także przechwytywanie wyjątku RetryLimitExceeded w przypadku których błąd nie jest przejściowy lub trwa zbyt długo rozwiązać samego siebie.  
 
-## <a name="limitations"></a>Ograniczenia  
-
 Korzystając z Trwa ponawianie próby strategii wykonywania są niektóre znane ograniczenia:  
 
-### <a name="streaming-queries-are-not-supported"></a>Zapytania przesyłania strumieniowego nie są obsługiwane.  
+## <a name="streaming-queries-are-not-supported"></a>Zapytania przesyłania strumieniowego nie są obsługiwane.  
 
 Domyślnie programy EF6 i nowszym będzie buforować wyniki zapytania, a nie ich streaming. Jeśli chcesz mieć wyniki przesyłane strumieniowo można metoda AsStreaming służy do zmiany LINQ zapytania jednostki w celu przesyłania strumieniowego.  
 
@@ -88,11 +86,9 @@ using (var db = new BloggingContext())
 
 Przesyłania strumieniowego nie jest obsługiwana, gdy Trwa ponawianie próby strategii wykonywania jest zarejestrowany. To ograniczenie istnieje, ponieważ połączenie można porzucić część sposób wyniki są zwracane. W takiej sytuacji EF musi zostać ponownie uruchomiony całe zapytanie, ale nie ma niezawodne możliwości informacji o tym, co powoduje już zostały zwrócone (dane mogły ulec zmianie od momentu początkowego zapytania została wysłana, wyniki mogą wrócić w innej kolejności, wyniki nie może mieć unikatowy identyfikator itp.).  
 
-### <a name="user-initiated-transactions-not-supported"></a>Użytkownik zainicjował transakcji nie jest obsługiwane  
+## <a name="user-initiated-transactions-are-not-supported"></a>Transakcji zainicjowanej przez użytkownika nie są obsługiwane.  
 
 Po skonfigurowaniu strategii wykonywania, który skutkuje ponownych prób, istnieją pewne ograniczenia dotyczące użycia transakcji.  
-
-#### <a name="whats-supported-efs-default-transaction-behavior"></a>Jakie operacje są obsługiwane: firmy EF domyślne zachowanie transakcji  
 
 Domyślnie program EF będzie wykonywać żadnych aktualizacji bazy danych w obrębie transakcji. Nie trzeba nic robić, aby włączyć tę opcję, EF zawsze wykonuje to automatycznie.  
 
@@ -106,8 +102,6 @@ using (var db = new BloggingContext())
     db.SaveChanges();
 }
 ```  
-
-#### <a name="whats-not-supported-user-initiated-transactions"></a>Co to jest nieobsługiwana: użytkownik zainicjował transakcji  
 
 Bez korzystania z Trwa ponawianie próby strategii wykonywania może zawijać się wiele operacji w ramach jednej transakcji. Na przykład poniższy kod opakowuje dwóch wywołań funkcji SaveChanges w ramach jednej transakcji. Jeśli którejkolwiek którejkolwiek z tych operacji nie powiedzie się następnie zmiany zostaną zastosowane.  
 
@@ -130,9 +124,7 @@ using (var db = new BloggingContext())
 
 To nie jest obsługiwana, gdy za pomocą Trwa ponawianie próby strategii wykonywania, ponieważ EF nie jest świadomy żadnych poprzedniej operacji i sposób ponowić próbę ich wykonania. Na przykład jeśli drugi SaveChanges nie powiodła się następnie EF już ma wymagane informacje, aby ponowić próbę wykonania pierwszego wywołania funkcji SaveChanges.  
 
-#### <a name="possible-workarounds"></a>Możliwe obejścia  
-
-##### <a name="suspend-execution-strategy"></a>Wstrzymywanie strategii wykonywania  
+### <a name="workaround-suspend-execution-strategy"></a>Obejście: Wstrzymywanie strategii wykonywania  
 
 Jednym możliwym obejściem jest wstrzymania Trwa ponawianie próby strategia wykonywania dla fragmentu kodu, który musi używać użytkownik zainicjował transakcji. Najprostszym sposobem, w tym celu jest dodać flagę SuspendExecutionStrategy w kodzie na podstawie klasy konfiguracji, a także zmienić lambda strategii wykonywania do zwrócenia strategii wykonywania (inne niż retying) domyślny, jeśli flaga jest ustawiona.  
 
@@ -193,7 +185,7 @@ using (var db = new BloggingContext())
 }
 ```  
 
-##### <a name="manually-call-execution-strategy"></a>Ręcznego wywoływania strategii wykonywania  
+### <a name="workaround-manually-call-execution-strategy"></a>Obejście: Ręcznego wywoływania strategii wykonywania  
 
 Inną opcją jest ręczne Użyj strategii wykonywania i nadaj cały zestaw logiki, aby uruchomić, dzięki czemu można ponów wszystko, jeśli jedna z operacji zakończy się niepowodzeniem. Nadal trzeba wstrzymywanie strategii wykonywania - korzystające z techniki powyżej — tak aby kontekstów używana wewnątrz blok kodu powtarzający operację nie należy podejmować próbę.  
 

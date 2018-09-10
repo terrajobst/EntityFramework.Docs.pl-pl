@@ -3,12 +3,12 @@ title: Sprawdzanie poprawności — EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
-ms.openlocfilehash: eec834888e2e3efaadc8acf9d4f64307f394ea4a
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 65639b0f91f54ee2cd1336f6b6cd4caf45ede680
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994448"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251027"
 ---
 # <a name="data-validation"></a>Sprawdzanie poprawności danych
 > [!NOTE]
@@ -54,7 +54,7 @@ Kod używa pierwsze adnotacje z zestawu System.ComponentModel.DataAnnotations ja
 
 Bez dodatkowego kodu i znaczników zmiany w aplikacji istniejącej aplikacji MVC przeprowadzi weryfikację po stronie klienta, nawet dynamiczne tworzenie komunikat przy użyciu nazwy właściwości i adnotacji.
 
-![figure01](~/ef6/media/figure01.png)
+![Rysunek 1.](~/ef6/media/figure01.png)
 
 We wpisie kopii metody tego widoku Create, platformy Entity Framework jest używany do zapisywania nowego bloga w bazie danych, ale weryfikacji po stronie klienta dla platformy MVC jest wyzwalany, zanim aplikacja osiągnie ten kod.
 
@@ -153,7 +153,7 @@ Konstruktor ValidationResult przyjmuje ciąg reprezentujący komunikat o błędz
 
 W przeciwieństwie do sprawdzania poprawności, udostępniony przez interfejs Fluent API ten wynik sprawdzania poprawności zostanie rozpoznane przez widok, a program obsługi wyjątku, który wcześniej używane do dodawania błąd do ModelState nie jest konieczne. Ponieważ obie nazwy właściwości ustawione w ValidationResult, MVC HtmlHelpers wyświetlić komunikat o błędzie dla obu tych właściwości.
 
-![figure02](~/ef6/media/figure02.png)
+![Rysunek 2](~/ef6/media/figure02.png)
 
 ## <a name="dbcontextvalidateentity"></a>DbContext.ValidateEntity
 

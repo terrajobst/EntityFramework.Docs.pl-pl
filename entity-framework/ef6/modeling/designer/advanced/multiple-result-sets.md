@@ -3,12 +3,12 @@ title: Procedury składowane z wielu zestawów wyników — EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 1b3797f9-cd3d-4752-a55e-47b84b399dc1
-ms.openlocfilehash: bb104ac5f584d26d279259a173de9afe3f018968
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 56c28f05bd7efe1b54d6cadd32afe0e9c6cf38b5
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996178"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251014"
 ---
 # <a name="stored-procedures-with-multiple-result-sets"></a>Procedury składowane z wielu zestawów wyników
 Czasami w przypadku, gdy przy użyciu przechowywanych procedur należy zwrócić więcej niż jeden wynik jest ustawiona. Ten scenariusz jest najczęściej używany do zmniejszenia liczby bazy danych rund wymagane do redagowania na jednym ekranie. Przed EF5 platformy Entity Framework pozwoliłoby procedura składowana wywoływana, ale zwróci tylko pierwszy zestaw wyników do kodu wywołującego.
@@ -104,7 +104,7 @@ Jeśli używasz projektancie platformy EF, można również zmodyfikować model,
 -   W tym celu należy dodać procedurę składowaną do modelu, podobnie jak w przypadku pojedynczego wyniku kwerendy zestawu.
 -   Po tym, będzie konieczne modelu kliknij prawym przyciskiem myszy i wybierz **Otwórz za pomocą...** następnie **Xml**
 
-    ![OpenAs](~/ef6/media/openas.png)
+    ![Otwórz jako](~/ef6/media/openas.png)
 
 Masz jeden raz modelu otwarty jako XML, a następnie należy wykonać następujące czynności:
 

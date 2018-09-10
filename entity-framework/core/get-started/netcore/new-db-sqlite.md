@@ -6,12 +6,12 @@ description: Wprowadzenie do platformy .NET Core przy użyciu platformy Entity F
 ms.date: 08/03/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: 51f5752eebce5603c663072f7b36dfecd4ddf227
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 69f7160cd82f2ec58e436a85369b52fe7c31040c
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993695"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250312"
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Wprowadzenie do nowej bazy danych z programem EF Core w aplikacji Konsolowej .NET Core
 
@@ -29,9 +29,16 @@ Wyświetlanie przykładowych w tym artykule w witrynie GitHub] (https://github.c
 
   ``` Console
   dotnet new console -o ConsoleApp.SQLite
+  ```
+## <a name="change-the-current-directory"></a>Zmień bieżący katalog 
+
+W kolejnych krokach samouczka, należy wydać `dotnet` poleceń dla aplikacji. 
+
+* Możemy zmienić bieżący katalog do katalogu aplikacji w następujący sposób:
+
+  ``` Console
   cd ConsoleApp.SQLite/
   ```
-
 ## <a name="install-entity-framework-core"></a>Instalowanie platformy Entity Framework Core
 
 Aby korzystać z programu EF Core, należy zainstalować pakiet dla dostawców bazy danych, który ma pod kątem. W tym instruktażu wykorzystano bazy danych SQLite. Aby uzyskać listę dostępnych dostawców zobacz [dostawcy baz danych](../../providers/index.md).

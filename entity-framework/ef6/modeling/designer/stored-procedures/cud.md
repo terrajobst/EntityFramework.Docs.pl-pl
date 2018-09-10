@@ -3,12 +3,12 @@ title: Projektanta CUD procedury składowane - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 1e773972-2da5-45e0-85a2-3cf3fbcfa5cf
-ms.openlocfilehash: 7a3176e1057816dd11ced5fc545aa3baa672bd03
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 36c9b97b77fec30136cba1d850a0259c689e69ae
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993892"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250923"
 ---
 # <a name="designer-cud-stored-procedures"></a>Procedury składowane CUD projektanta
 Ten przewodnik krok po kroku pokazano, jak mapować tworzenia\\Wstawianie, aktualizowanie i usuwanie operacji (CUD) typu jednostki do procedur składowanych, za pomocą funkcji Entity Framework Designer (Projektant EF).  Domyślnie platforma Entity Framework automatycznie generuje instrukcje SQL dla operacje CUD, ale można również mapować procedur składowanych do tych operacji.  
@@ -54,7 +54,7 @@ W celu wykonania instrukcji w tym przewodniku potrzebne są następujące elemen
 -   Zaznacz również następujących procedur składowanych w obszarze **procedur przechowywanych i funkcji** węzła: **DeletePerson**, **InsertPerson**, i **UpdatePerson** . 
 -   Począwszy od programu Visual Studio 2012, projektancie platformy EF obsługuje importu zbiorczego procedur składowanych. **Importowanie wybranych procedur przechowywanych i funkcji do modelu jednostki** jest zaznaczone domyślnie. Ponieważ w tym przykładzie firma Microsoft ma procedur składowanych, które Wstawianie, aktualizowanie i usuwanie typów jednostek, firma Microsoft nie chcesz zaimportować je, a następnie będzie Usuń zaznaczenie tego pola wyboru. 
 
-    ![ImportSProcs](~/ef6/media/importsprocs.jpg)
+    ![Importowanie S Procs](~/ef6/media/importsprocs.jpg)
 
 -   Kliknij przycisk **Zakończ**.
     Zostanie wyświetlona projektancie platformy EF, oferujący powierzchnię projektową do edycji modelu.
@@ -72,7 +72,7 @@ W celu wykonania instrukcji w tym przewodniku potrzebne są następujące elemen
 -   Naciśnij klawisz **wprowadź**.
 -   Domyślnie **NewPersonID** jest mapowany na klucz jednostki **PersonID**. Należy pamiętać, że strzałka wskazuje kierunek mapowania: wartość kolumny wynik jest dostarczany do właściwości.
 
-    ![MappingDetails](~/ef6/media/mappingdetails.png)
+    ![Szczegóły mapowania](~/ef6/media/mappingdetails.png)
 
 -   Kliknij przycisk **&lt;wybierz funkcję Update&gt;** i wybierz **UpdatePerson** z wyświetlonej listy rozwijanej.
 -   Domyślne mapowania między parametrów procedury składowanej i właściwości obiektu są wyświetlane.

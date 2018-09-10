@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 44b200223153fca44cb2cfa3e78b3bedc7b4a552
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 5da1043310e2858638c81a0654a9cab23e39c220
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821338"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250819"
 ---
 # <a name="provider-impacting-changes"></a>Zmiany wpływające na dostawcy
 
@@ -19,9 +19,9 @@ Ta strona zawiera linki do przeprowadzanych na repozytorium programu EF Core, kt
 
 Rozpoczynamy ten dziennik zmian z 2.1 do wersji 2.2. Przed 2.1 użyliśmy [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) i [ `providers-fyi` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) etykiety na nasze problemy i żądania ściągnięcia.
 
-### <a name="21-----22"></a>2.1---> 2.2
+## <a name="21-----22"></a>2.1---> 2.2
 
-#### <a name="test-only-changes"></a>Zmiany tylko do testów
+### <a name="test-only-changes"></a>Zmiany tylko do testów
 
 * https://github.com/aspnet/EntityFrameworkCore/pull/12057 -Zezwalaj na możliwe do dostosowania ograniczników SQL w testach
   * Testowanie zmiany, które umożliwiają nieścisłym porównania punktu zmiennoprzecinkowego w BuiltInDataTypesTestBase
@@ -40,7 +40,7 @@ Rozpoczynamy ten dziennik zmian z 2.1 do wersji 2.2. Przed 2.1 użyliśmy [ `pro
   * Ta zmiana obejmuje niektóre refaktoryzacji testów, które mogą wymagać dostawców reagować
 
 
-#### <a name="test-and-product-code-changes"></a>Test i produktu zmian w kodzie
+### <a name="test-and-product-code-changes"></a>Test i produktu zmian w kodzie
 
 * https://github.com/aspnet/EntityFrameworkCore/pull/12109 -Skonsolidować RelationalTypeMapping.Clone metody
   * Zmiany w 2.1 RelationalTypeMapping dozwolone dla uproszczenia w klasach pochodnych. Firma Microsoft uważa, nie zostało to istotne do dostawców, ale dostawców korzystać z zalet tej zmiany w ich typ pochodny mapowania klas.
@@ -50,4 +50,5 @@ Rozpoczynamy ten dziennik zmian z 2.1 do wersji 2.2. Przed 2.1 użyliśmy [ `pro
   * Umożliwia mapowania typów i elementów członkowskich tłumaczy do zarejestrowania poza dostawcy
     * Dostawcy musi wywołać podstawowej. FindMapping() w ich realizacji ITypeMappingSource, aby działał
   * Postępuj zgodnie z tego wzorca, aby dodać obsługę przestrzenne do dostawcą, który jest spójny w ramach dostawcy.
-
+* https://github.com/aspnet/EntityFrameworkCore/pull/13199 — Dodawanie Ulepszone debugowanie Tworzenie dostawcy usługi
+  * Umożliwia DbContextOptionsExtensions wdrożyć nowy interfejs, który pomaga zrozumieć, dlaczego dostawcy usługi wewnętrznej jest przebudowany osób

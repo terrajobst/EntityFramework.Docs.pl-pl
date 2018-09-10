@@ -3,12 +3,12 @@ title: Tabela projektanta dzielenia - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 452f17c3-9f26-4de4-9894-8bc036e23b0f
-ms.openlocfilehash: 87b6e1bd0374f77dfffab342c659cf4e16c8a337
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: f07aeb0aa679f6fa8131c667ac808f17c3f03f20
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994506"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250988"
 ---
 # <a name="designer-table-splitting"></a>Tabela projektanta dzielenia
 Ten poradnik pokazuje jak mapować wielu typów jednostek do pojedynczej tabeli, modyfikując model przy użyciu narzędzia Entity Framework Designer (Projektant EF).
@@ -17,7 +17,7 @@ Jeden powodów, dla którego chcesz użyć tabeli podział opóźnia ładowanie 
 
 Na poniższej ilustracji przedstawiono główne systemu windows, które są używane podczas pracy z projektancie platformy EF.
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![Projektancie platformy EF](~/ef6/media/efdesigner.png)
 
 ## <a name="prerequisites"></a>Wymagania wstępne
 
@@ -130,8 +130,8 @@ Poniższe instrukcje języka T-SQL zostały wykonane na **School** bazy danych w
 
 -   Następujące **wybierz** zostało wykonane w wyniku wykonania z kontekstu. People.FirstOrDefault() i wybiera tylko potrzebne kolumny mapowane na **osoby**
 
-    ![Select1](~/ef6/media/select1.png)
+    ![Wybierz 1](~/ef6/media/select1.png)
 
 -   Następujące **wybierz** zostało wykonane w wyniku uzyskiwania dostępu do existingPerson.Instructor właściwość nawigacji z wybiera tylko potrzebne kolumny, które są mapowane na **HireInfo**
 
-    ![Select2](~/ef6/media/select2.png)
+    ![Wybierz opcję 2](~/ef6/media/select2.png)

@@ -3,12 +3,12 @@ title: Samodzielnie śledzenia jednostek przewodnik — EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: b21207c9-1d95-4aa3-ae05-bc5fe300dab0
-ms.openlocfilehash: 64ca9ae42df1a1c740131e254b8f80f67b2f9f97
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1c450bbb20c246d9b9d58707ac03eb48eadfa970
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995424"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251287"
 ---
 # <a name="self-tracking-entities-walkthrough"></a>Śledzenie własnym wskazówki jednostek
 > [!IMPORTANT]
@@ -142,7 +142,7 @@ Następnie użyjemy Dodaj nowy projekt i wygenerowania klas obiektów w nim
 -   Wybierz **STETemplate.tt** pliku
 -   Kliknij strzałkę listy rozwijanej obok **Dodaj** i wybrać **Dodaj jako łącze**
 
-    ![AddLinkedTemplate](~/ef6/media/addlinkedtemplate.png)
+    ![Dodaj połączony szablon](~/ef6/media/addlinkedtemplate.png)
 
 Przedstawimy również upewnij się, że wygenerowanie klas obiektów w tej samej przestrzeni nazw jako kontekst. Zmniejsza to po prostu liczbę za pomocą instrukcji, które musimy dodać w naszej aplikacji.
 
@@ -552,4 +552,4 @@ Teraz można uruchomić aplikacji, aby zobaczyć go w działaniu.
 -   Kliknij prawym przyciskiem myszy **STESample.WPFTest** projektu w **Eksploratora rozwiązań** i wybierz **debugowanie -&gt; Uruchom nowe wystąpienie**
 -   Można manipulować danymi na ekranie i zapisać go za pośrednictwem usługi przy użyciu **Zapisz** przycisku
 
-![WPF](~/ef6/media/wpf.png)
+![Okno główne programu WPF](~/ef6/media/wpf.png)
