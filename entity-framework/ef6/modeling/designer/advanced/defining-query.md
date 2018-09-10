@@ -3,73 +3,73 @@ title: Definiowanie zapytania — projektancie platformy EF - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: e52a297e-85aa-42f6-a922-ba960f8a4b22
-ms.openlocfilehash: 60d5310589bb9bc3fdb971673422e80537357e55
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 8415a265cdbe078422e0467ee97da955a81b873d
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996310"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250975"
 ---
-# <a name="defining-query---ef-designer"></a><span data-ttu-id="7c1aa-102">Definiowanie zapytania — projektancie platformy EF</span><span class="sxs-lookup"><span data-stu-id="7c1aa-102">Defining Query - EF Designer</span></span>
-<span data-ttu-id="7c1aa-103">W tym instruktażu przedstawiono sposób dodawania, definiując kwerendy i odpowiednia jednostka typu do modelu, używając projektancie platformy EF.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-103">This walkthrough demonstrates how to add a defining query and a corresponding entity type to a model using the EF Designer.</span></span> <span data-ttu-id="7c1aa-104">Definiowanie zapytania jest najczęściej używany do zapewnia funkcje podobne do dostarczony przez widok bazy danych, ale widok jest zdefiniowany w modelu, a nie bazy danych.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-104">A defining query is commonly used to provide functionality similar to that provided by a database view, but the view is defined in the model, not the database.</span></span> <span data-ttu-id="7c1aa-105">Definiowanie zapytań pozwala wykonać instrukcję SQL, który jest określony w **DefiningQuery** element z pliku edmx.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-105">A defining query allows you to execute a SQL statement that is specified in the **DefiningQuery** element of an .edmx file.</span></span> <span data-ttu-id="7c1aa-106">Aby uzyskać więcej informacji, zobacz **DefiningQuery** w [Specyfikacja SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).</span><span class="sxs-lookup"><span data-stu-id="7c1aa-106">For more information, see **DefiningQuery** in the [SSDL Specification](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).</span></span>
+# <a name="defining-query---ef-designer"></a><span data-ttu-id="03472-102">Definiowanie zapytania — projektancie platformy EF</span><span class="sxs-lookup"><span data-stu-id="03472-102">Defining Query - EF Designer</span></span>
+<span data-ttu-id="03472-103">W tym instruktażu przedstawiono sposób dodawania, definiując kwerendy i odpowiednia jednostka typu do modelu, używając projektancie platformy EF.</span><span class="sxs-lookup"><span data-stu-id="03472-103">This walkthrough demonstrates how to add a defining query and a corresponding entity type to a model using the EF Designer.</span></span> <span data-ttu-id="03472-104">Definiowanie zapytania jest najczęściej używany do zapewnia funkcje podobne do dostarczony przez widok bazy danych, ale widok jest zdefiniowany w modelu, a nie bazy danych.</span><span class="sxs-lookup"><span data-stu-id="03472-104">A defining query is commonly used to provide functionality similar to that provided by a database view, but the view is defined in the model, not the database.</span></span> <span data-ttu-id="03472-105">Definiowanie zapytań pozwala wykonać instrukcję SQL, który jest określony w **DefiningQuery** element z pliku edmx.</span><span class="sxs-lookup"><span data-stu-id="03472-105">A defining query allows you to execute a SQL statement that is specified in the **DefiningQuery** element of an .edmx file.</span></span> <span data-ttu-id="03472-106">Aby uzyskać więcej informacji, zobacz **DefiningQuery** w [Specyfikacja SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).</span><span class="sxs-lookup"><span data-stu-id="03472-106">For more information, see **DefiningQuery** in the [SSDL Specification](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).</span></span>
 
-<span data-ttu-id="7c1aa-107">Korzystając z Definiowanie zapytań, należy zdefiniować typ jednostki w modelu.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-107">When using defining queries, you also have to define an entity type in your model.</span></span> <span data-ttu-id="7c1aa-108">Typ jednostki jest używany do powierzchni dane udostępniane przez definiowanie zapytań.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-108">The entity type is used to surface data exposed by the defining query.</span></span> <span data-ttu-id="7c1aa-109">Należy pamiętać, że udostępniane za pośrednictwem tego typu jednostki danych tylko do odczytu.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-109">Note that data surfaced through this entity type is read-only.</span></span>
+<span data-ttu-id="03472-107">Korzystając z Definiowanie zapytań, należy zdefiniować typ jednostki w modelu.</span><span class="sxs-lookup"><span data-stu-id="03472-107">When using defining queries, you also have to define an entity type in your model.</span></span> <span data-ttu-id="03472-108">Typ jednostki jest używany do powierzchni dane udostępniane przez definiowanie zapytań.</span><span class="sxs-lookup"><span data-stu-id="03472-108">The entity type is used to surface data exposed by the defining query.</span></span> <span data-ttu-id="03472-109">Należy pamiętać, że udostępniane za pośrednictwem tego typu jednostki danych tylko do odczytu.</span><span class="sxs-lookup"><span data-stu-id="03472-109">Note that data surfaced through this entity type is read-only.</span></span>
 
-<span data-ttu-id="7c1aa-110">Nie można wykonać zapytań sparametryzowanych jako Definiowanie zapytań.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-110">Parameterized queries cannot be executed as defining queries.</span></span> <span data-ttu-id="7c1aa-111">Jednak dane można zaktualizować przez mapowanie insert, update i delete funkcji typu jednostki który uwypukli najistotniejsze dane do procedur składowanych.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-111">However, the data can be updated by mapping the insert, update, and delete functions of the entity type that surfaces the data to stored procedures.</span></span> <span data-ttu-id="7c1aa-112">Aby uzyskać więcej informacji, zobacz [wstawiania, aktualizowania i usuwania przy użyciu procedur składowanych](~/ef6/modeling/designer/stored-procedures/cud.md).</span><span class="sxs-lookup"><span data-stu-id="7c1aa-112">For more information, see [Insert, Update, and Delete with Stored Procedures](~/ef6/modeling/designer/stored-procedures/cud.md).</span></span>
+<span data-ttu-id="03472-110">Nie można wykonać zapytań sparametryzowanych jako Definiowanie zapytań.</span><span class="sxs-lookup"><span data-stu-id="03472-110">Parameterized queries cannot be executed as defining queries.</span></span> <span data-ttu-id="03472-111">Jednak dane można zaktualizować przez mapowanie insert, update i delete funkcji typu jednostki który uwypukli najistotniejsze dane do procedur składowanych.</span><span class="sxs-lookup"><span data-stu-id="03472-111">However, the data can be updated by mapping the insert, update, and delete functions of the entity type that surfaces the data to stored procedures.</span></span> <span data-ttu-id="03472-112">Aby uzyskać więcej informacji, zobacz [wstawiania, aktualizowania i usuwania przy użyciu procedur składowanych](~/ef6/modeling/designer/stored-procedures/cud.md).</span><span class="sxs-lookup"><span data-stu-id="03472-112">For more information, see [Insert, Update, and Delete with Stored Procedures](~/ef6/modeling/designer/stored-procedures/cud.md).</span></span>
 
-<span data-ttu-id="7c1aa-113">W tym temacie przedstawiono sposób wykonywania następujących zadań.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-113">This topic shows how to perform the following tasks.</span></span>
+<span data-ttu-id="03472-113">W tym temacie przedstawiono sposób wykonywania następujących zadań.</span><span class="sxs-lookup"><span data-stu-id="03472-113">This topic shows how to perform the following tasks.</span></span>
 
--   <span data-ttu-id="7c1aa-114">Dodaj zapytanie definiujące</span><span class="sxs-lookup"><span data-stu-id="7c1aa-114">Add a Defining Query</span></span>
--   <span data-ttu-id="7c1aa-115">Dodaj typ jednostki do modelu</span><span class="sxs-lookup"><span data-stu-id="7c1aa-115">Add an Entity Type to the Model</span></span>
--   <span data-ttu-id="7c1aa-116">Definiowanie zapytania do typu jednostki mapy</span><span class="sxs-lookup"><span data-stu-id="7c1aa-116">Map the Defining Query to the Entity Type</span></span>
+-   <span data-ttu-id="03472-114">Dodaj zapytanie definiujące</span><span class="sxs-lookup"><span data-stu-id="03472-114">Add a Defining Query</span></span>
+-   <span data-ttu-id="03472-115">Dodaj typ jednostki do modelu</span><span class="sxs-lookup"><span data-stu-id="03472-115">Add an Entity Type to the Model</span></span>
+-   <span data-ttu-id="03472-116">Definiowanie zapytania do typu jednostki mapy</span><span class="sxs-lookup"><span data-stu-id="03472-116">Map the Defining Query to the Entity Type</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="7c1aa-117">Wymagania wstępne</span><span class="sxs-lookup"><span data-stu-id="7c1aa-117">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="03472-117">Wymagania wstępne</span><span class="sxs-lookup"><span data-stu-id="03472-117">Prerequisites</span></span>
 
-<span data-ttu-id="7c1aa-118">W celu wykonania instrukcji w tym przewodniku potrzebne są następujące elementy:</span><span class="sxs-lookup"><span data-stu-id="7c1aa-118">To complete this walkthrough, you will need:</span></span>
+<span data-ttu-id="03472-118">W celu wykonania instrukcji w tym przewodniku potrzebne są następujące elementy:</span><span class="sxs-lookup"><span data-stu-id="03472-118">To complete this walkthrough, you will need:</span></span>
 
-- <span data-ttu-id="7c1aa-119">Najnowszą wersję programu Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-119">A recent version of Visual Studio.</span></span>
-- <span data-ttu-id="7c1aa-120">[Przykładowej bazy danych School](~/ef6/resources/school-database.md).</span><span class="sxs-lookup"><span data-stu-id="7c1aa-120">The [School sample database](~/ef6/resources/school-database.md).</span></span>
+- <span data-ttu-id="03472-119">Najnowszą wersję programu Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="03472-119">A recent version of Visual Studio.</span></span>
+- <span data-ttu-id="03472-120">[Przykładowej bazy danych School](~/ef6/resources/school-database.md).</span><span class="sxs-lookup"><span data-stu-id="03472-120">The [School sample database](~/ef6/resources/school-database.md).</span></span>
 
-## <a name="set-up-the-project"></a><span data-ttu-id="7c1aa-121">Konfigurowanie projektu</span><span class="sxs-lookup"><span data-stu-id="7c1aa-121">Set up the Project</span></span>
+## <a name="set-up-the-project"></a><span data-ttu-id="03472-121">Konfigurowanie projektu</span><span class="sxs-lookup"><span data-stu-id="03472-121">Set up the Project</span></span>
 
-<span data-ttu-id="7c1aa-122">Ten przewodnik korzysta z programu Visual Studio 2012 lub nowszego.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-122">This walkthrough is using Visual Studio 2012 or newer.</span></span>
+<span data-ttu-id="03472-122">Ten przewodnik korzysta z programu Visual Studio 2012 lub nowszego.</span><span class="sxs-lookup"><span data-stu-id="03472-122">This walkthrough is using Visual Studio 2012 or newer.</span></span>
 
--   <span data-ttu-id="7c1aa-123">Otwórz program Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-123">Open Visual Studio.</span></span>
--   <span data-ttu-id="7c1aa-124">Na **pliku** menu wskaż **New**, a następnie kliknij przycisk **projektu**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-124">On the **File** menu, point to **New**, and then click **Project**.</span></span>
--   <span data-ttu-id="7c1aa-125">W okienku po lewej stronie kliknij **Visual C\#**, a następnie wybierz pozycję **aplikację Konsolową** szablonu.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-125">In the left pane, click **Visual C\#**, and then select the **Console Application** template.</span></span>
--   <span data-ttu-id="7c1aa-126">Wprowadź **DefiningQuerySample** jako nazwę projektu i kliknij przycisk **OK**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-126">Enter **DefiningQuerySample** as the name of the project and click **OK**.</span></span>
-
- 
-
-## <a name="create-a-model-based-on-the-school-database"></a><span data-ttu-id="7c1aa-127">Tworzenie modelu, w oparciu o bazę danych School</span><span class="sxs-lookup"><span data-stu-id="7c1aa-127">Create a Model based on the School Database</span></span>
-
--   <span data-ttu-id="7c1aa-128">Kliknij prawym przyciskiem myszy nazwę projektu w Eksploratorze rozwiązań, wskaż opcję **Dodaj**, a następnie kliknij przycisk **nowy element**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-128">Right-click the project name in Solution Explorer, point to **Add**, and then click **New Item**.</span></span>
--   <span data-ttu-id="7c1aa-129">Wybierz **danych** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablonów.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-129">Select **Data** from the left menu and then select **ADO.NET Entity Data Model** in the Templates pane.</span></span>
--   <span data-ttu-id="7c1aa-130">Wprowadź **DefiningQueryModel.edmx** nazwę pliku, a następnie kliknij przycisk **Dodaj**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-130">Enter **DefiningQueryModel.edmx** for the file name, and then click **Add**.</span></span>
--   <span data-ttu-id="7c1aa-131">W oknie dialogowym Wybierz zawartość modelu, wybierz **Generuj z bazy danych**, a następnie kliknij przycisk **dalej**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-131">In the Choose Model Contents dialog box, select **Generate from database**, and then click **Next**.</span></span>
--   <span data-ttu-id="7c1aa-132">Kliknij przycisk nowe połączenie.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-132">Click New Connection.</span></span> <span data-ttu-id="7c1aa-133">W oknie dialogowym właściwości połączenia, wprowadź nazwę serwera (na przykład **(localdb)\\mssqllocaldb**), wybierz metodę uwierzytelniania, wpisz **School** nazwy bazy danych, a następnie Kliknij przycisk **OK**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-133">In the Connection Properties dialog box, enter the server name (for example, **(localdb)\\mssqllocaldb**), select the authentication method, type **School** for the database name, and then click **OK**.</span></span>
-    <span data-ttu-id="7c1aa-134">Okno dialogowe Wybierz połączenie danych jest aktualizowana ustawienie połączenia bazy danych.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-134">The Choose Your Data Connection dialog box is updated with your database connection setting.</span></span>
--   <span data-ttu-id="7c1aa-135">W oknie dialogowym Wybierz obiekty bazy danych sprawdź **tabel** węzła.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-135">In the Choose Your Database Objects dialog box, check the **Tables** node.</span></span> <span data-ttu-id="7c1aa-136">Spowoduje to dodanie wszystkich tabel do **School** modelu.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-136">This will add all the tables to the **School** model.</span></span>
--   <span data-ttu-id="7c1aa-137">Kliknij przycisk **Zakończ**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-137">Click **Finish**.</span></span>
--   <span data-ttu-id="7c1aa-138">W Eksploratorze rozwiązań kliknij prawym przyciskiem myszy **DefiningQueryModel.edmx** plik i wybierz **Otwórz za pomocą...** .</span><span class="sxs-lookup"><span data-stu-id="7c1aa-138">In Solution Explorer, right-click the **DefiningQueryModel.edmx** file and select **Open With…**.</span></span>
--   <span data-ttu-id="7c1aa-139">Wybierz **Edytor (tekstu) XML**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-139">Select **XML (Text) Editor**.</span></span>
-
-    ![Edytorem XMLEditor](~/ef6/media/xmleditor.png)
-
--   <span data-ttu-id="7c1aa-141">Kliknij przycisk **tak** Jeśli zostanie wyświetlony monit z następującym komunikatem:</span><span class="sxs-lookup"><span data-stu-id="7c1aa-141">Click **Yes** if prompted with the following message:</span></span>
-
-    ![Warning2](~/ef6/media/warning2.png)
+-   <span data-ttu-id="03472-123">Otwórz program Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="03472-123">Open Visual Studio.</span></span>
+-   <span data-ttu-id="03472-124">Na **pliku** menu wskaż **New**, a następnie kliknij przycisk **projektu**.</span><span class="sxs-lookup"><span data-stu-id="03472-124">On the **File** menu, point to **New**, and then click **Project**.</span></span>
+-   <span data-ttu-id="03472-125">W okienku po lewej stronie kliknij **Visual C\#**, a następnie wybierz pozycję **aplikację Konsolową** szablonu.</span><span class="sxs-lookup"><span data-stu-id="03472-125">In the left pane, click **Visual C\#**, and then select the **Console Application** template.</span></span>
+-   <span data-ttu-id="03472-126">Wprowadź **DefiningQuerySample** jako nazwę projektu i kliknij przycisk **OK**.</span><span class="sxs-lookup"><span data-stu-id="03472-126">Enter **DefiningQuerySample** as the name of the project and click **OK**.</span></span>
 
  
 
-## <a name="add-a-defining-query"></a><span data-ttu-id="7c1aa-143">Dodaj zapytanie definiujące</span><span class="sxs-lookup"><span data-stu-id="7c1aa-143">Add a Defining Query</span></span>
+## <a name="create-a-model-based-on-the-school-database"></a><span data-ttu-id="03472-127">Tworzenie modelu, w oparciu o bazę danych School</span><span class="sxs-lookup"><span data-stu-id="03472-127">Create a Model based on the School Database</span></span>
 
-<span data-ttu-id="7c1aa-144">W tym kroku, które zostaną użyte zapytanie edytora XML, aby dodać definiujące, a następnie wpisz jednostki SSDL części pliku edmx.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-144">In this step we will use the XML Editor to add a defining query and an entity type to the SSDL section of the .edmx file.</span></span> 
+-   <span data-ttu-id="03472-128">Kliknij prawym przyciskiem myszy nazwę projektu w Eksploratorze rozwiązań, wskaż opcję **Dodaj**, a następnie kliknij przycisk **nowy element**.</span><span class="sxs-lookup"><span data-stu-id="03472-128">Right-click the project name in Solution Explorer, point to **Add**, and then click **New Item**.</span></span>
+-   <span data-ttu-id="03472-129">Wybierz **danych** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablonów.</span><span class="sxs-lookup"><span data-stu-id="03472-129">Select **Data** from the left menu and then select **ADO.NET Entity Data Model** in the Templates pane.</span></span>
+-   <span data-ttu-id="03472-130">Wprowadź **DefiningQueryModel.edmx** nazwę pliku, a następnie kliknij przycisk **Dodaj**.</span><span class="sxs-lookup"><span data-stu-id="03472-130">Enter **DefiningQueryModel.edmx** for the file name, and then click **Add**.</span></span>
+-   <span data-ttu-id="03472-131">W oknie dialogowym Wybierz zawartość modelu, wybierz **Generuj z bazy danych**, a następnie kliknij przycisk **dalej**.</span><span class="sxs-lookup"><span data-stu-id="03472-131">In the Choose Model Contents dialog box, select **Generate from database**, and then click **Next**.</span></span>
+-   <span data-ttu-id="03472-132">Kliknij przycisk nowe połączenie.</span><span class="sxs-lookup"><span data-stu-id="03472-132">Click New Connection.</span></span> <span data-ttu-id="03472-133">W oknie dialogowym właściwości połączenia, wprowadź nazwę serwera (na przykład **(localdb)\\mssqllocaldb**), wybierz metodę uwierzytelniania, wpisz **School** nazwy bazy danych, a następnie Kliknij przycisk **OK**.</span><span class="sxs-lookup"><span data-stu-id="03472-133">In the Connection Properties dialog box, enter the server name (for example, **(localdb)\\mssqllocaldb**), select the authentication method, type **School** for the database name, and then click **OK**.</span></span>
+    <span data-ttu-id="03472-134">Okno dialogowe Wybierz połączenie danych jest aktualizowana ustawienie połączenia bazy danych.</span><span class="sxs-lookup"><span data-stu-id="03472-134">The Choose Your Data Connection dialog box is updated with your database connection setting.</span></span>
+-   <span data-ttu-id="03472-135">W oknie dialogowym Wybierz obiekty bazy danych sprawdź **tabel** węzła.</span><span class="sxs-lookup"><span data-stu-id="03472-135">In the Choose Your Database Objects dialog box, check the **Tables** node.</span></span> <span data-ttu-id="03472-136">Spowoduje to dodanie wszystkich tabel do **School** modelu.</span><span class="sxs-lookup"><span data-stu-id="03472-136">This will add all the tables to the **School** model.</span></span>
+-   <span data-ttu-id="03472-137">Kliknij przycisk **Zakończ**.</span><span class="sxs-lookup"><span data-stu-id="03472-137">Click **Finish**.</span></span>
+-   <span data-ttu-id="03472-138">W Eksploratorze rozwiązań kliknij prawym przyciskiem myszy **DefiningQueryModel.edmx** plik i wybierz **Otwórz za pomocą...** .</span><span class="sxs-lookup"><span data-stu-id="03472-138">In Solution Explorer, right-click the **DefiningQueryModel.edmx** file and select **Open With…**.</span></span>
+-   <span data-ttu-id="03472-139">Wybierz **Edytor (tekstu) XML**.</span><span class="sxs-lookup"><span data-stu-id="03472-139">Select **XML (Text) Editor**.</span></span>
 
--   <span data-ttu-id="7c1aa-145">Dodaj **EntitySet** elementu SSDL części pliku edmx (wiersz 5 do 13).</span><span class="sxs-lookup"><span data-stu-id="7c1aa-145">Add an **EntitySet** element to the SSDL section of the .edmx file (line 5 thru 13).</span></span> <span data-ttu-id="7c1aa-146">Określ następujące ustawienia:</span><span class="sxs-lookup"><span data-stu-id="7c1aa-146">Specify the following:</span></span>
-    -   <span data-ttu-id="7c1aa-147">Tylko **nazwa** i **EntityType** atrybuty **EntitySet** są określony element.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-147">Only the **Name** and **EntityType** attributes of the **EntitySet** element are specified.</span></span>
-    -   <span data-ttu-id="7c1aa-148">W pełni kwalifikowana nazwa typu jednostki jest używany w **EntityType** atrybutu.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-148">The fully-qualified name of the entity type is used in the **EntityType** attribute.</span></span>
-    -   <span data-ttu-id="7c1aa-149">Instrukcja SQL do wykonania jest określona w **DefiningQuery** elementu.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-149">The SQL statement to be executed is specified in the **DefiningQuery** element.</span></span>
+    ![Edytor XML](~/ef6/media/xmleditor.png)
+
+-   <span data-ttu-id="03472-141">Kliknij przycisk **tak** Jeśli zostanie wyświetlony monit z następującym komunikatem:</span><span class="sxs-lookup"><span data-stu-id="03472-141">Click **Yes** if prompted with the following message:</span></span>
+
+    ![Ostrzeżenie 2](~/ef6/media/warning2.png)
+
+ 
+
+## <a name="add-a-defining-query"></a><span data-ttu-id="03472-143">Dodaj zapytanie definiujące</span><span class="sxs-lookup"><span data-stu-id="03472-143">Add a Defining Query</span></span>
+
+<span data-ttu-id="03472-144">W tym kroku, które zostaną użyte zapytanie edytora XML, aby dodać definiujące, a następnie wpisz jednostki SSDL części pliku edmx.</span><span class="sxs-lookup"><span data-stu-id="03472-144">In this step we will use the XML Editor to add a defining query and an entity type to the SSDL section of the .edmx file.</span></span> 
+
+-   <span data-ttu-id="03472-145">Dodaj **EntitySet** elementu SSDL części pliku edmx (wiersz 5 do 13).</span><span class="sxs-lookup"><span data-stu-id="03472-145">Add an **EntitySet** element to the SSDL section of the .edmx file (line 5 thru 13).</span></span> <span data-ttu-id="03472-146">Określ następujące ustawienia:</span><span class="sxs-lookup"><span data-stu-id="03472-146">Specify the following:</span></span>
+    -   <span data-ttu-id="03472-147">Tylko **nazwa** i **EntityType** atrybuty **EntitySet** są określony element.</span><span class="sxs-lookup"><span data-stu-id="03472-147">Only the **Name** and **EntityType** attributes of the **EntitySet** element are specified.</span></span>
+    -   <span data-ttu-id="03472-148">W pełni kwalifikowana nazwa typu jednostki jest używany w **EntityType** atrybutu.</span><span class="sxs-lookup"><span data-stu-id="03472-148">The fully-qualified name of the entity type is used in the **EntityType** attribute.</span></span>
+    -   <span data-ttu-id="03472-149">Instrukcja SQL do wykonania jest określona w **DefiningQuery** elementu.</span><span class="sxs-lookup"><span data-stu-id="03472-149">The SQL statement to be executed is specified in the **DefiningQuery** element.</span></span>
 
 ``` xml
     <!-- SSDL content -->
@@ -88,10 +88,10 @@ ms.locfileid: "42996310"
           <EntitySet Name="Course" EntityType="SchoolModel.Store.Course" store:Type="Tables" Schema="dbo" />
 ```
 
--   <span data-ttu-id="7c1aa-150">Dodaj **EntityType** element do sekcji SSDL edmx.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-150">Add the **EntityType** element to the SSDL section of the .edmx.</span></span> <span data-ttu-id="7c1aa-151">Plik jak pokazano poniżej.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-151">file as shown below.</span></span> <span data-ttu-id="7c1aa-152">Należy pamiętać o następujących kwestiach:</span><span class="sxs-lookup"><span data-stu-id="7c1aa-152">Note the following:</span></span>
-    -   <span data-ttu-id="7c1aa-153">Wartość **nazwa** atrybut odnosi się do wartości **EntityType** atrybutu w **EntitySet** element powyżej, mimo że w pełni kwalifikowana nazwa Typ jednostki jest używany w **EntityType** atrybutu.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-153">The value of the **Name** attribute corresponds to the value of the **EntityType** attribute in the **EntitySet** element above, although the fully-qualified name of the entity type is used in the **EntityType** attribute.</span></span>
-    -   <span data-ttu-id="7c1aa-154">Nazwy właściwości odpowiadają nazwom kolumny zwróconą przez instrukcję SQL w **DefiningQuery** elementu (powyżej).</span><span class="sxs-lookup"><span data-stu-id="7c1aa-154">The property names correspond to the column names returned by the SQL statement in the **DefiningQuery** element (above).</span></span>
-    -   <span data-ttu-id="7c1aa-155">W tym przykładzie klucz jednostki składa się z trzech właściwości w celu zapewnienia unikalną wartość kluczową.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-155">In this example, the entity key is composed of three properties to ensure a unique key value.</span></span>
+-   <span data-ttu-id="03472-150">Dodaj **EntityType** element do sekcji SSDL edmx.</span><span class="sxs-lookup"><span data-stu-id="03472-150">Add the **EntityType** element to the SSDL section of the .edmx.</span></span> <span data-ttu-id="03472-151">Plik jak pokazano poniżej.</span><span class="sxs-lookup"><span data-stu-id="03472-151">file as shown below.</span></span> <span data-ttu-id="03472-152">Należy pamiętać o następujących kwestiach:</span><span class="sxs-lookup"><span data-stu-id="03472-152">Note the following:</span></span>
+    -   <span data-ttu-id="03472-153">Wartość **nazwa** atrybut odnosi się do wartości **EntityType** atrybutu w **EntitySet** element powyżej, mimo że w pełni kwalifikowana nazwa Typ jednostki jest używany w **EntityType** atrybutu.</span><span class="sxs-lookup"><span data-stu-id="03472-153">The value of the **Name** attribute corresponds to the value of the **EntityType** attribute in the **EntitySet** element above, although the fully-qualified name of the entity type is used in the **EntityType** attribute.</span></span>
+    -   <span data-ttu-id="03472-154">Nazwy właściwości odpowiadają nazwom kolumny zwróconą przez instrukcję SQL w **DefiningQuery** elementu (powyżej).</span><span class="sxs-lookup"><span data-stu-id="03472-154">The property names correspond to the column names returned by the SQL statement in the **DefiningQuery** element (above).</span></span>
+    -   <span data-ttu-id="03472-155">W tym przykładzie klucz jednostki składa się z trzech właściwości w celu zapewnienia unikalną wartość kluczową.</span><span class="sxs-lookup"><span data-stu-id="03472-155">In this example, the entity key is composed of three properties to ensure a unique key value.</span></span>
 
 ``` xml
     <EntityType Name="GradeReport">
@@ -119,40 +119,40 @@ ms.locfileid: "42996310"
 ```
 
 >[!NOTE]
-> <span data-ttu-id="7c1aa-156">Jeśli później uruchomić **Kreator modelu aktualizacji** okno dialogowe, wszelkie zmiany wprowadzone do modelu magazynu, w tym Definiowanie zapytań, zostaną zastąpione.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-156">If later you run the **Update Model Wizard** dialog, any changes made to the storage model, including defining queries, will be overwritten.</span></span>
+> <span data-ttu-id="03472-156">Jeśli później uruchomić **Kreator modelu aktualizacji** okno dialogowe, wszelkie zmiany wprowadzone do modelu magazynu, w tym Definiowanie zapytań, zostaną zastąpione.</span><span class="sxs-lookup"><span data-stu-id="03472-156">If later you run the **Update Model Wizard** dialog, any changes made to the storage model, including defining queries, will be overwritten.</span></span>
 
  
 
-## <a name="add-an-entity-type-to-the-model"></a><span data-ttu-id="7c1aa-157">Dodaj typ jednostki do modelu</span><span class="sxs-lookup"><span data-stu-id="7c1aa-157">Add an Entity Type to the Model</span></span>
+## <a name="add-an-entity-type-to-the-model"></a><span data-ttu-id="03472-157">Dodaj typ jednostki do modelu</span><span class="sxs-lookup"><span data-stu-id="03472-157">Add an Entity Type to the Model</span></span>
 
-<span data-ttu-id="7c1aa-158">W tym kroku zostanie dodany typ jednostki do modelu koncepcyjnego, za pomocą projektanta EF.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-158">In this step we will add the entity type to the conceptual model using the EF Designer.</span></span>  <span data-ttu-id="7c1aa-159">Należy pamiętać o następujących kwestiach:</span><span class="sxs-lookup"><span data-stu-id="7c1aa-159">Note the following:</span></span>
+<span data-ttu-id="03472-158">W tym kroku zostanie dodany typ jednostki do modelu koncepcyjnego, za pomocą projektanta EF.</span><span class="sxs-lookup"><span data-stu-id="03472-158">In this step we will add the entity type to the conceptual model using the EF Designer.</span></span>  <span data-ttu-id="03472-159">Należy pamiętać o następujących kwestiach:</span><span class="sxs-lookup"><span data-stu-id="03472-159">Note the following:</span></span>
 
--   <span data-ttu-id="7c1aa-160">**Nazwa** jednostki odnosi się do wartości **EntityType** atrybutu w **EntitySet** powyżej elementu.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-160">The **Name** of the entity corresponds to the value of the **EntityType** attribute in the **EntitySet** element above.</span></span>
--   <span data-ttu-id="7c1aa-161">Nazwy właściwości odpowiadają nazwom kolumny zwróconą przez instrukcję SQL w **DefiningQuery** powyżej elementu.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-161">The property names correspond to the column names returned by the SQL statement in the **DefiningQuery** element above.</span></span>
--   <span data-ttu-id="7c1aa-162">W tym przykładzie klucz jednostki składa się z trzech właściwości w celu zapewnienia unikalną wartość kluczową.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-162">In this example, the entity key is composed of three properties to ensure a unique key value.</span></span>
+-   <span data-ttu-id="03472-160">**Nazwa** jednostki odnosi się do wartości **EntityType** atrybutu w **EntitySet** powyżej elementu.</span><span class="sxs-lookup"><span data-stu-id="03472-160">The **Name** of the entity corresponds to the value of the **EntityType** attribute in the **EntitySet** element above.</span></span>
+-   <span data-ttu-id="03472-161">Nazwy właściwości odpowiadają nazwom kolumny zwróconą przez instrukcję SQL w **DefiningQuery** powyżej elementu.</span><span class="sxs-lookup"><span data-stu-id="03472-161">The property names correspond to the column names returned by the SQL statement in the **DefiningQuery** element above.</span></span>
+-   <span data-ttu-id="03472-162">W tym przykładzie klucz jednostki składa się z trzech właściwości w celu zapewnienia unikalną wartość kluczową.</span><span class="sxs-lookup"><span data-stu-id="03472-162">In this example, the entity key is composed of three properties to ensure a unique key value.</span></span>
 
-<span data-ttu-id="7c1aa-163">W Projektancie platformy EF, należy otworzyć modelu.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-163">Open the model in the EF Designer.</span></span>
+<span data-ttu-id="03472-163">W Projektancie platformy EF, należy otworzyć modelu.</span><span class="sxs-lookup"><span data-stu-id="03472-163">Open the model in the EF Designer.</span></span>
 
--   <span data-ttu-id="7c1aa-164">Kliknij dwukrotnie DefiningQueryModel.edmx.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-164">Double-click the DefiningQueryModel.edmx.</span></span>
--   <span data-ttu-id="7c1aa-165">Powiedz **tak** się następujący komunikat:</span><span class="sxs-lookup"><span data-stu-id="7c1aa-165">Say **Yes** to the following message:</span></span>
+-   <span data-ttu-id="03472-164">Kliknij dwukrotnie DefiningQueryModel.edmx.</span><span class="sxs-lookup"><span data-stu-id="03472-164">Double-click the DefiningQueryModel.edmx.</span></span>
+-   <span data-ttu-id="03472-165">Powiedz **tak** się następujący komunikat:</span><span class="sxs-lookup"><span data-stu-id="03472-165">Say **Yes** to the following message:</span></span>
 
-    ![Warning2](~/ef6/media/warning2.png)
+    ![Ostrzeżenie 2](~/ef6/media/warning2.png)
 
  
 
-<span data-ttu-id="7c1aa-167">Zostanie wyświetlona Projektancie jednostki, zapewniającą powierzchnię projektową do edycji modelu.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-167">The Entity Designer, which provides a design surface for editing your model, is displayed.</span></span>
+<span data-ttu-id="03472-167">Zostanie wyświetlona Projektancie jednostki, zapewniającą powierzchnię projektową do edycji modelu.</span><span class="sxs-lookup"><span data-stu-id="03472-167">The Entity Designer, which provides a design surface for editing your model, is displayed.</span></span>
 
--   <span data-ttu-id="7c1aa-168">Kliknij prawym przyciskiem myszy Projektanta powierzchni i wybierz **Dodaj nowe**-&gt;**jednostki...** .</span><span class="sxs-lookup"><span data-stu-id="7c1aa-168">Right-click the designer surface and select **Add New**-&gt;**Entity…**.</span></span>
--   <span data-ttu-id="7c1aa-169">Określ **GradeReport** dla nazwy jednostki i **CourseID** dla **właściwości klucza**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-169">Specify **GradeReport** for the entity name and **CourseID** for the **Key Property**.</span></span>
--   <span data-ttu-id="7c1aa-170">Kliknij prawym przyciskiem myszy **GradeReport** jednostki, a następnie wybierz pozycję **Dodaj nowe** - &gt; **właściwość skalarną**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-170">Right-click the **GradeReport** entity and select **Add New**-&gt; **Scalar Property**.</span></span>
--   <span data-ttu-id="7c1aa-171">Zmienić domyślną nazwę właściwości do **FirstName**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-171">Change the default name of the property to **FirstName**.</span></span>
--   <span data-ttu-id="7c1aa-172">Dodaj inną właściwość skalarną i określ **LastName** dla nazwy.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-172">Add another scalar property and specify **LastName** for the name.</span></span>
--   <span data-ttu-id="7c1aa-173">Dodaj inną właściwość skalarną i określ **klasy korporacyjnej** dla nazwy.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-173">Add another scalar property and specify **Grade** for the name.</span></span>
--   <span data-ttu-id="7c1aa-174">W **właściwości** oknie zmiany **klasy korporacyjnej**firmy **typu** właściwości **dziesiętna**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-174">In the **Properties** window, change the **Grade**’s **Type** property to **Decimal**.</span></span>
--   <span data-ttu-id="7c1aa-175">Wybierz **FirstName** i **LastName** właściwości.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-175">Select the **FirstName** and **LastName** properties.</span></span>
--   <span data-ttu-id="7c1aa-176">W **właściwości** oknie zmiany **EntityKey** wartość właściwości **True**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-176">In the **Properties** window, change the **EntityKey** property value to **True**.</span></span>
+-   <span data-ttu-id="03472-168">Kliknij prawym przyciskiem myszy Projektanta powierzchni i wybierz **Dodaj nowe**-&gt;**jednostki...** .</span><span class="sxs-lookup"><span data-stu-id="03472-168">Right-click the designer surface and select **Add New**-&gt;**Entity…**.</span></span>
+-   <span data-ttu-id="03472-169">Określ **GradeReport** dla nazwy jednostki i **CourseID** dla **właściwości klucza**.</span><span class="sxs-lookup"><span data-stu-id="03472-169">Specify **GradeReport** for the entity name and **CourseID** for the **Key Property**.</span></span>
+-   <span data-ttu-id="03472-170">Kliknij prawym przyciskiem myszy **GradeReport** jednostki, a następnie wybierz pozycję **Dodaj nowe** - &gt; **właściwość skalarną**.</span><span class="sxs-lookup"><span data-stu-id="03472-170">Right-click the **GradeReport** entity and select **Add New**-&gt; **Scalar Property**.</span></span>
+-   <span data-ttu-id="03472-171">Zmienić domyślną nazwę właściwości do **FirstName**.</span><span class="sxs-lookup"><span data-stu-id="03472-171">Change the default name of the property to **FirstName**.</span></span>
+-   <span data-ttu-id="03472-172">Dodaj inną właściwość skalarną i określ **LastName** dla nazwy.</span><span class="sxs-lookup"><span data-stu-id="03472-172">Add another scalar property and specify **LastName** for the name.</span></span>
+-   <span data-ttu-id="03472-173">Dodaj inną właściwość skalarną i określ **klasy korporacyjnej** dla nazwy.</span><span class="sxs-lookup"><span data-stu-id="03472-173">Add another scalar property and specify **Grade** for the name.</span></span>
+-   <span data-ttu-id="03472-174">W **właściwości** oknie zmiany **klasy korporacyjnej**firmy **typu** właściwości **dziesiętna**.</span><span class="sxs-lookup"><span data-stu-id="03472-174">In the **Properties** window, change the **Grade**’s **Type** property to **Decimal**.</span></span>
+-   <span data-ttu-id="03472-175">Wybierz **FirstName** i **LastName** właściwości.</span><span class="sxs-lookup"><span data-stu-id="03472-175">Select the **FirstName** and **LastName** properties.</span></span>
+-   <span data-ttu-id="03472-176">W **właściwości** oknie zmiany **EntityKey** wartość właściwości **True**.</span><span class="sxs-lookup"><span data-stu-id="03472-176">In the **Properties** window, change the **EntityKey** property value to **True**.</span></span>
 
-<span data-ttu-id="7c1aa-177">W rezultacie, następujące elementy zostały dodane do **CSDL** części pliku edmx.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-177">As a result, the following elements were added to the **CSDL** section of the .edmx file.</span></span>
+<span data-ttu-id="03472-177">W rezultacie, następujące elementy zostały dodane do **CSDL** części pliku edmx.</span><span class="sxs-lookup"><span data-stu-id="03472-177">As a result, the following elements were added to the **CSDL** section of the .edmx file.</span></span>
 
 ``` xml
     <EntitySet Name="GradeReport" EntityType="SchoolModel.GradeReport" />
@@ -164,17 +164,17 @@ ms.locfileid: "42996310"
 
  
 
-## <a name="map-the-defining-query-to-the-entity-type"></a><span data-ttu-id="7c1aa-178">Definiowanie zapytania do typu jednostki mapy</span><span class="sxs-lookup"><span data-stu-id="7c1aa-178">Map the Defining Query to the Entity Type</span></span>
+## <a name="map-the-defining-query-to-the-entity-type"></a><span data-ttu-id="03472-178">Definiowanie zapytania do typu jednostki mapy</span><span class="sxs-lookup"><span data-stu-id="03472-178">Map the Defining Query to the Entity Type</span></span>
 
-<span data-ttu-id="7c1aa-179">W tym kroku użyjemy, okno Szczegóły mapowania, aby zamapować koncepcyjnej i typy jednostek magazynu.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-179">In this step, we will use the Mapping Details window to map the conceptual and storage entity types.</span></span>
+<span data-ttu-id="03472-179">W tym kroku użyjemy, okno Szczegóły mapowania, aby zamapować koncepcyjnej i typy jednostek magazynu.</span><span class="sxs-lookup"><span data-stu-id="03472-179">In this step, we will use the Mapping Details window to map the conceptual and storage entity types.</span></span>
 
--   <span data-ttu-id="7c1aa-180">Kliknij prawym przyciskiem myszy **GradeReport** jednostki na projekt powierzchni i wybierz **mapowania tabeli,**.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-180">Right-click the **GradeReport** entity on the design surface and select **Table Mapping**.</span></span>  
-    <span data-ttu-id="7c1aa-181">**Szczegóły mapowania** zostanie wyświetlone okno.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-181">The **Mapping Details** window is displayed.</span></span>
--   <span data-ttu-id="7c1aa-182">Wybierz **GradeReport** z **&lt;Dodaj tabelę lub widok&gt;** listy rozwijanej (znajdującej się w **tabeli**s).</span><span class="sxs-lookup"><span data-stu-id="7c1aa-182">Select **GradeReport** from the **&lt;Add a Table or View&gt;** dropdown list (located under **Table**s).</span></span>  
-    <span data-ttu-id="7c1aa-183">Domyślne mapowania między koncepcyjnej i magazynu **GradeReport** typu jednostki są wyświetlane.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-183">Default mappings between the conceptual and storage **GradeReport** entity type appear.</span></span>  
-    <span data-ttu-id="7c1aa-184">![MappingDetails3](~/ef6/media/mappingdetails.png)</span><span class="sxs-lookup"><span data-stu-id="7c1aa-184">![MappingDetails3](~/ef6/media/mappingdetails.png)</span></span>
+-   <span data-ttu-id="03472-180">Kliknij prawym przyciskiem myszy **GradeReport** jednostki na projekt powierzchni i wybierz **mapowania tabeli,**.</span><span class="sxs-lookup"><span data-stu-id="03472-180">Right-click the **GradeReport** entity on the design surface and select **Table Mapping**.</span></span>  
+    <span data-ttu-id="03472-181">**Szczegóły mapowania** zostanie wyświetlone okno.</span><span class="sxs-lookup"><span data-stu-id="03472-181">The **Mapping Details** window is displayed.</span></span>
+-   <span data-ttu-id="03472-182">Wybierz **GradeReport** z **&lt;Dodaj tabelę lub widok&gt;** listy rozwijanej (znajdującej się w **tabeli**s).</span><span class="sxs-lookup"><span data-stu-id="03472-182">Select **GradeReport** from the **&lt;Add a Table or View&gt;** dropdown list (located under **Table**s).</span></span>  
+    <span data-ttu-id="03472-183">Domyślne mapowania między koncepcyjnej i magazynu **GradeReport** typu jednostki są wyświetlane.</span><span class="sxs-lookup"><span data-stu-id="03472-183">Default mappings between the conceptual and storage **GradeReport** entity type appear.</span></span>  
+    <span data-ttu-id="03472-184">![Mapowanie Details3](~/ef6/media/mappingdetails.png)</span><span class="sxs-lookup"><span data-stu-id="03472-184">![Mapping Details3](~/ef6/media/mappingdetails.png)</span></span>
 
-<span data-ttu-id="7c1aa-185">W rezultacie **obiekcie EntitySetMapping** element zostanie dodany do sekcji mapowania pliku edmx.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-185">As a result, the **EntitySetMapping** element is added to the mapping section of the .edmx file.</span></span> 
+<span data-ttu-id="03472-185">W rezultacie **obiekcie EntitySetMapping** element zostanie dodany do sekcji mapowania pliku edmx.</span><span class="sxs-lookup"><span data-stu-id="03472-185">As a result, the **EntitySetMapping** element is added to the mapping section of the .edmx file.</span></span> 
 
 ``` xml
     <EntitySetMapping Name="GradeReports">
@@ -189,13 +189,13 @@ ms.locfileid: "42996310"
     </EntitySetMapping>
 ```
 
--   <span data-ttu-id="7c1aa-186">Kompilowanie aplikacji.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-186">Compile the application.</span></span>
+-   <span data-ttu-id="03472-186">Kompilowanie aplikacji.</span><span class="sxs-lookup"><span data-stu-id="03472-186">Compile the application.</span></span>
 
  
 
-## <a name="call-the-defining-query-in-your-code"></a><span data-ttu-id="7c1aa-187">Wywołaj Definiowanie zapytania w kodzie</span><span class="sxs-lookup"><span data-stu-id="7c1aa-187">Call the Defining Query in your Code</span></span>
+## <a name="call-the-defining-query-in-your-code"></a><span data-ttu-id="03472-187">Wywołaj Definiowanie zapytania w kodzie</span><span class="sxs-lookup"><span data-stu-id="03472-187">Call the Defining Query in your Code</span></span>
 
-<span data-ttu-id="7c1aa-188">Definiowanie zapytania można teraz wykonać przy użyciu **GradeReport** typu jednostki.</span><span class="sxs-lookup"><span data-stu-id="7c1aa-188">You can now execute the defining query by using the **GradeReport** entity type.</span></span> 
+<span data-ttu-id="03472-188">Definiowanie zapytania można teraz wykonać przy użyciu **GradeReport** typu jednostki.</span><span class="sxs-lookup"><span data-stu-id="03472-188">You can now execute the defining query by using the **GradeReport** entity type.</span></span> 
 
 ``` csharp
     using (var context = new SchoolEntities())
