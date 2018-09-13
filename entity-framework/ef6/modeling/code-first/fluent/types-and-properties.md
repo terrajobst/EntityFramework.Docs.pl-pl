@@ -1,14 +1,14 @@
 ---
 title: Interfejs Fluent API — Konfigurowanie i mapowania właściwości i typy — EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 648ed274-c501-4630-88e0-d728ab5c4057
-ms.openlocfilehash: e65a3f4721e5c28de63d143e1143f3584e145477
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 031376d2fc4778e6f0fa2434ab7ccfd45d436c4a
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996990"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490203"
 ---
 # <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Interfejs API Fluent — Konfigurowanie i mapowania właściwości i typy
 Podczas pracy z programu Entity Framework Code First to zachowanie domyślne jest do mapowania klas usługi POCO tabel przy użyciu zestawu konwencje wbudowanymi do programów EF. Czasami jednak użytkownik nie może lub nie powinny być zgodne z konwencjami te i zamapować jednostek na coś innego niż co zgodnie z konwencjami.  

@@ -1,14 +1,14 @@
 ---
 title: Testowanie za pomocą własnych testów wartości podwójnej precyzji - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 16a8b7c0-2d23-47f4-9cc0-e2eb2e738ca3
-ms.openlocfilehash: fa63c483e0a55b6cbd43382f68ab9592f3c1768b
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2158dc73585c2720e7293096b0478c73edf522d9
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997220"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490912"
 ---
 # <a name="testing-with-your-own-test-doubles"></a>Testowanie za pomocą własnych testów, wartości podwójnej precyzji
 > [!NOTE]

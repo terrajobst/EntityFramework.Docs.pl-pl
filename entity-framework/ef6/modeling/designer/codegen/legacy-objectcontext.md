@@ -1,14 +1,14 @@
 ---
 title: Powracanie do obiektu ObjectContext w Entity Framework Designer - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 36550569-a1de-47cb-ba6d-544794ffd500
-ms.openlocfilehash: e90af3e973c71e2ce872e3edc24aafc1b2ccce0f
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 3e436f0d9cf94720be9c424b327816438d571ae8
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250338"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45488950"
 ---
 # <a name="reverting-to-objectcontext-in-entity-framework-designer"></a>Powracanie do obiektu ObjectContext w programie Entity Framework Designer
 Za pomocą poprzedniej wersji programu Entity Framework modelu utworzone za pomocą projektanta EF wygeneruje kontekstu, który pochodzi od obiektu ObjectContext i klas jednostek, które pochodną EntityObject.

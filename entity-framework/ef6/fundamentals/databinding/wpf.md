@@ -1,14 +1,14 @@
 ---
 title: Powiązanie danych przy użyciu platformy WPF — EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: e90d48e6-bea5-47ef-b756-7b89cce4daf0
-ms.openlocfilehash: e6df90db17d39d3aa91275800a6414fed40fb5db
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 5bd4a9b98a12de41e4ec37c2cc7dbdc537210893
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44251157"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490236"
 ---
 # <a name="databinding-with-wpf"></a>Powiązanie danych przy użyciu platformy WPF
 Ten przewodnik krok po kroku pokazano, jak powiązać POCO typy kontrolek WPF w postaci "elementy główne szczegóły". Aplikacja używa interfejsów API programu Entity Framework do wypełniania obiekty z danymi z bazy danych, śledzenie zmian i utrwalanie danych w bazie danych.

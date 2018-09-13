@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: fd9086c9911cdb0890117d44c2787780aad9a7cb
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 36d5fa8009de0aadba3b636630e1d5bddf41723c
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821364"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490834"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core plan
 
@@ -28,7 +28,7 @@ To wydanie będzie zawierać wiele poprawek błędów i stosunkowo niewielką li
 
 ### <a name="ef-core-30"></a>EF Core 3.0
 
-Chociaż nie możemy ukończyć [wersji procesu planowania](#release-planning-process) na kolejne wydanie po 2.2 aktualnie planujemy zapewnienie głównej wersji algined przy użyciu platformy .NET Core 3.0 i ASP.NET 3.0. 
+Chociaż nie możemy ukończyć [wersji procesu planowania](#release-planning-process) na kolejne wydanie po 2.2 aktualnie planujemy zapewnienie wersji głównej wyrównane przy użyciu platformy .NET Core 3.0 i ASP.NET 3.0. 
 
 Możesz użyć [tego zapytania w naszym narzędzie do śledzenia problemów](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc) aby zobaczyć elementy robocze tenatively przypisane do tego przyszłej wersji.
 

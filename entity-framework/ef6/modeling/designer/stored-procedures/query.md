@@ -1,14 +1,14 @@
 ---
 title: Projektant zapytań procedury składowane - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 9554ed25-c5c1-43be-acad-5da37739697f
-ms.openlocfilehash: 29b7745c2229ce4a38ad81e11406474424adfa24
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 6284b10261e6f3b9bf69d1c15e121988e4976d48
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994975"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489950"
 ---
 # <a name="designer-query-stored-procedures"></a>Procedury składowane projektanta zapytań
 Ten przewodnik krok po kroku pokazano, jak używać Entity Framework Designer (Projektant EF) do zaimportowania procedur składowanych do modelu, a następnie wywołać importowanych procedur składowanych do pobierania wyników. 

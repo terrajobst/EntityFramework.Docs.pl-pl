@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 5f69be179eb19c2b7e5743698876de441f1ccb91
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 803b0b71b2a2093432d76bc159875d65ab379b9a
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250936"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489299"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Wprowadzenie do programu EF Core programu ASP.NET Core przy użyciu nowej bazy danych
 
@@ -20,7 +20,7 @@ Za pomocą programu Visual Studio 2017 na Windows lub za pomocą interfejsu wier
 
 Wyświetl przykład w tym artykule w witrynie GitHub:
 * [Program Visual Studio 2017 z programem SQL Server](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb)
-* [.NET core interfejsu wiersza polecenia za pomocą SQLite](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCoreNewDb.Sqlite/EFGetStarted.AspNetCore.NewDb).
+* [.NET core interfejsu wiersza polecenia za pomocą SQLite](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb.Sqlite).
 
 ## <a name="prerequisites"></a>Wymagania wstępne
 

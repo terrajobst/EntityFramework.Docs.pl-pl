@@ -1,14 +1,14 @@
 ---
 title: Definiowanie zapytania — projektancie platformy EF - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: e52a297e-85aa-42f6-a922-ba960f8a4b22
-ms.openlocfilehash: 8415a265cdbe078422e0467ee97da955a81b873d
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: b1589dc12ccb50754c2e950932a2d82bc4869f6b
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250975"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489482"
 ---
 # <a name="defining-query---ef-designer"></a>Definiowanie zapytania — projektancie platformy EF
 W tym instruktażu przedstawiono sposób dodawania, definiując kwerendy i odpowiednia jednostka typu do modelu, używając projektancie platformy EF. Definiowanie zapytania jest najczęściej używany do zapewnia funkcje podobne do dostarczony przez widok bazy danych, ale widok jest zdefiniowany w modelu, a nie bazy danych. Definiowanie zapytań pozwala wykonać instrukcję SQL, który jest określony w **DefiningQuery** element z pliku edmx. Aby uzyskać więcej informacji, zobacz **DefiningQuery** w [Specyfikacja SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).

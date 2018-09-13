@@ -1,14 +1,14 @@
 ---
 title: Projektanta CUD procedury składowane - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 1e773972-2da5-45e0-85a2-3cf3fbcfa5cf
-ms.openlocfilehash: 36c9b97b77fec30136cba1d850a0259c689e69ae
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 35a00aa817c8643352c517c233977efd49e3baac
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250923"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489560"
 ---
 # <a name="designer-cud-stored-procedures"></a>Procedury składowane CUD projektanta
 Ten przewodnik krok po kroku pokazano, jak mapować tworzenia\\Wstawianie, aktualizowanie i usuwanie operacji (CUD) typu jednostki do procedur składowanych, za pomocą funkcji Entity Framework Designer (Projektant EF).  Domyślnie platforma Entity Framework automatycznie generuje instrukcje SQL dla operacje CUD, ale można również mapować procedur składowanych do tych operacji.  

@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 5da1043310e2858638c81a0654a9cab23e39c220
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: a637e5e2f75e16bc7b11b1a51abcbe16274a1c75
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250819"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490775"
 ---
 # <a name="provider-impacting-changes"></a>Zmiany wpływające na dostawcy
 
@@ -52,3 +52,7 @@ Rozpoczynamy ten dziennik zmian z 2.1 do wersji 2.2. Przed 2.1 użyliśmy [ `pro
   * Postępuj zgodnie z tego wzorca, aby dodać obsługę przestrzenne do dostawcą, który jest spójny w ramach dostawcy.
 * https://github.com/aspnet/EntityFrameworkCore/pull/13199 — Dodawanie Ulepszone debugowanie Tworzenie dostawcy usługi
   * Umożliwia DbContextOptionsExtensions wdrożyć nowy interfejs, który pomaga zrozumieć, dlaczego dostawcy usługi wewnętrznej jest przebudowany osób
+* https://github.com/aspnet/EntityFrameworkCore/pull/13289 -Dodaje CanConnect interfejsu API do użytku przez kontrole kondycji
+  * To żądanie Ściągnięcia dodaje koncepcji `CanConnect` który będzie używany przez platformy ASP.NET Core kondycji sprawdza, czy baza danych jest dostępna. Domyślnie, implementacja relacyjnych po prostu wywołuje funkcję `Exist`, ale dostawców można zaimplementować inny, jeśli to konieczne. Nierelacyjne dostawców należy zaimplementować nowy interfejs API w kolejności dla kontroli kondycji może być używany.
+* https://github.com/aspnet/EntityFrameworkCore/pull/13306 — Aktualizowanie podstawowy RelationalTypeMapping nie ustawiać DbParameter rozmiar
+  * Zatrzymaj, ustawianie rozmiaru domyślnie, ponieważ może to spowodować obcięcie. Dostawców może być konieczne dodanie własnych logiki, jeśli rozmiar musi być ustawiona.

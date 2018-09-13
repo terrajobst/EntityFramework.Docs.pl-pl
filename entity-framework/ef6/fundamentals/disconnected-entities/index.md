@@ -1,14 +1,14 @@
 ---
 title: Praca z jednostkami odłączonego - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
-ms.openlocfilehash: b496a9cba48946974844725c5df5e7df7351cf23
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: beb3847ce507a2112ac0d396a2023c7c4e2fca7d
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998229"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489937"
 ---
 # <a name="working-with-disconnected-entities"></a>Praca z odłączone jednostki
 W aplikacji Entity Framework, na podstawie klasy kontekstu jest odpowiedzialny za wykrywanie zmian zastosowanych do śledzonych jednostek. Wywołanie metody SaveChanges utrzymuje zmian śledzonych przez kontekst do bazy danych. Podczas pracy z aplikacjami n warstwowej, obiekty jednostki są zazwyczaj modyfikowane przy braku połączenia z kontekstu i należy zdecydować, jak śledzić zmiany i raportu te zmiany do kontekstu. W tym temacie omówiono różne opcje, które są dostępne, gdy używający narzędzia Entity Framework o odłączony jednostek.   

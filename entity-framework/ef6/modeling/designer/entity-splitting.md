@@ -1,14 +1,14 @@
 ---
 title: Dzielenie projektanta jednostek — EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: aa2dd48a-1f0e-49dd-863d-d6b4f5834832
-ms.openlocfilehash: 06199be977276cd3656e2550df79bac24276ec51
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: ba1895ae491cec909ff88a8784eea82f1876f595
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250601"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490857"
 ---
 # <a name="designer-entity-splitting"></a>Projektant jednostki dzielenia
 Ten poradnik pokazuje jak do mapowania typu encji dwie tabele, modyfikując model przy użyciu narzędzia Entity Framework Designer (Projektant EF). Jednostki można zamapować na wiele tabel, tabele udostępniania wspólny klucz. Pojęcia, które są stosowane do mapowania typu jednostki z dwiema tabelami są łatwo rozszerzyć mapowania typu jednostki w więcej niż dwie tabele.

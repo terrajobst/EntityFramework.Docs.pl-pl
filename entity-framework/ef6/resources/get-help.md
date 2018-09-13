@@ -1,14 +1,14 @@
 ---
 title: Uzyskaj pomoc przy użyciu platformy Entity Framework - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 592cae61-02e1-485a-bbb0-a508ade9c67d
-ms.openlocfilehash: 30b9c07e8ecbe08f663f3ad3f0f32abfbbbd05eb
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 7a513b413fced6ccdb1d2434afd8a38bb41189b2
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250299"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45488943"
 ---
 # <a name="get-help-using-entity-framework"></a>Uzyskaj pomoc przy użyciu platformy Entity Framework
 ## <a name="stackoverflowef6mediastackoverflowpng-questions-about-using-ef"></a>![Witryna StackOverflow](~/ef6/media/stackoverflow.png) Pytania dotyczące korzystania z programów EF  

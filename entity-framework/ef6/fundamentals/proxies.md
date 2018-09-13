@@ -1,14 +1,14 @@
 ---
 title: Praca z serwerów proxy - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 869ee4dc-06f1-471d-8e0e-0a1a2bc59c30
-ms.openlocfilehash: 7b82dd370e67d1622fc00ff5e5275721d0fc4fe1
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 8f7d2e8b41ece28efe8d1df3b0679e6e4510d64a
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997206"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489820"
 ---
 # <a name="working-with-proxies"></a>Praca z serwerów proxy
 Podczas tworzenia wystąpień typów jednostki POCO, platformy Entity Framework często tworzy wystąpienia typu pochodnego dynamicznie generowanym, który działa jako serwer proxy dla tej jednostki. Ten serwer proxy zastępuje niektóre właściwości wirtualnego jednostka do wstawienia punkty zaczepienia do operacji wykonywanych automatycznie, gdy uzyskano dostęp do właściwości. Na przykład ten mechanizm jest używany do obsługi powolne ładowanie relacji. Techniki przedstawione w tym temacie stosuje się jednakowo do modeli utworzonych za pomocą Code First i projektancie platformy EF.  

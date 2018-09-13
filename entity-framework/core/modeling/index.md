@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 88253ff3-174e-485c-b3f8-768243d01ee1
 uid: core/modeling/index
-ms.openlocfilehash: e4eed480178ce43cbc5ece8db8e584032da7b2b9
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 67012d0f52cc77ce872fc428fccc20526f3fefad
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250351"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489274"
 ---
 # <a name="creating-and-configuring-a-model"></a>Tworzenie i konfigurowanie modelu
 
