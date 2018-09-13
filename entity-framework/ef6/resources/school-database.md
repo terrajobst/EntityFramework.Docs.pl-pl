@@ -1,39 +1,39 @@
 ---
 title: Przykładowej bazy danych School - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: e83a6a06-e63b-4530-8656-614bf609b12b
-ms.openlocfilehash: 4d113a7a3159edfa3d586e571c69b05b35434edf
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1e9dc98edb8590021bbf3393e9edda1929d505e0
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997753"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490717"
 ---
-# <a name="school-sample-database"></a><span data-ttu-id="cbbec-102">Przykładowej bazy danych School</span><span class="sxs-lookup"><span data-stu-id="cbbec-102">School Sample Database</span></span>
-<span data-ttu-id="cbbec-103">Ten temat zawiera schemat i dane do bazy danych School.</span><span class="sxs-lookup"><span data-stu-id="cbbec-103">This topic contains the schema and data for the School database.</span></span> <span data-ttu-id="cbbec-104">Przykładowa baza danych School jest używana w różnych miejscach w dokumentację programu Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="cbbec-104">The sample School database is used in various places throughout the Entity Framework documentation.</span></span>  
+# <a name="school-sample-database"></a><span data-ttu-id="62986-102">Przykładowej bazy danych School</span><span class="sxs-lookup"><span data-stu-id="62986-102">School Sample Database</span></span>
+<span data-ttu-id="62986-103">Ten temat zawiera schemat i dane do bazy danych School.</span><span class="sxs-lookup"><span data-stu-id="62986-103">This topic contains the schema and data for the School database.</span></span> <span data-ttu-id="62986-104">Przykładowa baza danych School jest używana w różnych miejscach w dokumentację programu Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="62986-104">The sample School database is used in various places throughout the Entity Framework documentation.</span></span>  
 
 > [!NOTE]
-> <span data-ttu-id="cbbec-105">Serwer bazy danych, który został zainstalowany przy użyciu programu Visual Studio różni się zależnie od wersji programu Visual Studio, możesz użyć.</span><span class="sxs-lookup"><span data-stu-id="cbbec-105">The database server that is installed with Visual Studio is different depending on the version of Visual Studio you use.</span></span> <span data-ttu-id="cbbec-106">Zobacz [wersji usługi Visual Studio](~/ef6/what-is-new/visual-studio.md) szczegółowe informacje na temat rozwiązania do zastosowania.</span><span class="sxs-lookup"><span data-stu-id="cbbec-106">See [Visual Studio Releases](~/ef6/what-is-new/visual-studio.md) for details on what to use.</span></span>  
+> <span data-ttu-id="62986-105">Serwer bazy danych, który został zainstalowany przy użyciu programu Visual Studio różni się zależnie od wersji programu Visual Studio, możesz użyć.</span><span class="sxs-lookup"><span data-stu-id="62986-105">The database server that is installed with Visual Studio is different depending on the version of Visual Studio you use.</span></span> <span data-ttu-id="62986-106">Zobacz [wersji usługi Visual Studio](~/ef6/what-is-new/visual-studio.md) szczegółowe informacje na temat rozwiązania do zastosowania.</span><span class="sxs-lookup"><span data-stu-id="62986-106">See [Visual Studio Releases](~/ef6/what-is-new/visual-studio.md) for details on what to use.</span></span>  
 
-<span data-ttu-id="cbbec-107">Poniżej przedstawiono kroki umożliwiające utworzenie bazy danych:</span><span class="sxs-lookup"><span data-stu-id="cbbec-107">Here are the steps to create the database:</span></span>
+<span data-ttu-id="62986-107">Poniżej przedstawiono kroki umożliwiające utworzenie bazy danych:</span><span class="sxs-lookup"><span data-stu-id="62986-107">Here are the steps to create the database:</span></span>
 
-- <span data-ttu-id="cbbec-108">Otwórz program Visual Studio</span><span class="sxs-lookup"><span data-stu-id="cbbec-108">Open Visual Studio</span></span>  
-- <span data-ttu-id="cbbec-109">**Widok** -> **Eksploratora serwera**</span><span class="sxs-lookup"><span data-stu-id="cbbec-109">**View** -> **Server Explorer**</span></span>  
-- <span data-ttu-id="cbbec-110">Kliknij prawym przyciskiem myszy **połączeń danych** -> **Dodaj połączenie...**</span><span class="sxs-lookup"><span data-stu-id="cbbec-110">Right click on **Data Connections** -> **Add Connection…**</span></span>  
-- <span data-ttu-id="cbbec-111">Jeśli nie jest połączona z bazą danych za pomocą Eksploratora serwera, zanim będzie konieczne wybranie **programu Microsoft SQL Server** jako źródło danych</span><span class="sxs-lookup"><span data-stu-id="cbbec-111">If you haven’t connected to a database from Server Explorer before you’ll need to select **Microsoft SQL Server** as the data source</span></span>  
-- <span data-ttu-id="cbbec-112">Łączenie się z LocalDB lub SQL Express, w zależności od tego, który z nich został zainstalowany</span><span class="sxs-lookup"><span data-stu-id="cbbec-112">Connect to either LocalDB or SQL Express, depending on which one you have installed</span></span>  
-- <span data-ttu-id="cbbec-113">Wprowadź **School** jako nazwa bazy danych</span><span class="sxs-lookup"><span data-stu-id="cbbec-113">Enter **School** as the database name</span></span>  
-- <span data-ttu-id="cbbec-114">Wybierz **OK** i uzyskasz, jeśli chcesz utworzyć nową bazę danych, wybierz opcję **tak**</span><span class="sxs-lookup"><span data-stu-id="cbbec-114">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>  
-- <span data-ttu-id="cbbec-115">Nowa baza danych będzie teraz wyświetlany w Eksploratorze serwera</span><span class="sxs-lookup"><span data-stu-id="cbbec-115">The new database will now appear in Server Explorer</span></span>  
-- <span data-ttu-id="cbbec-116">Jeśli używasz programu Visual Studio 2012 lub nowszy</span><span class="sxs-lookup"><span data-stu-id="cbbec-116">If you are using Visual Studio 2012 or newer</span></span>
-    - <span data-ttu-id="cbbec-117">Kliknij prawym przyciskiem myszy w bazie danych w Eksploratorze serwera i wybierz **nowe zapytanie**</span><span class="sxs-lookup"><span data-stu-id="cbbec-117">Right-click on the database in Server Explorer and select **New Query**</span></span>  
-    - <span data-ttu-id="cbbec-118">Skopiuj następujące instrukcje SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy, zapytania i wybierz pozycję **wykonania**</span><span class="sxs-lookup"><span data-stu-id="cbbec-118">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>  
-- <span data-ttu-id="cbbec-119">Jeśli używasz programu Visual Studio 2010</span><span class="sxs-lookup"><span data-stu-id="cbbec-119">If you are using Visual Studio 2010</span></span>  
-    - <span data-ttu-id="cbbec-120">Wybierz **danych** -> **języka Transact SQL edytora** -> **nowego połączenia zapytania...**</span><span class="sxs-lookup"><span data-stu-id="cbbec-120">Select **Data** -> **Transact SQL Editor** -> **New Query Connection...**</span></span>  
-    - <span data-ttu-id="cbbec-121">Wprowadź **. \SQLEXPRESS** jako nazwę serwera i kliknij przycisk **OK**</span><span class="sxs-lookup"><span data-stu-id="cbbec-121">Enter **.\SQLEXPRESS** as the server name and click **OK**</span></span>  
-    - <span data-ttu-id="cbbec-122">Wybierz **STESample** bazy danych z listy rozwijanej w górnej części edytora zapytań</span><span class="sxs-lookup"><span data-stu-id="cbbec-122">Select the **STESample** database from the drop down at the top of the query editor</span></span>  
-    - <span data-ttu-id="cbbec-123">Skopiuj następujące instrukcje SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy, zapytania i wybierz pozycję **wykonaj instrukcję SQL**</span><span class="sxs-lookup"><span data-stu-id="cbbec-123">Copy the following SQL into the new query, then right-click on the query and select **Execute SQL**</span></span>  
+- <span data-ttu-id="62986-108">Otwórz program Visual Studio</span><span class="sxs-lookup"><span data-stu-id="62986-108">Open Visual Studio</span></span>  
+- <span data-ttu-id="62986-109">**Widok** -> **Eksploratora serwera**</span><span class="sxs-lookup"><span data-stu-id="62986-109">**View** -> **Server Explorer**</span></span>  
+- <span data-ttu-id="62986-110">Kliknij prawym przyciskiem myszy **połączeń danych** -> **Dodaj połączenie...**</span><span class="sxs-lookup"><span data-stu-id="62986-110">Right click on **Data Connections** -> **Add Connection…**</span></span>  
+- <span data-ttu-id="62986-111">Jeśli nie jest połączona z bazą danych za pomocą Eksploratora serwera, zanim będzie konieczne wybranie **programu Microsoft SQL Server** jako źródło danych</span><span class="sxs-lookup"><span data-stu-id="62986-111">If you haven’t connected to a database from Server Explorer before you’ll need to select **Microsoft SQL Server** as the data source</span></span>  
+- <span data-ttu-id="62986-112">Łączenie się z LocalDB lub SQL Express, w zależności od tego, który z nich został zainstalowany</span><span class="sxs-lookup"><span data-stu-id="62986-112">Connect to either LocalDB or SQL Express, depending on which one you have installed</span></span>  
+- <span data-ttu-id="62986-113">Wprowadź **School** jako nazwa bazy danych</span><span class="sxs-lookup"><span data-stu-id="62986-113">Enter **School** as the database name</span></span>  
+- <span data-ttu-id="62986-114">Wybierz **OK** i uzyskasz, jeśli chcesz utworzyć nową bazę danych, wybierz opcję **tak**</span><span class="sxs-lookup"><span data-stu-id="62986-114">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>  
+- <span data-ttu-id="62986-115">Nowa baza danych będzie teraz wyświetlany w Eksploratorze serwera</span><span class="sxs-lookup"><span data-stu-id="62986-115">The new database will now appear in Server Explorer</span></span>  
+- <span data-ttu-id="62986-116">Jeśli używasz programu Visual Studio 2012 lub nowszy</span><span class="sxs-lookup"><span data-stu-id="62986-116">If you are using Visual Studio 2012 or newer</span></span>
+    - <span data-ttu-id="62986-117">Kliknij prawym przyciskiem myszy w bazie danych w Eksploratorze serwera i wybierz **nowe zapytanie**</span><span class="sxs-lookup"><span data-stu-id="62986-117">Right-click on the database in Server Explorer and select **New Query**</span></span>  
+    - <span data-ttu-id="62986-118">Skopiuj następujące instrukcje SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy, zapytania i wybierz pozycję **wykonania**</span><span class="sxs-lookup"><span data-stu-id="62986-118">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>  
+- <span data-ttu-id="62986-119">Jeśli używasz programu Visual Studio 2010</span><span class="sxs-lookup"><span data-stu-id="62986-119">If you are using Visual Studio 2010</span></span>  
+    - <span data-ttu-id="62986-120">Wybierz **danych** -> **języka Transact SQL edytora** -> **nowego połączenia zapytania...**</span><span class="sxs-lookup"><span data-stu-id="62986-120">Select **Data** -> **Transact SQL Editor** -> **New Query Connection...**</span></span>  
+    - <span data-ttu-id="62986-121">Wprowadź **. \SQLEXPRESS** jako nazwę serwera i kliknij przycisk **OK**</span><span class="sxs-lookup"><span data-stu-id="62986-121">Enter **.\SQLEXPRESS** as the server name and click **OK**</span></span>  
+    - <span data-ttu-id="62986-122">Wybierz **STESample** bazy danych z listy rozwijanej w górnej części edytora zapytań</span><span class="sxs-lookup"><span data-stu-id="62986-122">Select the **STESample** database from the drop down at the top of the query editor</span></span>  
+    - <span data-ttu-id="62986-123">Skopiuj następujące instrukcje SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy, zapytania i wybierz pozycję **wykonaj instrukcję SQL**</span><span class="sxs-lookup"><span data-stu-id="62986-123">Copy the following SQL into the new query, then right-click on the query and select **Execute SQL**</span></span>  
 
 ``` SQL  
 SET ANSI_NULLS ON
