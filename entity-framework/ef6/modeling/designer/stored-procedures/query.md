@@ -3,12 +3,12 @@ title: Projektant zapytań procedury składowane - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9554ed25-c5c1-43be-acad-5da37739697f
-ms.openlocfilehash: 6284b10261e6f3b9bf69d1c15e121988e4976d48
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 04478ea1c8cd43a7ba4ee788e464992af3de7f64
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489950"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283904"
 ---
 # <a name="designer-query-stored-procedures"></a>Procedury składowane projektanta zapytań
 Ten przewodnik krok po kroku pokazano, jak używać Entity Framework Designer (Projektant EF) do zaimportowania procedur składowanych do modelu, a następnie wywołać importowanych procedur składowanych do pobierania wyników. 
@@ -100,4 +100,4 @@ The department name is Engineering
 <a name="output-parameters"></a>Parametry wyjściowe
 -----------------
 
-Jeśli używane są parametry wyjściowe, ich wartości nie będzie dostępne, dopóki wyniki zostały całkowicie odczytane. Jest to spowodowane bazowego zachowanie obiekt DbDataReader, zobacz [podczas pobierania danych przy użyciu elementu DataReader](http://go.microsoft.com/fwlink/?LinkID=398589) Aby uzyskać więcej informacji.
+Jeśli używane są parametry wyjściowe, ich wartości nie będzie dostępne, dopóki wyniki zostały całkowicie odczytane. Jest to spowodowane bazowego zachowanie obiekt DbDataReader, zobacz [podczas pobierania danych przy użyciu elementu DataReader](https://go.microsoft.com/fwlink/?LinkID=398589) Aby uzyskać więcej informacji.

@@ -3,12 +3,12 @@ title: Asynchroniczne zapytania i Zapisz - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: a6f49f3c31601ab04a3c04c074ce8fddfc6fe301
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 4ed4f5c13341f33ccff8325a5ddacd8f7b195a76
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489690"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283826"
 ---
 # <a name="async-query-and-save"></a>Asynchroniczne zapytania i Zapisz
 > [!NOTE]
@@ -28,7 +28,7 @@ W większości aplikacji przy użyciu async będzie zawierać żadnych zauważal
 
 Poniżej przedstawiono niektóre inne zasoby, aby dowiedzieć się więcej na temat async:
 
--   [Omówienie Brandon Bray async/await w .NET 4.5](http://blogs.msdn.com/b/dotnet/archive/2012/04/03/async-in-4-5-worth-the-await.aspx)
+-   [Omówienie Brandon Bray async/await w .NET 4.5](https://blogs.msdn.com/b/dotnet/archive/2012/04/03/async-in-4-5-worth-the-await.aspx)
 -   [Programowanie asynchroniczne](https://msdn.microsoft.com/library/hh191443.aspx) stron w bibliotece MSDN
 -   [Jak tworzyć ASP.NET sieci Web aplikacji przy użyciu Async](http://channel9.msdn.com/events/teched/northamerica/2013/dev-b337) (w tym pokaz serwera większą przepływność)
 

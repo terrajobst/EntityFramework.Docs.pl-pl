@@ -3,18 +3,18 @@ title: Obsługa transakcji zatwierdzenia awarie - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 5b1f7a7d-1b24-4645-95ec-5608a31ef577
-ms.openlocfilehash: 71d5649dd993bb95e24165a55d812c71a37f03f3
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 27e75e6a1919ee2300fe76cfcdf67cceaad887b3
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489391"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283657"
 ---
 # <a name="handling-transaction-commit-failures"></a>Obsługa błędów zatwierdzenie transakcji
 > [!NOTE]
 > **EF6.1 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 6.1. Jeśli używasz starszej wersji, niektóre lub wszystkie informacje, nie ma zastosowania.  
 
-Jako część 6.1 wprowadziliśmy nową funkcję odporności połączenia na platformie EF: możliwość wykrywania i automatycznego odzyskania po awarii przejściowych połączenia mają wpływ na potwierdzenia zatwierdzeń transakcji. Pełne szczegóły tego scenariusza są najlepiej opisać wpis w blogu [łączność z bazą danych SQL i problem idempotentności](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx).  Podsumowując scenariusz zakłada, że gdy wyjątek jest zgłaszany podczas zatwierdzania transakcji dwie możliwe przyczyny:  
+Jako część 6.1 wprowadziliśmy nową funkcję odporności połączenia na platformie EF: możliwość wykrywania i automatycznego odzyskania po awarii przejściowych połączenia mają wpływ na potwierdzenia zatwierdzeń transakcji. Pełne szczegóły tego scenariusza są najlepiej opisać wpis w blogu [łączność z bazą danych SQL i problem idempotentności](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx).  Podsumowując scenariusz zakłada, że gdy wyjątek jest zgłaszany podczas zatwierdzania transakcji dwie możliwe przyczyny:  
 
 1. Zatwierdzanie transakcji nie powiodło się na serwerze
 2. Zatwierdzanie transakcji zakończyło się pomyślnie na serwerze, ale problem z łącznością uniemożliwił powiadomienie o powodzeniu, zanim klient  
@@ -69,4 +69,4 @@ Przed EF 6.1 był nie mechanizmem do obsługi zatwierdzenia awarie w produkcie E
      - Jeśli wiersz jest nieobecne, należy użyć strategii wykonywania, aby ponowić próbę wykonania bieżącej operacji.  
   4. Jeśli zatwierdzenie zakończy się pomyślnie, usuń odpowiedni wiersz w celu uniknięcia wzrostu tabeli.  
 
-[Ten wpis w blogu](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) zawiera przykładowy kod realizacji tego zadania na platformie Azure SQL.  
+[Ten wpis w blogu](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) zawiera przykładowy kod realizacji tego zadania na platformie Azure SQL.  

@@ -3,12 +3,12 @@ title: Dostosowywanie tabeli historii migracje - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: ed5518f0-a9a6-454e-9e98-a4fa7748c8d0
-ms.openlocfilehash: 6644bf2b0ac703a9f3a779b17b31d79d40cc5b69
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: e3faefc4b812ec4bc440ed2bb48747053d8cb1b3
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489215"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283696"
 ---
 # <a name="customizing-the-migrations-history-table"></a>Dostosowywanie tabeli historii migracji
 > [!NOTE]
@@ -69,7 +69,7 @@ Załóżmy, że chcesz zmienić nazwę tabeli historii migracje i umieść je ze
     }
 ```
 
-Gdy Twoje niestandardowe HistoryContext jest gotowy należy wprowadzić EF informację, rejestrując go za pomocą [konfiguracja na podstawie kodu](http://msdn.com/data/jj680699):
+Gdy Twoje niestandardowe HistoryContext jest gotowy należy wprowadzić EF informację, rejestrując go za pomocą [konfiguracja na podstawie kodu](https://msdn.com/data/jj680699):
 
 ``` csharp
     using System.Data.Entity;

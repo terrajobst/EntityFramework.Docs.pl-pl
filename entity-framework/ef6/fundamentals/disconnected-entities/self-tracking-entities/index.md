@@ -3,12 +3,12 @@ title: Samodzielnie śledzenia jednostek - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 5e60f5be-7bbb-4bf8-835e-0ac808d6c84a
-ms.openlocfilehash: 3575977ceabe7d93ac48d5fac253eac1341e2353
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: b098736ef47e79c916f4bf054716022d5032eee5
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489703"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283813"
 ---
 # <a name="self-tracking-entities"></a>Samodzielnie śledzenia jednostek
 
@@ -39,12 +39,12 @@ Podczas pracy z własnym śledzenie jednostek, należy wziąć pod uwagę nastę
 - Kiedy wykres, który został zmodyfikowany na kliencie z usługą i wysyła następnie zamierzasz kontynuować pracę z tym samym wykresie na komputerze klienckim, należy ręcznie wykonać iterację wykresu i wywołania **AcceptChanges** metody dla każdego obiektu do Zresetuj śledzenie zmian.  
 
     > Jeśli obiekty w grafie zawierają właściwości wartościami wygenerowanych w bazie danych (na przykład wartości tożsamości lub współbieżności), platformy Entity Framework spowoduje zastąpienie wartości tych właściwości z wartościami bazy danych, wygenerowane po **SaveChanges** metoda jest wywoływana. Możesz zaimplementować operację usługi do zwrócenia zapisanych obiektów lub Podaj listę wartości wygenerowanej właściwości dla obiektów do klienta. Klient musiałby Zamień wystąpień obiektów lub wartości właściwości obiektu do obiektów lub wartości właściwości zwrócony przez operację usługi.  
-- Scalanie wykresów z wielu żądań usługi może stanowić obiekty ze zduplikowanymi wartościami klucza w wynikowym wykresie. Entity Framework nie powoduje usunięcia obiektów z zduplikowane klucze po wywołaniu **applychanges —** metody, ale zamiast tego zgłasza wyjątek. Aby uniknąć wykresy ze zduplikowanymi wartościami klucza, postępuj zgodnie z jednym z wzorców opisanego w następujący wpis w blogu: [jednostek Self-Tracking: applychanges — i zduplikowanych podmiotów](http://go.microsoft.com/fwlink/?LinkID=205119&clcid=0x409).  
+- Scalanie wykresów z wielu żądań usługi może stanowić obiekty ze zduplikowanymi wartościami klucza w wynikowym wykresie. Entity Framework nie powoduje usunięcia obiektów z zduplikowane klucze po wywołaniu **applychanges —** metody, ale zamiast tego zgłasza wyjątek. Aby uniknąć wykresy ze zduplikowanymi wartościami klucza, postępuj zgodnie z jednym z wzorców opisanego w następujący wpis w blogu: [jednostek Self-Tracking: applychanges — i zduplikowanych podmiotów](https://go.microsoft.com/fwlink/?LinkID=205119&clcid=0x409).  
 - Po zmianie relacji między obiektami, ustawiając właściwość klucza obcego referencyjna właściwość nawigacji jest ustawiona na wartość null i nie są zsynchronizowane do odpowiedniej jednostki podmiotu zabezpieczeń na komputerze klienckim. Po dołączeniu do kontekstu obiektów programu graph (na przykład, po wywołaniu metody **applychanges —** metoda), właściwości klucza obcego i właściwości nawigacji są synchronizowane.  
 
     > Nie ma właściwości nawigacji odwołania synchronizowane z odpowiedniego obiektu podmiotu zabezpieczeń może być problem, jeśli określono usuwanie kaskadowe w relacji klucza obcego. Jeśli usuniesz główny, Usuń nie będą przekazywane do obiektów zależnych. Jeśli masz kaskadowo określony, należy użyć właściwości nawigacji, aby zmienić relacji zamiast ustawiać właściwości klucza obcego.  
 - Samodzielnie śledzenie jednostek nie są włączone do wykonywania ładowania z opóźnieniem.  
-- Serializacja binarna i serializacji obiektów zarządzania stan programu ASP.NET nie jest obsługiwane przez własny śledzenie jednostek. Można jednak dostosować szablon, aby dodać obsługę serializacji binarnej. Aby uzyskać więcej informacji, zobacz [za pomocą serializacji binarnej i ViewState z jednostkami Self-Tracking](http://go.microsoft.com/fwlink/?LinkId=199208).  
+- Serializacja binarna i serializacji obiektów zarządzania stan programu ASP.NET nie jest obsługiwane przez własny śledzenie jednostek. Można jednak dostosować szablon, aby dodać obsługę serializacji binarnej. Aby uzyskać więcej informacji, zobacz [za pomocą serializacji binarnej i ViewState z jednostkami Self-Tracking](https://go.microsoft.com/fwlink/?LinkId=199208).  
 
 ## <a name="security-considerations"></a>Zagadnienia dotyczące zabezpieczeń  
 

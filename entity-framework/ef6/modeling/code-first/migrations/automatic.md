@@ -3,12 +3,12 @@ title: Migracje automatyczne Code First - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0eb86787-2161-4cb4-9cb8-67c5d6e95650
-ms.openlocfilehash: 21f77ef49db2485047292b3928b4f63d49dbb180
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 2713afaf09707b7696e90464aac9945c2d82d274
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489989"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283917"
 ---
 # <a name="automatic-code-first-migrations"></a>Migracje automatyczne Code First
 Automatycznej migracji pozwala użyć migracje Code First bez potrzeby plik kodu dla każdej zmiany wprowadzone w projekcie. Nie wszystkie zmiany można zastosować automatycznie — na przykład zmienia nazwę kolumny korzystają z migracji za pomocą kodu.
@@ -97,7 +97,7 @@ Nadszedł czas na pewnych zmian więcej w naszym modelu.
     public string Url { get; set; }
 ```
 
-Jeśli zamierzasz uruchomić aplikację ponownie otrzymamy InvalidOperationException, podając *modelu kopii kontekstu "BlogContext" została zmieniona od czasu utworzenia bazy danych. Należy rozważyć użycie migracje Code First w aktualizacji bazy danych (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](http://go.microsoft.com/fwlink/?LinkId=238269) *).*
+Jeśli zamierzasz uruchomić aplikację ponownie otrzymamy InvalidOperationException, podając *modelu kopii kontekstu "BlogContext" została zmieniona od czasu utworzenia bazy danych. Należy rozważyć użycie migracje Code First w aktualizacji bazy danych (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](https://go.microsoft.com/fwlink/?LinkId=238269) *).*
 
 Jak sugeruje wyjątek, jest czas, aby rozpocząć korzystanie z migracje Code First. Ponieważ chcemy użyć migracje automatyczne zamierzamy określ **— EnableAutomaticMigrations** przełącznika.
 

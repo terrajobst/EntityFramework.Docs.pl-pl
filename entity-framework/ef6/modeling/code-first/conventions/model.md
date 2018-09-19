@@ -3,12 +3,12 @@ title: Na podstawie modelu Konwencji - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0fc4eef8-29b8-4192-9c77-08fd33d3db3a
-ms.openlocfilehash: fb79164f71cb3afff705a83f5078a13d043abca8
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 80b722730b4ca6c9d00a8611b6c9027e8bc9fe61
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490938"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283710"
 ---
 # <a name="model-based-conventions"></a>Konwencje opartych na modelu
 > [!NOTE]
@@ -146,7 +146,7 @@ public class ForeignKeyNamingConvention : IStoreModelConvention<AssociationType>
 
 ## <a name="extending-existing-conventions"></a>Rozszerzanie istniejących konwencji   
 
-Jeśli należy napisać Konwencji, która jest podobna do jednego Konwencji, które platformy Entity Framework już ma zastosowanie do modelu zawsze można rozszerzyć tej Konwencji, aby uniknąć konieczności ponownego pisania jej od podstaw.  Jest na przykład aby zamienić istniejący identyfikator dopasowania Konwencja, za pomocą niestandardowego.   Dodatkowa korzyść do przesłonięcia klucza Konwencji jest, że przeciążonej ma zostać wywołana tylko wtedy, gdy żaden klucz już wykrycia lub jawnie skonfigurowane. Lista konwencje używanym przez program Entity Framework jest dostępny tutaj: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  
+Jeśli należy napisać Konwencji, która jest podobna do jednego Konwencji, które platformy Entity Framework już ma zastosowanie do modelu zawsze można rozszerzyć tej Konwencji, aby uniknąć konieczności ponownego pisania jej od podstaw.  Jest na przykład aby zamienić istniejący identyfikator dopasowania Konwencja, za pomocą niestandardowego.   Dodatkowa korzyść do przesłonięcia klucza Konwencji jest, że przeciążonej ma zostać wywołana tylko wtedy, gdy żaden klucz już wykrycia lub jawnie skonfigurowane. Lista konwencje używanym przez program Entity Framework jest dostępny tutaj: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  
 
 ``` csharp
 using System.Data.Entity;
@@ -209,4 +209,4 @@ public class BlogContext : DbContext
 
 ## <a name="notes"></a>Uwagi  
 
-Lista konwencje, które obecnie są stosowane przez program Entity Framework jest dostępna w tej dokumentacji MSDN: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  Ta lista jest pobierane bezpośrednio z naszego kodu źródłowego.  Kod źródłowy platformy Entity Framework 6 jest dostępna w [GitHub](https://github.com/aspnet/entityframework6/) wiele z Konwencji używanych przez program Entity Framework jest dobrym punktami startowymi dla modelu niestandardowego na podstawie Konwencji.  
+Lista konwencje, które obecnie są stosowane przez program Entity Framework jest dostępna w tej dokumentacji MSDN: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  Ta lista jest pobierane bezpośrednio z naszego kodu źródłowego.  Kod źródłowy platformy Entity Framework 6 jest dostępna w [GitHub](https://github.com/aspnet/entityframework6/) wiele z Konwencji używanych przez program Entity Framework jest dobrym punktami startowymi dla modelu niestandardowego na podstawie Konwencji.  

@@ -3,12 +3,12 @@ title: Migracje Code First - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
-ms.openlocfilehash: 0e2f33d3402929c93a339ea26dcade875da52a61
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 389da6c54e063a5dc598f98f8ac92cfc0e686019
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490290"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283852"
 ---
 # <a name="code-first-migrations"></a>Migracje Code First
 Migracje Code First jest zalecany sposób rozwijać schemat bazy danych w aplikacji korzystając z kodu pierwszego przepływu pracy. Migracje udostępniają zestaw narzędzi, które umożliwiają:
@@ -96,7 +96,7 @@ Nadszedł czas na pewnych zmian więcej w naszym modelu.
     public string Url { get; set; }
 ```
 
-Jeśli zamierzasz uruchomić aplikację ponownie otrzymamy InvalidOperationException, podając *modelu kopii kontekstu "BlogContext" została zmieniona od czasu utworzenia bazy danych. Należy rozważyć użycie migracje Code First w aktualizacji bazy danych (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](http://go.microsoft.com/fwlink/?LinkId=238269) *).*
+Jeśli zamierzasz uruchomić aplikację ponownie otrzymamy InvalidOperationException, podając *modelu kopii kontekstu "BlogContext" została zmieniona od czasu utworzenia bazy danych. Należy rozważyć użycie migracje Code First w aktualizacji bazy danych (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](https://go.microsoft.com/fwlink/?LinkId=238269) *).*
 
 Jak sugeruje wyjątek, jest czas, aby rozpocząć korzystanie z migracje Code First. Pierwszym krokiem jest włączanie funkcji migracje dla nasz kontekst.
 
