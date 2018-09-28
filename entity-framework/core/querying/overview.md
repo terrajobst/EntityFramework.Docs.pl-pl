@@ -1,15 +1,15 @@
 ---
 title: Jak zapytania praca - programu EF Core
 author: rowanmiller
-ms.date: 10/27/2016
+ms.date: 09/26/2018
 ms.assetid: de2e34cd-659b-4cab-b5ed-7a979c6bf120
 uid: core/querying/overview
-ms.openlocfilehash: f1c23471bfbc998b2d4f9dc579d1404d6202e109
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 23d26f9c0ac17fc0df744f5339946947ea366911
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993206"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415734"
 ---
 # <a name="how-queries-work"></a>Jak działają zapytań
 
@@ -45,4 +45,4 @@ Najbardziej typowe operacje, których wynikiem zapytania są wysyłane do bazy d
 * Powiązanie danych z wynikami zapytania do interfejsu użytkownika
 
 > [!WARNING]  
-> **Zawsze weryfikowały dane wejściowe użytkownika:** EF podczas zapewniania ochrony przed atakami polegającymi na iniekcji SQL, nie ma żadnych ogólnej walidacji danych wejściowych. W związku z tym jeśli wartości są przekazywane do interfejsów API, które są używane w kwerendach LINQ, przypisany do właściwości obiektu itd., pochodzi z niezaufanego źródła, a następnie odpowiednią sprawdzania poprawności, zgodnie z wymaganiami aplikacji powinny być wykonywane. Dotyczy to danych podawanych przez użytkownika używane do dynamicznego utworzenia kwerendy. Nawet wtedy, gdy za pomocą LINQ, jeśli akceptujesz, że dane wejściowe podane użytkownika, aby zbudować wyrażenia, potrzebne do upewnij się, niż tylko zamierzony wyrażenia można skonstruować.
+> **Zawsze weryfikowały dane wejściowe użytkownika:** podczas EF Core chroni przed atakami polegającymi na iniekcji SQL przy użyciu parametrów i anulowania zapewnianego element literałów w zapytaniach, go nie sprawdza poprawność danych wejściowych. Weryfikacji odpowiednią dla wymagań aplikacji należy wykonać przed wartości ze źródeł niezaufanych są używane w kwerendach LINQ, przypisany do właściwości jednostki lub przekazywane do innych interfejsów EF Core API. Dotyczy to danych podawanych przez użytkownika używane do dynamicznego utworzenia kwerendy. Nawet wtedy, gdy za pomocą LINQ, jeśli użytkownik akceptuje dane wejściowe użytkownika, aby zbudować wyrażenia, należy się upewnić, że można konstruować tylko wyrażenia zamierzone.

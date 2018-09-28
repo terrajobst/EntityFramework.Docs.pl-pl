@@ -3,12 +3,12 @@ title: Ustawienia pliku konfiguracji — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 000044c6-1d32-4cf7-ae1f-ea21d86ebf8f
-ms.openlocfilehash: 949ad4f030205753c5fbf9b95f4d183d8c0d1fe7
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: faba4e406b9f26f5bed6149f75c59da362d84692
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490879"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415786"
 ---
 # <a name="configuration-file-settings"></a>Ustawienia pliku konfiguracji
 Entity Framework umożliwia wiele ustawień, należy określić w pliku konfiguracji. Ogólnie rzecz biorąc EF jest zgodna z zasadą "Konwencja, za pośrednictwem konfiguracji": wszystkie ustawienia, które są omawiane w tym wpisie ma domyślne zachowanie, musisz się martwić o zmianę ustawienia, gdy domyślny nie spełnia wymagań.  
@@ -153,7 +153,7 @@ Sekcja konfiguracji pozwala określić domyślną fabrykę połączenia, która 
 
 Po zainstalowaniu pakietu NuGet programu EF domyślną fabrykę połączenia został zarejestrowany, wskazujący SQL Express lub LocalDB, w zależności od tego, który z nich został zainstalowany.  
 
-Aby ustawić fabryka połączenia, określ nazwę typu kwalifikowanego zestawu w **deafultConnectionFactory** elementu.  
+Aby ustawić fabryka połączenia, określ nazwę typu kwalifikowanego zestawu w **defaultConnectionFactory** elementu.  
 
 > [!NOTE]
 > Kwalifikowana nazwa zestawu jest kwalifikowana nazwa przestrzeni nazw, a następnie przecinek, następnie zestawu, który typ, który znajduje się w. Opcjonalnie możesz również określić zestaw wersji, kulturę i token klucza publicznego.  

@@ -3,12 +3,12 @@ title: Pierwsze adnotacje danych - EF6 kodu
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 38ae52543ed99e5a1c1da7d19a2e15d168e3a1bd
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 54e27f1b866da14d68db66ca5eca5a6dde819e26
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490118"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415812"
 ---
 # <a name="code-first-data-annotations"></a>Adnotacje danych na pierwszym kodu
 > [!NOTE]
@@ -319,13 +319,13 @@ Oto tabeli po jest zostały ponownie wygenerowane. Nazwa tabeli został zmienion
 Funkcje bazy danych ważna jest możliwość mają być obliczane właściwości. Jeśli masz mapowania klas Code First tabel zawierających kolumny obliczane, nie ma programu Entity Framework, aby spróbować zaktualizować te kolumny. Jednak EF w celu uzyskania tych wartości z bazy danych, po zostały wstawione lub zaktualizowane dane. Do tych właściwości w klasie wraz z wyliczenia obliczane, można użyć adnotacji DatabaseGenerated. Inne typy wyliczeniowe to: Brak i tożsamości.
 
 ``` csharp
-    [DatabaseGenerated(DatabaseGenerationOption.Computed)]
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTime DateCreated { get; set; }
 ```
 
 Można użyć bazy danych, generowany dla kolumn bajtów lub sygnatura czasowa, gdy kod najpierw generuje bazy danych, w przeciwnym razie należy używać tylko to po wskazaniu istniejących baz danych, ponieważ kod najpierw nie będzie można określić formułę dla kolumny obliczanej.
 
-Już wspomniano powyżej, domyślnie, właściwość klucza, która jest liczbą całkowitą staną się klucza tożsamości w bazie danych. Który będzie taka sama jak ustawienie DatabaseGenerated DatabaseGenerationOption.Identity. Jeśli nie chcesz go jako klucza tożsamości, można ustawić wartości do DatabaseGenerationOption.None.
+Już wspomniano powyżej, domyślnie, właściwość klucza, która jest liczbą całkowitą staną się klucza tożsamości w bazie danych. Który będzie taka sama jak ustawienie DatabaseGenerated DatabaseGeneratedOption.Identity. Jeśli nie chcesz go jako klucza tożsamości, można ustawić wartości do DatabaseGeneratedOption.None.
 
  
 

@@ -6,12 +6,12 @@ description: Wprowadzenie do platformy .NET Core przy użyciu platformy Entity F
 ms.date: 08/03/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: 69f7160cd82f2ec58e436a85369b52fe7c31040c
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: b30800afb63a51ab14aecb559dcc83fd89f71a71
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250312"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415773"
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Wprowadzenie do nowej bazy danych z programem EF Core w aplikacji Konsolowej .NET Core
 
@@ -77,7 +77,7 @@ Po utworzeniu modelu, użyj [migracje](https://docs.microsoft.com/aspnet/core/da
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/Program.cs)]
 
-* Testowanie aplikacji:
+* Testowanie aplikacji z konsoli. Zobacz [Uwaga programu Visual Studio](#vs) do uruchomienia aplikacji w programie Visual Studio.
 
   `dotnet run`
 
@@ -96,6 +96,20 @@ Po utworzeniu modelu, użyj [migracje](https://docs.microsoft.com/aspnet/core/da
 - Jeśli wprowadzisz zmiany w modelu, można użyć `dotnet ef migrations add` polecenie, aby utworzyć szkielet nowego [migracji](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations). Po zaznaczeniu tej opcji utworzony szkielet kodu (i wprowadzone wymagane zmiany), można użyć `dotnet ef database update` polecenie, aby zastosować schemat zmienia się z bazą danych.
 - Używa programu EF Core `__EFMigrationsHistory` tabeli w bazie danych, aby śledzić migracje, które zostały już zastosowane do bazy danych.
 - Aparat bazy danych SQLite nie obsługuje niektórych zmiany schematu, które są obsługiwane w większości innych relacyjnych baz danych. Na przykład `DropColumn` operacja nie jest obsługiwana. EF Core migracji wygeneruje kod dla tych operacji. Ale Jeśli spróbujesz zastosować je do bazy danych lub wygenerować skrypt programu EF Core zgłasza wyjątek wyjątków. Zobacz [ograniczenia SQLite](../../providers/sqlite/limitations.md). W nowych wdrożeniach należy wziąć pod uwagę porzucenie bazy danych i tworzenia nowej, a nie przy użyciu migracji po zmianie modelu.
+- 
+
+<a name="vs"></a>
+
+### <a name="run-from-visual-studio"></a>Uruchamianie z programu Visual Studio
+
+Aby uruchomić ten przykład z programu Visual Studio, należy ustawić katalogu roboczego ręcznie, aby być w katalogu głównym projektu. Jeśli nie ustawisz katalogu roboczego następujące `Microsoft.Data.Sqlite.SqliteException` zgłaszany: `SQLite Error 1: 'no such table: Blogs'`.
+
+Aby ustawić katalog roboczy:
+
+* W **Eksploratora rozwiązań**, kliknij prawym przyciskiem myszy projekt, a następnie wybierz **właściwości**.
+* Wybierz **debugowania** karty w okienku po lewej stronie.
+* Ustaw **katalog roboczy** do katalogu projektu.
+* Zapisz zmiany.
 
 ## <a name="additional-resources"></a>Dodatkowe zasoby
 
