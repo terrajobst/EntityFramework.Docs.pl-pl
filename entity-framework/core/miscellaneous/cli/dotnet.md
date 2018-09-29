@@ -1,202 +1,284 @@
 ---
-title: .NET core interfejsu wiersza polecenia — EF Core
+title: EF Core informacje dotyczące narzędzi (interfejs wiersza polecenia platformy .NET) — EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 11/06/2017
+ms.date: 09/20/2018
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 3534336f1caeed96079b35c739d694a536919020
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: a280aad0344a89c41c30be27a249df3c28c44c70
+ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489612"
+ms.lasthandoff: 09/28/2018
+ms.locfileid: "47447173"
 ---
-<a name="ef-core-net-command-line-tools"></a>Narzędzia wiersza polecenia programu EF Core platformy .NET
-===============================
-Narzędzia wiersza polecenia programu Entity Framework Core .NET to rozszerzenie dla wielu platform **dotnet** polecenia, który jest częścią programu [zestawu .NET Core SDK][2].
+# <a name="entity-framework-core-tools-reference---net-cli"></a>Entity Framework Core odnoszą się narzędzia — interfejs wiersza polecenia platformy .NET
 
-> [!TIP]
-> Jeśli używasz programu Visual Studio, firma Microsoft zaleca [narzędzia PMC] [ 1] zamiast ponieważ zapewniają one bardziej zintegrowanego środowiska pracy.
+Narzędzia interfejsu wiersza polecenia (CLI) dla platformy Entity Framework Core wykonywać zadania podczas projektowania. Na przykład można utworzyć [migracje](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations), zastosuj migracje i wygenerować kod dla modelu, w oparciu o istniejącą bazę danych. Polecenia są rozszerzenie dla wielu platform [dotnet](/dotnet/core/tools) polecenia, który jest częścią programu [zestawu .NET Core SDK](https://www.microsoft.com/net/core). Te narzędzia działają w projektach .NET Core.
 
-<a name="installing-the-tools"></a>Instalowanie narzędzi
---------------------
-> [!NOTE]
-> .NET Core SDK w wersji 2.1.300 oraz nowszych **dotnet ef** poleceń, które są zgodne z programem EF Core 2.0 i nowszych wersjach. W związku z tym jeśli używane są nowe wersje programu .NET Core SDK i środowiska uruchomieniowego EF Core, instalacja nie jest wymagana, i można zignorować pozostałej części tej sekcji.
->
-> Z drugiej strony **dotnet ef** narzędzie zawarte w wersji zestawu .NET Core SDK 2.1.300 i nowszych nie jest zgodny z wersją programu EF Core 1.0 i 1.1. Zanim można pracować z projektu, który używa tych starszych wersji programu EF Core na komputerze, na którym zainstalowano program .NET Core SDK 2.1.300 lub nowszej zainstalowany, należy również zainstalować wersję 2.1.200 lub starsze zestawu SDK i skonfigurować aplikację do używania tej starszej wersji, modyfikując jego  [global.json](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json) pliku. Ten plik zwykle znajduje się w katalogu rozwiązania (po jednym powyżej projektu). Następnie możesz przejść za pomocą instrukcji na temat poniżej.
+Jeśli używasz programu Visual Studio, firma Microsoft zaleca [narzędzia Konsola Menedżera pakietów](powershell.md) zamiast tego:
+* Działają automatycznie z bieżącego projektu wybranego w **Konsola Menedżera pakietów** bez konieczności ręcznie Przełącz katalogi.
+* One automatycznie otwarte pliki wygenerowane za pomocą polecenia, po zakończeniu polecenia.
 
-We wcześniejszych wersjach programu .NET Core SDK można zainstalować narzędzia wiersza polecenia platformy .NET Core EF wykonując następujące kroki:
+## <a name="installing-the-tools"></a>Instalowanie narzędzi
 
-1. Edytuj plik projektu i dodać Microsoft.EntityFrameworkCore.Tools.DotNet jako element DotNetCliToolReference (patrz poniżej)
-2. Uruchom następujące polecenia:
+Procedura instalacji zależy od typu projektu, a wersja:
 
-       dotnet add package Microsoft.EntityFrameworkCore.Design
-       dotnet restore
+* Platforma ASP.NET Core w wersji 2.1 i nowsze
+* EF Core 2.x
+* EF Core 1.x
 
-Projekt wynikowy powinien wyglądać mniej więcej tak:
+### <a name="aspnet-core-21"></a>Platforma ASP.NET Core 2.1 +
 
-``` xml
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design"
-                      Version="2.0.0"
-                      PrivateAssets="All" />
-  </ItemGroup>
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet"
-                            Version="2.0.0" />
-  </ItemGroup>
-</Project>
+* Zainstaluj bieżącą [zestawu .NET Core SDK](https://www.microsoft.com/net/download/core). Zestaw SDK został zainstalowany, nawet jeśli masz najnowszą wersję programu Visual Studio 2017.
+
+  To wszystko, co jest niezbędne dla platformy ASP.NET Core 2.1 +, ponieważ `Microsoft.EntityFrameworkCore.Design` pakietu znajduje się w [meta Microsoft.aspnetcore.all Microsoft.AspNetCore.App](/aspnet/core/fundamentals/metapackage-app).
+
+### <a name="ef-core-2x-not-aspnet-core"></a>EF Core 2.x (nie platformy ASP.NET Core)
+
+`dotnet ef` Poleceń są zawarte w zestawie SDK programu .NET Core, ale aby włączyć polecenia należy zainstalować `Microsoft.EntityFrameworkCore.Design` pakietu.
+
+* Zainstaluj bieżącą [zestawu .NET Core SDK](https://www.microsoft.com/net/download/core). Zestaw SDK został zainstalowany, nawet jeśli masz najnowszą wersję programu Visual Studio 2017.
+
+* Zainstaluj najnowszy stabilny `Microsoft.EntityFrameworkCore.Design` pakietu. 
+
+  ``` Console   
+  dotnet add package Microsoft.EntityFrameworkCore.Design   
+  ```
+
+### <a name="ef-core-1x"></a>EF Core 1.x
+
+* Zainstaluj zestaw .NET Core SDK w wersji 2.1.200. Nowsze wersje nie są zgodne z narzędzi interfejsu wiersza polecenia dla programu EF Core 1.0 i 1.1.
+
+* Konfigurowanie aplikacji do użycia 2.1.200 wersja zestawu SDK, modyfikując jego [global.json](/dotnet/core/tools/global-json) pliku. Ten plik zwykle znajduje się w katalogu rozwiązania (po jednym powyżej projektu). 
+
+* Edytowanie pliku projektu i dodawanie `Microsoft.EntityFrameworkCore.Tools.DotNet` jako `DotNetCliToolReference` elementu. Na przykład określić najnowszej wersji 1.x: 1.1.6. Zobacz przykład pliku projektu, na końcu tej sekcji.
+
+* Zainstaluj najnowszą wersję 1.x `Microsoft.EntityFrameworkCore.Design` pakietów, na przykład:
+
+  ```console
+  dotnet add package Microsoft.EntityFrameworkCore.Design -v 1.1.6
+  ```
+
+  Plik projektu za pomocą obu dodać odwołania do pakietu, wygląda mniej więcej tak:
+
+  ``` xml
+  <Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+      <OutputType>Exe</OutputType>
+      <TargetFramework>netcoreapp1.1</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design"
+                        Version="1.1.6"
+                         PrivateAssets="All" />
+    </ItemGroup>
+    <ItemGroup>
+       <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet"
+                              Version="1.1.6" />
+    </ItemGroup>
+  </Project>
+  ```
+
+  Odwołania do pakietu przy użyciu `PrivateAssets="All"` nie jest widoczne dla projektów odwołujących się do tego projektu. To ograniczenie jest szczególnie przydatne w przypadku pakietów, które zazwyczaj są używane tylko podczas programowania.
+
+### <a name="verify-installation"></a>Weryfikowanie instalacji
+
+Uruchom następujące polecenia, aby zweryfikować poprawne zainstalowanie narzędzi interfejsu wiersza polecenia programu EF Core:
+
+  ``` Console
+  dotnet restore
+  dotnet ef
+  ```
+
+Dane wyjściowe polecenia identyfikuje wersję narzędzia w użyciu:
+
+```console
+
+                     _/\__
+               ---==/    \\
+         ___  ___   |.    \|\
+        | __|| __|  |  )   \\\
+        | _| | _|   \_/ |  //|\\
+        |___||_|       /   \\\/\\
+
+Entity Framework Core .NET Command-line Tools 2.1.3-rtm-32065
+
+<Usage documentation follows, not shown.>
 ```
 
-> [!NOTE]
-> Odwołania do pakietu przy użyciu `PrivateAssets="All"` oznacza, że nie jest widoczne projektów odwołujących się do tego projektu, co jest szczególnie przydatne w przypadku pakietów, które zwykle są używane tylko podczas programowania.
+## <a name="using-the-tools"></a>Przy użyciu narzędzi
 
-Jeśli tak, nie wszystko bezpośrednio należy pomyślnie uruchomić następujące polecenie w wierszu polecenia.
+Przed rozpoczęciem korzystania z narzędzi, trzeba utworzyć projekt startowy, lub należy ustawić środowisko.
 
-``` Console
-dotnet ef
-```
+### <a name="target-project-and-startup-project"></a>Projekt docelowy i projekt startowy
 
-<a name="using-the-tools"></a>Przy użyciu narzędzi
----------------
-Zawsze, gdy wywołuje polecenie zaangażowanych dwa projekty:
+Polecenia można znaleźć *projektu* i *projekt startowy*.
 
-Projekt docelowy jest w przypadku, gdy są dodawane wszystkie pliki (lub w niektórych przypadkach usunięte). Projekt docelowy domyślnie do projektu w bieżącym katalogu, ale można zmienić za pomocą <nobr> **`--project`** </nobr> opcji.
+* *Projektu* jest także znana jako *projekt docelowy* ponieważ jest za której polecenia Dodawanie lub usuwanie plików. Domyślnie projekt w bieżącym katalogu jest projekt docelowy. Należy określić inny projekt jako projekt docelowy za pomocą <nobr> `--project` </nobr> opcji.
 
-Projekt startowy jest emulowane przez narzędzia podczas wykonywania kodu projektu. On również wartość domyślna to projekt w bieżącym katalogu, ale można zmienić za pomocą **`--startup-project`** opcji.
+* *Projekt startowy* jest tą, która narzędzia skompilować i uruchomić. Narzędzia konieczne wykonanie kodu aplikacji w czasie projektowania, aby uzyskać informacje na temat projektu, takie jak parametry połączenia bazy danych i Konfiguracja modelu. Domyślnie projekt w bieżącym katalogu jest projekt startowy. Należy określić inny projekt jako projekt startowy, za pomocą <nobr> `--startup-project` </nobr> opcji.
 
-> [!NOTE]
-> Na przykład aktualizowanie bazy danych zawierającej programu EF Core zainstalowany w innym projekcie aplikacji sieci web będzie wyglądać następująco: `dotnet ef database update --project {project-path}` (z katalogu aplikacji sieci web)
+Projekt startowy i projekt docelowy często są tym samym projekcie. Jest to typowy scenariusz, w którym są one oddzielnych projektów, gdy:
 
-Typowe opcje:
+* EF Core klasy kontekstu i jednostki są w bibliotece klas .NET Core.
+* Aplikacją sieci web lub aplikacji konsolowej .NET Core odwołuje się do biblioteki klas.
 
-|    |                                  |                             |
-|:---|:---------------------------------|:----------------------------|
-|    | `--json`                           | Pokaż dane wyjściowe JSON.           |
-| -c | `--context <DBCONTEXT>`           | Kontekst DbContext do użycia.       |
-| -p | `--project <PROJECT>`             | Projekt do użycia.         |
-| -s | `--startup-project <PROJECT>`     | Projekt startowy do użycia. |
-|    | `--framework <FRAMEWORK>`         | Platforma docelowa.       |
-|    | `--configuration <CONFIGURATION>` | Konfiguracja do użycia.   |
-|    | `--runtime <IDENTIFIER>`          | Środowisko uruchomieniowe do użycia.         |
-| -h | `--help`                           | Pokaż informacje pomocy.      |
-| -v | `--verbose`                        | Wyświetlić pełne dane wyjściowe.        |
-|    | `--no-color`                       | Nie kolorować danych wyjściowych.      |
-|    | `--prefix-output`                  | Prefiks danych wyjściowych z poziomu.   |
+Istnieje również możliwość [umieść kod migracji w bibliotece klas, niezależnie od kontekstu programu EF Core](xref:core/managing-schemas/migrations/projects).
 
+### <a name="other-target-frameworks"></a>Innych platform docelowych
 
-> [!TIP]
-> Aby określić środowiska ASP.NET Core, ustaw **ASPNETCORE_ENVIRONMENT** zmiennej środowiskowej przed uruchomieniem.
+Narzędzia interfejsu wiersza polecenia pracować z projektami .NET Core i projektów programu .NET Framework. Aplikacje, które mają modelu platformy EF Core w bibliotece klas programu .NET Standard może nie mieć platformy .NET Core lub .NET Framework projektu. Na przykład dotyczy to aplikacji platformy Xamarin i platformy uniwersalnej Windows. W takich przypadkach można utworzyć projekt aplikacji konsoli .NET Core, którego jedynym celem jest do działania jako projekt startowy dla narzędzi. Projekt może być fikcyjnego projektu bez rzeczywistego kodu &mdash; jest wymagana tylko do zapewnienia celu narzędzi.
 
-<a name="commands"></a>Polecenia
---------
+Dlaczego jest projektem fikcyjnego wymagane? Jak wspomniano wcześniej, narzędzia konieczne wykonanie kodu aplikacji w czasie projektowania. Aby to zrobić, muszą one korzystania ze środowiska uruchomieniowego .NET Core. Jeśli model programu EF Core jest w projekcie, który jest przeznaczony dla platformy .NET Core lub .NET Framework, narzędzia programu EF Core "pożyczać" środowisko uruchomieniowe z projektu. Nie można wykonać, jeśli model programu EF Core jest w bibliotece klas programu .NET Standard. .NET Standard nie jest rzeczywistą implementację .NET; jest określenie zestawu interfejsów API, który musi obsługiwać implementacje platformy .NET. W związku z tym .NET Standard nie jest wystarczająca dla narzędzi programu EF Core do wykonywania kodu aplikacji. Projekt zastępczy, utworzone jako projekt startowy zawiera platformy konkretnego celu, w którym narzędzia można załadować biblioteki klas .NET Standard. 
 
-### <a name="dotnet-ef-database-drop"></a>docelowej bazie danych ef DotNet
+### <a name="aspnet-core-environment"></a>Środowiska ASP.NET Core
+
+Aby określić środowisko dla projektów ASP.NET Core, ustaw **ASPNETCORE_ENVIRONMENT** zmiennej środowiskowej przed uruchomieniem polecenia.
+
+## <a name="common-options"></a>Typowe opcje
+
+|                   | Opcja                             | Opis                                                                                                                                                                                                                                                   |
+|-------------------|------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|                   | `--json`                           | Pokaż dane wyjściowe JSON.                                                                                                                                                                                                                                             |
+| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`            | `DbContext` Klasy. Nazwa klasy tylko lub w pełni kwalifikowana za pomocą przestrzeni nazw.  Jeśli ta opcja zostanie pominięty, programem EF Core znajdzie klasy kontekstu. W przypadku wielu klas kontekstu, ta opcja jest wymagana.                                            |
+| `-p`              | `--project <PROJECT>`              | Względna ścieżka do folderu projektu do projektu docelowego.  Wartością domyślną jest bieżący folder.                                                                                                                                                              |
+| `-s`              | `--startup-project <PROJECT>`      | Względna ścieżka do folderu projektu Projekt startowy. Wartością domyślną jest bieżący folder.                                                                                                                                                              |
+|                   | `--framework <FRAMEWORK>`          | [Moniker platformy docelowej](/dotnet/standard/frameworks#supported-target-framework-versions) dla [platformę docelową](/dotnet/standard/frameworks).  Użyj pliku projektu określa wiele platform docelowych, gdy chcesz wybrać jeden z nich. |
+|                   | `--configuration <CONFIGURATION>`  | Konfigurację kompilacji, na przykład: `Debug` lub `Release`.                                                                                                                                                                                                   |
+|                   | `--runtime <IDENTIFIER>`           | Identyfikator docelowe środowisko uruchomieniowe w celu przywrócenia pakietów dla. Aby uzyskać listę identyfikatorów środowisk uruchomieniowych (RID), zobacz [katalogu RID](/dotnet/core/rid-catalog).                                                                                                      |
+| `-h`              | `--help`                           | Pokaż informacje pomocy.                                                                                                                                                                                                                                        |
+| `-v`              | `--verbose`                        | Wyświetlić pełne dane wyjściowe.                                                                                                                                                                                                                                          |
+|                   | `--no-color`                       | Nie kolorować danych wyjściowych.                                                                                                                                                                                                                                        |
+|                   | `--prefix-output`                  | Prefiks danych wyjściowych z poziomu.                                                                                                                                                                                                                                     |
+
+## <a name="dotnet-ef-database-drop"></a>docelowej bazie danych ef DotNet
 
 Porzuca bazy danych.
 
 Opcje:
 
-|    |           |                                                          |
-|:---|:----------|:---------------------------------------------------------|
-| -f | `--force`   | Nie Potwierdź.                                           |
-|    | `--dry-run` | Pokaż bazę danych, która będzie można usunąć, ale nie należy usuwać jej. |
+|                   | Opcja                   | Opis                                                |
+|-------------------|--------------------------|------------------------------------------------------------|
+| <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | Nie Potwierdź.                                             |
+|                   | <nobr>`--dry-run`</nobr> | Pokaż bazę danych, która będzie można usunąć, ale nie należy usuwać jej.   |
 
-### <a name="dotnet-ef-database-update"></a>Aktualizacja bazy danych programu ef DotNet
+## <a name="dotnet-ef-database-update"></a>Aktualizacja bazy danych programu ef DotNet
 
-Aktualizuje bazę danych do określonego migracji.
-
-Argumenty:
-
-|              |                                                                                              |
-|:-------------|:---------------------------------------------------------------------------------------------|
-| `<MIGRATION>` | Migracja docelowego. Jeśli jest to 0, będzie można przywrócić wszystkich migracji. Domyślnie do ostatniego migracji. |
-
-### <a name="dotnet-ef-dbcontext-info"></a>informacje kontekstu dbcontext ef DotNet
-
-Pobiera informacje o typie DbContext.
-
-### <a name="dotnet-ef-dbcontext-list"></a>Lista typu dbcontext ef DotNet
-
-Wyświetla listę dostępnych typów DbContext.
-
-### <a name="dotnet-ef-dbcontext-scaffold"></a>Tworzenie szkieletu dbcontext ef DotNet
-
-Szkielety mechanizmów DbContext i jednostek typów dla bazy danych.
+Aktualizuje bazę danych do ostatniej migracji lub określony migracji.
 
 Argumenty:
 
-|               |                                                                             |
-|:--------------|:----------------------------------------------------------------------------|
-| `<CONNECTION>` | Parametry połączenia z bazą danych.                                      |
-| `<PROVIDER>`   | Dostawca do użycia. (na przykład Microsoft.EntityFrameworkCore.SqlServer) |
+| Argument       | Opis                                                                                                                                                                                                                                                     |
+|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<MIGRATION>`  | Migracja docelowego. Migracje mogą być określane według nazwy lub identyfikatora. Numer 0 jest przypadkiem szczególnym, oznacza to *przed migracją pierwszy* i powoduje, że wszystkich migracji, które można przywrócić. Jeśli migracja nie zostanie określony, polecenie domyślne ostatnio migracji. |
+
+Poniższe przykłady aktualizują bazę danych do określonego migracji. Pierwszy używa nazwy migracji, a drugi używa Identyfikatora migracji:
+
+```console
+dotnet ef database update InitialCreate
+dotnet ef database update 20180904195021_InitialCreate
+```
+
+## <a name="dotnet-ef-dbcontext-info"></a>informacje kontekstu dbcontext ef DotNet
+
+Pobiera informacje `DbContext` typu.
+
+## <a name="dotnet-ef-dbcontext-list"></a>Lista typu dbcontext ef DotNet
+
+Wyświetla dostępne `DbContext` typów.
+
+## <a name="dotnet-ef-dbcontext-scaffold"></a>Tworzenie szkieletu dbcontext ef DotNet
+
+Generuje kod dla `DbContext` i typy jednostek bazy danych.
+
+Argumenty:
+
+| Argument        | Opis                                                                                                                                                                                                             |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<CONNECTION>`  | Parametry połączenia z bazą danych. W przypadku projektów ASP.NET Core 2.x wartość może być *nazwa =\<nazwa parametrów połączenia >*. W takim przypadku nazwa pochodzi od źródła konfiguracji, które są skonfigurowane dla projektu. |
+| `<PROVIDER>`    | Dostawca do użycia. Zazwyczaj jest to nazwa pakietu NuGet, na przykład: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
 Opcje:
 
-|                 |                                         |                                                                                                  |
-|:----------------|:----------------------------------------|:-------------------------------------------------------------------------------------------------|
-| <nobr>-d</nobr> | `--data-annotations`                      | Aby skonfigurować model (tam, gdzie jest to możliwe), należy użyć atrybutów. W przypadku pominięcia jest używana tylko interfejsu API fluent. |
-| -c              | `--context <NAME>`                       | Nazwa typu DbContext.                                                                       |
-|                 | `--context-dir <PATH>`                   | Katalog, który można umieścić plik typu DbContext w. Ścieżki są względne wobec katalogu projektu.             |
-| -f              | `--force`                                 | Nadpisz istniejące pliki.                                                                        |
-| -o              | `--output-dir <PATH>`                    | Katalog, który można umieścić pliki w. Ścieżki są względne wobec katalogu projektu.                      |
-|                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | Schematów tabel w celu wygenerowania typów jednostek dla.                                              |
-| -t              | `--table <TABLE_NAME>`...                | Tabele, aby wygenerować typy jednostek dla.                                                         |
-|                 | `--use-database-names`                    | Użyj nazwy tabel i kolumn bezpośrednio z bazy danych.                                           |
+|                   | Opcja                                    | Opis                                                                                                                                                                    |
+|-------------------|-------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <nobr>-d</nobr>   | `--data-annotations`                      | Aby skonfigurować model (tam, gdzie jest to możliwe), należy użyć atrybutów. Jeśli ta opcja zostanie pominięty, jest używany tylko interfejsu API fluent.                                                                |
+| `-c`              | `--context <NAME>`                        | Nazwa `DbContext` klasy do wygenerowania.                                                                                                                                 |
+|                   | `--context-dir <PATH>`                    | Katalog, aby umieścić `DbContext` plik klasy. Ścieżki są względne wobec katalogu projektu. Przestrzenie nazw są uzyskiwane z nazwy folderów.                                 |
+| `-f`              | `--force`                                 | Nadpisz istniejące pliki.                                                                                                                                                      |
+| `-o`              | `--output-dir <PATH>`                     | Katalog, który można umieścić pliki klas jednostek w. Ścieżki są względne wobec katalogu projektu.                                                                                       |
+|                   | <nobr>`--schema <SCHEMA_NAME>...`</nobr>  | Schematów tabel w celu wygenerowania typów jednostek dla. Aby określić wiele schematów, powtórz `--schema` dla każdej z nich. Jeśli ta opcja zostanie pominięty, uwzględniono wszystkich schematów.          |
+| `-t`              | `--table <TABLE_NAME>`...                 | Tabele, aby wygenerować typy jednostek dla. Aby określić wiele tabel, powtórz `-t` lub `--table` dla każdej z nich. Jeśli ta opcja zostanie pominięty, wszystkie tabele są uwzględniane.                |
+|                   | `--use-database-names`                    | Użyj nazwy tabel i kolumn dokładnie tak, jak pojawiają się w bazie danych. Jeśli ta opcja zostanie pominięty, nazwy baz danych zostały zmienione, aby ściślej odpowiadają Konwencji stylistycznych nazwy języka C#. |
 
-### <a name="dotnet-ef-migrations-add"></a>Dodaj migracji ef DotNet
+W poniższym przykładzie scaffolds wszystkie schematy i tabele i umieszcza nowe pliki w *modeli* folderu.
+
+```console
+dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
+```
+
+Poniższy przykład szkielety mechanizmów tylko wybrane tabele i tworzy kontekst w oddzielnym folderze z określoną nazwą:
+
+```console
+dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t Blog -t Post --context-dir Context -c BlogContext
+```
+
+## <a name="dotnet-ef-migrations-add"></a>Dodaj migracji ef DotNet
 
 Dodaje nową migrację.
 
 Argumenty:
 
-|         |                            |
-|:--------|:---------------------------|
-| `<NAME>` | Nazwa migracji. |
+| Argument  | Opis                  |
+|-----------|------------------------------|
+| `<NAME>`  | Nazwa migracji.   |
 
 Opcje:
 
-|                 |                                   |                                                                                                                  |
-|:----------------|:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| <nobr>-o</nobr> | <nobr> `--output-dir <PATH>` </nobr> | Katalog (i podrzędnej przestrzeni nazw) do użycia. Ścieżki są względne wobec katalogu projektu. Wartość domyślna to "Migracja". |
+|                   | Opcja                              | Opis                                                                                                        |
+|-------------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr>  | Katalog (i podrzędnej przestrzeni nazw) do użycia. Ścieżki są względne wobec katalogu projektu. Wartość domyślna to "Migracja".   |
 
-### <a name="dotnet-ef-migrations-list"></a>Lista migracje ef DotNet
+## <a name="dotnet-ef-migrations-list"></a>Lista migracje ef DotNet
 
 Wyświetla listę dostępnych migracji.
 
-### <a name="dotnet-ef-migrations-remove"></a>Usuń migracji ef DotNet
+## <a name="dotnet-ef-migrations-remove"></a>Usuń migracji ef DotNet
 
-Usuwa ostatni migracji.
+Usuwa ostatniej migracji (wycofanie zmian w kodzie, które zostały przygotowane do migracji). 
 
 Opcje:
 
-|    |         |                                                                       |
-|:---|:--------|:----------------------------------------------------------------------|
-| -f | `--force` | Przywróć migracji, jeśli został zastosowany do bazy danych. |
+|                   | Opcja    | Opis                                                                        |
+|-------------------|-----------|------------------------------------------------------------------------------------|
+| <nobr>`-f`</nobr> | `--force` | Przywróć migracji (wycofać zmiany, które zostały zastosowane do bazy danych).    |
 
-### <a name="dotnet-ef-migrations-script"></a>skrypt migracji ef DotNet
+## <a name="dotnet-ef-migrations-script"></a>skrypt migracji ef DotNet
 
 Generuje skrypt SQL z migracji.
 
 Argumenty:
 
-|         |                                                               |
-|:--------|:--------------------------------------------------------------|
-| `<FROM>` | Począwszy od migracji. Wartość domyślna to 0 (początkowej bazy danych). |
-| `<TO>`   | Końcowy migracji. Domyślnie do ostatniego migracji.         |
+| Argument  | Opis                                                                                                                                                   |
+|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<FROM>`  | Począwszy od migracji. Migracje mogą być określane według nazwy lub identyfikatora. Numer 0 jest przypadkiem szczególnym, oznacza to *przed migracją pierwszy*. Wartość domyślna to 0. |
+| `<TO>`    | Końcowy migracji. Domyślnie do ostatniego migracji.                                                                                                         |
 
 Opcje:
 
-|    |                  |                                                                    |
-|:---|:-----------------|:-------------------------------------------------------------------|
-| -o | `--output <FILE>` | Plik można zapisać wynik.                                   |
-| -i | `--idempotent`     | Generowanie skryptu, który może służyć w bazie danych w każdej migracji. |
+|                   | Opcja             | Opis                                                          |
+|-------------------|--------------------|----------------------------------------------------------------------|
+| <nobr>`-o`</nobr> | `--output <FILE>`  | Plik można zapisać skryptu.                                     |
+| `-i`              | `--idempotent`     | Generowanie skryptu, który może służyć w bazie danych w każdej migracji.   |
 
+Poniższy przykład tworzy skrypt migracji InitialCreate:
 
-  [1]: powershell.md
-  [2]: https://www.microsoft.com/net/core
+```console
+dotnet ef migrations script 0 InitialCreate
+```
+
+Poniższy przykład tworzy skrypt w przypadku wszystkich migracji po migracji InitialCreate.
+
+```console
+dotnet ef migrations script 20180904195021_InitialCreate
+```

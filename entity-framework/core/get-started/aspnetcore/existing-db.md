@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: a77cab1544f18050edf7c8b01f1b4a72eed05b64
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 84e2e4bc1bdc774fa059fa893e0f8ac128931feb
+ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250949"
+ms.lasthandoff: 09/28/2018
+ms.locfileid: "47447186"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Wprowadzenie do programu EF Core programu ASP.NET Core z istniejącej bazy danych
 
@@ -174,3 +174,9 @@ Teraz można uruchomić aplikacji, aby zobaczyć go w działaniu.
   ![Tworzenie strony](_static/create.png)
 
   ![Strona indeksu](_static/index-existing-db.png)
+
+## <a name="next-steps"></a>Następne kroki
+
+Aby uzyskać więcej informacji na temat sposobu tworzenia szkieletu klasy kontekstu i jednostek, zobacz następujące artykuły:
+* [Entity Framework Core odnoszą się narzędzia — interfejs wiersza polecenia platformy .NET](xref:core/miscellaneous/cli/dotnet#dotnet-ef-dbcontext-scaffold)
+* [Entity Framework Core odnoszą się narzędzia — Konsola Menedżera pakietów](xref:core/miscellaneous/cli/powershell#scaffold-dbcontext)
