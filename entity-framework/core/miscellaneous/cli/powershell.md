@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
-ms.openlocfilehash: cde3c1f75d33808259654dfd9e1de51e662e8092
-ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
+ms.openlocfilehash: db4d89b6a0babe01bccbeadc51381a309ad8ca0f
+ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/28/2018
-ms.locfileid: "47447199"
+ms.lasthandoff: 09/30/2018
+ms.locfileid: "47459566"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Entity Framework Core odnoszą się narzędzia — Konsola Menedżera pakietów w programie Visual Studio
 
@@ -118,7 +118,7 @@ Istnieje również możliwość [umieść kod migracji w bibliotece klas, niezal
 
 Narzędzia Konsola Menedżera pakietów pracować z projektami .NET Core lub .NET Framework. Aplikacje, które mają modelu platformy EF Core w bibliotece klas programu .NET Standard może nie mieć platformy .NET Core lub .NET Framework projektu. Na przykład dotyczy to aplikacji platformy Xamarin i platformy uniwersalnej Windows. W takich przypadkach można utworzyć platformy .NET Core lub .NET Framework projekt aplikacji konsoli którego jedynym celem jest do działania jako projekt startowy dla narzędzi. Projekt może być fikcyjnego projektu bez rzeczywistego kodu &mdash; jest wymagana tylko do zapewnienia celu narzędzi.
 
-Dlaczego jest projektem fikcyjnego wymagane? Jak wspomniano wcześniej, narzędzia konieczne wykonanie kodu aplikacji w czasie projektowania. Aby to zrobić, muszą one korzystania ze środowiska uruchomieniowego .NET Core lub .NET Framework. Jeśli model programu EF Core jest w projekcie, który jest przeznaczony dla platformy .NET Core lub .NET Framework, narzędzia programu EF Core "pożyczać" środowisko uruchomieniowe z projektu. Nie można wykonać, jeśli model programu EF Core jest w bibliotece klas programu .NET Standard. .NET Standard nie jest rzeczywistą implementację .NET; jest określenie zestawu interfejsów API, który musi obsługiwać implementacje platformy .NET. W związku z tym .NET Standard nie jest wystarczająca dla narzędzi programu EF Core do wykonywania kodu aplikacji. Projekt zastępczy, utworzone jako projekt startowy zawiera platformy konkretnego celu, w którym narzędzia można załadować biblioteki klas .NET Standard. 
+Dlaczego jest projektem fikcyjnego wymagane? Jak wspomniano wcześniej, narzędzia konieczne wykonanie kodu aplikacji w czasie projektowania. Aby to zrobić, muszą one korzystania ze środowiska uruchomieniowego .NET Core lub .NET Framework. Jeśli model programu EF Core jest w projekcie, który jest przeznaczony dla platformy .NET Core lub .NET Framework, narzędzia programu EF Core "pożyczać" środowisko uruchomieniowe z projektu. Nie można wykonać, jeśli model programu EF Core jest w bibliotece klas programu .NET Standard. .NET Standard nie jest rzeczywistą implementację .NET; jest określenie zestawu interfejsów API, który musi obsługiwać implementacje platformy .NET. W związku z tym .NET Standard nie jest wystarczająca dla narzędzi programu EF Core do wykonywania kodu aplikacji. Projekt zastępczy, utworzone jako projekt startowy zawiera platformy konkretnego celu, w którym narzędzia można załadować biblioteki klas .NET Standard.
 
 ### <a name="aspnet-core-environment"></a>Środowiska ASP.NET Core
 
@@ -129,7 +129,7 @@ Aby określić środowisko dla projektów ASP.NET Core, ustaw **env:ASPNETCORE_E
 W poniższej tabeli przedstawiono parametry, które są wspólne dla wszystkich poleceń programu EF Core:
 
 | Parametr                 | Opis                                                                                                                                                                                                          |
-|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|:--------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | -Kontekstu \<ciąg >        | `DbContext` Klasy. Nazwa klasy tylko lub w pełni kwalifikowana za pomocą przestrzeni nazw.  Jeśli ten parametr zostanie pominięty, programem EF Core umożliwia znalezienie klasy kontekstu. W przypadku wielu klas kontekstu, ten parametr jest wymagany. |
 | -Projekt \<ciąg >        | Projekt docelowy. Jeśli ten parametr zostanie pominięty, **projekt domyślny** dla **Konsola Menedżera pakietów** służy jako projekt docelowy.                                                                             |
 | Projekt startowy - \<ciąg > | Projekt startowy. Jeśli ten parametr zostanie pominięty, **projekt startowy** w **właściwości rozwiązania** służy jako projekt docelowy.                                                                                 |
@@ -147,7 +147,7 @@ Dodaje nową migrację.
 Parametry:
 
 | Parametr                         | Opis                                                                                                             |
-|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+|:----------------------------------|:------------------------------------------------------------------------------------------------------------------------|
 | <nobr>— Nazwa \<ciąg ><nobr>       | Nazwa migracji. To jest parametr pozycyjne i jest wymagana.                                              |
 | <nobr>-OutputDir \<ciąg ></nobr> | Katalog (i podrzędnej przestrzeni nazw) do użycia. Ścieżki są względne wobec katalogu docelowego projektu. Wartość domyślna to "Migracja". |
 
@@ -157,9 +157,9 @@ Porzuca bazy danych.
 
 Parametry:
 
-| Parametr | Opis                                                |
-|-----------|------------------------------------------------------------|
-| -WhatIf   | Pokaż bazę danych, która będzie można usunąć, ale nie należy usuwać jej.   |
+| Parametr | Opis                                              |
+|:----------|:---------------------------------------------------------|
+| -WhatIf   | Pokaż bazę danych, która będzie można usunąć, ale nie należy usuwać jej. |
 
 ## <a name="get-dbcontext"></a>Get-DbContext
 
@@ -167,12 +167,12 @@ Wyświetla dostępne `DbContext` typów.
 
 ## <a name="remove-migration"></a>Usuń migrację
 
-Usuwa ostatniej migracji (wycofanie zmian w kodzie, które zostały przygotowane do migracji). 
+Usuwa ostatniej migracji (wycofanie zmian w kodzie, które zostały przygotowane do migracji).
 
 Parametry:
 
 | Parametr | Opis                                                                     |
-|-----------|---------------------------------------------------------------------------------|
+|:----------|:--------------------------------------------------------------------------------|
 | -Force    | Przywróć migracji (wycofać zmiany, które zostały zastosowane do bazy danych). |
 
 ## <a name="scaffold-dbcontext"></a>Tworzenie szkieletu DbContext
@@ -181,18 +181,18 @@ Generuje kod dla `DbContext` i typy jednostek bazy danych.
 
 Parametry:
 
-| Parametr                                  | Opis                                                                                                                                                                                                                                                             |
-|--------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>-Connection \<ciąg ></nobr>         | Parametry połączenia z bazą danych. W przypadku projektów ASP.NET Core 2.x wartość może być *nazwa =\<nazwa parametrów połączenia >*. W takim przypadku nazwa pochodzi od źródła konfiguracji, które są skonfigurowane dla projektu. To jest parametr pozycyjne i jest wymagana. |
-| <nobr>-Provider \<ciąg ></nobr>           | Dostawca do użycia. Zazwyczaj jest to nazwa pakietu NuGet, na przykład: `Microsoft.EntityFrameworkCore.SqlServer`. To jest parametr pozycyjne i jest wymagana.                                                                                           |
-| -OutputDir \<ciąg >                       | Katalog, który można umieścić pliki w. Ścieżki są względne wobec katalogu projektu.                                                                                                                                                                                             |
-| -ContextDir \<ciąg >                      | Katalog, aby umieścić `DbContext` w pliku. Ścieżki są względne wobec katalogu projektu.                                                                                                                                                                              |
-| -Kontekstu \<ciąg >                         | Nazwa `DbContext` klasy do wygenerowania.                                                                                                                                                                                                                          |
-| -Schematów \<String [] >                       | Schematów tabel w celu wygenerowania typów jednostek dla. Jeśli ten parametr zostanie pominięty, uwzględniono wszystkich schematów.                                                                                                                                                             |
-| -Tabele \<String [] >                        | Tabele, aby wygenerować typy jednostek dla. Jeżeli ten parametr zostanie pominięty, uwzględniane są wszystkie tabele.                                                                                                                                                                         |
-| -DataAnnotations                           | Aby skonfigurować model (tam, gdzie jest to możliwe), należy użyć atrybutów. Jeżeli pominięto ten parametr jest używany tylko interfejsu API fluent.                                                                                                                                                      |
-| -UseDatabaseNames                          | Użyj nazwy tabel i kolumn dokładnie tak, jak pojawiają się w bazie danych. Jeśli ten parametr zostanie pominięty, nazwy baz danych zostały zmienione, aby ściślej odpowiadają Konwencji stylistycznych nazwy języka C#.                                                                                       |
-| -Force                                     | Nadpisz istniejące pliki.                                                                                                                                                                                                                                               |
+| Parametr                          | Opis                                                                                                                                                                                                                                                             |
+|:-----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <nobr>-Connection \<ciąg ></nobr> | Parametry połączenia z bazą danych. W przypadku projektów ASP.NET Core 2.x wartość może być *nazwa =\<nazwa parametrów połączenia >*. W takim przypadku nazwa pochodzi od źródła konfiguracji, które są skonfigurowane dla projektu. To jest parametr pozycyjne i jest wymagana. |
+| <nobr>-Provider \<ciąg ></nobr>   | Dostawca do użycia. Zazwyczaj jest to nazwa pakietu NuGet, na przykład: `Microsoft.EntityFrameworkCore.SqlServer`. To jest parametr pozycyjne i jest wymagana.                                                                                           |
+| -OutputDir \<ciąg >               | Katalog, który można umieścić pliki w. Ścieżki są względne wobec katalogu projektu.                                                                                                                                                                                             |
+| -ContextDir \<ciąg >              | Katalog, aby umieścić `DbContext` w pliku. Ścieżki są względne wobec katalogu projektu.                                                                                                                                                                              |
+| -Kontekstu \<ciąg >                 | Nazwa `DbContext` klasy do wygenerowania.                                                                                                                                                                                                                          |
+| -Schematów \<String [] >               | Schematów tabel w celu wygenerowania typów jednostek dla. Jeśli ten parametr zostanie pominięty, uwzględniono wszystkich schematów.                                                                                                                                                             |
+| -Tabele \<String [] >                | Tabele, aby wygenerować typy jednostek dla. Jeżeli ten parametr zostanie pominięty, uwzględniane są wszystkie tabele.                                                                                                                                                                         |
+| -DataAnnotations                   | Aby skonfigurować model (tam, gdzie jest to możliwe), należy użyć atrybutów. Jeżeli pominięto ten parametr jest używany tylko interfejsu API fluent.                                                                                                                                                      |
+| -UseDatabaseNames                  | Użyj nazwy tabel i kolumn dokładnie tak, jak pojawiają się w bazie danych. Jeśli ten parametr zostanie pominięty, nazwy baz danych zostały zmienione, aby ściślej odpowiadają Konwencji stylistycznych nazwy języka C#.                                                                                       |
+| -Force                             | Nadpisz istniejące pliki.                                                                                                                                                                                                                                               |
 
 Przykład:
 
@@ -212,12 +212,12 @@ Generuje skrypt SQL, który dotyczy wszystkich zmian z jedną migrację wybranyc
 
 Parametry:
 
-| Parametr           | Opis                                                                                                                                                                                                                |
-|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| *-From* \<ciąg >   | Począwszy od migracji. Migracje mogą być określane według nazwy lub identyfikatora. Numer 0 jest przypadkiem szczególnym, oznacza to *przed migracją pierwszy*. Wartość domyślna to 0.                                                              |
-| *— Do* \<ciąg >     | Końcowy migracji. Domyślnie do ostatniego migracji.                                                                                                                                                                      |
-| <nobr>-Idempotentne</nobr>         | Generowanie skryptu, który może służyć w bazie danych w każdej migracji.                                                                                                                                                         |
-| -Dane wyjściowe \<ciąg >   | Plik można zapisać wynik. Jeśli ten parametr zostanie pominięty, plik jest tworzony z użyciem nazwy wygenerowanej w tym samym folderze, ponieważ pliki środowiska uruchomieniowego aplikacji są tworzone, na przykład: */obj/Debug/netcoreapp2.1/ghbkztfz.sql/*. |
+| Parametr                | Opis                                                                                                                                                                                                                |
+|:-------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| *-From* \<ciąg >        | Począwszy od migracji. Migracje mogą być określane według nazwy lub identyfikatora. Numer 0 jest przypadkiem szczególnym, oznacza to *przed migracją pierwszy*. Wartość domyślna to 0.                                                              |
+| *— Do* \<ciąg >          | Końcowy migracji. Domyślnie do ostatniego migracji.                                                                                                                                                                      |
+| <nobr>-Idempotentne</nobr> | Generowanie skryptu, który może służyć w bazie danych w każdej migracji.                                                                                                                                                         |
+| -Dane wyjściowe \<ciąg >        | Plik można zapisać wynik. Jeśli ten parametr zostanie pominięty, plik jest tworzony z użyciem nazwy wygenerowanej w tym samym folderze, ponieważ pliki środowiska uruchomieniowego aplikacji są tworzone, na przykład: */obj/Debug/netcoreapp2.1/ghbkztfz.sql/*. |
 
 > [!TIP]
 > To, z danych wyjściowych z obsługą i parametrów rozszerzenia karty.
@@ -238,9 +238,9 @@ Script-Migration -From 20180904195021_InitialCreate
 
 Aktualizuje bazę danych do ostatniej migracji lub określony migracji.
 
-| Parametr                             | Opis                                                                                                                                                                                                                                                     |
-|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>*— Migracja* \<ciąg ></nobr>   | Migracja docelowego. Migracje mogą być określane według nazwy lub identyfikatora. Numer 0 jest przypadkiem szczególnym, oznacza to *przed migracją pierwszy* i powoduje, że wszystkich migracji, które można przywrócić. Jeśli migracja nie zostanie określony, polecenie domyślne ostatnio migracji. |
+| Parametr                           | Opis                                                                                                                                                                                                                                                     |
+|:------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <nobr>*— Migracja* \<ciąg ></nobr> | Migracja docelowego. Migracje mogą być określane według nazwy lub identyfikatora. Numer 0 jest przypadkiem szczególnym, oznacza to *przed migracją pierwszy* i powoduje, że wszystkich migracji, które można przywrócić. Jeśli migracja nie zostanie określony, polecenie domyślne ostatnio migracji. |
 
 > [!TIP]
 > Parametr migracji obsługuje rozszerzenia karty.

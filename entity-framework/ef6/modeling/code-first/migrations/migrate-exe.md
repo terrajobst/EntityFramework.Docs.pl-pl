@@ -3,12 +3,12 @@ title: Za pomocą migrate.exe - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 989ea862-e936-4c85-926a-8cfbef5df5b8
-ms.openlocfilehash: 6e9880523bbcf2fe55390a447241e59723a0967f
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: cf6c3a0a256730b24addf1012d6ff53b17035cd4
+ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490229"
+ms.lasthandoff: 09/30/2018
+ms.locfileid: "47459542"
 ---
 # <a name="using-migrateexe"></a>Za pomocą migrate.exe
 Migracje Code First pozwala zaktualizować bazę danych z wewnątrz programu visual studio, ale mogą być również wykonywane za pośrednictwem migrate.exe narzędzia wiersza polecenia. Ta strona będzie zapewniają szybki przegląd dotyczące sposobu używania migrate.exe do wykonania migracji w bazie danych.
@@ -24,9 +24,9 @@ Po utworzeniu migrate.exe musisz skopiować go do lokalizacji zestawu, który za
 
 Jeśli aplikacja jest przeznaczony dla .NET 4, a nie 4.5, należy skopiować **Redirect.config** w lokalizacji jako dobrze i zmień jego nazwę **migrate.exe.config**. Jest to więc migrate.exe pobiera przekierowania powiązań poprawna, aby można było zlokalizować zestawu platformy Entity Framework.
 
-| .NET 4.5                                   | .NET 4.0                                   |
-|:-------------------------------------------|:-------------------------------------------|
-| ![Pliki .NET 4.5](~/ef6/media/net45files.png)  | ![Pliki .NET 4.0](~/ef6/media/net40files.png)  |
+| .NET 4.5                                      | .NET 4.0                                      |
+|:----------------------------------------------|:----------------------------------------------|
+| ![Pliki .NET 4.5](~/ef6/media/net45files.png) | ![Pliki .NET 4.0](~/ef6/media/net40files.png) |
 
 > [!NOTE]
 > migrate.exe nie obsługuje x64 zestawów.

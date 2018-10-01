@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/20/2018
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: a280aad0344a89c41c30be27a249df3c28c44c70
-ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
+ms.openlocfilehash: fad64c692273f58580c4b986e10f481402a222d8
+ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/28/2018
-ms.locfileid: "47447173"
+ms.lasthandoff: 09/30/2018
+ms.locfileid: "47459563"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Entity Framework Core odnoszą się narzędzia — interfejs wiersza polecenia platformy .NET
 
@@ -39,17 +39,17 @@ Procedura instalacji zależy od typu projektu, a wersja:
 
 * Zainstaluj bieżącą [zestawu .NET Core SDK](https://www.microsoft.com/net/download/core). Zestaw SDK został zainstalowany, nawet jeśli masz najnowszą wersję programu Visual Studio 2017.
 
-* Zainstaluj najnowszy stabilny `Microsoft.EntityFrameworkCore.Design` pakietu. 
+* Zainstaluj najnowszy stabilny `Microsoft.EntityFrameworkCore.Design` pakietu.
 
-  ``` Console   
-  dotnet add package Microsoft.EntityFrameworkCore.Design   
+  ``` Console
+  dotnet add package Microsoft.EntityFrameworkCore.Design
   ```
 
 ### <a name="ef-core-1x"></a>EF Core 1.x
 
 * Zainstaluj zestaw .NET Core SDK w wersji 2.1.200. Nowsze wersje nie są zgodne z narzędzi interfejsu wiersza polecenia dla programu EF Core 1.0 i 1.1.
 
-* Konfigurowanie aplikacji do użycia 2.1.200 wersja zestawu SDK, modyfikując jego [global.json](/dotnet/core/tools/global-json) pliku. Ten plik zwykle znajduje się w katalogu rozwiązania (po jednym powyżej projektu). 
+* Konfigurowanie aplikacji do użycia 2.1.200 wersja zestawu SDK, modyfikując jego [global.json](/dotnet/core/tools/global-json) pliku. Ten plik zwykle znajduje się w katalogu rozwiązania (po jednym powyżej projektu).
 
 * Edytowanie pliku projektu i dodawanie `Microsoft.EntityFrameworkCore.Tools.DotNet` jako `DotNetCliToolReference` elementu. Na przykład określić najnowszej wersji 1.x: 1.1.6. Zobacz przykład pliku projektu, na końcu tej sekcji.
 
@@ -129,7 +129,7 @@ Istnieje również możliwość [umieść kod migracji w bibliotece klas, niezal
 
 Narzędzia interfejsu wiersza polecenia pracować z projektami .NET Core i projektów programu .NET Framework. Aplikacje, które mają modelu platformy EF Core w bibliotece klas programu .NET Standard może nie mieć platformy .NET Core lub .NET Framework projektu. Na przykład dotyczy to aplikacji platformy Xamarin i platformy uniwersalnej Windows. W takich przypadkach można utworzyć projekt aplikacji konsoli .NET Core, którego jedynym celem jest do działania jako projekt startowy dla narzędzi. Projekt może być fikcyjnego projektu bez rzeczywistego kodu &mdash; jest wymagana tylko do zapewnienia celu narzędzi.
 
-Dlaczego jest projektem fikcyjnego wymagane? Jak wspomniano wcześniej, narzędzia konieczne wykonanie kodu aplikacji w czasie projektowania. Aby to zrobić, muszą one korzystania ze środowiska uruchomieniowego .NET Core. Jeśli model programu EF Core jest w projekcie, który jest przeznaczony dla platformy .NET Core lub .NET Framework, narzędzia programu EF Core "pożyczać" środowisko uruchomieniowe z projektu. Nie można wykonać, jeśli model programu EF Core jest w bibliotece klas programu .NET Standard. .NET Standard nie jest rzeczywistą implementację .NET; jest określenie zestawu interfejsów API, który musi obsługiwać implementacje platformy .NET. W związku z tym .NET Standard nie jest wystarczająca dla narzędzi programu EF Core do wykonywania kodu aplikacji. Projekt zastępczy, utworzone jako projekt startowy zawiera platformy konkretnego celu, w którym narzędzia można załadować biblioteki klas .NET Standard. 
+Dlaczego jest projektem fikcyjnego wymagane? Jak wspomniano wcześniej, narzędzia konieczne wykonanie kodu aplikacji w czasie projektowania. Aby to zrobić, muszą one korzystania ze środowiska uruchomieniowego .NET Core. Jeśli model programu EF Core jest w projekcie, który jest przeznaczony dla platformy .NET Core lub .NET Framework, narzędzia programu EF Core "pożyczać" środowisko uruchomieniowe z projektu. Nie można wykonać, jeśli model programu EF Core jest w bibliotece klas programu .NET Standard. .NET Standard nie jest rzeczywistą implementację .NET; jest określenie zestawu interfejsów API, który musi obsługiwać implementacje platformy .NET. W związku z tym .NET Standard nie jest wystarczająca dla narzędzi programu EF Core do wykonywania kodu aplikacji. Projekt zastępczy, utworzone jako projekt startowy zawiera platformy konkretnego celu, w którym narzędzia można załadować biblioteki klas .NET Standard.
 
 ### <a name="aspnet-core-environment"></a>Środowiska ASP.NET Core
 
@@ -137,19 +137,19 @@ Aby określić środowisko dla projektów ASP.NET Core, ustaw **ASPNETCORE_ENVIR
 
 ## <a name="common-options"></a>Typowe opcje
 
-|                   | Opcja                             | Opis                                                                                                                                                                                                                                                   |
-|-------------------|------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|                   | `--json`                           | Pokaż dane wyjściowe JSON.                                                                                                                                                                                                                                             |
-| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`            | `DbContext` Klasy. Nazwa klasy tylko lub w pełni kwalifikowana za pomocą przestrzeni nazw.  Jeśli ta opcja zostanie pominięty, programem EF Core znajdzie klasy kontekstu. W przypadku wielu klas kontekstu, ta opcja jest wymagana.                                            |
-| `-p`              | `--project <PROJECT>`              | Względna ścieżka do folderu projektu do projektu docelowego.  Wartością domyślną jest bieżący folder.                                                                                                                                                              |
-| `-s`              | `--startup-project <PROJECT>`      | Względna ścieżka do folderu projektu Projekt startowy. Wartością domyślną jest bieżący folder.                                                                                                                                                              |
-|                   | `--framework <FRAMEWORK>`          | [Moniker platformy docelowej](/dotnet/standard/frameworks#supported-target-framework-versions) dla [platformę docelową](/dotnet/standard/frameworks).  Użyj pliku projektu określa wiele platform docelowych, gdy chcesz wybrać jeden z nich. |
-|                   | `--configuration <CONFIGURATION>`  | Konfigurację kompilacji, na przykład: `Debug` lub `Release`.                                                                                                                                                                                                   |
-|                   | `--runtime <IDENTIFIER>`           | Identyfikator docelowe środowisko uruchomieniowe w celu przywrócenia pakietów dla. Aby uzyskać listę identyfikatorów środowisk uruchomieniowych (RID), zobacz [katalogu RID](/dotnet/core/rid-catalog).                                                                                                      |
-| `-h`              | `--help`                           | Pokaż informacje pomocy.                                                                                                                                                                                                                                        |
-| `-v`              | `--verbose`                        | Wyświetlić pełne dane wyjściowe.                                                                                                                                                                                                                                          |
-|                   | `--no-color`                       | Nie kolorować danych wyjściowych.                                                                                                                                                                                                                                        |
-|                   | `--prefix-output`                  | Prefiks danych wyjściowych z poziomu.                                                                                                                                                                                                                                     |
+|                   | Opcja                            | Opis                                                                                                                                                                                                                                                   |
+|:------------------|:----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|                   | `--json`                          | Pokaż dane wyjściowe JSON.                                                                                                                                                                                                                                             |
+| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | `DbContext` Klasy. Nazwa klasy tylko lub w pełni kwalifikowana za pomocą przestrzeni nazw.  Jeśli ta opcja zostanie pominięty, programem EF Core znajdzie klasy kontekstu. W przypadku wielu klas kontekstu, ta opcja jest wymagana.                                            |
+| `-p`              | `--project <PROJECT>`             | Względna ścieżka do folderu projektu do projektu docelowego.  Wartością domyślną jest bieżący folder.                                                                                                                                                              |
+| `-s`              | `--startup-project <PROJECT>`     | Względna ścieżka do folderu projektu Projekt startowy. Wartością domyślną jest bieżący folder.                                                                                                                                                              |
+|                   | `--framework <FRAMEWORK>`         | [Moniker platformy docelowej](/dotnet/standard/frameworks#supported-target-framework-versions) dla [platformę docelową](/dotnet/standard/frameworks).  Użyj pliku projektu określa wiele platform docelowych, gdy chcesz wybrać jeden z nich. |
+|                   | `--configuration <CONFIGURATION>` | Konfigurację kompilacji, na przykład: `Debug` lub `Release`.                                                                                                                                                                                                   |
+|                   | `--runtime <IDENTIFIER>`          | Identyfikator docelowe środowisko uruchomieniowe w celu przywrócenia pakietów dla. Aby uzyskać listę identyfikatorów środowisk uruchomieniowych (RID), zobacz [katalogu RID](/dotnet/core/rid-catalog).                                                                                                      |
+| `-h`              | `--help`                          | Pokaż informacje pomocy.                                                                                                                                                                                                                                        |
+| `-v`              | `--verbose`                       | Wyświetlić pełne dane wyjściowe.                                                                                                                                                                                                                                          |
+|                   | `--no-color`                      | Nie kolorować danych wyjściowych.                                                                                                                                                                                                                                        |
+|                   | `--prefix-output`                 | Prefiks danych wyjściowych z poziomu.                                                                                                                                                                                                                                     |
 
 ## <a name="dotnet-ef-database-drop"></a>docelowej bazie danych ef DotNet
 
@@ -157,10 +157,10 @@ Porzuca bazy danych.
 
 Opcje:
 
-|                   | Opcja                   | Opis                                                |
-|-------------------|--------------------------|------------------------------------------------------------|
-| <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | Nie Potwierdź.                                             |
-|                   | <nobr>`--dry-run`</nobr> | Pokaż bazę danych, która będzie można usunąć, ale nie należy usuwać jej.   |
+|                   | Opcja                   | Opis                                              |
+|:------------------|:-------------------------|:---------------------------------------------------------|
+| <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | Nie Potwierdź.                                           |
+|                   | <nobr>`--dry-run`</nobr> | Pokaż bazę danych, która będzie można usunąć, ale nie należy usuwać jej. |
 
 ## <a name="dotnet-ef-database-update"></a>Aktualizacja bazy danych programu ef DotNet
 
@@ -168,9 +168,9 @@ Aktualizuje bazę danych do ostatniej migracji lub określony migracji.
 
 Argumenty:
 
-| Argument       | Opis                                                                                                                                                                                                                                                     |
-|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<MIGRATION>`  | Migracja docelowego. Migracje mogą być określane według nazwy lub identyfikatora. Numer 0 jest przypadkiem szczególnym, oznacza to *przed migracją pierwszy* i powoduje, że wszystkich migracji, które można przywrócić. Jeśli migracja nie zostanie określony, polecenie domyślne ostatnio migracji. |
+| Argument      | Opis                                                                                                                                                                                                                                                     |
+|:--------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<MIGRATION>` | Migracja docelowego. Migracje mogą być określane według nazwy lub identyfikatora. Numer 0 jest przypadkiem szczególnym, oznacza to *przed migracją pierwszy* i powoduje, że wszystkich migracji, które można przywrócić. Jeśli migracja nie zostanie określony, polecenie domyślne ostatnio migracji. |
 
 Poniższe przykłady aktualizują bazę danych do określonego migracji. Pierwszy używa nazwy migracji, a drugi używa Identyfikatora migracji:
 
@@ -193,23 +193,23 @@ Generuje kod dla `DbContext` i typy jednostek bazy danych.
 
 Argumenty:
 
-| Argument        | Opis                                                                                                                                                                                                             |
-|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<CONNECTION>`  | Parametry połączenia z bazą danych. W przypadku projektów ASP.NET Core 2.x wartość może być *nazwa =\<nazwa parametrów połączenia >*. W takim przypadku nazwa pochodzi od źródła konfiguracji, które są skonfigurowane dla projektu. |
-| `<PROVIDER>`    | Dostawca do użycia. Zazwyczaj jest to nazwa pakietu NuGet, na przykład: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
+| Argument       | Opis                                                                                                                                                                                                             |
+|:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<CONNECTION>` | Parametry połączenia z bazą danych. W przypadku projektów ASP.NET Core 2.x wartość może być *nazwa =\<nazwa parametrów połączenia >*. W takim przypadku nazwa pochodzi od źródła konfiguracji, które są skonfigurowane dla projektu. |
+| `<PROVIDER>`   | Dostawca do użycia. Zazwyczaj jest to nazwa pakietu NuGet, na przykład: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
 Opcje:
 
-|                   | Opcja                                    | Opis                                                                                                                                                                    |
-|-------------------|-------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>-d</nobr>   | `--data-annotations`                      | Aby skonfigurować model (tam, gdzie jest to możliwe), należy użyć atrybutów. Jeśli ta opcja zostanie pominięty, jest używany tylko interfejsu API fluent.                                                                |
-| `-c`              | `--context <NAME>`                        | Nazwa `DbContext` klasy do wygenerowania.                                                                                                                                 |
-|                   | `--context-dir <PATH>`                    | Katalog, aby umieścić `DbContext` plik klasy. Ścieżki są względne wobec katalogu projektu. Przestrzenie nazw są uzyskiwane z nazwy folderów.                                 |
-| `-f`              | `--force`                                 | Nadpisz istniejące pliki.                                                                                                                                                      |
-| `-o`              | `--output-dir <PATH>`                     | Katalog, który można umieścić pliki klas jednostek w. Ścieżki są względne wobec katalogu projektu.                                                                                       |
-|                   | <nobr>`--schema <SCHEMA_NAME>...`</nobr>  | Schematów tabel w celu wygenerowania typów jednostek dla. Aby określić wiele schematów, powtórz `--schema` dla każdej z nich. Jeśli ta opcja zostanie pominięty, uwzględniono wszystkich schematów.          |
-| `-t`              | `--table <TABLE_NAME>`...                 | Tabele, aby wygenerować typy jednostek dla. Aby określić wiele tabel, powtórz `-t` lub `--table` dla każdej z nich. Jeśli ta opcja zostanie pominięty, wszystkie tabele są uwzględniane.                |
-|                   | `--use-database-names`                    | Użyj nazwy tabel i kolumn dokładnie tak, jak pojawiają się w bazie danych. Jeśli ta opcja zostanie pominięty, nazwy baz danych zostały zmienione, aby ściślej odpowiadają Konwencji stylistycznych nazwy języka C#. |
+|                 | Opcja                                   | Opis                                                                                                                                                                    |
+|:----------------|:-----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <nobr>-d</nobr> | `--data-annotations`                     | Aby skonfigurować model (tam, gdzie jest to możliwe), należy użyć atrybutów. Jeśli ta opcja zostanie pominięty, jest używany tylko interfejsu API fluent.                                                                |
+| `-c`            | `--context <NAME>`                       | Nazwa `DbContext` klasy do wygenerowania.                                                                                                                                 |
+|                 | `--context-dir <PATH>`                   | Katalog, aby umieścić `DbContext` plik klasy. Ścieżki są względne wobec katalogu projektu. Przestrzenie nazw są uzyskiwane z nazwy folderów.                                 |
+| `-f`            | `--force`                                | Nadpisz istniejące pliki.                                                                                                                                                      |
+| `-o`            | `--output-dir <PATH>`                    | Katalog, który można umieścić pliki klas jednostek w. Ścieżki są względne wobec katalogu projektu.                                                                                       |
+|                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | Schematów tabel w celu wygenerowania typów jednostek dla. Aby określić wiele schematów, powtórz `--schema` dla każdej z nich. Jeśli ta opcja zostanie pominięty, uwzględniono wszystkich schematów.          |
+| `-t`            | `--table <TABLE_NAME>`...                | Tabele, aby wygenerować typy jednostek dla. Aby określić wiele tabel, powtórz `-t` lub `--table` dla każdej z nich. Jeśli ta opcja zostanie pominięty, wszystkie tabele są uwzględniane.                |
+|                 | `--use-database-names`                   | Użyj nazwy tabel i kolumn dokładnie tak, jak pojawiają się w bazie danych. Jeśli ta opcja zostanie pominięty, nazwy baz danych zostały zmienione, aby ściślej odpowiadają Konwencji stylistycznych nazwy języka C#. |
 
 W poniższym przykładzie scaffolds wszystkie schematy i tabele i umieszcza nowe pliki w *modeli* folderu.
 
@@ -229,15 +229,15 @@ Dodaje nową migrację.
 
 Argumenty:
 
-| Argument  | Opis                  |
-|-----------|------------------------------|
-| `<NAME>`  | Nazwa migracji.   |
+| Argument | Opis                |
+|:---------|:---------------------------|
+| `<NAME>` | Nazwa migracji. |
 
 Opcje:
 
-|                   | Opcja                              | Opis                                                                                                        |
-|-------------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr>  | Katalog (i podrzędnej przestrzeni nazw) do użycia. Ścieżki są względne wobec katalogu projektu. Wartość domyślna to "Migracja".   |
+|                   | Opcja                             | Opis                                                                                                      |
+|:------------------|:-----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
+| <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr> | Katalog (i podrzędnej przestrzeni nazw) do użycia. Ścieżki są względne wobec katalogu projektu. Wartość domyślna to "Migracja". |
 
 ## <a name="dotnet-ef-migrations-list"></a>Lista migracje ef DotNet
 
@@ -245,13 +245,13 @@ Wyświetla listę dostępnych migracji.
 
 ## <a name="dotnet-ef-migrations-remove"></a>Usuń migracji ef DotNet
 
-Usuwa ostatniej migracji (wycofanie zmian w kodzie, które zostały przygotowane do migracji). 
+Usuwa ostatniej migracji (wycofanie zmian w kodzie, które zostały przygotowane do migracji).
 
 Opcje:
 
-|                   | Opcja    | Opis                                                                        |
-|-------------------|-----------|------------------------------------------------------------------------------------|
-| <nobr>`-f`</nobr> | `--force` | Przywróć migracji (wycofać zmiany, które zostały zastosowane do bazy danych).    |
+|                   | Opcja    | Opis                                                                     |
+|:------------------|:----------|:--------------------------------------------------------------------------------|
+| <nobr>`-f`</nobr> | `--force` | Przywróć migracji (wycofać zmiany, które zostały zastosowane do bazy danych). |
 
 ## <a name="dotnet-ef-migrations-script"></a>skrypt migracji ef DotNet
 
@@ -259,17 +259,17 @@ Generuje skrypt SQL z migracji.
 
 Argumenty:
 
-| Argument  | Opis                                                                                                                                                   |
-|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<FROM>`  | Począwszy od migracji. Migracje mogą być określane według nazwy lub identyfikatora. Numer 0 jest przypadkiem szczególnym, oznacza to *przed migracją pierwszy*. Wartość domyślna to 0. |
-| `<TO>`    | Końcowy migracji. Domyślnie do ostatniego migracji.                                                                                                         |
+| Argument | Opis                                                                                                                                                   |
+|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<FROM>` | Począwszy od migracji. Migracje mogą być określane według nazwy lub identyfikatora. Numer 0 jest przypadkiem szczególnym, oznacza to *przed migracją pierwszy*. Wartość domyślna to 0. |
+| `<TO>`   | Końcowy migracji. Domyślnie do ostatniego migracji.                                                                                                         |
 
 Opcje:
 
-|                   | Opcja             | Opis                                                          |
-|-------------------|--------------------|----------------------------------------------------------------------|
-| <nobr>`-o`</nobr> | `--output <FILE>`  | Plik można zapisać skryptu.                                     |
-| `-i`              | `--idempotent`     | Generowanie skryptu, który może służyć w bazie danych w każdej migracji.   |
+|                   | Opcja            | Opis                                                        |
+|:------------------|:------------------|:-------------------------------------------------------------------|
+| <nobr>`-o`</nobr> | `--output <FILE>` | Plik można zapisać skryptu.                                   |
+| `-i`              | `--idempotent`    | Generowanie skryptu, który może służyć w bazie danych w każdej migracji. |
 
 Poniższy przykład tworzy skrypt migracji InitialCreate:
 

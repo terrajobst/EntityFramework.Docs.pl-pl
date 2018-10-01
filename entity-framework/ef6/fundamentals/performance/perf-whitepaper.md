@@ -3,12 +3,12 @@ title: Zagadnienia dotyczące wydajności dla EF4, EF5 i EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: a58461a6d18d9d53c002b5d45cecbff7b0cdf81e
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: fb184fe8720b552a2050607bb17648f0413c31d1
+ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490262"
+ms.lasthandoff: 09/30/2018
+ms.locfileid: "47459594"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Zagadnienia dotyczące wydajności na platformie EF, 4, 5 i 6
 David Obando, Eric Dettinger i inne osoby
@@ -88,19 +88,17 @@ W przypadku małych, prostych modeli kosztów może być wystarczająco mała, a
 
 ### <a name="23-using-pre-generated-views-to-decrease-model-load-time"></a>2.3 widoków Pre-Generated przy użyciu modelu zmniejszyć czas ładowania
 
-#### <a name="231-pre-generated-views-using-the-entity-framework-power-tools"></a>2.3.1 wstępnie wygenerowanych widoków za pomocą narzędzi Entity Framework Power Tools.
+Aby uzyskać szczegółowe informacje dotyczące sposobu używania wstępnie wygenerowanych widoków w programie Entity Framework 6 odwiedź [Pre-Generated mapowanie widoków](~/ef6/fundamentals/performance/pre-generated-views.md)
 
-Możesz też rozważyć, za pomocą narzędzi Entity Framework Power Tools do generowania widoków plików EDMX i Code First modeli kliknij prawym przyciskiem myszy plik klasy modelu, a następnie wybierz pozycję "Generuj widoki" przy użyciu menu platformy Entity Framework. Entity Framework Power Tools działają tylko w kontekstach pochodzi od typu DbContext i znajduje się w temacie \<http://visualstudiogallery.msdn.microsoft.com/72a60b14-1581-4b9b-89f2-846072eff19d>.
+#### <a name="231-pre-generated-views-using-the-entity-framework-power-tools-community-edition"></a>2.3.1 wstępnie wygenerowanych widoków za pomocą programu Entity Framework Power Tools Community Edition
 
-Aby uzyskać więcej informacji na temat korzystania z wstępnie wygenerowanych widoków w programie Entity Framework 6 odwiedź [Pre-Generated mapowanie widoków](~/ef6/fundamentals/performance/pre-generated-views.md).
+Możesz użyć [Entity Framework 6 Power Tools Community Edition](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition) można wygenerować widoków plików EDMX i Code First modeli kliknij prawym przyciskiem myszy plik klasy modelu, a następnie wybierz pozycję "Generuj widoki" przy użyciu menu platformy Entity Framework. Entity Framework Power Tools Community Edition działa tylko w kontekstach pochodzi od typu DbContext.
 
 #### <a name="232-how-to-use-pre-generated-views-with-a-model-created-by-edmgen"></a>2.3.2 sposób używania wstępnie wygenerowanych widoków z modelem, który został utworzony przez EDMGen
 
 EDMGen to narzędzie jest dostarczany za pomocą platformy .NET, która działa z programu Entity Framework 4 i 5, ale nie z programu Entity Framework 6. EDMGen umożliwia generowanie pliku modelu warstwy obiektu i widoków z wiersza polecenia. Jedną z danych wyjściowych będzie plik widoków w języku wybranym języku VB lub C\#. Jest to plik kodu zawierający fragmenty jednostki SQL dla każdego zestawu jednostek. Aby włączyć wstępnie wygenerowanych widoków, po prostu Dołącz plik w projekcie.
 
 Jeśli ręcznie wprowadzić zmiany plików schematów dla modelu, należy ponownie wygenerować plik widoków. Można to zrobić, uruchamiając EDMGen z **/mode:ViewGeneration** flagi.
-
-Aby dalsze informacje, zobacz [jak: Pre-Generate widoków, aby poprawić wydajność zapytań](https://msdn.microsoft.com/library/bb896240.aspx).
 
 #### <a name="233-how-to-use-pre-generated-views-with-an-edmx-file"></a>2.3.3 jak widoków Pre-Generated za pomocą pliku EDMX
 
@@ -113,13 +111,9 @@ Blog zespołu programu ADO.NET ma wpis, który opisuje sposób używania szablon
 
 Jeśli używasz platformy Entity Framework 6 można uzyskać widok szablony T4 generacji z galerii Visual Studio na \<http://visualstudiogallery.msdn.microsoft.com/18a7db90-6705-4d19-9dd1-0a6c23d0751f>.
 
-#### <a name="234-how-to-use-pre-generated-views-with-a-code-first-model"></a>2.3.4 jak używać widoków Pre-Generated model Code First
-
-Istnieje również możliwość użycia wstępnie wygenerowanych widoków z projektem Code First. Entity Framework Power Tools ma możliwość generowania pliku widoków w projekcie Code First. Entity Framework Power Tools można znaleźć w galerii Visual Studio na \<http://visualstudiogallery.msdn.microsoft.com/72a60b14-1581-4b9b-89f2-846072eff19d/>.
-
 ### <a name="24-reducing-the-cost-of-view-generation"></a>2.4 obniżyć koszty generowania widoku
 
-Za pomocą wstępnie wygenerowanych widoków przenosi koszt generowania widoku ładowania modelu (czas wykonywania) czas kompilacji. Gdy poprawia to wydajność uruchamiania w środowisku uruchomieniowym, będzie nadal występować ból generowania widoku podczas programowania. Istnieje kilka dodatkowe wskazówki, które mogą pomóc zmniejszyć koszt generowania widoku, zarówno w czasie kompilacji i w czasie wykonywania.
+Za pomocą wstępnie wygenerowanych widoków przenosi koszt generowania widoku z modelu, załadowanie (czas wykonywania) do czasu projektowania. Gdy poprawia to wydajność uruchamiania w środowisku uruchomieniowym, będzie nadal występować ból generowania widoku podczas programowania. Istnieje kilka dodatkowe wskazówki, które mogą pomóc zmniejszyć koszt generowania widoku, zarówno w czasie kompilacji i w czasie wykonywania.
 
 #### <a name="241-using-foreign-key-associations-to-reduce-view-generation-cost"></a>2.4.1 za pomocą skojarzeń klucza obcego, aby zmniejszyć koszt generowania widoku
 
