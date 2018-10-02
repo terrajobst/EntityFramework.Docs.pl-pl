@@ -3,12 +3,12 @@ title: Specyfikacja CSDL - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: c54255f4-253f-49eb-bec8-ad7927ac2fa3
-ms.openlocfilehash: f5bf0dc75a8195e9af979c9e044f36171f46c9b7
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 438af83b8a1ad51ee8414341181412e950d0e117
+ms.sourcegitcommit: 29f928a6116771fe78f306846e6f2d45cbe8d1f4
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490522"
+ms.lasthandoff: 10/01/2018
+ms.locfileid: "47460153"
 ---
 # <a name="csdl-specification"></a>Specyfikacja CSDL
 Język definicji schematu koncepcyjnego (CSDL) to oparty na standardzie XML język, który opisuje jednostki, relacje i funkcje, które tworzą model koncepcyjny aplikacji opartych na danych. Ten model koncepcyjny może służyć przez Entity Framework lub usługi danych WCF. Metadane opisujące z CSDL jest używany przez program Entity Framework do mapowania jednostek i relacji, które są zdefiniowane w modelu koncepcyjnym ze źródłem danych. Aby uzyskać więcej informacji, zobacz [Specyfikacja SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md) i [Specyfikacja MSL](~/ef6/modeling/designer/advanced/edmx/msl-spec.md).
@@ -1138,7 +1138,7 @@ W poniższym przykładzie przedstawiono **funkcja** element, który korzysta z j
    Year(CurrentDateTime()) - Year(cast(Instructor.HireDate as DateTime))
    </DefiningExpression>
  </Function>
-``` 
+```
 
  
 
