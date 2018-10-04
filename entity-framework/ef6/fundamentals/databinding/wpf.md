@@ -3,12 +3,12 @@ title: Powiązanie danych przy użyciu platformy WPF — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e90d48e6-bea5-47ef-b756-7b89cce4daf0
-ms.openlocfilehash: 5bd4a9b98a12de41e4ec37c2cc7dbdc537210893
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 1933988277d3be8fecc02fced3293f2b7f80c901
+ms.sourcegitcommit: ae399f9f3d1bae2c446b552247bd3af3ca5a2cf9
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490236"
+ms.lasthandoff: 10/04/2018
+ms.locfileid: "48575668"
 ---
 # <a name="databinding-with-wpf"></a>Powiązanie danych przy użyciu platformy WPF
 Ten przewodnik krok po kroku pokazano, jak powiązać POCO typy kontrolek WPF w postaci "elementy główne szczegóły". Aplikacja używa interfejsów API programu Entity Framework do wypełniania obiekty z danymi z bazy danych, śledzenie zmian i utrwalanie danych w bazie danych.
@@ -31,7 +31,7 @@ Jeśli to konieczne, możesz [powrócić do generowania kodu na podstawie obiekt
 
 Musisz mieć program Visual Studio 2013, Visual Studio 2012 lub Visual Studio 2010 należy zainstalować w celu przeprowadzenia tego instruktażu.
 
-Jeśli używasz programu Visual Studio 2010 należy zainstalować NuGet. Aby uzyskać więcej informacji, zobacz [Instalowanie systemu NuGet](http://docs.nuget.org/docs/start-here/installing-nuget).  
+Jeśli używasz programu Visual Studio 2010 należy zainstalować NuGet. Aby uzyskać więcej informacji, zobacz [Instalowanie systemu NuGet](https://docs.microsoft.com/nuget/install-nuget-client-tools).  
 
 ## <a name="create-the-application"></a>Tworzenie aplikacji
 
@@ -252,12 +252,12 @@ Dodawanie klas, które są zdefiniowane w modelu jako źródła danych dla tej a
 
     ![Źródła danych](~/ef6/media/datasources.png)
 
--   Wybierz pozycję ** kategorii ** źródła danych i przeciągnij je na formularzu.
+-   Wybierz **kategorii** źródła danych i przeciągnij je na formularzu.
 
 Następujące wystąpił podczas możemy przeciągnąć tego źródła:
 
--   **CategoryViewSource** zasobów i ** categoryDataGrid ** kontroli zostały dodane do XAML. Aby uzyskać więcej informacji na temat DataViewSources zobacz http://bea.stollnitz.com/blog/?p=387.
--   Właściwość DataContext nadrzędnego elementu siatki "{staticresource — **categoryViewSource** }".  **CategoryViewSource** zasobu służy jako źródło powiązania zewnętrzne\\nadrzędnego elementu siatki. Wewnętrzny elementów siatki, wartość elementu DataContext następnie jest Dziedzicz po elemencie nadrzędnym siatki (właściwości ItemsSource categoryDataGrid jest ustawiona na "{powiązania}"). 
+-   **CategoryViewSource** zasobów i **categoryDataGrid** kontroli zostały dodane do XAML 
+-   Właściwość DataContext nadrzędnego elementu siatki "{staticresource — **categoryViewSource** }". **CategoryViewSource** zasobu służy jako źródło powiązania zewnętrzne\\nadrzędnego elementu siatki. Wewnętrzny elementów siatki następnie dziedziczyć wartość DataContext nadrzędnego siatki (właściwości ItemsSource categoryDataGrid jest ustawiona na "{powiązania}")
 
 ``` xml
     <Window.Resources>
@@ -282,7 +282,7 @@ Następujące wystąpił podczas możemy przeciągnąć tego źródła:
 
 Skoro mamy już siatki, aby wyświetlić kategorie Przyjrzyjmy dodać siatkę szczegóły, aby wyświetlić skojarzone produkty.
 
--   Wybierz pozycję ** produktów ** właściwości w obszarze ** kategorii ** źródła danych i przeciągnij je na formularzu.
+-   Wybierz **produktów** właściwości z **kategorii** źródła danych i przeciągnij je na formularzu.
     -   **CategoryProductsViewSource** zasobów i **productDataGrid** siatki są dodawane do XAML
     -   Ścieżka powiązania dla tego zasobu jest równa produktów
     -   Framework powiązanie danych WPF zapewnia tylko produktów związanych z wybraną kategorię wyświetlane w **productDataGrid**
@@ -305,7 +305,7 @@ Nadszedł czas, aby dodać niektóre procedury obsługi zdarzeń do głównego o
 
 Wybranie tej opcji powoduje możesz kodu formularza, firma Microsoft będzie teraz edytować kod, aby użyć ProductContext przeprowadzić dostępu do danych. Zaktualizuj kod dla okna głównego, jak pokazano poniżej.
 
-Ten kod deklaruje wystąpienie długotrwałych **ProductContext**. **ProductContext** obiekt jest używany do wykonywania zapytań i zapisać dane w bazie danych. **Dispose**() na **ProductContext** wystąpienia jest następnie wywoływana z zastąpione **OnClosing** metody. Komentarze w kodzie zawierają szczegółowe informacje o dany kod realizuje.
+Ten kod deklaruje wystąpienie długotrwałych **ProductContext**. **ProductContext** obiekt jest używany do wykonywania zapytań i zapisać dane w bazie danych. **Dispose()** na **ProductContext** wystąpienia jest następnie wywoływana z zastąpione **OnClosing** metody. Komentarze w kodzie zawierają szczegółowe informacje o dany kod realizuje.
 
 ``` csharp
     using System.Data.Entity;
@@ -389,6 +389,10 @@ Ten kod deklaruje wystąpienie długotrwałych **ProductContext**. **ProductCont
 
 -   Naciśnij klawisz **Zapisz** przycisk, aby zapisać dane w bazie danych
 
-Po wywołaniu przez DbContext **SaveChanges**(), identyfikatory są wypełniane przy użyciu wartości z bazy danych, wygenerowane. Ponieważ firma Microsoft o nazwie **Odśwież**() po **SaveChanges**() **DataGrid** formanty są aktualizowane na nowe wartości.
+Po wywołaniu przez DbContext **SaveChanges()**, identyfikatory są wypełniane przy użyciu wartości z bazy danych, wygenerowane. Ponieważ firma Microsoft o nazwie **Refresh()** po **SaveChanges()** **DataGrid** formanty są aktualizowane na nowe wartości.
 
 ![Okno główne z identyfikatorami wypełnione](~/ef6/media/screen2.png)
+
+## <a name="additional-resources"></a>Dodatkowe zasoby
+
+Aby dowiedzieć się, jak wiązanie danych do kolekcji przy użyciu programu WPF, zobacz [w tym temacie](https://docs.microsoft.com/dotnet/framework/wpf/data/data-binding-overview#binding-to-collections) w dokumentacji programu WPF.  
