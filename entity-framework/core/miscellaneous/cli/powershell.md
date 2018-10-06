@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
-ms.openlocfilehash: db4d89b6a0babe01bccbeadc51381a309ad8ca0f
-ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
+ms.openlocfilehash: 9a57b58f8569ee1241e40c3809b03487d1d88e02
+ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/30/2018
-ms.locfileid: "47459566"
+ms.lasthandoff: 10/06/2018
+ms.locfileid: "48834763"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Entity Framework Core odnoszą się narzędzia — Konsola Menedżera pakietów w programie Visual Studio
 
@@ -177,7 +177,7 @@ Parametry:
 
 ## <a name="scaffold-dbcontext"></a>Tworzenie szkieletu DbContext
 
-Generuje kod dla `DbContext` i typy jednostek bazy danych.
+Generuje kod dla `DbContext` i typy jednostek bazy danych. Aby `Scaffold-DbContext` można wygenerować typu jednostki, w tabeli bazy danych musi mieć klucz podstawowy.
 
 Parametry:
 

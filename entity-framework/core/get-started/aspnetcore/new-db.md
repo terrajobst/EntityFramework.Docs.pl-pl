@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 803b0b71b2a2093432d76bc159875d65ab379b9a
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 878478099878e4a0bc65c44fef0609d28f39f2b8
+ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489299"
+ms.lasthandoff: 10/06/2018
+ms.locfileid: "48834776"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Wprowadzenie do programu EF Core programu ASP.NET Core przy użyciu nowej bazy danych
 
@@ -72,7 +72,7 @@ Ostrzeżenie: Jeśli używasz **indywidualne konta użytkowników** zamiast **Br
 
 ## <a name="install-entity-framework-core"></a>Instalowanie platformy Entity Framework Core
 
-Aby zainstalować programu EF Core, należy zainstalować pakiet dla dostawców bazy danych programu EF Core, który ma pod kątem. Aby uzyskać listę dostępnych dostawców, zobacz [dostawcy baz danych](../../providers/index.md). 
+Aby zainstalować programu EF Core, należy zainstalować pakiet dla dostawców bazy danych programu EF Core, który ma pod kątem. Aby uzyskać listę dostępnych dostawców, zobacz [dostawcy baz danych](../../providers/index.md).
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -144,7 +144,7 @@ Aplikacji produkcyjnej zazwyczaj umieścić ciąg połączenia w zmiennej środo
 
 ## <a name="create-the-database"></a>Tworzenie bazy danych
 
-Następujące kroki użycia [migracje](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) utworzyć bazę danych.
+Następujące kroki użycia [migracje](xref:core/managing-schemas/migrations/index) utworzyć bazę danych.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -192,7 +192,7 @@ Tworzenia szkieletu kontrolera i widoki dla `Blog` jednostki.
   dotnet tool install -g dotnet-aspnet-codegenerator
   dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
   dotnet restore
-  dotnet aspnet-codegenerator controller -name BlogsController -m Blog -dc BloggingContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries 
+  dotnet aspnet-codegenerator controller -name BlogsController -m Blog -dc BloggingContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
   ```
 
   `tool install` i `add package` polecenia instalacji narzędzia, które można tworzenia szkieletu, widoków i kontrolerów. `restore` Polecenia zapewnia, że wszystkie pakiety projektu zostaną pobrane, a `aspnet-codegenerator` polecenie powoduje szkieletu.
@@ -228,7 +228,6 @@ dotnet run
 
 ## <a name="additional-resources"></a>Dodatkowe zasoby
 
-* [EF - nowej bazy danych za pomocą SQLite](xref:core/get-started/netcore/new-db-sqlite) — samouczek programu EF konsoli dla wielu platform.
-* [Wprowadzenie do platformy ASP.NET Core MVC na komputerze Mac lub Linux](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
-* [Wprowadzenie do platformy ASP.NET Core MVC za pomocą programu Visual Studio](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app/index)
-* [Rozpoczynanie pracy z platformą ASP.NET Core i programem Entity Framework Core przy użyciu programu Visual Studio](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
+* [Samouczek: Rozpoczynanie pracy z programem EF Core na platformie .NET Core za pomocą nowej bazy danych przy użyciu systemu SQLite](xref:core/get-started/netcore/new-db-sqlite)
+* [Samouczek: Rozpoczynanie pracy ze stronami Razor w programie ASP.NET Core](https://docs.microsoft.com/aspnet/core/tutorials/razor-pages/razor-pages-start)
+* [Samouczek: Strony Razor za pomocą platformy Entity Framework Core w programie ASP.NET Core](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)
