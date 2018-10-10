@@ -3,12 +3,12 @@ title: Entity Framework słownik - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
-ms.openlocfilehash: 298913891fb372bf57d7504c5a54f1dc83ea1a80
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 9ed7a2d841c625de35de57edb4e57e69b89a3db9
+ms.sourcegitcommit: 5d74ac575f813110db6d870720f50dd7606446bc
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490700"
+ms.lasthandoff: 10/09/2018
+ms.locfileid: "48881270"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework słownik
 ## <a name="code-first"></a>Najpierw kod
@@ -60,7 +60,7 @@ Tworzenie modelu Entity Framework, za pomocą projektanta EF następnie używany
 Właściwość obiektu, który odwołuje się do innej jednostki. Na przykład produkt zawiera właściwość nawigacji kategorii i kategoria zawiera właściwość nawigacji produktów.
 
 ## <a name="poco"></a>OBIEKTÓW POCO
-Akronim obiektu CLR zwykły stary. Klasa prostych użytkownika, która nie ma zależności za pomocą dowolnej platformy. W kontekście EF Klasa jednostki, która nie pochodzi od EntityObject, implementuje żadnych interfejsów lub niesie ze sobą wszelkie atrybuty zdefiniowane w programie EF. Takie klasy jednostek, które są całkowicie niezależni od framework trwałości są również określane jako "trwałość zakresu".  
+Akronim obiektu CLR zwykły stary. Klasa prostych użytkownika, która nie ma zależności za pomocą dowolnej platformy. W kontekście EF, klasa jednostki, która nie pochodzi od EntityObject, implementuje żadnych interfejsów lub niesie ze sobą wszelkie atrybuty zdefiniowane w programie EF. Takie klasy jednostek, które są całkowicie niezależni od framework trwałości są również określane jako "trwałość zakresu".  
 
 ## <a name="relationship-inverse"></a>Odwrotne relacji
 Przeciwległym końcu relacji, na przykład produktu. Kategoria i kategorii. Produkt.
