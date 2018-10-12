@@ -29,7 +29,7 @@
 #### [ASP.NET Core](core/get-started/aspnetcore/index.md)
 ##### [ASP.NET Core — nowa baza danych](core/get-started/aspnetcore/new-db.md)
 ##### [ASP.NET Core — istniejąca baza danych](core/get-started/aspnetcore/existing-db.md)
-##### [Produkty EF Core i Razor Pages](/aspnet/core/data/ef-rp/intro)
+##### [⤤ Produkty EF Core i Razor Pages](/aspnet/core/data/ef-rp/intro)
 #### [Platforma uniwersalna systemu Windows (UWP)](core/get-started/uwp/index.md)
 ##### [Platforma UWP — nowa baza danych](core/get-started/uwp/getting-started.md)
 
