@@ -1,15 +1,15 @@
 ---
 title: Wprowadzenie do platformy UWP — Nowa baza danych — EF Core
 author: rowanmiller
-ms.date: 08/08/2018
+ms.date: 10/13/2018
 ms.assetid: a0ae2f21-1eef-43c6-83ad-92275f9c0727
 uid: core/get-started/uwp/getting-started
-ms.openlocfilehash: c243ef2a1940af9bf4f4b32f17acfcce7f972862
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 48d26adbe17e4734753a7ada547b9c13317bef0d
+ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996913"
+ms.lasthandoff: 10/14/2018
+ms.locfileid: "49315623"
 ---
 # <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp-with-a-new-database"></a>Wprowadzenie do programu EF Core na platformie Universal Windows (UWP) przy użyciu nowej bazy danych
 
@@ -25,10 +25,12 @@ W tym samouczku utworzysz aplikację platformy uniwersalnej Windows (UWP), któr
 
 * [Zestaw SDK programu .NET core 2.1 lub nowszej](https://www.microsoft.com/net/core) lub nowszej.
 
-## <a name="create-a-model-project"></a>Tworzenie projektu modelu
-
 > [!IMPORTANT]
-> Ze względu na ograniczenia w taki sposób, narzędzia platformy .NET Core wchodzą w interakcję z projektów platformy UWP modelu musi być umieszczona w projekcie bez platformy UWP, aby można było uruchamiać polecenia migracji w **Konsola Menedżera pakietów** (PMC)
+> Ten samouczek używa platformy Entity Framework Core [migracje](xref:core/managing-schemas/migrations/index) poleceń do tworzenia i aktualizowania schematu bazy danych.
+> Te polecenia nie działają bezpośrednio z projektów platformy UWP.
+> Z tego powodu modelu danych aplikacji znajduje się w projekcie biblioteki udostępnionej, a oddzielną aplikację konsoli .NET Core jest używany do uruchamiania polecenia.
+
+## <a name="create-a-library-project-to-hold-the-data-model"></a>Utwórz projekt biblioteki do przechowywania modelu danych
 
 * Otwórz program Visual Studio
 
@@ -44,21 +46,19 @@ W tym samouczku utworzysz aplikację platformy uniwersalnej Windows (UWP), któr
 
 * Kliknij przycisk **OK**.
 
-## <a name="install-entity-framework-core"></a>Instalowanie platformy Entity Framework Core
+## <a name="install-entity-framework-core-runtime-in-the-data-model-project"></a>Zainstaluj środowisko uruchomieniowe programu Entity Framework Core w projekcie modelu danych
 
 Aby korzystać z programu EF Core, należy zainstalować pakiet dla dostawców bazy danych, który ma pod kątem. Ten samouczek używa bazy danych SQLite. Aby uzyskać listę dostępnych dostawców zobacz [dostawcy baz danych](../../providers/index.md).
 
 * **Narzędzia > Menedżer pakietów NuGet > Konsola Menedżera pakietów**.
 
+* Upewnij się, że projekt biblioteki *Blogging.Model* jest wybrany jako **domyślny projekt** w konsoli Menedżera pakietów.
+
 * Uruchom `Install-Package Microsoft.EntityFrameworkCore.Sqlite`
 
-W dalszej części tego samouczka używana będzie niektóre narzędzia Entity Framework Core do obsługi bazy danych. Więc Zainstaluj również pakiet narzędzi.
+## <a name="create-the-data-model"></a>Tworzenie modelu danych
 
-* Uruchom `Install-Package Microsoft.EntityFrameworkCore.Tools`
-
-## <a name="create-the-model"></a>Tworzenie modelu
-
-Teraz nadszedł czas, do definiowania klas kontekstu i jednostek, które tworzą model.
+Teraz nadszedł czas, aby zdefiniować *DbContext* i klas jednostek, które tworzą model.
 
 * Usuń *Class1.cs*.
 
@@ -66,23 +66,7 @@ Teraz nadszedł czas, do definiowania klas kontekstu i jednostek, które tworzą
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/UWP/Blogging.Model/Model.cs)]
 
-## <a name="create-a-new-uwp-project"></a>Utwórz nowy projekt platformy uniwersalnej systemu Windows
-
-* W **Eksploratora rozwiązań**, kliknij prawym przyciskiem myszy rozwiązanie, a następnie wybierz **Dodaj > Nowy projekt**.
-
-* Z menu po lewej stronie wybierz **zainstalowane > Visual C# > Windows Universal**.
-
-* Wybierz **pusta aplikacja (Windows Universal)** szablonu projektu.
-
-* Nadaj projektowi nazwę *Blogging.UWP*i kliknij przycisk **OK**
-
-* Co najmniej równa wersje docelową i minimalną **Windows 10 Fall Creators Update (10.0; kompilacja 16299.0)**.
-
-## <a name="create-the-initial-migration"></a>Tworzenie początkowej migracji
-
-Teraz, gdy model, należy skonfigurować aplikację do tworzenia bazy danych przy pierwszym uruchomieniu. W tej sekcji opisano tworzenie początkowej migracji. W poniższej sekcji dodasz kod, który ma zastosowanie tej migracji, po uruchomieniu aplikacji.
-
-Narzędzia migracji wymagają projektu startowego bez platformy UWP, dzięki czemu można tworzyć najpierw.
+## <a name="create-a-new-console-project-to-run-migrations-commands"></a>Utwórz nowy projekt konsoli, aby uruchamiać polecenia migracji
 
 * W **Eksploratora rozwiązań**, kliknij prawym przyciskiem myszy rozwiązanie, a następnie wybierz **Dodaj > Nowy projekt**.
 
@@ -94,19 +78,37 @@ Narzędzia migracji wymagają projektu startowego bez platformy UWP, dzięki cze
 
 * Dodaj odwołanie do projektu z *Blogging.Migrations.Startup* projekt *Blogging.Model* projektu.
 
-Teraz możesz utworzyć początkowej migracji.
+## <a name="install-entity-framework-core-tools-in-the-migrations-startup-project"></a>Zainstaluj narzędzia Entity Framework Core w projekcie uruchamiania migracji
+
+Aby włączyć polecenia migracji EF Core w konsoli Menedżera pakietów, należy zainstalować pakiet narzędzi programu EF Core w aplikacji konsoli.
 
 * **Narzędzia > Menedżer pakietów NuGet > Konsola Menedżera pakietów**
 
-* Wybierz *Blogging.Model* projektu jako **projekt domyślny**.
+* Uruchom `Install-Package Microsoft.EntityFrameworkCore.Tools -ProjectName Blogging.Migrations.Startup`
 
-* W **Eksploratora rozwiązań**ustaw *Blogging.Migrations.Startup* projekt jako projekt startowy.
+## <a name="create-the-initial-migration"></a>Tworzenie początkowej migracji
 
-* Uruchom `Add-Migration InitialCreate`.
+ Tworzenie początkowej migracji, określenie aplikacji konsoli jako projekt startowy.
 
-  To polecenie scaffolds migracji, który tworzy początkowego zestawu tabel dla modelu.
+* Uruchom `Add-Migration InitialCreate -StartupProject Blogging.Migrations.Startup`
 
-## <a name="create-the-database-on-app-startup"></a>Tworzenie bazy danych podczas uruchamiania aplikacji
+To polecenie scaffolds migracji, który tworzy początkowy zestaw tabel bazy danych dla modelu danych.
+
+## <a name="create-the-uwp-project"></a>Tworzenie projektu platformy uniwersalnej systemu Windows
+
+* W **Eksploratora rozwiązań**, kliknij prawym przyciskiem myszy rozwiązanie, a następnie wybierz **Dodaj > Nowy projekt**.
+
+* Z menu po lewej stronie wybierz **zainstalowane > Visual C# > Windows Universal**.
+
+* Wybierz **pusta aplikacja (Windows Universal)** szablonu projektu.
+
+* Nadaj projektowi nazwę *Blogging.UWP*i kliknij przycisk **OK**
+
+> [!IMPORTANT]
+> Co najmniej równa wersje docelową i minimalną **Windows 10 Fall Creators Update (10.0; kompilacja 16299.0)**.
+> Poprzednie wersje systemu Windows 10 nie obsługują .NET Standard 2.0, która jest wymagana przez Entity Framework Core.
+
+## <a name="add-code-to-create-the-database-on-application-startup"></a>Dodaj kod, aby utworzyć bazę danych podczas uruchamiania aplikacji
 
 Ponieważ baza danych ma zostać utworzony na urządzeniu, która jest uruchamiana aplikacja, należy dodać kod Zastosuj wszelkie oczekujące migracji w lokalnej bazie danych podczas uruchamiania aplikacji. Przy pierwszym uruchomieniu aplikacji, to zajmie się tworzenie lokalnej bazy danych.
 
@@ -121,11 +123,11 @@ Ponieważ baza danych ma zostać utworzony na urządzeniu, która jest uruchamia
 > [!TIP]  
 > W przypadku zmiany modelu użycia `Add-Migration` polecenia do tworzenia szkieletu nową migrację do zastosowania odpowiednich zmian w bazie danych. Wszystkie oczekujące migracje zostaną zastosowane do lokalnej bazy danych na każdym urządzeniu, podczas uruchamiania aplikacji.
 >
->Używa EF `__EFMigrationsHistory` tabeli w bazie danych, aby śledzić migracje, które zostały już zastosowane do bazy danych.
+>Używa programu EF Core `__EFMigrationsHistory` tabeli w bazie danych, aby śledzić migracje, które zostały już zastosowane do bazy danych.
 
-## <a name="use-the-model"></a>Użyj modelu
+## <a name="use-the-data-model"></a>Przy użyciu modelu danych
 
-Można teraz używać modelu przeprowadzić dostępu do danych.
+Można teraz używać programu EF Core przeprowadzić dostępu do danych.
 
 * Otwórz *MainPage.xaml*.
 
