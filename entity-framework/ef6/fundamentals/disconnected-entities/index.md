@@ -3,21 +3,21 @@ title: Praca z jednostkami odłączonego - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
-ms.openlocfilehash: beb3847ce507a2112ac0d396a2023c7c4e2fca7d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 11ca2a9a4161e02d32d98bf03dd4cf28545334b7
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489937"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022174"
 ---
 # <a name="working-with-disconnected-entities"></a>Praca z odłączone jednostki
 W aplikacji Entity Framework, na podstawie klasy kontekstu jest odpowiedzialny za wykrywanie zmian zastosowanych do śledzonych jednostek. Wywołanie metody SaveChanges utrzymuje zmian śledzonych przez kontekst do bazy danych. Podczas pracy z aplikacjami n warstwowej, obiekty jednostki są zazwyczaj modyfikowane przy braku połączenia z kontekstu i należy zdecydować, jak śledzić zmiany i raportu te zmiany do kontekstu. W tym temacie omówiono różne opcje, które są dostępne, gdy używający narzędzia Entity Framework o odłączony jednostek.   
 
 ## <a name="web-service-frameworks"></a>Struktury usługi sieci Web
 
-Technologie usług sieci Web zwykle obsługują wzorce, które mogą służyć do utrwalenia zmian na poszczególne obiekty odłączonych. Na przykład ASP.NET Web API umożliwia akcji kontrolera kodu, które może obejmować wywołania do EF, aby zachować zmiany wprowadzone do obiektu w bazie danych. W rzeczywistości internetowy interfejs API, narzędzi w programie Visual Studio ułatwia tworzenia szkieletu kontrolera interfejsu API sieci Web z modelu Entity Framework 6. Aby uzyskać więcej informacji, zobacz [przy użyciu interfejsu API sieci Web za pomocą platformy Entity Framework 6](https://docs.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/).   
+Technologie usług sieci Web zwykle obsługują wzorce, które mogą służyć do utrwalenia zmian na poszczególne obiekty odłączonych. Na przykład ASP.NET Web API umożliwia akcji kontrolera kodu, które może obejmować wywołania do EF, aby zachować zmiany wprowadzone do obiektu w bazie danych. W rzeczywistości internetowy interfejs API, narzędzi w programie Visual Studio ułatwia tworzenia szkieletu kontrolera interfejsu API sieci Web z modelu Entity Framework 6. Aby uzyskać więcej informacji, zobacz [przy użyciu interfejsu API sieci Web za pomocą platformy Entity Framework 6](https://docs.microsoft.com/aspnet/web-api/overview/data/using-web-api-with-entity-framework/).   
 
-W przeszłości były kilka innych technologii sieci Web usługi, które oferowane integracji z programem Entity Framework, takie jak [usług danych WCF](https://docs.microsoft.com/dotnet/framework/data/wcf/create-a-data-service-using-an-adonet-ef-data-wcf) i [RIA Services](https://docs.microsoft.com/en-us/previous-versions/dotnet/wcf-ria/ee707344(v=vs.91)).
+W przeszłości były kilka innych technologii sieci Web usługi, które oferowane integracji z programem Entity Framework, takie jak [usług danych WCF](https://docs.microsoft.com/dotnet/framework/data/wcf/create-a-data-service-using-an-adonet-ef-data-wcf) i [RIA Services](https://docs.microsoft.com/previous-versions/dotnet/wcf-ria/ee707344(v=vs.91)).
 
 ## <a name="low-level-ef-apis"></a>Interfejsy API niskiego poziomu EF
 

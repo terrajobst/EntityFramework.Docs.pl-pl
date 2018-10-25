@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/13/2018
 ms.assetid: a0ae2f21-1eef-43c6-83ad-92275f9c0727
 uid: core/get-started/uwp/getting-started
-ms.openlocfilehash: 48d26adbe17e4734753a7ada547b9c13317bef0d
-ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
+ms.openlocfilehash: 456967a0dc981053919064a19cc9c98bf7309865
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/14/2018
-ms.locfileid: "49315623"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022379"
 ---
 # <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp-with-a-new-database"></a>Wprowadzenie do programu EF Core na platformie Universal Windows (UWP) przy użyciu nowej bazy danych
 
@@ -19,7 +19,7 @@ W tym samouczku utworzysz aplikację platformy uniwersalnej Windows (UWP), któr
 
 ## <a name="prerequisites"></a>Wymagania wstępne
 
-* [Windows 10 Fall Creators Update (10.0; Kompilacja 16299) lub nowszym](https://support.microsoft.com/en-us/help/4027667/windows-update-windows-10).
+* [Windows 10 Fall Creators Update (10.0; Kompilacja 16299) lub nowszym](https://support.microsoft.com/help/4027667/windows-update-windows-10).
 
 * [Visual Studio 2017 w wersji 15.7 lub nowszej](https://www.visualstudio.com/downloads/) z **Universal Windows Platform Development** obciążenia.
 

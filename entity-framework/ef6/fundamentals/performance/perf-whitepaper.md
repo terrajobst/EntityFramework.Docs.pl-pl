@@ -3,12 +3,12 @@ title: Zagadnienia dotyczące wydajności dla EF4, EF5 i EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: fb184fe8720b552a2050607bb17648f0413c31d1
-ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
+ms.openlocfilehash: c87c1412cb23abf232663d7e4f44eef5f7818ea2
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/30/2018
-ms.locfileid: "47459594"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022392"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Zagadnienia dotyczące wydajności na platformie EF, 4, 5 i 6
 David Obando, Eric Dettinger i inne osoby
@@ -33,7 +33,7 @@ Entity Framework 6 jest poza pasmem wersji i nie zależy od składników platfor
 
 ## <a name="2-cold-vs-warm-query-execution"></a>2. Zimnych programu vs. Wykonywanie zapytania bez wyłączania zasilania
 
-Podczas pierwszego dowolne zapytanie jest wykonywane względem danego modelu Entity Framework jest dużo pracy w tle, aby załadować i sprawdzania poprawności modelu. Często nazywamy to pierwsze zapytanie jako zapytanie "zimnymi".  Dodatkowe zapytania względem modelu już załadowana są określane jako "ciepłych" zapytań i jest znacznie szybsze.
+Podczas pierwszego dowolne zapytanie jest wykonywane względem danego modelu Entity Framework jest dużo pracy w tle, aby załadować i sprawdzania poprawności modelu. Często nazywamy to pierwsze zapytanie jako zapytanie "zimnymi".  Dodatkowe zapytania względem modelu już załadowana są określane jako "ciepłych" zapytań i jest znacznie szybsze.
 
 Teraz możesz ogólny widok, w której jest zużywany czas podczas wykonywania zapytania za pomocą programu Entity Framework i zobacz, gdzie poprawiamy rzeczy w Entity Framework 6.
 
@@ -145,7 +145,7 @@ W przypadku dużych model Code First przy użyciu niezależnych skojarzenia maj�
 
 Gdy model znajduje się bezpośrednio w projekcie aplikacji i generowanie widoków przez zdarzenie sprzed kompilacji lub szablon T4, generowania widoku i sprawdzanie poprawności nastąpi zawsze wtedy, gdy projekt zostanie ponownie skompilowany, nawet jeśli nie można zmienić modelu. Jeśli przenoszenie modelu w osobnym zestawie i odwoływać się do niego z projektu aplikacji, można zapisać wprowadzić inne zmiany aplikacji bez konieczności ponownie skompiluj projekt zawierający modelu.
 
-*Uwaga:* podczas przenoszenia modelu do oddzielnych zestawów Pamiętaj o skopiowaniu parametrów połączenia dla modelu w pliku konfiguracyjnym aplikacji projektu klienta.
+*Uwaga:*  podczas przenoszenia modelu do oddzielnych zestawów Pamiętaj o skopiowaniu parametrów połączenia dla modelu w pliku konfiguracyjnym aplikacji projektu klienta.
 
 #### <a name="243-disable-validation-of-an-edmx-based-model"></a>2.4.3 wyłączyć sprawdzanie poprawności modelu opartego na edmx
 
@@ -180,10 +180,10 @@ Brak jest brany pod uwagę wydajności do wykonania podczas korzystania z funkcj
 Przykład Znajdź ze zmianami auto-detect wyłączone:
 
 ``` csharp
-    context.Configuration.AutoDetectChangesEnabled = false;
-    var product = context.Products.Find(productId);
-    context.Configuration.AutoDetectChangesEnabled = true;
-    ...
+    context.Configuration.AutoDetectChangesEnabled = false;
+    var product = context.Products.Find(productId);
+    context.Configuration.AutoDetectChangesEnabled = true;
+    ...
 ```
 
 Co należy wziąć pod uwagę podczas korzystania z metody Znajdź jest:
@@ -201,7 +201,7 @@ Korzystając z platformy Entity Framework 6, deweloperzy mają możliwość wywo
 
 ### <a name="32-query-plan-caching"></a>3.2 buforowanie planu zapytania za pomocą
 
-Zapytanie jest wykonywane, po raz pierwszy, go przechodzi przez kompilator wewnętrzny plan do tłumaczenia koncepcyjny zapytanie na polecenia magazynu (na przykład T-SQL, który jest wykonywany po uruchomieniu testów programu SQL Server).  Jeśli włączone jest buforowanie planu zapytania, przy następnym zapytanie jest wykonywane sklepu polecenia są pobierane bezpośrednio z pamięci podręcznej planu zapytania do wykonania, z pominięciem kompilatora planu.
+Zapytanie jest wykonywane, po raz pierwszy, go przechodzi przez kompilator wewnętrzny plan do tłumaczenia koncepcyjny zapytanie na polecenia magazynu (na przykład T-SQL, który jest wykonywany po uruchomieniu testów programu SQL Server).  Jeśli włączone jest buforowanie planu zapytania, przy następnym zapytanie jest wykonywane sklepu polecenia są pobierane bezpośrednio z pamięci podręcznej planu zapytania do wykonania, z pominięciem kompilatora planu.
 
 Pamięci podręcznej planu zapytania jest współużytkowany przez obiekt ObjectContext wystąpienia w ramach tej samej domenie aplikacji. Nie należy przechowywać na wystąpienie obiektu ObjectContext do korzystania z buforowanie planu zapytania.
 
@@ -211,22 +211,22 @@ Pamięci podręcznej planu zapytania jest współużytkowany przez obiekt Object
 -   Domyślnie buforowanie planu zapytania jest włączona dla zapytań jednostki SQL, czy wykonywane za pośrednictwem EntityCommand lub ObjectQuery. Jego jest również domyślnie włączone dla programu LINQ do zapytań jednostki w Entity Framework w .NET 4.5 i Entity Framework 6
     -   Buforowanie planu zapytania, może być wyłączone przez ustawienie wartości false dla właściwości EnablePlanCaching (na EntityCommand lub ObjectQuery). Na przykład:
 ``` csharp
-                    var query = from customer in context.Customer
-                                where customer.CustomerId == id
-                                select new
-                                {
-                                    customer.CustomerId,
-                                    customer.Name
-                                };
-                    ObjectQuery oQuery = query as ObjectQuery;
-                    oQuery.EnablePlanCaching = false;
+                    var query = from customer in context.Customer
+                                where customer.CustomerId == id
+                                select new
+                                {
+                                    customer.CustomerId,
+                                    customer.Name
+                                };
+                    ObjectQuery oQuery = query as ObjectQuery;
+                    oQuery.EnablePlanCaching = false;
 ```
 -   W zapytaniach parametrycznych zmiana wartości parametru nadal będzie trafień pamięci podręcznej zapytań. Jednak zmiana parametru aspektami (na przykład rozmiaru, dokładności lub skali) spowoduje osiągnięcie inny wpis w pamięci podręcznej.
 -   Podczas korzystania z jednostki SQL, ciąg zapytania jest częścią klucza. Zmiana zapytanie na wszystkich spowoduje wpisy w pamięci podręcznej różne, nawet jeśli zapytania są funkcjonalnie równoważne. Obejmuje to zmiany wielkości liter lub była białym znakiem.
 -   Podczas korzystania z LINQ, zapytania są przetwarzane do generowania część klucza. Zmiana wyrażenia LINQ w związku z tym wygeneruje inny klucz.
 -   Inne ograniczenia techniczne mogą zastosować; Aby uzyskać więcej informacji, zobacz Autocompiled zapytania.
 
-#### <a name="322------cache-eviction-algorithm"></a>3.2.2 algorytm eksmisji pamięci podręcznej
+#### <a name="322-cache-eviction-algorithm"></a>3.2.2 algorytm eksmisji pamięci podręcznej
 
 Zrozumienie, jak działa wewnętrznego algorytmu pomoże Ci zorientować się, aby włączyć lub wyłączyć buforowanie planu zapytania. Algorytm oczyszczania jest w następujący sposób:
 
@@ -238,11 +238,11 @@ Wszystkie wpisy pamięci podręcznej są traktowani jednakowo podczas ustalania,
 
 Należy zauważyć, że czasomierza eksmisji pamięci podręcznej rozpocznie się w przypadku 800 jednostkami w pamięci podręcznej, ale w pamięci podręcznej tylko przechwytywana 60 sekund, po uruchomieniu tego czasomierza. Oznacza to, że do 60 sekund pamięci podręcznej może rosnąć dość duży.
 
-#### <a name="323-------test-metrics-demonstrating-query-plan-caching-performance"></a>3.2.3 test metryki ukazujące planu zapytania, buforowanie wydajności
+#### <a name="323-test-metrics-demonstrating-query-plan-caching-performance"></a>3.2.3 test metryki ukazujące planu zapytania, buforowanie wydajności
 
 Aby zaprezentować efekt planu zapytania, buforowanie na wydajność aplikacji, wykonane testu których firma Microsoft wykonywane liczby zapytań SQL jednostki w modelu Navision. Zobacz dodatek opis modelu Navision i typów kwerend, które zostały wykonane. W tym teście możemy najpierw iteracji przez listę zapytań i wykonywane każdego z nich raz, aby dodać je do pamięci podręcznej (jeśli jest włączone buforowanie). Ten krok jest untimed. Następnie możemy uśpienia wątku głównego ponad 60 sekund umożliwić buforowanie sprawdzaniu została wykonana; na koniec możemy wykonać iterację czasu listy 2 do wykonywania zapytań pamięci podręcznej. Ponadto on pamięci podręcznej planu programu SQL Server jest opróżniany przed wykonaniem każdego zestawu zapytań, aby przypadków, gdy uzyskany dokładnie odzwierciedlają korzyści przez pamięć podręczną planu zapytań.
 
-##### <a name="3231-------test-results"></a>3.2.3.1 wyniki testu
+##### <a name="3231-test-results"></a>3.2.3.1 wyniki testu
 
 | Test                                                                   | EF5 Brak pamięci podręcznej | EF5 pamięci podręcznej | EF6 Brak pamięci podręcznej | EF6 pamięci podręcznej |
 |:-----------------------------------------------------------------------|:-------------|:-----------|:-------------|:-----------|
@@ -266,7 +266,7 @@ Aby uzyskać więcej informacji na temat tworzenia i wywoływania CompiledQuery,
 
 Istnieją dwie kwestie, które należy wykonać, korzystając z CompiledQuery, a mianowicie wymóg dotyczący używania statycznych wystąpień oraz problemy, że zawierają dzięki możliwości tworzenia. W tym miejscu poniżej szczegółowe wyjaśnienie tych dwóch zagadnień.
 
-#### <a name="331-------use-static-compiledquery-instances"></a>3.3.1 używać statycznych wystąpień CompiledQuery
+#### <a name="331-use-static-compiledquery-instances"></a>3.3.1 używać statycznych wystąpień CompiledQuery
 
 Ponieważ kompilowanie zapytania LINQ jest czasochłonne, nie chcemy zrobić to za każdym razem, gdy będziemy musieli pobierać dane z bazy danych. Wystąpienia CompiledQuery pozwalają na raz skompilować i uruchomić wiele razy, ale trzeba należy zachować ostrożność i nabywania ponownego używania tego samego wystąpienia CompiledQuery za każdym razem, zamiast wielokrotnie zestawiania. Konieczność użycia statyczne elementy członkowskie do przechowywania wystąpień CompiledQuery; w przeciwnym razie nie będziesz widzieć żadnych korzyści.
 
@@ -292,7 +292,7 @@ Na przykład załóżmy, że Twoja strona zawiera następujące treści metody d
 
 W takim przypadku utworzysz nowe wystąpienie CompiledQuery na bieżąco za każdym razem, gdy metoda jest wywoływana. Zamiast zobaczyć korzyści wydajności, pobierając polecenie magazynu z pamięci podręcznej planu zapytania, CompiledQuery będzie przejście przez kompilator planu, za każdym razem, gdy tworzone jest nowe wystąpienie. W rzeczywistości można będzie mieć zanieczyszczenie pamięci podręcznej planu zapytania z nowym wpisem CompiledQuery za każdym razem, gdy metoda jest wywoływana.
 
-Zamiast tego chcesz utworzyć wystąpienie statyczne kompilowanym zapytaniu, więc wywoływane tego samego zapytania skompilowane za każdym razem, gdy metoda jest wywoływana. Jednym ze sposobów to przez dodanie wystąpienia CompiledQuery jako członek kontekstu obiektów.  Następnie można wprowadzić rzeczy nieco testu czyszczenia po zalogowaniu się za pośrednictwem metody pomocnika do CompiledQuery:
+Zamiast tego chcesz utworzyć wystąpienie statyczne kompilowanym zapytaniu, więc wywoływane tego samego zapytania skompilowane za każdym razem, gdy metoda jest wywoływana. Jednym ze sposobów to przez dodanie wystąpienia CompiledQuery jako członek kontekstu obiektów.  Następnie można wprowadzić rzeczy nieco testu czyszczenia po zalogowaniu się za pośrednictwem metody pomocnika do CompiledQuery:
 
 ``` csharp
     public partial class NorthwindEntities : ObjectContext
@@ -311,10 +311,10 @@ Zamiast tego chcesz utworzyć wystąpienie statyczne kompilowanym zapytaniu, wi�
 Ta metoda pomocnika będzie można wywołać w następujący sposób:
 
 ``` csharp
-    this.productsGrid.DataSource = context.GetProductsForCategory(selectedCategory);
+    this.productsGrid.DataSource = context.GetProductsForCategory(selectedCategory);
 ```
 
-#### <a name="332-------composing-over-a-compiledquery"></a>3.3.2 redagowania za pośrednictwem CompiledQuery
+#### <a name="332-composing-over-a-compiledquery"></a>3.3.2 redagowania za pośrednictwem CompiledQuery
 
 Możliwość tworzenia za pośrednictwem dowolnego zapytania LINQ jest niezwykle przydatna funkcja; Aby to zrobić, możesz po prostu wywołać metodę po element IQueryable takich jak *Skip()* lub *Count()*. Jednak sposób więc zasadniczo zwraca nowy obiekt IQueryable. Nie ma nic do uniemożliwić Ci z technicznego punktu widzenia redagowania za pośrednictwem CompiledQuery, w ten sposób spowoduje, że Generowanie nowego obiektu IQueryable, wymaga przechodzącego przez kompilator planu ponownie.
 
@@ -345,7 +345,7 @@ Jedno miejsce, gdzie może wystąpić ten jest podczas dodawania filtrów stopni
     }
 ```
 
- Aby uniknąć tego ponownej kompilacji, można ponownie napisać CompiledQuery uwzględnienie możliwych filtrów:
+ Aby uniknąć tego ponownej kompilacji, można ponownie napisać CompiledQuery uwzględnienie możliwych filtrów:
 
 ``` csharp
     private static readonly Func<NorthwindEntities, int, int?, string, IQueryable<Customer>> customersForEmployeeWithFiltersCQ = CompiledQuery.Compile(
@@ -377,7 +377,7 @@ Którego będzie można wywołać w interfejsie użytkownika, takich jak:
     }
 ```
 
- Kosztem w tym miejscu to polecenie wygenerowanego magazynu będzie ono mieć zawsze filtry z sprawdzanie wartości null, ale powinny być stosunkowo proste dla serwera bazy danych w celu optymalizacji:
+ Kosztem w tym miejscu to polecenie wygenerowanego magazynu będzie ono mieć zawsze filtry z sprawdzanie wartości null, ale powinny być stosunkowo proste dla serwera bazy danych w celu optymalizacji:
 
 ``` SQL
 ...
@@ -572,7 +572,7 @@ W przykładzie przedstawiono ogólny, ale ilustruje, jak łączenie firstQuery p
 
 ### <a name="51-disabling-change-tracking-to-reduce-state-management-overhead"></a>5.1 wyłączenie śledzenie zmian, aby zmniejszyć koszty zarządzania stanu
 
-Jeśli jesteś w scenariuszu tylko do odczytu i chcesz uniknąć zadań ładowania obiektów w obiekcie ObjectStateManager, możesz odpytywać "Bez śledzenia".  Można wyłączyć śledzenia zmian na poziomie zapytania.
+Jeśli jesteś w scenariuszu tylko do odczytu i chcesz uniknąć zadań ładowania obiektów w obiekcie ObjectStateManager, możesz odpytywać "Bez śledzenia".  Można wyłączyć śledzenia zmian na poziomie zapytania.
 
 Pamiętaj jednak, że, wyłączając możesz śledzenia zmian są efektywne wyłączenie pamięci podręcznej obiektów. Po wykonaniu zapytania dotyczącego jednostki, firma Microsoft nie można pominąć materializacja przez pobieranie wyników zapytania wcześniej zmaterializowanego w obiekcie ObjectStateManager. Jeśli są wielokrotnie wykonywaniem zapytań dotyczących tych samych jednostek na tym samym kontekście, można napotkać faktycznie wydajności korzyść z włączenia śledzenia zmian.
 
@@ -610,7 +610,7 @@ Aby przełączyć tryb zapytania na NoTracking, łańcuch wywołanie metody AsNo
                                 select p;
 ```
 
-### <a name="52-test-metrics-demonstrating-the-performance-benefit-of-notracking-queries"></a>5.2 metryki testu ukazujące korzyści w zakresie wydajności kwerend NoTracking
+### <a name="52test-metrics-demonstrating-the-performance-benefit-of-notracking-queries"></a>5.2 metryki testu ukazujące korzyści w zakresie wydajności kwerend NoTracking
 
 W tym teście spojrzymy kosztem wypełnianie obiekt ObjectStateManager porównując śledzenia zapytań NoTracking Navision modelu. Zobacz dodatek opis modelu Navision i typów kwerend, które zostały wykonane. W tym teście możemy iteracji przez listę zapytań i wykonać jeden raz każdego z nich. Uruchomiliśmy dwie odmiany testu, drugi raz z NoTracking zapytań i jeden raz z domyślną opcję scalania "TylkoDołącz". Przeprowadziliśmy poszczególnych odmian 3 razy i wykonać wartości średniej przebiegów. Między testy możemy Wyczyść pamięć podręczną zapytań w programie SQL Server i zmniejszyć tempdb, uruchamiając następujące polecenia:
 
@@ -643,7 +643,7 @@ Entity Framework oferuje kilka różnych sposobów, aby wykonać zapytanie. Firm
 -   SqlQuery.
 -   CompiledQuery.
 
-### <a name="61-------linq-to-entities-queries"></a>6.1 zapytaniach składnika LINQ to Entities
+### <a name="61-linq-to-entities-queries"></a>6.1 zapytaniach składnika LINQ to Entities
 
 ``` csharp
 var q = context.Products.Where(p => p.Category.CategoryName == "Beverages");
@@ -662,7 +662,7 @@ var q = context.Products.Where(p => p.Category.CategoryName == "Beverages");
     -   Wzory DefaultIfEmpty zapytań OUTER JOIN powoduje bardziej złożone zapytania niż proste instrukcje OUTER JOIN w języku SQL jednostki.
     -   Nadal nie można użyć NOTACJI z dopasowaniem wzorca ogólnego.
 
-### <a name="62-------no-tracking-linq-to-entities-queries"></a>6.2. Brak śledzenia LINQ do zapytań jednostki
+### <a name="62-no-tracking-linq-to-entities-queries"></a>6.2. Brak śledzenia LINQ do zapytań jednostki
 
 Gdy kontekstu pochodzi ObjectContext:
 
@@ -699,7 +699,7 @@ var q = context.Products.Where(p => p.Category.CategoryName == "Beverages").Sele
 
 To określone zapytanie nie jawnie określone, jest NoTracking, ale ponieważ nie jest materializowanie typ, który ma znane przez menedżera stanu obiektu następnie zmaterializowanym wyniku nie jest śledzone.
 
-### <a name="63-------entity-sql-over-an-objectquery"></a>6.3 jednostki SQL przez ObjectQuery
+### <a name="63-entity-sql-over-an-objectquery"></a>6.3 jednostki SQL przez ObjectQuery
 
 ``` csharp
 ObjectQuery<Product> products = context.Products.Where("it.Category.CategoryName = 'Beverages'");
@@ -715,7 +715,7 @@ ObjectQuery<Product> products = context.Products.Where("it.Category.CategoryName
 
 -   Obejmuje ciągi zapytań tekstowych, które są bardziej podatne na błędy użytkowników niż konstrukcje zapytań wbudowane w języku.
 
-### <a name="64-------entity-sql-over-an-entity-command"></a>6.4 jednostki SQL przez polecenie jednostki
+### <a name="64-entity-sql-over-an-entity-command"></a>6.4 jednostki SQL przez polecenie jednostki
 
 ``` csharp
 EntityCommand cmd = eConn.CreateCommand();
@@ -740,7 +740,7 @@ using (EntityDataReader reader = cmd.ExecuteReader(CommandBehavior.SequentialAcc
 -   Nie nadaje się do operacje CUD.
 -   Wyniki nie są automatycznie zmaterializowany i musi być odczytywana z czytnika danych.
 
-### <a name="65-------sqlquery-and-executestorequery"></a>6.5 SqlQuery i ExecuteStoreQuery
+### <a name="65-sqlquery-and-executestorequery"></a>6.5 SqlQuery i ExecuteStoreQuery
 
 SqlQuery w bazie danych:
 
@@ -778,7 +778,7 @@ var beverages = context.ExecuteStoreQuery<Product>(
 -   Zapytanie jest powiązany określonych wewnętrznej bazy danych przy użyciu semantyki magazynu zamiast semantyki pojęć.
 -   W przypadku dziedziczenia jest obecny, handcrafted zapytania trzeba uwzględnić warunki mapowania żądanego typu.
 
-### <a name="66-------compiledquery"></a>6.6 CompiledQuery
+### <a name="66-compiledquery"></a>6.6 CompiledQuery
 
 ``` csharp
 private static readonly Func<NorthwindEntities, string, IQueryable<Product>> productsForCategoryCQ = CompiledQuery.Compile(
@@ -801,7 +801,7 @@ var q = context.InvokeProductsForCategoryCQ("Beverages");
 -   Zwiększenie wydajności zostaną utracone podczas redagowania na podstawie kompilowanym zapytaniu.
 -   Nie można zapisać niektórych zapytań LINQ jako CompiledQuery — na przykład projekcje typów anonimowych.
 
-### <a name="67-------performance-comparison-of-different-query-options"></a>6.7 Porównanie wydajności opcji inne zapytanie
+### <a name="67-performance-comparison-of-different-query-options"></a>6.7 Porównanie wydajności opcji inne zapytanie
 
 Proste microbenchmarks, której nie upłynął tworzenie kontekstu pojawiły się do testu. Firma Microsoft mierzy zapytań 5000 razy dla zestawu jednostek nie są buforowane w kontrolowanym środowisku. Numery te są pobierane z ostrzeżeniem: nie odzwierciedlają wartości rzeczywistych generowany przez aplikację, ale zamiast tego są one bardzo dokładny pomiar większość różnic w wydajności jest porównaniu różne opcje zapytań jabłka do jabłek, z wyłączeniem koszt utworzenia nowego kontekstu.
 
@@ -863,7 +863,7 @@ W tym przypadku end-to-end Entity Framework 6 przewyższa stosowane przekształc
 
 ## <a name="7-design-time-performance-considerations"></a>7 zagadnienia dotyczące wydajności czasu projektowania
 
-### <a name="71-------inheritance-strategies"></a>7.1 strategie dziedziczenia
+### <a name="71-inheritance-strategies"></a>7.1 strategie dziedziczenia
 
 Inną ważną kwestią wydajności podczas korzystania z programu Entity Framework jest strategia dziedziczenia, których używasz. Entity Framework obsługuje 3 typy podstawowe dziedziczenia i ich kombinacje:
 
@@ -871,11 +871,11 @@ Inną ważną kwestią wydajności podczas korzystania z programu Entity Framewo
 -   Tabela według typu (TPT) — gdzie każdy typ ma własną tabelę w bazie danych. tabele podrzędne definiować tylko kolumny, które nie zawiera tabeli nadrzędnej.
 -   Tabela na klasę (TPC) — gdzie każdy typ ma swój własny pełną tabelę w bazie danych. tabele podrzędne definiują ich pól, takich jak te zdefiniowane typów nadrzędnych.
 
-Jeśli model korzysta z dziedziczenia TPT, zapytania, które są generowane będzie bardziej skomplikowane niż te, które są generowane z innymi strategiami dziedziczenia, które mogą powstać w dłuższym czasie wykonywania w sklepie.  Zwykle będzie trwać dłużej, do generowania zapytań za pośrednictwem modelu TPT i do zmaterializowania obiektów wynikowych.
+Jeśli model korzysta z dziedziczenia TPT, zapytania, które są generowane będzie bardziej skomplikowane niż te, które są generowane z innymi strategiami dziedziczenia, które mogą powstać w dłuższym czasie wykonywania w sklepie.  Zwykle będzie trwać dłużej, do generowania zapytań za pośrednictwem modelu TPT i do zmaterializowania obiektów wynikowych.
 
 Zobacz "zagadnienia dotyczące wydajności podczas korzystania z dziedziczenia TPT (Tabela na typ) w Entity Framework" w blogu MSDN: \<http://blogs.msdn.com/b/adonet/archive/2010/08/17/performance-considerations-when-using-tpt-table-per-type-inheritance-in-the-entity-framework.aspx>.
 
-#### <a name="711-------avoiding-tpt-in-model-first-or-code-first-applications"></a>7.1.1 unikanie TPT w aplikacjach pierwszego modelu lub Code First
+#### <a name="711-avoiding-tpt-in-model-first-or-code-first-applications"></a>7.1.1 unikanie TPT w aplikacjach pierwszego modelu lub Code First
 
 Podczas tworzenia modelu przez istniejącą bazę danych, która ma schemat TPT nie masz wiele opcji. Jednak podczas tworzenia aplikacji przy użyciu modelu pierwszej lub Code First, należy unikać TPT dziedziczenia dla problemów z wydajnością.
 
@@ -883,7 +883,7 @@ Gdy używasz pierwszego modelu w Kreatorze Projektant jednostki, otrzymasz TPT w
 
 Za pomocą Code First skonfiguruj mapowanie modelu za pomocą dziedziczenia, platforma EF użyje TPH domyślnie, dlatego wszystkie jednostki w hierarchii dziedziczenia zostaną zmapowane do tej samej tabeli. Zobacz sekcję "Mapowanie z interfejs Fluent API" artykułu "Kodu pierwszy w jednostki Framework4.1" w MSDN Magazine ( [http://msdn.microsoft.com/magazine/hh126815.aspx](https://msdn.microsoft.com/magazine/hh126815.aspx)) Aby uzyskać więcej informacji.
 
-### <a name="72-------upgrading-from-ef4-to-improve-model-generation-time"></a>7.2 uaktualniasz EF4 w celu generowania modelu czasu
+### <a name="72-upgrading-from-ef4-to-improve-model-generation-time"></a>7.2 uaktualniasz EF4 w celu generowania modelu czasu
 
 Ulepszanie specyficzne dla programu SQL Server do algorytmu, który generuje warstwę magazynu (SSDL) modelu jest dostępne w programie Entity Framework 5 i 6 i jako aktualizacja programu Entity Framework 4, po zainstalowaniu programu Visual Studio 2010 z dodatkiem SP1. Następujące wyniki testów pokazują ulepszanie podczas generowania modelu bardzo dużych, w tym przypadku modelu Navision. Aby uzyskać więcej informacji na ten temat, zobacz dodatku C.
 
@@ -899,13 +899,13 @@ W modelu danych zestawy jednostek 1005 4227 zestawów skojarzeń.
 
 Warto zauważyć, że podczas generowania SSDL, obciążenia prawie całkowicie odbywa się na programu SQL Server, gdy oczekuje na komputerze deweloperskim klienta bezczynny wyniki, aby wrócić z serwera. Przetwarzający należy szczególnie wdzięczni za to ulepszenie. Warto również zauważyć, że zasadniczo cały koszt generowania modelu odbywa się podczas generowania widoku teraz.
 
-### <a name="73-------splitting-large-models-with-database-first-and-model-first"></a>7.3 najpierw dzielenia dużych modeli z bazą danych i modelu pierwszy
+### <a name="73-splitting-large-models-with-database-first-and-model-first"></a>7.3 najpierw dzielenia dużych modeli z bazą danych i modelu pierwszy
 
 W miarę zwiększania rozmiaru modelu powierzchni projektanta staje się przepełniony i trudne w użyciu. Firma Microsoft zwykle należy wziąć pod uwagę modelu z ponad 300 jednostek zbyt duży, aby skutecznie używać projektanta. Następujący wpis w blogu opisuje kilka opcji do dzielenia dużych modeli: \<http://blogs.msdn.com/b/adonet/archive/2008/11/25/working-with-large-models-in-entity-framework-part-2.aspx>.
 
 Wpis został napisany dla pierwszej wersji programu Entity Framework, ale te kroki nadal mają zastosowanie.
 
-### <a name="74-------performance-considerations-with-the-entity-data-source-control"></a>7.4 zagadnienia dotyczące wydajności z kontrolą źródła danych jednostki
+### <a name="74-performance-considerations-with-the-entity-data-source-control"></a>7.4 zagadnienia dotyczące wydajności z kontrolą źródła danych jednostki
 
 Zobaczyliśmy przypadków w wielowątkowych wydajności i testy obciążeniowe, gdzie wydajność aplikacji sieci web za pomocą kontroli EntityDataSource pogorszy znacznie. Podstawową przyczyną jest to, że EntityDataSource wielokrotnie wywołuje MetadataWorkspace.LoadFromAssembly na zestawy przywoływane przez aplikację sieci Web, aby dowiedzieć się, typ, który będzie służyć jako jednostki.
 
@@ -913,7 +913,7 @@ Rozwiązanie jest równa ContextTypeName z EntityDataSource nazwę typu klasy po
 
 Ponadto ustawienie pola ContextTypeName zapobiega to problem z funkcjonalnością gdzie EntityDataSource w programie .NET 4.0 zgłasza wyjątku ReflectionTypeLoadException, gdy nie może załadować typu z zestawu przy użyciu odbicia. Ten problem został rozwiązany w .NET 4.5.
 
-### <a name="75-------poco-entities-and-change-tracking-proxies"></a>7.5 jednostki POCO i serwery proxy śledzenia zmian
+### <a name="75-poco-entities-and-change-tracking-proxies"></a>7.5 jednostki POCO i serwery proxy śledzenia zmian
 
 Entity Framework pozwala używać klas niestandardowych danych wraz z modelu danych bez żadnych modyfikacji klas danych, samodzielnie. Oznacza to, że za pomocą obiektów CLR "zwykły stary" (POCO), takie jak istniejące obiekty domeny, modelu danych. Te POCO klas danych (znany także jako zakresu trwałość obiektów), które są mapowane do jednostek, które są zdefiniowane w modelu danych, obsługują większości tego samego zapytania, wstawianie, aktualizowanie i usuwanie zachowania jako typy jednostek, które są generowane przez narzędzia modelu Entity Data Model.
 
@@ -1089,7 +1089,7 @@ Brak coś takiego jak opracowanie wybór wczesne ładowanie, a ładowanie z opó
 | Kod wykonuje dalekie od wartości bazy danych (opóźnienie sieci zwiększone)  | **Nie** — w przypadku opóźnienie sieci nie jest problemem, za pomocą powolne ładowanie może uprościć kod. Należy pamiętać, że topologię aplikacji, mogą ulec zmianie, więc nie odległości bazy danych dla przyznane. <br/> <br/> **Tak** — w przypadku sieci jest problemem, tylko można zdecydować, co lepiej dopasować się do danego scenariusza. Zazwyczaj wczesne ładowanie jest lepiej, ponieważ wymaga mniejszej liczby rund.                                                                                                                                                                                                      |
 
 
-#### <a name="822-------performance-concerns-with-multiple-includes"></a>8.2.2 problemów z wydajnością przy użyciu wielu obejmuje
+#### <a name="822-performance-concerns-with-multiple-includes"></a>8.2.2 problemów z wydajnością przy użyciu wielu obejmuje
 
 Wzięliśmy to pytania wydajności, które obejmują problemów czas odpowiedzi serwera, źródłem problemu jest często zapytania z wieloma instrukcjami Include. Łącznie z powiązanymi obiektami w zapytaniu jest zaawansowanych, jest ważne, aby zrozumieć, co się dzieje w sposób niewidoczny.
 
@@ -1147,7 +1147,7 @@ Dobre zasób, który pokazuje, jak włączyć dzielenia tabeli jest "Tabela podz
 
 ## <a name="9-other-considerations"></a>9 inne zagadnienia
 
-### <a name="91------server-garbage-collection"></a>9.1 wyrzucanie elementów bezużytecznych serwera
+### <a name="91-server-garbage-collection"></a>9.1 wyrzucanie elementów bezużytecznych serwera
 
 Niektórzy użytkownicy mogą wystąpić rywalizacja, który ogranicza równoległości, muszą być oczekiwana, gdy moduł odśmiecania pamięci nie jest poprawnie skonfigurowana. Zawsze, gdy EF jest używany w scenariuszu wielowątkowych, lub w dowolnej aplikacji, który przypomina systemu po stronie serwera, upewnij się włączyć serwer wyrzucania elementów bezużytecznych. Można to zrobić za pomocą proste ustawienie w pliku konfiguracji aplikacji:
 
@@ -1162,7 +1162,7 @@ Niektórzy użytkownicy mogą wystąpić rywalizacja, który ogranicza równoleg
 
 To powinno zmniejszyć swoje rywalizacji wątków i zwiększa przepustowość sieci nawet o 30% w scenariuszach procesora CPU jest przepełniony. Ogólnie rzecz biorąc zawsze należy sprawdzić, jak aplikacja zachowuje się przy użyciu klasycznego wyrzucania elementów bezużytecznych (który lepiej jest ona dostrojona dla scenariuszy po stronie interfejsu użytkownika i klienta) oraz serwer wyrzucania elementów bezużytecznych.
 
-### <a name="92------autodetectchanges"></a>9.2 AutoDetectChanges do
+### <a name="92-autodetectchanges"></a>9.2 AutoDetectChanges do
 
 Jak wspomniano wcześniej, platformy Entity Framework może wyświetlać problemy z wydajnością, gdy pamięć podręczna obiekt zawiera wiele jednostek. Niektóre operacje, takie jak Dodaj, Usuń, wyszukiwanie, zapis i SaveChanges, wyzwalania wywołań do metody DetectChanges, którego może używać dużej ilości procesora CPU, oparte na wielkości pamięci podręcznej obiektów stał się. Przyczyną jest, że pamięci podręcznej obiektów i obiektu stanu Menedżera próbę pozostają zsynchronizowane po każdej operacji wykonywane do kontekstu, aby produkowane danych może być prawidłowe w obszarze szerokiej gamy scenariuszy.
 
@@ -1183,11 +1183,11 @@ finally
 
 Przed wyłączeniem AutoDetectChanges, warto poznać, może to spowodować Entity Framework utracą możliwość śledzenia określonych informacji o zmiany, które pojawiają się na jednostkach. Jeśli obsługiwane nieprawidłowo, może to spowodować niespójność danych w swojej aplikacji. Aby uzyskać więcej informacji na temat wyłączania AutoDetectChanges, przeczytaj \<http://blog.oneunicorn.com/2012/03/12/secrets-of-detectchanges-part-3-switching-off-automatic-detectchanges/>.
 
-### <a name="93------context-per-request"></a>9.3 kontekst na żądanie
+### <a name="93-context-per-request"></a>9.3 kontekst na żądanie
 
 Konteksty platformy Entity Framework są przeznaczone do służyć jako środowisko krótkotrwałe wystąpień w celu zapewnienia najbardziej optymalną wydajność. Konteksty powinny być krótkie krótkotrwałe i usuwane i jako takie zostały zaimplementowane do bardzo i reutilize metadanych, jeśli to możliwe. W scenariuszach sieci web należy pamiętać o tym i nie kontekstu dla więcej niż czas trwania pojedynczego żądania. Podobnie w scenariuszach bez sieci web kontekstu powinny zostać odrzucone zależnie od zrozumieć różne poziomy buforowania w programie Entity Framework. Ogólnie rzecz biorąc jeden unikać występowania wystąpienie kontekstu, w całym cyklu życia aplikacji, a także kontekst na wątek i konteksty statyczne.
 
-### <a name="94------database-null-semantics"></a>9.4 semantyka wartości null bazy danych
+### <a name="94-database-null-semantics"></a>9.4 semantyka wartości null bazy danych
 
 Entity Framework domyślnie spowoduje wygenerowanie kodu SQL, który ma C\# wartość null, semantyka porównania. Należy wziąć pod uwagę poniższe przykładowe zapytanie:
 
@@ -1224,18 +1224,18 @@ Mały, średni rozmiar zapytania nie będą wyświetlane zwiększenie wydajnośc
 
 W powyższym zapytaniu przykład różnicę w wydajności była mniej niż 2% microbenchmark, działające w środowisku kontrolowanym.
 
-### <a name="95------async"></a>9.5 asynchroniczne
+### <a name="95-async"></a>9.5 asynchroniczne
 
 Obsługa Framework 6 wprowadzone jednostki operacji asynchronicznych w przypadku uruchamiania na .NET 4.5 lub nowszej. W większości przypadków aplikacji, które mają we/wy związane z rywalizacji o zasoby będą korzystać maksymalnie z zapytania asynchronicznego i operacje zapisywania. Jeśli aplikacja nie odczuwają rywalizacji o zasoby we/wy, użycie async w przypadku najlepszych były uruchamiane synchronicznie i zwracają wynik, w tym samym czasie jako synchroniczne wywołanie lub w najgorszym przypadku, po prostu Odrocz wykonywania zadania asynchronicznego i dodać dodatkowe tim e do wykonania danego scenariusza.
 
 Instrukcje dotyczące sposobu asynchronicznego programowania pracy, która pomoże przy wyborze rozwiązania, jeśli async poprawi wydajność aplikacji odwiedzanych przez użytkownika [http://msdn.microsoft.com/library/hh191443.aspx](https://msdn.microsoft.com/library/hh191443.aspx). Aby uzyskać więcej informacji dotyczących używania operacji asynchronicznych na platformie Entity Framework, zobacz [Async zapytania i Zapisz](~/ef6/fundamentals/async.md
 ).
 
-### <a name="96------ngen"></a>9.6 NGEN
+### <a name="96-ngen"></a>9.6 NGEN
 
 Entity Framework 6 nie jest dostarczany w domyślnej instalacji programu .NET framework. W efekcie zestawów platformy Entity Framework nie są domyślnie, co oznacza, że cały kod platformy Entity Framework podlega tych samych kosztów JIT'ing jako innego zestawu MSIL przez ngen. Może to obniżyć środowisko F5 podczas opracowywania, a także podczas zimnego uruchamiania aplikacji w środowiskach produkcyjnych. W celu zmniejszenia kosztów procesora CPU i pamięci JIT'ing wskazane jest NGEN obrazy platformy Entity Framework, zgodnie z potrzebami. Aby uzyskać więcej informacji na temat sposobu zwiększenia wydajności uruchamiania programu Entity Framework 6 za pomocą narzędzia NGEN, zobacz [zwiększanie wydajności uruchamiania za pomocą narzędzia NGen](~/ef6/fundamentals/performance/ngen.md).
 
-### <a name="97------code-first-versus-edmx"></a>Zbierając 9,7 najpierw kod i EDMX
+### <a name="97-code-first-versus-edmx"></a>Zbierając 9,7 najpierw kod i EDMX
 
 Entity Framework przyczyny o problemie niezgodności impedancji między programowania dzięki obiektowej i relacyjnymi bazami danych dzięki reprezentację w pamięci modelu koncepcyjnego (obiekty), schemat magazynu (baza danych) i mapowanie między dwa. Te metadane nosi nazwę modelu Entity Data Model lub EDM w skrócie. Z tym EDM Entity Framework pochodzą widoków do przesyłania danych z obiektów w pamięci do bazy danych i kopii.
 
@@ -1251,11 +1251,11 @@ Wybór użycia EDMX a Code First, jest ważne, aby dowiedzieć się, że elastyc
 
 Jeśli występują problemy z wydajnością za pomocą programu Entity Framework, można użyć profiler, takiego jak wbudowany w program Visual Studio, aby zobaczyć, gdzie aplikacja spędza czas. To narzędzie, firma Microsoft służącego do generowania wykresów kołowych "Eksplorowanie wydajności programu ADO.NET Entity Framework — część 1" wpis w blogu ( \<http://blogs.msdn.com/b/adonet/archive/2008/02/04/exploring-the-performance-of-the-ado-net-entity-framework-part-1.aspx>) ukazują, gdzie Entity Framework spędza czas podczas wykonywania kwerend ścieżce nieaktywnej i bez wyłączania zasilania.
 
-Wpis w blogu "Profilowania platformy Entity Framework przy użyciu Profiler 2010 usługi Visual Studio" napisane przez dane i modelowanie zespół doradczy klientów przedstawiono przykład rzeczywistych jak profiler one używane do badania problemów z wydajnością.  \<http://blogs.msdn.com/b/dmcat/archive/2010/04/30/profiling-entity-framework-using-the-visual-studio-2010-profiler.aspx>. Ten wpis został napisany dla aplikacji systemu windows. Jeśli chcesz profilować aplikację sieci web narzędzi rejestratora wydajności Windows (WPR) i Windows Analizator wydajności (WPA) może działać lepiej niż pracy w programie Visual Studio. WPR i WPA są częścią zestawu narzędzi wydajności Windows, który jest dołączony do Windows Assessment and Deployment Kit ( [http://www.microsoft.com/en-US/download/details.aspx?id=39982](https://www.microsoft.com/en-US/download/details.aspx?id=39982)).
+Wpis w blogu "Profilowania platformy Entity Framework przy użyciu Profiler 2010 usługi Visual Studio" napisane przez dane i modelowanie zespół doradczy klientów przedstawiono przykład rzeczywistych jak profiler one używane do badania problemów z wydajnością.  \<http://blogs.msdn.com/b/dmcat/archive/2010/04/30/profiling-entity-framework-using-the-visual-studio-2010-profiler.aspx>. Ten wpis został napisany dla aplikacji systemu windows. Jeśli chcesz profilować aplikację sieci web narzędzi rejestratora wydajności Windows (WPR) i Windows Analizator wydajności (WPA) może działać lepiej niż pracy w programie Visual Studio. WPR i WPA są częścią zestawu narzędzi wydajności Windows, który jest dołączony do Windows Assessment and Deployment Kit ( [http://www.microsoft.com/download/details.aspx?id=39982](https://www.microsoft.com/download/details.aspx?id=39982)).
 
 ### <a name="102-applicationdatabase-profiling"></a>10.2 profilowanie/bazy danych aplikacji
 
-Narzędzia, takie jak profiler wbudowany w program Visual Studio poinformować Cię, w którym aplikacja jest poświęcania czasu.  Inny rodzaj profiler jest dostępny, przeprowadza analizy dynamicznej uruchomionej aplikacji, zarówno w produkcji wstępnej lub w zależności od potrzeb, a szuka typowych pułapek oraz niezalecane wzorce dostępu do bazy danych.
+Narzędzia, takie jak profiler wbudowany w program Visual Studio poinformować Cię, w którym aplikacja jest poświęcania czasu.  Inny rodzaj profiler jest dostępny, przeprowadza analizy dynamicznej uruchomionej aplikacji, zarówno w produkcji wstępnej lub w zależności od potrzeb, a szuka typowych pułapek oraz niezalecane wzorce dostępu do bazy danych.
 
 Dwa komercyjnego profilowania są Profiler Framework jednostki ( \<http://efprof.com>) i ORMProfiler ( \<http://ormprofiler.com>).
 
@@ -1298,9 +1298,9 @@ Aby uzyskać więcej informacji na temat dodawania rejestrowanie bez koniecznoś
 
 To środowisko używa ustawień maszyny 2 z bazy danych na osobnym komputerze od aplikacji klienckiej. Maszyny są w tej samej perspektywy regału sprzętowego, więc opóźnienie sieci jest stosunkowo niska, ale bardziej realistycznego niż środowisku pojedynczego komputera.
 
-#### <a name="1111-------app-server"></a>11.1.1 serwer aplikacji
+#### <a name="1111-app-server"></a>11.1.1 serwer aplikacji
 
-##### <a name="11111------software-environment"></a>11.1.1.1 środowisko oprogramowania
+##### <a name="11111-software-environment"></a>11.1.1.1 środowisko oprogramowania
 
 -   Środowisko oprogramowania programu Entity Framework 4
     -   Nazwa systemu operacyjnego: System Windows Server 2008 R2 Enterprise z dodatkiem SP1.
@@ -1310,26 +1310,26 @@ To środowisko używa ustawień maszyny 2 z bazy danych na osobnym komputerze od
     -   Nazwa systemu operacyjnego: Windows 8.1 Enterprise
     -   Visual Studio 2013 — Ultimate.
 
-##### <a name="11112------hardware-environment"></a>11.1.1.2 środowisko sprzętu
+##### <a name="11112-hardware-environment"></a>11.1.1.2 środowisko sprzętu
 
 -   Dwurdzeniowy procesor: Intel(R) Xeon(R) L5520 Procesora W3530 @ 2,27 GHz, 2261 Mhz8 GHz, 4 rdzenie, 84 procesorów logicznych.
 -   RamRAM 2412 GB.
 -   136 GB SCSI250GB SATA 7200 obr. / min 3GB/s dysku podzielić na 4 partycjami.
 
-#### <a name="1112-------db-server"></a>11.1.2 serwer bazy danych
+#### <a name="1112-db-server"></a>11.1.2 serwer bazy danych
 
-##### <a name="11121------software-environment"></a>11.1.2.1 środowisko oprogramowania
+##### <a name="11121-software-environment"></a>11.1.2.1 środowisko oprogramowania
 
 -   Nazwa systemu operacyjnego: Windows Server 2008 R28.1 Enterprise z dodatkiem SP1.
 -   SQL Server 2008 R22012.
 
-##### <a name="11122------hardware-environment"></a>11.1.2.2 środowisko sprzętu
+##### <a name="11122-hardware-environment"></a>11.1.2.2 środowisko sprzętu
 
 -   Pojedynczy procesor: Intel(R) Xeon(R) Procesora L5520 @ 2,27 GHz, 2261 MhzES-1620 0 @ 3,60 GHz, 4 rdzenie, 8 procesorów logicznych.
 -   RamRAM 824 GB.
 -   465 GB ATA500GB SATA 7200 obr. / min 6GB/s dysku podzielić na 4 partycjami.
 
-### <a name="112------b-query-performance-comparison-tests"></a>11.2 testy porównanie wydajności zapytań B.
+### <a name="112-b-query-performance-comparison-tests"></a>11.2 testy porównanie wydajności zapytań B.
 
 Northwind model była używana do wykonywania tych testów. Został on wygenerowany z bazy danych za pomocą projektanta programu Entity Framework. Następujący kod został użyty porównać wydajność opcje wykonywania zapytań:
 
@@ -1519,7 +1519,7 @@ Proste wyszukiwanie zapytania nie agregacji
   </Query>
 ```
 
-##### <a name="11312-singleaggregating"></a>11.3.1.2 SingleAggregating
+##### <a name="11312singleaggregating"></a>11.3.1.2 SingleAggregating
 
 Normalne BI zapytanie o wiele agregacji, ale nie sumy częściowe (jedno zapytanie)
 
@@ -1540,7 +1540,7 @@ Gdzie MDF\_SessionLogin\_czasu\_Max() jest zdefiniowany w modelu w postaci:
   </Function>
 ```
 
-##### <a name="11313-aggregatingsubtotals"></a>11.3.1.3 AggregatingSubtotals
+##### <a name="11313aggregatingsubtotals"></a>11.3.1.3 AggregatingSubtotals
 
 Zapytanie analizy Biznesowej za pomocą agregacji i sumy częściowe (za pośrednictwem wszystkich Unia)
 

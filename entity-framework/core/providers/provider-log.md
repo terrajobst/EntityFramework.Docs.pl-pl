@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: f5a16e13de7f3b892cfb9b7ecb76e4973c175812
-ms.sourcegitcommit: ae399f9f3d1bae2c446b552247bd3af3ca5a2cf9
+ms.openlocfilehash: a87eca72aa58487415eea11e4f83de1a19e73506
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48575629"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022340"
 ---
 # <a name="provider-impacting-changes"></a>Zmiany wpływające na dostawcy
 
@@ -60,3 +60,4 @@ Rozpoczynamy ten dziennik zmian z 2.1 do wersji 2.2. Przed 2.1 użyliśmy [ `pro
   * Zawsze należy skonfigurować typ kolumny dla kolumny dziesiętną w utworzony szkielet kodu, zamiast konfigurować zgodnie z Konwencją.
   * Dostawców nie powinna wymagać zmiany po ich stronie.
 * https://github.com/aspnet/EntityFrameworkCore/pull/13469 -Dodaje CaseExpression generowania wyrażenia SQL CASE
+* https://github.com/aspnet/EntityFrameworkCore/pull/13648 -Dodaje możliwość określenia mapowania typów na SqlFunctionExpression w celu zwiększenia magazynu wnioskowanie argumentów i wyników.

@@ -3,12 +3,12 @@ title: Obsługiwane implementacje platformy .NET — EF Core
 author: rowanmiller
 ms.date: 08/30/2017
 uid: core/platforms/index
-ms.openlocfilehash: 347965818f0eab9a86411f66eaaf10cb3aa8d652
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 8fc25f4a35794162c92fd292990c24e977d1bf1b
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996441"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022265"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>Implementacji platformy .NET obsługiwanych przez platformę EF Core
 
@@ -41,7 +41,7 @@ Podczas korzystania z programu EF Core w platformy uniwersalnej systemu Windows:
 
 * Aby zoptymalizować wydajność zapytań, należy unikać typów anonimowych w kwerendach LINQ. Wdrażanie aplikacji do sklepu z aplikacjami platformy uniwersalnej systemu Windows wymaga od aplikacji można skompilować przy użyciu platformy .NET Native. Zapytania z typami anonimowymi ma zmniejszenie wydajności platformy .NET Native.
 
-* Aby zoptymalizować `SaveChanges()` wydajności i użycia [ChangeTrackingStrategy.ChangingAndChangedNotifications](/dotnet/api/microsoft.entityframeworkcore.changetrackingstrategy) i zaimplementować [INotifyPropertyChanged](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged.aspx), [INotifyPropertyChanging ](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanging.aspx), i [interfejsu INotifyCollectionChanged](https://msdn.microsoft.com/en-us/library/system.collections.specialized.inotifycollectionchanged.aspx) w typy jednostek.
+* Aby zoptymalizować `SaveChanges()` wydajności i użycia [ChangeTrackingStrategy.ChangingAndChangedNotifications](/dotnet/api/microsoft.entityframeworkcore.changetrackingstrategy) i zaimplementować [INotifyPropertyChanged](https://msdn.microsoft.com/library/system.componentmodel.inotifypropertychanged.aspx), [INotifyPropertyChanging ](https://msdn.microsoft.com/library/system.componentmodel.inotifypropertychanging.aspx), i [interfejsu INotifyCollectionChanged](https://msdn.microsoft.com/library/system.collections.specialized.inotifycollectionchanged.aspx) w typy jednostek.
 
 ## <a name="report-issues"></a>Zgłaszanie problemów
 
