@@ -13,9 +13,9 @@ ms.locfileid: "42995408"
 ---
 # <a name="getting-started-with-ef-core-on-net-framework"></a>Wprowadzenie do programu EF Core w programie .NET Framework
 
-Te samouczki 101-level wymaga nie wcześniejsza wiedza programu Entity Framework Core lub Visual Studio. One spowoduje przejście instrukcje dotyczące tworzenia prostej aplikacji do konsoli Framework .NET, który wykonuje kwerendę i zapisuje dane z bazy danych. Możesz skorzystać z samouczka dotyczącego tworzy model, w oparciu o istniejącą bazę danych lub tworzy bazę danych na podstawie modelu.
+Przedstawione samouczki nie wymagają wcześniejszej wiedzy dotyczącej korzystania z programów Entity Framework Core oraz Visual Studio. Pozwolą na przejście krok po kroku przez proces tworzenia prostej aplikacji do konsoli Framework .NET, który wykonuje kwerendę i zapisuje dane z bazy danych. Możesz skorzystać z samouczka dotyczącego tworzenia modelu w oparciu o istniejącą bazę danych lub dotyczącego tworzenia bazy danych na podstawie modelu.
 
-Możesz użyć techniki uzyskane w tych samouczkach w dowolnej aplikacji, który jest przeznaczony dla .NET Framework, w tym WPF i formularze winform.
+Możesz wykorzystać metod nauczonych z poradników w dowolnej aplikacji, która jest przeznaczona dla .NET Framework, w tym WPF oraz WinForms.
 
 > [!NOTE]  
-> Te samouczki i przykłady towarzyszący zostały zaktualizowane do użycia z programem EF Core 2.1. Jednak w większości przypadków powinno być możliwe tworzenie aplikacji korzystających z poprzednimi wersjami, wprowadzając minimalne modyfikacje w instrukcji.
+> Samouczki i towarzyszące im przykłady zostały zaktualizowane, aby korzystać z programu EF Core w wersji 2.1. Jednak w większości przypadków powinno być możliwe stworzenie aplikacji kompatybilnej z poprzednimi wersjami, wprowadzając zaledwie minimalne modyfikacje.
