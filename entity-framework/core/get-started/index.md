@@ -19,9 +19,9 @@ Podsumowanie kroków niezbędnych do dodawania programu EF Core do aplikacji w r
 
 ## <a name="step-by-step-tutorials"></a>Samouczki krok po kroku
 
-Przedstawione samouczki nie wymagają wcześniejszej wiedzy dotyczącej korzystania z programów Entity Framework Core ani konkretnego środowiska IDE. Pozwolą na przejście krok po kroku przez proces tworzenia prostej aplikacji, która wykonuje kwerendę i zapisuje dane z bazy danych. Udostępniliśmy samouczki, aby ułatwić rozpoczęcie pracy w różnych systemach operacyjnych i typach aplikacji.
+Przedstawione tu samouczki nie wymagają wcześniejszej wiedzy dotyczącej korzystania z programów Entity Framework Core ani konkretnego środowiska IDE. Pozwolą na przejście krok po kroku przez proces tworzenia prostej aplikacji, która wykonuje kwerendę i zapisuje dane z bazy danych. Udostępniliśmy te samouczki, aby ułatwić rozpoczęcie pracy w różnych systemach operacyjnych i typach aplikacji.
 
-Entity Framework Core może utworzyć model w oparciu o istniejącą bazę danych oraz utworzyć bazę danych w oparciu o istniejący model. Istnieją samouczki dla obu zastosowań.
+Entity Framework Core może utworzyć model w oparciu o istniejącą bazę danych lub utworzyć bazę danych w oparciu o istniejący model. Dostępne są samouczki obejmujące oba te zastosowania.
 
 * .NET framework (Konsola aplikacji formularzy WinForms, WPF)
   * [Nowa baza danych](full-dotnet/new-db.md)
@@ -36,4 +36,4 @@ Entity Framework Core może utworzyć model w oparciu o istniejącą bazę danyc
   * [Nowa baza danych](uwp/getting-started.md)
 
 > [!NOTE]  
-> Samouczki i towarzyszące im przykłady zostały zaktualizowane, aby korzystać z programu EF Core w wersji 2.1 . Jednak w większości przypadków powinno być możliwe stworzenie aplikacji kompatybilnej z poprzednimi wersjami, wprowadzając zaledwie minimalne modyfikacje.
+> Samouczki i towarzyszące im przykłady zostały zaktualizowane pod kątem programu EF Core w wersji 2.1 . Jednak w większości przypadków, przy wprowadzeniu zaledwie minimalnych zmian w instrukcjach, powinno być możliwe utworzenie aplikacji zgodnych z poprzednimi wersjami.
