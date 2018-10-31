@@ -13,17 +13,17 @@ ms.locfileid: "44250546"
 ---
 # <a name="entity-framework-core"></a>Entity Framework Core
 
-Entity Framework (EF) Core to lekka, rozszerzalna i wieloplatformowa wersja popularnej technologii do dostępu danych Entity Framework.
+Entity Framework (EF) Core to lekka, rozszerzalna i wieloplatformowa wersja popularnej technologii dostępu do danych — Entity Framework.
 
 EF Core może służyć jako maper obiektowo relacyjny (O/RM), dzięki czemu deweloperzy platformy .NET mogą pracować z bazą danych, używając obiektów platformy .NET i eliminując potrzebę pisania większości kodu dostępu do danych.
 
-EF Core obsługuje wiele baz danych, zobacz [dostawców baz danych](providers/index.md), aby uzyskać szczegółowe informacje.
+EF Core obsługuje wiele aparatów baz danych, zobacz [Dostawcy baz danych](providers/index.md), aby uzyskać szczegółowe informacje.
 
 ## <a name="the-model"></a>Model
 
-Z programem EF Core dostęp do danych odbywa się przy użyciu modelu. Model składa się z klas jednostek i pochodnej kontekstu, który reprezentuje sesję z bazą danych, pozwalając na zapytania i zapisywanie danych. Zobacz [tworzenia modelu](modeling/index.md), aby dowiedzieć się więcej.
+Z programem EF Core dostęp do danych odbywa się przy użyciu modelu. Model składa się z klas jednostek i pochodnej kontekstu, który reprezentuje sesję z bazą danych, pozwalając na zapytania i zapisywanie danych. Zobacz [Tworzenie modelu](modeling/index.md), aby dowiedzieć się więcej.
 
-Możesz wygenerować model z istniejącej bazy danych, przekazać w kodzie model pasujący do Twojej bazy danych, albo użyć EF Migrations, aby wygenerować bazę danych z podanego modelu (oraz rozwijać ją, wraz z upływem czasu).
+Możesz wygenerować model z istniejącej bazy danych, przekazać w kodzie model pasujący do Twojej bazy danych albo użyć EF Migrations, aby utworzyć bazę danych z podanego modelu (i rozwijać ją w miarę zmian modelu z upływem czasu).
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
@@ -64,7 +64,7 @@ namespace Intro
 
 ## <a name="querying"></a>Wykonywanie zapytań
 
-Instancje klas jednostek są pobierane z bazy danych, używając Language Integrated Query (LINQ). Zobacz [wykonywanie zapytań](querying/index.md), aby dowiedzieć się więcej.
+Wystąpienia klas jednostek są pobierane z bazy danych przy użyciu języka Language Integrated Query (LINQ). Zobacz [Wykonywanie zapytania o dane](querying/index.md), aby dowiedzieć się więcej.
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -78,7 +78,7 @@ using (var db = new BloggingContext())
 
 ## <a name="saving-data"></a>Zapisywanie danych
 
-Dane są tworzone, usuwane i modyfikowane w bazie danych za pomocą instancji klas jednostek. Zobacz [zapisywanie danych](saving/index.md), aby dowiedzieć się więcej.
+Dane są tworzone, usuwane i modyfikowane w bazie danych za pomocą wystąpień klas jednostek. Zobacz [zapisywanie danych](saving/index.md), aby dowiedzieć się więcej.
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -91,5 +91,5 @@ using (var db = new BloggingContext())
 
 ## <a name="next-steps"></a>Następne kroki
 
-Dla samouczków wprowadzających, zobacz na [Rozpoczęcie korzystania z platformy Entity Framework Core](get-started/index.md).
+Aby skorzystać z samouczków wprowadzających, zobacz [Wprowadzenie do platformy Entity Framework Core](get-started/index.md).
 
