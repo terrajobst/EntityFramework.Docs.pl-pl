@@ -15,13 +15,13 @@ ms.locfileid: "44250741"
 
 ## <a name="installing-ef-coreinstallindexmd"></a>[Instalowanie programu EF Core](install/index.md)
 
-Podsumowanie kroków niezbędnych do dodawania programu EF Core do aplikacji w różnych platform i popularnych środowisk IDE.
+Podsumowanie kroków niezbędnych do dodawania programu EF Core do aplikacji w różnych platformach oraz popularnych środowisk IDE.
 
 ## <a name="step-by-step-tutorials"></a>Samouczki krok po kroku
 
-Te wprowadzających samouczków wymagają nie wcześniejsza wiedza Entity Framework Core lub konkretnego środowiska IDE. One spowoduje przejście krok po kroku przez proces tworzenia prostej aplikacji, który wykonuje kwerendę i zapisuje dane z bazy danych. Udostępniliśmy samouczkami, aby rozpocząć pracę w różnych systemach operacyjnych i typów aplikacji.
+Przedstawione tu samouczki nie wymagają wcześniejszej wiedzy dotyczącej korzystania z programów Entity Framework Core ani konkretnego środowiska IDE. Pozwolą na przejście krok po kroku przez proces tworzenia prostej aplikacji, która wykonuje kwerendę i zapisuje dane z bazy danych. Udostępniliśmy te samouczki, aby ułatwić rozpoczęcie pracy w różnych systemach operacyjnych i typach aplikacji.
 
-Entity Framework Core, można utworzyć model, w oparciu o istniejącą bazę danych lub Utwórz bazę danych na podstawie modelu. Dostępne są samouczki, które pokazują, obie metody.
+Entity Framework Core może utworzyć model w oparciu o istniejącą bazę danych lub utworzyć bazę danych w oparciu o istniejący model. Dostępne są samouczki obejmujące oba te zastosowania.
 
 * .NET framework (Konsola aplikacji formularzy WinForms, WPF)
   * [Nowa baza danych](full-dotnet/new-db.md)
@@ -36,4 +36,4 @@ Entity Framework Core, można utworzyć model, w oparciu o istniejącą bazę da
   * [Nowa baza danych](uwp/getting-started.md)
 
 > [!NOTE]  
-> Te samouczki i przykłady towarzyszący zostały zaktualizowane do użycia z programem EF Core 2.1. Jednak w większości przypadków powinno być możliwe tworzenie aplikacji korzystających z poprzednimi wersjami, wprowadzając minimalne modyfikacje w instrukcji. 
+> Samouczki i towarzyszące im przykłady zostały zaktualizowane pod kątem programu EF Core w wersji 2.1 . Jednak w większości przypadków, przy wprowadzeniu zaledwie minimalnych zmian w instrukcjach, powinno być możliwe utworzenie aplikacji zgodnych z poprzednimi wersjami. 
