@@ -3,12 +3,12 @@ title: Pierwsze adnotacje danych - EF6 kodu
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 54e27f1b866da14d68db66ca5eca5a6dde819e26
-ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
+ms.openlocfilehash: 8d85ef85f56a23d9b3b526554417dc9dd360e139
+ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47415812"
+ms.lasthandoff: 11/03/2018
+ms.locfileid: "50980044"
 ---
 # <a name="code-first-data-annotations"></a>Adnotacje danych na pierwszym kodu
 > [!NOTE]
@@ -30,26 +30,26 @@ Zademonstruję DataAnnotations pierwszy kodu przy użyciu prostego pary klas: Bl
 ``` csharp
     public class Blog
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string BloggerName { get; set;}
-        public virtual ICollection<Post> Posts { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string BloggerName { get; set;}
+        public virtual ICollection<Post> Posts { get; set; }
     }
 
     public class Post
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public DateTime DateCreated { get; set; }
-        public string Content { get; set; }
-        public int BlogId { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string Content { get; set; }
+        public int BlogId { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 ```
 
 Jak są one klasy blogu i wpis wygodnie Konwencją pierwszy kodu i wymagają nie ulepszeń, aby włączyć zgodności EF. Jednak również umożliwia adnotacje zapewnienie EF więcej informacji na temat klas i bazy danych, które mapują.
 
- 
+ 
 
 ## <a name="key"></a>Key
 
@@ -60,11 +60,11 @@ Klasy blogu i wpis stosują taką Konwencję. Co zrobić, jeśli ich nie? Co zro
 ``` csharp
     public class Blog
     {
-        [Key]
-        public int PrimaryTrackingKey { get; set; }
-        public string Title { get; set; }
-        public string BloggerName { get; set;}
-        public virtual ICollection<Post> Posts { get; set; }
+        [Key]
+        public int PrimaryTrackingKey { get; set; }
+        public string Title { get; set; }
+        public string BloggerName { get; set;}
+        public virtual ICollection<Post> Posts { get; set; }
     }
 ```
 
@@ -155,11 +155,11 @@ Wymagany atrybut wpłynie również na wygenerowanej bazy danych, wprowadzając 
 >[!NOTE]
 > W niektórych przypadkach może nie być możliwe dla kolumny w bazie danych, może nie dopuszczać wartości null, nawet jeśli właściwość jest wymagana. Na przykład, gdy przy użyciu danych strategii TPH dziedziczenia dla wielu typów są przechowywane w jednej tabeli. Jeśli typ pochodny obejmuje wymagana właściwość kolumny nie można dokonać innych niż null, ponieważ nie wszystkie typy w hierarchii mają ta właściwość.
 
- 
+ 
 
 ![Blogi dotyczące tabeli](~/ef6/media/jj591583-figure03.png)
 
- 
+ 
 
 ## <a name="maxlength-and-minlength"></a>Element MaxLength i MinLength
 
@@ -187,7 +187,7 @@ Można również określić komunikat o błędzie w wymaganych adnotacji.
 
 ![Tworzenie strony przy użyciu niestandardowego komunikatu o błędzie](~/ef6/media/jj591583-figure05.png)
 
- 
+ 
 
 ## <a name="notmapped"></a>NotMapped
 
@@ -204,7 +204,7 @@ Kod Konwencji pierwsze decyduje o tym, że dla każdej właściwości, który je
     }
 ```
 
- 
+ 
 
 ## <a name="complextype"></a>ComplexType
 
@@ -215,12 +215,12 @@ Nie jest niczym niezwykłym opisują jednostek domeny przez zestaw klas, a nast�
     {
         public DateTime? DateCreated { get; set; }
 
-        [MaxLength(250)]
-        public string Description { get; set; }
+        [MaxLength(250)]
+        public string Description { get; set; }
     }
 ```
 
-Należy zauważyć, że BlogDetails nie ma żadnych typów właściwości klucza. W przypadku projektowania opartego na domenach BlogDetails nazywa się obiektu wartości. Entity Framework odnosi się do obiektów wartości jako typy złożone.  Typy złożone nie mogą być śledzone własnych.
+Należy zauważyć, że BlogDetails nie ma żadnych typów właściwości klucza. W przypadku projektowania opartego na domenach BlogDetails nazywa się obiektu wartości. Entity Framework odnosi się do obiektów wartości jako typy złożone.  Typy złożone nie mogą być śledzone własnych.
 
 Jednak jako właściwość w klasie blogu BlogDetails będzie śledzona jako część obiektu blogu. Aby najpierw umożliwia to rozpoznawanie kodu należy oznaczyć klasę BlogDetails jako ComplexType.
 
@@ -230,15 +230,15 @@ Jednak jako właściwość w klasie blogu BlogDetails będzie śledzona jako cz�
     {
         public DateTime? DateCreated { get; set; }
 
-        [MaxLength(250)]
-        public string Description { get; set; }
+        [MaxLength(250)]
+        public string Description { get; set; }
     }
 ```
 
 Teraz można dodać właściwość w klasie blogu do reprezentowania BlogDetails na blogu.
 
 ``` csharp
-        public BlogDetails BlogDetail { get; set; }
+        public BlogDetails BlogDetail { get; set; }
 ```
 
 W bazie danych w tabeli blogu będzie zawierać wszystkie właściwości blogu, w tym właściwości zawarte w jego właściwość BlogDetail. Domyślnie każdej z nich jest poprzedzone nazwą typu złożonego BlogDetail.
@@ -247,7 +247,7 @@ W bazie danych w tabeli blogu będzie zawierać wszystkie właściwości blogu, 
 
 Inny interesujący Uwaga jest mimo, że właściwość DateCreated została zdefiniowana jako nieprzyjmujące wartości daty/godziny w klasie, pole odpowiedniej bazy danych dopuszcza wartości null. Należy użyć wymaganych adnotacji, jeśli chcesz mieć wpływ na schemat bazy danych.
 
- 
+ 
 
 ## <a name="concurrencycheck"></a>ConcurrencyCheck
 
@@ -256,11 +256,11 @@ Adnotacja ConcurrencyCheck pozwala Flaga jedną lub więcej właściwości, któ
 Zobaczmy, jak działa ConcurrencyCheck, dodając ją do właściwości BloggerName.
 
 ``` csharp
-    [ConcurrencyCheck, MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
+    [ConcurrencyCheck, MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
     public string BloggerName { get; set; }
 ```
 
-Po wywołaniu funkcji SaveChanges ze względu na adnotacji ConcurrencyCheck pola BloggerName oryginalna wartość tej właściwości będzie używany w aktualizacji. Polecenie będzie podejmować próby zlokalizowania prawidłowego wiersza, filtrując nie tylko na wartości klucza, ale także w oryginalnej wartości BloggerName.  Poniżej przedstawiono krytycznych części polecenia UPDATE wysyłane do bazy danych, gdzie można zobaczyć, polecenie spowoduje zaktualizowanie wiersza, który ma PrimaryTrackingKey jest 1 i BloggerName "Julie", który podczas oryginalnej wartości w tym blogu został pobrany z bazy danych.
+Po wywołaniu funkcji SaveChanges ze względu na adnotacji ConcurrencyCheck pola BloggerName oryginalna wartość tej właściwości będzie używany w aktualizacji. Polecenie będzie podejmować próby zlokalizowania prawidłowego wiersza, filtrując nie tylko na wartości klucza, ale także w oryginalnej wartości BloggerName.  Poniżej przedstawiono krytycznych części polecenia UPDATE wysyłane do bazy danych, gdzie można zobaczyć, polecenie spowoduje zaktualizowanie wiersza, który ma PrimaryTrackingKey jest 1 i BloggerName "Julie", który podczas oryginalnej wartości w tym blogu został pobrany z bazy danych.
 
 ``` SQL
     where (([PrimaryTrackingKey] = @4) and ([BloggerName] = @5))
@@ -269,7 +269,7 @@ Po wywołaniu funkcji SaveChanges ze względu na adnotacji ConcurrencyCheck pola
 
 Jeśli ktoś zmienił nazwę blogger blogu w tym samym czasie, ta aktualizacja zakończy się niepowodzeniem, a otrzymasz DbUpdateConcurrencyException, który należy do obsługi.
 
- 
+ 
 
 ## <a name="timestamp"></a>Znacznik czasu:
 
@@ -286,7 +286,7 @@ wyniki w kodzie, najpierw tworząc kolumnę sygnatur czasowych nie dopuszcza war
 
 ![Blogi tabeli z kolumną sygnatury czasu](~/ef6/media/jj591583-figure07.png)
 
- 
+ 
 
 ## <a name="table-and-column"></a>Tabel i kolumn
 
@@ -302,7 +302,7 @@ Moje klasy ma nazwę blogu i zgodnie z Konwencją kod najpierw przyjęto założ
 Adnotacja kolumny jest więcej doświadczenie podczas określania atrybutów zamapowanych kolumn. Można zastrzec nazwę, typ danych lub nawet kolejność, w której kolumna pojawia się w tabeli. Oto przykład atrybut kolumny.
 
 ``` csharp
-    [Column(“BlogDescription", TypeName="ntext")]
+    [Column("BlogDescription", TypeName="ntext")]
     public String Description {get;set;}
 ```
 
@@ -312,7 +312,7 @@ Oto tabeli po jest zostały ponownie wygenerowane. Nazwa tabeli został zmienion
 
 ![Tabela blogi i kolumny, zmieniono jego nazwę](~/ef6/media/jj591583-figure08.png)
 
- 
+ 
 
 ## <a name="databasegenerated"></a>DatabaseGenerated
 
@@ -327,7 +327,7 @@ Można użyć bazy danych, generowany dla kolumn bajtów lub sygnatura czasowa, 
 
 Już wspomniano powyżej, domyślnie, właściwość klucza, która jest liczbą całkowitą staną się klucza tożsamości w bazie danych. Który będzie taka sama jak ustawienie DatabaseGenerated DatabaseGeneratedOption.Identity. Jeśli nie chcesz go jako klucza tożsamości, można ustawić wartości do DatabaseGeneratedOption.None.
 
- 
+ 
 
 ## <a name="index"></a>Indeks
 
@@ -389,7 +389,7 @@ Indeksy, obejmujące wiele kolumn są określane przy użyciu tej samej nazwie w
     }
 ```
 
- 
+ 
 
 ## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>Relacji atrybutów: InverseProperty i klucza obcego
 
@@ -398,25 +398,25 @@ Indeksy, obejmujące wiele kolumn są określane przy użyciu tej samej nazwie w
 
 Kod Konwencji pierwsze zajmie się najbardziej typowe relacje w modelu, ale istnieją przypadki, gdzie potrzebuje pomocy.
 
-Zmiana nazwy właściwości klucza klasy blogu utworzone problem z jego relacji do wpisu. 
+Zmiana nazwy właściwości klucza klasy blogu utworzone problem z jego relacji do wpisu. 
 
 Podczas generowania bazy danych, kod najpierw widzi właściwość BlogId w klasie Post i rozpoznaje je, zgodnie z Konwencją, czy jest on zgodny Nazwa klasy oraz "Id" jako klucza obcego do klasy blogu. Ale nie ma właściwości BlogId w klasie blogu. Rozwiązania dla tego jest utworzenie właściwości nawigacji we wpisie i użyj DataAnnotation obcego, aby najpierw zrozumieć sposób tworzenia relacji między dwoma klasami kodu — przy użyciu właściwości Post.BlogId — oraz jak określić ograniczeń, Baza danych.
 
 ``` csharp
     public class Post
     {
-            public int Id { get; set; }
-            public string Title { get; set; }
-            public DateTime DateCreated { get; set; }
-            public string Content { get; set; }
-            public int BlogId { get; set; }
-            [ForeignKey("BlogId")]
-            public Blog Blog { get; set; }
-            public ICollection<Comment> Comments { get; set; }
+            public int Id { get; set; }
+            public string Title { get; set; }
+            public DateTime DateCreated { get; set; }
+            public string Content { get; set; }
+            public int BlogId { get; set; }
+            [ForeignKey("BlogId")]
+            public Blog Blog { get; set; }
+            public ICollection<Comment> Comments { get; set; }
     }
 ```
 
-Ograniczenia w bazie danych przedstawiono relację między InternalBlogs.PrimaryTrackingKey i Posts.BlogId. 
+Ograniczenia w bazie danych przedstawiono relację między InternalBlogs.PrimaryTrackingKey i Posts.BlogId. 
 
 ![Relacja między InternalBlogs.PrimaryTrackingKey i Posts.BlogId](~/ef6/media/jj591583-figure09.png)
 
@@ -434,10 +434,10 @@ Należy również dodać w klasie osoby odwołuje się tych właściwości. Klas
 ``` csharp
     public class Person
     {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public List<Post> PostsWritten { get; set; }
-            public List<Post> PostsUpdated { get; set; }
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public List<Post> PostsWritten { get; set; }
+            public List<Post> PostsUpdated { get; set; }
     }
 ```
 
@@ -459,7 +459,7 @@ Ponieważ właściwość PostsWritten osobiście wie, to odnosi się do typu wpi
 
 ![Wpisy tabeli bez kluczy obcych dodatkowych](~/ef6/media/jj591583-figure11.png)
 
- 
+ 
 
 ## <a name="summary"></a>Podsumowanie
 

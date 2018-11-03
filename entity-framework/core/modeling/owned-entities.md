@@ -1,15 +1,16 @@
 ---
 title: Posiadane typy jednostek — EF Core
-author: julielerman
+author: AndriySvyryd
+ms.author: ansvyryd
 ms.date: 02/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 1104a8a9a4540e33624fad69c47f2f950c6669bf
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 58da3b6b951b3fa4aa04ec75f5759555c1f0cde5
+ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489417"
+ms.lasthandoff: 11/03/2018
+ms.locfileid: "50980031"
 ---
 # <a name="owned-entity-types"></a>Posiadane typy jednostek
 
@@ -22,74 +23,51 @@ EF Core umożliwia modelu typów jednostek, które mogą być wyświetlane tylko
 
 Własność jednostki typy nigdy nie znajdują się przez platformę EF Core w modelu przez Konwencję. Można użyć `OwnsOne` method in Class metoda `OnModelCreating` lub dodawać adnotacje do typu z `OwnedAttribute` (nowe w programie EF Core 2.1) Aby skonfigurować typ jako typ należące do firmy.
 
-W tym przykładzie adres jest typem, za pomocą żadnej właściwości tożsamości. Aby określić adres wysyłkowy dla określonej kolejności służy jako właściwość typu zamówienia. W `OnModelCreating`, używamy `OwnsOne` metodę, aby określić, że właściwość ShippingAddress jest jednostki należące do typu zamówienia.
+W tym przykładzie `StreetAddress` jest typem przy użyciu żadnej właściwości tożsamości. Aby określić adres wysyłkowy dla określonej kolejności służy jako właściwość typu zamówienia.
 
-``` csharp
-public class StreetAddress
-{
-    public string Street { get; set; }
-    public string City { get; set; }
-}
+Możemy użyć `OwnedAttribute` traktowanie jej jako należących do jednostki, gdy występuje do innego typu jednostki:
 
-public class Order
-{
-    public int Id { get; set; }
-    public StreetAddress ShippingAddress { get; set; }
-}
+[!code-csharp[StreetAddress](../../../samples/core/Modeling/OwnedEntities/StreetAddress.cs?name=StreetAddress)]
 
-// OnModelCreating
-modelBuilder.Entity<Order>().OwnsOne(p => p.ShippingAddress);
-```
+[!code-csharp[Order](../../../samples/core/Modeling/OwnedEntities/Order.cs?name=Order)]
 
-Jeśli właściwość ShippingAddress jest prywatna w typie kolejności, można użyć ciągu wersję `OwnsOne` metody:
+Istnieje również możliwość użycia `OwnsOne` method in Class metoda `OnModelCreating` Aby określić, że `ShippingAddress` właściwość jest własnością jednostki `Order` typu jednostki i skonfigurować dodatkowe aspekty, jeśli to konieczne.
 
-``` csharp
-modelBuilder.Entity<Order>().OwnsOne(typeof(StreetAddress), "ShippingAddress");
-```
+[!code-csharp[OwnsOne](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOne)]
 
-W tym przykładzie używamy `OwnedAttribute` do osiągnięcia tego samego celu:
+Jeśli `ShippingAddress` właściwość jest prywatna w `Order` typu, można użyć ciągu wersję `OwnsOne` metody:
 
-``` csharp
-[Owned]
-public class StreetAddress
-{
-    public string Street { get; set; }
-    public string City { get; set; }
-}
+[!code-csharp[OwnsOneString](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneString)]
 
-public class Order
-{
-    public int Id { get; set; }
-    public StreetAddress ShippingAddress { get; set; }
-}
-```
+Zobacz [pełny przykład projektu](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/OwnedEntities) Aby uzyskać dodatkowy kontekst. 
 
 ## <a name="implicit-keys"></a>Niejawne kluczy
 
-W programie EF Core 2.0 i 2.1 tylko odwołanie do właściwości nawigacji może wskazywać należących do typów. Kolekcji typów będących własnością nie są obsługiwane. Odwołanie do tych urządzeń będących własnością, typy zawsze muszą mieć relację jeden do jednego z właścicielem, dlatego nie potrzebują własne wartości klucza. W poprzednim przykładzie wpisz adres nie trzeba zdefiniować właściwość klucza.  
+Posiadane typy skonfigurowano `OwnsOne` lub odnalezione za pomocą nawigacji odwołania zawsze mieć relację jeden do jednego z właścicielem, dlatego nie potrzebują własne wartości klucza jako wartości klucza obcego są unikatowe. W poprzednim przykładzie `StreetAddress` typu nie trzeba zdefiniować właściwość klucza.  
 
-Aby dowiedzieć się, jak EF Core śledzi te obiekty, warto Pomyśl, czy klucz podstawowy został utworzony jako [w tle właściwość](xref:core/modeling/shadow-properties) należących do typu. Wartość klucza wystąpienia typu należące do firmy będzie taka sama jak wartość klucza wystąpienia właściciela.      
+Aby dowiedzieć się, jak EF Core śledzi te obiekty, warto Pomyśl, czy klucz podstawowy został utworzony jako [w tle właściwość](xref:core/modeling/shadow-properties) należących do typu. Wartość klucza wystąpienia typu należące do firmy będzie taka sama jak wartość klucza wystąpienia właściciela.
+
+## <a name="collections-of-owned-types"></a>Kolekcji typów będących własnością
+
+>[!NOTE]
+> Ta funkcja jest nowa w programie EF Core 2.2.
+
+Aby skonfigurować kolekcji typów będących własnością `OwnsMany` powinny być używane w `OnModelCreating`. Jednak klucza podstawowego nie zostanie skonfigurowany zgodnie z Konwencją, musi on być jawnie określony. Powszechne jest wprowadzanie klucza złożonego na użytek tych typów jednostek, zawierające klucz obcy do właściciela i dodatkowe unikatowa właściwość, która również może być w stanie w tle:
+
+[!code-csharp[OwnsMany](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsMany)]
 
 ## <a name="mapping-owned-types-with-table-splitting"></a>Posiadane typy z dzielenia tabeli mapowania
 
-Korzystając z relacyjnych baz danych, zgodnie z Konwencją należące do typów są mapowane na tej samej tabeli jako właściciel. Ta migracja wymaga dzielenia tabeli na dwie: niektóre kolumny będą używane do przechowywania danych właściciela, a niektóre kolumny będą używane do przechowywania danych należących do jednostki. Jest to typowe funkcje znane jako dzielenie tabeli.
+Korzystając z relacyjnych baz danych, według Konwencji odwołania należące do typów są mapowane na tej samej tabeli jako właściciel. Ta migracja wymaga dzielenia tabeli na dwie: niektóre kolumny będą używane do przechowywania danych właściciela, a niektóre kolumny będą używane do przechowywania danych należących do jednostki. Jest to typowe funkcje znane jako dzielenie tabeli.
 
 > [!TIP]
-> Posiadane typy przechowywane z dzielenia tabeli mogą być używane, bardzo podobnie jak złożonych typów są używane w EF6.
+> Posiadane typy przechowywane z dzielenia tabeli mogą być używane, podobnie jak złożonych typów są używane w EF6.
 
-Zgodnie z Konwencją programu EF Core będzie nazwa kolumny bazy danych dla właściwości typu jednostki należące do firmy, zgodnie ze wzorcem _EntityProperty_OwnedEntityProperty_. W związku z tym właściwości adres będą wyświetlane w tabeli zamówienia o nazwach ShippingAddress_Street i ShippingAddress_City.
+Zgodnie z Konwencją programu EF Core będzie nazwa kolumny bazy danych dla właściwości typu jednostki należące do firmy, zgodnie ze wzorcem _Navigation_OwnedEntityProperty_. W związku z tym `StreetAddress` właściwości będą wyświetlane w tabeli "Zamówienia" o nazwach "ShippingAddress_Street" i "ShippingAddress_City".
 
-Możesz dołączyć `HasColumnName` metodę, aby zmienić nazwę kolumny. W przypadku, gdy adres jest właściwością publiczną byłoby mapowania
+Możesz dołączyć `HasColumnName` metodę, aby zmienić te kolumny:
 
-``` csharp
-modelBuilder.Entity<Order>().OwnsOne(
-    o => o.ShippingAddress,
-    sa =>
-        {
-            sa.Property(p=>p.Street).HasColumnName("ShipsToStreet");
-            sa.Property(p=>p.City).HasColumnName("ShipsToCity");
-        });
-```
+[!code-csharp[ColumnNames](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=ColumnNames)]
 
 ## <a name="sharing-the-same-net-type-among-multiple-owned-types"></a>Udostępnianie tego samego typu .NET wśród wielu typów należące do firmy
 
@@ -97,109 +75,55 @@ Typ jednostki należące do firmy może być tego samego typu .NET jako inny typ
 
 W takich przypadkach staje się właściwość wskazuje od właściciela do jednostki należące do firmy _Definiowanie nawigacji_ typu jednostki należące do firmy. Z perspektywy programu EF Core definiujące Nawigacja jest częścią tożsamości typu wraz z typem platformy .NET.   
 
-Na przykład w następującej klasy ShippingAddress i BillingAddress są tego samego typu .NET, adres:
+Na przykład w następującej klasy `ShippingAddress` i `BillingAddress` są tego samego typu .NET `StreetAddress`:
 
-``` csharp
-public class Order
-{
-    public int Id { get; set; }
-    public StreetAddress ShippingAddress { get; set; }
-    public StreetAddress BillingAddress { get; set; }
-}
-```
+[!code-csharp[OrderDetails](../../../samples/core/Modeling/OwnedEntities/OrderDetails.cs?name=OrderDetails)]
 
 Aby dowiedzieć się, jak EF Core pomoże wyróżnić śledzonych wystąpień tych obiektów, może być wyobrazić sobie, że definiujące nawigacji stał się częścią klucza wystąpienia obok wartości klucza właściciela i typ architektury .NET typu należące do firmy.
 
 ## <a name="nested-owned-types"></a>Zagnieżdżone typy należące do firmy
 
-W tym przykładzie OrderDetails jest właścicielem BillingAddress i ShippingAddress, które są oba typy adres. Następnie OrderDetails jest własnością typ zamówienia.
+W tym przykładzie `OrderDetails` właścicielem `BillingAddress` i `ShippingAddress`, które są zarówno `StreetAddress` typów. Następnie `OrderDetails` jest własnością `DetailedOrder` typu.
 
-``` csharp
-public class Order
-{
-    public int Id { get; set; }
-    public OrderDetails OrderDetails { get; set; }
-    public OrderStatus Status { get; set; }
-}
+[!code-csharp[DetailedOrder](../../../samples/core/Modeling/OwnedEntities/DetailedOrder.cs?name=DetailedOrder)]
 
-public class OrderDetails
-{
-    public StreetAddress BillingAddress { get; set; }
-    public StreetAddress ShippingAddress { get; set; }
-}
+[!code-csharp[OrderStatus](../../../samples/core/Modeling/OwnedEntities/OrderStatus.cs?name=OrderStatus)]
 
-public enum OrderStatus
-{
-    Pending,
-    Shipped
-}
+Oprócz zagnieżdżonych typów należące do firmy typem należące do firmy można odwoływać się do regularnego jednostki, tak długo, jak należących do jednostki znajduje się na stronie zależne może być właścicielem lub innej jednostki. Ta funkcja ustawia EF6 posiadane typy jednostek oprócz typów złożonych.
 
-public class StreetAddress
-{
-    public string Street { get; set; }
-    public string City { get; set; }
-}
-```
+[!code-csharp[OrderDetails](../../../samples/core/Modeling/OwnedEntities/OrderDetails.cs?name=OrderDetails)]
 
-Istnieje możliwość łańcucha `OwnsOne` metody w mapowaniu fluent, aby skonfigurować ten model:
+Istnieje możliwość łańcucha `OwnsOne` metody w wywołaniu fluent, aby skonfigurować ten model:
 
-``` csharp
-modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
-    {
-        od.OwnsOne(c => c.BillingAddress);
-        od.OwnsOne(c => c.ShippingAddress);
-    });
-```
+[!code-csharp[OwnsOneNested](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneNested)]
 
-Istnieje możliwość osiągnąć używając tej samej kolejności `OwnedAttribute` zarówno OrderDetails, jak i StreetAdress.
-
-Oprócz zagnieżdżonych typów należące do firmy typem należące do firmy można odwoływać się do regularnego jednostki. W poniższym przykładzie kraj jest regularne jednostki należących do firmy:
-
-``` csharp
-public class StreetAddress
-{
-    public string Street { get; set; }
-    public string City { get; set; }
-    public Country Country { get; set; }
-}
-```
-
-Ta funkcja ustawia EF6 posiadane typy jednostek oprócz typów złożonych.
+Istnieje również możliwość można osiągnąć używając tej samej kolejności `OwnedAttribute` zarówno `OrderDetails` i `StreetAdress`.
 
 ## <a name="storing-owned-types-in-separate-tables"></a>Przechowywanie należące do typów w oddzielnych tabelach
 
-Również inaczej niż w przypadku typów złożonych EF6 posiadane typy mogą być przechowywane w osobnej tabeli od właściciela. Aby zastąpić Konwencji, która mapuje typ należących do tej samej tabeli jako właściciela, możesz po prostu wywołać `ToTable` i podaj inną nazwę tabeli. Poniższy przykład spowoduje mapowania OrderDetails i jego dwa adresy na osobnej tabeli z zamówienia:
+Również inaczej niż w przypadku typów złożonych EF6 posiadane typy mogą być przechowywane w osobnej tabeli od właściciela. Aby zastąpić Konwencji, która mapuje typ należących do tej samej tabeli jako właściciela, możesz po prostu wywołać `ToTable` i podaj inną nazwę tabeli. Poniższy przykład zmapuje `OrderDetails` i jego dwa adresy do osobnej tabeli z `DetailedOrder`:
 
-``` csharp
-modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
-    {
-        od.OwnsOne(c => c.BillingAddress);
-        od.OwnsOne(c => c.ShippingAddress);
-        od.ToTable("OrderDetails");
-    });
-```
+[!code-csharp[OwnsOneTable](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneTable)]
 
 ## <a name="querying-owned-types"></a>Wykonywanie zapytania dotyczącego typów należące do firmy
 
-Podczas wykonywania zapytań dotyczących właściciela należących do typów będą uwzględniane domyślnie. Nie jest konieczne użycie `Include` metody, nawet jeśli posiadane typy są przechowywane w osobnej tabeli. Na podstawie modelu opisany wcześniej, następujące zapytanie będzie pobierać zamówienie, OrderDetails i dwa StreetAddresses należących do wszystkich zamówień oczekujące z bazy danych:
+Podczas wykonywania zapytań dotyczących właściciela należących do typów będą uwzględniane domyślnie. Nie jest konieczne użycie `Include` metody, nawet jeśli posiadane typy są przechowywane w osobnej tabeli. Na podstawie modelu opisany wcześniej, następujące zapytanie zwróci `Order`, `OrderDetails` a dwa należące do `StreetAddresses` z bazy danych:
 
-``` csharp
-var orders = context.Orders.Where(o => o.Status == OrderStatus.Pending);
-```  
+[!code-csharp[DetailedOrderQuery](../../../samples/core/Modeling/OwnedEntities/Program.cs?name=DetailedOrderQuery)]
 
 ## <a name="limitations"></a>Ograniczenia
 
 Niektórych z tych ograniczeń mają zasadnicze znaczenie jak należących do pracy typów jednostek, ale niektóre inne ograniczenia, że firma Microsoft może być niemożliwe do usunięcia w przyszłych wersjach:
 
-### <a name="shortcomings-in-previous-versions"></a>Braków w poprzednich wersjach
-- W programie EF Core 2.0 tego celu należące do typów jednostek nie można zadeklarować w typach pochodny jednostki, chyba że jednostki należące do firmy są jawnie mapowany do osobnej tabeli z hierarchii właściciela. To ograniczenie zostało usunięte w programie EF Core 2.1
+### <a name="by-design-restrictions"></a>Ograniczenia według projektu
+- Nie można utworzyć `DbSet<T>` dla typu należące do firmy
+- Nie można wywołać `Entity<T>()` z typem należące do firmy na `ModelBuilder`
 
 ### <a name="current-shortcomings"></a>Bieżący wad
 - Hierarchii dziedziczenia, które obejmują posiadane typy jednostek nie są obsługiwane.
-- Posiadane typy jednostek nie może być wskazywanej przez właściwości nawigacji kolekcji (tylko odwołanie do tego są aktualnie obsługiwane)
-- Tego do typów jednostek, nie może być pusty, chyba że jawnie są mapowane na tabelę oddzielnych od właściciela
+- Odwołanie do tego celu posiadane typy jednostek nie może być pusty, chyba że jawnie są mapowane na tabelę oddzielnych od właściciela
 - Wystąpienia elementu posiadane typy jednostek nie może być współużytkowana przez wiele właścicieli (jest to dobrze znanych scenariusz obiektów wartości, które nie mogą zostać zaimplementowane przy użyciu posiadane typy jednostek)
 
-### <a name="by-design-restrictions"></a>Ograniczenia według projektu
-- Nie można utworzyć `DbSet<T>`
-- Nie można wywołać `Entity<T>()` z typem należące do firmy na `ModelBuilder`
+### <a name="shortcomings-in-previous-versions"></a>Braków w poprzednich wersjach
+- W programie EF Core 2.0 tego celu należące do typów jednostek nie można zadeklarować w typach pochodny jednostki, chyba że jednostki należące do firmy są jawnie mapowany do osobnej tabeli z hierarchii właściciela. To ograniczenie zostało usunięte w programie EF Core 2.1
+- EN programu EF Core 2.0 i 2.1 tylko odwołanie do tego typom należące do firmy są obsługiwane. To ograniczenie zostało usunięte w programie EF Core 2.2

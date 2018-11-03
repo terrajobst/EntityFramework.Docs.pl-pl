@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: c8d53b47d215c0db673c9058e9d78a7e2e7b895f
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 744ea587207775f3a5b9f7b14ba5959c55539c13
+ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250741"
+ms.lasthandoff: 11/03/2018
+ms.locfileid: "50980018"
 ---
 # <a name="getting-started-with-entity-framework-core"></a>Wprowadzenie do platformy Entity Framework Core
 
@@ -19,7 +19,7 @@ Podsumowanie kroków niezbędnych do dodawania programu EF Core do aplikacji w r
 
 ## <a name="step-by-step-tutorials"></a>Samouczki krok po kroku
 
-Przedstawione tu samouczki nie wymagają wcześniejszej wiedzy dotyczącej korzystania z programów Entity Framework Core ani konkretnego środowiska IDE. Pozwolą na przejście krok po kroku przez proces tworzenia prostej aplikacji, która wykonuje kwerendę i zapisuje dane z bazy danych. Udostępniliśmy te samouczki, aby ułatwić rozpoczęcie pracy w różnych systemach operacyjnych i typach aplikacji.
+Te wprowadzających samouczków wymagają nie wcześniejsza wiedza Entity Framework Core lub dowolnym określonym środowisku IDE. One spowoduje przejście krok po kroku proces tworzenia prostej aplikacji, który wykonuje kwerendę i zapisuje dane z bazy danych. Udostępniliśmy te samouczki, aby ułatwić rozpoczęcie pracy w różnych systemach operacyjnych i typach aplikacji.
 
 Entity Framework Core może utworzyć model w oparciu o istniejącą bazę danych lub utworzyć bazę danych w oparciu o istniejący model. Dostępne są samouczki obejmujące oba te zastosowania.
 
