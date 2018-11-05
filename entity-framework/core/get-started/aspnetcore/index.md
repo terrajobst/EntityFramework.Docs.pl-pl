@@ -13,9 +13,9 @@ ms.locfileid: "42993550"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core"></a>Wprowadzenie do programu EF Core programu ASP.NET Core
 
-Te samouczki 101 wymagają nie wcześniejsza wiedza programu Entity Framework Core lub Visual Studio. One spowoduje przejście krok po kroku przez proces tworzenia prostą aplikację platformy ASP.NET Core, która wykonuje kwerendę i zapisuje dane z bazy danych. Możesz skorzystać z samouczka dotyczącego tworzy model, w oparciu o istniejącą bazę danych lub tworzy bazę danych na podstawie modelu.
+Przedstawione samouczki nie wymagają wcześniejszej wiedzy dotyczącej korzystania z programów Entity Framework Core oraz Visual Studio. Pozwolą na przejście krok po kroku przez proces tworzenia prostej aplikacji konsolowej platformy ASP.NET Core, która wykonuje kwerendę i zapisuje dane z bazy danych. Możesz skorzystać z samouczka dotyczącego tworzenia modelu w oparciu o istniejącą bazę danych lub z samouczka dotyczącego tworzenia bazy danych w oparciu o model.
 
-Można znaleźć w dokumentacji platformy ASP.NET Core na [wprowadzenie do platformy ASP.NET Core](/aspnet/core/).
+Dokumentację platformy ASP.NET Core można znaleźć w artykule [wprowadzeniu do platformy ASP.NET Core](/aspnet/core/).
 
 > [!NOTE]  
-> Te samouczki i przykłady towarzyszący zostały zaktualizowane do użycia z programem EF Core 2.0 (z wyjątkiem samouczek platformy uniwersalnej systemu Windows, które nadal używa programu EF Core 1.1). Jednak w większości przypadków powinno być możliwe tworzenie aplikacji korzystających z poprzednimi wersjami, wprowadzając minimalne modyfikacje w instrukcji.
+> Samouczki i towarzyszące im przykłady zostały zaktualizowane, aby korzystać z programu EF Core w wersji 2.0 (z wyjątkiem samouczka dotyczącego platformy uniwersalnej systemu Windows, który nadal używa programu EF Core 1.1). Jednak w większości przypadków powinno być możliwe stworzenie aplikacji zgodnej z poprzednimi wersjami, wprowadzając zaledwie minimalne modyfikacje.

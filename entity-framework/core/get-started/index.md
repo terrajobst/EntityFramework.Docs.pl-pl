@@ -1,4 +1,4 @@
----
+﻿---
 title: Rozpoczynanie pracy — EF Core
 author: rowanmiller
 ms.date: 10/27/2016
@@ -19,7 +19,7 @@ Podsumowanie kroków niezbędnych do dodawania programu EF Core do aplikacji w r
 
 ## <a name="step-by-step-tutorials"></a>Samouczki krok po kroku
 
-Te wprowadzających samouczków wymagają nie wcześniejsza wiedza Entity Framework Core lub dowolnym określonym środowisku IDE. One spowoduje przejście krok po kroku proces tworzenia prostej aplikacji, który wykonuje kwerendę i zapisuje dane z bazy danych. Udostępniliśmy te samouczki, aby ułatwić rozpoczęcie pracy w różnych systemach operacyjnych i typach aplikacji.
+Przedstawione tu samouczki nie wymagają wcześniejszej wiedzy dotyczącej korzystania z programów Entity Framework Core ani konkretnego środowiska IDE. Pozwolą na przejście krok po kroku przez proces tworzenia prostej aplikacji, która wykonuje kwerendę i zapisuje dane z bazy danych. Udostępniliśmy te samouczki, aby ułatwić rozpoczęcie pracy w różnych systemach operacyjnych i typach aplikacji.
 
 Entity Framework Core może utworzyć model w oparciu o istniejącą bazę danych lub utworzyć bazę danych w oparciu o istniejący model. Dostępne są samouczki obejmujące oba te zastosowania.
 
@@ -36,4 +36,4 @@ Entity Framework Core może utworzyć model w oparciu o istniejącą bazę danyc
   * [Nowa baza danych](uwp/getting-started.md)
 
 > [!NOTE]  
-> Samouczki i towarzyszące im przykłady zostały zaktualizowane pod kątem programu EF Core w wersji 2.1 . Jednak w większości przypadków, przy wprowadzeniu zaledwie minimalnych zmian w instrukcjach, powinno być możliwe utworzenie aplikacji zgodnych z poprzednimi wersjami. 
+> Samouczki i towarzyszące im przykłady zostały zaktualizowane pod kątem programu EF Core w wersji 2.1 . Jednak w większości przypadków, przy wprowadzeniu zaledwie minimalnych zmian w instrukcjach, powinno być możliwe utworzenie aplikacji zgodnych z poprzednimi wersjami.
