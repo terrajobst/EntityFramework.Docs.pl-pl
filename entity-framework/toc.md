@@ -72,7 +72,7 @@
 ##### [Korzystanie z osobnego projektu](core/managing-schemas/migrations/projects.md)
 ##### [Wielu dostawców](core/managing-schemas/migrations/providers.md)
 ##### [Niestandardowa tabela historii](core/managing-schemas/migrations/history-table.md)
-#### [🔧 Tworzenie i upuszczanie interfejsów API](core/managing-schemas/ensure-created.md)
+#### [Tworzenie i upuszczanie interfejsów API](core/managing-schemas/ensure-created.md)
 #### [🔧 Odtwarzanie](core/managing-schemas/scaffolding.md)
 
 ### [Wykonanie zapytania o dane](core/querying/index.md)
