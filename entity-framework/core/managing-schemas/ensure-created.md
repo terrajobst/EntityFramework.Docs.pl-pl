@@ -2,28 +2,28 @@
 title: Tworzenie i upuszczanie interfejsów API — EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 11/10/2017
-ms.openlocfilehash: 336f6fd655603a2474a58dfef377e121d9b04c3a
-ms.sourcegitcommit: a088421ecac4f5dc5213208170490181ae2f5f0f
+ms.date: 11/7/2018
+ms.openlocfilehash: 40d9e3aa0aba1bf2bc341f01dd815ed7cb7b48fa
+ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/08/2018
-ms.locfileid: "51285642"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51688632"
 ---
 # <a name="create-and-drop-apis"></a>Tworzenie i upuszczanie interfejsów API
 
-Metody EnsureCreated i EnsureDeleted udostępniają uproszczone zamiast [migracje](migrations/index.md) zarządzania schemat bazy danych. Może to być przydatne w sytuacjach, gdy dane są przejściowy i można było porzucić po zmianie schematu. Na przykład podczas tworzenia prototypów w testach lub pamięciach podręcznych.
+Metody EnsureCreated i EnsureDeleted udostępniają uproszczone zamiast [migracje](migrations/index.md) zarządzania schemat bazy danych. Te metody są przydatne w scenariuszach danych jest przejściowy i można było porzucić po zmianie schematu. Na przykład podczas tworzenia prototypów w testach lub pamięciach podręcznych.
 
-Niektórzy dostawcy (zwłaszcza tymi nierelacyjnych) nie obsługuje migracji. W tym przypadku EnsureCreated często jest najprostszym sposobem zainicjować schemat bazy danych.
+Niektórzy dostawcy (zwłaszcza tymi nierelacyjnych) nie obsługuje migracji. W przypadku tych dostawców EnsureCreated często jest najprostszym sposobem zainicjować schemat bazy danych.
 
 > [!WARNING]
 > EnsureCreated i migracje nie działają dobrze ze sobą. Jeśli używasz migracji, nie należy używać EnsureCreated zainicjować schematu.
 
-Przechodzenie ze EnsureCreated do migracji nie jest bezproblemowe. Jest simpelest sposób osiągnięcia tego celu porzucenia bazy danych i ponownego utworzenia go za pomocą migracji. Jeśli przewidujesz używanie migracji w przyszłości, najlepiej zamiast EnsureCreated, po prostu zacznij z migracji.
+Przechodzenie ze EnsureCreated do migracji nie jest bezproblemowe. Najprostszym sposobem, aby to zrobił jest porzucenia bazy danych i ponownego utworzenia go za pomocą migracji. Jeśli przewidujesz używanie migracji w przyszłości, najlepiej zamiast EnsureCreated, po prostu zacznij z migracji.
 
 ## <a name="ensuredeleted"></a>EnsureDeleted
 
-Metoda EnsureDeleted spowoduje porzucenie bazy danych, jeśli taki istnieje. Wyjątek jest generowany, jeśli nie masz odpowiednie uprawnienia.
+Metoda EnsureDeleted spowoduje porzucenie bazy danych, jeśli taki istnieje. Jeśli nie masz odpowiednich uprawnień, jest zgłaszany wyjątek.
 
 ``` csharp
 // Drop the database if it exists
