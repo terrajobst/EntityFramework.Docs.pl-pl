@@ -3,12 +3,12 @@ title: Interfejs Fluent API — Konfigurowanie i mapowania właściwości i typy
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 648ed274-c501-4630-88e0-d728ab5c4057
-ms.openlocfilehash: 031376d2fc4778e6f0fa2434ab7ccfd45d436c4a
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 7371cc99142ccf8fc6bea237d7d58d1e67fcecec
+ms.sourcegitcommit: 75f8a179ac9a70ad390fc7ab2a6c5e714e701b8b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490203"
+ms.lasthandoff: 11/27/2018
+ms.locfileid: "52339806"
 ---
 # <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Interfejs API Fluent — Konfigurowanie i mapowania właściwości i typy
 Podczas pracy z programu Entity Framework Code First to zachowanie domyślne jest do mapowania klas usługi POCO tabel przy użyciu zestawu konwencje wbudowanymi do programów EF. Czasami jednak użytkownik nie może lub nie powinny być zgodne z konwencjami te i zamapować jednostek na coś innego niż co zgodnie z konwencjami.  
@@ -24,7 +24,7 @@ Kod pierwszego interfejsu API fluent najczęściej odbywa się przez zastąpieni
 Uruchamianie platformy EF6 umożliwia metoda HasDefaultSchema na DbModelBuilder Określ schemat bazy danych do użycia dla wszystkich tabel, procedur składowanych, itp. To ustawienie domyślne, zostaną zastąpione dla obiektów, które jawnie skonfigurujesz inny schemat.  
 
 ``` csharp
-modelBuilder.HasDefaultSchema(“sales”);
+modelBuilder.HasDefaultSchema("sales");
 ```  
 
 ### <a name="custom-conventions-ef6-onwards"></a>Konwencje niestandardowe (od wersji EF6)  
