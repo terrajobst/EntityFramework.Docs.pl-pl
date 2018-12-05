@@ -3,12 +3,12 @@ title: Migracje Code First na środowiska zespołowe - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 4c2d9a95-de6f-4e97-9738-c1f8043eff69
-ms.openlocfilehash: f5216a80928625040d6719f0e97ae786e5e33e05
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 53460b6cdd454099ccf93b4e2133e4ea21278a64
+ms.sourcegitcommit: fa863883f1193d2118c2f9cee90808baa5e3e73e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490509"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52857471"
 ---
 # <a name="code-first-migrations-in-team-environments"></a>Migracje Code First na środowiska zespołowe
 > [!NOTE]
@@ -82,7 +82,7 @@ Istnieje wiele możliwych przyczyn, które EF przechowuje migawki modelu wokół
     -   Aby dodać kolumnę do jednej lub kilku tabel wstawione i zaktualizowane, ale nie chcesz uwzględnić te kolumny w modelu platformy EF. Jeśli migracja przyjrzano się bazy danych stale może spróbować usunąć te kolumny, za każdym razem, gdy działanie migracji. Przy użyciu migawki modelu, EF tylko wykryje uzasadnione zmiany w modelu.
     -   Chcesz zmienić treść funkcji procedurę składowaną, która jest używana w przypadku aktualizacji do uwzględnienia niektórych rejestrowania. Jeśli migracji przyjrzano tę procedurę składowaną z bazy danych będzie stale spróbuj i przywrócić jego definicji, który oczekuje, że EF. Za pomocą migawki modelu, EF będzie tylko tworzenia szkieletu kodu lub zmieniać procedury składowanej w przypadku zmiany kształtu procedurę opisaną w modelu platformy EF.
     -   Te same zasady mają zastosowanie do dodawania dodatkowych indeksów, w tym dodatkowe tabele w bazie danych, mapowanie EF na widok bazy danych, który znajduje się za pośrednictwem tabeli itp.
--   Modelu platformy EF zawiera więcej niż tylko kształt bazy danych. Posiadanie cały model umożliwia migracji wyświetlić informacje dotyczące właściwości i klasy w modelu oraz sposobu mapowania ich na kolumn i tabel. Informacje te pozwalają migracje się bardziej inteligentne w kodzie, który go szkielety mechanizmów. Na przykład jeśli zmienisz nazwę kolumny, która właściwość mapuje do migracji może wykrywać zmiany nazwy, zobaczysz, że jest tę samą właściwość — coś, co nie można przeprowadzić, jeśli masz tylko schemat bazy danych. 
+-   Modelu platformy EF zawiera więcej niż tylko kształt bazy danych. Posiadanie cały model umożliwia migracji wyświetlić informacje dotyczące właściwości i klasy w modelu oraz sposobu mapowania ich na kolumn i tabel. Informacje te pozwalają migracje się bardziej inteligentne w kodzie, który go szkielety mechanizmów. Na przykład jeśli zmienisz nazwę kolumny, która właściwość mapuje do migracji może wykrywać zmiany nazwy, zobaczysz, że jest tę samą właściwość — coś, co nie można przeprowadzić, jeśli masz tylko schemat bazy danych. 
 
 ## <a name="what-causes-issues-in-team-environments"></a>Co powoduje, że problemy w środowiskach zespołu
 
@@ -109,7 +109,7 @@ To dzień, szczęście Deweloper \#1 po ich wprowadzeniu przedstawią ich zmiany
 
 ![Prześlij](~/ef6/media/submit.png)
 
-Teraz nadszedł czas na dewelopera \#2, aby przesłać. Nie są one takie szczęście. Ponieważ ktoś inny zostało przesłane zmiany, ponieważ są synchronizowane, należy ściągnąć zmiany i scalania. System kontroli źródła prawdopodobnie będzie automatycznie scalić zmiany na poziomie kodu, ponieważ są one bardzo proste. Stan dla deweloperów \#2 użytkownika lokalnego repozytorium po synchronizacji jest przedstawiony na poniższym rysunku. 
+Teraz nadszedł czas na dewelopera \#2, aby przesłać. Nie są one takie szczęście. Ponieważ ktoś inny zostało przesłane zmiany, ponieważ są synchronizowane, należy ściągnąć zmiany i scalania. System kontroli źródła prawdopodobnie będzie automatycznie scalić zmiany na poziomie kodu, ponieważ są one bardzo proste. Stan dla deweloperów \#2 użytkownika lokalnego repozytorium po synchronizacji jest przedstawiony na poniższym rysunku. 
 
 ![Ściągnij](~/ef6/media/pull.png)
 
@@ -140,8 +140,7 @@ Następujący proces może służyć w tym podejściu, rozpoczynając od godziny
 1.  Upewnij się, że wszelkie zmiany oczekujące modelu w kodzie lokalnych, zostały zapisane w migracji. Ten krok zapewnia, że nie przegap wszelkie uzasadnione zmiany, kiedy nastąpi moment, aby wygenerować pusty migracji.
 2.  Synchronizowanie z kontrolą źródła.
 3.  Uruchom **Update-Database** do zastosowania nowej migracji, które zostały zaewidencjonowane innym deweloperom.
-    **
-    *Uwaga: *** Jeśli nie dostaniesz żadnych ostrzeżeń polecenia Update-Database nie było żadnych nowych migracje od innych deweloperów i trzeba wykonywać dalszych scalania.*
+    **_Uwaga:_**  *Jeśli nie dostaniesz żadnych ostrzeżeń polecenia Update-Database nie było żadnych nowych migracje od innych deweloperów i trzeba wykonywać dalszych scalania.*
 4.  Uruchom **migracji Dodaj &lt;wybierz\_\_nazwa&gt; — IgnoreChanges** (na przykład **scalania migracji Dodaj — IgnoreChanges**). To generuje migracji za pomocą wszystkich metadanych (w tym migawki bieżącego modelu), ale będzie ignorować wszelkie zmiany wykrycia podczas porównywania bieżący model z migawką w ostatnim migracji (co oznacza, Pobierz pusty **się** i **Dół** metody).
 5.  Kontynuować tworzenie lub Prześlij do kontroli źródła (po wykonywania z testów jednostkowych oczywiście).
 
@@ -162,14 +161,11 @@ Następujący proces może służyć w tym podejściu, rozpoczynając od godziny
 1.  Upewnij się, że wszelkie zmiany oczekujące modelu w kodzie lokalnych, zostały zapisane w migracji. Ten krok zapewnia, że nie przegap wszelkie uzasadnione zmiany, kiedy nastąpi moment, aby wygenerować pusty migracji.
 2.  Synchronizowanie z kontrolą źródła.
 3.  Uruchom **Update-Database** do zastosowania nowej migracji, które zostały zaewidencjonowane innym deweloperom.
-    **
-    *Uwaga: *** Jeśli nie dostaniesz żadnych ostrzeżeń polecenia Update-Database nie było żadnych nowych migracje od innych deweloperów i trzeba wykonywać dalszych scalania.*
+    **_Uwaga:_**  *Jeśli nie dostaniesz żadnych ostrzeżeń polecenia Update-Database nie było żadnych nowych migracje od innych deweloperów i trzeba wykonywać dalszych scalania.*
 4.  Uruchom **Update-Database-TargetMigration &lt;drugi\_ostatniego\_migracji&gt;**  (w przykładzie, możemy wykonywano takie rozwiązanie byłoby **aktualizacji bazy danych — TargetMigration AddRating**). To role bazy danych z powrotem do stanu drugiego ostatnie migracji — skutecznie "bez stosowania" ostatniej migracji z bazy danych.
-    **
-    *Uwaga: *** ten krok jest wymagany, aby bezpiecznie edytować metadane migracji, ponieważ metadane są również przechowywane w \_ \_MigrationsHistoryTable bazy danych. Jest to, dlaczego tej opcji należy używać tylko, jeśli ostatni migracji jest tylko w lokalnej bazie kodu. Jeśli innych baz danych było ostatniej migracji, które są stosowane również masz do nich wycofać, a następnie ponownie zastosuj ostatniej migracji w celu zaktualizowania metadanych.* 
+    **_Uwaga:_**  *ten krok jest wymagany, aby bezpiecznie edytować metadane migracji, ponieważ metadane są również przechowywane w \_ \_MigrationsHistoryTable bazy danych. Jest to, dlaczego tej opcji należy używać tylko, jeśli ostatni migracji jest tylko w lokalnej bazie kodu. Jeśli innych baz danych było ostatniej migracji, które są stosowane również masz do nich wycofać, a następnie ponownie zastosuj ostatniej migracji w celu zaktualizowania metadanych.* 
 5.  Uruchom **migracji Dodaj &lt;pełną\_nazwa\_tym\_sygnatura czasowa\_z\_ostatniego\_migracji** &gt; (w tym przykładzie Firma Microsoft wykonywano powinien to być podobny do **201311062215252 migracji Dodaj\_AddReaders**).
-    **
-    *Uwaga: *** muszą zawierać sygnaturę czasową, aby migracje wie, którą chcesz edytować istniejące migracji, a nie tworzenia szkieletów nową.*
+    **_Uwaga:_**  *muszą zawierać sygnaturę czasową, aby migracje wie, którą chcesz edytować istniejące migracji, a nie tworzenia szkieletów nową.*
     Spowoduje to zaktualizowanie metadanych dla ostatniej migracji do dopasowania w bieżącym modelu. Po wykonaniu polecenia, ale jest to dokładnie co chcesz otrzymasz następujące ostrzeżenie. "*Tylko kodu projektanta do migracji" 201311062215252\_AddReaders został ponownie utworzony szkielet. Aby ponownie utworzyć szkielet całego migracji, należy użyć parametru - Force. "*
 6.  Uruchom **Update-Database** Ponowne zgłoszenie chęci najnowszych migracji ze zaktualizowanymi metadanymi.
 7.  Kontynuować tworzenie lub Prześlij do kontroli źródła (po wykonywania z testów jednostkowych oczywiście).
