@@ -4,16 +4,16 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 21cb688d6775039def3b0be12768da71b5d96531
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 0ad9731840c5f72064f2f66932b9867a0144f437
+ms.sourcegitcommit: 2da6f9b05e1ce3a46491e5cc68f17758bdeb6b02
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997147"
+ms.lasthandoff: 12/06/2018
+ms.locfileid: "53006872"
 ---
 # <a name="raw-sql-queries"></a>Pierwotne zapytania SQL
 
-Entity Framework Core umożliwia lista rozwijana umożliwiająca pierwotne zapytania SQL podczas pracy z usługą relacyjnej bazy danych. Może to być przydatne, jeśli zapytanie, które należy wykonać, nie można wyrazić za pomocą LINQ lub przy użyciu zapytania LINQ wynikiem jest nieefektywne SQL wysyłane do bazy danych. Pierwotne zapytania SQL może zwrócić typów jednostek, lub, począwszy od programu EF Core 2.1, [typy zapytań](xref:core/modeling/query-types) będących częścią modelu.
+Entity Framework Core umożliwia lista rozwijana umożliwiająca pierwotne zapytania SQL podczas pracy z usługą relacyjnej bazy danych. Może to być przydatne, jeśli zapytanie, które należy wykonać, nie można wyrazić za pomocą LINQ lub przy użyciu zapytania LINQ wynikiem jest nieefektywne zapytania SQL. Pierwotne zapytania SQL może zwrócić typów jednostek, lub, począwszy od programu EF Core 2.1, [typy zapytań](xref:core/modeling/query-types) będących częścią modelu.
 
 > [!TIP]  
 > [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.
@@ -88,13 +88,13 @@ Można także skonstruować DbParameter i podać go jako wartość parametru. Dz
 var user = new SqlParameter("user", "johndoe");
 
 var blogs = context.Blogs
-    .FromSql("EXECUTE dbo.GetMostPopularBlogsForUser @user", user)
+    .FromSql("EXECUTE dbo.GetMostPopularBlogsForUser @user", user)
     .ToList();
 ```
 
 ## <a name="composing-with-linq"></a>Tworzenie za pomocą LINQ
 
-Jeśli zapytanie SQL może być składana na w bazie danych, można utworzyć na podstawie początkowego pierwotne zapytania SQL przy użyciu operatorów LINQ. Zapytania SQL, które mogą się składać z tego za pomocą `SELECT` — słowo kluczowe.
+Jeśli zapytanie SQL może być składana na w bazie danych, można utworzyć na podstawie początkowego pierwotne zapytania SQL przy użyciu operatorów LINQ. Zapytania SQL, które mogą być składane na zaczynają się od `SELECT` — słowo kluczowe.
 
 W poniższym przykładzie użyto pierwotne zapytanie SQL, które wybiera z funkcji Table-Valued (TVF), a następnie komponuje się na nim za pomocą LINQ, aby wykonać filtrowanie i sortowanie.
 
@@ -118,8 +118,8 @@ Tworzenie przy użyciu operatorów LINQ, może służyć do uwzględnienia powi�
 var searchTerm = ".NET";
 
 var blogs = context.Blogs
-    .FromSql($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
-    .Include(b => b.Posts)
+    .FromSql($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
+    .Include(b => b.Posts)
     .ToList();
 ```
 
