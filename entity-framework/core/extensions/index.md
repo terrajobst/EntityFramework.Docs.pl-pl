@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 07/03/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 1edc7a20f54b2d26f899c93e98dfaf6d62c29f86
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 67eae6cb943b974cc9cd581b8054836d2e37b1e9
+ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490730"
+ms.lasthandoff: 12/10/2018
+ms.locfileid: "53181997"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core Tools i rozszerzenia
 
@@ -43,6 +43,19 @@ Visual Studio 2017 + rozszerzenie. Możesz odtwarzać klasy DbContext i POCO z i
 Rozszerzenie programu Visual Studio 2017, które dodaje Projektant ORM dla projektowania wizualnego klasy Entity Framework 6, Core 2.0 i Core 2.1. Kod jest generowany przy użyciu szablonów T4, dzięki czemu można całkowicie dostosować, zgodnie z potrzebami wszystkie. Dziedziczenie, jednokierunkowe i skojarzenia dwukierunkowych są obsługiwane i są wyliczenia i możliwość kolorować klas i Dodaj bloki tekstu, aby wyjaśnić, potencjalnie specjalne części projektu.
 
 [Portal Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
+
+### <a name="catfactory"></a>CatFactory
+
+CatFactory to aparat tworzenia szkieletów dla platformy .NET Core i Entity Framework Core. Koncepcja za CatFactory jest eksportu istniejącej bazy danych z wystąpienia programu SQL Server, a następnie z reprezentacją w modeli na potrzeby bazy danych. Tworzenie szkieletu jednostek, konfiguracje, repozytoriów i więcej.
+
+[Repozytorium GitHub](https://github.com/hherzl/CatFactory.EntityFrameworkCore)
+
+### <a name="loresofts-entity-framework-core-generator"></a>Firmy LoreSoft Entity Framework Core Generator
+
+Entity Framework Core Generator (efg) jest narzędziem wiersza polecenia platformy .NET Core z można wygenerować modeli programu EF Core istniejącą bazę danych, podobnie jak `dotnet ef dbcontext scaffold`. Jednak różni się w tym, że obsługuje ona również bezpieczny kod [ponownego wygenerowania](https://efg.loresoft.com/en/latest/regeneration/). Ponowne generowanie odbywa się za pomocą zastąpienia regionu lub analizując pliki mapowania. Narzędzie obsługuje również generowania modeli widoków, weryfikacji i obiektu mapowania kodu. Aby uzyskać więcej informacji zobacz samouczek i linki do dokumentacji produktów.
+
+[Samouczek](http://www.loresoft.com/Generate-ASP-NET-Web-API)
+[dokumentacji](https://efg.loresoft.com/en/latest/)
 
 ## <a name="extensions"></a>Rozszerzenia
 

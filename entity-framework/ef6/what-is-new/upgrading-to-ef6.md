@@ -3,12 +3,12 @@ title: Uaktualnianie do programu Entity Framework 6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 29958ae5-85d3-4585-9ba6-550b8ec9393a
-ms.openlocfilehash: 2e2dacfe67238bdb7fd1f31f784319049f0f2cb0
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 711f1940080de27bd23cb8f641a5c7f2711dd65b
+ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490951"
+ms.lasthandoff: 12/10/2018
+ms.locfileid: "53182010"
 ---
 # <a name="upgrading-to-entity-framework-6"></a>Uaktualnianie do programu Entity Framework 6
 
@@ -66,20 +66,20 @@ Typów, takich jak ObjectContext, które były wcześniej System.Data.Entity.dll
 
 Ogólną zasadą zmian przestrzeni nazw jest, że dowolnego typu w System.Data.* jest przenoszony do System.Data.Entity.Core.*. Innymi słowy, wystarczy wstawić **Entity.Core.** Po dane systemowe. Na przykład:
 
-- System.Data.EntityException = > dane systemowe. **Entity.Core.** EntityException  
-- System.Data.Objects.ObjectContext = > dane systemowe. **Entity.Core.** Objects.ObjectContext  
-- System.Data.Objects.DataClasses.RelationshipManager = > dane systemowe. **Entity.Core.** Objects.DataClasses.RelationshipManager  
+- System.Data.EntityException = > dane systemowe. **Entity.Core**. EntityException  
+- System.Data.Objects.ObjectContext = > dane systemowe. **Entity.Core**. Objects.ObjectContext  
+- System.Data.Objects.DataClasses.RelationshipManager = > dane systemowe. **Entity.Core**. Objects.DataClasses.RelationshipManager  
 
 Te typy są w *Core* przestrzenie nazw, ponieważ nie są używane bezpośrednio w przypadku większości aplikacji na podstawie typu DbContext. Niektóre typy, które były częścią System.Data.Entity.dll są nadal używane najczęściej i bezpośrednio do aplikacji opartych na DbContext i dlatego nie zostały przeniesione do *Core* przestrzeni nazw. Są to:
 
-- System.Data.EntityState = > dane systemowe. **Jednostki.** EntityState  
+- System.Data.EntityState = > dane systemowe. **Jednostki**. EntityState  
 - System.Data.Objects.DataClasses.EdmFunctionAttribute = > dane systemowe. **Entity.DbFunctionAttribute**  
   > [!NOTE]
   > Ta klasa została zmieniona; Klasa o starej nazwie nadal istnieje i działa, ale jej oznaczone jako przestarzałe.  
 - System.Data.Objects.EntityFunctions = > dane systemowe. **Entity.DbFunctions**  
   > [!NOTE]
   > Ta klasa została zmieniona; Klasa o starej nazwie nadal istnieje i działa, ale teraz oznaczone jako przestarzałe).  
-- Przestrzenne klasy (na przykład DbGeography, DbGeometry) zostały przeniesione z System.Data.Spatial = > dane systemowe. **Jednostki.** Przestrzenne
+- Przestrzenne klasy (na przykład DbGeography, DbGeometry) zostały przeniesione z System.Data.Spatial = > dane systemowe. **Jednostki**. Przestrzenne
 
 > [!NOTE]
 > Niektóre typy w przestrzeni nazw System.Data znajdują się w System.Data.dll, który nie jest zestawem EF. Te typy nie zostały przeniesione, i dlatego ich przestrzenie nazw pozostają niezmienione.
