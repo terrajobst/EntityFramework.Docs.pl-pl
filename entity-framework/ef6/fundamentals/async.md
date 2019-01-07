@@ -3,12 +3,12 @@ title: Asynchroniczne zapytania i Zapisz - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: 4ed4f5c13341f33ccff8325a5ddacd8f7b195a76
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: de702365251fd05c423c8590ccaefa7d8542ad02
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283826"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058763"
 ---
 # <a name="async-query-and-save"></a>Asynchroniczne zapytania i Zapisz
 > [!NOTE]
@@ -76,7 +76,7 @@ Będziemy używać [Code First przepływu pracy](~/ef6/modeling/code-first/workf
     }
 ```
 
- 
+ 
 
 ## <a name="create-a-synchronous-program"></a>Utwórz program synchroniczne
 
@@ -96,7 +96,6 @@ Teraz, gdy mamy już modelu platformy EF, umożliwia pisanie kodu w celu zastoso
             {
                 PerformDatabaseOperations();
 
-                Console.WriteLine();
                 Console.WriteLine("Quote of the day");
                 Console.WriteLine(" Don't worry about the world coming to an end today... ");
                 Console.WriteLine(" It's already tomorrow in Australia.");
@@ -115,16 +114,18 @@ Teraz, gdy mamy już modelu platformy EF, umożliwia pisanie kodu w celu zastoso
                     {
                         Name = "Test Blog #" + (db.Blogs.Count() + 1)
                     });
+                    Console.WriteLine("Calling SaveChanges.");
                     db.SaveChanges();
+                    Console.WriteLine("SaveChanges completed.");
 
                     // Query for all blogs ordered by name
+                    Console.WriteLine("Executing query.");
                     var blogs = (from b in db.Blogs
                                 orderby b.Name
                                 select b).ToList();
 
                     // Write all blogs out to Console
-                    Console.WriteLine();
-                    Console.WriteLine("All blogs:");
+                    Console.WriteLine("Query completed with following results:");
                     foreach (var blog in blogs)
                     {
                         Console.WriteLine(" " + blog.Name);
@@ -145,20 +146,20 @@ Ponieważ kod jest synchroniczne, możemy zaobserwować następujący przepływ 
 4.  Zapytanie zwraca, a wyniki są zapisywane do **konsoli**
 5.  Cytat dnia są zapisywane do **konsoli**
 
-![Synchronizacja danych wyjściowych](~/ef6/media/syncoutput.png) 
+![Synchronizacja danych wyjściowych](~/ef6/media/syncoutput.png) 
 
- 
+ 
 
 ## <a name="making-it-asynchronous"></a>Dzięki czemu asynchroniczne
 
 Teraz, gdy nasz program działanie, możemy rozpocząć co użycie nowego async i await słów kluczowych. Wprowadziliśmy następujące zmiany do pliku Program.cs
 
-1.  Wiersz 2: Za pomocą instrukcji dla **System.Data.Entity** przestrzeni nazw daje nam dostęp do metod rozszerzenia asynchronicznych EF.
-2.  Wiersz 4: Za pomocą instrukcji dla **System.Threading.Tasks** przestrzeni nazw pozwala nam korzystać **zadań** typu.
+1.  Wiersz 2: Za pomocą instrukcji for **System.Data.Entity** przestrzeni nazw daje nam dostęp do metod rozszerzenia asynchronicznych EF.
+2.  Wiersz 4: Za pomocą instrukcji for **System.Threading.Tasks** przestrzeni nazw pozwala nam korzystać **zadań** typu.
 3.  Wiersz 12 i 18: Firma Microsoft jest przechwytywany jako zadanie, które monitoruje postęp **PerformSomeDatabaseOperations** (wierszem 12) i następnie blokuje wykonywanie programu w tym zadań raz ukończone wszystkie prace dla program odbywa się (wiersz 18).
 4.  Wiersz 25: Udostępniliśmy aktualizacji **PerformSomeDatabaseOperations** być oznaczony jako **async** i zwracają **zadań**.
-5.  Wiersz 35: Firma Microsoft teraz wywołanie asynchroniczne wersję SaveChanges i oczekiwaniem na jej ukończenie.
-6.  Wiersz 42: Firma Microsoft jest teraz wywołanie asynchroniczne wersję tolist — i oczekiwaniem na wynik.
+5.  Wiersz 35: Teraz możemy wywołanie asynchroniczne wersję SaveChanges i oczekiwaniem na jej ukończenie.
+6.  Wiersz 42: Teraz dzwonimy wersji asynchronicznej tolist — i oczekiwaniem na wynik.
 
 Pełną listę metod rozszerzenia dostępne w przestrzeni nazw System.Data.Entity można znaleźć klasy QueryableExtensions. *Należy także dodać "za pomocą System.Data.Entity" do sieci za pomocą instrukcji.*
 
@@ -227,9 +228,9 @@ Teraz, gdy kod jest asynchroniczna, można zaobserwować przepływu wykonywania 
 4.  Zapytanie o wszystkie **blogi** są wysyłane do bazy danych *ponownie wątków zarządzanych jest bezpłatna wykonywanie innych zadań, podczas gdy zapytania są przetwarzane w bazie danych. Od wszystkich innych wykonanie zostało ukończone, wątek będzie po prostu zatrzymanie przy wywołaniu oczekiwania jednak.*
 5.  Zapytanie zwraca, a wyniki są zapisywane do **konsoli**
 
-![Dane wyjściowe Async](~/ef6/media/asyncoutput.png) 
+![Dane wyjściowe Async](~/ef6/media/asyncoutput.png) 
 
- 
+ 
 
 ## <a name="the-takeaway"></a>Wnioskiem
 

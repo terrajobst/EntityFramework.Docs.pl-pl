@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: f18de8e8cb4fbe81bb2f983a00c9dd2f46be6073
-ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
+ms.openlocfilehash: 7eba9e1a8e145ef407f844ff3a3ab3069495b7ae
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/10/2018
-ms.locfileid: "53182023"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058737"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core plan
 
@@ -28,7 +28,7 @@ Firma Microsoft udostępni więcej informacji, uzyskujemy bardziej przejrzysty, 
 - **Ulepszenia zapytań LINQ ([#12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795))**: LINQ umożliwia tworzenie zapytań bazy danych bez opuszczania usługi z wybranego języka, wykorzystując zaawansowane wpisz informacje funkcji IntelliSense i sprawdzanie typów w czasie kompilacji.
   Ale LINQ można również napisać nieograniczonej liczby zapytań skomplikowane, a który zawsze było ogromnym wyzwaniom dla dostawców LINQ.
   W pierwszym kilka wersji programu EF Core możemy rozwiązać, w części za ustalenie, jakie części zapytania mogą być tłumaczone do bazy danych SQL, a następnie, umożliwiając pozostałe kwerenda do wykonania w pamięci na komputerze klienckim.
-  Wykonanie tego po stronie klienta może być pożądana w niektórych sytuacjach, ale w wielu przypadkach, który może spowodować nieefektywne zapytań, które nie mogą zidentyfikować, dopóki aplikacja jest wdrażana w środowisku produkcyjnym.
+  Wykonanie tego po stronie klienta może być pożądana w niektórych sytuacjach, ale w innych przypadkach może to skutkować nieefektywne zapytań, które nie mogą być określane, dopóki aplikacja jest wdrażana w środowisku produkcyjnym.
   W programie EF Core 3.0 planujemy wprowadzić głęboki zmiany sposobu działania naszej implementacji LINQ i jak możemy przetestować.
   Cele są aby działał on bardziej niezawodnie (na przykład, aby uniknąć przerywanie zapytania w wersjach poprawki), aby można było tłumaczenie więcej wyrażeń poprawnie w bazie SQL, można wygenerować wydajne zapytania w większości przypadków i uniemożliwić nieefektywne zapytania przechodząc niewykryte.
 
@@ -37,7 +37,7 @@ Firma Microsoft udostępni więcej informacji, uzyskujemy bardziej przejrzysty, 
   Dostawca umożliwi większość funkcji EF Core, takie jak automatyczna zmiana, śledzenie, LINQ i konwersji wartości, przy użyciu interfejsu SQL API w usłudze Cosmos DB. Rozpoczęliśmy ten nakład pracy przed programem EF Core 2.2, i [Wprowadziliśmy pewne wersji dostawcy dostępne w wersji zapoznawczej](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).
   Nowy plan jest, aby kontynuować, tworzenie dostawcy wraz z programem EF Core 3.0.   
 
-- **C#Obsługa 8.0 ([#12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047))**: Chcemy, aby klienci mogą wykorzystać część [nowe funkcje zostaną dodane w C# 8.0](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/) strumieni asynchronicznych, takich jak (w tym await dla każdego) i typy referencyjne dopuszczającego wartość null podczas korzystania z programu EF Core.
+- **C#Obsługa 8.0 ([#12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047))**: Chcemy, aby klienci mogą korzystać z niektórych [nowe funkcje zostaną dodane w C# 8.0](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/) strumieni asynchronicznych, takich jak (w tym await dla każdego) i typy referencyjne dopuszczającego wartość null podczas korzystania z programu EF Core.
 
 - **Odwróć inżynierów widoki bazy danych do typów zapytań ([#1679](https://github.com/aspnet/EntityFrameworkCore/issues/1679))**: W programie EF Core 2.1 Dodaliśmy obsługę typów zapytań, które mogą reprezentować dane, które mogą być odczytywane z bazy danych, ale nie można zaktualizować.
   Typy zapytań są widoki doskonałe rozwiązanie dla mapowania bazy danych, więc w programie EF Core 3.0, prosimy o poświęcenie do zautomatyzowania tworzenia typów zapytań na widoki baz danych.

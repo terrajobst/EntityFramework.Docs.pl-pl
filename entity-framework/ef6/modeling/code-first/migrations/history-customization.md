@@ -3,12 +3,12 @@ title: Dostosowywanie tabeli historii migracje - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: ed5518f0-a9a6-454e-9e98-a4fa7748c8d0
-ms.openlocfilehash: e3faefc4b812ec4bc440ed2bb48747053d8cb1b3
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: eb19f367611a86f685557a6741a5f2f0bad6b718
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283696"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058750"
 ---
 # <a name="customizing-the-migrations-history-table"></a>Dostosowywanie tabeli historii migracji
 > [!NOTE]
@@ -19,7 +19,7 @@ ms.locfileid: "46283696"
 
 ## <a name="what-is-migrations-history-table"></a>Co to jest tabela historii migracji?
 
-Migracji historii jest tabela używany przez migracje Code First do przechowywania informacji o migracji do niej zastosować. Domyślnie nazwa tabeli w bazie danych jest \_ \_MigrationHistory i jest tworzony podczas stosowania pierwszy migracji bazy danych. W Entity Framework 5 Ta tabela została tabeli systemowej, jeśli aplikacja używa bazy danych programu Microsoft Sql Server. Jednakże, to została zmieniona w Entity Framework 6, a tabela historii migracji nie jest już oznaczone tabeli systemowej.
+Migracji historii jest tabela używany przez migracje Code First do przechowywania informacji o migracji do niej zastosować. Domyślnie nazwa tabeli w bazie danych jest \_ \_MigrationHistory i jest tworzony podczas stosowania pierwszej migracji do bazy danych. W Entity Framework 5 Ta tabela została tabeli systemowej, jeśli aplikacja używa bazy danych programu Microsoft Sql Server. Jednakże, to została zmieniona w Entity Framework 6, a tabela historii migracji nie jest już oznaczone tabeli systemowej.
 
 ## <a name="why-customize-migrations-history-table"></a>Dlaczego warto dostosować tabeli historii migracji?
 
@@ -43,7 +43,7 @@ Najpierw należy utworzyć klasę pochodną klasy System.Data.Entity.Migrations.
 >[!NOTE]
 > Zwykle po skonfigurowaniu EF modele nie trzeba wywołać podstawowej. OnModelCreating() z przeciążonej OnModelCreating od DbContext.OnModelCreating() ma pustą treść. Nie jest tak, podczas konfigurowania migracji tabeli historii. W tym przypadku pierwsze należy w przesłonięcia OnModelCreating() jest faktycznie wywołać podstawowej. OnModelCreating(). Skonfiguruje migracji tabeli historii w sposób domyślny, który następnie dostosować w metodzie nadrzędnych.
 
-Załóżmy, że chcesz zmienić nazwę tabeli historii migracje i umieść je ze schematem niestandardowej o nazwie "admin". Oprócz administratora bazy danych chcesz, możesz zmienić nazwy kolumny MigrationId migracji\_identyfikatora.  Można to osiągnąć, tworząc następujące klasy pochodne HistoryContext:
+Załóżmy, że chcesz zmienić nazwę tabeli historii migracje i umieść je ze schematem niestandardowej o nazwie "admin". Oprócz administratora bazy danych chcesz, możesz zmienić nazwy kolumny MigrationId migracji\_identyfikatora.  Można to osiągnąć, tworząc następujące klasy pochodne HistoryContext:
 
 ``` csharp
     using System.Data.Common;

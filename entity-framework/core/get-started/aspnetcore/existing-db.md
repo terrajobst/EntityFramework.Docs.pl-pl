@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: 23cd53b0e162afc5db0243b7032bb9c5f18bfb35
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: c8acb95395968f710e6b896de6c3598cb7b23676
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688696"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058789"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Wprowadzenie do programu EF Core programu ASP.NET Core z istniejącej bazy danych
 
@@ -48,7 +48,7 @@ W tym samouczku **do obsługi blogów** bazy danych w ramach wystąpienia LocalD
 * **Plik > Nowy > Projekt...**
 * Z menu po lewej stronie wybierz **zainstalowane > Visual C# > sieci Web**
 * Wybierz **aplikacji sieci Web programu ASP.NET Core** szablonu projektu
-* Wprowadź **EFGetStarted.AspNetCore.ExistingDb** jako nazwę i kliknij przycisk **OK**
+* Wprowadź **EFGetStarted.AspNetCore.ExistingDb** jako nazwa (jego musi być zgodna dokładnie obszaru nazw, które są później używane w kodzie) i kliknij przycisk **OK** 
 * Poczekaj, aż **Nowa aplikacja internetowa ASP.NET Core** wyświetlać okno dialogowe
 * Upewnij się, że menu rozwijanego platform docelowych jest ustawiona na **platformy .NET Core**, a lista rozwijana wersji jest ustawiona na **platformy ASP.NET Core 2.1**
 * Wybierz **aplikacji sieci Web (Model-View-Controller)** szablonu

@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 0ad9731840c5f72064f2f66932b9867a0144f437
-ms.sourcegitcommit: 2da6f9b05e1ce3a46491e5cc68f17758bdeb6b02
+ms.openlocfilehash: 5bddddfbc2fe8d0ba99914f03b28bde4076fae42
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/06/2018
-ms.locfileid: "53006872"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058717"
 ---
 # <a name="raw-sql-queries"></a>Pierwotne zapytania SQL
 
@@ -28,7 +28,7 @@ Istnieją pewne ograniczenia, które należy zwrócić uwagę podczas korzystani
 
 * Zapytania SQL nie może zawierać powiązane dane. Jednak w wielu przypadkach można utworzyć na podstawie zapytania za pomocą `Include` operator, aby zwrócić dane dotyczące (zobacz [powiązanych danych w tym](#including-related-data)).
 
-* `SELECT` instrukcje przekazany do tej metody powinno być zazwyczaj konfigurowalna: Jeśli programu EF Core należy ocenić, operatory dodatkowych zapytań na serwerze (na przykład, aby przetłumaczyć operatorów LINQ zastosowane po `FromSql`), SQL podane są traktowane jak podzapytania. Oznacza to, SQL przekazywane nie powinna zawierać żadnych znaków lub opcje, które nie są prawidłowe w podzapytaniu, takich jak:
+* `SELECT` Konfigurowalna powinno być zazwyczaj instrukcji przekazany do tej metody: EF Core musi ocenić operatorów dodatkowych zapytań na serwerze (na przykład, aby przetłumaczyć operatorów LINQ zastosowane po `FromSql`), SQL podane są traktowane jak podzapytania. Oznacza to, SQL przekazywane nie powinna zawierać żadnych znaków lub opcje, które nie są prawidłowe w podzapytaniu, takich jak:
   * końcowe średnikami
   * W programie SQL Server, końcowe wskazówka poziomie zapytania (na przykład `OPTION (HASH JOIN)`)
   * W programie SQL Server `ORDER BY` klauzula, która nie jest powiązany z `TOP 100 PERCENT` w `SELECT` — klauzula
@@ -81,7 +81,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-Można także skonstruować DbParameter i podać go jako wartość parametru. Dzięki temu można użyć nazwanych parametrów ciągu zapytania SQL
+Można także skonstruować DbParameter i podać go jako wartość parametru. Dzięki temu można użyć nazwanych parametrów ciągu zapytania SQL.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -124,4 +124,4 @@ var blogs = context.Blogs
 ```
 
 > [!WARNING]  
-> **Zawsze używaj parametryzacji pierwotne zapytania SQL:** interfejsów API, które akceptują pierwotne SQL ciągów, takich jak `FromSql` i `ExecuteSqlCommand` Zezwalaj na wartości, które mają być łatwo przekazywane jako parametry. Oprócz sprawdzania poprawności danych wejściowych użytkownika, należy zawsze używać parametryzacji dla każdej wartości pierwotne zapytania SQL/polecenia. Jeśli używasz ciągów dynamicznie tworzenie dowolnej części ciągu zapytania, a następnie ponosisz odpowiedzialność za sprawdzanie poprawności wszystkie dane wejściowe, aby zapewnić ochronę przed atakami polegającymi na iniekcji SQL.
+> **Zawsze używaj parametryzacji pierwotne zapytania SQL:** Interfejsy API, które akceptują pierwotne SQL string, takich jak `FromSql` i `ExecuteSqlCommand` Zezwalaj na wartości, które mają być łatwo przekazywane jako parametry. Oprócz sprawdzania poprawności danych wejściowych użytkownika, należy zawsze używać parametryzacji dla każdej wartości pierwotne zapytania SQL/polecenia. Jeśli używasz ciągów dynamicznie tworzenie dowolnej części ciągu zapytania, a następnie ponosisz odpowiedzialność za sprawdzanie poprawności wszystkie dane wejściowe, aby zapewnić ochronę przed atakami polegającymi na iniekcji SQL.
