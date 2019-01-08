@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 02/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 uid: core/modeling/owned-entities
-ms.openlocfilehash: fe7e07b8bd483fb3f9b672ee78ef7541f06a21a4
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: b2d72b08de79939904bf4e726c695440c906a8aa
+ms.sourcegitcommit: 7bde8e6ad3c4565a4638646ce04bcf5e66f7b5fd
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058776"
+ms.lasthandoff: 01/07/2019
+ms.locfileid: "54069207"
 ---
 # <a name="owned-entity-types"></a>Posiadane typy jednostek
 
@@ -52,7 +52,7 @@ Aby dowiedzieć się, jak EF Core śledzi te obiekty, warto Pomyśl, czy klucz p
 >[!NOTE]
 > Ta funkcja jest nowa w programie EF Core 2.2.
 
-Aby skonfigurować kolekcji typów będących własnością `OwnsMany` powinny być używane w `OnModelCreating`. Jednak klucza podstawowego nie zostanie skonfigurowany zgodnie z Konwencją, musi on być jawnie określony. Powszechne jest wprowadzanie klucza złożonego na użytek tych typów jednostek, zawierające klucz obcy do właściciela i dodatkowe unikatowa właściwość, która również może być w stanie w tle:
+Aby skonfigurować kolekcji typów będących własnością `OwnsMany` powinny być używane w `OnModelCreating`. Jednak klucza podstawowego nie zostanie skonfigurowany zgodnie z Konwencją, dlatego musi być jawnie określony. Powszechne jest wprowadzanie klucza złożonego na użytek tych typów jednostek, zawierające klucz obcy do właściciela i dodatkowe unikatowa właściwość, która również może być w stanie w tle:
 
 [!code-csharp[OwnsMany](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsMany)]
 
