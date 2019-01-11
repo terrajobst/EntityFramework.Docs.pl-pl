@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 2248c60045a914c902f1c958a86c69b283abd722
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 4734586adc89e9c1d866a1b4accd8b5e51fe2bb0
+ms.sourcegitcommit: ebf661025d2ad2b62466fa7bf0e0772a7811cbe7
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022239"
+ms.lasthandoff: 01/11/2019
+ms.locfileid: "54211169"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Wprowadzenie do programu EF Core programu ASP.NET Core przy użyciu nowej bazy danych
 
@@ -201,7 +201,7 @@ Tworzenia szkieletu kontrolera i widoki dla `Blog` jednostki.
 Aparat tworzenia szkieletów tworzy następujące pliki:
 
 * Kontroler (*Controllers/BlogsController.cs*)
-* Widokami razor dla stron Create, Delete, szczegółowe informacje, edycji i indeksu (_Views/Movies/*.cshtml_)
+* Widokami razor dla stron Create, Delete, szczegółowe informacje, edycji i indeksu (_Views/Blogs/*.cshtml_)
 
 ## <a name="run-the-application"></a>Uruchamianie aplikacji
 
@@ -230,4 +230,4 @@ dotnet run
 
 * [Samouczek: Rozpoczynanie pracy z programem EF Core na platformie .NET Core za pomocą nowej bazy danych przy użyciu systemu SQLite](xref:core/get-started/netcore/new-db-sqlite)
 * [Samouczek: Rozpoczynanie pracy ze stronami Razor w programie ASP.NET Core](https://docs.microsoft.com/aspnet/core/tutorials/razor-pages/razor-pages-start)
-* [Samouczek: Strony Razor za pomocą platformy Entity Framework Core w programie ASP.NET Core](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)
+* [Samouczek: Strony razor za pomocą platformy Entity Framework Core w programie ASP.NET Core](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)
