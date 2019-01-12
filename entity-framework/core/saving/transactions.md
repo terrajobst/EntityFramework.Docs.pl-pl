@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 uid: core/saving/transactions
-ms.openlocfilehash: 7083a1228420416a1b60d9744ca2dad2339be53f
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 4c50d6694c6678678c0af8defe2601abee923af1
+ms.sourcegitcommit: 5f11a5fa5d2cde81a4e4d0d5c3a60aa74b83cbd4
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993608"
+ms.lasthandoff: 01/11/2019
+ms.locfileid: "54226195"
 ---
 # <a name="using-transactions"></a>Za pomocą transakcji
 
@@ -99,7 +99,7 @@ Istnieje również możliwość zarejestrowania w transakcji jawnej.
 
 ### <a name="limitations-of-systemtransactions"></a>Ograniczenia przestrzeni nazw System.Transactions  
 
-1. Platforma EF Core korzysta z dostawców baz danych do implementowania obsługi przestrzeni nazw `System.Transactions`. Mimo że dostawcy ADO.NET często obsługują platformę .NET Framework, ten interfejs API został dopiero niedawno dodany do platformy EF Core. Jeżeli dostawca nie implementuje obsługi przestrzeni nazw `System.Transactions,` możliwe jest, że wywołania do tego interfejsu API zostaną zignorowane. SqlClient dla platformy .NET Core obsługuje je od wersji 2.1 w górę. SqlClient dla platformy .NET Core 2.0 zgłosi wyjątek w przypadku próby skorzystania z tej funkcji. 
+1. Platforma EF Core korzysta z dostawców baz danych do implementowania obsługi przestrzeni nazw `System.Transactions`. Mimo że dostawcy ADO.NET często obsługują platformę .NET Framework, ten interfejs API został dopiero niedawno dodany do platformy EF Core. Jeżeli dostawca nie implementuje obsługi przestrzeni nazw `System.Transactions,` możliwe jest, że wywołania do tego interfejsu API zostaną zignorowane. SqlClient dla platformy .NET Core obsługuje je od wersji 2.1 w górę. Klient SQL dla platformy .NET Core 2.0 spowoduje zgłoszenie wyjątku, Jeśli spróbujesz użyć funkcji. 
 
    > [!IMPORTANT]  
    > Zaleca się przetestowanie, czy ten interfejs API działa poprawnie z Twoim dostawcą, zanim skorzystasz z niego do zarządzania transakcjami. W przypadku problemów zachęcamy do kontaktu z osobami obsługującymi danego dostawcę bazy danych. 
