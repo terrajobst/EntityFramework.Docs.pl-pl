@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 11/02/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/data-seeding
-ms.openlocfilehash: 8f28dfea12461572ade8fbf3910ebd216dafb389
-ms.sourcegitcommit: fa863883f1193d2118c2f9cee90808baa5e3e73e
+ms.openlocfilehash: 1c450b142573368d043430f55a3144b6696a8691
+ms.sourcegitcommit: b4a5ed177b86bf7f81602106dab6b4acc18dfc18
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52857432"
+ms.lasthandoff: 01/15/2019
+ms.locfileid: "54316637"
 ---
 # <a name="data-seeding"></a>Wstępne wypełnianie danych
 
@@ -55,6 +55,8 @@ Po dodaniu danych do modelu, [migracje](xref:core/managing-schemas/migrations/in
 > Jeśli konieczne jest zastosowanie migracji w ramach zautomatyzowanego wdrażania możesz [Utwórz skrypt SQL](xref:core/managing-schemas/migrations/index#generate-sql-scripts) można je przeglądać przed wykonaniem.
 
 Alternatywnie, można użyć `context.Database.EnsureCreated()` do utworzenia nowej bazy danych zawierającej dane inicjatora, na przykład w przypadku bazy danych testów lub za pomocą dostawcy w pamięci lub dowolnej-relation bazy danych. Należy pamiętać, że jeśli baza danych już istnieje, `EnsureCreated()` zaktualizuje żadnego schematu ani inicjatora w bazie danych. Relacyjne bazy danych nie należy wywoływać `EnsureCreated()` Jeśli planujesz użyć migracje.
+
+### <a name="limitations-of-model-seed-data"></a>Ograniczenia danych inicjatora modelu
 
 Inicjatora danych tego typu jest zarządzana przez migracje i skrypt do aktualizowania danych, który jest już w bazie danych musi zostać wygenerowane bez połączenia z bazą danych. To nakłada pewne ograniczenia:
 * Wartość klucza podstawowego nie trzeba określać, nawet jeśli zwykle jest generowany przez bazę danych. Będzie służyć do wykrywania zmian danych między migracji.
