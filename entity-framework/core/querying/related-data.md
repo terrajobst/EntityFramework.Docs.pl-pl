@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: 65cfea07a40939c1c3615c97ec785a4082b21de5
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 4e042acb805c743ee794f4e61105b8d2136973b1
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994791"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668729"
 ---
 # <a name="loading-related-data"></a>Ładowanie powiązanych danych
 
@@ -52,7 +52,7 @@ Możesz połączyć wszystkie te które mają zostać objęte powiązane dane z 
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#IncludeTree)]
 
-Możesz uwzględnić wiele powiązanych jednostek dla jednej jednostki, które jest uwzględniane. Na przykład podczas wykonywania zapytań dotyczących `Blog`s, obejmują `Posts` , a następnie oba `Author` i `Tags` z `Posts`. Aby to zrobić, należy określić każdy obejmować ścieżkę, począwszy od głównego. Na przykład `Blog -> Posts -> Author` i `Blog -> Posts -> Tags`. Oznacza to, zostanie nadmiarowe sprzężenia, w większości przypadków będzie konsolidować EF sprzężeń podczas generowania SQL.
+Możesz uwzględnić wiele powiązanych jednostek dla jednej jednostki, które jest uwzględniane. Na przykład podczas wykonywania zapytań dotyczących `Blog`s, obejmują `Posts` , a następnie oba `Author` i `Tags` z `Posts`. Aby to zrobić, należy określić każdy obejmować ścieżkę, począwszy od głównego. Na przykład `Blog -> Posts -> Author` i `Blog -> Posts -> Tags`. Nie oznacza to, że otrzymasz sprzężeń nadmiarowy; w większości przypadków EF będzie konsolidować sprzężeń, jeśli generowanie kodu SQL.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 
@@ -317,7 +317,7 @@ Ponieważ właściwości nawigacji automatycznie poprawki będą programu EF Cor
 
 Niektóre środowiska serializacji nie zezwalają na tych cykli. Na przykład na składnik Json.NET zgłosi następujący wyjątek, jeśli okaże się cyklu.
 
-> Newtonsoft.Json.JsonSerializationException: Self odwołujące się do pętli wykryto dla właściwości "Blog" z typem "MyApplication.Models.Blog".
+> Newtonsoft.Json.JsonSerializationException: Samodzielna odwołujące się do pętli wykryto dla właściwości "Blog" z typem "MyApplication.Models.Blog".
 
 Jeśli używasz platformy ASP.NET Core, można skonfigurować program Json.NET, aby zignorować cykle, które znajdzie się na grafie obiektu. Jest to realizowane w `ConfigureServices(...)` method in Class metoda `Startup.cs`.
 

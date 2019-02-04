@@ -3,12 +3,12 @@ title: Model dostawcy platformy Entity Framework 6 — EF6
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
-ms.openlocfilehash: d07a8689fe968bb1512095a59a61abc7ac346a31
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 8cbf6f87e0936f374c3d8a0c15a0e1d9c828f764
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022327"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668755"
 ---
 # <a name="the-entity-framework-6-provider-model"></a>Dostawca modelu Entity Framework 6
 
@@ -28,7 +28,7 @@ Dostawca usługi EF jest naprawdę kolekcja właściwe dla dostawcy usług zdefi
 
 ### <a name="dbproviderfactory"></a>DbProviderFactory
 
-EF zależy od tego, typ pochodzący od posiadania [System.Data.Common.DbProviderFactory](https://msdn.microsoft.com/library/system.data.common.dbproviderfactory.aspx) do wykonywania wszystkich dostęp do niskiego poziomu bazy danych. DbProviderFactory nie jest częścią platformy EF, lecz dotyczy klasy w .NET Framework, która służy punkt wejścia dla dostawcy ADO.NET, który może służyć przez EF, O/RMs lub bezpośrednio przez aplikację można uzyskać rodzajami połączeń, polecenia, parametry i inne abstrakcje ADO.NET dostawcy sposób niezależny od. Więcej informacji na temat DbProviderFactory można znaleźć w [dokumentacji MSDN dotyczącej ADO.NET](https://msdn.microsoft.com/library/a6cd7c08.aspx).
+EF zależy od tego, typ pochodzący od posiadania [System.Data.Common.DbProviderFactory](https://msdn.microsoft.com/library/system.data.common.dbproviderfactory.aspx) do wykonywania wszystkich dostęp do niskiego poziomu bazy danych. DbProviderFactory nie jest częścią platformy EF, lecz dotyczy klasy w .NET Framework, która służy punkt wejścia dla dostawcy ADO.NET, który może służyć przez EF, O/RMs lub bezpośrednio przez aplikację można uzyskać rodzajami połączeń, polecenia, parametry i inne abstrakcje ADO.NET dostawcy sposób niezależny od. Więcej informacji na temat DbProviderFactory znajdują się w [dokumentacji MSDN dotyczącej ADO.NET](https://msdn.microsoft.com/library/a6cd7c08.aspx).
 
 ### <a name="dbproviderservices"></a>DbProviderServices
 

@@ -3,12 +3,12 @@ title: Połączenie odporności logikę ponawiania prób i - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: 09ebed18b43f864af36b6931f45638f3a3056229
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 7d6aa870cc32a2b344457fbb04525a7c2c8d1c61
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490808"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668768"
 ---
 # <a name="connection-resiliency-and-retry-logic"></a>Logika połączenia odporności, a następnie spróbuj ponownie
 > [!NOTE]
@@ -124,7 +124,7 @@ using (var db = new BloggingContext())
 
 To nie jest obsługiwana, gdy za pomocą Trwa ponawianie próby strategii wykonywania, ponieważ EF nie jest świadomy żadnych poprzedniej operacji i sposób ponowić próbę ich wykonania. Na przykład jeśli drugi SaveChanges nie powiodła się następnie EF już ma wymagane informacje, aby ponowić próbę wykonania pierwszego wywołania funkcji SaveChanges.  
 
-### <a name="workaround-suspend-execution-strategy"></a>Obejście: Wstrzymywanie strategii wykonywania  
+### <a name="workaround-suspend-execution-strategy"></a>Obejście problemu: Wstrzymywanie strategii wykonywania  
 
 Jednym możliwym obejściem jest wstrzymania Trwa ponawianie próby strategia wykonywania dla fragmentu kodu, który musi używać użytkownik zainicjował transakcji. Najprostszym sposobem, w tym celu jest dodać flagę SuspendExecutionStrategy w kodzie na podstawie klasy konfiguracji, a także zmienić lambda strategii wykonywania do zwrócenia strategii wykonywania (inne niż retying) domyślny, jeśli flaga jest ustawiona.  
 
@@ -149,7 +149,7 @@ namespace Demo
         {
             get
             {
-                return (bool?)CallContext.LogicalGetData("SuspendExecutionStrategy")  false;
+                return (bool?)CallContext.LogicalGetData("SuspendExecutionStrategy") ?? false;
             }
             set
             {
@@ -185,7 +185,7 @@ using (var db = new BloggingContext())
 }
 ```  
 
-### <a name="workaround-manually-call-execution-strategy"></a>Obejście: Ręcznego wywoływania strategii wykonywania  
+### <a name="workaround-manually-call-execution-strategy"></a>Obejście problemu: Ręcznego wywoływania strategii wykonywania  
 
 Inną opcją jest ręczne Użyj strategii wykonywania i nadaj cały zestaw logiki, aby uruchomić, dzięki czemu można ponów wszystko, jeśli jedna z operacji zakończy się niepowodzeniem. Nadal trzeba wstrzymywanie strategii wykonywania - korzystające z techniki powyżej — tak aby kontekstów używana wewnątrz blok kodu powtarzający operację nie należy podejmować próbę.  
 

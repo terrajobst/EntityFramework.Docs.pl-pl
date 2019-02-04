@@ -3,12 +3,12 @@ title: Asynchroniczne zapytania i Zapisz - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: de702365251fd05c423c8590ccaefa7d8542ad02
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: 89c7b9d533d37b4c9e123f37d8ab27c67ba26cc8
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058763"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668716"
 ---
 # <a name="async-query-and-save"></a>Asynchroniczne zapytania i Zapisz
 > [!NOTE]
@@ -223,7 +223,7 @@ Teraz, gdy kod jest asynchroniczna, można zaobserwować przepływu wykonywania 
 
 1.  **SaveChanges** rozpoczyna się wypychania nowego **Blog** w bazie danych *po wysłaniu polecenia do bazy danych co obliczenia, konieczna jest w bieżącym wątku zarządzanych. **PerformDatabaseOperations** metoda zwróci wartość (nawet jeśli nie zostało zakończone, wykonując) i kontynuuje przepływu programu dla metody Main.*
 2.  **Cytat dnia są zapisywane do konsoli**
-    *ponieważ nie ma więcej pracy w metody Main, wątków zarządzanych jest zablokowany na czas oczekiwania wywołania do momentu ukończenia operacji bazy danych. Po zakończeniu pozostałą część naszego **PerformDatabaseOperations** * zostaną wykonane.
+    *ponieważ nie ma więcej pracy w metody Main, wątków zarządzanych jest zablokowany na czas oczekiwania wywołania do momentu ukończenia operacji bazy danych. Po zakończeniu pozostałą część naszego **PerformDatabaseOperations** zostaną wykonane.*
 3.  **SaveChanges** kończy
 4.  Zapytanie o wszystkie **blogi** są wysyłane do bazy danych *ponownie wątków zarządzanych jest bezpłatna wykonywanie innych zadań, podczas gdy zapytania są przetwarzane w bazie danych. Od wszystkich innych wykonanie zostało ukończone, wątek będzie po prostu zatrzymanie przy wywołaniu oczekiwania jednak.*
 5.  Zapytanie zwraca, a wyniki są zapisywane do **konsoli**

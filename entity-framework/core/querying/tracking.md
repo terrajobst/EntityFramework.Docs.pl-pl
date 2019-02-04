@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: 985adc795f379199a3bacc985843f32f3168cf64
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 6c5d516fcb3950ae168860029660e1b1061546b8
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993358"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668781"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>Śledzenie programu vs. Bez śledzenia zapytań
 
@@ -63,7 +63,7 @@ using (var context = new BloggingContext())
 ```
 
 > [!NOTE]  
-> Nie śledzenia zapytań w dalszym ciągu wykonywać rozwiązanie tożsamości w ramach zapytania przesłać. Jeśli zestaw wyników zawiera tej samej jednostki wiele razy, to samo wystąpienie elementu Klasa jednostki zostanie zwrócony dla każdego wystąpienia w zestawie wyników. Jednak słabe odwołania są używane do śledzenia jednostek, które już zostały zwrócone. Jeśli poprzedni wynik z tą samą tożsamością wykracza poza zakres, a następnie uruchamia wyrzucanie elementów bezużytecznych, może pojawić się nowe wystąpienie jednostki. Aby uzyskać więcej informacji, zobacz [jak działa zapytanie](overview.md).
+> Nie śledzenia zapytań w dalszym ciągu wykonywać rozwiązanie tożsamości w ramach wykonywania zapytania. Jeśli zestaw wyników zawiera tej samej jednostki wiele razy, to samo wystąpienie elementu Klasa jednostki zostanie zwrócony dla każdego wystąpienia w zestawie wyników. Jednak słabe odwołania są używane do śledzenia jednostek, które już zostały zwrócone. Jeśli poprzedni wynik z tą samą tożsamością wykracza poza zakres, a następnie uruchamia wyrzucanie elementów bezużytecznych, może pojawić się nowe wystąpienie jednostki. Aby uzyskać więcej informacji, zobacz [jak działa zapytanie](overview.md).
 
 ## <a name="tracking-and-projections"></a>Śledzenie i projekcji
 
