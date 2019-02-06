@@ -4,40 +4,23 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 5bddddfbc2fe8d0ba99914f03b28bde4076fae42
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: 343162596780e6146b57f73a38221701009cd855
+ms.sourcegitcommit: 85d17524d8e022f933cde7fc848313f57dfd3eb8
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058717"
+ms.lasthandoff: 02/06/2019
+ms.locfileid: "55760512"
 ---
-# <a name="raw-sql-queries"></a><span data-ttu-id="baa7a-102">Pierwotne zapytania SQL</span><span class="sxs-lookup"><span data-stu-id="baa7a-102">Raw SQL Queries</span></span>
+# <a name="raw-sql-queries"></a><span data-ttu-id="caaec-102">Pierwotne zapytania SQL</span><span class="sxs-lookup"><span data-stu-id="caaec-102">Raw SQL Queries</span></span>
 
-<span data-ttu-id="baa7a-103">Entity Framework Core umożliwia lista rozwijana umożliwiająca pierwotne zapytania SQL podczas pracy z usługą relacyjnej bazy danych.</span><span class="sxs-lookup"><span data-stu-id="baa7a-103">Entity Framework Core allows you to drop down to raw SQL queries when working with a relational database.</span></span> <span data-ttu-id="baa7a-104">Może to być przydatne, jeśli zapytanie, które należy wykonać, nie można wyrazić za pomocą LINQ lub przy użyciu zapytania LINQ wynikiem jest nieefektywne zapytania SQL.</span><span class="sxs-lookup"><span data-stu-id="baa7a-104">This can be useful if the query you want to perform can't be expressed using LINQ, or if using a LINQ query is resulting in inefficient SQL queries.</span></span> <span data-ttu-id="baa7a-105">Pierwotne zapytania SQL może zwrócić typów jednostek, lub, począwszy od programu EF Core 2.1, [typy zapytań](xref:core/modeling/query-types) będących częścią modelu.</span><span class="sxs-lookup"><span data-stu-id="baa7a-105">Raw SQL queries can return entity types or, starting with EF Core 2.1, [query types](xref:core/modeling/query-types) that are part of your model.</span></span>
+<span data-ttu-id="caaec-103">Entity Framework Core umożliwia lista rozwijana umożliwiająca pierwotne zapytania SQL podczas pracy z usługą relacyjnej bazy danych.</span><span class="sxs-lookup"><span data-stu-id="caaec-103">Entity Framework Core allows you to drop down to raw SQL queries when working with a relational database.</span></span> <span data-ttu-id="caaec-104">Może to być przydatne, jeśli zapytanie, które należy wykonać, nie można wyrazić za pomocą LINQ lub przy użyciu zapytania LINQ wynikiem jest nieefektywne zapytania SQL.</span><span class="sxs-lookup"><span data-stu-id="caaec-104">This can be useful if the query you want to perform can't be expressed using LINQ, or if using a LINQ query is resulting in inefficient SQL queries.</span></span> <span data-ttu-id="caaec-105">Pierwotne zapytania SQL może zwrócić typów jednostek, lub, począwszy od programu EF Core 2.1, [typy zapytań](xref:core/modeling/query-types) będących częścią modelu.</span><span class="sxs-lookup"><span data-stu-id="caaec-105">Raw SQL queries can return entity types or, starting with EF Core 2.1, [query types](xref:core/modeling/query-types) that are part of your model.</span></span>
 
 > [!TIP]  
-> <span data-ttu-id="baa7a-106">[Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.</span><span class="sxs-lookup"><span data-stu-id="baa7a-106">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) on GitHub.</span></span>
+> <span data-ttu-id="caaec-106">[Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.</span><span class="sxs-lookup"><span data-stu-id="caaec-106">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) on GitHub.</span></span>
 
-## <a name="limitations"></a><span data-ttu-id="baa7a-107">Ograniczenia</span><span class="sxs-lookup"><span data-stu-id="baa7a-107">Limitations</span></span>
+## <a name="basic-raw-sql-queries"></a><span data-ttu-id="caaec-107">Podstawowe pierwotne zapytania SQL</span><span class="sxs-lookup"><span data-stu-id="caaec-107">Basic raw SQL queries</span></span>
 
-<span data-ttu-id="baa7a-108">Istnieją pewne ograniczenia, które należy zwrócić uwagę podczas korzystania z pierwotne zapytania SQL:</span><span class="sxs-lookup"><span data-stu-id="baa7a-108">There are a few limitations to be aware of when using raw SQL queries:</span></span>
-
-* <span data-ttu-id="baa7a-109">Zapytanie SQL musi zwracać dane dotyczące wszystkich właściwości typu obiekt lub kwerendę.</span><span class="sxs-lookup"><span data-stu-id="baa7a-109">The SQL query must return data for all properties of the entity or query type.</span></span>
-
-* <span data-ttu-id="baa7a-110">Nazwy kolumn w zestawie wyników muszą być zgodne nazwy kolumn, które są mapowane właściwości.</span><span class="sxs-lookup"><span data-stu-id="baa7a-110">The column names in the result set must match the column names that properties are mapped to.</span></span> <span data-ttu-id="baa7a-111">Należy pamiętać, że to różni się od EF6 gdzie mapowania właściwości/kolumn została zignorowana dla pierwotne zapytania SQL i nazw musiały być zgodne z nazwami właściwości kolumny zestawu wyników.</span><span class="sxs-lookup"><span data-stu-id="baa7a-111">Note this is different from EF6 where property/column mapping was ignored for raw SQL queries and result set column names had to match the property names.</span></span>
-
-* <span data-ttu-id="baa7a-112">Zapytania SQL nie może zawierać powiązane dane.</span><span class="sxs-lookup"><span data-stu-id="baa7a-112">The SQL query cannot contain related data.</span></span> <span data-ttu-id="baa7a-113">Jednak w wielu przypadkach można utworzyć na podstawie zapytania za pomocą `Include` operator, aby zwrócić dane dotyczące (zobacz [powiązanych danych w tym](#including-related-data)).</span><span class="sxs-lookup"><span data-stu-id="baa7a-113">However, in many cases you can compose on top of the query using the `Include` operator to return related data (see [Including related data](#including-related-data)).</span></span>
-
-* <span data-ttu-id="baa7a-114">`SELECT` Konfigurowalna powinno być zazwyczaj instrukcji przekazany do tej metody: EF Core musi ocenić operatorów dodatkowych zapytań na serwerze (na przykład, aby przetłumaczyć operatorów LINQ zastosowane po `FromSql`), SQL podane są traktowane jak podzapytania.</span><span class="sxs-lookup"><span data-stu-id="baa7a-114">`SELECT` statements passed to this method should generally be composable: If EF Core needs to evaluate additional query operators on the server (for example, to translate LINQ operators applied after `FromSql`), the supplied SQL will be treated as a subquery.</span></span> <span data-ttu-id="baa7a-115">Oznacza to, SQL przekazywane nie powinna zawierać żadnych znaków lub opcje, które nie są prawidłowe w podzapytaniu, takich jak:</span><span class="sxs-lookup"><span data-stu-id="baa7a-115">This means that the SQL passed should not contain any characters or options that are not valid on a subquery, such as:</span></span>
-  * <span data-ttu-id="baa7a-116">końcowe średnikami</span><span class="sxs-lookup"><span data-stu-id="baa7a-116">a trailing semicolon</span></span>
-  * <span data-ttu-id="baa7a-117">W programie SQL Server, końcowe wskazówka poziomie zapytania (na przykład `OPTION (HASH JOIN)`)</span><span class="sxs-lookup"><span data-stu-id="baa7a-117">On SQL Server, a trailing query-level hint (for example, `OPTION (HASH JOIN)`)</span></span>
-  * <span data-ttu-id="baa7a-118">W programie SQL Server `ORDER BY` klauzula, która nie jest powiązany z `TOP 100 PERCENT` w `SELECT` — klauzula</span><span class="sxs-lookup"><span data-stu-id="baa7a-118">On SQL Server, an `ORDER BY` clause that is not accompanied of `TOP 100 PERCENT` in the `SELECT` clause</span></span>
-
-* <span data-ttu-id="baa7a-119">Instrukcje SQL innych niż `SELECT` są rozpoznawane automatycznie jako innego niż konfigurowalna.</span><span class="sxs-lookup"><span data-stu-id="baa7a-119">SQL statements other than `SELECT` are recognized automatically as non-composable.</span></span> <span data-ttu-id="baa7a-120">W konsekwencji pełnych wyników procedury składowane zawsze są zwracane do klienta i dowolnych operatorów LINQ zastosowane po `FromSql` jest oceniana w pamięci.</span><span class="sxs-lookup"><span data-stu-id="baa7a-120">As a consequence, the full results of stored procedures are always returned to the client and any LINQ operators applied after `FromSql` are evaluated in-memory.</span></span>
-
-## <a name="basic-raw-sql-queries"></a><span data-ttu-id="baa7a-121">Podstawowe pierwotne zapytania SQL</span><span class="sxs-lookup"><span data-stu-id="baa7a-121">Basic raw SQL queries</span></span>
-
-<span data-ttu-id="baa7a-122">Możesz użyć *FromSql* metodę rozszerzenia, aby rozpocząć zapytanie LINQ, na podstawie pierwotne zapytania SQL.</span><span class="sxs-lookup"><span data-stu-id="baa7a-122">You can use the *FromSql* extension method to begin a LINQ query based on a raw SQL query.</span></span>
+<span data-ttu-id="caaec-108">Możesz użyć *FromSql* metodę rozszerzenia, aby rozpocząć zapytanie LINQ, na podstawie pierwotne zapytania SQL.</span><span class="sxs-lookup"><span data-stu-id="caaec-108">You can use the *FromSql* extension method to begin a LINQ query based on a raw SQL query.</span></span>
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -46,7 +29,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-<span data-ttu-id="baa7a-123">Pierwotne zapytania SQL może służyć do wykonywania procedury składowanej.</span><span class="sxs-lookup"><span data-stu-id="baa7a-123">Raw SQL queries can be used to execute a stored procedure.</span></span>
+<span data-ttu-id="caaec-109">Pierwotne zapytania SQL może służyć do wykonywania procedury składowanej.</span><span class="sxs-lookup"><span data-stu-id="caaec-109">Raw SQL queries can be used to execute a stored procedure.</span></span>
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -55,11 +38,11 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-## <a name="passing-parameters"></a><span data-ttu-id="baa7a-124">Przekazywanie parametrów</span><span class="sxs-lookup"><span data-stu-id="baa7a-124">Passing parameters</span></span>
+## <a name="passing-parameters"></a><span data-ttu-id="caaec-110">Przekazywanie parametrów</span><span class="sxs-lookup"><span data-stu-id="caaec-110">Passing parameters</span></span>
 
-<span data-ttu-id="baa7a-125">Podobnie jak w przypadku dowolnego interfejsu API, który akceptuje SQL, jest ważne, aby zdefiniować parametry wszystkie dane wejściowe użytkownika mają ochronę przed ataku polegającego na iniekcji SQL.</span><span class="sxs-lookup"><span data-stu-id="baa7a-125">As with any API that accepts SQL, it is important to parameterize any user input to protect against a SQL injection attack.</span></span> <span data-ttu-id="baa7a-126">Można zawierają symbole zastępcze parametr ciągu zapytania SQL, a następnie podaj wartości parametrów jako dodatkowe argumenty.</span><span class="sxs-lookup"><span data-stu-id="baa7a-126">You can include parameter placeholders in the SQL query string and then supply parameter values as additional arguments.</span></span> <span data-ttu-id="baa7a-127">Możesz podać wartości parametrów zostaną automatycznie przekonwertowane na `DbParameter`.</span><span class="sxs-lookup"><span data-stu-id="baa7a-127">Any parameter values you supply will automatically be converted to a `DbParameter`.</span></span>
+<span data-ttu-id="caaec-111">Podobnie jak w przypadku dowolnego interfejsu API, który akceptuje SQL, jest ważne, aby zdefiniować parametry wszystkie dane wejściowe użytkownika mają ochronę przed ataku polegającego na iniekcji SQL.</span><span class="sxs-lookup"><span data-stu-id="caaec-111">As with any API that accepts SQL, it is important to parameterize any user input to protect against a SQL injection attack.</span></span> <span data-ttu-id="caaec-112">Można zawierają symbole zastępcze parametr ciągu zapytania SQL, a następnie podaj wartości parametrów jako dodatkowe argumenty.</span><span class="sxs-lookup"><span data-stu-id="caaec-112">You can include parameter placeholders in the SQL query string and then supply parameter values as additional arguments.</span></span> <span data-ttu-id="caaec-113">Możesz podać wartości parametrów zostaną automatycznie przekonwertowane na `DbParameter`.</span><span class="sxs-lookup"><span data-stu-id="caaec-113">Any parameter values you supply will automatically be converted to a `DbParameter`.</span></span>
 
-<span data-ttu-id="baa7a-128">Poniższy przykład przekazuje pojedynczy parametr do procedury składowanej.</span><span class="sxs-lookup"><span data-stu-id="baa7a-128">The following example passes a single parameter to a stored procedure.</span></span> <span data-ttu-id="baa7a-129">Chociaż może to wyglądać jak `String.Format` składni, podana wartość jest opakowana w miejsce dodaje parametr i nazwę parametru wygenerowanego `{0}` określono symbolu zastępczego.</span><span class="sxs-lookup"><span data-stu-id="baa7a-129">While this may look like `String.Format` syntax, the supplied value is wrapped in a parameter and the generated parameter name inserted where the `{0}` placeholder was specified.</span></span>
+<span data-ttu-id="caaec-114">Poniższy przykład przekazuje pojedynczy parametr do procedury składowanej.</span><span class="sxs-lookup"><span data-stu-id="caaec-114">The following example passes a single parameter to a stored procedure.</span></span> <span data-ttu-id="caaec-115">Chociaż może to wyglądać jak `String.Format` składni, podana wartość jest opakowana w miejsce dodaje parametr i nazwę parametru wygenerowanego `{0}` określono symbolu zastępczego.</span><span class="sxs-lookup"><span data-stu-id="caaec-115">While this may look like `String.Format` syntax, the supplied value is wrapped in a parameter and the generated parameter name inserted where the `{0}` placeholder was specified.</span></span>
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -70,7 +53,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-<span data-ttu-id="baa7a-130">To jest taka sama zapytania, ale przy użyciu składni interpolacji ciągu, który jest obsługiwany w programie EF Core 2.0 i nowszych:</span><span class="sxs-lookup"><span data-stu-id="baa7a-130">This is the same query but using string interpolation syntax, which is supported in EF Core 2.0 and above:</span></span>
+<span data-ttu-id="caaec-116">To jest taka sama zapytania, ale przy użyciu składni interpolacji ciągu, który jest obsługiwany w programie EF Core 2.0 i nowszych:</span><span class="sxs-lookup"><span data-stu-id="caaec-116">This is the same query but using string interpolation syntax, which is supported in EF Core 2.0 and above:</span></span>
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -81,7 +64,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-<span data-ttu-id="baa7a-131">Można także skonstruować DbParameter i podać go jako wartość parametru.</span><span class="sxs-lookup"><span data-stu-id="baa7a-131">You can also construct a DbParameter and supply it as a parameter value.</span></span> <span data-ttu-id="baa7a-132">Dzięki temu można użyć nazwanych parametrów ciągu zapytania SQL.</span><span class="sxs-lookup"><span data-stu-id="baa7a-132">This allows you to use named parameters in the SQL query string.</span></span>
+<span data-ttu-id="caaec-117">Można także skonstruować DbParameter i podać go jako wartość parametru.</span><span class="sxs-lookup"><span data-stu-id="caaec-117">You can also construct a DbParameter and supply it as a parameter value.</span></span> <span data-ttu-id="caaec-118">Dzięki temu można użyć nazwanych parametrów ciągu zapytania SQL.</span><span class="sxs-lookup"><span data-stu-id="caaec-118">This allows you to use named parameters in the SQL query string.</span></span>
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -92,11 +75,11 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-## <a name="composing-with-linq"></a><span data-ttu-id="baa7a-133">Tworzenie za pomocą LINQ</span><span class="sxs-lookup"><span data-stu-id="baa7a-133">Composing with LINQ</span></span>
+## <a name="composing-with-linq"></a><span data-ttu-id="caaec-119">Tworzenie za pomocą LINQ</span><span class="sxs-lookup"><span data-stu-id="caaec-119">Composing with LINQ</span></span>
 
-<span data-ttu-id="baa7a-134">Jeśli zapytanie SQL może być składana na w bazie danych, można utworzyć na podstawie początkowego pierwotne zapytania SQL przy użyciu operatorów LINQ.</span><span class="sxs-lookup"><span data-stu-id="baa7a-134">If the SQL query can be composed on in the database, then you can compose on top of the initial raw SQL query using LINQ operators.</span></span> <span data-ttu-id="baa7a-135">Zapytania SQL, które mogą być składane na zaczynają się od `SELECT` — słowo kluczowe.</span><span class="sxs-lookup"><span data-stu-id="baa7a-135">SQL queries that can be composed on begin with the `SELECT` keyword.</span></span>
+<span data-ttu-id="caaec-120">Jeśli zapytanie SQL może być składana na w bazie danych, można utworzyć na podstawie początkowego pierwotne zapytania SQL przy użyciu operatorów LINQ.</span><span class="sxs-lookup"><span data-stu-id="caaec-120">If the SQL query can be composed on in the database, then you can compose on top of the initial raw SQL query using LINQ operators.</span></span> <span data-ttu-id="caaec-121">Zapytania SQL, które mogą być składane na zaczynają się od `SELECT` — słowo kluczowe.</span><span class="sxs-lookup"><span data-stu-id="caaec-121">SQL queries that can be composed on begin with the `SELECT` keyword.</span></span>
 
-<span data-ttu-id="baa7a-136">W poniższym przykładzie użyto pierwotne zapytanie SQL, które wybiera z funkcji Table-Valued (TVF), a następnie komponuje się na nim za pomocą LINQ, aby wykonać filtrowanie i sortowanie.</span><span class="sxs-lookup"><span data-stu-id="baa7a-136">The following example uses a raw SQL query that selects from a Table-Valued Function (TVF) and then composes on it using LINQ to perform filtering and sorting.</span></span>
+<span data-ttu-id="caaec-122">W poniższym przykładzie użyto pierwotne zapytanie SQL, które wybiera z funkcji Table-Valued (TVF), a następnie komponuje się na nim za pomocą LINQ, aby wykonać filtrowanie i sortowanie.</span><span class="sxs-lookup"><span data-stu-id="caaec-122">The following example uses a raw SQL query that selects from a Table-Valued Function (TVF) and then composes on it using LINQ to perform filtering and sorting.</span></span>
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -109,9 +92,25 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-### <a name="including-related-data"></a><span data-ttu-id="baa7a-137">W tym powiązane dane</span><span class="sxs-lookup"><span data-stu-id="baa7a-137">Including related data</span></span>
+## <a name="change-tracking"></a><span data-ttu-id="caaec-123">Śledzenie zmian</span><span class="sxs-lookup"><span data-stu-id="caaec-123">Change Tracking</span></span>
 
-<span data-ttu-id="baa7a-138">Tworzenie przy użyciu operatorów LINQ, może służyć do uwzględnienia powiązanych danych w zapytaniu.</span><span class="sxs-lookup"><span data-stu-id="baa7a-138">Composing with LINQ operators can be used to include related data in the query.</span></span>
+<span data-ttu-id="caaec-124">Wysyła zapytanie, które używają `FromSql()` wykonaj dokładnie tę samą zmianę śledzenie reguły jako inne zapytania LINQ w wersji EF Core.</span><span class="sxs-lookup"><span data-stu-id="caaec-124">Queries that use the `FromSql()` follow the exact same change tracking rules as any other LINQ query in EF Core.</span></span> <span data-ttu-id="caaec-125">Na przykład jeśli zapytanie projektów typów jednostek, wyniki będą śledzone domyślnie.</span><span class="sxs-lookup"><span data-stu-id="caaec-125">For example, if the query projects entity types, the results will be tracked by default.</span></span>  
+
+<span data-ttu-id="caaec-126">W poniższym przykładzie użyto pierwotne zapytania SQL, wybierające z funkcji Table-Valued (TVF), a następnie wyłącza Zmień śledzenie z wywołaniem. AsNoTracking():</span><span class="sxs-lookup"><span data-stu-id="caaec-126">The following example uses a raw SQL query that selects from a Table-Valued Function (TVF), then disables change tracking with teh call to .AsNoTracking():</span></span>
+
+<!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
+``` csharp
+var searchTerm = ".NET";
+
+var blogs = context.Query<SearchBlogsDto>()
+    .FromSql($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
+    .AsNoTracking()
+    .ToList();
+```
+
+## <a name="including-related-data"></a><span data-ttu-id="caaec-127">W tym powiązane dane</span><span class="sxs-lookup"><span data-stu-id="caaec-127">Including related data</span></span>
+
+<span data-ttu-id="caaec-128">`Include()` Metoda może służyć do obejmują powiązanych danych, podobnie jak każde inne zapytanie LINQ:</span><span class="sxs-lookup"><span data-stu-id="caaec-128">The `Include()` method can be used to include related data, just like with any other LINQ query:</span></span>
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -123,5 +122,22 @@ var blogs = context.Blogs
     .ToList();
 ```
 
+## <a name="limitations"></a><span data-ttu-id="caaec-129">Ograniczenia</span><span class="sxs-lookup"><span data-stu-id="caaec-129">Limitations</span></span>
+
+<span data-ttu-id="caaec-130">Istnieją pewne ograniczenia, które należy zwrócić uwagę podczas korzystania z pierwotne zapytania SQL:</span><span class="sxs-lookup"><span data-stu-id="caaec-130">There are a few limitations to be aware of when using raw SQL queries:</span></span>
+
+* <span data-ttu-id="caaec-131">Zapytanie SQL musi zwracać dane dotyczące wszystkich właściwości typu obiekt lub kwerendę.</span><span class="sxs-lookup"><span data-stu-id="caaec-131">The SQL query must return data for all properties of the entity or query type.</span></span>
+
+* <span data-ttu-id="caaec-132">Nazwy kolumn w zestawie wyników muszą być zgodne nazwy kolumn, które są mapowane właściwości.</span><span class="sxs-lookup"><span data-stu-id="caaec-132">The column names in the result set must match the column names that properties are mapped to.</span></span> <span data-ttu-id="caaec-133">Należy pamiętać, że to różni się od EF6 gdzie mapowania właściwości/kolumn została zignorowana dla pierwotne zapytania SQL i nazw musiały być zgodne z nazwami właściwości kolumny zestawu wyników.</span><span class="sxs-lookup"><span data-stu-id="caaec-133">Note this is different from EF6 where property/column mapping was ignored for raw SQL queries and result set column names had to match the property names.</span></span>
+
+* <span data-ttu-id="caaec-134">Zapytania SQL nie może zawierać powiązane dane.</span><span class="sxs-lookup"><span data-stu-id="caaec-134">The SQL query cannot contain related data.</span></span> <span data-ttu-id="caaec-135">Jednak w wielu przypadkach można utworzyć na podstawie zapytania za pomocą `Include` operator, aby zwrócić dane dotyczące (zobacz [powiązanych danych w tym](#including-related-data)).</span><span class="sxs-lookup"><span data-stu-id="caaec-135">However, in many cases you can compose on top of the query using the `Include` operator to return related data (see [Including related data](#including-related-data)).</span></span>
+
+* <span data-ttu-id="caaec-136">`SELECT` Konfigurowalna powinno być zazwyczaj instrukcji przekazany do tej metody: EF Core musi ocenić operatorów dodatkowych zapytań na serwerze (na przykład, aby przetłumaczyć operatorów LINQ zastosowane po `FromSql`), SQL podane są traktowane jak podzapytania.</span><span class="sxs-lookup"><span data-stu-id="caaec-136">`SELECT` statements passed to this method should generally be composable: If EF Core needs to evaluate additional query operators on the server (for example, to translate LINQ operators applied after `FromSql`), the supplied SQL will be treated as a subquery.</span></span> <span data-ttu-id="caaec-137">Oznacza to, SQL przekazywane nie powinna zawierać żadnych znaków lub opcje, które nie są prawidłowe w podzapytaniu, takich jak:</span><span class="sxs-lookup"><span data-stu-id="caaec-137">This means that the SQL passed should not contain any characters or options that are not valid on a subquery, such as:</span></span>
+  * <span data-ttu-id="caaec-138">końcowe średnikami</span><span class="sxs-lookup"><span data-stu-id="caaec-138">a trailing semicolon</span></span>
+  * <span data-ttu-id="caaec-139">W programie SQL Server, końcowe wskazówka poziomie zapytania (na przykład `OPTION (HASH JOIN)`)</span><span class="sxs-lookup"><span data-stu-id="caaec-139">On SQL Server, a trailing query-level hint (for example, `OPTION (HASH JOIN)`)</span></span>
+  * <span data-ttu-id="caaec-140">W programie SQL Server `ORDER BY` klauzula, która nie jest powiązany z `TOP 100 PERCENT` w `SELECT` — klauzula</span><span class="sxs-lookup"><span data-stu-id="caaec-140">On SQL Server, an `ORDER BY` clause that is not accompanied of `TOP 100 PERCENT` in the `SELECT` clause</span></span>
+
+* <span data-ttu-id="caaec-141">Instrukcje SQL innych niż `SELECT` są rozpoznawane automatycznie jako innego niż konfigurowalna.</span><span class="sxs-lookup"><span data-stu-id="caaec-141">SQL statements other than `SELECT` are recognized automatically as non-composable.</span></span> <span data-ttu-id="caaec-142">W konsekwencji pełnych wyników procedury składowane zawsze są zwracane do klienta i dowolnych operatorów LINQ zastosowane po `FromSql` jest oceniana w pamięci.</span><span class="sxs-lookup"><span data-stu-id="caaec-142">As a consequence, the full results of stored procedures are always returned to the client and any LINQ operators applied after `FromSql` are evaluated in-memory.</span></span>
+
 > [!WARNING]  
-> <span data-ttu-id="baa7a-139">**Zawsze używaj parametryzacji pierwotne zapytania SQL:** Interfejsy API, które akceptują pierwotne SQL string, takich jak `FromSql` i `ExecuteSqlCommand` Zezwalaj na wartości, które mają być łatwo przekazywane jako parametry.</span><span class="sxs-lookup"><span data-stu-id="baa7a-139">**Always use parameterization for raw SQL queries:** APIs that accept a raw SQL string such as `FromSql` and `ExecuteSqlCommand` allow values to be easily passed as parameters.</span></span> <span data-ttu-id="baa7a-140">Oprócz sprawdzania poprawności danych wejściowych użytkownika, należy zawsze używać parametryzacji dla każdej wartości pierwotne zapytania SQL/polecenia.</span><span class="sxs-lookup"><span data-stu-id="baa7a-140">In addition to validating user input, always use parameterization for any values used in a raw SQL query/command.</span></span> <span data-ttu-id="baa7a-141">Jeśli używasz ciągów dynamicznie tworzenie dowolnej części ciągu zapytania, a następnie ponosisz odpowiedzialność za sprawdzanie poprawności wszystkie dane wejściowe, aby zapewnić ochronę przed atakami polegającymi na iniekcji SQL.</span><span class="sxs-lookup"><span data-stu-id="baa7a-141">If you are using string concatenation to dynamically build any part of the query string then you are responsible for validating any input to protect against SQL injection attacks.</span></span>
+> <span data-ttu-id="caaec-143">**Zawsze używaj parametryzacji pierwotne zapytania SQL:** Interfejsy API, które akceptują pierwotne SQL string, takich jak `FromSql` i `ExecuteSqlCommand` Zezwalaj na wartości, które mają być łatwo przekazywane jako parametry.</span><span class="sxs-lookup"><span data-stu-id="caaec-143">**Always use parameterization for raw SQL queries:** APIs that accept a raw SQL string such as `FromSql` and `ExecuteSqlCommand` allow values to be easily passed as parameters.</span></span> <span data-ttu-id="caaec-144">Oprócz sprawdzania poprawności danych wejściowych użytkownika, należy zawsze używać parametryzacji dla każdej wartości pierwotne zapytania SQL/polecenia.</span><span class="sxs-lookup"><span data-stu-id="caaec-144">In addition to validating user input, always use parameterization for any values used in a raw SQL query/command.</span></span> <span data-ttu-id="caaec-145">Jeśli używasz ciągów dynamicznie tworzenie dowolnej części ciągu zapytania, a następnie ponosisz odpowiedzialność za sprawdzanie poprawności wszystkie dane wejściowe, aby zapewnić ochronę przed atakami polegającymi na iniekcji SQL.</span><span class="sxs-lookup"><span data-stu-id="caaec-145">If you are using string concatenation to dynamically build any part of the query string then you are responsible for validating any input to protect against SQL injection attacks.</span></span>
