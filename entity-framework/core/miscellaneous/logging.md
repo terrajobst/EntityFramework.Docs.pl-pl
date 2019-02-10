@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f6e35c6d-45b7-4258-be1d-87c1bb67438d
 uid: core/miscellaneous/logging
-ms.openlocfilehash: 65501b5ac03ae544c51b7fc1a07fa9eea849f1e3
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 0a996403afdbe076b1690c98eeb305b40c4d1f4a
+ms.sourcegitcommit: 109a16478de498b65717a6e09be243647e217fb3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022148"
+ms.lasthandoff: 02/10/2019
+ms.locfileid: "55985577"
 ---
 # <a name="logging"></a>Rejestrowanie
 
@@ -24,12 +24,15 @@ EF Core automatycznie integruje się z mechanizmami rejestracji programu ASP.NET
 
 EF Core rejestrowania obecnie wymaga element ILoggerFactory, która sama skonfigurowane z co najmniej jeden ILoggerProvider. Typowe dostawcy są dostarczane w następujących pakietów:
 
-* [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/): rejestratora konsoli proste.
-* [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/): Obsługa usługi Azure App Services "Dzienniki diagnostyczne" i "Log strumienia" funkcji.
-* [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/): dzienniki, aby monitor debugera za pomocą System.Diagnostics.Debug.WriteLine().
-* [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/): dzienniki w dzienniku zdarzeń Windows.
-* [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/): obsługuje EventSource/EventListener.
-* [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/): dzienniki, aby za pomocą System.Diagnostics.TraceSource.TraceEvent() odbiornik śledzenia.
+* [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/): Rejestrator proste konsoli.
+* [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/): Obsługuje usługi Azure App Services "Dzienniki diagnostyczne" i "Log strumienia" funkcji.
+* [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/): Dzienniki, aby monitor debugera za pomocą System.Diagnostics.Debug.WriteLine().
+* [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/): Dzienniki w dzienniku zdarzeń Windows.
+* [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/): Obsługuje EventSource/EventListener.
+* [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/): Dzienniki, aby za pomocą System.Diagnostics.TraceSource.TraceEvent() odbiornik śledzenia.
+
+> [!NOTE]
+> Poniższy kod przykładowy używa `ConsoleLoggerProvider` Konstruktor, który ma zostać zamieniono przestarzały parametr w wersji 2.2. Odpowiednie elementy zastępcze rejestrowania przestarzałe interfejsy API będą dostępne w wersji 3.0 lub nowszej. W międzyczasie jest bezpiecznie zignorować i pominąć ostrzeżenia.
 
 Po zainstalowaniu odpowiednich pakietów aplikacji powinien utworzyć pojedyncze/globalnego wystąpienia LoggerFactory. Na przykład za pomocą rejestratora konsoli:
 
@@ -43,6 +46,9 @@ To wystąpienie singleton/globalne następnie powinny być rejestrowane z progra
 > Jest to bardzo ważne jest, że aplikacji należy tworzyć nowe wystąpienie element ILoggerFactory dla każdego wystąpienia kontekstu. Ten sposób spowoduje przeciek pamięci i niską wydajnością.
 
 ## <a name="filtering-what-is-logged"></a>Filtrowanie, co jest rejestrowane
+
+> [!NOTE]
+> Poniższy kod przykładowy używa `ConsoleLoggerProvider` Konstruktor, który ma zostać zamieniono przestarzały parametr w wersji 2.2. Odpowiednie elementy zastępcze rejestrowania przestarzałe interfejsy API będą dostępne w wersji 3.0 lub nowszej. W międzyczasie jest bezpiecznie zignorować i pominąć ostrzeżenia.
 
 Najprostszym sposobem filtrowania, co jest rejestrowane jest skonfigurowane podczas rejestrowania ILoggerProvider. Na przykład:
 
