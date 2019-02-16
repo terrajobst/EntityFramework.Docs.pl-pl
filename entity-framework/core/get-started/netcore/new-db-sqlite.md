@@ -6,12 +6,12 @@ description: Wprowadzenie do platformy .NET Core przy użyciu platformy Entity F
 ms.date: 08/03/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: 6cebe14e179cb6998592f5d3823c114b3bda0138
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: a0df80a8fe96be4f8cc3177919e2b087e14cb49c
+ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022314"
+ms.lasthandoff: 02/16/2019
+ms.locfileid: "56325330"
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Wprowadzenie do nowej bazy danych z programem EF Core w aplikacji Konsolowej .NET Core
 
@@ -60,7 +60,7 @@ Definiowanie klas jednostek i kontekstu, które tworzą model.
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/Model.cs)]
 
-Porada: W rzeczywistej aplikacji, możesz umieścić każda klasa w oddzielnym pliku, a parametry połączenia w zmiennej środowisku lub pliku konfiguracji. W celu uproszczenia tego samouczka wszystko, co znajduje się w jednym pliku.
+Porada: W rzeczywistej aplikacji możesz umieścić każda klasa w oddzielnym pliku, a parametry połączenia w zmiennej środowisku lub pliku konfiguracji. W celu uproszczenia tego samouczka wszystko, co znajduje się w jednym pliku.
 
 ## <a name="create-the-database"></a>Tworzenie bazy danych
 
@@ -69,7 +69,7 @@ Po utworzeniu modelu, użyj [migracje](xref:core/managing-schemas/migrations/ind
 * Uruchom `dotnet ef migrations add InitialCreate` tworzenia szkieletu migracji i utworzyć początkowy zestaw tabel dla modelu.
 * Uruchom `dotnet ef database update` zastosować nową migrację do bazy danych. To polecenie tworzy bazę danych przed zastosowaniem migracji.
 
-*Blogging.db** bazy danych SQLite znajduje się w katalogu projektu.
+*Blogging.db* bazy danych SQLite znajduje się w katalogu projektu.
 
 ## <a name="use-the-model"></a>Użyj modelu
 
@@ -113,4 +113,4 @@ Aby ustawić katalog roboczy:
 
 * [Samouczek: Rozpoczynanie pracy z programem EF Core programu ASP.NET Core przy użyciu nowej bazy danych przy użyciu systemu SQLite](xref:core/get-started/aspnetcore/new-db)
 * [Samouczek: Rozpoczynanie pracy ze stronami Razor w programie ASP.NET Core](https://docs.microsoft.com/aspnet/core/tutorials/razor-pages/razor-pages-start)
-* [Samouczek: Strony Razor za pomocą platformy Entity Framework Core w programie ASP.NET Core](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)
+* [Samouczek: Strony razor za pomocą platformy Entity Framework Core w programie ASP.NET Core](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)

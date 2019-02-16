@@ -4,16 +4,16 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 uid: core/index
-ms.openlocfilehash: ee3fac9e9103749195886a632fbeac3163a46689
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 982f69077a68495c48b7a9cce833dd7d4119e252
+ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250546"
+ms.lasthandoff: 02/16/2019
+ms.locfileid: "56325317"
 ---
 # <a name="entity-framework-core"></a>Entity Framework Core
 
-Entity Framework (EF) Core to lekka, rozszerzalna i wieloplatformowa wersja popularnej technologii dostępu do danych — Entity Framework.
+Entity Framework (EF) Core to lekkie, rozszerzalne, ["open source"](https://github.com/aspnet/EntityFrameworkCore) dla wielu platform wersję popularnych danych Entity Framework dostęp do technologii.
 
 EF Core może służyć jako maper obiektowo relacyjny (O/RM), dzięki czemu deweloperzy platformy .NET mogą pracować z bazą danych, używając obiektów platformy .NET i eliminując potrzebę pisania większości kodu dostępu do danych.
 
@@ -62,7 +62,7 @@ namespace Intro
 }
 ```
 
-## <a name="querying"></a>Wykonywanie zapytań
+## <a name="querying"></a>Wykonywanie zapytania
 
 Wystąpienia klas jednostek są pobierane z bazy danych przy użyciu języka Language Integrated Query (LINQ). Zobacz [Wykonywanie zapytania o dane](querying/index.md), aby dowiedzieć się więcej.
 

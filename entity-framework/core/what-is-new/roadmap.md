@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: 7eba9e1a8e145ef407f844ff3a3ab3069495b7ae
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: 9064b323c11282418f2bedf70f874d45c18bb78a
+ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058737"
+ms.lasthandoff: 02/16/2019
+ms.locfileid: "56325343"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core plan
 
@@ -23,7 +23,7 @@ Przy użyciu programu EF Core 2.2 spory naszym głównym celem jest teraz EF Cor
 Firma Microsoft nie wykonano żadnych nowych funkcji, więc [EF Core 3.0 w wersji zapoznawczej 1 pakiety opublikowane w galerii NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.0-preview.18572.1) grudnia 2018 r. tylko zawierać [poprawki, drobne ulepszenia i zmiany, które wprowadziliśmy w Przygotowanie do pracy 3.0](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aissue+milestone%3A3.0.0+is%3Aclosed+label%3Aclosed-fixed).
 
 W rzeczywistości nadal trzeba dostosować naszych [wersji, planowania](#release-planning-process) 3.0, aby upewnić się, mamy właściwy zestaw funkcji, które można wykonać w wyznaczonym czasie.
-Firma Microsoft udostępni więcej informacji, uzyskujemy bardziej przejrzysty, ale poniżej przedstawiono pewne ogólne motywy i funkcje, firma Microsoft itend pracować nad:
+Firma Microsoft będzie udostępniać więcej informacji, uzyskujemy bardziej przejrzysty, ale poniżej przedstawiono pewne ogólne motywy i funkcje które Chcieliśmy pracować nad:
 
 - **Ulepszenia zapytań LINQ ([#12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795))**: LINQ umożliwia tworzenie zapytań bazy danych bez opuszczania usługi z wybranego języka, wykorzystując zaawansowane wpisz informacje funkcji IntelliSense i sprawdzanie typów w czasie kompilacji.
   Ale LINQ można również napisać nieograniczonej liczby zapytań skomplikowane, a który zawsze było ogromnym wyzwaniom dla dostawców LINQ.
