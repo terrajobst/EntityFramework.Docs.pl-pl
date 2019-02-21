@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 11/15/2016
 ms.assetid: e079d4af-c455-4a14-8e15-a8471516d748
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: 729cf9b8c038ea2adba8c79c68d9f6fb1676fefa
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 6d8cf117dfd94524a53e10bb4a23c2a44c4c8e7b
+ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022187"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56459175"
 ---
 # <a name="connection-resiliency"></a>Elastyczność połączenia
 
@@ -17,9 +17,21 @@ Elastyczność połączenia automatycznie ponawia próbę polecenia bazy danych 
 
 Na przykład dostawca programu SQL Server zawiera strategii wykonywania, który jest w szczególny sposób dopasowane do programu SQL Server (w tym usługi SQL Azure). Ją rozpoznaje rodzaje wyjątków, które mogą być ponawiane i posiada odpowiednie ustawienia domyślne, aby uzyskać maksymalną liczbę ponownych prób, opóźnienie między ponownych prób.
 
-Strategia wykonywania jest określony podczas konfigurowania opcji dla kontekstu. Jest to zazwyczaj w `OnConfiguring` metody pochodnej kontekstu lub w `Startup.cs` dla aplikacji platformy ASP.NET Core.
+Strategia wykonywania jest określony podczas konfigurowania opcji dla kontekstu. Jest to zazwyczaj w `OnConfiguring` metody pochodnej kontekstu:
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#OnConfiguring)]
+
+lub `Startup.cs` dla aplikacji platformy ASP.NET Core:
+
+``` csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContext<PicnicContext>(
+        options => options.UseSqlServer(
+            "<connection string>",
+            providerOptions => providerOptions.EnableRetryOnFailure()));
+}
+```
 
 ## <a name="custom-execution-strategy"></a>Strategia wykonywania niestandardowych
 

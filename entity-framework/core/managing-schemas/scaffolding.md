@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/13/2018
 ms.assetid: 6263EF7D-4989-42E6-BDEE-45DA770342FB
 uid: core/managing-schemas/scaffolding
-ms.openlocfilehash: ef729c0c26d5a1f57099f339eb51cda7e83289df
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: 6e61d2ebcf5ada365dcdb264bc371199574e12fa
+ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688683"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56459188"
 ---
 # <a name="reverse-engineering"></a>Odtwarzanie
 
@@ -79,7 +79,7 @@ Nazwy tabel i kolumn są stałe, aby lepiej dopasować je do konwencji nazewnict
 
 Typy jednostek są konfigurowane przy użyciu interfejsu API Fluent domyślnie. Określ `-DataAnnotations` (PMC) lub `--data-annotations` (CLI), aby zamiast tego użyć adnotacji danych, gdy jest to możliwe.
 
-Na przykład za pomocą interfejsu API Fluent będzie tworzenia szkieletu tej.
+Na przykład za pomocą interfejsu API Fluent będzie tworzenia szkieletu to:
 
 ``` csharp
 entity.Property(e => e.Title)
@@ -87,7 +87,7 @@ entity.Property(e => e.Title)
     .HasMaxLength(160);
 ```
 
-Podczas korzystania z adnotacji danych będzie tworzenia szkieletu to.
+Podczas korzystania z adnotacji danych będzie tworzenia szkieletu to:
 
 ``` csharp
 [Required]
