@@ -3,12 +3,12 @@ title: Pierwsze adnotacje danych - EF6 kodu
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 8d85ef85f56a23d9b3b526554417dc9dd360e139
-ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
+ms.openlocfilehash: e6b017306b4f66f5bac2a9964e11391da28ceb40
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/03/2018
-ms.locfileid: "50980044"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463285"
 ---
 # <a name="code-first-data-annotations"></a>Adnotacje danych na pierwszym kodu
 > [!NOTE]
@@ -25,7 +25,7 @@ Ten artykuł koncentruje się na konfigurowanie Twoich zajęciach — wyróżnia
 
 ## <a name="the-model"></a>Model
 
-Zademonstruję DataAnnotations pierwszy kodu przy użyciu prostego pary klas: Blog i Post.
+Zademonstruję DataAnnotations pierwszy kodu przy użyciu prostego pary klasy: Blog i Post.
 
 ``` csharp
     public class Blog
@@ -176,7 +176,7 @@ Adnotacja MaxLength wpłynie na bazie danych przez ustawienie właściwości dł
 
 ![Tabela blogi, zawierająca maksymalna długość w kolumnie BloggerName](~/ef6/media/jj591583-figure04.png)
 
-Adnotacja po stronie klienta w MVC i EF 4.1 po stronie serwera adnotacji zarówno podlegają weryfikacji ponownie dynamicznie tworzenie komunikat o błędzie: "pole BloggerName musi być typu string lub tablicy o maksymalnej długości"10"." Ten komunikat jest nieco długi. Wiele adnotacje umożliwiają określenie komunikat o błędzie z atrybutem komunikat o błędzie.
+Adnotacja po stronie klienta w MVC i adnotacji po stronie serwera EF 4.1 zachowa weryfikacji ponownie dynamicznie tworzenie komunikat o błędzie: "Pole BloggerName musi być typu string lub tablicy o maksymalnej długości"10"." Ten komunikat jest nieco długi. Wiele adnotacje umożliwiają określenie komunikat o błędzie z atrybutem komunikat o błędzie.
 
 ``` csharp
     [MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
@@ -245,9 +245,6 @@ W bazie danych w tabeli blogu będzie zawierać wszystkie właściwości blogu, 
 
 ![Blog tabelę z typu złożonego](~/ef6/media/jj591583-figure06.png)
 
-Inny interesujący Uwaga jest mimo, że właściwość DateCreated została zdefiniowana jako nieprzyjmujące wartości daty/godziny w klasie, pole odpowiedniej bazy danych dopuszcza wartości null. Należy użyć wymaganych adnotacji, jeśli chcesz mieć wpływ na schemat bazy danych.
-
- 
 
 ## <a name="concurrencycheck"></a>ConcurrencyCheck
 
@@ -271,7 +268,7 @@ Jeśli ktoś zmienił nazwę blogger blogu w tym samym czasie, ta aktualizacja z
 
  
 
-## <a name="timestamp"></a>Znacznik czasu:
+## <a name="timestamp"></a>TimeStamp
 
 Jest to bardziej powszechne, aby używać pól rowversion lub sygnatura czasowa sprawdzania współbieżności. Jednak zamiast przy użyciu adnotacji ConcurrencyCheck, można użyć bardziej szczegółowe adnotacji sygnatury czasowej, tak długo, jak typ właściwości to tablica bajtów. Kod najpierw traktują właściwości sygnatury czasowej niż jako właściwości ConcurrencyCheck, ale jej będzie również upewnij się, że pole bazy danych, która najpierw generuje kod innych niż null. Może mieć tylko jedną właściwość sygnatury czasowej w danej klasy.
 
@@ -374,7 +371,7 @@ Indeksy są domyślnie nie jest unikatowa, ale można użyć **IsUnique** o nazw
 
 ### <a name="multiple-column-indexes"></a>Indeksy wielu kolumn
 
-Indeksy, obejmujące wiele kolumn są określane przy użyciu tej samej nazwie w wielu adnotacjach indeksu dla danej tabeli. Podczas tworzenia indeksów wielokolumnowych, należy określić kolejność kolumn w indeksie. Na przykład, poniższy kod tworzy indeks wielokolumnowych na **ocena** i **BlogId** o nazwie **IX\_BlogAndRating**. **BlogId** jest w pierwszej kolumnie indeksu i **ocena** drugi.
+Indeksy, obejmujące wiele kolumn są określane przy użyciu tej samej nazwie w wielu adnotacjach indeksu dla danej tabeli. Podczas tworzenia indeksów wielokolumnowych, należy określić kolejność kolumn w indeksie. Na przykład, poniższy kod tworzy indeks wielokolumnowych na **ocena** i **BlogId** o nazwie **IX\_BlogIdAndRating**. **BlogId** jest w pierwszej kolumnie indeksu i **ocena** drugi.
 
 ``` csharp
     public class Post
@@ -391,7 +388,7 @@ Indeksy, obejmujące wiele kolumn są określane przy użyciu tej samej nazwie w
 
  
 
-## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>Relacji atrybutów: InverseProperty i klucza obcego
+## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>Atrybuty relacji: InverseProperty i klucza obcego
 
 > [!NOTE]
 > Ta strona zawiera informacje o konfigurowaniu relacje w modelu Code First przy użyciu adnotacji danych. Aby uzyskać ogólne informacje dotyczące relacji w EF i uzyskiwania dostępu i manipulowanie danymi za pomocą relacji, zobacz [relacje & właściwości nawigacji](~/ef6/fundamentals/relationships.md). *
@@ -441,7 +438,7 @@ Należy również dodać w klasie osoby odwołuje się tych właściwości. Klas
     }
 ```
 
-Kod najpierw jest możliwość dopasowania właściwości do dwóch klas samodzielnie. W tabeli bazy danych dla wpisów powinien mieć jeden klucz obcy dla osoby CreatedBy i jeden dla UpdatedBy osoby, ale kod najpierw utworzy cztery będą właściwości klucza obcego: osoba\_identyfikator, osoba\_Id1, CreatedBy\_identyfikator i UpdatedBy\_identyfikatora.
+Kod najpierw jest możliwość dopasowania właściwości do dwóch klas samodzielnie. W tabeli bazy danych dla wpisów powinien mieć jeden klucz obcy dla osoby CreatedBy i jeden dla osoby UpdatedBy, ale kod najpierw utworzy cztery właściwości klucza obcego: Osoby\_identyfikator, osoba\_Id1, CreatedBy\_identyfikator i UpdatedBy\_identyfikatora.
 
 ![Wpisy tabeli za pomocą kluczy obcych dodatkowych](~/ef6/media/jj591583-figure10.png)
 

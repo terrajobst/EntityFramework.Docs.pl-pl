@@ -4,16 +4,16 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: b52b1fe6b2d5a585f4d55b0299891f61cbc968a3
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: b5ac31722f49589f1494a3d8d1c8a7011a4cf9ce
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997573"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463272"
 ---
 # <a name="new-features-in-ef-core-20"></a>Nowe funkcje programu EF Core 2.0
 
-## <a name="net-standard-20"></a>.NET standard 2.0
+## <a name="net-standard-20"></a>.NET Standard 2.0
 EF Core teraz jest przeznaczony dla .NET Standard 2.0, co oznacza, że można pracować przy użyciu platformy .NET Core 2.0, .NET Framework 4.6.1 i innych bibliotek, które implementują .NET Standard 2.0.
 Zobacz [obsługiwane implementacje platformy .NET](../platforms/index.md) więcej informacji o tym, co jest obsługiwane.
 
@@ -179,7 +179,7 @@ Nowa metoda wprowadza pewne ograniczenia na co można zrobić ```OnConfiguring()
 
 ### <a name="explicitly-compiled-queries"></a>Zapytania skompilowane jawnie
 
-Jest to drugi zdecydować się na wydajności funkcji oferują korzyści w scenariuszach o dużej skali.
+Jest to funkcja drugi zdecydować się na wydajności oferują korzyści w scenariuszach o dużej skali.
 
 Ręczne lub jawnie skompilowanych zapytanie interfejsy API zostały dostępne w poprzednich wersjach programu EF, a także w składniku LINQ to SQL, aby umożliwić aplikacjom tak, aby może zostać obliczony tylko raz w pamięci podręcznej tłumaczenie zapytań i wykonywane wiele razy.
 

@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 343162596780e6146b57f73a38221701009cd855
-ms.sourcegitcommit: 85d17524d8e022f933cde7fc848313f57dfd3eb8
+ms.openlocfilehash: ad7ac3099cfd4c49b88acfbbff61f2af9294b6ec
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/06/2019
-ms.locfileid: "55760512"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463246"
 ---
 # <a name="raw-sql-queries"></a>Pierwotne zapytania SQL
 
@@ -140,4 +140,6 @@ Istnieją pewne ograniczenia, które należy zwrócić uwagę podczas korzystani
 * Instrukcje SQL innych niż `SELECT` są rozpoznawane automatycznie jako innego niż konfigurowalna. W konsekwencji pełnych wyników procedury składowane zawsze są zwracane do klienta i dowolnych operatorów LINQ zastosowane po `FromSql` jest oceniana w pamięci.
 
 > [!WARNING]  
-> **Zawsze używaj parametryzacji pierwotne zapytania SQL:** Interfejsy API, które akceptują pierwotne SQL string, takich jak `FromSql` i `ExecuteSqlCommand` Zezwalaj na wartości, które mają być łatwo przekazywane jako parametry. Oprócz sprawdzania poprawności danych wejściowych użytkownika, należy zawsze używać parametryzacji dla każdej wartości pierwotne zapytania SQL/polecenia. Jeśli używasz ciągów dynamicznie tworzenie dowolnej części ciągu zapytania, a następnie ponosisz odpowiedzialność za sprawdzanie poprawności wszystkie dane wejściowe, aby zapewnić ochronę przed atakami polegającymi na iniekcji SQL.
+> **Zawsze używaj parametryzacji pierwotne zapytania SQL:** Oprócz sprawdzania poprawności danych wejściowych użytkownika, należy zawsze używać parametryzacji dla każdej wartości pierwotne zapytania SQL/polecenia. Interfejsy API, które akceptują pierwotne SQL string, takich jak `FromSql` i `ExecuteSqlCommand` Zezwalaj na wartości, które mają być łatwo przekazywane jako parametry. Przeciążenia `FromSql` i `ExecuteSqlCommand` akceptujących FormattableString również zezwalają na użycie syntaxt interpolacji ciągu w taki sposób, która pomaga chronić przed atakami polegającymi na iniekcji SQL. 
+> 
+> Jeśli są dynamicznie tworzenie dowolnej części ciągu zapytania za pomocą ciągów lub interpolacji lub przekazywanie danych wejściowych użytkownika do instrukcji lub procedur składowanych, które umożliwiają wykonanie tych danych wejściowych jako dynamiczny język SQL, jesteś odpowiedzialny za sprawdzanie poprawności wszystkie dane wejściowe Zabezpiecz się przed atakami polegającymi na iniekcji SQL.
