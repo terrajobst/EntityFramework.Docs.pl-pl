@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: cf0d2cf032b9aa319fe706aece5b1ea66a5d6251
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: b6774f615b04bf9579aac5dea217e7321631da0c
+ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463394"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57829190"
 ---
 # <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Nowych funkcji dostępnych w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
 
@@ -75,7 +75,7 @@ Cecha ta sprawia, że ich doskonale sprawdzą się w przypadku widoków bazy dan
 Rozpoczęto pracę na temat tej funkcji, ale nie jest zawarty w bieżącej wersji zapoznawczej. 
 
 Ta funkcja jest zapewnienie jednostek, które przechowują dane w właściwości indeksowanych zamiast regularnego właściwości, a także o będzie mógł korzystać z wystąpień klasy .NET (potencjalnie coś tak proste, jak `Dictionary<string, object>`) do reprezentowania typów różnych jednostek w tym samym modelu platformy EF Core.
-Ta funkcja jest kamień przechodzenia krok po kroku do obsługi relacji wiele do wielu, bez jednostki sprzężenia, który jest jednym z najbardziej pożądanych ulepszenia dla platformy EF Core.
+Ta funkcja jest kamień przechodzenia krok po kroku do obsługi relacji wiele do wielu, bez jednostki sprzężenia ([wystawiać #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368)), które jest jednym z najbardziej pożądanych ulepszenia dla platformy EF Core.
 
 ## <a name="ef-63-on-net-core"></a>EF 6.3 na platformie .NET Core 
 

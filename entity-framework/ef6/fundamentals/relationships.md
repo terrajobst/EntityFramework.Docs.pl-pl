@@ -3,12 +3,12 @@ title: Relacje, właściwości nawigacji i kluczy obcych — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: 46c2d11b5704ec7ae82a423ae042b87f5efe436f
-ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
+ms.openlocfilehash: 416eb1fb590330ba292a858347e26b83dddc74df
+ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/14/2018
-ms.locfileid: "49315662"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57829203"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Relacje, właściwości nawigacji i kluczy obcych
 Ten temat zawiera omówienie sposobu zarządzania relacje między jednostkami w Entity Framework. Daje ona również pewne wskazówki na temat sposobu mapowania i manipulowania nimi relacji.
@@ -29,7 +29,7 @@ Zalecane jest, aby uwzględnić właściwości w modelu, które są mapowane na 
 
 Kolumny klucza obcego nie są uwzględnione w modelu informacji o skojarzeniu odbywa się jako niezależny obiekt. Relacje są śledzone za pomocą odwołania do obiektów zamiast właściwości klucza obcego. Skojarzenie tego typu jest nazywana *niezależnych skojarzenie*. Najczęstszym sposobem modyfikowania *niezależnych skojarzenie* jest zmodyfikowanie właściwości nawigacji, które są generowane dla każdego obiektu, który uczestniczy w skojarzeniu.
 
-Można użyć jednego lub obu typów skojarzeń w modelu. Jednak w przypadku czystego relację wiele do wielu, która jest połączona za pomocą tabeli sprzężenia, która zawiera tylko klucze obce EF użyje niezależnych skojarzenia do zarządzania takich relacji wiele do wielu.   
+Można użyć jednego lub obu typów skojarzeń w modelu. Jednak w przypadku czystego relację wiele do wielu, która jest połączona za pomocą tabeli sprzężenia, która zawiera tylko klucze obce EF użyje niezależnych skojarzenia do zarządzania takich relacji wiele do wielu.   
 
 Na poniższej ilustracji przedstawiono model koncepcyjny, który został utworzony za pomocą programu Entity Framework Designer. Model zawiera dwie jednostki, które uczestniczą w relacji jeden do wielu. Zarówno jednostki mają właściwości nawigacji. **Kurs** jednostki depend i ma **DepartmentID** zdefiniowana właściwość klucza obcego.
 
@@ -51,7 +51,7 @@ public class Department
 {
    public Department()
    {
-     this.Course = new HashSet<Course>();
+     this.Courses = new HashSet<Course>();
    }  
    public int DepartmentID { get; set; }
    public string Name { get; set; }

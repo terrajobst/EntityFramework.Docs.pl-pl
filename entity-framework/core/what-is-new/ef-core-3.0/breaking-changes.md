@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: a7e1a03bf1131cd53123f5cc39b07bed94619b44
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: 748db8a71a04a2d696ef21a03319906b9fc776be
+ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463400"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57829229"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
 
@@ -22,11 +22,10 @@ Podział w nowych funkcji wprowadzonych w jednym 3.0 w wersji zapoznawczej do in
 
 ## <a name="linq-queries-are-no-longer-evaluated-on-the-client"></a>Zapytania LINQ nie są obliczane na komputerze klienckim
 
-[Śledzenie problem #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
+[Śledzenie 14935 # problem](https://github.com/aspnet/EntityFrameworkCore/issues/14935)
+[Zobacz też problem #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
 
-> [!IMPORTANT]
-> Ogłaszamy wstępnie tego podziału.
-Jego ma jeszcze niewysłanych w dowolnej wersji 3.0 (wersja zapoznawcza).
+Ta zmiana zostanie wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 4.
 
 **Stare zachowanie**
 
@@ -98,8 +97,14 @@ Ta zmiana została wprowadzona redukcji szumu w `Info` poziom dziennika.
 **Środki zaradcze**
 
 To zdarzenie logowania jest definiowany przez `RelationalEventId.CommandExecuting` zdarzenia o identyfikatorze 20100.
-Do logowania SQL w `Info` poziomu ponownie, Włącz rejestrowanie na `Debug` poziomu i filtr, aby po prostu tego zdarzenia.
-
+Do logowania SQL w `Info` poziomu ponownie, jawnie skonfigurować poziom w `OnConfiguring` lub `AddDbContext`.
+Na przykład:
+```C#
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder
+        .UseSqlServer(connectionString)
+        .ConfigureWarnings(c => c.Log((RelationalEventId.CommandExecuting, LogLevel.Info)));
+```
 
 ## <a name="temporary-key-values-are-no-longer-set-onto-entity-instances"></a>Wartości klucza tymczasowego nie są już ustawione na wystąpień jednostek
 
@@ -439,6 +444,28 @@ modelBuilder
     .HasField("_id");
 ```
 
+## <a name="adddbcontextadddbcontextpool-no-longer-call-addlogging-and-addmemorycache"></a>AddDbContext/AddDbContextPool już wywołać AddLogging AddMemoryCache
+
+[Śledzenie problem #14756](https://github.com/aspnet/EntityFrameworkCore/issues/14756)
+
+Ta zmiana zostanie wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 4.
+
+**Stare zachowanie**
+
+Przed programem EF Core 3.0, wywołanie `AddDbContext` lub `AddDbContextPool` będzie również zarejestrować rejestrowanie i buforowanie usług za pomocą D.I za pośrednictwem wywołania do pamięci [AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) i [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
+
+**Nowe zachowanie**
+
+Począwszy od programu EF Core 3.0 to `AddDbContext` i `AddDbContextPool` nie będą już rejestrowanie tych usług za pomocą iniekcji zależności (DI).
+
+**Dlaczego**
+
+EF Core 3.0 nie wymaga, że te usługi są w cotainer DI aplikacji. Jednak jeśli `ILoggerFactory` jest zarejestrowany w kontenerze DI aplikacji, a następnie nadal będzie on używany przez platformę EF Core.
+
+**Środki zaradcze**
+
+Jeśli Twoja aplikacja potrzebuje tych usług, następnie zarejestruj je jawnie przy użyciu kontenera DI [AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) lub [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
+
 ## <a name="dbcontextentry-now-performs-a-local-detectchanges"></a>DbContext.Entry wykonuje obecnie lokalnego metody DetectChanges
 
 [Śledzenie problem #13552](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
@@ -610,6 +637,43 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     optionsBuilder
         .ConfigureWarnings(w => w.Log(CoreEventId.ManyServiceProvidersCreatedWarning));
 }
+```
+
+## <a name="new-behavior-for-hasonehasmany-called-with-a-single-string"></a>Nowe zachowanie HasOne/HasMany volat pojedynczy ciąg
+
+[Śledzenie problem #9171](https://github.com/aspnet/EntityFrameworkCore/issues/9171)
+
+Ta zmiana zostanie wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 4.
+
+**Stare zachowanie**
+
+Przed programem EF Core 3.0 to kod wywoływania `HasOne` lub `HasMany` przy użyciu jednego ciągu została zinterpretowana w sposób mylące.
+Na przykład:
+```C#
+modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
+```
+
+Kod wygląda na to jest odnoszących się `Samuri` do niektóre inne jednostki typu przy użyciu `Entrance` właściwość nawigacji, która może być prywatny.
+
+W rzeczywistości, ten kod próbuje utworzyć relację pewnego typu jednostki o nazwie `Entrance` przy użyciu żadnej właściwości nawigacji.
+
+**Nowe zachowanie**
+
+Począwszy od programu EF Core 3.0 powyższy kod teraz robi co wyglądało na to powinno mieć czynności przed.
+
+**Dlaczego**
+
+Stare zachowanie było mylące, szczególnie podczas odczytywania kodu konfiguracji i wyszukiwania błędów.
+
+**Środki zaradcze**
+
+Spowoduje to przerwanie tylko aplikacji, które jawnego konfigurowania relacji za pomocą ciągów, nazwy typów oraz bez jawne określenie właściwości nawigacji.
+To nie jest powszechne.
+Poprzednie zachowanie można uzyskać poprzez jawne przekazywanie `null` dla danej nazwy właściwości nawigacji.
+Na przykład:
+
+```C#
+modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 ```
 
 ## <a name="the-relationaltypemapping-annotation-is-now-just-typemapping"></a>Adnotacja relacyjne: właściwość TypeMapping jest obecnie tylko właściwość TypeMapping.
