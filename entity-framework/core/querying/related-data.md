@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: 4e042acb805c743ee794f4e61105b8d2136973b1
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: 6beaebf2c6859fcf91e963bfae02f029f8f51147
+ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668729"
+ms.lasthandoff: 03/18/2019
+ms.locfileid: "58131439"
 ---
 # <a name="loading-related-data"></a>Ładowanie powiązanych danych
 
@@ -52,7 +52,7 @@ Możesz połączyć wszystkie te które mają zostać objęte powiązane dane z 
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#IncludeTree)]
 
-Możesz uwzględnić wiele powiązanych jednostek dla jednej jednostki, które jest uwzględniane. Na przykład podczas wykonywania zapytań dotyczących `Blog`s, obejmują `Posts` , a następnie oba `Author` i `Tags` z `Posts`. Aby to zrobić, należy określić każdy obejmować ścieżkę, począwszy od głównego. Na przykład `Blog -> Posts -> Author` i `Blog -> Posts -> Tags`. Nie oznacza to, że otrzymasz sprzężeń nadmiarowy; w większości przypadków EF będzie konsolidować sprzężeń, jeśli generowanie kodu SQL.
+Możesz uwzględnić wiele powiązanych jednostek dla jednej jednostki, które jest uwzględniane. Na przykład podczas wykonywania zapytań dotyczących `Blogs`, możesz uwzględnić `Posts` , a następnie oba `Author` i `Tags` z `Posts`. Aby to zrobić, należy określić każdy obejmować ścieżkę, począwszy od głównego. Na przykład `Blog -> Posts -> Author` i `Blog -> Posts -> Tags`. Nie oznacza to, że otrzymasz sprzężeń nadmiarowy; w większości przypadków EF będzie konsolidować sprzężeń, jeśli generowanie kodu SQL.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 

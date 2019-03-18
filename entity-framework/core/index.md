@@ -4,13 +4,8 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 uid: core/index
-ms.openlocfilehash: 982f69077a68495c48b7a9cce833dd7d4119e252
-ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
-ms.translationtype: MT
-ms.contentlocale: pl-PL
-ms.lasthandoff: 02/16/2019
-ms.locfileid: "56325317"
 ---
+
 # <a name="entity-framework-core"></a>Entity Framework Core
 
 Entity Framework (EF) Core to lekkie, rozszerzalne, ["open source"](https://github.com/aspnet/EntityFrameworkCore) dla wielu platform wersję popularnych danych Entity Framework dostęp do technologii.
@@ -21,9 +16,9 @@ EF Core obsługuje wiele aparatów baz danych, zobacz [Dostawcy baz danych](prov
 
 ## <a name="the-model"></a>Model
 
-Z programem EF Core dostęp do danych odbywa się przy użyciu modelu. Model składa się z klas jednostek i pochodnej kontekstu, który reprezentuje sesję z bazą danych, pozwalając na zapytania i zapisywanie danych. Zobacz [Tworzenie modelu](modeling/index.md), aby dowiedzieć się więcej.
+Z programem EF Core dostęp do danych odbywa się przy użyciu modelu. Model składa się z klas jednostek i obiekt kontekstu, który reprezentuje sesję z bazą danych, dzięki czemu zapytania i zapisywać dane. Zobacz [Tworzenie modelu](modeling/index.md), aby dowiedzieć się więcej.
 
-Możesz wygenerować model z istniejącej bazy danych, przekazać w kodzie model pasujący do Twojej bazy danych albo użyć EF Migrations, aby utworzyć bazę danych z podanego modelu (i rozwijać ją w miarę zmian modelu z upływem czasu).
+Model można wygenerować z istniejącej bazy danych, kod ręcznie, model, aby dopasować bazy danych, lub użyć migracje EF utworzyć bazę danych z modelu i rozwój go jako modelu zmienia się wraz z upływem czasu.
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +33,8 @@ namespace Intro
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=MyDatabase;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(
+                @"Server=(localdb)\mssqllocaldb;Database=Blogging;Integrated Security=True");
         }
     }
 

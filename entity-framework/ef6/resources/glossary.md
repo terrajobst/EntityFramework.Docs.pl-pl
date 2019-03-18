@@ -3,16 +3,16 @@ title: Entity Framework słownik - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
-ms.openlocfilehash: 9ed7a2d841c625de35de57edb4e57e69b89a3db9
-ms.sourcegitcommit: 5d74ac575f813110db6d870720f50dd7606446bc
+ms.openlocfilehash: 4e42e5870879524b814cecdc361e688d36f0180f
+ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2018
-ms.locfileid: "48881270"
+ms.lasthandoff: 03/18/2019
+ms.locfileid: "58131385"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework słownik
 ## <a name="code-first"></a>Najpierw kod
-Tworzenie modelu Entity Framework przy użyciu kodu. Można wskazać modelu i istniejącej lub nowej bazy danych.
+Tworzenie modelu Entity Framework przy użyciu kodu. Model można wskazać istniejącej lub nowej bazy danych.
 
 ## <a name="context"></a>Kontekst
 Klasa, która reprezentuje sesję z bazą danych, dzięki czemu możesz do zapytania i Zapisz dane. Kontekst jest pochodną klasy DbContext lub obiektu ObjectContext.
@@ -59,7 +59,7 @@ Tworzenie modelu Entity Framework, za pomocą projektanta EF następnie używany
 ## <a name="navigation-property"></a>Właściwość nawigacji
 Właściwość obiektu, który odwołuje się do innej jednostki. Na przykład produkt zawiera właściwość nawigacji kategorii i kategoria zawiera właściwość nawigacji produktów.
 
-## <a name="poco"></a>OBIEKTÓW POCO
+## <a name="poco"></a>POCO
 Akronim obiektu CLR zwykły stary. Klasa prostych użytkownika, która nie ma zależności za pomocą dowolnej platformy. W kontekście EF, klasa jednostki, która nie pochodzi od EntityObject, implementuje żadnych interfejsów lub niesie ze sobą wszelkie atrybuty zdefiniowane w programie EF. Takie klasy jednostek, które są całkowicie niezależni od framework trwałości są również określane jako "trwałość zakresu".  
 
 ## <a name="relationship-inverse"></a>Odwrotne relacji
