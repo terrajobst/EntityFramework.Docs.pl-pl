@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 754be334-dd21-450e-9d22-2591e80012a2
 uid: core/modeling/inheritance
-ms.openlocfilehash: c5fa9d13dec8cfc3e1cac69e471f509cbbb9e4c5
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: f6b5c8f5a398ac1e28e29bc17f0674c5b76d7b20
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995899"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319130"
 ---
 # <a name="inheritance"></a>Dziedziczenie
 
@@ -24,7 +24,7 @@ EF skonfiguruje tylko dziedziczenie, jeśli co najmniej dwa dziedziczone typy s�
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/InheritanceDbSets.cs?highlight=3-4&name=Model)]
 
 Jeśli nie chcesz udostępnić *DbSet<TEntity>*  dla co najmniej jednej jednostki w hierarchii można użyć Fluent API, aby upewnić się, że są one uwzględnione w modelu.
-A jeśli użytkownik nie należy polegać na konwencjach można określić typ podstawowy, w sposób jawny przy użyciu `HasBaseType`.
+A jeśli nie możesz polegać na konwencjach, można określić typ podstawowy, w sposób jawny przy użyciu `HasBaseType`.
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/InheritanceModelBuilder.cs?highlight=7&name=Context)]
 

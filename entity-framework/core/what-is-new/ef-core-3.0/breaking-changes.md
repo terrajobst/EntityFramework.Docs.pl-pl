@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 748db8a71a04a2d696ef21a03319906b9fc776be
-ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
+ms.openlocfilehash: 534ac95cccc03e9797ba766e601e2fe86eaf8061
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57829229"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319221"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
 
@@ -653,7 +653,7 @@ Na przykład:
 modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
 ```
 
-Kod wygląda na to jest odnoszących się `Samuri` do niektóre inne jednostki typu przy użyciu `Entrance` właściwość nawigacji, która może być prywatny.
+Kod wygląda na to jest odnoszących się `Samurai` do niektóre inne jednostki typu przy użyciu `Entrance` właściwość nawigacji, która może być prywatny.
 
 W rzeczywistości, ten kod próbuje utworzyć relację pewnego typu jednostki o nazwie `Entrance` przy użyciu żadnej właściwości nawigacji.
 
@@ -785,3 +785,83 @@ Ta zmiana została wprowadzona, co powoduje wersję bazy danych SQLite w systemi
 **Środki zaradcze**
 
 Aby korzystać z natywnych wersji bazy danych SQLite w systemie iOS, należy skonfigurować `Microsoft.Data.Sqlite` zostać użyty inny `SQLitePCLRaw` pakietu.
+
+## <a name="char-values-are-now-stored-as-text-on-sqlite"></a>Wartości char są obecnie przechowywane jako tekst w SQLite
+
+[Śledzenie problem #15020](https://github.com/aspnet/EntityFrameworkCore/issues/15020)
+
+Ta zmiana została wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 4.
+
+**Stare zachowanie**
+
+Wartości char zostały wcześniej sored jako wartości całkowite na bazy danych SQLite. Na przykład wartości znakowej na wartość z *A* została zapisana jako wartość całkowitą 65.
+
+**Nowe zachowanie**
+
+Wartości char są teraz sotred jako tekst.
+
+**Dlaczego**
+
+Przechowywanie wartości jako tekst jest bardziej naturalne i sprawia, że baza danych jest bardziej zgodne z innymi technologiami.
+
+**Środki zaradcze**
+
+Aby Migrowanie istniejących baz danych do nowego formatu, wykonywanie SQL, jak pokazano poniżej.
+
+``` sql
+UPDATE MyTable
+SET CharColumn = char(CharColumn)
+WHERE typeof(CharColumn) = 'integer';
+```
+
+W programie EF Core można także kontynuować, używając poprzednie zachowanie configuirng konwertera wartości tych właściwości.
+
+``` csharp
+modelBuilder
+    .Entity<MyEntity>()
+    .Property(e => e.CharProperty)
+    .HasConversion(
+        c => (long)c,
+        i => (char)i);
+```
+
+Microsoft.Data.Sqlite pozostaje też obecna mogą odczytywać wartości znakowych z kolumn tekst i liczby całkowitej, więc w niektórych scenariuszach może nie wymagają żadnych działań.
+
+## <a name="migration-ids-are-now-generated-using-the-invariant-cultures-calendar"></a>Migracja identyfikatorów są teraz generowane przy użyciu kalendarza kultury niezmiennej
+
+[Śledzenie problem #12978](https://github.com/aspnet/EntityFrameworkCore/issues/12978)
+
+Ta zmiana została wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 4.
+
+**Stare zachowanie**
+
+Migracja identyfikatorów były generowane przy użyciu kalendarza kultury currret inadvertantly.
+
+**Nowe zachowanie**
+
+Migracja identyfikatorów są teraz zawsze generowane przy użyciu niezmiennej kultury kalendarza (gregoriańskiego).
+
+**Dlaczego**
+
+Kolejność migracji jest ważne w przypadku aktualizowania bazy danych lub Rozwiązywanie konfliktów scalania. Przy użyciu niezmiennej kalendarza pozwala uniknąć porządkowanie problemów mogących powodować od członków zespołu o kalendarzach różnych systemów.
+
+**Środki zaradcze**
+
+Ta zmiana dotyczy wszystkich osób korzystających kalendarzowe innych niż gregoriański, gdzie rok jest większa niż kalendarz gregoriański (np. tajski kalendarz buddyjski). Migracji istniejących identyfikatorów będą musiały zostać zaktualizowane, tak, aby nowe migracje są uporządkowane od istniejących migracji.
+
+Identyfikator migracji można znaleźć w atrybucie migracji w plikach projektanta migracji.
+
+``` diff
+ [DbContext(typeof(MyDbContext))]
+-[Migration("25620318122820_MyMigration")]
++[Migration("20190318122820_MyMigration")]
+ partial class MyMigration
+ {
+```
+
+Tabela migracji historii musi zostać zaktualizowany.
+
+``` sql
+UPDATE __EFMigrationsHistory
+SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
+```

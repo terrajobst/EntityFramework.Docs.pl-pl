@@ -3,12 +3,12 @@ title: Testowanie za pomocą framework pozorowania — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: bd66a638-d245-44d4-8e71-b9c6cb335cc7
-ms.openlocfilehash: 80fd97073744be40d66c09706d3513dba18e724d
-ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
+ms.openlocfilehash: 3d39b41018beb70b72105dfb2fe4d61afc0b0525
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/06/2018
-ms.locfileid: "48834724"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319208"
 ---
 # <a name="testing-with-a-mocking-framework"></a>Testowanie za pomocą pozorowania framework
 > [!NOTE]
@@ -21,7 +21,7 @@ Podczas pisania testów dla aplikacji często jest pożądane, aby uniknąć osi
 Istnieją dwa różne podejścia, które mogą służyć do tworzenia w pamięci wersję kontekstu.  
 
 - **Tworzenie własnych testów, wartości podwójnej precyzji** — ta strategia polega na pisanie własnego kontekstu i DbSets implementacji w pamięci. Zapewnia wysoki poziom kontroli nad jak zachowują się klasy, ale może obejmować pisanie i będącej właścicielem rozsądnym kodu.  
-- **Umożliwia tworzenie testów wartości podwójnej precyzji pozorowania framework** — za pomocą pozorowania framework (na przykład Moq) może mieć implementacji w pamięci, kontekstu i zestawy tworzone dynamicznie w czasie wykonywania.  
+- **Umożliwia tworzenie testów wartości podwójnej precyzji pozorowania framework** — za pomocą pozorowania framework (na przykład Moq) może mieć implementacji w pamięci kontekstu i zestawy tworzone dynamicznie w czasie wykonywania.  
 
 W tym artykule zajmuje się za pomocą pozorowania framework. W celu tworzenia własnych podwaja testu zobacz [testowanie za pomocą Your Own testowanie wartości podwójnej precyzji](writing-test-doubles.md).  
 

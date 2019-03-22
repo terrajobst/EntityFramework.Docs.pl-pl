@@ -3,12 +3,12 @@ title: Relacje, właściwości nawigacji i kluczy obcych — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: 416eb1fb590330ba292a858347e26b83dddc74df
-ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
+ms.openlocfilehash: 8292ae7af8d760240715854611d92ab340bf1ca7
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57829203"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319195"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Relacje, właściwości nawigacji i kluczy obcych
 Ten temat zawiera omówienie sposobu zarządzania relacje między jednostkami w Entity Framework. Daje ona również pewne wskazówki na temat sposobu mapowania i manipulowania nimi relacji.
@@ -147,7 +147,7 @@ Jeśli używasz jednostki POCO bez serwera proxy należy musi upewnij się, że 
 
 ## <a name="loading-related-objects"></a>Trwa ładowanie powiązanych obiektów
 
-Platformy Entity Framework, którego używasz najczęściej ładowanie jednostek that are related to jednostki zwracanego przez skojarzenie zdefiniowane przy użyciu właściwości nawigacji. Aby uzyskać więcej informacji, zobacz [ładowanie powiązanych obiektów](~/ef6/querying/related-data.md).
+W programie Entity Framework często służy do ładowania jednostek, które są związane z jednostką zwrócone przez skojarzenie zdefiniowanych właściwości nawigacji. Aby uzyskać więcej informacji, zobacz [ładowanie powiązanych obiektów](~/ef6/querying/related-data.md).
 
 > [!NOTE]
 > W to skojarzenie klucza obcego w przypadku ładowania powiązanym zakończeniem obiektu zależnego powiązany obiekt zostaną załadowane zależnie od wartości klucza obcego zależnych od, która jest aktualnie w pamięci:

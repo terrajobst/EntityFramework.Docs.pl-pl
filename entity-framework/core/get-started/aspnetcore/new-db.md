@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 4734586adc89e9c1d866a1b4accd8b5e51fe2bb0
-ms.sourcegitcommit: ebf661025d2ad2b62466fa7bf0e0772a7811cbe7
+ms.openlocfilehash: 25e5a683acf4bbed0b978cc6a80f1b50a0b64ca1
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/11/2019
-ms.locfileid: "54211169"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319182"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Wprowadzenie do programu EF Core programu ASP.NET Core przy użyciu nowej bazy danych
 
@@ -43,7 +43,7 @@ Zainstaluj następujące oprogramowanie:
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Otwórz program Visual Studio 2017
+* Open Visual Studio 2017
 * **Plik > Nowy > Projekt**
 * Z menu po lewej stronie wybierz **zainstalowane > Visual C# > .NET Core**.
 * Wybierz **aplikacji sieci Web platformy ASP.NET Core**.
@@ -114,9 +114,9 @@ Zazwyczaj jest aplikacji produkcyjnej przełączyć każda klasa w oddzielnym pl
 
 ## <a name="register-the-context-with-dependency-injection"></a>Zarejestrowanie kontekście wstrzykiwanie zależności
 
-Usługi (takie jak `BloggingContext`) zostały zarejestrowane przy użyciu [wstrzykiwanie zależności](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) podczas uruchamiania aplikacji. Składniki, które wymagają tych usług, (na przykład kontrolerów MVC) znajdują się tych usług za pomocą właściwości lub parametry konstruktora.
+Aby `BloggingContext` dostępne dla kontrolerów MVC, zarejestruj go jako usługę w `Startup.cs`.
 
-Zapewnienie `BloggingContext` dostępne dla kontrolerów MVC, zarejestruj go jako usługę.
+Usługi (takie jak `BloggingContext`) zostały zarejestrowane przy użyciu [wstrzykiwanie zależności](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) podczas uruchamiania aplikacji, aby dostarczony automatycznie do składników korzystających z usług (na przykład kontrolerów MVC) przy użyciu konstruktora Parametry i właściwości.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 

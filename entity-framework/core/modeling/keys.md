@@ -4,16 +4,18 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 912ffef7-86a0-4cdc-a776-55f907459d20
 uid: core/modeling/keys
-ms.openlocfilehash: 9e6946100ebabc6ba57cb792b3672219098b1e21
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 6272e323b83ccab2ed060a2ebbde1d1e8e353d66
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994024"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319169"
 ---
 # <a name="keys-primary"></a>Klucze (podstawowe)
 
-Klucz służy jako podstawowy identyfikator unikatowy dla każdego wystąpienia jednostki. Korzystając z relacyjnej bazy danych to mapuje do koncepcji *klucz podstawowy*. Można również skonfigurować unikatowy identyfikator, który nie jest kluczem podstawowym (zobacz [klucze alternatywne](alternate-keys.md) Aby uzyskać więcej informacji).
+Klucz służy jako podstawowy identyfikator unikatowy dla każdego wystąpienia jednostki. Korzystając z relacyjnej bazy danych to mapuje do koncepcji *klucz podstawowy*. Można również skonfigurować unikatowy identyfikator, który nie jest kluczem podstawowym (zobacz [klucze alternatywne](alternate-keys.md) Aby uzyskać więcej informacji). 
+
+Jedną z następujących metod może służyć do instalacja/Tworzenie klucza podstawowego.
 
 ## <a name="conventions"></a>Konwencje
 
