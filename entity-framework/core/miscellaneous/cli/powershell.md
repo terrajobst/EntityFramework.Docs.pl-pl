@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
-ms.openlocfilehash: 468698d1bbd17d4ad10b1b1601bfbc315a01c1ff
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: cb05e3fb66adf96f8a6778711a76520d0be24c71
+ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688709"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419773"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Entity Framework Core odnoszą się narzędzia — Konsola Menedżera pakietów w programie Visual Studio
 
@@ -163,7 +163,7 @@ Parametry:
 
 ## <a name="get-dbcontext"></a>Get-DbContext
 
-Wyświetla dostępne `DbContext` typów.
+Pobiera informacje `DbContext` typu.
 
 ## <a name="remove-migration"></a>Usuń migrację
 
@@ -175,7 +175,7 @@ Parametry:
 |:----------|:--------------------------------------------------------------------------------|
 | -Force    | Przywróć migracji (wycofać zmiany, które zostały zastosowane do bazy danych). |
 
-## <a name="scaffold-dbcontext"></a>Tworzenie szkieletu DbContext
+## <a name="scaffold-dbcontext"></a>Scaffold-DbContext
 
 Generuje kod dla `DbContext` i typy jednostek bazy danych. Aby `Scaffold-DbContext` można wygenerować typu jednostki, w tabeli bazy danych musi mieć klucz podstawowy.
 
@@ -184,7 +184,7 @@ Parametry:
 | Parametr                          | Opis                                                                                                                                                                                                                                                             |
 |:-----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | <nobr>-Connection \<ciąg ></nobr> | Parametry połączenia z bazą danych. W przypadku projektów ASP.NET Core 2.x wartość może być *nazwa =\<nazwa parametrów połączenia >*. W takim przypadku nazwa pochodzi od źródła konfiguracji, które są skonfigurowane dla projektu. To jest parametr pozycyjne i jest wymagana. |
-| <nobr>-Provider \<ciąg ></nobr>   | Dostawca do użycia. Zazwyczaj jest to nazwa pakietu NuGet, na przykład: `Microsoft.EntityFrameworkCore.SqlServer`. To jest parametr pozycyjne i jest wymagana.                                                                                           |
+| <nobr>-Provider \<String></nobr>   | Dostawca do użycia. Zazwyczaj jest to nazwa pakietu NuGet, na przykład: `Microsoft.EntityFrameworkCore.SqlServer`. To jest parametr pozycyjne i jest wymagana.                                                                                           |
 | -OutputDir \<ciąg >               | Katalog, który można umieścić pliki w. Ścieżki są względne wobec katalogu projektu.                                                                                                                                                                                             |
 | -ContextDir \<ciąg >              | Katalog, aby umieścić `DbContext` w pliku. Ścieżki są względne wobec katalogu projektu.                                                                                                                                                                              |
 | -Kontekstu \<ciąg >                 | Nazwa `DbContext` klasy do wygenerowania.                                                                                                                                                                                                                          |
@@ -234,7 +234,7 @@ Poniższy przykład tworzy skrypt wszystkich migracji po migracji InitialCreate 
 Script-Migration -From 20180904195021_InitialCreate
 ```
 
-## <a name="update-database"></a>Aktualizuj bazy danych
+## <a name="update-database"></a>Update-Database
 
 Aktualizuje bazę danych do ostatniej migracji lub określony migracji.
 

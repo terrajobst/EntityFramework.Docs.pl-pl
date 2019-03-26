@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 0f8389decbc1995cc629d24c5baa197255cd328a
-ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
+ms.openlocfilehash: 1133976d8d25e4099b64a1a30a8d2066ff3f6cd7
+ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58319143"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419669"
 ---
 # <a name="provider-impacting-changes"></a>Zmiany wpływające na dostawcy
 
@@ -20,6 +20,8 @@ Ta strona zawiera linki do przeprowadzanych na repozytorium programu EF Core, kt
 Rozpoczynamy ten dziennik zmian z 2.1 do wersji 2.2. Przed 2.1 użyliśmy [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) i [ `providers-fyi` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) etykiety na nasze problemy i żądania ściągnięcia.
 
 ## <a name="22-----30"></a>2.2 ---> 3.0
+
+Należy pamiętać, który wiele [istotne zmiany na poziomie aplikacji](../what-is-new/ef-core-3.0/breaking-changes.md) wpływa także na dostawców.
 
 * https://github.com/aspnet/EntityFrameworkCore/pull/14022
   * Usunięto przestarzałe interfejsy API i przeciążenia zwinięty parametr opcjonalny
@@ -30,6 +32,35 @@ Rozpoczynamy ten dziennik zmian z 2.1 do wersji 2.2. Przed 2.1 użyliśmy [ `pro
   * Podklasy CharTypeMapping mogła zostać przerwane z powodu zmian zachowania wymagane do naprawiania kilka błędów w podstawowej implementacji.
 * https://github.com/aspnet/EntityFrameworkCore/pull/15090
   * Dodaje klasę bazową dla IDatabaseModelFactory i zaktualizować go do użycia obiektu parametr, aby uniknąć przerw w przyszłości.
+* https://github.com/aspnet/EntityFrameworkCore/pull/15123
+  * Używane obiekty parametru w MigrationsSqlGenerator, aby uniknąć przerw w przyszłości.
+* https://github.com/aspnet/EntityFrameworkCore/pull/14972
+  * Jawne konfiguracji poziomy dziennika wymagane pewne zmiany do interfejsów API, który używa dostawcy. W szczególności dostawców korzystania z infrastruktury rejestrowania bezpośrednio, następnie ta zmiana może spowodować przerwanie używające. Ponadto tych dostawców, którzy korzystają z infrastruktury, (które będą widoczne publicznie) przyszłości musi pochodzić od `LoggingDefinitions` lub `RelationalLoggingDefinitions`. Zobacz programu SQL Server i dostawców w pamięci na potrzeby przykładów.
+* https://github.com/aspnet/EntityFrameworkCore/pull/15091
+  * Ciągi zasobów Core, relacyjne i abstrakcje teraz są publiczne.
+  * `CoreLoggerExtensions` i `RelationalLoggerExtensions` są teraz w publicznej. Dostawcy powinni używać tych interfejsów API, gdy rejestrowanie zdarzeń, które są zdefiniowane na poziomie relacyjna lub core. Brak dostępu do rejestrowania zasobów bezpośrednio; są to nadal wewnętrznego.
+  * `IRawSqlCommandBuilder` zmienił się z pojedynczego wystąpienia usługi do usługi o określonym zakresie
+  * `IMigrationsSqlGenerator` zmienił się z pojedynczego wystąpienia usługi do usługi o określonym zakresie
+* https://github.com/aspnet/EntityFrameworkCore/pull/14706
+  * Infrastruktura do tworzenia poleceń relacyjnych zostanie on opublikowany, może być bezpiecznie używany przez dostawców i nieco zaprojektowane od nowa.
+  * `IRelationalCommandBuilderFactory`zmienił się z pojedynczego wystąpienia usługi do usługi o określonym zakresie
+  * `IShaperCommandContextFactory` zmienił się z pojedynczego wystąpienia usługi do usługi o określonym zakresie
+  * `ISelectExpressionFactory` zmienił się z pojedynczego wystąpienia usługi do usługi o określonym zakresie
+* https://github.com/aspnet/EntityFrameworkCore/pull/14733
+  * `ILazyLoader` zmienił się z usługi o określonym zakresie z usługą przejściowe
+* https://github.com/aspnet/EntityFrameworkCore/pull/14610
+  * `IUpdateSqlGenerator` została zmieniona z usługi o określonym zakresie do pojedynczego wystąpienia usługi
+  * Ponadto `ISingletonUpdateSqlGenerator` został usunięty
+* https://github.com/aspnet/EntityFrameworkCore/pull/15067
+  * Wiele kodu wewnętrznego, który był używany przez dostawców teraz stało się publiczny
+  * Nie powinien być necssary k odkazu `IndentedStringBuilder` , ponieważ ma została uwzględniona poza miejsc, które go dostępne
+  * Sposoby użycia `NonCapturingLazyInitializer` powinien zostać zamieniony `LazyInitializer` z BCL.
+* https://github.com/aspnet/EntityFrameworkCore/pull/14608
+  * Ta zmiana jest szczegółowo opisane w aplikacji przełomowe zmiany dokumentu. W przypadku dostawców może być to więcej wpływu na testowanie programu EF core często może powodować Niezastosowanie tego problemu, więc infrastrukturę testowania została zmieniona na upewnij, że mniej prawdopodobne.
+* https://github.com/aspnet/EntityFrameworkCore/issues/13961
+  * `EntityMaterializerSource` został uproszczony
+* https://github.com/aspnet/EntityFrameworkCore/pull/14895
+  * StartsWith tłumaczenia została zmieniona w taki sposób, że dostawcy może chcesz/konieczność react
 
 ## <a name="21-----22"></a>2.1 ---> 2.2
 

@@ -3,12 +3,12 @@ title: Testowanie za pomocą własnych testów wartości podwójnej precyzji - E
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 16a8b7c0-2d23-47f4-9cc0-e2eb2e738ca3
-ms.openlocfilehash: 2158dc73585c2720e7293096b0478c73edf522d9
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 9db56e28cd89084fece36c3e5a2c1b4495991d01
+ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490912"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419734"
 ---
 # <a name="testing-with-your-own-test-doubles"></a>Testowanie za pomocą własnych testów, wartości podwójnej precyzji
 > [!NOTE]
@@ -43,7 +43,7 @@ Ten artykuł zawiera kompletny kod ofert, kopiowane do programu Visual Studio, a
 
 ## <a name="creating-a-context-interface"></a>Tworzenie interfejsu kontekstu  
 
-Zamierzamy Przyjrzyj się testowanie to usługa, która korzysta z programu EF modelu. Aby można było zastąpić nasz kontekst EF wersją w pamięci do testowania, zdefiniujemy interfejs zostaną imeplement nasz kontekst EF (oraz jej w pamięci podwójnej precyzji).  
+Zamierzamy Przyjrzyj się testowanie to usługa, która korzysta z programu EF modelu. Aby można było zastąpić nasz kontekst EF wersją w pamięci do testowania, zdefiniujemy interfejs, który będzie implementowany nasz kontekst EF (i jej w pamięci podwójnej precyzji).
 
 Usługi, którą użyjemy do przetestowania spowoduje zapytania i modyfikowanie danych za pomocą właściwości DbSet nasz kontekst i również wywołać funkcję SaveChanges wypychania zmian do bazy danych. Możemy więc dołączania te elementy członkowskie w interfejsie.  
 
