@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: b6774f615b04bf9579aac5dea217e7321631da0c
-ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
+ms.openlocfilehash: 7501a806271c9734e85e31845f260f2d512da077
+ms.sourcegitcommit: a8b04050033c5dc46c076b7e21b017749e0967a8
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57829190"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58867960"
 ---
 # <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Nowych funkcji dostępnych w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
 
@@ -50,6 +50,31 @@ Dostawca umożliwi większość funkcji EF Core, takie jak automatyczna zmiana, 
 Rozpoczęliśmy ten nakład pracy przed programem EF Core 2.2, i [Wprowadziliśmy pewne wersji dostawcy dostępne w wersji zapoznawczej](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).
 Nowy plan jest, aby kontynuować, tworzenie dostawcy wraz z programem EF Core 3.0. 
 
+## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Udostępnianie w tabeli z jednostką jednostki zależne są teraz opcjonalne
+
+[Śledzenie problem #9005](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
+
+Ta funkcja zostaną wprowadzone w programu EF Core 3.0 — w wersji zapoznawczej 4.
+
+Należy wziąć pod uwagę następujący wzór:
+```C#
+public class Order
+{
+    public int Id { get; set; }
+    public int CustomerId { get; set; }
+    public OrderDetails Details { get; set; }
+}
+
+public class OrderDetails
+{
+    public int Id { get; set; }
+    public string ShippingAddress { get; set; }
+}
+```
+
+Począwszy od programu EF Core 3.0, jeśli `OrderDetails` jest własnością `Order` lub jawnie zmapowane do tej samej tabeli, będzie można dodać `Order` bez `OrderDetails` i wszystkie `OrderDetails` będą zamapowane właściwości, z wyjątkiem klucza podstawowego kolumny dopuszczające wartość null.
+Podczas wykonywania zapytań programu EF Core zostanie ustawiony `OrderDetails` do `null` Jeśli dowolne wymagane właściwości nie ma wartość, lub jeśli go nie ma wymaganych właściwości oprócz klucza podstawowego, a wszystkie właściwości są `null`.
+
 ## <a name="c-80-support"></a>C#Obsługa 8.0
 
 [Śledzenie problem #12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
@@ -68,7 +93,7 @@ Ta funkcja nie jest zawarty w bieżącej wersji zapoznawczej.
 [Typy zapytań](xref:core/modeling/query-types), wprowadzone w programie EF Core 2.1 i uznawane za typów jednostek, bez kluczy w EF Core 3.0 to reprezentują dane, które mogą być odczytywane z bazy danych, ale nie można zaktualizować.
 Cecha ta sprawia, że ich doskonale sprawdzą się w przypadku widoków bazy danych w większości przypadków, więc planujemy do zautomatyzowania tworzenia typów jednostek, bez kluczy podczas odtwarzania widoki bazy danych.
 
-## <a name="property-bag-entities"></a>Jednostki zbioru właściwości 
+## <a name="property-bag-entities"></a>Jednostki zbioru właściwości
 
 [Śledzenie problem #13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) i [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914)
 
@@ -77,7 +102,7 @@ Rozpoczęto pracę na temat tej funkcji, ale nie jest zawarty w bieżącej wersj
 Ta funkcja jest zapewnienie jednostek, które przechowują dane w właściwości indeksowanych zamiast regularnego właściwości, a także o będzie mógł korzystać z wystąpień klasy .NET (potencjalnie coś tak proste, jak `Dictionary<string, object>`) do reprezentowania typów różnych jednostek w tym samym modelu platformy EF Core.
 Ta funkcja jest kamień przechodzenia krok po kroku do obsługi relacji wiele do wielu, bez jednostki sprzężenia ([wystawiać #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368)), które jest jednym z najbardziej pożądanych ulepszenia dla platformy EF Core.
 
-## <a name="ef-63-on-net-core"></a>EF 6.3 na platformie .NET Core 
+## <a name="ef-63-on-net-core"></a>EF 6.3 na platformie .NET Core
 
 [Śledzenie EF6 problem #271](https://github.com/aspnet/EntityFramework6/issues/271)
 
