@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: f5a9ae17471391442170d8c40264e4db6922cb08
-ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
+ms.openlocfilehash: 9400fe8ea817b6aca0fb63c1de05ffe1dc997b2f
+ms.sourcegitcommit: a8b04050033c5dc46c076b7e21b017749e0967a8
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/03/2018
-ms.locfileid: "50980005"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58868012"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurowanie typu DbContext
 
@@ -161,6 +161,27 @@ using (var context = serviceProvider.GetService<BloggingContext>())
 
 var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
 ```
+## <a name="avoiding-dbcontext-threading-issues"></a>Unikanie DbContext problemy wielowątkowości
+
+Entity Framework Core nie obsługuje wielu operacji równoległych, które są uruchamiane na tym samym `DbContext` wystąpienia. Równoczesny dostęp może spowodować niezdefiniowane zachowanie, awarii aplikacji i uszkodzenie danych. W związku z tym ważne jest, aby zawsze używać oddzielnych `DbContext` wystąpień dla operacji, które są wykonywane równolegle. 
+
+Istnieją typowych błędów, które można inadvernetly Przyczyna równoczesny dostęp na tym samym `DbContext` wystąpienie:
+
+### <a name="forgetting-to-await-the-completion-of-an-asynchronous-operation-before-starting-any-other-operation-on-the-same-dbcontext"></a>Zapominanie o oczekiwać na zakończenie operacji asynchronicznej przed uruchomieniem innych operacji na tym samym typem DbContext
+
+Metody asynchroniczne umożliwiają programu EF Core można zainicjować operacji, które dostęp do bazy danych w taki sposób, bez blokowania. Ale jeśli obiekt wywołujący nie oczekiwać na zakończenie jednego z tych metod, a następnie przechodzi do wykonywania innych operacji na `DbContext`, stan `DbContext` może być (i będzie bardzo prawdopodobne) uszkodzony. 
+
+Zawsze czekać natychmiast metod asynchronicznych programu EF Core.  
+
+### <a name="implicitly-sharing-dbcontext-instances-across-multiple-threads-via-dependency-injection"></a>Niejawnie udostępnianie wystąpień typu DbContext między wieloma wątkami za pomocą iniekcji zależności
+
+[ `AddDbContext` ](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) Rejestruje metody rozszerzenia `DbContext` typów z [o określonym zakresie okres istnienia](https://docs .microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes) domyślnie. 
+
+Jest to pozbawione równoczesny dostęp problemy w aplikacji platformy ASP.NET Core, ponieważ istnieje tylko jeden wątek wykonywania każdego żądania klienta w danym momencie, a każde żądanie pobiera zakres iniekcji zależności oddzielne (i w związku z tym odrębne `DbContext` wystąpienie).
+
+Jednak każdy kod, który jawnie wykonuje wiele wątków w paralell upewnij się, że `DbContext` wystąpienia nie są nigdy nie accesed jednocześnie.
+
+Przy użyciu iniekcji zależności, można to osiągnąć, rejestrując kontekst jako zakresie oraz tworzenie zakresów (przy użyciu `IServiceScopeFactory`) dla każdego wątku lub po zarejestrowaniu `DbContext` jako przejściowe (za pomocą przeciążenia `AddDbContext` używającą `ServiceLifetime` parametru).
 
 ## <a name="more-reading"></a>Odczytywanie więcej
 
