@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 199cc45e316e215b9b8e859700e4dc124de315b2
-ms.sourcegitcommit: a8b04050033c5dc46c076b7e21b017749e0967a8
+ms.openlocfilehash: fd593b2832a5a6ffe27cd4493127b5d405f684ba
+ms.sourcegitcommit: ce44f85a5bce32ef2d3d09b7682108d3473511b3
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/02/2019
-ms.locfileid: "58867986"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "58914130"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
 
@@ -916,6 +916,36 @@ Na przykład:
 ```C#
 modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 ```
+
+## <a name="the-return-type-for-several-async-methods-has-been-changed-from-task-to-valuetask"></a>Typ zwracany dla kilku metod asynchronicznych została zmieniona z zadaniem do ValueTask
+
+[Śledzenie problem #15184](https://github.com/aspnet/EntityFrameworkCore/issues/15184)
+
+Ta zmiana zostanie wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 4.
+
+**Stare zachowanie**
+
+Następujące metody async wcześniej zwrócony `Task<T>`:
+
+* `DbContext.FindAsync()`
+* `DbSet.FindAsync()`
+* `DbContext.AddAsync()`
+* `DbSet.AddAsync()`
+* `ValueGenerator.NextValueAsync()` (i wyprowadzanie klas)
+
+**Nowe zachowanie**
+
+Wymienione wyżej metod teraz zwracają `ValueTask<T>` w taki sam `T` tak jak poprzednio.
+
+**Dlaczego**
+
+Ta zmiana zmniejsza liczbę alokacji sterty naliczany podczas wywoływania metody te poprawę ogólnej wydajności.
+
+**Środki zaradcze**
+
+Tylko po prostu oczekujące na powyższym interfejsów API muszą zostać zrekompilowane — aplikacje bez zmian źródła są niezbędne.
+Bardziej złożonych zastosowaniach (np. przekazywanie zwracanego `Task` do `Task.WhenAny()`) zwykle wymagają, aby zwrócony `ValueTask<T>` można przekonwertować na `Task<T>` przez wywołanie metody `AsTask()` na nim.
+Należy pamiętać, że to neguje zmniejszenia alokacji, które ta zmiana powoduje.
 
 ## <a name="the-relationaltypemapping-annotation-is-now-just-typemapping"></a>Adnotacja relacyjne: właściwość TypeMapping jest obecnie tylko właściwość TypeMapping.
 
