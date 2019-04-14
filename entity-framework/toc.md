@@ -65,6 +65,7 @@
 #### [Konwersje wartości](core/modeling/value-conversions.md)
 #### [Wstępne wypełnianie danych](core/modeling/data-seeding.md)
 #### [Konstruktorzy typów jednostek](core/modeling/constructors.md)
+#### [Dzielenie tabeli](core/modeling/table-splitting.md)
 #### [Posiadane typy jednostek](core/modeling/owned-entities.md)
 #### [Typy zapytań](core/modeling/query-types.md)
 #### [Modele naprzemienne z tym samym typem DbContext](core/modeling/dynamic-model.md)
