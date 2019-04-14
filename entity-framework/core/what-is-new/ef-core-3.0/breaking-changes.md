@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: fd593b2832a5a6ffe27cd4493127b5d405f684ba
-ms.sourcegitcommit: ce44f85a5bce32ef2d3d09b7682108d3473511b3
+ms.openlocfilehash: 6d78fc40fea210506235758bcd3613343ecabbcd
+ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/04/2019
-ms.locfileid: "58914130"
+ms.lasthandoff: 04/14/2019
+ms.locfileid: "59562575"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
 
@@ -685,6 +685,52 @@ modelBuilder
     .HasField("_id");
 ```
 
+## <a name="field-only-property-names-should-match-the-field-name"></a>Właściwość tylko do pola nazwy powinny pasować do nazwy pola
+
+Ta zmiana zostanie wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 4.
+
+**Stare zachowanie**
+
+Przed programem EF Core 3.0 to właściwość może być określony przez wartość ciągu i jeśli żadnej właściwości o tej nazwie został znaleziony na typ CLR programu EF Core będzie spróbuj dopasować go do pola przy użyciu reguł Konwencję.
+```C#
+private class Blog
+{
+    private int _id;
+    public string Name { get; set; }
+}
+```
+```C#
+modelBuilder
+    .Entity<Blog>()
+    .Property("Id");
+```
+
+**Nowe zachowanie**
+
+Począwszy od programu EF Core 3.0 to właściwość tylko do pola musi być zgodny nazwę pola.
+
+```C#
+modelBuilder
+    .Entity<Blog>()
+    .Property("_id");
+```
+
+**Dlaczego**
+
+Ta zmiana została wprowadzona w celu uniknięcia przy użyciu tego samego pola na dwie właściwości o nazwie podobnie, ale również reguł dopasowania dla właściwości tylko do pól takie same jak właściwości zamapowanych do właściwości aparatu CLR.
+
+**Środki zaradcze**
+
+Właściwości tylko do pola musi mieć nazwę taka sama jak pola, które są mapowane.
+W nowszej wersji zapoznawczej programu EF Core 3.0 planujemy ponownie włączyć konfigurowanie jawnie nazwę pola, która jest inna niż nazwa właściwości:
+
+```C#
+modelBuilder
+    .Entity<Blog>()
+    .Property("Id")
+    .HasField("_id");
+```
+
 ## <a name="adddbcontextadddbcontextpool-no-longer-call-addlogging-and-addmemorycache"></a>AddDbContext/AddDbContextPool już wywołać AddLogging AddMemoryCache
 
 [Śledzenie problem #14756](https://github.com/aspnet/EntityFrameworkCore/issues/14756)
@@ -1010,11 +1056,35 @@ Użyj `HasIndex().ForSqlServerInclude()`.
 
 **Dlaczego**
 
-Ta zmiana została wprowadzona w celu skonsolidowania interfejsu API dla indeksów, z `Includes` w jednym miejscu dla wszystkich dostawców w bazie danych.
+Ta zmiana została wprowadzona w celu skonsolidowania interfejsu API dla indeksów, z `Include` w jednym miejscu dla wszystkich dostawców w bazie danych.
 
 **Środki zaradcze**
 
 Użyj nowego interfejsu API, jak pokazano powyżej.
+
+## <a name="metadata-api-changes"></a>Zmiany metadanych interfejsu API
+
+[Śledzenie problem #214](https://github.com/aspnet/EntityFrameworkCore/issues/214)
+
+Ta zmiana zostanie wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 4.
+
+**Nowe zachowanie**
+
+Następujące właściwości zostały przekonwertowane na metody rozszerzenia:
+
+* `IEntityType.QueryFilter` -> `GetQueryFilter()`
+* `IEntityType.DefiningQuery` -> `GetDefiningQuery()`
+* `IProperty.IsShadowProperty` -> `IsShadowProperty()`
+* `IProperty.BeforeSaveBehavior` -> `GetBeforeSaveBehavior()`
+* `IProperty.AfterSaveBehavior` -> `GetAfterSaveBehavior()`
+
+**Dlaczego**
+
+Ta zmiana ułatwia implementację interfejsów wyżej.
+
+**Środki zaradcze**
+
+Korzystając z nowych metod rozszerzenia.
 
 ## <a name="ef-core-no-longer-sends-pragma-for-sqlite-fk-enforcement"></a>EF Core nie jest już wysyła pragmy do wymuszania klucza Obcego SQLite
 
@@ -1193,7 +1263,7 @@ SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 
 
 Ta zmiana została wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 4.
 
-**Zmiana**
+**Change**
 
 `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperator` została zmieniona na `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperatorWarning`.
 

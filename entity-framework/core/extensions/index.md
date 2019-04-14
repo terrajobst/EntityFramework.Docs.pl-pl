@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 01/07/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 414773284df7c208b9a2acf0536fda459bdf775b
-ms.sourcegitcommit: 7bde8e6ad3c4565a4638646ce04bcf5e66f7b5fd
+ms.openlocfilehash: d432ca36c166f7baf71253709bf58b1f5428a11a
+ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/07/2019
-ms.locfileid: "54069233"
+ms.lasthandoff: 04/14/2019
+ms.locfileid: "59562510"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core Tools i rozszerzenia
 
@@ -38,11 +38,11 @@ EF Core Power Tools to rozszerzenie programu Visual Studio 2017, które udostęp
 
 [Witryny typu wiki w witrynie GitHub](https://github.com/ErikEJ/EFCorePowerTools/wiki)
 
-### <a name="entity-framework-visual-editor"></a>Edytor programu Entity Framework Visual
+### <a name="entity-framework-visual-editor"></a>Entity Framework Visual Editor
 
-Edytor programu Entity Framework Visual to rozszerzenie programu Visual Studio 2017, które dodaje Projektant ORM dla projektowania wizualnego programów EF 6 i klas programu EF Core. Kod jest generowany przy użyciu szablonów T4, dzięki czemu można dostosować do dowolnego potrzeb. Obsługuje dziedziczenie, jednokierunkowe i powiązania dwukierunkowego, wyliczenia i możliwość kolorować klas i Dodaj bloki tekstu, aby wyjaśnić, potencjalnie specjalne części projektu.
+Edytor programu Entity Framework Visual to rozszerzenie programu Visual Studio, który dodaje Projektant ORM dla projektowania wizualnego programów EF 6 i klas programu EF Core. Kod jest generowany przy użyciu szablonów T4, dzięki czemu można dostosować do dowolnego potrzeb. Obsługuje dziedziczenie, jednokierunkowe i powiązania dwukierunkowego, wyliczenia i możliwość kolorować klas i Dodaj bloki tekstu, aby wyjaśnić, potencjalnie specjalne części projektu.
 
-[Portal Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
+[Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
 
 ### <a name="catfactory"></a>CatFactory
 
@@ -50,7 +50,7 @@ CatFactory to aparat tworzenia szkieletów dla platformy .NET Core, który możn
 
 [Repozytorium GitHub](https://github.com/hherzl/CatFactory.EntityFrameworkCore)
 
-### <a name="loresofts-entity-framework-core-generator"></a>Firmy LoreSoft Entity Framework Core Generator
+### <a name="loresofts-entity-framework-core-generator"></a>LoreSoft's Entity Framework Core Generator
 
 Entity Framework Core Generator (efg) jest narzędziem wiersza polecenia platformy .NET Core z można wygenerować modeli programu EF Core istniejącą bazę danych, podobnie jak `dotnet ef dbcontext scaffold`, lecz również obsługuje bezpieczne kodu [ponownego wygenerowania](https://efg.loresoft.com/en/latest/regeneration/) za pomocą zastąpienia regionu lub przez analizowanie Pliki mapowania. To narzędzie obsługuje generowania modeli widoków, weryfikacji i obiektu mapowania kodu. 
 
