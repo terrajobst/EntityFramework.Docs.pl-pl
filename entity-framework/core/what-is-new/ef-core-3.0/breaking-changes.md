@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 6d78fc40fea210506235758bcd3613343ecabbcd
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: 4b251638de43af6525f3e6faa0bd4113ab1714b9
+ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562575"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59619262"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
 
@@ -242,6 +242,28 @@ Na przykład:
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
 context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 ```
+
+## <a name="deletebehaviorrestrict-has-cleaner-semantics"></a>DeleteBehavior.Restrict ma semantykę oczyszczarki
+
+[Śledzenie problem #12661](https://github.com/aspnet/EntityFrameworkCore/issues/12661)
+
+Ta zmiana zostanie wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 5.
+
+**Stare zachowanie**
+
+Przed 3.0 `DeleteBehavior.Restrict` utworzone klucze obce w bazie danych o `Restrict` semantykę, ale także zmienione wewnętrznego naprawy w taki sposób,-oczywiste.
+
+**Nowe zachowanie**
+
+Począwszy od 3.0 `DeleteBehavior.Restrict` gwarantuje, że klucze obce są tworzone za pomocą `Restrict` semantyki — czyli nie kaskady; throw na naruszenie ograniczenia — bez również wpływ na wewnętrzny naprawy EF.
+
+**Dlaczego**
+
+Ta zmiana została wprowadzona w celu usprawnienie obsługi przy użyciu `DeleteBehavior` w sposób intuicyjny, bez nieoczekiwanych efektów ubocznych.
+
+**Środki zaradcze**
+
+Poprzednie zachowanie można przywrócić za pomocą `DeleteBehavior.ClientNoAction`.
 
 ## <a name="query-types-are-consolidated-with-entity-types"></a>Typy zapytań i dalszych są skonsolidowane przy użyciu typów jednostek
 

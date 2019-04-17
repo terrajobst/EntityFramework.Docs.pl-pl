@@ -3,12 +3,12 @@ title: Konfiguracja oparta na kodu - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 13886d24-2c74-4a00-89eb-aa0dee328d83
-ms.openlocfilehash: c317f112f713612f7b9aef3764a0bd004fef5424
-ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
+ms.openlocfilehash: 079a4ab30af74eac8b1f51ece5801ff40a867a29
+ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/16/2019
-ms.locfileid: "56325356"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59619288"
 ---
 # <a name="code-based-configuration"></a>Konfiguracja na podstawie kodu
 > [!NOTE]
@@ -106,7 +106,7 @@ W tym celu EntityFramework umożliwia program obsługi zdarzeń do zarejestrowan
 - Przy uruchamianiu aplikacji (przed użyciem EF) wtyczki lub dostawcy należy zarejestrować metody obsługi zdarzeń dla tego zdarzenia. (Zwróć uwagę, że to musi się zdarzyć, zanim aplikacja używa EF).  
 - Program obsługi zdarzeń wywołuje ReplaceService dla każdej usługi, który ma zostać zastąpione.  
 
-Na przykład repalce IDbConnectionFactory i DbProviderService należy zarejestrować program obsługi podobnie do następującej:  
+Na przykład aby zastąpić IDbConnectionFactory i DbProviderService można zarejestrować obsługi podobnie do następującej:  
 
 ``` csharp
 DbConfiguration.Loaded += (_, a) =>
