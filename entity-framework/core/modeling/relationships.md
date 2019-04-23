@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 0ff736a3-f1b0-4b58-a49c-4a7094bd6935
 uid: core/modeling/relationships
-ms.openlocfilehash: a53a862cc2443a1c4461aa287def100284635f26
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 9ef1a9269fc99f5b27a81c11a161ed5f9d74180d
+ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994945"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59929940"
 ---
 # <a name="relationships"></a>Relacje
 
@@ -22,19 +22,19 @@ Relacja definiuje sposób dwie jednostki powiązane są ze sobą. W relacyjnej b
 
 Istnieje wiele terminy używane do opisywania relacji
 
-* **Jednostki zależne:** jest to obiekt, który zawiera właściwości kluczy obcych. Czasami określane jako "podrzędne" w relacji.
+* **Jednostki zależne:** To jest jednostka, która zawiera właściwości kluczy obcych. Czasami określane jako "podrzędne" w relacji.
 
-* **Jednostka główna:** to jednostka, która zawiera właściwości klucza podstawowego/alternatywny. Czasami określane jako "parent" w relacji.
+* **Jednostka główna:** To jest jednostka, która zawiera właściwości klucza podstawowego/alternatywny. Czasami określane jako "parent" w relacji.
 
-* **Klucz obcy:** właściwości w jednostce zależne, który jest używany do przechowywania wartości właściwości klucza jednostki powiązanej jednostki.
+* **Klucz obcy:** Właściwości w jednostce zależne, który jest używany do przechowywania wartości właściwości klucza jednostki powiązanej jednostki.
 
-* **Klucz jednostki:** właściwości, który unikatowo identyfikuje główną jednostki. Może to być kluczem podstawowym lub unikatowym.
+* **Klucz jednostki:** Właściwość, która jednoznacznie identyfikuje główną jednostki. Może to być kluczem podstawowym lub unikatowym.
 
-* **Właściwość nawigacji:** właściwości zdefiniowane w jednostce podmiotu zabezpieczeń i/lub zależne, który zawiera odwołania do powiązanych entity(s).
+* **Właściwość nawigacji:** Właściwości zdefiniowane w jednostce podmiotu zabezpieczeń i/lub zależne, który zawiera odwołania do powiązanych entity(s).
 
-  * **Właściwości nawigacji kolekcji:** właściwość nawigacji, który zawiera odwołania do wielu powiązanych jednostek.
+  * **Właściwości nawigacji kolekcji:** Właściwość nawigacji, który zawiera odwołania do wielu powiązanych jednostek.
 
-  * **Odwoływać się do właściwości nawigacji:** właściwość nawigacji, która zawiera odwołanie do pojedynczego obiektu pokrewnego.
+  * **Odwołanie do właściwości nawigacji:** Właściwość nawigacji, która zawiera odwołanie do pojedynczego obiektu pokrewnego.
 
   * **Właściwość nawigacji odwrotność:** Omawiając właściwości określonej nawigacji, określenie to odnosi się do właściwości nawigacji na końcu relacji.
 
@@ -98,13 +98,13 @@ Zobacz [usuwanie kaskadowe](../saving/cascade-delete.md) więcej szczegółów n
 
 ## <a name="data-annotations"></a>Adnotacje danych
 
-Istnieją dwa adnotacji danych, które mogą być używane do konfigurowania relacji `[ForeignKey]` i `[InverseProperty]`.
+Istnieją dwa adnotacji danych, które mogą być używane do konfigurowania relacji `[ForeignKey]` i `[InverseProperty]`. Są one dostępne w `System.ComponentModel.DataAnnotations.Schema` przestrzeni nazw.
 
 ### <a name="foreignkey"></a>[Klucza obcego]
 
 Korzystanie z adnotacji danych, aby skonfigurować, których właściwość powinna być używana jako właściwość klucza obcego dla danej relacji. Zazwyczaj jest to wykonywane, gdy właściwość klucza obcego nie został odnaleziony przez Konwencję.
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/ForeignKey.cs?name=Entities&highlight=17)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/ForeignKey.cs?highlight=30)]
 
 > [!TIP]  
 > `[ForeignKey]` Adnotacji można umieścić we właściwości nawigacji, albo w relacji. Nie musi przejść na właściwość nawigacji w klasie jednostki zależne.
@@ -113,29 +113,29 @@ Korzystanie z adnotacji danych, aby skonfigurować, których właściwość powi
 
 Korzystanie z adnotacji danych, aby skonfigurować sposób pary właściwości nawigacji jednostki zależnej i głównej. Zazwyczaj jest to wykonywane, gdy istnieje więcej niż jedną parę właściwości nawigacji między dwoma typami encji.
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/InverseProperty.cs?name=Entities&highlight=20,23)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/InverseProperty.cs?highlight=33,36)]
 
 ## <a name="fluent-api"></a>Interfejs Fluent API
 
 Aby skonfigurować relację w interfejsie API Fluent, możesz rozpocząć, określając właściwości nawigacji, które tworzą relacji. `HasOne` lub `HasMany` identyfikuje właściwość nawigacji typu jednostki, rozpoczynamy od konfiguracji na. Można następnie połączyć w łańcuch po wywołaniu `WithOne` lub `WithMany` do identyfikowania odwrotność nawigacji. `HasOne`/`WithOne` są używane dla właściwości nawigacji odwołania i `HasMany` / `WithMany` są używane dla właściwości nawigacji kolekcji.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/NoForeignKey.cs?name=Model&highlight=8,9,10)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/NoForeignKey.cs?highlight=14-16)]
 
 ### <a name="single-navigation-property"></a>Właściwości pojedynczej wartości
 
 Jeśli masz tylko jedną właściwość nawigacji, a następnie istnieją przeciążenia bez parametrów `WithOne` i `WithMany`. Oznacza to, że ma pod względem koncepcyjnym odwołanie lub kolekcji na końcu relacji, ale nie ma właściwości nawigacji zawarta w klasie jednostki.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/OneNavigation.cs?name=Model&highlight=10)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/OneNavigation.cs?highlight=14-16)]
 
 ### <a name="foreign-key"></a>Klucz obcy
 
 Interfejs Fluent API umożliwiają skonfigurowanie, których właściwość powinna być używana jako właściwość klucza obcego dla danej relacji.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/ForeignKey.cs?name=Model&highlight=11)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/ForeignKey.cs?highlight=17)]
 
 W poniższym fragmencie kodu przedstawiono sposób konfigurowania złożonego klucza obcego.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/CompositeForeignKey.cs?name=Model&highlight=13)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/CompositeForeignKey.cs?highlight=20)]
 
 Można użyć ciągu przeciążenia `HasForeignKey(...)` do skonfigurowania właściwości w tle jako klucz obcy (zobacz [właściwości w tle](shadow-properties.md) Aby uzyskać więcej informacji). Zalecane jest jawne dodanie właściwości w tle do modelu, zanim użyjesz go jako klucza obcego (jak pokazano poniżej).
 

@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 9ef87a737111053df0359f3b2d7a4f82d25c578a
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: 61a58bd6119763d90731fac62343b983af510cb6
+ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "58867947"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59929878"
 ---
 # <a name="provider-impacting-changes"></a>Zmiany wpływające na dostawcy
 
@@ -62,6 +62,7 @@ Należy pamiętać, który wiele [istotne zmiany na poziomie aplikacji](../what-
   * Konwencja zestawu usługi uległy zmianie. Dostawcy powinna teraz dziedziczyć po "ProviderConventionSet" lub "RelationalConventionSet".
   * Dostosowania można dodać za pomocą `IConventionSetCustomizer` usług, ale jest przeznaczona do użycia przez inne rozszerzenia, a nie dostawcy.
   * Konwencji używanych w środowisku uruchomieniowym należy rozwiązać z `IConventionSetBuilder`.
+* https://github.com/aspnet/EntityFrameworkCore/pull/15288 -Wstępne wypełnianie danych ma zostały zaprojektowane od nowa w publicznym interfejsie API, aby uniknąć konieczności używać typy wewnętrzne. To powinno mają wpływ tylko na nierelacyjnych dostawców, ponieważ rozmieszczania jest obsługiwany przez relacyjnych klasę bazową dla wszystkich dostawców relacyjnych.
 
 ## <a name="21-----22"></a>2.1 ---> 2.2
 
@@ -82,7 +83,6 @@ Należy pamiętać, który wiele [istotne zmiany na poziomie aplikacji](../what-
   * Za pomocą tych testów dostawców może być konieczne reagowanie
 * [https://github.com/aspnet/EntityFrameworkCore/pull/12141](https://github.com/aspnet/EntityFrameworkCore/pull/12141) -Zwracania kontekstu danej puli zamiast usuwania w testy funkcjonalne
   * Ta zmiana obejmuje niektóre refaktoryzacji testów, które mogą wymagać dostawców reagować
-
 
 ### <a name="test-and-product-code-changes"></a>Test i produktu zmian w kodzie
 
