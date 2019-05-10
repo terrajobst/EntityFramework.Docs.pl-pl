@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 0350b25d0d0efe05df7cb9e93a3f4ae2d864fd63
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: 316d363d4a1b8a909efc1c32b492280c0d16cb4e
+ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "59363940"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65405208"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurowanie typu DbContext
 
@@ -163,7 +163,13 @@ var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
 ```
 ## <a name="avoiding-dbcontext-threading-issues"></a>Unikanie DbContext problemy wielowątkowości
 
-Entity Framework Core nie obsługuje wielu operacji równoległych, które są uruchamiane na tym samym `DbContext` wystąpienia. Równoczesny dostęp może spowodować niezdefiniowane zachowanie, awarii aplikacji i uszkodzenie danych. W związku z tym ważne jest, aby zawsze używać oddzielnych `DbContext` wystąpień dla operacji, które są wykonywane równolegle. 
+Entity Framework Core nie obsługuje wielu operacji równoległych, które są uruchamiane na tym samym `DbContext` wystąpienia. Obejmuje to zarówno równoległe wykonywanie asynchronicznych zapytań i jawne współbieżne używanie z wielu wątków. W związku z tym, zawsze `await` async wywołuje bezpośrednio lub za pomocą osobnych `DbContext` wystąpień dla operacji, które są wykonywane równolegle.
+
+Gdy EF Core wykryje próbę użycia `DbContext` współbieżnie, wystąpienia, zostaną wyświetlone `InvalidOperationException` z komunikat podobny do poniższego: 
+
+> Drugą operację pracę w tym kontekście przed Poprzednia operacja zakończona. Jest to zazwyczaj spowodowane przez inne wątki przy użyciu tego samego wystąpienia typu DbContext, jednak wystąpienie nie dają gwarancji bezpieczeństwa wątków.
+
+Gdy niewykryte przechodzi równoczesny dostęp, może to spowodować niezdefiniowane zachowanie, awarii aplikacji i uszkodzenie danych.
 
 Istnieją typowych błędów, które można inadvernetly Przyczyna równoczesny dostęp na tym samym `DbContext` wystąpienie:
 

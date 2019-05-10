@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 1c12abb31c82e603e0d694926f4c289908217778
-ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
+ms.openlocfilehash: b1b5e286e08a8b6b4efe225a176e76023f9fdd20
+ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59929914"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65405231"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
 
@@ -138,7 +138,7 @@ Należy pamiętać, że oba powyższe zapytania generuje taki sam sparametryzowa
 
 **Dlaczego**
 
-Przeciążenia metody, takie jak to znacznie ułatwiają przypadkowo wywołania metody raw srting, gdy celem było wywołanie metody ciągu interpolowanego i odwrotnie.
+Przeciążenia metody, takie jak to znacznie ułatwiają przypadkowo wywołania metody nieprzetworzonego ciągu, gdy celem było wywołanie metody ciągu interpolowanego i odwrotnie.
 Może to spowodować zapytania nie są parametryzowane, podczas gdy powinny być.
 
 **Środki zaradcze**
@@ -631,7 +631,7 @@ Począwszy od 3.0 programu EF Core zamyka połączenie zaraz po wykonaniu korzys
 
 **Dlaczego**
 
-Ta zmiana pozwala używać wielu kontekstach w tym samym `TransactionScope`. Nowe alose zachowanie dopasowuje EF6.
+Ta zmiana pozwala używać wielu kontekstach w tym samym `TransactionScope`. Nowe zachowanie dopasowuje również EF6.
 
 **Środki zaradcze**
 
@@ -689,7 +689,7 @@ Wyjątkiem od tej była wykonywania zapytania, gdzie pole zapasowe będzie miał
 
 **Nowe zachowanie**
 
-Począwszy od programu EF Core 3.0, jeśli pole zapasowe dla właściwości jest znany, następnie będzie zawsze Odczyt i zapis tej właściwości, za pomocą pola pomocniczego.
+Zaczynając od programu EF Core 3.0 to, jeśli znane jest pole zapasowe dla właściwości, następnie programu EF Core będzie zawsze Odczyt i zapis tej właściwości, za pomocą pola pomocniczego.
 Może to spowodować przerwanie aplikacji, jeżeli aplikacja powołuje się na zachowanie dodatkowego kodowane do metody pobierającą czy ustawiającą.
 
 **Dlaczego**

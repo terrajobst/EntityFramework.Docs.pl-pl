@@ -4,12 +4,12 @@ author: ajcvickers
 ms.date: 02/23/2018
 ms.assetid: 420AFFE7-B709-4A68-9149-F06F8746FB33
 uid: core/modeling/constructors
-ms.openlocfilehash: 1b36197465fb9a6571a306d36eb1e9d885a5399e
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 5bf49718f02c1860871b1f4c255ec4d98fce2fc7
+ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152468"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65405248"
 ---
 # <a name="entity-types-with-constructors"></a>Typy jednostek za pomocą konstruktorów
 
@@ -90,7 +90,7 @@ Niektóre kwestie, należy zwrócić uwagę:
 * Nie wszystkie właściwości konieczne parametry konstruktora. Na przykład właściwość Post.Content nie jest ustawiany przez żadnych parametrów konstruktora, więc programu EF Core zostanie ustawiony po wywołaniu konstruktora w normalny sposób.
 * Nazwy i typy parametrów muszą być zgodne typy właściwości i nazw, z tą różnicą, że właściwości mogą być Pascal — z uwzględnieniem wielkości liter podczas, gdy parametry są w formacie camelcase.
 * EF Core nie można ustawić właściwości nawigacji (na przykład blogu lub wpisy powyżej) przy użyciu konstruktora.
-* Konstruktor może być publiczne, prywatne, lub innych ułatwień dostępu.
+* Konstruktor może być publiczne, prywatne, lub innych ułatwień dostępu. Powolne ładowanie serwery proxy wymagają jednak, czy Konstruktor jest dostępna w klasie dziedziczącej serwera proxy. Zwykle oznacza to, dzięki czemu publiczne lub chronione.
 
 ### <a name="read-only-properties"></a>Właściwości tylko do odczytu
 

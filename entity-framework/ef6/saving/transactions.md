@@ -3,12 +3,12 @@ title: Praca z transakcje — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
-ms.openlocfilehash: 7197733ab25c8475746e7863963384730919e3ff
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 96cfff4cca59ab27dd68f50d0260e90902e33a92
+ms.sourcegitcommit: eefcab31142f61a7aaeac03ea90dcd39f158b8b8
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489781"
+ms.lasthandoff: 04/29/2019
+ms.locfileid: "64873232"
 ---
 # <a name="working-with-transactions"></a>Praca z transakcji
 > [!NOTE]
@@ -39,7 +39,7 @@ Przed EF6 Entity Framework nalegała na otwieranie połączenia z bazą danych s
 
 Począwszy od platformy EF6 ramach teraz zawiera:  
 
-1. **Database.BeginTransaction()** : łatwiejszy dla użytkownika uruchomić i realizowania transakcji siebie w ramach istniejącego typu DbContext — co kilka operacji, które można połączyć w ramach tej samej transakcji i dlatego wszystkie zatwierdzone lub wszystkie wycofane jako jeden. Umożliwia użytkownikowi łatwiej określić poziom izolacji transakcji.  
+1. **Database.BeginTransaction()** : Łatwiejszy dla użytkownika uruchomić i realizowania transakcji siebie w ramach istniejącego typu DbContext — co kilka operacji, które można połączyć w ramach tej samej transakcji i dlatego wszystkie zatwierdzone lub wszystkie wycofane jako jeden. Umożliwia użytkownikowi łatwiej określić poziom izolacji transakcji.  
 2. **Database.UseTransaction()** : pozwalający DbContext używać transakcji, która została uruchomiona poza programem Entity Framework.  
 
 ### <a name="combining-several-operations-into-one-transaction-within-the-same-context"></a>Łącząc kilka operacji w jednej transakcji, w tym samym kontekście  
@@ -126,7 +126,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
-sing System.Transactions;
+using System.Transactions;
 
 namespace TransactionsExamples
 {
