@@ -3,12 +3,12 @@ title: Zagadnienia dotyczące wydajności dla EF4, EF5 i EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: 4c1f03533cf6df49555c3ef8d09d5949b9a3335c
-ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
+ms.openlocfilehash: f8fa1001c85366e169cf50e89efdb65bd92b671e
+ms.sourcegitcommit: f277883a5ed28eba57d14aaaf17405bc1ae9cf94
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/21/2019
-ms.locfileid: "56459214"
+ms.lasthandoff: 05/18/2019
+ms.locfileid: "65874610"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Zagadnienia dotyczące wydajności na platformie EF, 4, 5 i 6
 David Obando, Eric Dettinger i inne osoby
@@ -119,9 +119,9 @@ Za pomocą wstępnie wygenerowanych widoków przenosi koszt generowania widoku z
 
 Zaobserwowaliśmy liczba przypadków, w której przełączanie skojarzeń w modelu z niezależnym skojarzenia obcego skojarzenia klucza znacznie ulepszona czas potrzebny do generowania widoku.
 
-Aby zademonstrować to ulepszenie, firma Microsoft generowane dwie wersje modelu Navision przy użyciu EDMGen. *Uwaga: seeappendix Cfor opis modelu Navision.* Navision model jest interesujące dla tego ćwiczenia z powodu ich dużej ilości jednostek i relacji między nimi.
+Aby zademonstrować to ulepszenie, firma Microsoft generowane dwie wersje modelu Navision przy użyciu EDMGen. *Uwaga: zobacz dodatek C, aby uzyskać opis modelu Navision.* Navision model jest interesujące dla tego ćwiczenia z powodu ich dużej ilości jednostek i relacji między nimi.
 
-Jedną wersję tego modelu bardzo dużych został wygenerowany z użyciem obcego skojarzenia kluczy i innych został wygenerowany z użyciem niezależnych skojarzenia. Następnie timed się, jak długo można wygenerować widoków dla każdego modelu. Jednostki Framework5 test używał GenerateViews() metody z klasy EntityViewGenerator, można wygenerować widoków, podczas testu Entity Framework 6 GenerateViews() metody z klasy obiekt StorageMappingItemCollection. To z powodu restrukturyzacji kod, który wystąpił w bazie kodu podlegającej Entity Framework 6.
+Jedną wersję tego modelu bardzo dużych został wygenerowany z użyciem obcego skojarzenia kluczy i innych został wygenerowany z użyciem niezależnych skojarzenia. Następnie timed się, jak długo można wygenerować widoków dla każdego modelu. Entity Framework 5 test umożliwia generowanie widoków, podczas testu Entity Framework 6 GenerateViews() metody z klasy obiekt StorageMappingItemCollection GenerateViews() metody z klasy EntityViewGenerator. To z powodu restrukturyzacji kod, który wystąpił w bazie kodu podlegającej Entity Framework 6.
 
 Za pomocą programu Entity Framework 5, widok generacji dla modelu przy użyciu kluczy obcych trwało 65 minut w komputerze laboratoryjnym. Wiadomo jak długo zajęłoby do generowania widoków dla modelu, który używane niezależnie od skojarzenia. Pozostawiliśmy test uruchomiony w ciągu miesiąca, zanim komputer został ponownie uruchomiony w nasze laboratorium, aby zainstalować comiesięcznych aktualizacji.
 
@@ -240,7 +240,7 @@ Należy zauważyć, że czasomierza eksmisji pamięci podręcznej rozpocznie si�
 
 #### <a name="323-test-metrics-demonstrating-query-plan-caching-performance"></a>3.2.3 test metryki ukazujące planu zapytania, buforowanie wydajności
 
-Aby zaprezentować efekt planu zapytania, buforowanie na wydajność aplikacji, wykonane testu których firma Microsoft wykonywane liczby zapytań SQL jednostki w modelu Navision. Zobacz dodatek opis modelu Navision i typów kwerend, które zostały wykonane. W tym teście możemy najpierw iteracji przez listę zapytań i wykonywane każdego z nich raz, aby dodać je do pamięci podręcznej (jeśli jest włączone buforowanie). Ten krok jest untimed. Następnie możemy uśpienia wątku głównego ponad 60 sekund umożliwić buforowanie sprawdzaniu została wykonana; na koniec możemy wykonać iterację czasu listy 2 do wykonywania zapytań pamięci podręcznej. Ponadto on pamięci podręcznej planu programu SQL Server jest opróżniany przed wykonaniem każdego zestawu zapytań, aby przypadków, gdy uzyskany dokładnie odzwierciedlają korzyści przez pamięć podręczną planu zapytań.
+Aby zaprezentować efekt planu zapytania, buforowanie na wydajność aplikacji, wykonane testu których firma Microsoft wykonywane liczby zapytań SQL jednostki w modelu Navision. Zobacz dodatek opis modelu Navision i typów kwerend, które zostały wykonane. W tym teście możemy najpierw iteracji przez listę zapytań i wykonywane każdego z nich raz, aby dodać je do pamięci podręcznej (jeśli jest włączone buforowanie). Ten krok jest untimed. Następnie możemy uśpienia wątku głównego ponad 60 sekund umożliwić buforowanie sprawdzaniu została wykonana; na koniec możemy wykonać iterację czasu listy 2 do wykonywania zapytań pamięci podręcznej. Ponadto pamięci podręcznej planu programu SQL Server jest opróżniany przed wykonaniem każdego zestawu zapytań, aby przypadków, gdy uzyskany dokładnie odzwierciedlają korzyści przez pamięć podręczną planu zapytań.
 
 ##### <a name="3231-test-results"></a>3.2.3.1 wyniki testu
 
@@ -487,7 +487,7 @@ Szybsze wersję tego samego kodu obejmowałaby wywoływanie Pomiń z wyrażenia 
 
 ``` csharp
 var customers = context.Customers.OrderBy(c => c.LastName);
-for (var i = 0; i \< count; ++i)
+for (var i = 0; i < count; ++i)
 {
     var currentCustomer = customers.Skip(() => i).FirstOrDefault();
     ProcessCustomer(currentCustomer);

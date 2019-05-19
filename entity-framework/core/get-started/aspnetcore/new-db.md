@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 25e5a683acf4bbed0b978cc6a80f1b50a0b64ca1
-ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
+ms.openlocfilehash: fbc1a00d6d6d0624bcbbfa1e51f4e21a915baaaa
+ms.sourcegitcommit: f277883a5ed28eba57d14aaaf17405bc1ae9cf94
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58319182"
+ms.lasthandoff: 05/18/2019
+ms.locfileid: "65874569"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Wprowadzenie do programu EF Core programu ASP.NET Core przy użyciu nowej bazy danych
 
@@ -229,5 +229,5 @@ dotnet run
 ## <a name="additional-resources"></a>Dodatkowe zasoby
 
 * [Samouczek: Rozpoczynanie pracy z programem EF Core na platformie .NET Core za pomocą nowej bazy danych przy użyciu systemu SQLite](xref:core/get-started/netcore/new-db-sqlite)
-* [Samouczek: Rozpoczynanie pracy ze stronami Razor w programie ASP.NET Core](https://docs.microsoft.com/aspnet/core/tutorials/razor-pages/razor-pages-start)
-* [Samouczek: Strony razor za pomocą platformy Entity Framework Core w programie ASP.NET Core](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)
+* [Rozpoczynanie pracy ze stronami Razor w programie ASP.NET Core](/aspnet/core/tutorials/razor-pages/razor-pages-start) lub [Rozpoczynanie pracy z platformą ASP.NET Core MVC ](/aspnet/core/tutorials/first-mvc-app/start-mvc)
+* [Samouczek: Strony razor za pomocą platformy Entity Framework Core w programie ASP.NET Core](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro) lub [Rozpocznij pracę z programem EF Core w aplikacji sieci web ASP.NET MVC](/aspnet/core/data/ef-mvc/intro)
