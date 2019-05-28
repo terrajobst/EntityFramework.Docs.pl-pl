@@ -62,7 +62,7 @@ Należy pamiętać, który wiele [istotne zmiany na poziomie aplikacji](../what-
   * Konwencja zestawu usługi uległy zmianie. Dostawcy powinna teraz dziedziczyć po "ProviderConventionSet" lub "RelationalConventionSet".
   * Dostosowania można dodać za pomocą `IConventionSetCustomizer` usług, ale jest przeznaczona do użycia przez inne rozszerzenia, a nie dostawcy.
   * Konwencji używanych w środowisku uruchomieniowym należy rozwiązać z `IConventionSetBuilder`.
-* https://github.com/aspnet/EntityFrameworkCore/pull/15288 -Wstępne wypełnianie danych ma zostały zaprojektowane od nowa w publicznym interfejsie API, aby uniknąć konieczności używać typy wewnętrzne. To powinno mają wpływ tylko na nierelacyjnych dostawców, ponieważ rozmieszczania jest obsługiwany przez relacyjnych klasę bazową dla wszystkich dostawców relacyjnych.
+* [https://github.com/aspnet/EntityFrameworkCore/pull/15288](https://github.com/aspnet/EntityFrameworkCore/pull/15288) -Wstępne wypełnianie danych ma zostały zaprojektowane od nowa w publicznym interfejsie API, aby uniknąć konieczności używać typy wewnętrzne. To powinno mają wpływ tylko na nierelacyjnych dostawców, ponieważ rozmieszczania jest obsługiwany przez relacyjnych klasę bazową dla wszystkich dostawców relacyjnych.
 
 ## <a name="21-----22"></a>2.1 ---> 2.2
 
