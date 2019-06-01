@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: b1b5e286e08a8b6b4efe225a176e76023f9fdd20
-ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
+ms.openlocfilehash: faae0153e0f2bdd42d3b316582dfcab88d9ceb5b
+ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65405231"
+ms.lasthandoff: 05/31/2019
+ms.locfileid: "66452301"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
 
@@ -88,7 +88,7 @@ Przed 3.0 `dotnet ef` narzędzie została uwzględniona w zestawie SDK programu 
 
 **Nowe zachowanie**
 
-Począwszy od 3.0 zestawu .NET SDK jest nie obejmują `dotnet ef` narzędzia, dzięki czemu przed jego użyciem trzeba jawnie zainstalować ją jako narzędzie lokalnych lub globalnych. 
+Począwszy od 3.0, zestaw SDK platformy .NET nie obejmuje `dotnet ef` narzędzia, dzięki czemu przed jego użyciem trzeba jawnie zainstalować ją jako narzędzie lokalnych lub globalnych. 
 
 **Dlaczego**
 
@@ -742,7 +742,7 @@ Ta zmiana zostanie wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 
 
 **Stare zachowanie**
 
-Przed programem EF Core 3.0 to właściwość może być określony przez wartość ciągu i jeśli żadnej właściwości o tej nazwie został znaleziony na typ CLR programu EF Core będzie spróbuj dopasować go do pola przy użyciu reguł Konwencję.
+Przed programem EF Core 3.0 to właściwość może być określony przez wartość ciągu i jeśli żadnej właściwości o tej nazwie został znaleziony na typ CLR programu EF Core będzie spróbuj dopasować go do pola przy użyciu reguł Konwencji.
 ```C#
 private class Blog
 {
@@ -798,7 +798,7 @@ Począwszy od programu EF Core 3.0 to `AddDbContext` i `AddDbContextPool` nie b�
 
 **Dlaczego**
 
-EF Core 3.0 nie wymaga, że te usługi są w cotainer DI aplikacji. Jednak jeśli `ILoggerFactory` jest zarejestrowany w kontenerze DI aplikacji, a następnie nadal będzie on używany przez platformę EF Core.
+EF Core 3.0 nie wymaga, aby te usługi są w kontenerze DI aplikacji. Jednak jeśli `ILoggerFactory` jest zarejestrowany w kontenerze DI aplikacji, a następnie nadal będzie on używany przez platformę EF Core.
 
 **Środki zaradcze**
 
@@ -985,7 +985,7 @@ Ta zmiana zostanie wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 
 
 **Stare zachowanie**
 
-Przed programem EF Core 3.0 to kod wywoływania `HasOne` lub `HasMany` przy użyciu jednego ciągu została zinterpretowana w sposób mylące.
+Przed programem EF Core 3.0 to kod wywoływania `HasOne` lub `HasMany` przy użyciu jednego ciągu została interpretowany w sposób mylące.
 Na przykład:
 ```C#
 modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
@@ -1215,7 +1215,7 @@ SET GuidColumn = hex(substr(GuidColumn, 4, 1)) ||
 WHERE typeof(GuidColumn) == 'blob';
 ```
 
-W programie EF Core można także kontynuować, używając poprzednie zachowanie configuirng konwertera wartości tych właściwości.
+W programie EF Core można także kontynuować przy użyciu poprzednie zachowanie przez skonfigurowanie konwertera wartości tych właściwości.
 
 ``` csharp
 modelBuilder
@@ -1240,7 +1240,7 @@ Wartości char zostały wcześniej sored jako wartości całkowite na bazy danyc
 
 **Nowe zachowanie**
 
-Wartości char są teraz sotred jako tekst.
+Wartości char są teraz przechowywane jako tekst.
 
 **Dlaczego**
 
@@ -1256,7 +1256,7 @@ SET CharColumn = char(CharColumn)
 WHERE typeof(CharColumn) = 'integer';
 ```
 
-W programie EF Core można także kontynuować, używając poprzednie zachowanie configuirng konwertera wartości tych właściwości.
+W programie EF Core można także kontynuować przy użyciu poprzednie zachowanie przez skonfigurowanie konwertera wartości tych właściwości.
 
 ``` csharp
 modelBuilder
@@ -1277,7 +1277,7 @@ Ta zmiana została wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 
 
 **Stare zachowanie**
 
-Migracja identyfikatorów były generowane przy użyciu kalendarza kultury currret inadvertantly.
+Migracja identyfikatorów przypadkowo zostały wygenerowane przy użyciu kalendarza bieżącej kultury.
 
 **Nowe zachowanie**
 
@@ -1289,7 +1289,7 @@ Kolejność migracji jest ważne w przypadku aktualizowania bazy danych lub Rozw
 
 **Środki zaradcze**
 
-Ta zmiana dotyczy wszystkich osób korzystających kalendarzowe innych niż gregoriański, gdzie rok jest większa niż kalendarz gregoriański (np. tajski kalendarz buddyjski). Migracji istniejących identyfikatorów będą musiały zostać zaktualizowane, tak, aby nowe migracje są uporządkowane od istniejących migracji.
+Ta zmiana dotyczy wszystkich osób korzystających z innych kalendarz gregoriański — gdzie rok jest większa niż kalendarz gregoriański (np. tajski kalendarz buddyjski). Migracji istniejących identyfikatorów będą musiały zostać zaktualizowane, tak, aby nowe migracje są uporządkowane od istniejących migracji.
 
 Identyfikator migracji można znaleźć w atrybucie migracji w plikach projektanta migracji.
 
@@ -1342,7 +1342,7 @@ var constraintName = myForeignKey.Name;
 
 **Nowe zachowanie**
 
-Począwszy od programu EF Core 3.0, ograniczenie klucza obcego nazwy są teraz określane jako "tego name". Na przykład:
+Począwszy od programu EF Core 3.0, ograniczenie klucza obcego nazwy są teraz określane jako "Nazwa ograniczenia". Na przykład:
 
 ```C#
 var constraintName = myForeignKey.ConstraintName;
@@ -1350,7 +1350,7 @@ var constraintName = myForeignKey.ConstraintName;
 
 **Dlaczego**
 
-Ta zmiana oferuje spójność nazw w tym obszarze, a także wyjaśnia, że jest to nazwa nazwy klucza obcego tego, a nie kolumny lub właściwość klucza obcego zdefiniowany na.
+Ta zmiana oferuje spójność nazw w tym obszarze, a także wyjaśnia, że jest to nazwa nazwy klucza obcego ograniczenia, a nie kolumny lub właściwość klucza obcego zdefiniowany na.
 
 **Środki zaradcze**
 
