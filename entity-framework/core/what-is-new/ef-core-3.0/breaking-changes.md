@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 0b36571dfe9e462be3aa818b72b5a38b9573410c
-ms.sourcegitcommit: 1e44721cd0903b08781b78eb398d2a9b13a46db9
+ms.openlocfilehash: 9112d8d235237e68232aac54453d584af0edb524
+ms.sourcegitcommit: b188194a1901f4d086d05765cbc5c9b8c9dc5eed
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 06/08/2019
-ms.locfileid: "66815654"
+ms.lasthandoff: 06/11/2019
+ms.locfileid: "66829484"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
 
@@ -144,6 +144,28 @@ Może to spowodować zapytania nie są parametryzowane, podczas gdy powinny być
 **Środki zaradcze**
 
 Przełącz, aby używać nowej nazwy metody.
+
+## <a name="fromsql-methods-can-only-be-specified-on-query-roots"></a>Metody FromSql można określić tylko na elementy główne zapytanie
+
+[Śledzenie problem #15704](https://github.com/aspnet/EntityFrameworkCore/issues/15704)
+
+Ta zmiana jest wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 6.
+
+**Stare zachowanie**
+
+Przed programem EF Core 3.0 to `FromSql` metoda może być określona w dowolnym miejscu w zapytaniu.
+
+**Nowe zachowanie**
+
+Począwszy od programu EF Core 3.0 to nowy `FromSqlRaw` i `FromSqlInterpolated` metody (które Zastąp `FromSql`) można określić tylko na katalogi główne zapytanie, czyli bezpośrednio na `DbSet<>`. Próba określenia ich w jakimkolwiek innym spowoduje błąd kompilacji.
+
+**Dlaczego**
+
+Określanie `FromSql` dowolnym innym niż na `DbSet` nie dodano znaczenie lub wartość dodaną i może spowodować niejednoznaczność w niektórych scenariuszach.
+
+**Środki zaradcze**
+
+`FromSql` wywołania zostanie przeniesiona za bezpośrednio na `DbSet` do których mają zastosowanie.
 
 ## <a name="query-execution-is-logged-at-debug-level"></a>Wykonanie zapytania jest rejestrowane na poziomie debugowania
 
