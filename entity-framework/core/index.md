@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 uid: core/index
-ms.openlocfilehash: fa0695be29668789a179f9a0d6330f3361dbac29
-ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
+ms.openlocfilehash: 0e35a2b3f89c92b717b8e05c8fa3ae5af5ce8fd3
+ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/18/2019
-ms.locfileid: "58131430"
+ms.lasthandoff: 06/24/2019
+ms.locfileid: "67333778"
 ---
 # <a name="entity-framework-core"></a>Entity Framework Core
 
@@ -23,7 +23,7 @@ EF Core obsługuje wiele aparatów baz danych, zobacz [Dostawcy baz danych](prov
 
 Z programem EF Core dostęp do danych odbywa się przy użyciu modelu. Model składa się z klas jednostek i obiekt kontekstu, który reprezentuje sesję z bazą danych, dzięki czemu zapytania i zapisywać dane. Zobacz [Tworzenie modelu](modeling/index.md), aby dowiedzieć się więcej.
 
-Model można wygenerować z istniejącej bazy danych, kod ręcznie, model, aby dopasować bazy danych, lub użyć migracje EF utworzyć bazę danych z modelu i rozwój go jako modelu zmienia się wraz z upływem czasu.
+Można wygenerować model z istniejącej bazy danych, przekazania kodu z modelu, aby dopasować bazy danych lub użyj [migracji EF](managing-schemas/migrations/index.md) można utworzyć bazę danych z modelu, a następnie rozwój, jak model zmienia się wraz z upływem czasu.
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;

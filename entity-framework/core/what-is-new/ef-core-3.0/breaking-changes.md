@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 9112d8d235237e68232aac54453d584af0edb524
-ms.sourcegitcommit: b188194a1901f4d086d05765cbc5c9b8c9dc5eed
+ms.openlocfilehash: 1d2853cfc7f6eadfc76000f91a723f8b0b8c201f
+ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66829484"
+ms.lasthandoff: 06/24/2019
+ms.locfileid: "67333825"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
 
@@ -167,34 +167,18 @@ Określanie `FromSql` dowolnym innym niż na `DbSet` nie dodano znaczenie lub wa
 
 `FromSql` wywołania zostanie przeniesiona za bezpośrednio na `DbSet` do których mają zastosowanie.
 
-## <a name="query-execution-is-logged-at-debug-level"></a>Wykonanie zapytania jest rejestrowane na poziomie debugowania
+## <a name="query-execution-is-logged-at-debug-level-reverted"></a>~~Wykonanie zapytania jest rejestrowane na poziomie debugowania~~ przywrócono
 
 [Śledzenie problem #14523](https://github.com/aspnet/EntityFrameworkCore/issues/14523)
 
-Ta zmiana jest wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 3.
+Ta zmiana zostanie wycofana w programu EF Core 3.0-preview 7.
 
-**Stare zachowanie**
-
-Przed programem EF Core 3.0, wykonywanie zapytań i innych poleceniach, zarejestrowano w `Info` poziom.
-
-**Nowe zachowanie**
-
-Począwszy od programu EF Core 3.0 rejestrowanie wykonywania polecenia/SQL jest w `Debug` poziom.
-
-**Dlaczego**
-
-Ta zmiana została wprowadzona redukcji szumu w `Info` poziom dziennika.
-
-**Środki zaradcze**
-
-To zdarzenie logowania jest definiowany przez `RelationalEventId.CommandExecuting` zdarzenia o identyfikatorze 20100.
-Do logowania SQL w `Info` poziomu ponownie, jawnie skonfigurować poziom w `OnConfiguring` lub `AddDbContext`.
-Na przykład:
+Możemy przywrócić tę zmianę, ponieważ nowej konfiguracji w programie EF Core 3.0 umożliwia poziom rejestrowania dla dowolnego zdarzenia, należy określić przez aplikację. Na przykład, aby przełączyć rejestrowania programu SQL Server, aby `Debug`, należy jawnie skonfigurować poziom w `OnConfiguring` lub `AddDbContext`:
 ```C#
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
         .UseSqlServer(connectionString)
-        .ConfigureWarnings(c => c.Log((RelationalEventId.CommandExecuting, LogLevel.Info)));
+        .ConfigureWarnings(c => c.Log((RelationalEventId.CommandExecuting, LogLevel.Debug)));
 ```
 
 ## <a name="temporary-key-values-are-no-longer-set-onto-entity-instances"></a>Wartości klucza tymczasowego nie są już ustawione na wystąpień jednostek
@@ -918,28 +902,6 @@ W takich przypadkach większości zadań będą nadal działają, ale dowolnej u
 
 Jeśli napotkasz sytuacjach, w następujący sposób na Zgłoś problem w [narzędzie do śledzenia problemów EF Core w usłudze GitHub](https://github.com/aspnet/EntityFrameworkCore/issues) aby dać nam znać, jak używasz `ILoggerFactory` taki sposób, że firma Microsoft można lepiej zrozumieć, jak się to w przyszłości.
 
-## <a name="idbcontextoptionsextensionwithdebuginfo-merged-into-idbcontextoptionsextension"></a>IDbContextOptionsExtensionWithDebugInfo IDbContextOptionsExtension została scalona z
-
-[Śledzenie problem #13552](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
-
-Ta zmiana jest wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 3.
-
-**Stare zachowanie**
-
-`IDbContextOptionsExtensionWithDebugInfo` przedłużono dodatkowy opcjonalny interfejs z `IDbContextOptionsExtension` Aby uniknąć konieczności istotne zmiany w interfejsie podczas cyklu wersji 2.x.
-
-**Nowe zachowanie**
-
-Interfejsy są teraz scalone razem `IDbContextOptionsExtension`.
-
-**Dlaczego**
-
-Ta zmiana została wprowadzona, ponieważ interfejsy są koncepcyjnie jeden.
-
-**Środki zaradcze**
-
-Wszelkie implementacje `IDbContextOptionsExtension` musi zostać zaktualizowany do obsługi nowego elementu członkowskiego.
-
 ## <a name="lazy-loading-proxies-no-longer-assume-navigation-properties-are-fully-loaded"></a>Serwery proxy ładowanych z opóźnieniem nie jest już założono, że właściwości nawigacji są w pełni załadowany
 
 [Śledzenie problem #12780](https://github.com/aspnet/EntityFrameworkCore/issues/12780)
@@ -1352,6 +1314,30 @@ UPDATE __EFMigrationsHistory
 SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
 ```
 
+## <a name="extension-infometadata-has-been-removed-from-idbcontextoptionsextension"></a>Metadane informacji rozszerzenia została usunięta z IDbContextOptionsExtension
+
+[Śledzenie problem #16119](https://github.com/aspnet/EntityFrameworkCore/issues/16119)
+
+Ta zmiana jest wprowadzona w programu EF Core 3.0-preview 7.
+
+**Stare zachowanie**
+
+`IDbContextOptionsExtension` zawiera metody dostarczania metadanych dotyczących rozszerzenia.
+
+**Nowe zachowanie**
+
+Te metody zostały przeniesione na nowy `DbContextOptionsExtensionInfo` abstrakcyjna klasa bazowa, która jest zwracana z nową `IDbContextOptionsExtension.Info` właściwości.
+
+**Dlaczego**
+
+W wersji 2.0, 3.0 Musieliśmy dodać lub zmienić te metody kilka razy.
+Przerwanie ich do nowego abstrakcyjna klasa bazowa ułatwi zapewnienie te rodzaje zmian bez przerywania istniejące rozszerzenia.
+
+**Środki zaradcze**
+
+Aktualizowanie rozszerzeń do wykonania nowego wzorca.
+Przykłady znajdują się w wielu implementacjach `IDbContextOptionsExtension` kod źródłowy dla różnych rodzajów rozszerzeń w programie EF Core.
+
 ## <a name="logquerypossibleexceptionwithaggregateoperator-has-been-renamed"></a>LogQueryPossibleExceptionWithAggregateOperator została zmieniona.
 
 [Śledzenie problem #10985](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
@@ -1399,3 +1385,29 @@ Ta zmiana oferuje spójność nazw w tym obszarze, a także wyjaśnia, że jest 
 **Środki zaradcze**
 
 Użycie nowej nazwy.
+
+## <a name="irelationaldatabasecreatorhastableshastablesasync-have-been-made-public"></a>IRelationalDatabaseCreator.HasTables/HasTablesAsync wprowadzono publiczne
+
+[Śledzenie problem #15997](https://github.com/aspnet/EntityFrameworkCore/issues/15997)
+
+Ta zmiana jest wprowadzona w programu EF Core 3.0-preview 7.
+
+**Stare zachowanie**
+
+Przed programem EF Core 3.0 to chronione zostały tych metod.
+
+```C#
+var constraintName = myForeignKey.Name;
+```
+
+**Nowe zachowanie**
+
+Począwszy od programu EF Core 3.0 te metody są publiczne.
+
+**Dlaczego**
+
+Te metody są używane przez EF do ustalenia, czy bazy danych jest utworzony, ale puste. Może to być również przydatne z poza EF podczas ustalania, czy należy zastosować migracji.
+
+**Środki zaradcze**
+
+Zmień dostępność elementu zastąpienia.

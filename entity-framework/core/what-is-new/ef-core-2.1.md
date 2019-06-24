@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: f67f2e695d269e2dde11d396f9a67fd137600f56
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 16600ccbb1194d584fae15671118d9c046f1f637
+ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489406"
+ms.lasthandoff: 06/24/2019
+ms.locfileid: "67333858"
 ---
 # <a name="new-features-in-ef-core-21"></a>Nowe funkcje programu EF Core 2.1
 
@@ -49,7 +49,7 @@ var query = context.Orders
           Sum = g.Sum(o => o.Amount),
           Min = g.Min(o => o.Amount),
           Max = g.Max(o => o.Amount),
-          Avg = g.Average(o => Amount)
+          Avg = g.Average(o => o.Amount)
         });
 ```
 
@@ -119,7 +119,7 @@ var query = context.Customers.Select(
     c => c.Orders.Where(o => o.Amount  > 100).Select(o => o.Amount).ToList());
 ```
 
-Należy pamiętać, że to zapytanie będzie tłumaczona tylko dwa kwerendy SQL: jeden dla klientów i kolejny zamówień.
+Należy zwrócić uwagę na to, że to zapytanie będzie tłumaczona tylko dwa kwerendy SQL: Jeden dla klientów i kolejny zamówień.
 
 ## <a name="owned-attribute"></a>Atrybut [należące do firmy]
 
