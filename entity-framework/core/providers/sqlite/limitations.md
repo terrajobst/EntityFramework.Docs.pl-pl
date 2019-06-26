@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: ce834d60b9ceb4c414f097f2d86254cc5edd958f
-ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
+ms.openlocfilehash: eaa7d5b1496172e4f3821433a1cd098ee7e8b737
+ms.sourcegitcommit: 9bd64a1a71b7f7aeb044aeecc7c4785b57db1ec9
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419708"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67394805"
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core Database Provider Limitations
 
@@ -22,6 +22,25 @@ Wspólne biblioteki relacyjnych (udostępnione przez dostawców relacyjnej bazy 
 * Schematy
 * Sekwencje
 * Kolumny obliczane
+
+## <a name="query-limitations"></a>Ograniczenia dotyczące zapytań
+
+Bazy danych SQLite natywnie nie obsługuje następujących typów danych. EF Core mogą odczytywać i zapisywać wartości tych typów i wykonuje zapytania dotyczące równości (`where e.Property == value`) jest również obsługiwane. Inne operacje, takie jak porównywania i porządkowania będzie wymagać oceny na komputerze klienckim.
+
+* DateTimeOffset
+* Wartość dziesiętna
+* TimeSpan
+* UInt64
+
+Zamiast `DateTimeOffset`, firma Microsoft zaleca używanie wartości daty/godziny. Obsługa wielu strefach czasowych, zalecamy podczas konwertowania wartości na czas UTC przed zapisaniem, a następnie konwertując do odpowiedniej strefy czasowej.
+
+`Decimal` Typu zapewnia wysoki poziom dokładności. Jeśli nie potrzebujesz tego poziomu dokładności, jednak firma Microsoft zaleca użycie zamiast niego double. Możesz użyć [konwertera wartości](../../modeling/value-conversions.md) aby kontynuować korzystanie z dziesiętnych w Twoich zajęciach.
+
+``` csharp
+modelBuilder.Entity<MyEntity>()
+    .Property(e => e.DecimalProperty)
+    .HasConversion<double>();
+```
 
 ## <a name="migrations-limitations"></a>Ograniczenia migracji
 
@@ -48,7 +67,7 @@ Aparat bazy danych SQLite nie obsługuje szereg operacji schematu, które są ob
 | EnsureSchema         | ✔ (pusta)  | 2.0              |
 | DropSchema           | ✔ (pusta)  | 2.0              |
 | Insert               | ✔          | 2.0              |
-| Aktualizacja               | ✔          | 2.0              |
+| Aktualizowanie               | ✔          | 2.0              |
 | Usuwanie               | ✔          | 2.0              |
 
 ## <a name="migrations-limitations-workaround"></a>Obejście ograniczenia dotyczące migracji

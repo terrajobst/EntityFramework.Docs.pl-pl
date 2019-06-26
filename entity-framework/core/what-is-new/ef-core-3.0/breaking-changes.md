@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 1d2853cfc7f6eadfc76000f91a723f8b0b8c201f
-ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
+ms.openlocfilehash: 96586808862c4373168dcd34a5f00c9f2f7563c3
+ms.sourcegitcommit: 9bd64a1a71b7f7aeb044aeecc7c4785b57db1ec9
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 06/24/2019
-ms.locfileid: "67333825"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67394828"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
 
@@ -1411,3 +1411,55 @@ Te metody są używane przez EF do ustalenia, czy bazy danych jest utworzony, al
 **Środki zaradcze**
 
 Zmień dostępność elementu zastąpienia.
+
+## <a name="microsoftentityframeworkcoredesign-is-now-a-developmentdependency-package"></a>Microsoft.EntityFrameworkCore.Design jest teraz pakiet DevelopmentDependency
+
+[Śledzenie problem #11506](https://github.com/aspnet/EntityFrameworkCore/issues/11506)
+
+Ta zmiana jest wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 4.
+
+**Stare zachowanie**
+
+Przed programem EF Core 3.0 to Microsoft.EntityFrameworkCore.Design był regularne pakietu NuGet zestawu, którego można odwoływać się projekty, które zależą od jej.
+
+**Nowe zachowanie**
+
+Począwszy od programu EF Core 3.0 to jest pakiet DevelopmentDependency. Co oznacza, że zależność nie została przechodnio przepływu do innych projektów i nie będzie mógł, domyślnie odwoływać się do własnego zestawu.
+
+**Dlaczego**
+
+Ten pakiet jest przeznaczona tylko do użycia w czasie projektowania. Wdrożone aplikacje nie powinny odwoływać się do niego. Tworzenie pakietu DevelopmentDependency wzmacnia to zalecenie.
+
+**Środki zaradcze**
+
+Jeśli musisz odwoływać się do tego pakietu, aby zastąpić zachowanie czasu projektowania programu EF Core, możesz zaktualizować aktualizacji metadanych elementu PackageReference w projekcie. Jeśli pakiet jest ono przywoływane przechodni, za pośrednictwem Microsoft.EntityFrameworkCore.Tools, należy dodać jawne PackageReference do pakietu, aby zmienić jego metadanych.
+
+``` xml
+<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0-preview4.19216.3">
+  <PrivateAssets>all</PrivateAssets>
+  <!-- Remove IncludeAssets to allow compiling against the assembly -->
+  <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
+</PackageReference>
+```
+
+## <a name="sqlitepclraw-updated-to-version-200"></a>Zaktualizowany do wersji 2.0.0 SQLitePCL.raw
+
+[Śledzenie problem #14824](https://github.com/aspnet/EntityFrameworkCore/issues/14824)
+
+Ta zmiana jest wprowadzona w programu EF Core 3.0-preview 7.
+
+**Stare zachowanie**
+
+Microsoft.EntityFrameworkCore.Sqlite wcześniej zależała od wersji 1.1.12 SQLitePCL.raw.
+
+**Nowe zachowanie**
+
+Aktualizujemy już naszego pakietu są zależne od wersji 2.0.0.
+
+**Dlaczego**
+
+W wersji 2.0.0 SQLitePCL.raw jest przeznaczony dla .NET Standard 2.0. Wskazanych .NET 1.1 standardowe, wymagająca dużych zamknięcia przechodnie pakietów do pracy.
+
+**Środki zaradcze**
+
+Wersja SQLitePCL.raw 2.0.0 zawiera pewne istotne zmiany. Zobacz [informacje o wersji](https://github.com/ericsink/SQLitePCL.raw/blob/v2/v2.md) Aby uzyskać szczegółowe informacje.
