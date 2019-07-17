@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: dcbea1a2aab5baea35f81500bb7bb5482695d778
-ms.sourcegitcommit: 812010a35afe902d8c4bb03a67d575f8e91b5ec0
+ms.openlocfilehash: 7cc0bd3946be2e63d9fb46a023bf6abe750ae0e3
+ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67506260"
+ms.lasthandoff: 07/17/2019
+ms.locfileid: "68286493"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
 
@@ -96,11 +96,10 @@ Ta zmiana pozwala nam rozpowszechniać i aktualizować `dotnet ef` jako regularn
 
 **Środki zaradcze**
 
-Aby można było zarządzać migracji lub szkieletu `DbContext`, zainstaluj `dotnet-ef` przy użyciu `dotnet tool install` polecenia.
-Aby zainstalować go jako narzędzie globalne, możesz na przykład, wpisz następujące polecenie:
+Aby można było zarządzać migracji lub szkieletu `DbContext`, zainstaluj `dotnet-ef` jako narzędzie globalne:
 
   ``` console
-  $ dotnet tool install --global dotnet-ef --version <exact-version>
+    $ dotnet tool install --global dotnet-ef --version 3.0.0-*
   ```
 
 Możesz również uzyskać je lokalne narzędzie podczas przywracania zależności projektu, który deklaruje ją jako zależność narzędzia przy użyciu [plik manifestu narzędzia](https://github.com/dotnet/cli/issues/10288).
@@ -118,7 +117,7 @@ Przed programem EF Core 3.0 to te metody mają nazwy były przeciążone do prac
 **Nowe zachowanie**
 
 Począwszy od programu EF Core 3.0, użyj `FromSqlRaw`, `ExecuteSqlRaw`, i `ExecuteSqlRawAsync` można utworzyć zapytanie parametryczne, gdzie parametry są przekazywane oddzielnie z ciągu zapytania.
-Na przykład:
+Przykład:
 
 ```C#
 context.Products.FromSqlRaw(
@@ -127,7 +126,7 @@ context.Products.FromSqlRaw(
 ```
 
 Użyj `FromSqlInterpolated`, `ExecuteSqlInterpolated`, i `ExecuteSqlInterpolatedAsync` można utworzyć zapytanie parametryczne, gdzie parametry są przekazywane jako część ciągu interpolowanego zapytania.
-Na przykład:
+Przykład:
 
 ```C#
 context.Products.FromSqlInterpolated(
@@ -271,7 +270,7 @@ Ta zmiana została wprowadzona w celu usprawnienie obsługi wiązaniu danych i i
 **Środki zaradcze**
 
 Poprzednie zachowanie można przywrócić za pomocą ustawień na `context.ChangedTracker`.
-Na przykład:
+Przykład:
 
 ```C#
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
@@ -705,7 +704,7 @@ Ta zmiana została wprowadzona aby zapobiec błędnie wyzwalanie logiki biznesow
 **Środki zaradcze**
 
 Zachowanie pre 3.0 można przywrócić za pomocą konfiguracji tryb dostępu do właściwości na `ModelBuilder`.
-Na przykład:
+Przykład:
 
 ```C#
 modelBuilder.UsePropertyAccessMode(PropertyAccessMode.PreferFieldDuringConstruction);
@@ -992,7 +991,7 @@ Stare zachowanie było mylące, szczególnie podczas odczytywania kodu konfigura
 Spowoduje to przerwanie tylko aplikacji, które jawnego konfigurowania relacji za pomocą ciągów, nazwy typów oraz bez jawne określenie właściwości nawigacji.
 To nie jest powszechne.
 Poprzednie zachowanie można uzyskać poprzez jawne przekazywanie `null` dla danej nazwy właściwości nawigacji.
-Na przykład:
+Przykład:
 
 ```C#
 modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
@@ -1314,6 +1313,28 @@ UPDATE __EFMigrationsHistory
 SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
 ```
 
+## <a name="userownumberforpaging-has-been-removed"></a>UseRowNumberForPaging został usunięty.
+
+[Śledzenie problem #16400](https://github.com/aspnet/EntityFrameworkCore/issues/16400)
+
+Ta zmiana jest wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 6.
+
+**Stare zachowanie**
+
+Przed programem EF Core 3.0 to `UseRowNumberForPaging` może służyć do generowania SQL dla stronicowania, który jest zgodny z programu SQL Server 2008.
+
+**Nowe zachowanie**
+
+Począwszy od programu EF Core 3.0 EF będą generowane tylko SQL stronicowanie, która jest zgodna tylko z nowszej wersji programu SQL Server. 
+
+**Dlaczego**
+
+Wprowadzamy tej zmiany, ponieważ [programu SQL Server 2008 nie jest już obsługiwany produkt](https://blogs.msdn.microsoft.com/sqlreleaseservices/end-of-mainstream-support-for-sql-server-2008-and-sql-server-2008-r2/) i aktualizowanie tę funkcję, aby pracować z zapytania zmian w programie EF Core 3.0 jest dużo pracy.
+
+**Środki zaradcze**
+
+Aktualizacja do nowszej wersji programu SQL Server lub za pomocą wyższym poziomie zgodności firma Microsoft zaleca, aby wygenerowanego SQL jest obsługiwana. Następnie po uwzględnieniu, jeśli nie można w tym celu należy [komentarza dotyczącego problemu śledzenia](https://github.com/aspnet/EntityFrameworkCore/issues/16400) ze szczegółowymi informacjami. Firma Microsoft może ponownie tej decyzji na podstawie opinii.
+
 ## <a name="extension-infometadata-has-been-removed-from-idbcontextoptionsextension"></a>Metadane informacji rozszerzenia została usunięta z IDbContextOptionsExtension
 
 [Śledzenie problem #16119](https://github.com/aspnet/EntityFrameworkCore/issues/16119)
@@ -1344,7 +1365,7 @@ Przykłady znajdują się w wielu implementacjach `IDbContextOptionsExtension` k
 
 Ta zmiana jest wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 4.
 
-**Change**
+**Zmiany**
 
 `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperator` została zmieniona na `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperatorWarning`.
 
@@ -1364,7 +1385,7 @@ Ta zmiana jest wprowadzona w programu EF Core 3.0 — w wersji zapoznawczej 4.
 
 **Stare zachowanie**
 
-Przed programem EF Core 3.0 to ograniczenie klucza obcego nazwy były nazywane po prostu "name". Na przykład:
+Przed programem EF Core 3.0 to ograniczenie klucza obcego nazwy były nazywane po prostu "name". Przykład:
 
 ```C#
 var constraintName = myForeignKey.Name;

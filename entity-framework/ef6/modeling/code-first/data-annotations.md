@@ -3,12 +3,12 @@ title: Pierwsze adnotacje danych - EF6 kodu
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: e6b017306b4f66f5bac2a9964e11391da28ceb40
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: fcd01aef7303573001460b352f8099b2cc6e224a
+ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463285"
+ms.lasthandoff: 07/17/2019
+ms.locfileid: "68286477"
 ---
 # <a name="code-first-data-annotations"></a>Adnotacje danych na pierwszym kodu
 > [!NOTE]
@@ -146,7 +146,7 @@ Dodawanie wymaganych do właściwości Title wymusi EF (i MVC), aby upewnić si�
     public string Title { get; set; }
 ```
 
-Nie dodatkowych bez zmiany kodu lub języka znaczników w aplikacji, aplikacji MVC przeprowadzi weryfikację po stronie klienta, nawet dynamiczne tworzenie komunikat przy użyciu nazwy właściwości i adnotacji.
+Bez dodatkowego kodu i znaczników zmiany w aplikacji aplikacji MVC przeprowadzi weryfikację po stronie klienta, nawet dynamiczne tworzenie komunikat przy użyciu nazwy właściwości i adnotacji.
 
 ![Utwórz stronę o tytule jest wymagana błąd](~/ef6/media/jj591583-figure02.png)
 

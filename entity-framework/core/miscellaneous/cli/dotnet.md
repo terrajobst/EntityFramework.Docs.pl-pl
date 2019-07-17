@@ -2,14 +2,14 @@
 title: EF Core informacje dotyczące narzędzi (interfejs wiersza polecenia platformy .NET) — EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 09/20/2018
+ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 959785c7b10ca668f3691106f62076d538978c03
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: 05c5f89fc79556e72a7e629c147aa817fe7d1a6b
+ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688670"
+ms.lasthandoff: 07/17/2019
+ms.locfileid: "68286466"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Entity Framework Core odnoszą się narzędzia — interfejs wiersza polecenia platformy .NET
 
@@ -23,9 +23,28 @@ Jeśli używasz programu Visual Studio, firma Microsoft zaleca [narzędzia Konso
 
 Procedura instalacji zależy od typu projektu, a wersja:
 
+* EF Core 3.x
 * Platforma ASP.NET Core w wersji 2.1 i nowsze
 * EF Core 2.x
 * EF Core 1.x
+
+### <a name="ef-core-3x"></a>EF Core 3.x
+
+* `dotnet ef` musi być zainstalowany jako narzędzie globalnych lub lokalnych. Większość programistów zainstaluje `dotnet ef` jako globalne narzędzia, za pomocą następującego polecenia:
+
+  ``` console
+    $ dotnet tool install --global dotnet-ef --version 3.0.0-*
+  ```
+
+  Można również użyć `dotnet ef` jako lokalne narzędzie. Aby użyć go jako lokalne narzędzie, należy przywrócić zależności projektu, który deklaruje ją jako zależność narzędzia przy użyciu [plik manifestu narzędzia](https://github.com/dotnet/cli/issues/10288).
+
+* Zainstaluj [platformy .NET Core SDK 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0)). Zestaw SDK został zainstalowany, nawet jeśli masz najnowszą wersję programu Visual Studio.
+
+* Zainstaluj najnowszą wersję `Microsoft.EntityFrameworkCore.Design` pakietu.
+
+  ``` Console
+  dotnet add package Microsoft.EntityFrameworkCore.Design
+  ```
 
 ### <a name="aspnet-core-21"></a>Platforma ASP.NET Core 2.1 +
 
@@ -37,7 +56,7 @@ Procedura instalacji zależy od typu projektu, a wersja:
 
 `dotnet ef` Poleceń są zawarte w zestawie SDK programu .NET Core, ale aby włączyć polecenia należy zainstalować `Microsoft.EntityFrameworkCore.Design` pakietu.
 
-* Zainstaluj bieżącą [zestawu .NET Core SDK](https://www.microsoft.com/net/download/core). Zestaw SDK został zainstalowany, nawet jeśli masz najnowszą wersję programu Visual Studio 2017.
+* Zainstaluj bieżącą [zestawu .NET Core SDK](https://www.microsoft.com/net/download/core). Zestaw SDK został zainstalowany, nawet jeśli masz najnowszą wersję programu Visual Studio.
 
 * Zainstaluj najnowszy stabilny `Microsoft.EntityFrameworkCore.Design` pakietu.
 
@@ -195,7 +214,7 @@ Argumenty:
 
 | Argument       | Opis                                                                                                                                                                                                             |
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<CONNECTION>` | Parametry połączenia z bazą danych. W przypadku projektów ASP.NET Core 2.x wartość może być *nazwa =\<nazwa parametrów połączenia >*. W takim przypadku nazwa pochodzi od źródła konfiguracji, które są skonfigurowane dla projektu. |
+| `<CONNECTION>` | Parametry połączenia z bazą danych. W przypadku projektów ASP.NET Core 2.x wartość może być *nazwa =\<nazwa parametrów połączenia >* . W takim przypadku nazwa pochodzi od źródła konfiguracji, które są skonfigurowane dla projektu. |
 | `<PROVIDER>`   | Dostawca do użycia. Zazwyczaj jest to nazwa pakietu NuGet, na przykład: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
 Opcje:
