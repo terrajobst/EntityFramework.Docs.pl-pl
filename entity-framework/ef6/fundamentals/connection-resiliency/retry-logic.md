@@ -1,38 +1,38 @@
 ---
-title: Połączenie odporności logikę ponawiania prób i - EF6
+title: Odporność połączeń i logika ponawiania — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: 7d6aa870cc32a2b344457fbb04525a7c2c8d1c61
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: a01216c3399ca4a04943563435eacd0047337a5f
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668768"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306574"
 ---
-# <a name="connection-resiliency-and-retry-logic"></a>Logika połączenia odporności, a następnie spróbuj ponownie
+# <a name="connection-resiliency-and-retry-logic"></a>Odporność połączeń i logika ponowień
 > [!NOTE]
-> **EF6 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 6. Jeśli używasz starszej wersji, niektóre lub wszystkie informacje, nie ma zastosowania.  
+> **Ef6 tylko** — funkcje, interfejsy API itp. omówione na tej stronie zostały wprowadzone w Entity Framework 6. Jeśli używasz wcześniejszej wersji, niektóre lub wszystkie informacje nie są stosowane.  
 
-Aplikacje nawiązywania połączenia z serwerem bazy danych zawsze były podatne na podziały połączenia z powodu niepowodzenia zaplecza i niestabilności sieci. Jednak w środowisku sieci LAN, na podstawie działa z serwerów dedykowanych bazy danych te błędy są wystarczająco rzadkie, że dodatkowa logika do obsługi tych błędów nie jest często wymagane. Za pomocą w chmurze oparte mniej niezawodnej sieci, z którymi jest teraz bardziej powszechne podziału połączenia wystąpienia serwerów baz danych, takich jak Windows Azure SQL Database oraz połączeń. Może to być spowodowane obrony technik, które w chmurze Użyj bazy danych, aby zapewnić sprawiedliwe usługi, takie jak ograniczanie przepustowości połączenia lub do niestabilności w sieci, powodują sporadyczne przekroczeń limitu czasu i innych błędów przejściowych.  
+Aplikacje łączące się z serwerem bazy danych zawsze były podatne na przerwy z połączeniami z powodu awarii zaplecza i niestabilności sieci. Jednak w środowisku opartym na sieci LAN pracującym z serwerami dedykowanych baz danych te błędy są wystarczająco rzadko, ponieważ dodatkowa logika obsługi tych awarii nie jest często wymagana. Ze wzrostem liczby serwerów baz danych opartych na chmurze, takich jak Azure SQL Database systemu Windows i połączeń za pośrednictwem mniej niezawodnych sieci, jest teraz bardziej często spotykane w celu nawiązania połączenia. Może to być spowodowane technikami obronnymi używanymi przez bazy danych w chmurze w celu zapewnienia sprawiedliwości usług, takich jak ograniczanie połączenia lub niestabilność w sieci, powodującej sporadyczne przekroczenia limitu czasu i innych błędów przejściowych.  
 
-Elastyczność połączenia odnosi się do możliwości EF do automatycznego ponawiania próby wykonania dowolne polecenia, które się nie powieść z powodu przerwy te połączenia.  
+Odporność połączenia odnosi się do zdolności programu EF do automatycznego ponawiania prób wszelkich poleceń, które kończą się niepowodzeniem z powodu tych przerw połączeń.  
 
-## <a name="execution-strategies"></a>Strategii wykonywania  
+## <a name="execution-strategies"></a>Strategie wykonywania  
 
-Ponów próbę połączenia są wykonywane przez implementację interfejsu IDbExecutionStrategy. Implementacje IDbExecutionStrategy będzie odpowiedzialny za akceptować operacji, a jeśli wystąpi wyjątek, określająca, czy ponowienie próby jest odpowiednia i ponawianie próby, jeśli jest. Istnieją cztery strategii wykonywania, które są dostarczane z programem EF:  
+Ponowienie połączenia jest wykonywane przez implementację interfejsu IDbExecutionStrategy. Implementacje IDbExecutionStrategy będą odpowiedzialne za zaakceptowanie operacji, a jeśli wystąpi wyjątek, określenie, czy ponowienie próby jest odpowiednie i ponawianie próby, jeśli jest to możliwe. Istnieją cztery strategie wykonywania dostarczane z EF:  
 
-1. **DefaultExecutionStrategy**: Ta strategia wykonywania nie ponawia próby żadnych operacji, jest ustawieniem domyślnym dla baz danych innych niż sql server.  
-2. **DefaultSqlExecutionStrategy**: jest to strategii wykonywania wewnętrzny używany domyślnie. Ta strategia nie ponawia próby w ogóle, jednak opakować wszystkie wyjątki, które mogą być przejściowe poinformować użytkowników, którzy chcą włączyć elastyczność połączenia.  
-3. **DbExecutionStrategy**: Ta klasa jest odpowiednie, jako klasę bazową dla innych strategii wykonywania, w tym własne niestandardowe. Implementuje zasady ponawiania wykładniczego, gdzie początkowej ponawiania się dzieje z zero opóźnienia i opóźnienia rośnie wykładniczo, dopóki nie zostanie osiągnięty jako maksymalna liczba ponowień. Ta klasa posiada metodę ShouldRetryOn abstrakcyjną, która może być implementowany w strategii wykonywania pochodnych do kontrolowania, wyjątki, które należy wykonać ponownie.  
-4. **SqlAzureExecutionStrategy**: Ta strategia wykonywania dziedziczy DbExecutionStrategy i spróbuje ponowić operację na wyjątki, które są znane jako prawdopodobnie przejściowy podczas pracy z usługą Azure SQL Database.
+1. **DefaultExecutionStrategy**: ta strategia wykonywania nie ponawia żadnej operacji, jest to wartość domyślna dla baz danych innych niż SQL Server.  
+2. **DefaultSqlExecutionStrategy**: jest to wewnętrzna strategia wykonywania, która jest używana domyślnie. Ta strategia nie ponawia żadnej próby, jednak spowoduje zawinięcie wszelkich wyjątków, które mogą być przejściowe, aby poinformować użytkowników, że mogą chcieć włączyć odporność połączenia.  
+3. **DbExecutionStrategy**: Ta klasa jest odpowiednia jako klasa bazowa dla innych strategii wykonywania, w tym własnych niestandardowych. Implementuje on zasady ponowień wykładniczych, w przypadku których początkowa ponowna próba nastąpi z opóźnieniem równym zero, a opóźnienie wzrasta wykładniczo, dopóki Maksymalna liczba ponownych prób zostanie osiągnięta Ta klasa ma abstrakcyjną metodę ShouldRetryOn, która może być implementowana w pochodnych strategiach wykonywania w celu kontrolowania, które wyjątki powinny być ponawiane.  
+4. **SqlAzureExecutionStrategy**: ta strategia wykonywania dziedziczy z DbExecutionStrategy i ponowi próbę po wyjątkach, które są prawdopodobnie przejściowe podczas pracy z Azure SQL Database.
 
 > [!NOTE]
-> Strategii wykonywania 2 i 4 są uwzględnione w dostawcy programu Sql Server, który jest dostarczany z programem EF, który znajduje się w zestawie EntityFramework.SqlServer i zostały zaprojektowane do pracy z programem SQL Server.  
+> Strategie wykonywania 2 i 4 są zawarte w dostawcy programu SQL Server, który jest dostarczany z dr, który znajduje się w zestawie EntityFramework. SqlServer i jest przeznaczony do pracy z SQL Server.  
 
 ## <a name="enabling-an-execution-strategy"></a>Włączanie strategii wykonywania  
 
-Najprostszym sposobem Poinformuj EF, aby użyć strategii wykonywania jest przy użyciu metody SetExecutionStrategy [DbConfiguration](~/ef6/fundamentals/configuring/code-based.md) klasy:  
+Najprostszym sposobem, aby poinformować Dr o korzystanie z strategii wykonywania, jest metoda SetExecutionStrategy klasy [dbconfiguration](~/ef6/fundamentals/configuring/code-based.md) :  
 
 ``` csharp
 public class MyConfiguration : DbConfiguration
@@ -44,13 +44,13 @@ public class MyConfiguration : DbConfiguration
 }
 ```  
 
-Ten kod informuje EF, aby użyć SqlAzureExecutionStrategy podczas nawiązywania połączenia z programem SQL Server.  
+Ten kod nakazuje programowi Dr użycie SqlAzureExecutionStrategy podczas nawiązywania połączenia z SQL Server.  
 
 ## <a name="configuring-the-execution-strategy"></a>Konfigurowanie strategii wykonywania  
 
-Konstruktor obiektu SqlAzureExecutionStrategy może akceptować dwa parametry: wartość MaxRetryCount i MaxDelay. Liczba MaxRetry jest maksymalna liczba strategii ponownych prób. MaxDelay jest element TimeSpan reprezentujący Maksymalne opóźnienie między kolejnymi próbami używających strategii wykonywania.  
+Konstruktor elementu SqlAzureExecutionStrategy może przyjmować dwa parametry, wartość MaxRetryCount i MaxDelay. Liczba MaxRetry jest maksymalną liczbą ponownych prób w strategii. MaxDelay to przedział czasu reprezentujący maksymalne opóźnienie między ponownymi próbami, które będą używane przez strategię wykonywania.  
 
-Aby ustawić maksymalną liczbę ponownych prób 1 i maksymalne opóźnienie do 30 sekund będzie się execue następujące czynności:  
+Aby ustawić maksymalną liczbę ponownych prób na 1 i maksymalne opóźnienie na 30 sekund, należy wykonać następujące czynności:  
 
 ``` csharp
 public class MyConfiguration : DbConfiguration
@@ -64,15 +64,15 @@ public class MyConfiguration : DbConfiguration
 }
 ```  
 
-SqlAzureExecutionStrategy ponowi próbę natychmiast po raz pierwszy błąd przejściowy, który występuje, ale będzie już opóźnienie między kolejnymi próbami, dopóki albo maksymalny limit ponownych prób zostanie przekroczony lub łącznego czasu trafienia Maksymalne opóźnienie.  
+SqlAzureExecutionStrategy ponowi próbę natychmiast po pierwszym wystąpieniu błędu przejściowego, ale wydłuża czas oczekiwania na przekroczenie limitu maksymalnej liczby ponownych prób lub łącznego czasu osiągnie maksymalne opóźnienie.  
 
-Strategii wykonywania ponowi tylko ograniczoną liczbę wyjątków, które są zwykle tansient, nadal konieczne będzie obsługiwać inne błędy, a także przechwytywanie wyjątku RetryLimitExceeded w przypadku których błąd nie jest przejściowy lub trwa zbyt długo rozwiązać samego siebie.  
+W strategiach wykonywania będzie można ponowić tylko ograniczoną liczbę wyjątków, które zwykle są przejściowe. nadal trzeba będzie obsługiwać inne błędy, a także przechwycić wyjątek RetryLimitExceeded w przypadku, gdy błąd nie jest przejściowy lub trwa zbyt długo, aby rozwiązać ten problem. sam.  
 
-Korzystając z Trwa ponawianie próby strategii wykonywania są niektóre znane ograniczenia:  
+Istnieją pewne znane ograniczenia związane z ponowną próbą wykonania:  
 
-## <a name="streaming-queries-are-not-supported"></a>Zapytania przesyłania strumieniowego nie są obsługiwane.  
+## <a name="streaming-queries-are-not-supported"></a>Zapytania przesyłania strumieniowego nie są obsługiwane  
 
-Domyślnie programy EF6 i nowszym będzie buforować wyniki zapytania, a nie ich streaming. Jeśli chcesz mieć wyniki przesyłane strumieniowo można metoda AsStreaming służy do zmiany LINQ zapytania jednostki w celu przesyłania strumieniowego.  
+Domyślnie EF6 i nowsze wersje będą buforować wyniki zapytania zamiast przesyłania strumieniowego. Jeśli chcesz uzyskać strumieniowe wyniki, możesz użyć metody AsStreaming, aby zmienić zapytanie LINQ to Entities do przesyłania strumieniowego.  
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -84,15 +84,15 @@ using (var db = new BloggingContext())
 }
 ```  
 
-Przesyłania strumieniowego nie jest obsługiwana, gdy Trwa ponawianie próby strategii wykonywania jest zarejestrowany. To ograniczenie istnieje, ponieważ połączenie można porzucić część sposób wyniki są zwracane. W takiej sytuacji EF musi zostać ponownie uruchomiony całe zapytanie, ale nie ma niezawodne możliwości informacji o tym, co powoduje już zostały zwrócone (dane mogły ulec zmianie od momentu początkowego zapytania została wysłana, wyniki mogą wrócić w innej kolejności, wyniki nie może mieć unikatowy identyfikator itp.).  
+Przesyłanie strumieniowe nie jest obsługiwane w przypadku zarejestrowania strategii wykonywania ponownych prób. To ograniczenie istnieje, ponieważ połączenie może zostać porzucane w formie częściowej przez zwracane wyniki. W takim przypadku EF musi ponownie uruchomić całe zapytanie, ale nie ma niezawodnego sposobu na poznanie wyników, które zostały już zwrócone (dane mogły zostać zmienione od czasu wysłania zapytania, wyniki mogą być ponownie w innej kolejności, wyniki mogą nie mieć unikatowego identyfikatora itp.).  
 
-## <a name="user-initiated-transactions-are-not-supported"></a>Transakcji zainicjowanej przez użytkownika nie są obsługiwane.  
+## <a name="user-initiated-transactions-are-not-supported"></a>Transakcje zainicjowane przez użytkownika nie są obsługiwane  
 
-Po skonfigurowaniu strategii wykonywania, który skutkuje ponownych prób, istnieją pewne ograniczenia dotyczące użycia transakcji.  
+Po skonfigurowaniu strategii wykonywania, która powoduje ponowną próbę, istnieją pewne ograniczenia dotyczące korzystania z transakcji.  
 
-Domyślnie program EF będzie wykonywać żadnych aktualizacji bazy danych w obrębie transakcji. Nie trzeba nic robić, aby włączyć tę opcję, EF zawsze wykonuje to automatycznie.  
+Domyślnie program EF wykona wszystkie aktualizacje bazy danych w ramach transakcji. Nie musisz nic robić, aby go włączyć. EF zawsze robi to automatycznie.  
 
-Na przykład w poniższym kodzie SaveChanges jest wykonywana automatycznie w ramach transakcji. Gdyby SaveChanges się niepowodzeniem po Wstawianie jedną nową lokację, a następnie będzie można z powrotem obniżyć transakcji i nie zmiany zostały wprowadzone do bazy danych. Kontekst jest również pozostanie w stanie umożliwiającym Funkcja SaveChanges zapisuje do ponownie wywołany, aby ponowić próbę zastosowania zmian.  
+Na przykład w poniższym kodzie metody SaveChanges jest automatycznie wykonywane w ramach transakcji. Jeśli metody SaveChanges nie powiedzie się po wstawieniu jednej z nowych witryn, transakcja zostanie wycofana i nie zostaną zastosowane żadne zmiany w bazie danych. Kontekst jest również pozostawiony w stanie, który umożliwia ponowne wywołanie metody SaveChanges, aby ponowić próbę zastosowania zmian.  
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -103,7 +103,7 @@ using (var db = new BloggingContext())
 }
 ```  
 
-Bez korzystania z Trwa ponawianie próby strategii wykonywania może zawijać się wiele operacji w ramach jednej transakcji. Na przykład poniższy kod opakowuje dwóch wywołań funkcji SaveChanges w ramach jednej transakcji. Jeśli którejkolwiek którejkolwiek z tych operacji nie powiedzie się następnie zmiany zostaną zastosowane.  
+Gdy nie korzystasz z kolejnej strategii wykonywania, możesz otoczyć wiele operacji w jednej transakcji. Na przykład poniższy kod otacza dwa wywołania metody SaveChanges w jednej transakcji. Jeśli jakakolwiek część jednej operacji nie powiedzie się, żadne zmiany nie zostaną zastosowane.  
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -122,11 +122,11 @@ using (var db = new BloggingContext())
 }
 ```  
 
-To nie jest obsługiwana, gdy za pomocą Trwa ponawianie próby strategii wykonywania, ponieważ EF nie jest świadomy żadnych poprzedniej operacji i sposób ponowić próbę ich wykonania. Na przykład jeśli drugi SaveChanges nie powiodła się następnie EF już ma wymagane informacje, aby ponowić próbę wykonania pierwszego wywołania funkcji SaveChanges.  
+Nie jest to obsługiwane w przypadku korzystania z metody ponawiania próby, ponieważ EF nie wie o żadnych poprzednich operacjach i sposobach ich ponowienia. Na przykład jeśli druga metody SaveChanges nie powiodła się, EF nie ma już wymaganych informacji, aby ponowić próbę wykonania pierwszego wywołania metody SaveChanges.  
 
-### <a name="workaround-suspend-execution-strategy"></a>Obejście problemu: Wstrzymywanie strategii wykonywania  
+### <a name="workaround-suspend-execution-strategy"></a>Obejście problemu: Wstrzymaj strategię wykonywania  
 
-Jednym możliwym obejściem jest wstrzymania Trwa ponawianie próby strategia wykonywania dla fragmentu kodu, który musi używać użytkownik zainicjował transakcji. Najprostszym sposobem, w tym celu jest dodać flagę SuspendExecutionStrategy w kodzie na podstawie klasy konfiguracji, a także zmienić lambda strategii wykonywania do zwrócenia strategii wykonywania (inne niż retying) domyślny, jeśli flaga jest ustawiona.  
+Jednym z możliwych obejść jest wstrzymanie procesu ponawiania próby wykonania dla fragmentu kodu, który musi korzystać z transakcji zainicjowanej przez użytkownika. Najprostszym sposobem, aby to zrobić, dodać flagę SuspendExecutionStrategy do klasy konfiguracji opartej na kodzie i zmienić metodę lambda dla strategii wykonywania, aby zwracała strategię wykonania domyślną (niewiążącą), gdy flaga jest ustawiona.  
 
 ``` csharp
 using System.Data.Entity;
@@ -160,9 +160,9 @@ namespace Demo
 }
 ```  
 
-Należy pamiętać, że używasz CallContext do przechowywania wartości flagi. Zapewnia funkcje podobne do pamięci lokalnej wątku, ale jest bezpieczne, za pomocą kodu asynchronicznego — w tym zapytania asynchroniczne i zapisywać przy użyciu platformy Entity Framework.  
+Należy pamiętać, że do przechowywania wartości flagi używany jest CallContext. Zapewnia to podobną funkcjonalność do lokalnego magazynu wątków, ale jest bezpieczne do użycia z kodem asynchronicznym — w tym zapytania asynchroniczne i zapisywania przy użyciu Entity Framework.  
 
-Firma Microsoft jest teraz wstrzymywanie strategii wykonywania dla sekcji kodu, który używa transakcji zainicjowanej przez użytkownika.  
+Teraz można wstrzymać strategię wykonywania dla sekcji kodu, która używa transakcji zainicjowanej przez użytkownika.  
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -185,11 +185,11 @@ using (var db = new BloggingContext())
 }
 ```  
 
-### <a name="workaround-manually-call-execution-strategy"></a>Obejście problemu: Ręcznego wywoływania strategii wykonywania  
+### <a name="workaround-manually-call-execution-strategy"></a>Obejście problemu: Ręcznie Wywołaj strategię wykonywania  
 
-Inną opcją jest ręczne Użyj strategii wykonywania i nadaj cały zestaw logiki, aby uruchomić, dzięki czemu można ponów wszystko, jeśli jedna z operacji zakończy się niepowodzeniem. Nadal trzeba wstrzymywanie strategii wykonywania - korzystające z techniki powyżej — tak aby kontekstów używana wewnątrz blok kodu powtarzający operację nie należy podejmować próbę.  
+Kolejną opcją jest ręczne Użycie strategii wykonywania i nadanie jej całego zestawu logiki, aby można było ponowić próbę wszystkiego, jeśli jedna z operacji zakończy się niepowodzeniem. Nadal musimy zawiesić strategię wykonywania — przy użyciu techniki pokazanej powyżej — tak, aby wszystkie konteksty użyte wewnątrz bloku kodu, które nie próbują ponowić próbę.  
 
-Należy pamiętać, że w bloku kodu, ponowienie próby powinien być konstruowany kontekstów. Dzięki temu rozpoczynamy przy użyciu czystego stanu przeznaczonego do każdego ponownych prób.  
+Należy zauważyć, że wszystkie konteksty należy skonstruować w bloku kodu, aby można było ponowić próbę. Gwarantuje to, że rozpoczynamy od stanu czystego dla każdej ponowienia próby.  
 
 ``` csharp
 var executionStrategy = new SqlAzureExecutionStrategy();

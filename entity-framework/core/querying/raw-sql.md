@@ -1,26 +1,26 @@
 ---
-title: Pierwotne zapytania SQL - programu EF Core
+title: Nieprzetworzone zapytania SQL — EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 3024c0101c9d886ef844d1b7dc85aaf1be27e86b
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: 91592ea9f7c73f10446993282c1874c852000871
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "58914081"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306543"
 ---
-# <a name="raw-sql-queries"></a>Pierwotne zapytania SQL
+# <a name="raw-sql-queries"></a>Nieprzetworzone zapytania SQL
 
-Entity Framework Core umożliwia lista rozwijana umożliwiająca pierwotne zapytania SQL podczas pracy z usługą relacyjnej bazy danych. Może to być przydatne, jeśli zapytanie, które należy wykonać, nie można wyrazić za pomocą LINQ lub przy użyciu zapytania LINQ wynikiem jest nieefektywne zapytania SQL. Pierwotne zapytania SQL może zwrócić typów jednostek, lub, począwszy od programu EF Core 2.1, [typy zapytań](xref:core/modeling/query-types) będących częścią modelu.
+Entity Framework Core pozwala na rozwijanie do nieprzetworzonych zapytań SQL podczas pracy z relacyjną bazą danych. Może to być przydatne, jeśli zapytanie, które chcesz wykonać, nie może być wyrażone przy użyciu LINQ, lub jeśli użycie zapytania LINQ jest wynikiem nieefektywnych zapytań SQL. Surowe zapytania SQL mogą zwracać typy jednostek lub, rozpoczynając od EF Core 2,1, [typy zapytań](xref:core/modeling/query-types) , które są częścią modelu.
 
 > [!TIP]  
 > [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
-## <a name="basic-raw-sql-queries"></a>Podstawowe pierwotne zapytania SQL
+## <a name="basic-raw-sql-queries"></a>Podstawowe nieprzetworzone zapytania SQL
 
-Możesz użyć *FromSql* metodę rozszerzenia, aby rozpocząć zapytanie LINQ, na podstawie pierwotne zapytania SQL.
+Możesz użyć metody rozszerzenia *z tabel* , aby rozpocząć zapytanie LINQ na podstawie pierwotnego zapytania SQL.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -29,7 +29,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-Pierwotne zapytania SQL może służyć do wykonywania procedury składowanej.
+W celu wykonania procedury składowanej można użyć nieprzetworzonych zapytań SQL.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -40,9 +40,9 @@ var blogs = context.Blogs
 
 ## <a name="passing-parameters"></a>Przekazywanie parametrów
 
-Podobnie jak w przypadku dowolnego interfejsu API, który akceptuje SQL, jest ważne, aby zdefiniować parametry wszystkie dane wejściowe użytkownika mają ochronę przed ataku polegającego na iniekcji SQL. Można zawierają symbole zastępcze parametr ciągu zapytania SQL, a następnie podaj wartości parametrów jako dodatkowe argumenty. Możesz podać wartości parametrów zostaną automatycznie przekonwertowane na `DbParameter`.
+Podobnie jak w przypadku dowolnego interfejsu API, który akceptuje SQL, ważne jest, aby Sparametryzuj wszelkie dane wprowadzane przez użytkownika w celu ochrony przed atakami polegającymi na iniekcji SQL. Można dołączać symbole zastępcze parametrów w ciągu zapytania SQL, a następnie podawać wartości parametrów jako dodatkowe argumenty. Wszelkie podawane wartości parametrów zostaną automatycznie przekonwertowane na `DbParameter`.
 
-Poniższy przykład przekazuje pojedynczy parametr do procedury składowanej. Chociaż może to wyglądać jak `String.Format` składni, podana wartość jest opakowana w miejsce dodaje parametr i nazwę parametru wygenerowanego `{0}` określono symbolu zastępczego.
+Poniższy przykład przekazuje pojedynczy parametr do procedury składowanej. Chociaż może to wyglądać podobnie `String.Format` do składni, podana wartość jest opakowana w parametr i wygenerowaną nazwą parametru wstawioną, `{0}` gdzie symbol zastępczy został określony.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -53,7 +53,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-To jest taka sama zapytania, ale przy użyciu składni interpolacji ciągu, który jest obsługiwany w programie EF Core 2.0 i nowszych:
+To jest to samo zapytanie, ale przy użyciu składni interpolacji ciągów, która jest obsługiwana w EF Core 2,0 i powyżej:
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -64,7 +64,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-Można również utworzyć DbParameter i podać go jako wartość parametru:
+Możesz również skonstruować DbParameter i podać go jako wartość parametru:
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -75,7 +75,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-Dzięki temu można użyć nazwanych parametrów ciągu zapytania SQL, co jest przydatne, gdy procedura składowana ma następujące parametry opcjonalne:
+Pozwala to używać parametrów nazwanych w ciągu zapytania SQL, co jest przydatne, gdy procedura składowana ma parametry opcjonalne:
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -88,9 +88,9 @@ var blogs = context.Blogs
 
 ## <a name="composing-with-linq"></a>Tworzenie za pomocą LINQ
 
-Jeśli zapytanie SQL może być składana na w bazie danych, można utworzyć na podstawie początkowego pierwotne zapytania SQL przy użyciu operatorów LINQ. Zapytania SQL, które mogą być składane na zaczynają się od `SELECT` — słowo kluczowe.
+Jeśli zapytanie SQL może składać się z bazy danych, możesz utworzyć na początku pierwotnego, nieprzetworzonego zapytania SQL przy użyciu operatorów LINQ. Zapytania SQL, które mogą być składane na początku `SELECT` ze słowem kluczowym.
 
-W poniższym przykładzie użyto pierwotne zapytanie SQL, które wybiera z funkcji Table-Valued (TVF), a następnie komponuje się na nim za pomocą LINQ, aby wykonać filtrowanie i sortowanie.
+W poniższym przykładzie użyto nieprzetworzonego zapytania SQL, które wybiera z funkcji zwracającej tabelę (TVF), a następnie tworzy je przy użyciu LINQ do wykonywania filtrowania i sortowania.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -105,9 +105,9 @@ var blogs = context.Blogs
 
 ## <a name="change-tracking"></a>Śledzenie zmian
 
-Wysyła zapytanie, które używają `FromSql()` wykonaj dokładnie tę samą zmianę śledzenie reguły jako inne zapytania LINQ w wersji EF Core. Na przykład jeśli zapytanie projektów typów jednostek, wyniki będą śledzone domyślnie.  
+Zapytania, które używają `FromSql()` dokładnie tych samych reguł śledzenia zmian, jak inne zapytania LINQ w EF Core. Na przykład, jeśli typ jednostki projekty zapytań, wyniki będą śledzone domyślnie.  
 
-W poniższym przykładzie użyto pierwotne zapytania SQL, wybierające z funkcji Table-Valued (TVF), a następnie wyłącza Zmień śledzenie z wywołaniem. AsNoTracking():
+Poniższy przykład używa nieprzetworzonego zapytania SQL, które wybiera z funkcji zwracającej tabelę (TVF), a następnie wyłącza śledzenie zmian z wywołaniem. AsNoTracking():
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -119,9 +119,9 @@ var blogs = context.Query<SearchBlogsDto>()
     .ToList();
 ```
 
-## <a name="including-related-data"></a>W tym powiązane dane
+## <a name="including-related-data"></a>Uwzględnianie danych pokrewnych
 
-`Include()` Metoda może służyć do obejmują powiązanych danych, podobnie jak każde inne zapytanie LINQ:
+`Include()` Metoda może służyć do uwzględnienia powiązanych danych, podobnie jak w przypadku innych zapytań LINQ:
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -135,22 +135,22 @@ var blogs = context.Blogs
 
 ## <a name="limitations"></a>Ograniczenia
 
-Istnieją pewne ograniczenia, które należy zwrócić uwagę podczas korzystania z pierwotne zapytania SQL:
+Istnieje kilka ograniczeń, które należy wziąć pod uwagę podczas korzystania z nieprzetworzonych zapytań SQL:
 
-* Zapytanie SQL musi zwracać dane dotyczące wszystkich właściwości typu obiekt lub kwerendę.
+* Zapytanie SQL musi zwracać dane dla wszystkich właściwości typu jednostki lub zapytania.
 
-* Nazwy kolumn w zestawie wyników muszą być zgodne nazwy kolumn, które są mapowane właściwości. Należy pamiętać, że to różni się od EF6 gdzie mapowania właściwości/kolumn została zignorowana dla pierwotne zapytania SQL i nazw musiały być zgodne z nazwami właściwości kolumny zestawu wyników.
+* Nazwy kolumn w zestawie wyników muszą być zgodne z nazwami kolumn, do których są mapowane właściwości. Należy zauważyć, że różni się od EF6, gdzie mapowanie właściwości i kolumn zostało zignorowane dla nieprzetworzonych zapytań SQL i nazwy kolumn zestawu wyników musiały pasować do nazw właściwości.
 
-* Zapytania SQL nie może zawierać powiązane dane. Jednak w wielu przypadkach można utworzyć na podstawie zapytania za pomocą `Include` operator, aby zwrócić dane dotyczące (zobacz [powiązanych danych w tym](#including-related-data)).
+* Zapytanie SQL nie może zawierać powiązanych danych. Jednak w wielu przypadkach można utworzyć na górze zapytania przy użyciu operatora, `Include` aby zwrócić powiązane dane (zobacz m.in. [powiązane dane](#including-related-data)).
 
-* `SELECT` Konfigurowalna powinno być zazwyczaj instrukcji przekazany do tej metody: EF Core musi ocenić operatorów dodatkowych zapytań na serwerze (na przykład, aby przetłumaczyć operatorów LINQ zastosowane po `FromSql`), SQL podane są traktowane jak podzapytania. Oznacza to, SQL przekazywane nie powinna zawierać żadnych znaków lub opcje, które nie są prawidłowe w podzapytaniu, takich jak:
-  * końcowe średnikami
-  * W programie SQL Server, końcowe wskazówka poziomie zapytania (na przykład `OPTION (HASH JOIN)`)
-  * W programie SQL Server `ORDER BY` klauzula, która nie jest powiązany z `TOP 100 PERCENT` w `SELECT` — klauzula
+* `SELECT`instrukcje przesłane do tej metody powinny być zwykle możliwe do przesłania: Jeśli EF Core musi oszacować dodatkowe operatory zapytań na serwerze (na przykład w celu przetłumaczenia operatorów LINQ zastosowanych po `FromSql`), podana wartość SQL będzie traktowana jako podzapytanie. Oznacza to, że przesłany kod SQL nie powinien zawierać żadnych znaków ani opcji, które nie są prawidłowe w podzapytaniu, na przykład:
+  * końcowy średnik
+  * Na SQL Server, końcowa Wskazówka na poziomie zapytania (na przykład `OPTION (HASH JOIN)`)
+  * Na SQL Server, `ORDER BY` klauzula, do której nie dołączono `OFFSET 0` ani `TOP 100 PERCENT` w `SELECT` klauzuli
 
-* Instrukcje SQL innych niż `SELECT` są rozpoznawane automatycznie jako innego niż konfigurowalna. W konsekwencji pełnych wyników procedury składowane zawsze są zwracane do klienta i dowolnych operatorów LINQ zastosowane po `FromSql` jest oceniana w pamięci.
+* Instrukcje SQL inne niż `SELECT` są rozpoznawane automatycznie jako nieumożliwiające tworzenie. W związku z tym pełne wyniki procedur składowanych są zawsze zwracane do klienta i wszystkie operatory LINQ zastosowane po `FromSql` zakończeniu są oceniane w pamięci.
 
 > [!WARNING]  
-> **Zawsze używaj parametryzacji pierwotne zapytania SQL:** Oprócz sprawdzania poprawności danych wejściowych użytkownika, należy zawsze używać parametryzacji dla każdej wartości pierwotne zapytania SQL/polecenia. Interfejsy API, które akceptują pierwotne SQL string, takich jak `FromSql` i `ExecuteSqlCommand` Zezwalaj na wartości, które mają być łatwo przekazywane jako parametry. Przeciążenia `FromSql` i `ExecuteSqlCommand` akceptujących FormattableString również zezwalają na użycie syntaxt interpolacji ciągu w taki sposób, która pomaga chronić przed atakami polegającymi na iniekcji SQL. 
+> **Zawsze używaj parametryzacja dla nieprzetworzonych zapytań SQL:** Oprócz sprawdzania poprawności danych wejściowych użytkownika należy zawsze używać parametryzacja dla wszystkich wartości używanych w nieprzetworzonym zapytaniu SQL/poleceniu. Interfejsy API, które akceptują nieprzetworzony ciąg `FromSql` SQL `ExecuteSqlCommand` , takie jak i zezwalają na łatwe przekazywanie wartości jako parametry. `FromSql` Przeciążenia i `ExecuteSqlCommand` akceptujące FormattableString umożliwiają również korzystanie z składni interpolacji ciągów w taki sposób, aby pomóc w ochronie przed atakami polegającymi na iniekcji SQL. 
 > 
-> Jeśli są dynamicznie tworzenie dowolnej części ciągu zapytania za pomocą ciągów lub interpolacji lub przekazywanie danych wejściowych użytkownika do instrukcji lub procedur składowanych, które umożliwiają wykonanie tych danych wejściowych jako dynamiczny język SQL, jesteś odpowiedzialny za sprawdzanie poprawności wszystkie dane wejściowe Zabezpiecz się przed atakami polegającymi na iniekcji SQL.
+> Jeśli używasz łączenia ciągów lub interpolacji do dynamicznego kompilowania dowolnej części ciągu zapytania lub przekazywania danych wejściowych użytkownika do instrukcji lub procedur składowanych, które mogą wykonywać te dane wejściowe jako dynamiczny SQL, wówczas użytkownik jest odpowiedzialny za sprawdzanie poprawności wszelkich danych wejściowych Ochrona przed atakami polegającymi na iniekcji SQL.

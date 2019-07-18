@@ -1,48 +1,48 @@
 ---
-title: Asynchroniczne zapytania i Zapisz - EF6
+title: Zapytanie asynchroniczne i Save-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: 8c72012be4b77ff31faf909bf02035865521a640
-ms.sourcegitcommit: 7c5c5e09a4d2671d7461e027837966c4ff91e398
+ms.openlocfilehash: bf2039110962e8dd114242dcd0b9454963750774
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 06/15/2019
-ms.locfileid: "67148491"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306582"
 ---
-# <a name="async-query-and-save"></a>Asynchroniczne zapytania i Zapisz
+# <a name="async-query-and-save"></a>Zapytanie asynchroniczne i zapisywanie
 > [!NOTE]
-> **EF6 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 6. Jeśli używasz starszej wersji, niektóre lub wszystkie informacje, nie ma zastosowania.
+> **Ef6 tylko** — funkcje, interfejsy API itp. omówione na tej stronie zostały wprowadzone w Entity Framework 6. Jeśli używasz wcześniejszej wersji, niektóre lub wszystkie informacje nie są stosowane.
 
-EF6 wprowadzono obsługę dla zapytania asynchroniczne, a następnie Zapisz przy użyciu [async i await słowa kluczowe](https://msdn.microsoft.com/library/vstudio/hh191443.aspx) wprowadzone w .NET 4.5. Gdy nie wszystkie aplikacje mogą korzystać z asynchroniczności, może służyć do poprawy skalowalności krótki czas reakcji i serwera klienta podczas obsługi długotrwałych, sieci lub zadania I/O-powiązane z.
+EF6 wprowadza obsługę zapytań asynchronicznych i zapisuj przy użyciu [słów kluczowych async i await](https://msdn.microsoft.com/library/vstudio/hh191443.aspx) , które zostały wprowadzone w programie .NET 4,5. Chociaż nie wszystkie aplikacje mogą korzystać z usługi asynchroniczności, mogą one służyć do poprawienia czasu reakcji klienta i skalowalności serwera podczas obsługi zadań długotrwałych, sieciowych lub we/wy.
 
-## <a name="when-to-really-use-async"></a>Kiedy należy używać naprawdę async
+## <a name="when-to-really-use-async"></a>Kiedy naprawdę używać Async
 
-Ten przewodnik ma na celu wprowadzenie pojęcia asynchronicznej w sposób, który ułatwia obserwować różnica między wykonywania programu synchronicznego i asynchronicznego. W tym przewodniku nie jest przeznaczona do zilustrowanie jednego z kluczowych scenariuszy, których programowanie async oferuje korzyści.
+Celem tego instruktażu jest wprowadzenie koncepcji asynchronicznych w taki sposób, aby ułatwić przestrzeganie różnic między wykonywaniem asynchronicznych i synchronicznych programów. Ten Instruktaż nie jest przeznaczony do zilustrowania żadnego z kluczowych scenariuszy, w których programowanie asynchroniczne zapewnia korzyści.
 
-Programowanie asynchroniczne koncentruje się głównie na zwalnianie bieżącego wątku zarządzanych (wątek uruchamianie kodu platformy .NET), wykonywanie innych zadań, aż do operacji, która nie wymaga żadnych czas obliczeń w z wątków zarządzanych. Na przykład podczas gdy aparat bazy danych jest przetwarzanie kwerendy nie ma nic do można przeprowadzić za pomocą kodu platformy .NET.
+Programowanie asynchroniczne polega głównie na zwolnieniu bieżącego wątku zarządzanego (wątek, w którym działa kod .NET), aby wykonać inne czynności podczas oczekiwania na operację, która nie wymaga czasu obliczeń z zarządzanego wątku. Na przykład podczas przetwarzania zapytania przez aparat bazy danych nie ma nic do wykonania przez kod platformy .NET.
 
-W aplikacjach klienckich (WinForms, WPF, itd.) bieżący wątek może służyć do zachowania dynamicznego interfejsu użytkownika podczas operacji asynchronicznej. W aplikacji serwera (ASP.NET itp.), wątek może służyć do przetwarzania innych żądań przychodzących — to może zmniejszyć użycie pamięci i/lub zwiększyć przepływność serwera.
+W aplikacjach klienckich (WinForms, WPF itp.) bieżący wątek można użyć, aby zapewnić czas odpowiedzi interfejsu użytkownika podczas wykonywania operacji asynchronicznej. W aplikacjach serwerowych (ASP.NET itp.) wątek może służyć do przetwarzania innych żądań przychodzących — może to zmniejszyć użycie pamięci i/lub zwiększyć przepływność serwera.
 
-W większości aplikacji przy użyciu async będzie zawierać żadnych zauważalnego korzyści, a nawet może być szkodliwe. Umożliwia testy, profilowanie i zdroworozsądkowe mierzenie wpływu asynchronicznych w konkretnym scenariuszu przed zatwierdzeniem do niego.
+W przypadku większości aplikacji korzystających z funkcji Async nie będą mieć zauważalnych korzyści, a nawet mogą być szkodliwe. Korzystaj z testów, profilowania i typowych sensie, aby mierzyć wpływ Async w konkretnym scenariuszu przed jego zatwierdzeniem.
 
-Poniżej przedstawiono niektóre inne zasoby, aby dowiedzieć się więcej na temat async:
+Poniżej przedstawiono kilka zasobów, aby poznać informacje o komunikacji asynchronicznej:
 
--   [Omówienie Brandon Bray async/await w .NET 4.5](https://blogs.msdn.com/b/dotnet/archive/2012/04/03/async-in-4-5-worth-the-await.aspx)
--   [Programowanie asynchroniczne](https://msdn.microsoft.com/library/hh191443.aspx) stron w bibliotece MSDN
--   [Jak tworzyć ASP.NET sieci Web aplikacji przy użyciu Async](http://channel9.msdn.com/events/teched/northamerica/2013/dev-b337) (w tym pokaz serwera większą przepływność)
+-   [Brandon Bray — Omówienie Async/await w programie .NET 4,5](https://blogs.msdn.com/b/dotnet/archive/2012/04/03/async-in-4-5-worth-the-await.aspx)
+-   [Asynchroniczne programowanie](https://msdn.microsoft.com/library/hh191443.aspx) stron w bibliotece MSDN
+-   [Jak kompilować ASP.NET aplikacje sieci Web przy użyciu](http://channel9.msdn.com/events/teched/northamerica/2013/dev-b337) usługi asynchronicznej (obejmuje demonstrację zwiększonej przepływności serwera)
 
 ## <a name="create-the-model"></a>Tworzenie modelu
 
-Będziemy używać [Code First przepływu pracy](~/ef6/modeling/code-first/workflows/new-database.md) utworzyć nasz model i wygenerować bazę danych, jednak w asynchronicznej funkcji będzie działać z wszystkich modeli EF, w tym te, utworzone za pomocą projektanta EF.
+W celu utworzenia naszego modelu i wygenerowania bazy danych będziemy używać [przepływu pracy Code First](~/ef6/modeling/code-first/workflows/new-database.md) , jednak funkcja asynchroniczna będzie współdziałać z wszystkimi modelami EF, w tym tymi utworzonymi przy użyciu programu EF Designer.
 
--   Utwórz aplikację Konsolową i wywołać go **AsyncDemo**
--   Dodaj pakiet NuGet platformy EntityFramework
-    -   W Eksploratorze rozwiązań kliknij prawym przyciskiem myszy **AsyncDemo** projektu
-    -   Wybierz **Zarządzaj pakietami NuGet...**
-    -   W oknie dialogowym pakiety zarządzania NuGet wybierz **Online** kartę i wybierz polecenie **EntityFramework** pakietu
-    -   Kliknij przycisk **instalacji**
--   Dodaj **Model.cs** klasy następującą implementacją
+-   Tworzenie aplikacji konsolowej i wywoływanie jej **AsyncDemo**
+-   Dodawanie pakietu NuGet EntityFramework
+    -   W Eksplorator rozwiązań kliknij prawym przyciskiem myszy projekt **AsyncDemo**
+    -   Wybierz pozycję **Zarządzaj pakietami NuGet...**
+    -   W oknie dialogowym Zarządzanie pakietami NuGet wybierz kartę **online** i wybierz pakiet **EntityFramework**
+    -   Kliknij przycisk **Instaluj**
+-   Dodaj klasę **model.cs** z następującą implementacją
 
 ``` csharp
     using System.Collections.Generic;
@@ -78,11 +78,11 @@ Będziemy używać [Code First przepływu pracy](~/ef6/modeling/code-first/workf
 
  
 
-## <a name="create-a-synchronous-program"></a>Utwórz program synchroniczne
+## <a name="create-a-synchronous-program"></a>Tworzenie programu synchronicznego
 
-Teraz, gdy mamy już modelu platformy EF, umożliwia pisanie kodu w celu zastosowania do wykonania niektórych dostęp do danych.
+Teraz, gdy mamy już model EF, Napiszmy kod, który używa go do wykonania pewnego dostępu do danych.
 
--   Zastąp zawartość **Program.cs** następującym kodem
+-   Zastąp zawartość **program.cs** następującym kodem
 
 ``` csharp
     using System;
@@ -136,32 +136,32 @@ Teraz, gdy mamy już modelu platformy EF, umożliwia pisanie kodu w celu zastoso
     }
 ```
 
-Ten kod wywołuje **PerformDatabaseOperations** metodę, która zapisuje nową **Blog** do bazy danych, a następnie pobiera wszystkie **blogi** z bazy danych i wysłania ich do **Konsoli**. Dzięki temu program zapisuje oferty dnia, aby **konsoli**.
+Ten kod wywołuje metodę **PerformDatabaseOperations** , która zapisuje nowy **blog** w bazie danych, a następnie pobiera wszystkie **Blogi** z bazy danych i drukuje je do **konsoli**programu. Po wykonaniu tej operacji program zapisuje ofertę dnia do **konsoli**programu.
 
-Ponieważ kod jest synchroniczne, możemy zaobserwować następujący przepływ wykonania, gdy Uruchamiamy program:
+Ponieważ kod jest synchroniczny, podczas uruchamiania programu można obserwować następujący przepływ wykonywania:
 
-1.  **SaveChanges** rozpoczyna się wypychania nowego **blogu** do bazy danych
-2.  **SaveChanges** kończy
-3.  Zapytanie o wszystkie **blogi** są wysyłane do bazy danych
-4.  Zapytanie zwraca, a wyniki są zapisywane do **konsoli**
-5.  Cytat dnia są zapisywane do **konsoli**
+1.  **Metody SaveChanges** rozpoczyna wypychanie nowego **bloga** do bazy danych
+2.  **Metody SaveChanges**
+3.  Zapytanie dotyczące wszystkich **blogów** jest wysyłane do bazy danych
+4.  Zapytania zwracane i wyniki są zapisywane w **konsoli**
+5.  Cytat dnia jest zapisywana w **konsoli**
 
-![Synchronizacja danych wyjściowych](~/ef6/media/syncoutput.png) 
+![Synchronizuj dane wyjściowe](~/ef6/media/syncoutput.png) 
 
  
 
-## <a name="making-it-asynchronous"></a>Dzięki czemu asynchroniczne
+## <a name="making-it-asynchronous"></a>Wykonywanie asynchroniczne
 
-Teraz, gdy nasz program działanie, możemy rozpocząć co użycie nowego async i await słów kluczowych. Wprowadziliśmy następujące zmiany do pliku Program.cs
+Teraz, gdy nasz program został uruchomiony, możemy zacząć korzystać z nowych słów kluczowych async i await. Wprowadziliśmy następujące zmiany w programie Program.cs
 
-1.  Wiersz 2: Za pomocą instrukcji for **System.Data.Entity** przestrzeni nazw daje nam dostęp do metod rozszerzenia asynchronicznych EF.
-2.  Wiersz 4: Za pomocą instrukcji for **System.Threading.Tasks** przestrzeni nazw pozwala nam korzystać **zadań** typu.
-3.  Wiersz 12 i 18: Firma Microsoft jest przechwytywany jako zadanie, które monitoruje postęp **PerformSomeDatabaseOperations** (wierszem 12) i następnie blokuje wykonywanie programu w tym zadań raz ukończone wszystkie prace dla program odbywa się (wiersz 18).
-4.  Wiersz 25: Udostępniliśmy aktualizacji **PerformSomeDatabaseOperations** być oznaczony jako **async** i zwracają **zadań**.
-5.  Wiersz 35: Teraz możemy wywołanie asynchroniczne wersję SaveChanges i oczekiwaniem na jej ukończenie.
-6.  Wiersz 42: Teraz dzwonimy wersji asynchronicznej tolist — i oczekiwaniem na wynik.
+1.  Wiersz 2: Instrukcja using dla przestrzeni nazw **System. Data. Entity** daje nam dostęp do metod rozszerzenia asynchronicznego EF.
+2.  Wiersz 4: Instrukcja using dla przestrzeni nazw **System. Threading. Tasks** umożliwia nam korzystanie z typu **zadania** .
+3.  Wiersz 12 & 18: Przechwytuje jako zadanie monitorujące postęp **PerformSomeDatabaseOperations** (wiersz 12), a następnie blokując wykonywanie programu w celu wykonania tego zadania po zakończeniu całej pracy dla programu (wiersz 18).
+4.  Wiersz 25: Zaktualizowaliśmy **PerformSomeDatabaseOperations** , aby można było je oznaczyć jako **Async** i zwrócić **zadanie**.
+5.  Wiersz 35: Teraz wywołujemy asynchroniczną wersję metody SaveChanges i oczekuje na jej ukończenie.
+6.  Wiersz 42: Teraz wywołujemy asynchroniczną wersję ToList — i czeka na wynik.
 
-Pełną listę metod rozszerzenia dostępne w przestrzeni nazw System.Data.Entity można znaleźć klasy QueryableExtensions. *Należy także dodać "za pomocą System.Data.Entity" do sieci za pomocą instrukcji.*
+Aby uzyskać pełną listę dostępnych metod rozszerzenia w przestrzeni nazw System. Data. Entity, zapoznaj się z klasą QueryableExtensions. *Należy również dodać "using System. Data. Entity" do instrukcji using.*
 
 ``` csharp
     using System;
@@ -219,19 +219,19 @@ Pełną listę metod rozszerzenia dostępne w przestrzeni nazw System.Data.Entit
     }
 ```
 
-Teraz, gdy kod jest asynchroniczna, można zaobserwować przepływu wykonywania różnych gdy Uruchamiamy program:
+Teraz, gdy kod jest asynchroniczny, można obserwować inny przepływ wykonywania podczas uruchamiania programu:
 
-1.  **SaveChanges** rozpoczyna się wypychania nowego **Blog** w bazie danych *po wysłaniu polecenia do bazy danych co obliczenia, konieczna jest w bieżącym wątku zarządzanych. **PerformDatabaseOperations** metoda zwróci wartość (nawet jeśli nie zostało zakończone, wykonując) i kontynuuje przepływu programu dla metody Main.*
-2.  **Cytat dnia są zapisywane do konsoli**
-    *ponieważ nie ma więcej pracy w metody Main, wątków zarządzanych jest zablokowany na czas oczekiwania wywołania do momentu ukończenia operacji bazy danych. Po zakończeniu pozostałą część naszego **PerformDatabaseOperations** zostaną wykonane.*
-3.  **SaveChanges** kończy
-4.  Zapytanie o wszystkie **blogi** są wysyłane do bazy danych *ponownie wątków zarządzanych jest bezpłatna wykonywanie innych zadań, podczas gdy zapytania są przetwarzane w bazie danych. Od wszystkich innych wykonanie zostało ukończone, wątek będzie po prostu zatrzymanie przy wywołaniu oczekiwania jednak.*
-5.  Zapytanie zwraca, a wyniki są zapisywane do **konsoli**
+1.  **Metody SaveChanges** rozpoczyna wypychanie nowego **bloga** do bazy danych *po wysłaniu polecenia do bazy danych nie jest więcej czasu obliczeniowego w bieżącym wątku zarządzanym. Metoda **PerformDatabaseOperations** zwraca (nawet jeśli nie została ukończona), a przepływ programu w metodzie Main jest kontynuowany.*
+2.  **Cytat dnia jest zapisywana w konsoli**
+     *, ponieważ nie ma więcej pracy do wykonania w metodzie Main, zarządzany wątek jest blokowany na wywołanie oczekiwania do momentu zakończenia operacji bazy danych. Po zakończeniu zostanie wykonane pozostała część naszych **PerformDatabaseOperations** .*
+3.  **Metody SaveChanges**
+4.  Zapytanie dotyczące wszystkich **blogów** jest ponownie wysyłane do bazy *danych, ale zarządzany wątek jest bezpłatny do wykonywania innych czynności w czasie przetwarzania zapytania w bazie danych. Ponieważ wszystkie inne wykonania zostały ukończone, wątek zostanie po prostu zatrzymany na wywołaniu oczekiwania.*
+5.  Zapytania zwracane i wyniki są zapisywane w **konsoli**
 
-![Dane wyjściowe Async](~/ef6/media/asyncoutput.png) 
+![Asynchroniczne dane wyjściowe](~/ef6/media/asyncoutput.png) 
 
  
 
 ## <a name="the-takeaway"></a>Wnioskiem
 
-Teraz widzieliśmy, jak łatwo jest zapewnienie użycie metod asynchronicznych EF firmy. Mimo że zalety asynchronicznych może nie być jasne, za pomocą aplikacji konsoli proste, strategie tego samego można stosować w sytuacjach, w której długotrwałych lub powiązane z siecią działania mogą w przeciwnym razie zablokują aplikacji lub spowodować dużej liczby wątków do Zwiększ ilość pamięci zajmowaną.
+Teraz wiemy, jak łatwo jest korzystać z metod asynchronicznych EF. Mimo że zalety Async mogą nie być bardzo widoczne w przypadku prostej aplikacji konsolowej, te same strategie mogą być stosowane w sytuacjach, w których długotrwałe lub powiązane z siecią działania mogą blokować aplikację lub spowodować, że wiele wątków Zwiększ rozmiary pamięci.
