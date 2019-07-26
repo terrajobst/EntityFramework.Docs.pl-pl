@@ -1,157 +1,170 @@
 ---
-title: Narzędzia i rozszerzenia — EF Core
+title: Narzędzia & rozszerzenia — EF Core
 author: ErikEJ
 ms.date: 01/07/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: d432ca36c166f7baf71253709bf58b1f5428a11a
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: 08231cd93002a6d1b3cebe20f4f7cf57ea085af2
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562510"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306404"
 ---
-# <a name="ef-core-tools--extensions"></a>EF Core Tools i rozszerzenia
+# <a name="ef-core-tools--extensions"></a>Rozszerzenia narzędzi EF Core &
 
-Te narzędzia i rozszerzenia zapewniają dodatkowe funkcje dla programu Entity Framework Core 2.0 i nowszych.
+Te narzędzia i rozszerzenia zapewniają dodatkową funkcjonalność dla Entity Framework Core 2,0 i nowszych.
 
 > [!IMPORTANT]  
-> Rozszerzenia są tworzone za pomocą różnych źródeł i nie są przechowywane jako część projektu platformy Entity Framework Core. Rozważając rozszerzenia innych firm, należy ocenić jego jakość licencjonowania, zgodności i pomocy technicznej, itp., aby upewnić się, że spełnia on wymagania.
+> Rozszerzenia są tworzone przez różne źródła i nie są obsługiwane w ramach projektu Entity Framework Core. Biorąc pod uwagę rozszerzenie innej firmy, pamiętaj o ocenie jego jakości, licencjonowania, zgodności, wsparcia itp., aby upewnić się, że spełnia Twoje wymagania.
 
 ## <a name="tools"></a>Narzędzia
 
 ### <a name="llblgen-pro"></a>LLBLGen Pro
 
-LLBLGen Pro jest jednostką modelowania rozwiązania z obsługą platformy Entity Framework i Entity Framework Core. Dzięki temu można łatwo zdefiniować model jednostki i dokonaj mapowania go do bazy danych, najpierw przy użyciu bazy danych lub model, dzięki czemu możesz rozpocząć pracę już teraz Pisanie zapytań.
+LLBLGen Pro to rozwiązanie do modelowania jednostek z obsługą Entity Framework i Entity Framework Core. Umożliwia ona łatwe definiowanie modelu jednostki i mapowanie go do bazy danych przy użyciu najpierw pierwszej lub modelu bazy danych, dzięki czemu możesz od razu zacząć pisać zapytania.
 
 [Witryny sieci Web](https://www.llblgen.com/)
 
-### <a name="devart-entity-developer"></a>Devart jednostki dla deweloperów
+### <a name="devart-entity-developer"></a>Deweloper jednostki Devart
 
-Deweloper jednostki jest zaawansowane Projektant ORM dla ADO.NET Entity Framework, NHibernate, LinqConnect, Telerik Data Access i LINQ to SQL. Go obsługuje projektowanie wizualnie modeli programu EF Core, najpierw przy użyciu modelu lub bazy danych najpierw zbliża się, a C# lub generowanie kodu w języku Visual Basic. 
+Deweloper jednostki jest zaawansowanym projektantem ORM dla ADO.NET Entity Framework, NHibernate, LinqConnect, Telerik Data Access i LINQ to SQL. Obsługuje ona projektowanie EF Core modeli wizualnie, przy użyciu pierwszej metody modelu lub pierwszej podejścia do C# bazy danych i lub Visual Basic generowania kodu. 
 
 [Witryny sieci Web](https://www.devart.com/entitydeveloper/)
 
-### <a name="ef-core-power-tools"></a>EF Core Power Tools
+### <a name="ef-core-power-tools"></a>EF Core narzędzia do zarządzania
 
-EF Core Power Tools to rozszerzenie programu Visual Studio 2017, które udostępnia różne zadania projektowania programu EF Core w prosty interfejs użytkownika. Obejmuje odtwarzanie klasy DbContext i jednostki z istniejących baz danych i [programu SQL Server DACPACs](https://docs.microsoft.com/sql/relational-databases/data-tier-applications/data-tier-applications), zarządzanie migracje baz danych i wizualizacje modelu.
+EF Core PowerShell to rozszerzenie programu Visual Studio 2017, które uwidacznia różne EF Core zadania czasu projektowania w prostym interfejsie użytkownika. Obejmuje ona odtwarzanie klas DbContext i Entity Classes z istniejących baz danych, a [SQL Server DACPACs](https://docs.microsoft.com/sql/relational-databases/data-tier-applications/data-tier-applications), zarządzanie migracjami baz danych i wizualizacje modeli.
 
-[Witryny typu wiki w witrynie GitHub](https://github.com/ErikEJ/EFCorePowerTools/wiki)
+[Witryna typu wiki usługi GitHub](https://github.com/ErikEJ/EFCorePowerTools/wiki)
 
-### <a name="entity-framework-visual-editor"></a>Entity Framework Visual Editor
+### <a name="entity-framework-visual-editor"></a>Entity Framework edytor wizualny
 
-Edytor programu Entity Framework Visual to rozszerzenie programu Visual Studio, który dodaje Projektant ORM dla projektowania wizualnego programów EF 6 i klas programu EF Core. Kod jest generowany przy użyciu szablonów T4, dzięki czemu można dostosować do dowolnego potrzeb. Obsługuje dziedziczenie, jednokierunkowe i powiązania dwukierunkowego, wyliczenia i możliwość kolorować klas i Dodaj bloki tekstu, aby wyjaśnić, potencjalnie specjalne części projektu.
+Entity Framework edytorem wizualnym jest rozszerzenie programu Visual Studio, które dodaje projektanta ORM do projektowania wizualizacji Dr 6 i klasy EF Core. Kod jest generowany przy użyciu szablonów T4, więc można go dostosować do własnych potrzeb. Obsługuje dziedziczenie, dwukierunkowe i dwukierunkowe skojarzenia, wyliczenia oraz możliwość kolorowania kodu klas i Dodawanie bloków tekstowych, aby wyjaśnić potencjalnie specjalne części projektu.
 
 [Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
 
 ### <a name="catfactory"></a>CatFactory
 
-CatFactory to aparat tworzenia szkieletów dla platformy .NET Core, który można zautomatyzować Generowanie klasy DbContext, jednostki, mapowania konfiguracji i repozytorium klasy z bazy danych programu SQL Server.
+CatFactory to aparat tworzenia szkieletów dla platformy .NET Core, który umożliwia automatyzację generacji klas DbContext, jednostek, konfiguracji mapowania i klas repozytorium z bazy danych SQL Server.
 
 [Repozytorium GitHub](https://github.com/hherzl/CatFactory.EntityFrameworkCore)
 
-### <a name="loresofts-entity-framework-core-generator"></a>LoreSoft's Entity Framework Core Generator
+### <a name="loresofts-entity-framework-core-generator"></a>Generator Entity Framework Core LoreSoft
 
-Entity Framework Core Generator (efg) jest narzędziem wiersza polecenia platformy .NET Core z można wygenerować modeli programu EF Core istniejącą bazę danych, podobnie jak `dotnet ef dbcontext scaffold`, lecz również obsługuje bezpieczne kodu [ponownego wygenerowania](https://efg.loresoft.com/en/latest/regeneration/) za pomocą zastąpienia regionu lub przez analizowanie Pliki mapowania. To narzędzie obsługuje generowania modeli widoków, weryfikacji i obiektu mapowania kodu. 
+Generator Entity Framework Core (EFG) to narzędzie interfejs wiersza polecenia platformy .NET Core, które może generować modele EF Core z istniejącej bazy danych, podobnie jak `dotnet ef dbcontext scaffold`, ale również zapewnia bezpieczną regenerację [](https://efg.loresoft.com/en/latest/regeneration/) kodu przez zastąpienie regionu lub przeanalizowanie plików mapowania. To narzędzie obsługuje generowanie modeli widoku, walidacji i kodu mapowania obiektów. 
 
-[Samouczek](http://www.loresoft.com/Generate-ASP-NET-Web-API)
-[dokumentacji](https://efg.loresoft.com/en/latest/)
+[](http://www.loresoft.com/Generate-ASP-NET-Web-API)
+[Dokumentacja](https://efg.loresoft.com/en/latest/) samouczka
 
 ## <a name="extensions"></a>Rozszerzenia
 
 ### <a name="microsoftentityframeworkcoreautohistory"></a>Microsoft.EntityFrameworkCore.AutoHistory
 
-Biblioteka wtyczkę, która umożliwia automatyczne rejestrowanie zmian danych, wykonywane przez platformę EF Core w tabeli historii.
+Biblioteka wtyczek, która umożliwia automatyczne rejestrowanie zmian danych wykonywanych przez EF Core w tabeli historii.
 
 [Repozytorium GitHub](https://github.com/Arch/AutoHistory/)
 
 ### <a name="microsoftentityframeworkcoredynamiclinq"></a>Microsoft.EntityFrameworkCore.DynamicLinq
 
-.NET Core / .NET Standard port z System.Linq.Dynamic z obsługą async z programem EF Core.
-System.Linq.Dynamic pochodzi jako przykład firmy Microsoft, który pokazuje, jak tworzyć zapytania LINQ dynamicznie z wyrażenia ciągu zamiast kodu.
+Port .NET Core/.NET Standard typu System. LINQ. Dynamic, który obejmuje obsługę asynchroniczną z EF Core.
+System. LINQ. Dynamic pochodzi z przykładu firmy Microsoft, który pokazuje, jak tworzyć zapytania LINQ w sposób dynamiczny z wyrażeń ciągów zamiast kodu.
 
 [Repozytorium GitHub](https://github.com/StefH/System.Linq.Dynamic.Core/)
 
 ### <a name="efsecondlevelcachecore"></a>EFSecondLevelCache.Core
 
-Rozszerzenie, które umożliwia przechowywanie wyników zapytania programu EF Core do pamięci podręcznej drugiego poziomu, tak aby kolejne wykonania tego samego zapytania można uniknąć, uzyskiwanie dostępu do bazy danych i pobierać dane bezpośrednio z pamięci podręcznej.
+Rozszerzenie, które umożliwia przechowywanie wyników zapytań EF Core w pamięci podręcznej drugiego poziomu, tak aby kolejne wykonania tych samych zapytań mogły uniknąć dostępu do bazy danych i pobierać dane bezpośrednio z pamięci podręcznej.
 
 [Repozytorium GitHub](https://github.com/VahidN/EFSecondLevelCache.Core/)
 
 ### <a name="entityframeworkcoreprimarykey"></a>EntityFrameworkCore.PrimaryKey
 
-Ta biblioteka umożliwia pobieranie wartości klucza podstawowego (w tym kluczy złożonych) z dowolnej jednostki jako słownik.
+Ta biblioteka umożliwia pobieranie wartości klucza podstawowego (w tym kluczy złożonych) z dowolnej jednostki jako słownika.
 
 [Repozytorium GitHub](https://github.com/NickStrupat/EntityFramework.PrimaryKey/)
 
 ### <a name="entityframeworkcoretypedoriginalvalues"></a>EntityFrameworkCore.TypedOriginalValues
 
-Ta biblioteka umożliwia silnie typizowany dostęp do oryginalnych wartości właściwości jednostki. 
+Ta biblioteka umożliwia dostęp do oryginalnych wartości właściwości jednostki przy użyciu jednoznacznie określonego typu. 
 
 [Repozytorium GitHub](https://github.com/NickStrupat/EntityFramework.TypedOriginalValues/)
 
 ### <a name="geco"></a>Geco
 
-Geco (Generator konsoli) jest generator prostego kodu na podstawie projektu konsoli, działa na platformie .NET Core, która używa C# interpolowane ciągów w celu generowania kodu. Geco zawiera generator modelu odwróconego dla platformy EF Core dzięki obsłudze pluralizacja, singularization i szablonów do edycji. Umożliwia także skrypt generator danych inicjatora, runner skryptu i bazę danych czyszcząca.
+Geco (konsola generatora) to prosty generator kodu oparty na projekcie konsoli, który działa na platformie .NET Core i używa C# interpolowanych ciągów do generowania kodu. Geco obejmuje generator modelu Odwróć dla EF Core z obsługą szablonów pluralizacja, singularization i edytowalnych. Udostępnia również Generator skryptów danych inicjatora, moduł uruchamiający skrypty i oczyszczarkę bazy danych.
 
 [Repozytorium GitHub](https://github.com/iQuarc/Geco)
 
 ### <a name="linqkitmicrosoftentityframeworkcore"></a>LinqKit.Microsoft.EntityFrameworkCore
 
-LinqKit.Microsoft.EntityFrameworkCore jest zgodnych z programem EF Core wersji biblioteki LINQKit. LINQKit to bezpłatny zestaw rozszerzeń dla programu LINQ do SQL i Entity Framework użytkownicy zaawansowani. Umożliwia ona zaawansowane funkcje, takie jak dynamiczne tworzenie predykatu wyrażeń i używanie zmiennych wyrażenia w podzapytania.  
+LinqKit. Microsoft. EntityFrameworkCore to zgodna z EF Core wersja biblioteki LINQKit. LINQKit to bezpłatny zestaw rozszerzeń dla LINQ to SQL i Entity Framework użytkowników zaawansowanych. Umożliwia zaawansowane funkcje, takie jak dynamiczne Kompilowanie wyrażeń predykatu i Używanie zmiennych wyrażeń w podzapytaniach.  
 
 [Repozytorium GitHub](https://github.com/scottksmith95/LINQKit/)
 
 ### <a name="neinlinqentityframeworkcore"></a>NeinLinq.EntityFrameworkCore
 
-NeinLinq rozszerza dostawców LINQ takim jak Entity Framework, aby umożliwić ponowne używanie funkcji ponowne napisanie zapytania i kompilowania zapytań dynamicznych przy użyciu można przetłumaczyć predykatach i selektory.
+NeinLinq rozszerza dostawców LINQ, takich jak Entity Framework, aby włączyć ponowne używanie funkcji, zapisywania zapytań i kompilowania zapytań dynamicznych przy użyciu predykatów z możliwością tłumaczenia i selektorów.
 
 [Repozytorium GitHub](https://github.com/axelheer/nein-linq/)
 
 ### <a name="microsoftentityframeworkcoreunitofwork"></a>Microsoft.EntityFrameworkCore.UnitOfWork
 
-Wtyczki dla Microsoft.EntityFrameworkCore umożliwia obsługę repozytorium, jednostkę pracy wzorców i wielu baz danych w transakcji rozproszonej, obsługiwane.
+Wtyczka dla elementu Microsoft. EntityFrameworkCore do obsługi repozytorium, wzorców jednostek roboczych i wielu baz danych z obsługiwaną transakcją rozproszoną.
 
 [Repozytorium GitHub](https://github.com/Arch/UnitOfWork/)
 
 ### <a name="efcorebulkextensions"></a>EFCore.BulkExtensions
 
-EF Core rozszerzenia potrzeby zbiorczych operacji (Insert, Update, Delete).
+Rozszerzenia EF Core dla operacji zbiorczych (INSERT, Update i Delete).
 
 [Repozytorium GitHub](https://github.com/borisdj/EFCore.BulkExtensions)
 
 ### <a name="bricelamentityframeworkcorepluralizer"></a>Bricelam.EntityFrameworkCore.Pluralizer
 
-Dodaje pluralizacja czasu projektowania do programu EF Core.
+Dodaje pluralizacja czasu projektowania do EF Core.
 
 [Repozytorium GitHub](https://github.com/bricelam/EFCore.Pluralizer)
 
 ### <a name="pomelofoundationpomeloentityframeworkcoreextensionstosql"></a>PomeloFoundation/Pomelo.EntityFrameworkCore.Extensions.ToSql
 
-Metody rozszerzenia prosty, która uzyskuje instrukcji SQL programu EF Core wygeneruje dla danego zapytania LINQ w prostych scenariuszy. Metoda ToSql jest ograniczone do prostych scenariuszy, ponieważ programu EF Core można wygenerować więcej niż jedną instrukcję SQL dla pojedynczego zapytania LINQ i różne instrukcje SQL, w zależności od wartości parametrów.
+Prosta metoda rozszerzająca, która uzyskuje instrukcję SQL EF Core wygenerowaną dla danego zapytania LINQ w prostych scenariuszach. Metoda ToSql jest ograniczona do prostych scenariuszy, ponieważ EF Core może generować więcej niż jedną instrukcję SQL dla jednej kwerendy LINQ i różne instrukcje SQL w zależności od wartości parametrów.
 
 [Repozytorium GitHub](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.Extensions.ToSql)
 
 ### <a name="toolbeltentityframeworkcoreindexattribute"></a>Toolbelt.EntityFrameworkCore.IndexAttribute
 
-Revival atrybutu [Index] dla platformy EF Core (z rozszerzeniem do konstruowania modelu).
+Revival [index] atrybutu dla EF Core (z rozszerzeniem dla kompilowania modelu).
 
 [Repozytorium GitHub](https://github.com/jsakamoto/EntityFrameworkCore.IndexAttribute)
 
 ### <a name="efcoreinmemoryhelpers"></a>EfCore.InMemoryHelpers
 
-Udostępnia otokę dostawcy bazy danych programu EF Core w pamięci. Sprawia, że więcej zachowywać się jak relacyjne dostawcy.
+Zawiera otokę wokół EF Core dostawcy bazy danych w pamięci. Sprawia, że działa tak samo jak dostawca relacyjny.
 
 [Repozytorium GitHub](https://github.com/SimonCropp/EfCore.InMemoryHelpers)
 
 ### <a name="efcoretemporalsupport"></a>EFCore.TemporalSupport
 
-Implementacja danych czasowych pomocy technicznej dla platformy EF Core.
+Implementacja obsługi danych czasowych dla EF Core.
 
 [Repozytorium GitHub](https://github.com/cpoDesign/EFCore.TemporalSupport)
 
 ### <a name="entityframeworkcorecacheable"></a>EntityFrameworkCore.Cacheable
 
-Pamięć podręczną zapytań drugiego poziomu o wysokiej wydajności dla platformy EF Core.
+Pamięć podręczna zapytań o wysokiej wydajności dla EF Core.
 
 [Repozytorium GitHub](https://github.com/SteffenMangold/EntityFrameworkCore.Cacheable)
+
+### <a name="entity-framework-plus"></a>Entity Framework Plus
+
+Rozszerza DbContext z funkcjami, takimi jak: Dołącz filtr, inspekcję, buforowanie, przyszłe zapytania, usuwanie wsadowe, aktualizowanie wsadowe i inne.
+
+[](https://entityframework-plus.net/)
+[Repozytorium GitHub](https://github.com/zzzprojects/EntityFramework-Plus) witryny sieci Web
+
+### <a name="entity-framework-extensions"></a>Rozszerzenia Entity Framework
+
+Rozszerza swój kontekst dbwith operacji zbiorczych o wysokiej wydajności: BulkSaveChanges, BulkInsert, BulkUpdate, BulkDelete, BulkMerge i inne.
+
+[Witryny sieci Web](https://entityframework-extensions.net/)

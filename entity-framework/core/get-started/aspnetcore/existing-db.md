@@ -1,94 +1,95 @@
 ---
-title: Wprowadzenie do platformy ASP.NET Core — istniejącej bazy danych — EF Core
+title: Wprowadzenie do ASP.NET Core — istniejąca baza danych — EF Core
 author: rowanmiller
+description: Wprowadzenie do EF Core na ASP.NET Core z istniejącą bazą danych
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: c8acb95395968f710e6b896de6c3598cb7b23676
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: 6b0ed0a9222644bee31d23234aa27b2084137f4a
+ms.sourcegitcommit: 755a15a789631cc4ea581e2262a2dcc49c219eef
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058789"
+ms.lasthandoff: 07/25/2019
+ms.locfileid: "68497511"
 ---
-# <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Wprowadzenie do programu EF Core programu ASP.NET Core z istniejącej bazy danych
+# <a name="get-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Wprowadzenie do EF Core na ASP.NET Core z istniejącą bazą danych
 
-W tym samouczku utworzysz aplikację ASP.NET Core MVC, który wykonuje podstawowe dane dostępu przy użyciu platformy Entity Framework Core. Możesz odtwarzać istniejącą bazę danych do tworzenia modelu Entity Framework.
+W tym samouczku utworzysz aplikację ASP.NET Core MVC, która wykonuje podstawowy dostęp do danych przy użyciu Entity Framework Core. Odtwarzanie istniejącej bazy danych w celu utworzenia modelu Entity Framework.
 
-[Wyświetlanie przykładowych w tym artykule w witrynie GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb).
+[Zapoznaj się z przykładem tego artykułu w witrynie GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb).
 
 ## <a name="prerequisites"></a>Wymagania wstępne
 
 Zainstaluj następujące oprogramowanie:
 
-* [Visual Studio 2017 w wersji 15.7](https://www.visualstudio.com/downloads/) za pomocą tych obciążeniach:
-  * **ASP.NET i tworzenie aplikacji internetowych** (w obszarze **sieć Web i chmura**)
-  * **Programowanie dla wielu platform .NET core** (w obszarze **inne zestawy narzędzi**)
-* [.NET core 2.1 SDK](https://www.microsoft.com/net/download/core).
+* [Program Visual Studio 2017 15,7](https://www.visualstudio.com/downloads/) z następującymi obciążeniami:
+  * **ASP.NET i programowanie dla sieci Web** (w obszarze **chmura & sieci Web**)
+  * **Programowanie dla wielu platform w środowisku .NET Core** (w obszarze **inne zestawy narzędzi**)
+* [Zestaw SDK platformy .NET Core 2,1](https://www.microsoft.com/net/download/core).
 
-## <a name="create-blogging-database"></a>Utwórz bazę danych do obsługi blogów
+## <a name="create-blogging-database"></a>Tworzenie bazy danych blogów
 
-W tym samouczku **do obsługi blogów** bazy danych w ramach wystąpienia LocalDb jako istniejącej bazy danych. Jeśli masz już utworzoną **do obsługi blogów** bazy danych jako część innego samouczek, należy pominąć tę procedurę.
+W tym samouczku jest używany baza danych **blogów** w wystąpieniu LocalDB jako istniejąca baza danych. Jeśli baza danych **blogów** została już utworzona w ramach innego samouczka, Pomiń te kroki.
 
 * Otwórz program Visual Studio
-* **Narzędzia -> nawiązać połączenie z bazą danych...**
-* Wybierz **programu Microsoft SQL Server** i kliknij przycisk **Kontynuuj**
-* Wprowadź **(localdb) \mssqllocaldb** jako **nazwy serwera**
-* Wprowadź **wzorca** jako **Nazwa bazy danych** i kliknij przycisk **OK**
-* Baza danych master jest teraz wyświetlany w obszarze **połączeń danych** w **Eksploratora serwera**
-* Kliknij prawym przyciskiem myszy w bazie danych w **Eksploratora serwera** i wybierz **nowe zapytanie**
-* Skopiuj skrypt w edytorze zapytań
-* Kliknij prawym przyciskiem myszy w edytorze zapytań, a następnie wybierz pozycję **wykonania**
+* **Narzędzia — > połączyć się z bazą danych...**
+* Wybierz **Microsoft SQL Server** i kliknij przycisk **Kontynuuj** .
+* Wprowadź **(LocalDB) \mssqllocaldb** jako **nazwę serwera**
+* Wprowadź **wzorzec** jako **nazwę bazy danych** , a następnie kliknij przycisk **OK** .
+* Baza danych Master jest teraz wyświetlana w obszarze **połączenia danych** w **Eksplorator serwera**
+* Kliknij prawym przyciskiem myszy bazę danych w **Eksplorator serwera** a następnie wybierz pozycję **nowe zapytanie** .
+* Skopiuj skrypt wymieniony poniżej do edytora zapytań
+* Kliknij prawym przyciskiem myszy Edytor zapytań i wybierz polecenie **Execute (wykonaj** ).
 
 [!code-sql[Main](../_shared/create-blogging-database-script.sql)]
 
 ## <a name="create-a-new-project"></a>Tworzenie nowego projektu
 
-* Otwórz program Visual Studio 2017
-* **Plik > Nowy > Projekt...**
-* Z menu po lewej stronie wybierz **zainstalowane > Visual C# > sieci Web**
-* Wybierz **aplikacji sieci Web programu ASP.NET Core** szablonu projektu
-* Wprowadź **EFGetStarted.AspNetCore.ExistingDb** jako nazwa (jego musi być zgodna dokładnie obszaru nazw, które są później używane w kodzie) i kliknij przycisk **OK** 
-* Poczekaj, aż **Nowa aplikacja internetowa ASP.NET Core** wyświetlać okno dialogowe
-* Upewnij się, że menu rozwijanego platform docelowych jest ustawiona na **platformy .NET Core**, a lista rozwijana wersji jest ustawiona na **platformy ASP.NET Core 2.1**
-* Wybierz **aplikacji sieci Web (Model-View-Controller)** szablonu
-* Upewnij się, że **uwierzytelniania** ustawiono **bez uwierzytelniania**
+* Open Visual Studio 2017
+* **Plik > Nowy > projektu...**
+* Z menu po lewej stronie wybierz pozycję **zainstalowane C# > Visual > Web**
+* Wybierz szablon projektu **aplikacji sieci Web ASP.NET Core**
+* Wprowadź **EFGetStarted. AspNetCore. ExistingDb** jako nazwę (musi dokładnie pasować do przestrzeni nazw, która została później użyta w kodzie), i kliknij przycisk **OK** . 
+* Zaczekaj na wyświetlenie okna dialogowego **Nowa aplikacja sieci Web ASP.NET Core**
+* Upewnij się, że na liście rozwijanej platformy docelowej jest ustawiona wartość **.NET Core**, a na liście rozwijanej wersji jest ustawiona wartość **ASP.NET Core 2,1**
+* Wybierz szablon **aplikacja sieci Web (Model-View-Controller)**
+* Upewnij się, że **uwierzytelnianie** jest ustawione na wartość **bez uwierzytelniania**
 * Kliknij przycisk **OK**
 
-## <a name="install-entity-framework-core"></a>Instalowanie platformy Entity Framework Core
+## <a name="install-entity-framework-core"></a>Zainstaluj Entity Framework Core
 
-Aby zainstalować programu EF Core, należy zainstalować pakiet dla dostawców bazy danych programu EF Core, który ma pod kątem. Aby uzyskać listę dostępnych dostawców zobacz [dostawcy baz danych](../../providers/index.md). 
+Aby zainstalować EF Core, należy zainstalować pakiet dla dostawców usługi EF Core Database, które mają być przeznaczone do celów. Aby uzyskać listę dostępnych dostawców, zobacz [dostawcy bazy danych](../../providers/index.md). 
 
-Na potrzeby tego samouczka nie trzeba zainstalować pakiet dostawcy, ponieważ w tym samouczku użyto programu SQL Server. Pakiet dostawcy programu SQL Server znajduje się w [meta Microsoft.aspnetcore.all Microsoft.AspnetCore.App](https://docs.microsoft.com/aspnet/core/fundamentals/metapackage-app?view=aspnetcore-2.1).
+W tym samouczku nie trzeba instalować pakietu dostawcy, ponieważ samouczek używa SQL Server. Pakiet dostawcy SQL Server jest zawarty w [pakiecie Microsoft. AspnetCore. app](https://docs.microsoft.com/aspnet/core/fundamentals/metapackage-app?view=aspnetcore-2.1).
 
-## <a name="reverse-engineer-your-model"></a>Model odtworzyć.
+## <a name="reverse-engineer-your-model"></a>Odtwarzanie modelu
 
-Teraz nadszedł czas na tworzenie modelu platformy EF, w oparciu o istniejącą bazę danych.
+Teraz można utworzyć model EF na podstawie istniejącej bazy danych.
 
-* **Narzędzia -> pakietu NuGet Manager -> Konsola Menedżera pakietów**
+* **Narzędzia — > Menedżer pakietów NuGet — > konsoli Menedżera pakietów**
 * Uruchom następujące polecenie, aby utworzyć model z istniejącej bazy danych:
 
 ``` powershell
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
 ```
 
-Jeśli zostanie wyświetlony błąd wskazujący `The term 'Scaffold-DbContext' is not recognized as the name of a cmdlet`, a następnie zamknij i otwórz ponownie program Visual Studio.
+Jeśli zostanie wyświetlony komunikat o błędzie z `The term 'Scaffold-DbContext' is not recognized as the name of a cmdlet`informacją, Zamknij i ponownie otwórz program Visual Studio.
 
 > [!TIP]  
-> Można określić tabel, które mają zostać wygenerowane jednostki dla, dodając `-Tables` argument polecenia powyżej. Na przykład `-Tables Blog,Post`.
+> Możesz określić, które tabele mają być generowane przez dodanie `-Tables` argumentu do powyższego polecenia. Na przykład `-Tables Blog,Post`.
 
-Proces odtwarzania utworzony klas jednostek (`Blog.cs` & `Post.cs`) i pochodnej kontekstu (`BloggingContext.cs`) na podstawie schematu istniejącej bazy danych.
+Proces odtwarzania`Blog.cs`utworzył klasy jednostek ( & `Post.cs`) i kontekst pochodny (`BloggingContext.cs`) na podstawie schematu istniejącej bazy danych.
 
- Klasy jednostki są proste obiekty języka C#, które reprezentują będziesz zapytań i zapisywanie danych. Poniżej przedstawiono `Blog` i `Post` klas jednostek:
+ Klasy jednostek są prostymi C# obiektami, które reprezentują dane, które będą używane do wykonywania zapytań i zapisywania. Oto klasy jednostek `Post`i: `Blog`
 
  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb/Models/Blog.cs)]
 
 [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb/Models/Post.cs)]
 
 > [!TIP]  
-> Aby włączyć ładowanie z opóźnieniem, należy wybrać właściwości nawigacji `virtual` (Blog.Post i Post.Blog).
+> Aby włączyć ładowanie z opóźnieniem, możesz tworzyć właściwości `virtual` nawigacji (blog.post i post).
 
- Kontekst reprezentuje sesję z bazą danych i umożliwia zapytania i Zapisz wystąpień klas jednostek.
+ Kontekst reprezentuje sesję z bazą danych i umożliwia wykonywanie zapytań i zapisywanie wystąpień klas jednostek.
 
 <!-- Static code listing, rather than a linked file, because the tutorial modifies the context file heavily -->
  ``` csharp
@@ -132,44 +133,44 @@ public partial class BloggingContext : DbContext
 }
 ```
 
-## <a name="register-your-context-with-dependency-injection"></a>Zarejestrowanie kontekst wstrzykiwanie zależności
+## <a name="register-your-context-with-dependency-injection"></a>Rejestrowanie kontekstu z iniekcją zależności
 
-Pojęcie wstrzykiwanie zależności stanowi podstawę do platformy ASP.NET Core. Usługi (takie jak `BloggingContext`) zostały zarejestrowane przy użyciu iniekcji zależności podczas uruchamiania aplikacji. Składniki, które wymagają tych usług, (na przykład kontrolerach MVC) znajdują się następnie tych usług za pomocą właściwości lub parametry konstruktora. Aby uzyskać więcej informacji na temat wstrzykiwanie zależności zobacz [wstrzykiwanie zależności](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) artykuł w witrynie programu ASP.NET.
+Pojęcie iniekcji zależności jest środkowe do ASP.NET Core. Usługi (takie jak `BloggingContext`) są rejestrowane przy użyciu iniekcji zależności podczas uruchamiania aplikacji. Składniki, które wymagają tych usług (takich jak kontrolery MVC), są następnie udostępniane przez parametry lub właściwości konstruktora. Aby uzyskać więcej informacji na temat iniekcji zależności, zobacz artykuł [iniekcja zależności](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) w witrynie ASP.NET.
 
-### <a name="register-and-configure-your-context-in-startupcs"></a>Rejestrowanie i konfigurowanie kontekstu w pliku Startup.cs
+### <a name="register-and-configure-your-context-in-startupcs"></a>Rejestrowanie i Konfigurowanie kontekstu w programie Startup.cs
 
-Zapewnienie `BloggingContext` dostępne dla kontrolerów MVC, zarejestruj go jako usługę.
+Aby udostępnić `BloggingContext` kontrolery MVC, zarejestruj je jako usługę.
 
 * Otwórz **Startup.cs**
-* Dodaj następujący kod `using` instrukcji na początku pliku
+* Dodaj następujące `using` instrukcje na początku pliku
 
 [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb/Startup.cs#AddedUsings)]
 
-Teraz możesz używać `AddDbContext(...)` metodę, aby zarejestrować go jako usługę.
-* Znajdź `ConfigureServices(...)` — metoda
-* Dodaj następujący wyróżniony kod, aby zarejestrować kontekst jako usługa
+Teraz możesz użyć `AddDbContext(...)` metody, aby zarejestrować ją jako usługę.
+* `ConfigureServices(...)` Znajdowanie metody
+* Dodaj następujący wyróżniony kod, aby zarejestrować kontekst jako usługę
 
 [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb/Startup.cs?name=ConfigureServices&highlight=14-15)]
 
 > [!TIP]  
-> W rzeczywistej aplikacji zwykle przełączyć parametry połączenia w zmiennej środowisku lub pliku konfiguracji. W tym samouczku dla uproszczenia, ma możesz zdefiniować go w kodzie. Aby uzyskać więcej informacji, zobacz [parametry połączenia](../../miscellaneous/connection-strings.md).
+> W prawdziwej aplikacji zwykle umieszcza się parametry połączenia w pliku konfiguracyjnym lub zmiennej środowiskowej. Dla uproszczenia ten samouczek został zdefiniowany w kodzie. Aby uzyskać więcej informacji, zobacz [Parametry połączenia](../../miscellaneous/connection-strings.md).
 
-## <a name="create-a-controller-and-views"></a>Tworzenie kontrolera i widoki
+## <a name="create-a-controller-and-views"></a>Tworzenie kontrolera i widoków
 
-* Kliknij prawym przyciskiem myszy **kontrolerów** folderu w **Eksploratora rozwiązań** i wybierz **Dodaj -> kontrolera...**
-* Wybierz **kontroler MVC z widokami używający narzędzia Entity Framework** i kliknij przycisk **Ok**
-* Ustaw **klasa modelu** do **Blog** i **klasa kontekstu danych** do **BloggingContext**
+* Kliknij prawym przyciskiem myszy  folder controllers w **Eksplorator rozwiązań** a następnie wybierz pozycję **Dodaj > kontroler...**
+* Wybierz **kontroler MVC z widokami przy użyciu Entity Framework** i kliknij przycisk **OK** .
+* Ustaw **klasę modelu** na **blog** i **klasę kontekstu danych** na **BloggingContext**
 * Kliknij przycisk **Dodaj**
 
 ## <a name="run-the-application"></a>Uruchamianie aplikacji
 
-Teraz można uruchomić aplikacji, aby zobaczyć go w działaniu.
+Teraz możesz uruchomić aplikację, aby zobaczyć ją w działaniu.
 
-* **Debuguj -> Start bez debugowania**
-* Aplikacja zostanie skompilowana i zostanie otwarta w przeglądarce sieci web
+* **Debugowanie — > Uruchom bez debugowania**
+* Aplikacja zostanie skompilowana i otwarta w przeglądarce internetowej
 * Przejdź do `/Blogs`
-* Kliknij przycisk **Utwórz nową**
-* Wprowadź **adresu Url** nowego bloga, a następnie kliknij przycisk **Create**
+* Kliknij przycisk **Utwórz nowy**
+* Wprowadź **adres URL** nowego bloga i kliknij pozycję **Utwórz** .
 
   ![Tworzenie strony](_static/create.png)
 
@@ -177,7 +178,7 @@ Teraz można uruchomić aplikacji, aby zobaczyć go w działaniu.
 
 ## <a name="next-steps"></a>Następne kroki
 
-Aby uzyskać więcej informacji na temat sposobu tworzenia szkieletu klasy kontekstu i jednostek, zobacz następujące artykuły:
-* [Odtwarzanie](xref:core/managing-schemas/scaffolding)
-* [Entity Framework Core odnoszą się narzędzia — interfejs wiersza polecenia platformy .NET](xref:core/miscellaneous/cli/dotnet#dotnet-ef-dbcontext-scaffold)
-* [Entity Framework Core odnoszą się narzędzia — Konsola Menedżera pakietów](xref:core/miscellaneous/cli/powershell#scaffold-dbcontext)
+Aby uzyskać więcej informacji na temat tworzenia szkieletu klas kontekstu i jednostki, zobacz następujące artykuły:
+* [Odwrócenie inżynierii](xref:core/managing-schemas/scaffolding)
+* [Dokumentacja narzędzi Entity Framework Core Tools — interfejs wiersza polecenia platformy .NET](xref:core/miscellaneous/cli/dotnet#dotnet-ef-dbcontext-scaffold)
+* [Dokumentacja narzędzi Entity Framework Core Tools — konsola Menedżera pakietów](xref:core/miscellaneous/cli/powershell#scaffold-dbcontext)
