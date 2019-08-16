@@ -39,7 +39,7 @@ Wraz z nazwami pakietów przestrzenie nazw `Microsoft.Data.Entity.*` zmieniają 
 
 ## <a name="table-naming-convention-changes"></a>Zmiany konwencji nazewnictwa tabel
 
-Istotna zmiana funkcjonalna w wersji RC2 była używana `DbSet<TEntity>` jako nazwa właściwości danej jednostki, która jest mapowana na nazwę tabeli, a nie tylko nazwę klasy. Więcej informacji na temat tej zmiany można znaleźć [](https://github.com/aspnet/Announcements/issues/167)w powiązanym problemie związanym z ogłoszeniem.
+Istotna zmiana funkcjonalna w wersji RC2 była używana `DbSet<TEntity>` jako nazwa właściwości danej jednostki, która jest mapowana na nazwę tabeli, a nie tylko nazwę klasy. Więcej informacji na temat tej zmiany można znaleźć [związany z tym problem z ogłoszeniem](https://github.com/aspnet/Announcements/issues/167)
 
 W przypadku istniejących aplikacji w wersji RC1 zalecamy dodanie następującego kodu do początku `OnModelCreating` metody, aby zachować strategię nazewnictwa RC1:
 
