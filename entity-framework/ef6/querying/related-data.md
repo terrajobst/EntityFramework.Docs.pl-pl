@@ -1,21 +1,21 @@
 ---
-title: Trwa ładowanie powiązanych jednostek - EF6
+title: Ładowanie powiązanych jednostek — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: c8417e18-a2ee-499c-9ce9-2a48cc5b468a
-ms.openlocfilehash: 2d33d9db8acc61f7d556e3eca46b1ea90198723e
-ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
+ms.openlocfilehash: f40034475ed6659b60ab4317605fd1d802218d69
+ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47415760"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69565313"
 ---
-# <a name="loading-related-entities"></a>Trwa ładowanie powiązanych jednostek
-Entity Framework obsługuje ładowanie powiązanych danych - eager, ładowania i powolne ładowanie jawne ładowanie na trzy sposoby. Techniki przedstawione w tym temacie stosuje się jednakowo do modeli utworzonych za pomocą Code First i projektancie platformy EF.  
+# <a name="loading-related-entities"></a>Ładowanie powiązanych jednostek
+Entity Framework obsługuje trzy sposoby ładowania powiązanych danych — eager ładowania, ładowania z opóźnieniem i bezpośredniego ładowania. Techniki przedstawione w tym temacie dotyczą również modeli utworzonych przy użyciu Code First i programu Dr Designer.  
 
-## <a name="eagerly-loading"></a>Trwa ładowanie eagerly  
+## <a name="eagerly-loading"></a>Ładowanie Eagerly  
 
-Wczesne ładowanie polega, według których kwerendy dla jednego typu obiektu również ładuje powiązanych jednostek jako część zapytania. Wczesne ładowanie odbywa się przy użyciu metody Include. Na przykład poniższych zapytań załaduje naszych blogach i wszystkie wpisy związane z każdego bloga.  
+Ładowanie eager jest procesem, w którym zapytanie dla jednego typu jednostki również ładuje powiązane jednostki jako część zapytania. Ładowanie eager jest realizowane przy użyciu metody include. Na przykład poniższe zapytania spowodują załadowanie blogów i wszystkich wpisów związanych z każdym blogiem.  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -25,7 +25,7 @@ using (var context = new BloggingContext())
                         .Include(b => b.Posts)
                         .ToList();
 
-    // Load one blogs and its related posts
+    // Load one blog and its related posts
     var blog1 = context.Blogs
                        .Where(b => b.Name == "ADO.NET Blog")
                        .Include(b => b.Posts)
@@ -46,11 +46,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Zwróć uwagę, że Include metody rozszerzenia w przestrzeni nazw System.Data.Entity dlatego upewnij się, że używasz tej przestrzeni nazw.  
+Należy zauważyć, że include jest metodą rozszerzającą w przestrzeni nazw System. Data. Entity, dlatego upewnij się, że używasz tej przestrzeni nazw.  
 
-### <a name="eagerly-loading-multiple-levels"></a>Trwa ładowanie eagerly wiele poziomów  
+### <a name="eagerly-loading-multiple-levels"></a>Eagerly ładowanie wielu poziomów  
 
-Istnieje również możliwość eagerly obciążenia na wielu poziomach powiązanych jednostek. Poniższych zapytań Pokaż przykładów jak to zrobić dla kolekcji i odwołanie do właściwości nawigacji.  
+Możliwe jest również eagerly załadowanie wielu poziomów jednostek pokrewnych. W poniższych zapytaniach pokazano, jak to zrobić dla właściwości nawigacji kolekcji i odwołań.  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -79,11 +79,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Należy pamiętać, że nie jest obecnie można filtrować dane są ładowane które powiązanych jednostek. Obejmują będą zawsze Przenieś wszystkie powiązane jednostki.  
+Należy pamiętać, że nie jest obecnie możliwe filtrowanie powiązanych jednostek, które są ładowane. Funkcja include będzie zawsze obejmować wszystkie powiązane jednostki.  
 
 ## <a name="lazy-loading"></a>Ładowanie z opóźnieniem  
 
-Powolne ładowanie polega na zgodnie z którą jednostki lub kolekcję jednostek jest automatycznie ładowany z bazy danych, uzyskiwania dostępu do właściwości, odnoszące się do jednostki/jednostki po raz pierwszy. Korzystając z typów jednostki POCO, powolne ładowanie odbywa się tworzenia wystąpień typów pochodnych serwera proxy, a następnie zastępowanie właściwości wirtualnego można dodać punktów zaczepienia ładowania. Na przykład korzystając z klasy jednostki blogu, które są zdefiniowane poniżej, pokrewnych wpisów zostanie załadowany po raz pierwszy uzyskano dostęp do właściwości nawigacji wpisy:  
+Ładowanie z opóźnieniem to proces, w którym jednostka lub kolekcja jednostek są automatycznie ładowane z bazy danych przy pierwszym użyciu właściwości odwołującej się do jednostki/jednostek. W przypadku korzystania z typów jednostek POCO pobieranie z opóźnieniem jest realizowane przez utworzenie wystąpień pochodnych typów proxy, a następnie Zastępowanie właściwości wirtualnych w celu dodania punktu zaczepienia ładowania. Na przykład podczas korzystania z klasy jednostki blogu zdefiniowanej poniżej powiązane wpisy zostaną załadowane przy pierwszej próbie uzyskania dostępu do właściwości nawigacji:  
 
 ``` csharp
 public class Blog
@@ -97,13 +97,13 @@ public class Blog
 }
 ```  
 
-### <a name="turn-lazy-loading-off-for-serialization"></a>Włącz powolne ładowanie wyłączone do serializacji  
+### <a name="turn-lazy-loading-off-for-serialization"></a>Włącz ładowanie z opóźnieniem dla serializacji  
 
-Powolne ładowanie i serializacji nie Mieszaj dobrze, a jeśli nie chcesz zachować ostrożność można zakończyć się wykonanie zapytania dotyczącego całą bazę danych, po prostu, ponieważ ładowania z opóźnieniem jest włączone. Serializatory większość pracy, uzyskując dostęp do każdej właściwości w wystąpieniu typu. Dostęp do właściwości wyzwala ładowania z opóźnieniem, więc podlegają serializacji z kolejnych jednostek. Na tych jednostkach właściwości są dostępne, a nawet więcej jednostek są ładowane. Jest dobrą praktyką, aby włączyć powolne ładowanie wyłączone przed serializacji jednostki. Poniższe sekcje pokazują, jak to zrobić.  
+Pobieranie z opóźnieniem i Serializacja nie są dobrze mieszane i jeśli nie jest to konieczne, możesz zakończyć wykonywanie zapytań dotyczących całej bazy danych, tylko ponieważ jest włączone ładowanie z opóźnieniem. Większość serializatorów pracuje przez uzyskanie dostępu do każdej właściwości w wystąpieniu typu. Dostęp do właściwości wyzwala ładowanie z opóźnieniem, więc więcej jednostek uzyskuje serializacji. Dostęp do tych właściwości jednostek jest możliwy, a jeszcze więcej jednostek jest załadowanych. Dobrym sposobem jest włączenie ładowania z opóźnieniem przed Serializacja jednostki. Poniższe sekcje pokazują, jak to zrobić.  
 
-### <a name="turning-off-lazy-loading-for-specific-navigation-properties"></a>Wyłączenie z opóźnieniem, ładowania dla właściwości określonej nawigacji  
+### <a name="turning-off-lazy-loading-for-specific-navigation-properties"></a>Wyłączanie ładowania z opóźnieniem dla określonych właściwości nawigacji  
 
-Powolne ładowanie kolekcji wpisy można wyłączyć, wprowadzając niewirtualną właściwość wpisy:  
+Pobieranie z opóźnieniem kolekcji ogłoszeń można wyłączyć, wprowadzając Właściwość Posts, która nie jest wirtualna:  
 
 ``` csharp
 public class Blog
@@ -117,11 +117,11 @@ public class Blog
 }
 ```  
 
-Ładowanie wpisów w kolekcji można nadal można osiągnąć przy użyciu wczesne ładowanie (zobacz *Eagerly ładowania* powyżej) lub metody obciążenia (zobacz *jawnego ładowania* poniżej).  
+Ładowanie kolekcji ogłoszeń można nadal osiągnąć przy użyciu ładowania eager (zobacz *Eagerly ładowanie* powyżej) lub metodę load (zobacz *jawne ładowanie* poniżej).  
 
-### <a name="turn-off-lazy-loading-for-all-entities"></a>Wyłącz powolne ładowanie dla wszystkich obiektów  
+### <a name="turn-off-lazy-loading-for-all-entities"></a>Wyłącz ładowanie z opóźnieniem dla wszystkich jednostek  
 
-Powolne ładowanie można wyłączyć dla wszystkich jednostek w kontekście przez ustawienie flagi na właściwość konfiguracji. Na przykład:  
+Ładowanie z opóźnieniem można wyłączyć dla wszystkich jednostek w kontekście przez ustawienie flagi właściwości konfiguracja. Na przykład:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -133,11 +133,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Ładowanie powiązanych jednostek nadal można osiągnąć, stosując wczesne ładowanie (zobacz *Eagerly ładowania* powyżej) lub metody obciążenia (zobacz *jawnego ładowania* poniżej).  
+Ładowanie pokrewnych jednostek można nadal osiągnąć przy użyciu ładowania eager (zobacz *Eagerly ładowanie* powyżej) lub metodę load (zobacz *jawne ładowanie* poniżej).  
 
 ## <a name="explicitly-loading"></a>Jawne ładowanie  
 
-Nawet w przypadku powolne ładowanie wyłączone jest nadal możliwe opóźnieniem ładowanie powiązanych jednostek, ale muszą być wykonane za pomocą jawnego wywołania. Aby to zrobić, użyj metodę ładowania przy uruchamianiu powiązanej jednostki. Na przykład:  
+Nawet po wyłączeniu ładowania z opóźnieniem nadal jest możliwe opóźnieniem pokrewnych jednostek, ale należy je wykonać z jawnym wywołaniem. W tym celu należy użyć metody Load dla wpisu jednostki powiązanej. Na przykład:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -161,11 +161,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Należy pamiętać, że Reference — metoda powinien być używany, jeśli określona jednostka ma właściwość nawigacji, do innego pojedynczej jednostki. Z drugiej strony metoda kolekcji należy używać, jeśli określona jednostka ma właściwości nawigacji kolekcji innych podmiotów.  
+Należy zauważyć, że metoda referencyjna powinna być używana, gdy jednostka ma właściwość nawigacji do innej pojedynczej jednostki. Z drugiej strony Metoda kolekcji powinna być używana, gdy jednostka ma właściwość nawigacji do kolekcji innych jednostek.  
 
-### <a name="applying-filters-when-explicitly-loading-related-entities"></a>Stosowanie filtrów, gdy jawnie ładowanie powiązanych jednostek  
+### <a name="applying-filters-when-explicitly-loading-related-entities"></a>Stosowanie filtrów podczas jawnego ładowania powiązanych jednostek  
 
-Metoda zapytania zapewnia dostęp do podstawowego zapytania, które będą używać programu Entity Framework, gdy ładowanie powiązanych jednostek. Następnie służy LINQ do zastosowania filtrów do zapytania przed wykonaniem jego wywołaniem metody rozszerzenia LINQ, takich jak tolist —, obciążenia itp. Metoda zapytania mogą być używane z właściwości nawigacji kolekcji i odwołania, ale jest najbardziej użyteczne dla kolekcji, której może służyć do załadowania tylko część kolekcji. Na przykład:  
+Metoda zapytania zapewnia dostęp do bazowego zapytania, którego Entity Framework będzie używać podczas ładowania powiązanych jednostek. Następnie można użyć LINQ do zastosowania filtrów do zapytania przed wykonaniem go za pomocą wywołania metody rozszerzenia LINQ, takiej jak ToList —, Load itp. Metoda zapytania może być używana z właściwościami odwołania i nawigacji kolekcji, ale jest najbardziej przydatna w przypadku kolekcji, których można użyć do załadowania tylko części kolekcji. Na przykład:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -189,13 +189,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Za pomocą metody zapytania jest zazwyczaj najlepiej jest wyłączyć powolne ładowanie dla właściwości nawigacji. Jest tak, ponieważ w przeciwnym razie całej kolekcji może być ładowane automatycznie przez mechanizm powolne ładowanie przed lub po wykonaniu zapytania filtrowanego.  
+Korzystając z metody zapytania, zazwyczaj najlepiej jest wyłączyć ładowanie z opóźnieniem dla właściwości nawigacji. Dzieje się tak, ponieważ w przeciwnym razie cała kolekcja może zostać załadowana automatycznie przez mechanizm ładowania z opóźnieniem przed lub po wykonaniu odfiltrowanego zapytania.  
 
-Należy pamiętać, że podczas relacji może być określony jako ciągu zamiast wyrażenia lambda, zwrócony element IQueryable nie ogólnego stosowania ciąg, a zatem metoda rzutowanie jest zwykle konieczna przed żadnych użytecznych może odbywać się z nim.  
+Należy pamiętać, że chociaż relacja może być określona jako ciąg zamiast wyrażenia lambda, zwracany interfejs IQueryable nie jest ogólny, gdy jest używany ciąg i dlatego Metoda Cast jest zwykle wymagana, zanim wszystko będzie przydatne.  
 
-## <a name="using-query-to-count-related-entities-without-loading-them"></a>Liczba powiązanych jednostek bez ładowania je przy użyciu zapytań  
+## <a name="using-query-to-count-related-entities-without-loading-them"></a>Używanie zapytania do zliczania powiązanych jednostek bez ich ładowania  
 
-Czasami warto wiedzieć, ile jednostek są powiązane z inną jednostkę w bazie danych bez rzeczywiście ponoszenia kosztów ładowania tych jednostek. Metody zapytania przy użyciu metody liczba LINQ można to zrobić. Na przykład:  
+Czasami warto wiedzieć, ile jednostek jest związanych z inną jednostką w bazie danych, bez faktycznego ponoszenia kosztów ładowania wszystkich jednostek. W tym celu można użyć metody zapytania z metodą Count LINQ. Na przykład:  
 
 ``` csharp
 using (var context = new BloggingContext())

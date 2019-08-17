@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: c73663412efcd93c04892f193d4f5a2485724e22
-ms.sourcegitcommit: 755a15a789631cc4ea581e2262a2dcc49c219eef
+ms.openlocfilehash: 884cc6611b986fb213d99d3d2fc69d7bebe34aa2
+ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/25/2019
-ms.locfileid: "68497528"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69565314"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w EF Core 3,0 (obecnie w wersji zapoznawczej)
 
@@ -25,6 +25,7 @@ Przerwy w nowych funkcjach wprowadzonych z jednej wersji zapoznawczej 3,0 do inn
 | **Zmiana powodująca niezgodność**                                                                                               | **Wpływ** |
 |:------------------------------------------------------------------------------------------------------------------|------------|
 | [Zapytania LINQ nie są już oceniane na kliencie](#linq-queries-are-no-longer-evaluated-on-the-client)         | Wysoka       |
+| [EF Core 3,0 cele .NET Standard 2,1, a nie .NET Standard 2,0](#netstandard21) | Wysoka      |
 | [Narzędzie wiersza polecenia EF Core, dotnet EF, nie jest już częścią zestaw .NET Core SDK](#dotnet-ef) | Wysoka      |
 | [Nazwy Z tabel, ExecuteSql by i ExecuteSqlAsync](#fromsql) | Wysoka      |
 | [Typy zapytań są konsolidowane z typami jednostek](#qt) | Wysoka      |
@@ -33,6 +34,7 @@ Przerwy w nowych funkcjach wprowadzonych z jednej wersji zapoznawczej 3,0 do inn
 | [DeleteBehavior. ograniczanie ma semantykę oczyszczarki](#deletebehavior) | Średni      |
 | [Interfejs API konfiguracji dla relacji typu posiadanego został zmieniony](#config) | Średni      |
 | [Każda właściwość używa niezależnej generacji klucza w pamięci](#each) | Średni      |
+| [Zapytania nie śledzące już nie wykonują rozpoznawania tożsamości](#notrackingresolution) | Średni      |
 | [Zmiany interfejsu API metadanych](#metadata-api-changes) | Średni      |
 | [Zmiany w interfejsie API metadanych specyficzne dla dostawcy](#provider) | Średni      |
 | [UseRowNumberForPaging został usunięty](#urn) | Średni      |
@@ -103,6 +105,29 @@ W związku z tym automatyczne szacowanie klienta może prowadzić do problemów,
 
 Jeśli nie można w pełni przetłumaczyć zapytania, należy ponownie napisać zapytanie w formularzu, który można przetłumaczyć lub użyć `AsEnumerable()`, `ToList()`lub podobnie jak jawnie przenieść dane z powrotem do klienta, na którym można następnie przetworzyć je za pomocą LINQ-to-Objects.
 
+<a name="netstandard21"></a>
+### <a name="ef-core-30-targets-net-standard-21-rather-than-net-standard-20"></a>EF Core 3,0 cele .NET Standard 2,1, a nie .NET Standard 2,0
+
+[Śledzenie problemu #15498](https://github.com/aspnet/EntityFrameworkCore/issues/15498)
+
+Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 7.
+
+**Stare zachowanie**
+
+Przed 3,0, EF Core kierowany .NET Standard 2,0 i będzie działać na wszystkich platformach obsługujących ten standard, w tym .NET Framework.
+
+**Nowe zachowanie**
+
+Począwszy od 3,0, EF Core cele .NET Standard 2,1 i zostaną uruchomione na wszystkich platformach obsługujących ten standard. Nie obejmuje to .NET Framework.
+
+**Zalet**
+
+Jest to część strategii strategicznej w technologiach .NET, która umożliwia skoncentrowanie się na oprogramowaniu .NET Core i innych nowoczesnych platformach .NET, takich jak Xamarin.
+
+**Środki zaradcze**
+
+Rozważ przeniesienie do nowoczesnej platformy .NET. Jeśli nie jest to możliwe, należy nadal używać EF Core 2,1 lub EF Core 2,2, w których są obsługiwane .NET Framework.
+
 <a name="no-longer"></a>
 ### <a name="entity-framework-core-is-no-longer-part-of-the-aspnet-core-shared-framework"></a>Entity Framework Core nie jest już częścią ASP.NET Core współdzielonej struktury
 
@@ -172,7 +197,7 @@ Przed EF Core 3,0 te nazwy metod były przeciążone w celu pracy z zwykłym ci�
 **Nowe zachowanie**
 
 Począwszy od EF Core 3,0, użyj `FromSqlRaw`, `ExecuteSqlRaw`, i `ExecuteSqlRawAsync` , aby utworzyć zapytanie parametryczne, gdzie parametry są przesyłane niezależnie od ciągu zapytania.
-Na przykład:
+Przykład:
 
 ```C#
 context.Products.FromSqlRaw(
@@ -222,6 +247,34 @@ Określenie `FromSql` dowolnego miejsca, w którym `DbSet` nie ma żadnego dodan
 **Środki zaradcze**
 
 `FromSql`wywołania należy przenieść, aby znajdowały się bezpośrednio w, `DbSet` do których mają zastosowanie.
+
+<a name="notrackingresolution"></a>
+### <a name="no-tracking-queries-no-longer-perform-identity-resolution"></a>Zapytania nie śledzące już nie wykonują rozpoznawania tożsamości
+
+[Śledzenie problemu #13518](https://github.com/aspnet/EntityFrameworkCore/issues/13518)
+
+Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 6.
+
+**Stare zachowanie**
+
+Przed EF Core 3,0, to to samo wystąpienie jednostki będzie używane dla każdego wystąpienia jednostki o danym typie i IDENTYFIKATORze. Jest to zgodne z zachowaniem śledzenia zapytań. Na przykład to zapytanie:
+
+```C#
+var results = context.Products.Include(e => e.Category).AsNoTracking().ToList();
+```
+zwróci to samo `Category` wystąpienie dla każdego `Product` , które jest skojarzone z daną kategorią.
+
+**Nowe zachowanie**
+
+Począwszy od EF Core 3,0, zostaną utworzone inne wystąpienia jednostek, gdy jednostka o danym typie i IDENTYFIKATORze zostanie napotkana w różnych miejscach na zwracanym wykresie. Na przykład zapytanie powyżej zwróci teraz nowe `Category` wystąpienie dla każdego z nich `Product` , nawet jeśli dwa produkty są skojarzone z tą samą kategorią.
+
+**Zalet**
+
+Rozpoznawanie tożsamości (oznacza to, że jednostka ma ten sam typ i identyfikator, jak poprzednio napotkana jednostka), dodaje dodatkowe obciążenie związane z wydajnością i pamięcią. Zwykle jest to przyczyną tego, że w pierwszym miejscu nie są używane zapytania śledzące. Ponadto, chociaż rozpoznawanie tożsamości może być przydatne, nie jest to konieczne, jeśli jednostki mają być serializowane i wysyłane do klienta, który jest typowy w przypadku zapytań bez śledzenia.
+
+**Środki zaradcze**
+
+Użyj zapytania śledzenia, jeśli jest wymagane rozpoznawanie tożsamości.
 
 <a name="qe"></a>
 
@@ -333,7 +386,7 @@ Ta zmiana została wprowadzona w celu poprawy środowiska związanego z scenariu
 **Środki zaradcze**
 
 Poprzednie zachowanie można przywrócić za pomocą ustawień na stronie `context.ChangedTracker`.
-Na przykład:
+Przykład:
 
 ```C#
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
@@ -417,7 +470,7 @@ modelBuilder.Entity<Order>.OwnsOne(e => e.Details).WithOwner(e => e.Order);
 
 Konfiguracja odnosząca się do relacji między właścicielem i właścicielem powinna teraz być łańcuchem `WithOwner()` po podobnym sposobie, jak inne relacje są skonfigurowane.
 Mimo że konfiguracja dla samego samego typu jest nadal łańcuchem `OwnsOne()/OwnsMany()`.
-Na przykład:
+Przykład:
 
 ```C#
 modelBuilder.Entity<Order>.OwnsOne(e => e.Details, eb =>
@@ -639,7 +692,7 @@ Jeśli `Order` jednak jest typem będącym własnością, to `CustomerId` równi
 
 Począwszy od 3,0, EF Core nie próbuje użyć właściwości kluczy obcych według Konwencji, jeśli mają taką samą nazwę jak właściwość podmiotu zabezpieczeń.
 Nazwa typu podmiotu zabezpieczeń połączona z nazwą właściwości głównej i nazwa nawigacji połączonej ze wzorcami nazw właściwości głównych są nadal dopasowane.
-Na przykład:
+Przykład:
 
 ```C#
 public class Customer
@@ -1222,8 +1275,8 @@ Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 6.
 Metody rozszerzenia specyficzne dla dostawcy zostaną spłaszczone:
 
 * `IProperty.Relational().ColumnName` -> `IProperty.GetColumnName()`
-* `IEntityType.SqlServer().IsMemoryOptimized` -> `IEntityType.GetSqlServerIsMemoryOptimized()`
-* `PropertyBuilder.UseSqlServerIdentityColumn()` -> `PropertyBuilder.ForSqlServerUseIdentityColumn()`
+* `IEntityType.SqlServer().IsMemoryOptimized` -> `IEntityType.IsMemoryOptimized()`
+* `PropertyBuilder.UseSqlServerIdentityColumn()` -> `PropertyBuilder.UseIdentityColumn()`
 
 **Zalet**
 
@@ -1260,7 +1313,7 @@ W innych przypadkach klucze obce można włączyć, określając `Foreign Keys=T
 
 <a name="sqlite3"></a>
 
-### <a name="microsoftentityframeworkcoresqlite-now-depends-on-sqlitepclrawbundleesqlite3"></a>Microsoft. EntityFrameworkCore. sqlite teraz zależy od SQLitePCLRaw. bundle_e_sqlite3
+### <a name="microsoftentityframeworkcoresqlite-now-depends-on-sqlitepclrawbundle_e_sqlite3"></a>Microsoft. EntityFrameworkCore. sqlite teraz zależy od SQLitePCLRaw. bundle_e_sqlite3
 
 **Stare zachowanie**
 
@@ -1494,7 +1547,7 @@ Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 4.
 
 **Stare zachowanie**
 
-Przed EF Core 3,0, nazwy ograniczeń klucza obcego były określane jako "nazwa". Na przykład:
+Przed EF Core 3,0, nazwy ograniczeń klucza obcego były określane jako "nazwa". Przykład:
 
 ```C#
 var constraintName = myForeignKey.Name;
@@ -1502,7 +1555,7 @@ var constraintName = myForeignKey.Name;
 
 **Nowe zachowanie**
 
-Począwszy od EF Core 3,0, nazwy ograniczeń klucza obcego są teraz określane jako "nazwa ograniczenia". Przykład:
+Począwszy od EF Core 3,0, nazwy ograniczeń klucza obcego są teraz określane jako "nazwa ograniczenia". Na przykład:
 
 ```C#
 var constraintName = myForeignKey.ConstraintName;
