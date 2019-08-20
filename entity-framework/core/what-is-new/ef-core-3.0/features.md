@@ -1,62 +1,62 @@
 ---
-title: Nowe funkcje programu EF Core 3.0 — EF Core
+title: Nowe funkcje w EF Core 3,0 — EF Core
 author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: 7501a806271c9734e85e31845f260f2d512da077
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: a71aa01e81d9830d7b9e6cb01c200851100a15df
+ms.sourcegitcommit: 87e72899d17602f7526d6ccd22f3c8ee844145df
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "58867960"
+ms.lasthandoff: 08/20/2019
+ms.locfileid: "69628431"
 ---
-# <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Nowych funkcji dostępnych w programie EF Core 3.0 (obecnie w wersji zapoznawczej)
+# <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Nowe funkcje zawarte w EF Core 3,0 (obecnie w wersji zapoznawczej)
 
 > [!IMPORTANT]
-> Należy pamiętać, że zestawy funkcji i harmonogramy przyszłych wersji zawsze mogą ulec zmianie i czasu, mimo że firma Microsoft podejmie próbę tej strony na bieżąco, jego mogą nie odzwierciedlać najnowszych plany na wszystkich.
+> Należy pamiętać, że zestawy funkcji i harmonogramy przyszłych wersji zawsze mogą ulec zmianie, a mimo to, że firma Microsoft podejmie próbę zapewnienia aktualności tej strony, może nie odzwierciedlać naszych najnowszych planów przez cały czas.
 
-Poniższa lista zawiera główne nowe funkcje usunięte EF Core 3.0.
-Większość tych funkcji nie są uwzględnione w bieżącej wersji zapoznawczej, ale będą dostępne w miarę wprowadzania postępów w wersji RTM.
+Poniższa lista zawiera najważniejsze nowe funkcje planowane dla EF Core 3,0.
+Większość z tych funkcji nie jest uwzględnionych w bieżącej wersji zapoznawczej, ale staje się dostępna w miarę postępu w kierunku do wersji RTM.
 
-Przyczyną jest to, że na początku wersji koncentrujemy się na implementowaniu planowane [istotne zmiany w](xref:core/what-is-new/ef-core-3.0/breaking-changes).
-Wiele z tych przełomowe zmiany dotyczą poprawy do programu EF Core własnych.
-Wiele innych są wymagane, aby odblokować dalsze ulepszenia. 
+Przyczyną jest to, że na początku wydania koncentrujemy się na wdrażaniu planowanych [zmian](xref:core/what-is-new/ef-core-3.0/breaking-changes).
+Wiele z tych istotnych zmian jest ulepszonych do EF Core.
+Wiele innych jest wymaganych do odblokowania dalszych ulepszeń. 
 
-Aby uzyskać pełną listę poprawek usterek i ulepszeń, widać [tego zapytania w naszym narzędzie do śledzenia problemów](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc).
+Aby zapoznać się z pełną listą poprawek i ulepszeń błędów, można zobaczyć [to zapytanie w naszym monitorze problemów](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc).
 
-## <a name="linq-improvements"></a>Ulepszenia zapytań LINQ 
+## <a name="linq-improvements"></a>Ulepszenia LINQ 
 
-[Śledzenie problem #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
+[Śledzenie problemu #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
 
-Rozpoczęto pracę na temat tej funkcji, ale nie jest zawarty w bieżącej wersji zapoznawczej.
+Pracę nad tą funkcją uruchomiono, ale nie jest ona uwzględniona w bieżącej wersji zapoznawczej.
 
-LINQ umożliwia tworzenie zapytań bazy danych bez opuszczania usługi z wybranego języka, wykorzystując zaawansowane wpisz informacje funkcji IntelliSense i sprawdzanie typów w czasie kompilacji.
-Ale LINQ można również napisać nieograniczonej liczby zapytań skomplikowane, a który zawsze było ogromnym wyzwaniom dla dostawców LINQ.
-W pierwszym kilka wersji programu EF Core możemy rozwiązać, w części za ustalenie, jakie części zapytania mogą być tłumaczone do bazy danych SQL, a następnie, umożliwiając pozostałe kwerenda do wykonania w pamięci na komputerze klienckim.
-Wykonanie tego po stronie klienta może być pożądana w niektórych sytuacjach, ale w innych przypadkach może to skutkować nieefektywne zapytań, które nie mogą być określane, dopóki aplikacja jest wdrażana w środowisku produkcyjnym.
-W programie EF Core 3.0 planujemy wprowadzić głęboki zmiany sposobu działania naszej implementacji LINQ i jak możemy przetestować.
-Cele są aby działał on bardziej niezawodnie (na przykład, aby uniknąć przerywanie zapytania w wersjach poprawki), aby włączyć Translacja wyrażeń więcej poprawnie w bazie SQL, można wygenerować wydajne zapytania w większości przypadków i uniemożliwić nieefektywne zapytania przechodząc niewykryte.
+LINQ pozwala pisać zapytania bazy danych bez opuszczania wybranego języka, korzystając z informacji o typie rozbudowanym do pobierania funkcji IntelliSense i sprawdzania typu w czasie kompilacji.
+Jednak LINQ pozwala także pisać nieograniczoną liczbę skomplikowanych zapytań, która zawsze była bardzo ogromnym wyzwaniem dla dostawców LINQ.
+W kilku pierwszych wersjach EF Core firma Microsoft rozwiązała, że w części poprzez ustalenie, jakie fragmenty zapytania można przetłumaczyć na SQL, a następnie przez umożliwienie pozostałej części zapytania w pamięci na komputerze klienckim.
+To wykonanie po stronie klienta może być pożądane w niektórych sytuacjach, ale w wielu innych przypadkach może to spowodować niewydajne zapytania, które mogą nie zostać zidentyfikowane do czasu wdrożenia aplikacji w środowisku produkcyjnym.
+W EF Core 3,0 planujemy przeprowadzenia głębokich zmian w sposobie działania naszej implementacji LINQ i sposobach ich przetestowania.
+Cele są bardziej niezawodne (na przykład w celu uniknięcia przerywania zapytań w wersjach poprawek), aby umożliwić poprawne tłumaczenie większej liczby wyrażeń na SQL, generowanie wydajnych zapytań w większej liczbie przypadków i zapobieganie wykryciu niewydajnych zapytań.
 
-## <a name="cosmos-db-support"></a>Obsługa usługi cosmos DB 
+## <a name="cosmos-db-support"></a>Obsługa Cosmos DB 
 
-[Śledzenie problem #8443](https://github.com/aspnet/EntityFrameworkCore/issues/8443)
+[Śledzenie problemu #8443](https://github.com/aspnet/EntityFrameworkCore/issues/8443)
 
-Ta funkcja jest dołączona w bieżącej wersji zapoznawczej, ale nie została jeszcze ukończona. 
+Ta funkcja jest uwzględniona w bieżącej wersji zapoznawczej, ale nie została jeszcze ukończona. 
 
-Pracujemy nad dostawcę usługi Cosmos DB dla platformy EF Core, aby umożliwić deweloperom zapoznać się z modelem programistyczne EF łatwo Kieruj usługi Azure Cosmos DB jako bazę danych aplikacji.
-Celem jest zapewnienie niektóre korzyści wynikające z usługi Cosmos DB, takie jak dystrybucji globalnej, "zawsze włączone" dostępność, elastyczną skalowalność i małego opóźnienia, jeszcze bardziej dostępne dla deweloperów platformy .NET.
-Dostawca umożliwi większość funkcji EF Core, takie jak automatyczna zmiana, śledzenie, LINQ i konwersji wartości, przy użyciu interfejsu SQL API w usłudze Cosmos DB.
-Rozpoczęliśmy ten nakład pracy przed programem EF Core 2.2, i [Wprowadziliśmy pewne wersji dostawcy dostępne w wersji zapoznawczej](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).
-Nowy plan jest, aby kontynuować, tworzenie dostawcy wraz z programem EF Core 3.0. 
+Pracujemy nad dostawcą Cosmos DB na potrzeby EF Core, aby umożliwić deweloperom zaznajomionym z modelem programowania EF łatwe kierowanie Azure Cosmos DB jako bazy danych aplikacji.
+Celem jest, aby niektóre zalety Cosmos DB, takich jak dystrybucja globalna, "zawsze włączone" dostępność, elastyczna skalowalność i małe opóźnienia, jeszcze bardziej dostępne dla deweloperów platformy .NET.
+Dostawca umożliwi korzystanie z większości funkcji EF Core, takich jak automatyczne śledzenie zmian, LINQ i konwersje wartości, względem interfejsu API SQL w programie Cosmos DB.
+Rozpocząłmy ten nakład pracy przed EF Core 2,2 i wprowadziliśmy [dostępne wersje zapoznawcze dostawcy](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).
+Nowy plan polega na dalszym tworzeniu dostawcy wraz z EF Core 3,0. 
 
-## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Udostępnianie w tabeli z jednostką jednostki zależne są teraz opcjonalne
+## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Jednostki zależne współużytkujące tabelę z podmiotem zabezpieczeń są teraz opcjonalne
 
-[Śledzenie problem #9005](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
+[Śledzenie problemu #9005](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
 
-Ta funkcja zostaną wprowadzone w programu EF Core 3.0 — w wersji zapoznawczej 4.
+Ta funkcja zostanie wprowadzona w EF Core 3,0 — wersja zapoznawcza 4.
 
-Należy wziąć pod uwagę następujący wzór:
+Rozważmy następujący model:
 ```C#
 public class Order
 {
@@ -65,6 +65,7 @@ public class Order
     public OrderDetails Details { get; set; }
 }
 
+[Owned]
 public class OrderDetails
 {
     public int Id { get; set; }
@@ -72,47 +73,48 @@ public class OrderDetails
 }
 ```
 
-Począwszy od programu EF Core 3.0, jeśli `OrderDetails` jest własnością `Order` lub jawnie zmapowane do tej samej tabeli, będzie można dodać `Order` bez `OrderDetails` i wszystkie `OrderDetails` będą zamapowane właściwości, z wyjątkiem klucza podstawowego kolumny dopuszczające wartość null.
-Podczas wykonywania zapytań programu EF Core zostanie ustawiony `OrderDetails` do `null` Jeśli dowolne wymagane właściwości nie ma wartość, lub jeśli go nie ma wymaganych właściwości oprócz klucza podstawowego, a wszystkie właściwości są `null`.
+Począwszy od EF Core 3,0, jeśli `OrderDetails` jest `Order` własnością lub jawnie zamapowana na tę samą tabelę, będzie możliwe dodanie `Order` bez `OrderDetails` i wszystkich `OrderDetails` właściwości, z wyjątkiem tego, że klucz podstawowy zostanie zmapowany na kolumny dopuszczające wartość null.
 
-## <a name="c-80-support"></a>C#Obsługa 8.0
+Podczas wykonywania zapytania, EF Core zostanie ustawiona `OrderDetails` na `null` , Jeśli którakolwiek z wymaganych właściwości nie ma wartości lub jeśli nie ma żadnych wymaganych właściwości poza kluczem podstawowym i wszystkie właściwości są `null`.
 
-[Śledzenie problem #12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
-[śledzenia problemu #10347](https://github.com/aspnet/EntityFrameworkCore/issues/10347)
+## <a name="c-80-support"></a>C#Obsługa 8,0
 
-Rozpoczęto pracę na temat tej funkcji, ale nie jest zawarty w bieżącej wersji zapoznawczej.
+[](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
+Problem ze śledzeniem #12047[śledzenia problemów #10347](https://github.com/aspnet/EntityFrameworkCore/issues/10347)
 
-Chcemy, aby klienci mogą korzystać z niektórych [nowe funkcje zostaną dodane w C# 8.0](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/) strumieni asynchronicznych, takich jak (w tym `await foreach`) i typy referencyjne dopuszczającego wartość null podczas korzystania z programu EF Core.
+Pracę nad tą funkcją uruchomiono, ale nie jest ona uwzględniona w bieżącej wersji zapoznawczej.
 
-## <a name="reverse-engineering-of-database-views"></a>Odtwarzanie widoki bazy danych
+Chcemy, aby nasi klienci korzystali z niektórych [nowych funkcji w C# 8,0](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/) takich jak strumienie asynchroniczne (w `await foreach`tym) i typy referencyjne dopuszczające wartość null podczas korzystania z EF Core.
 
-[Śledzenie problem #1679](https://github.com/aspnet/EntityFrameworkCore/issues/1679)
+## <a name="reverse-engineering-of-database-views"></a>Odtwarzanie widoków bazy danych
 
-Ta funkcja nie jest zawarty w bieżącej wersji zapoznawczej.
+[Śledzenie problemu #1679](https://github.com/aspnet/EntityFrameworkCore/issues/1679)
 
-[Typy zapytań](xref:core/modeling/query-types), wprowadzone w programie EF Core 2.1 i uznawane za typów jednostek, bez kluczy w EF Core 3.0 to reprezentują dane, które mogą być odczytywane z bazy danych, ale nie można zaktualizować.
-Cecha ta sprawia, że ich doskonale sprawdzą się w przypadku widoków bazy danych w większości przypadków, więc planujemy do zautomatyzowania tworzenia typów jednostek, bez kluczy podczas odtwarzania widoki bazy danych.
+Ta funkcja nie jest uwzględniona w bieżącej wersji zapoznawczej.
+
+[Typy zapytań](xref:core/modeling/query-types)wprowadzone w EF Core 2,1 i uznawane za typy jednostek bez kluczy w EF Core 3,0 reprezentują dane, które można odczytać z bazy danych, ale nie można ich zaktualizować.
+Ta cecha sprawia, że najlepiej pasuje do widoków bazy danych w większości scenariuszy, dlatego planujemy zautomatyzować tworzenie typów jednostek bez kluczy podczas odtwarzania widoków bazy danych.
 
 ## <a name="property-bag-entities"></a>Jednostki zbioru właściwości
 
-[Śledzenie problem #13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) i [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914)
+[Śledzenie problemów #13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) i [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914)
 
-Rozpoczęto pracę na temat tej funkcji, ale nie jest zawarty w bieżącej wersji zapoznawczej. 
+Pracę nad tą funkcją uruchomiono, ale nie jest ona uwzględniona w bieżącej wersji zapoznawczej. 
 
-Ta funkcja jest zapewnienie jednostek, które przechowują dane w właściwości indeksowanych zamiast regularnego właściwości, a także o będzie mógł korzystać z wystąpień klasy .NET (potencjalnie coś tak proste, jak `Dictionary<string, object>`) do reprezentowania typów różnych jednostek w tym samym modelu platformy EF Core.
-Ta funkcja jest kamień przechodzenia krok po kroku do obsługi relacji wiele do wielu, bez jednostki sprzężenia ([wystawiać #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368)), które jest jednym z najbardziej pożądanych ulepszenia dla platformy EF Core.
+Ta funkcja służy do włączania jednostek, które przechowują dane we właściwościach indeksowanych zamiast zwykłych właściwości, a także z możliwością używania wystąpień tej samej klasy .NET (potencjalnie jako prostej `Dictionary<string, object>`jako) do reprezentowania różnych typów jednostek w tym samym modelu EF Core.
+Ta funkcja to krok do obsługi relacji wiele-do-wielu bez jednostki sprzężenia ([#1368 problemu](https://github.com/aspnet/EntityFrameworkCore/issues/1368)), która jest jednym z najbardziej żądanych ulepszeń EF Core.
 
-## <a name="ef-63-on-net-core"></a>EF 6.3 na platformie .NET Core
+## <a name="ef-63-on-net-core"></a>Dr 6,3 na platformie .NET Core
 
-[Śledzenie EF6 problem #271](https://github.com/aspnet/EntityFramework6/issues/271)
+[Śledzenie problemu EF6 # 271](https://github.com/aspnet/EntityFramework6/issues/271)
 
-Rozpoczęto pracę na temat tej funkcji, ale nie jest zawarty w bieżącej wersji zapoznawczej. 
+Pracę nad tą funkcją uruchomiono, ale nie jest ona uwzględniona w bieżącej wersji zapoznawczej. 
 
-Rozumiemy, że wiele istniejących aplikacji używać starszych wersji programu EF i że przenoszenia ich do programu EF Core tylko po to, aby móc korzystać z platformy .NET Core może czasem wymagać znaczących nakładów pracy.
-Z tego powodu firma Microsoft będzie można dostosowanie Następna wersja programu EF 6 do uruchamiania na .NET Core 3.0.
+Firma Microsoft zdaje sobie sprawę, że w wielu istniejących aplikacjach są używane poprzednie wersje EF, a ich przenoszenie do EF Core tylko w celu wykorzystania platformy .NET Core może czasami wymagać znacznego wysiłku.
+Z tego powodu będziemy dostosowywać następną wersję EF 6 do uruchamiania na platformie .NET Core 3,0.
 Robimy to w celu ułatwienia przenoszenia istniejących aplikacji przy minimalnych zmianach.
-Czy powstaną pewne ograniczenia. Na przykład:
-- Będzie wymagać nowego dostawcy do pracy z innymi bazami danych oprócz uwzględnione Obsługa programu SQL Server na platformie .NET Core
-- Nie można włączyć obsługi przestrzennych z programem SQL Server
+Istnieją pewne ograniczenia. Przykład:
+- Będzie wymagała od nowych dostawców pracy z innymi bazami danych, poza uwzględnioną SQL Server obsługą platformy .NET Core
+- Obsługa przestrzenna z SQL Server nie będzie włączona
 
-Należy zauważyć, że nie istnieją żadne nowe funkcje, w tym momencie zaplanowała programów EF 6.
+Należy pamiętać, że na tym etapie nie są planowane żadne nowe funkcje programu EF 6.
