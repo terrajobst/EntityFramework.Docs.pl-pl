@@ -3,25 +3,25 @@ title: Ustawienia pliku konfiguracji — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 000044c6-1d32-4cf7-ae1f-ea21d86ebf8f
-ms.openlocfilehash: faba4e406b9f26f5bed6149f75c59da362d84692
-ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
+ms.openlocfilehash: 86389e4a3a3bac46e2a4cf2da648a4b19e29f3c3
+ms.sourcegitcommit: 299011fc4bd576eed58a4274f967639fa13fec53
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47415786"
+ms.lasthandoff: 08/21/2019
+ms.locfileid: "69886554"
 ---
 # <a name="configuration-file-settings"></a>Ustawienia pliku konfiguracji
-Entity Framework umożliwia wiele ustawień, należy określić w pliku konfiguracji. Ogólnie rzecz biorąc EF jest zgodna z zasadą "Konwencja, za pośrednictwem konfiguracji": wszystkie ustawienia, które są omawiane w tym wpisie ma domyślne zachowanie, musisz się martwić o zmianę ustawienia, gdy domyślny nie spełnia wymagań.  
+Entity Framework umożliwia określenie wielu ustawień z pliku konfiguracji. Ogólnie EF stosuje się zasadę "Konwencja przed konfiguracją": wszystkie ustawienia omówione w tym wpisie mają zachowanie domyślne, ale trzeba się martwić o zmianę ustawienia, gdy wartość domyślna nie spełnia już wymagań.  
 
-## <a name="a-code-based-alternative"></a>To oparte na kodzie alternatywa  
+## <a name="a-code-based-alternative"></a>Alternatywa oparta na kodzie  
 
-Wszystkie te ustawienia można również będą stosowane przy użyciu kodu. Począwszy od platformy EF6 wprowadziliśmy [konfiguracja na podstawie kodu](code-based.md), który zapewnia centralny sposób stosowania konfiguracji z poziomu kodu. Przed EF6 nadal można zastosować konfiguracji z kodu, ale trzeba skonfigurować różne obszary za pomocą różnych interfejsów API. Opcja pliku konfiguracji umożliwia te ustawienia można łatwo zmienić podczas wdrażania bez aktualizowania kodu.
+Wszystkie te ustawienia można również zastosować przy użyciu kodu. Począwszy od EF6 wprowadziliśmy [konfigurację opartą na kodzie](code-based.md), która stanowi centralny sposób zastosowania konfiguracji z kodu. W systemach starszych niż EF6 konfiguracja może być nadal stosowana z kodu, ale w celu skonfigurowania różnych obszarów należy użyć różnych interfejsów API. Opcja plik konfiguracji pozwala łatwo zmieniać te ustawienia podczas wdrażania bez aktualizowania kodu.
 
-## <a name="the-entity-framework-configuration-section"></a>Sekcja konfiguracji programu Entity Framework  
+## <a name="the-entity-framework-configuration-section"></a>Sekcja konfiguracji Entity Framework  
 
-Uruchamianie EF4.1 można ustawić inicjator bazy danych przy użyciu kontekstu **appSettings** sekcję pliku konfiguracji. W wersji 4.3 platformy EF wprowadziliśmy niestandardowej **entityFramework** sekcji, aby obsługiwać nowe ustawienia. Entity Framework nadal będzie także rozpoznawał inicjatory bazy danych można ustawić przy użyciu starego formatu, ale zaleca się przejście na nowy format, gdzie to możliwe.
+Począwszy od EF 4.1 można ustawić inicjator bazy danych dla kontekstu przy użyciu sekcji **AppSettings** w pliku konfiguracji. W EF 4,3 wprowadzono niestandardową sekcję **entityFramework** do obsługi nowych ustawień. Entity Framework nadal będzie rozpoznawał inicjatory bazy danych przy użyciu starego formatu, ale zalecamy przechodzenie do nowego formatu, jeśli jest to możliwe.
 
-**EntityFramework** sekcji została automatycznie dodana do pliku konfiguracji projektu, po zainstalowaniu pakiet NuGet platformy EntityFramework.  
+Sekcja **entityFramework** została automatycznie dodana do pliku konfiguracji projektu po zainstalowaniu pakietu NuGet entityFramework.  
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -34,13 +34,13 @@ Uruchamianie EF4.1 można ustawić inicjator bazy danych przy użyciu kontekstu 
 </configuration>
 ```  
 
-## <a name="connection-strings"></a>Parametry połączenia  
+## <a name="connection-strings"></a>Parametry połączeń  
 
-[Ta strona](~/ef6/fundamentals/configuring/connection-strings.md) więcej szczegółów na temat jak Entity Framework określa bazy danych ma być używana, w tym parametry połączenia w pliku konfiguracji.  
+[Ta strona](~/ef6/fundamentals/configuring/connection-strings.md) zawiera więcej informacji na temat sposobu, w jaki Entity Framework określa bazę danych, która ma być używana, w tym parametry połączenia w pliku konfiguracji.  
 
-Parametry połączenia, przejdź w standardzie **connectionStrings** elementu i nie wymagają **entityFramework** sekcji.  
+Parametry połączenia przechodzą do standardowego elementu **connectionStrings** i nie wymagają sekcji **entityFramework** .  
 
-Modele kodu najpierw na podstawie Użyj normalnej parametry połączenia ADO.NET. Na przykład:  
+Modele oparte na Code First używają zwykłych parametrów połączenia ADO.NET. Na przykład:  
 
 ``` xml
 <connectionStrings>
@@ -50,7 +50,7 @@ Modele kodu najpierw na podstawie Użyj normalnej parametry połączenia ADO.NET
 </connectionStrings>
 ```  
 
-Projektancie platformy EF na podstawie parametrów połączenia platformy EF specjalne użycia modeli. Na przykład:  
+Modele oparte na programie Dr Designer używają specjalnych parametrów połączenia EF. Na przykład:  
 
 ``` xml  
 <connectionStrings>
@@ -60,7 +60,7 @@ Projektancie platformy EF na podstawie parametrów połączenia platformy EF spe
         res://*/BloggingModel.csdl|
         res://*/BloggingModel.ssdl|
         res://*/BloggingModel.msl;
-      provider=System.Data.SqlClient
+      provider=System.Data.SqlClient;
       provider connection string=
         &quot;data source=(localdb)\mssqllocaldb;
         initial catalog=Blogging;
@@ -70,35 +70,35 @@ Projektancie platformy EF na podstawie parametrów połączenia platformy EF spe
 </connectionStrings>
 ```
 
-## <a name="code-based-configuration-type-ef6-onwards"></a>Typ konfiguracji oparte na kodzie (od wersji EF6)  
+## <a name="code-based-configuration-type-ef6-onwards"></a>Typ konfiguracji oparty na kodzie (EF6 lub nowszym)  
 
-Począwszy od platformy EF6, można określić DbConfiguration na platformie EF na potrzeby [konfiguracja na podstawie kodu](code-based.md) w aplikacji. W większości przypadków nie trzeba określić tego ustawienia, jak EF automatycznie wykryje Twoje DbConfiguration. Zobacz szczegóły po użytkownik może być konieczne określenie DbConfiguration w pliku config **przenoszenie DbConfiguration** części [konfiguracja na podstawie kodu](code-based.md).  
+Począwszy od EF6, można określić dbconfiguration for EF do użycia w [konfiguracji opartej na kodzie](code-based.md) w aplikacji. W większości przypadków nie trzeba podawać tego ustawienia, ponieważ EF automatycznie odnajdzie konfigurację dbconfiguration. Aby uzyskać szczegółowe informacje na temat sytuacji, w których może być konieczne określenie dbconfiguration w pliku konfiguracji, zobacz sekcję **przeniesienie Dbconfiguration** [konfiguracji opartej na kodzie](code-based.md).  
 
-Aby ustawić typ DbConfiguration, należy określić nazwę typu kwalifikowanego zestawu w **codeConfigurationType** elementu.  
+Aby ustawić typ dbconfiguration, należy określić nazwę typu kwalifikowanego zestawu w elemencie **codeConfigurationType** .  
 
 > [!NOTE]
-> Kwalifikowana nazwa zestawu jest kwalifikowana nazwa przestrzeni nazw, a następnie przecinek, następnie zestawu, który typ, który znajduje się w. Opcjonalnie możesz również określić zestaw wersji, kulturę i token klucza publicznego.  
+> Kwalifikowana nazwa zestawu to kwalifikowana nazwa przestrzeni nazw, a następnie przecinek, a następnie zestaw, w którym znajduje się ten typ. Opcjonalnie można również określić wersję zestawu, kulturę i token klucza publicznego.  
 
 ``` xml
 <entityFramework codeConfigurationType="MyNamespace.MyConfiguration, MyAssembly">
 </entityFramework>
 ```  
 
-## <a name="ef-database-providers-ef6-onwards"></a>Dostawcy baz danych EF (od wersji EF6)  
+## <a name="ef-database-providers-ef6-onwards"></a>Dostawcy bazy danych EF (EF6 lub nowszym)  
 
-Przed EF6, musiała być dołączane jako część dostawcy ADO.NET core Framework określonej części dostawcy bazy danych. Począwszy od platformy EF6 EF określone fragmenty są teraz zarządzane i zarejestrowane oddzielnie.  
+Przed EF6 należy uwzględnić Entity Framework części dostawcy bazy danych jako część podstawowego dostawcy ADO.NET. Począwszy od EF6, te części EF są teraz zarządzane i rejestrowane osobno.  
 
-Zwykle nie trzeba samodzielnie zarejestrować dostawców. To są zwykle wykonywane przez dostawcę po jego zainstalowaniu.  
+Zwykle nie trzeba samodzielnie rejestrować dostawców. Jest to zwykle wykonywane przez dostawcę podczas instalacji.  
 
-Dostawcy są rejestrowane przez dołączenie **dostawcy** pod **dostawców** części podrzędnej **entityFramework** sekcji. Istnieją dwa atrybuty wymagane dla wpisu dostawcy:  
+Dostawcy są rejestrowani przez dołączenie elementu **dostawcy** w sekcji podrzędnej **dostawcy** sekcji **entityFramework** . Istnieją dwa wymagane atrybuty dla wpisu dostawcy:  
 
-- **Invatiantname** identyfikuje dostawcy ADO.NET core że EF dostawcy cele  
-- **Typ** jest kwalifikowaną nazwą typu zestawu EF implementacji dostawcy  
+- niezmiennaname identyfikuje podstawowego dostawcę ADO.NET, którego celem jest ten dostawca EF  
+- **Typ** to kwalifikowana nazwa typu zestawu dla implementacji dostawcy EF  
 
 > [!NOTE]
-> Kwalifikowana nazwa zestawu jest kwalifikowana nazwa przestrzeni nazw, a następnie przecinek, następnie zestawu, który typ, który znajduje się w. Opcjonalnie możesz również określić zestaw wersji, kulturę i token klucza publicznego.  
+> Kwalifikowana nazwa zestawu to kwalifikowana nazwa przestrzeni nazw, a następnie przecinek, a następnie zestaw, w którym znajduje się ten typ. Opcjonalnie można również określić wersję zestawu, kulturę i token klucza publicznego.  
 
-Na przykład Oto wpis utworzone w celu zarejestrowania domyślny dostawca programu SQL Server po zainstalowaniu programu Entity Framework.  
+Przykładem jest wpis utworzony w celu zarejestrowania domyślnego dostawcy SQL Server podczas instalacji Entity Framework.  
 
 ``` xml  
 <providers>
@@ -106,11 +106,11 @@ Na przykład Oto wpis utworzone w celu zarejestrowania domyślny dostawca progra
 </providers>
 ```  
 
-## <a name="interceptors-ef61-onwards"></a>Interceptory (EF6.1 lub nowszy)  
+## <a name="interceptors-ef61-onwards"></a>Interceptory (EF 6.1 i nowsze)  
 
-Uruchamianie EF6.1 można zarejestrować interceptory w pliku konfiguracji. Interceptory umożliwiają uruchamianie dodatkowej logiki, gdy EF wykonuje niektóre operacje, takie jak wykonywanie kwerend bazy danych otwarcia połączeń, itp.  
+Począwszy od EF 6.1, można zarejestrować Interceptory w pliku konfiguracji. Interceptory umożliwiają uruchamianie dodatkowej logiki, gdy EF wykonuje pewne operacje, takie jak wykonywanie zapytań bazy danych, otwieranie połączeń itp.  
 
-Interceptory są rejestrowane przez dołączenie **interceptor** pod **interceptory** części podrzędnej **entityFramework** sekcji. Na przykład następująca konfiguracja rejestruje wbudowane **DatabaseLogger** interceptor, która zarejestruje wszystkie operacje bazy danych do konsoli.  
+Interceptory są rejestrowane przez dołączenie elementu **interceptora** w sekcji podrzędnej **Interceptory** w sekcji **entityFramework** . Na przykład następująca konfiguracja rejestruje wbudowany Interceptor **DatabaseLogger** , który będzie rejestrował wszystkie operacje bazy danych w konsoli programu.  
 
 ``` xml  
 <interceptors>
@@ -118,9 +118,9 @@ Interceptory są rejestrowane przez dołączenie **interceptor** pod **intercept
 </interceptors>
 ```  
 
-### <a name="logging-database-operations-to-a-file-ef61-onwards"></a>Rejestrowanie operacji bazy danych do pliku (EF6.1 lub nowszy)  
+### <a name="logging-database-operations-to-a-file-ef61-onwards"></a>Rejestrowanie operacji bazy danych w pliku (EF 6.1 lub nowszym)  
 
-Rejestrowanie interceptory za pomocą pliku konfiguracji jest szczególnie przydatne w przypadku, gdy użytkownik chce dodać rejestrowania do istniejącej aplikacji, aby pomóc w debugowaniu problemu. **DatabaseLogger** obsługuje rejestrowanie do pliku przez podanie nazwy pliku jako parametr konstruktora.  
+Rejestrowanie przechwyceń za pośrednictwem pliku konfiguracji jest szczególnie przydatne w przypadku dodawania rejestrowania do istniejącej aplikacji w celu ułatwienia debugowania problemu. **DatabaseLogger** obsługuje rejestrowanie do pliku, dostarczając nazwę pliku jako parametr konstruktora.  
 
 ``` xml  
 <interceptors>
@@ -132,7 +132,7 @@ Rejestrowanie interceptory za pomocą pliku konfiguracji jest szczególnie przyd
 </interceptors>
 ```  
 
-Domyślnie to spowoduje, że plik dziennika zostaną zastąpione za pomocą nowego pliku każdym uruchomieniu aplikacji. Aby dołączyć do dziennika pliku Jeśli już istnieje Użyj podobny do:  
+Domyślnie spowoduje to zastąpienie pliku dziennika nowym plikiem przy każdym uruchomieniu aplikacji. Aby zamiast tego dołączyć do pliku dziennika, jeśli już istnieje, można go użyć:  
 
 ``` xml  
 <interceptors>
@@ -145,20 +145,20 @@ Domyślnie to spowoduje, że plik dziennika zostaną zastąpione za pomocą nowe
 </interceptors>
 ```  
 
-Aby uzyskać dodatkowe informacje na temat **DatabaseLogger** i rejestrowanie interceptory, zobacz wpis w blogu [EF 6.1: włączenie rejestrowania bez konieczności ponownego kompilowania](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/).  
+Aby uzyskać dodatkowe informacje na temat **DatabaseLogger** i rejestrowania interceptorów, zobacz wpis [w blogu EF 6,1: Włączenie rejestrowania bez ponownego kompilowania](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/).  
 
-## <a name="code-first-default-connection-factory"></a>Fabryka połączenia domyślne pierwszy kodu  
+## <a name="code-first-default-connection-factory"></a>Code First domyślną fabrykę połączeń  
 
-Sekcja konfiguracji pozwala określić domyślną fabrykę połączenia, która Code First powinna być używana do lokalizowania bazę danych do użycia dla kontekstu. Domyślna fabryka połączenia jest używane tylko w sytuacji, gdy parametry połączenia, nie został dodany do pliku konfiguracji dla kontekstu.  
+Sekcja konfiguracji umożliwia określenie domyślnej fabryki połączeń, która Code First powinna być używana do lokalizowania bazy danych używanej w kontekście. Domyślna fabryka połączeń jest używana tylko wtedy, gdy żadne parametry połączenia nie zostały dodane do pliku konfiguracji dla kontekstu.  
 
-Po zainstalowaniu pakietu NuGet programu EF domyślną fabrykę połączenia został zarejestrowany, wskazujący SQL Express lub LocalDB, w zależności od tego, który z nich został zainstalowany.  
+Po zainstalowaniu pakietu NuGet EF zarejestrowano domyślną fabrykę połączeń, która wskazuje na SQL Express lub LocalDB, w zależności od tego, który z nich jest zainstalowany.  
 
-Aby ustawić fabryka połączenia, określ nazwę typu kwalifikowanego zestawu w **defaultConnectionFactory** elementu.  
+Aby ustawić fabrykę połączeń, należy określić nazwę typu kwalifikowanego zestawu w elemencie **defaultConnectionFactory** .  
 
 > [!NOTE]
-> Kwalifikowana nazwa zestawu jest kwalifikowana nazwa przestrzeni nazw, a następnie przecinek, następnie zestawu, który typ, który znajduje się w. Opcjonalnie możesz również określić zestaw wersji, kulturę i token klucza publicznego.  
+> Kwalifikowana nazwa zestawu to kwalifikowana nazwa przestrzeni nazw, a następnie przecinek, a następnie zestaw, w którym znajduje się ten typ. Opcjonalnie można również określić wersję zestawu, kulturę i token klucza publicznego.  
 
-Poniżej przedstawiono przykładową konfigurację własnych domyślną fabrykę połączenia:  
+Oto przykład ustawiania domyślnej fabryki połączeń:  
 
 ``` xml  
 <entityFramework>
@@ -166,9 +166,9 @@ Poniżej przedstawiono przykładową konfigurację własnych domyślną fabrykę
 </entityFramework>
 ```  
 
-Powyższy przykład wymaga niestandardowych fabryki, aby mieć konstruktora bez parametrów. Jeśli to konieczne, można określić parametry konstruktora przy użyciu **parametry** elementu.  
+Powyższy przykład wymaga, aby fabryka niestandardowa miała konstruktora bez parametrów. W razie konieczności można określić parametry konstruktora przy użyciu elementu **Parameters** .  
 
-Na przykład SqlCeConnectionFactory, który znajduje się w programie Entity Framework, wymaga podania nazwę niezmienną dostawcy do konstruktora. Nazwa niezmienna dostawcy identyfikuje wersję programu SQL Compact chcesz użyć. Następująca konfiguracja spowoduje, że kontekst do użycia w wersji SQL Compact 4.0 domyślnie.  
+Na przykład SqlCeConnectionFactory, który jest zawarty w Entity Framework, wymaga podania niezmiennej nazwy dostawcy do konstruktora. Niezmienna nazwa dostawcy identyfikuje wersję programu SQL Compact, której chcesz użyć. Następująca konfiguracja spowoduje, że konteksty domyślnie korzystają z programu SQL Compact w wersji 4,0.  
 
 ``` xml  
 <entityFramework>
@@ -180,9 +180,9 @@ Na przykład SqlCeConnectionFactory, który znajduje się w programie Entity Fra
 </entityFramework>
 ```  
 
-Jeśli nie ustawisz domyślną fabrykę połączenia Code First używa SqlConnectionFactory, wskazując `.\SQLEXPRESS`. SqlConnectionFactory również ma konstruktora, który zezwala na zastąpienie części ciągu połączenia. Jeśli chcesz użyć wystąpienia programu SQL Server w innych niż `.\SQLEXPRESS` można skonfigurować serwera, można użyć tego konstruktora.  
+Jeśli nie ustawisz domyślnej fabryki połączeń, Code First używa SqlConnectionFactory, wskazując na `.\SQLEXPRESS`. SqlConnectionFactory ma także konstruktora, który umożliwia przesłonięcie części parametrów połączenia. Jeśli chcesz użyć wystąpienia SQL Server innego niż `.\SQLEXPRESS` można użyć tego konstruktora do ustawienia serwera.  
 
-Następująca konfiguracja spowoduje, że Code First użyć **MyDatabaseServer** dla kontekstów, które nie mają ciągu jawne połączenie zestawu.  
+Następująca konfiguracja spowoduje, że Code First używać **MyDatabaseServer** dla kontekstów, które nie mają jawnie ustawionych parametrów połączenia.  
 
 ``` xml  
 <entityFramework>
@@ -194,7 +194,7 @@ Następująca konfiguracja spowoduje, że Code First użyć **MyDatabaseServer**
 </entityFramework>
 ```  
 
-Domyślnie zakłada się, że argumenty konstruktora są typu ciąg. Aby zmienić to ustawienie, można użyć tego typu atrybutu.  
+Domyślnie przyjmuje się, że argumenty konstruktora są typu String. Możesz użyć atrybutu typu, aby to zmienić.  
 
 ``` xml
 <parameter value="2" type="System.Int32" />
@@ -202,11 +202,11 @@ Domyślnie zakłada się, że argumenty konstruktora są typu ciąg. Aby zmieni�
 
 ## <a name="database-initializers"></a>Inicjatory bazy danych  
 
-Inicjatory bazy danych są skonfigurowane na podstawie na kontekście. Można je skonfigurować przy użyciu pliku konfiguracji **kontekstu** elementu. Ten element używa nazwy kwalifikowanej zestawu do zidentyfikowania kontekstu jest skonfigurowany.  
+Inicjatory bazy danych są konfigurowane dla poszczególnych kontekstów. Można je ustawić w pliku konfiguracji przy użyciu elementu **Context** . Ten element używa kwalifikowanej nazwy zestawu do identyfikowania konfigurowanego kontekstu.  
 
-Domyślnie program Code First kontekstów są skonfigurowane do używania inicjatora CreateDatabaseIfNotExists. Brak **disableDatabaseInitialization** atrybutu na **kontekstu** element, który może służyć do wyłączenia inicjowanie bazy danych.  
+Domyślnie konteksty Code First są skonfigurowane do używania inicjatora CreateDatabaseIfNotExists. W elemencie **kontekstu** istnieje atrybut **disableDatabaseInitialization** , którego można użyć do wyłączenia inicjowania bazy danych.  
 
-Na przykład następująca konfiguracja wyłącza inicjowanie bazy danych dla kontekstu Blogging.BlogContext zdefiniowane w MyAssembly.dll.  
+Na przykład następująca konfiguracja wyłącza inicjalizację bazy danych dla kontekstu blog. BlogContext zdefiniowanego w pliku. dll.  
 
 ``` xml  
 <contexts>
@@ -214,7 +214,7 @@ Na przykład następująca konfiguracja wyłącza inicjowanie bazy danych dla ko
 </contexts>
 ```  
 
-Możesz użyć **databaseInitializer** elementu, aby ustawić niestandardowe inicjatora.  
+Można użyć elementu **databaseInitializer** , aby ustawić inicjatora niestandardowego.  
 
 ``` xml
 <contexts>
@@ -224,7 +224,7 @@ Możesz użyć **databaseInitializer** elementu, aby ustawić niestandardowe ini
 </contexts>
 ```  
 
-Parametry Konstruktora użyć tej samej składni jako domyślnego połączenia fabryk.  
+Parametry konstruktora używają tej samej składni co domyślne fabryki połączeń.  
 
 ``` xml  
 <contexts>
@@ -238,9 +238,9 @@ Parametry Konstruktora użyć tej samej składni jako domyślnego połączenia f
 </contexts>
 ```  
 
-Można skonfigurować jeden inicjatory ogólną bazę danych, które są objęte Entity Framework. **Typu** atrybutu używa formatu .NET Framework dla typów ogólnych.  
+Istnieje możliwość skonfigurowania jednego z inicjatorów ogólnych baz danych, które znajdują się w Entity Framework. Atrybut **Type** używa formatu .NET Framework dla typów ogólnych.  
 
-Na przykład, jeśli używasz migracje Code First można skonfigurować bazy danych powinny być migrowane automatycznie przy użyciu `MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>` inicjatora.  
+Na przykład, jeśli używasz migracje Code First, można skonfigurować bazę danych do automatycznego migrowania przy użyciu `MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>` inicjatora.  
 
 ``` xml
 <contexts>
