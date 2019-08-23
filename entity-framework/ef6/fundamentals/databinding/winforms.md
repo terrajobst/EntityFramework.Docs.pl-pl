@@ -3,12 +3,12 @@ title: Wiązanie danych z WinForms-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
-ms.openlocfilehash: ad55ef4d496bbfe30eafcab9811c92989066519f
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 3c7c58f5ded29c136bbdca1d81c64b07c53ce583
+ms.sourcegitcommit: 7391cc31193c1216ec9ed485709042ad0c2106cf
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306560"
+ms.lasthandoff: 08/23/2019
+ms.locfileid: "69985469"
 ---
 # <a name="databinding-with-winforms"></a>Wiązanie danych z WinForms
 W tym przewodniku krok po kroku pokazano, jak powiązać typy POCO z kontrolkami formularzy okien (WinForms) w formularzu "wzorzec-szczegóły". Aplikacja używa Entity Framework do wypełniania obiektów danymi z bazy danych, śledzenia zmian i utrwalania danych w bazie danych.
@@ -134,7 +134,7 @@ W przypadku korzystania z Code First projektowania zwykle zaczynasz od pisania k
     }
 ```
 
-Oprócz definiowania jednostek należy zdefiniować klasę, która dziedziczy z DbContext i uwidacznia właściwości  **nieogólnymi&lt;&gt;**  . Właściwości **nieogólnymi** umożliwiają kontekstowi znać typy, które mają zostać uwzględnione w modelu. Typy **DbContext** i **nieogólnymi** są zdefiniowane w zestawie EntityFramework.
+Oprócz definiowania jednostek należy zdefiniować klasę, która dziedziczy z DbContext i uwidacznia właściwości **nieogólnymi&lt;&gt;**  . Właściwości **nieogólnymi** umożliwiają kontekstowi znać typy, które mają zostać uwzględnione w modelu. Typy **DbContext** i **nieogólnymi** są zdefiniowane w zestawie EntityFramework.
 
 Wystąpienie typu pochodnego DbContext zarządza obiektami obiektów w czasie wykonywania, co obejmuje wypełnianie obiektów danymi z bazy danych, śledzenie zmian i utrwalanie danych w bazie danych.
 
@@ -240,7 +240,7 @@ Po zakończeniu procesu odtwarzania nowy model zostanie dodany do projektu i otw
 Jeśli pracujesz w programie Visual Studio 2010, musisz zaktualizować projektanta EF, aby korzystał z generowania kodu EF6.
 
 -   Kliknij prawym przyciskiem myszy pusty punkt w modelu w programie Dr Designer i wybierz polecenie **Dodaj element generowania kodu...**
--   Wybierz pozycję **Szablony online** z menu po lewej stronie i  Wyszukaj w usłudze DbContext
+-   Wybierz pozycję **Szablony online** z menu po lewej stronie i Wyszukaj w usłudze DbContext
 -   Wybierz pozycję **Dr 6. x DbContext generator dla języka\#C,** wprowadź **ProductsModel** jako nazwę i kliknij przycisk Dodaj.
 
 #### <a name="updating-code-generation-for-data-binding"></a>Aktualizowanie generowania kodu dla powiązania danych
@@ -267,7 +267,7 @@ Właściwości **Products** klasy **Category** i **Category** klasy **Product** 
 
 EF oferuje opcję ładowania powiązanych jednostek z bazy danych automatycznie przy pierwszym dostępie do właściwości nawigacji. W przypadku tego typu ładowania (nazywanego ładowaniem opóźnionym) należy pamiętać, że podczas pierwszego uzyskiwania dostępu do każdej właściwości nawigacji oddzielne zapytanie zostanie wykonane względem bazy danych, jeśli zawartość nie jest jeszcze w kontekście.
 
-W przypadku korzystania z typów jednostek POCO EF osiąga opóźnione ładowanie przez utworzenie wystąpień pochodnych typów proxy podczas wykonywania, a następnie Zastępowanie właściwości wirtualnych w klasach, aby dodać punkt zaczepienia ładowania. Aby uzyskać opóźnione ładowanie pokrewnych obiektów, należy zadeklarować metody do pobierania właściwości nawigacji jako **publiczne** i **wirtualne** (Zastąp**w Visual Basic** ), a Klasa nie może być **zapieczętowana** (**NotOverridable** w Visual Basic). Przy użyciu Database First właściwości nawigacji są automatycznie wprowadzane do wirtualnego, aby umożliwić ładowanie z opóźnieniem. W sekcji Code First wybrano, aby właściwości nawigacji były wirtualne z tego samego powodu
+W przypadku korzystania z typów jednostek POCO EF osiąga opóźnione ładowanie przez utworzenie wystąpień pochodnych typów proxy podczas wykonywania, a następnie Zastępowanie właściwości wirtualnych w klasach, aby dodać punkt zaczepienia ładowania. Aby uzyskać opóźnione ładowanie pokrewnych obiektów, należy zadeklarować metody do pobierania właściwości nawigacji jako **publiczne** i **wirtualne** (Zastąp w Visual Basic), a Klasa nie może być **zapieczętowana** (**NotOverridable** w Visual Basic). Przy użyciu Database First właściwości nawigacji są automatycznie wprowadzane do wirtualnego, aby umożliwić ładowanie z opóźnieniem. W sekcji Code First wybrano, aby właściwości nawigacji były wirtualne z tego samego powodu
 
 ## <a name="bind-object-to-controls"></a>Powiąż obiekt z kontrolkami
 
@@ -280,8 +280,8 @@ Dodaj klasy, które są zdefiniowane w modelu jako źródła danych dla tej apli
 
     ![Źródło danych](~/ef6/media/datasource.png)
 
--   Kliknij przycisk **Zakończ.** Jeśli okno *źródła danych nie jest wyświetlane, wybierz pozycję * * * Widok —&gt; inne&gt; źródła danych.* 
-    *
+-   Kliknij przycisk **Zakończ.**
+    Jeśli okno źródła danych nie jest wyświetlane, wybierz pozycję **Widok —&gt; inne okna&gt; — źródła danych**
 -   Naciśnij ikonę pinezki, aby okno źródła danych nie było ukrywane. Może być konieczne kliknięcie przycisku Odśwież, jeśli okno było już widoczne.
 
     ![Źródło danych 2](~/ef6/media/datasource2.png)
