@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 2712845512d9eb349ef3a7e14f4365327db0fcd6
-ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
+ms.openlocfilehash: 28b2180e898b91d233b590b1639674a464f8c679
+ms.sourcegitcommit: 0cc9578fd49802789a00c0044b4e57325476ca2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69565340"
+ms.lasthandoff: 09/04/2019
+ms.locfileid: "70271433"
 ---
 # <a name="new-features-in-ef-core-20"></a>Nowe funkcje w EF Core 2,0
 
@@ -65,7 +65,7 @@ public class StreetAddress
     public string City { get; set; }
 }
 ```
-Aby uzyskać więcej informacji na temat tej funkcji, zapoznaj się z sekcją należącej do [typów jednostek](xref:core/modeling/owned-entities) .
+Aby uzyskać więcej informacji na temat tej funkcji, zapoznaj się z [sekcją należącej do typów jednostek](xref:core/modeling/owned-entities) .
 
 ### <a name="model-level-query-filters"></a>Filtry zapytań na poziomie modelu
 
@@ -303,7 +303,7 @@ Zapewnia to bardziej niezawodne rozwiązanie w firmie Microsoft. Data. sqlite do
 ### <a name="only-one-provider-per-model"></a>Tylko jeden dostawca na model
 Znacznie rozszerza, jak dostawcy mogą współdziałać z modelem i upraszczają konwencje, adnotacje i interfejsy API Fluent współpracują z różnymi dostawcami.
 
-EF Core 2,0 będzie teraz kompilować inne [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs) dla każdego używanego dostawcy. Jest to zazwyczaj przezroczyste dla aplikacji. Ułatwia to uproszczenie interfejsów API metadanych niższego poziomu, takich jak każdy dostęp do *wspólnych koncepcji metadanych relacyjnych* jest zawsze realizowany przez wywołanie `.Relational` zamiast `.SqlServer`, `.Sqlite`itp.
+EF Core 2,0 będzie teraz kompilować inne [IModel](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/Metadata/IModel.cs) dla każdego używanego dostawcy. Jest to zazwyczaj przezroczyste dla aplikacji. Ułatwia to uproszczenie interfejsów API metadanych niższego poziomu, takich jak każdy dostęp do *wspólnych koncepcji metadanych relacyjnych* jest zawsze realizowany przez wywołanie `.Relational` zamiast `.SqlServer`, `.Sqlite`itp.
 
 ### <a name="consolidated-logging-and-diagnostics"></a>Rejestrowanie skonsolidowane i Diagnostyka
 
@@ -311,6 +311,6 @@ Rejestrowanie (oparte na ILogger) i Diagnostyka (oparta na DiagnosticSource) ter
 
 Identyfikatory zdarzeń dla komunikatów wysyłanych do ILogger uległy zmianie w 2,0. Identyfikatory zdarzeń są teraz unikatowe w EF Core kodzie. Te komunikaty są teraz zgodne ze standardowym wzorcem rejestrowania strukturalnego używanego przez program, na przykład MVC.
 
-Zmieniono także kategorie rejestratora. Istnieje teraz dobrze znany zestaw kategorii, do których można uzyskać dostęp za pomocą [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs).
+Zmieniono także kategorie rejestratora. Istnieje teraz dobrze znany zestaw kategorii, do których można uzyskać dostęp za pomocą [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/DbLoggerCategory.cs).
 
 Zdarzenia DiagnosticSource teraz używają tych samych nazw identyfikatorów zdarzeń co odpowiadające `ILogger` im komunikaty.
