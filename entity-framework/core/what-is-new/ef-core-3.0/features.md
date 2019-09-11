@@ -79,8 +79,8 @@ Podczas wykonywania zapytania, EF Core zostanie ustawiona `OrderDetails` na `nul
 
 ## <a name="c-80-support"></a>C#Obsługa 8,0
 
-[](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
-Problem ze śledzeniem #12047[śledzenia problemów #10347](https://github.com/aspnet/EntityFrameworkCore/issues/10347)
+[Problem ze śledzeniem #12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
+[śledzenia problemów #10347](https://github.com/aspnet/EntityFrameworkCore/issues/10347)
 
 Pracę nad tą funkcją uruchomiono, ale nie jest ona uwzględniona w bieżącej wersji zapoznawczej.
 
