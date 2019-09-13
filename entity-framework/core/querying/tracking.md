@@ -1,30 +1,30 @@
 ---
-title: Śledzenie programu vs. Zapytania śledzenia nie — EF Core
+title: Śledzenie a Zapytania bez śledzenia — EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: 6c5d516fcb3950ae168860029660e1b1061546b8
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: d93be5c2b727d8fbaddd103f8f367c699ae80a7c
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668781"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921656"
 ---
-# <a name="tracking-vs-no-tracking-queries"></a><span data-ttu-id="4be88-102">Śledzenie programu vs. Bez śledzenia zapytań</span><span class="sxs-lookup"><span data-stu-id="4be88-102">Tracking vs. No-Tracking Queries</span></span>
+# <a name="tracking-vs-no-tracking-queries"></a><span data-ttu-id="72fd9-102">Śledzenie a Zapytania bez śledzenia</span><span class="sxs-lookup"><span data-stu-id="72fd9-102">Tracking vs. No-Tracking Queries</span></span>
 
-<span data-ttu-id="4be88-103">Czy platformy Entity Framework Core przechowuje informacje o wystąpienie jednostki w jego śledzenie zmian do śledzenia zachowania formantów.</span><span class="sxs-lookup"><span data-stu-id="4be88-103">Tracking behavior controls whether or not Entity Framework Core will keep information about an entity instance in its change tracker.</span></span> <span data-ttu-id="4be88-104">Jeśli jednostka jest śledzona, wszelkie zmiany wykryte w jednostce zostaną utrwalone w bazie danych podczas `SaveChanges()`.</span><span class="sxs-lookup"><span data-stu-id="4be88-104">If an entity is tracked, any changes detected in the entity will be persisted to the database during `SaveChanges()`.</span></span> <span data-ttu-id="4be88-105">Entity Framework Core będzie również konfigurowania właściwości nawigacji między jednostkami, które są uzyskiwane z zapytania śledzenia i jednostek, które wcześniej zostały załadowane do wystąpienia typu DbContext.</span><span class="sxs-lookup"><span data-stu-id="4be88-105">Entity Framework Core will also fix-up navigation properties between entities that are obtained from a tracking query and entities that were previously loaded into the DbContext instance.</span></span>
+<span data-ttu-id="72fd9-103">Śledzenie zachowania kontroluje, czy Entity Framework Core będą utrzymywać informacje o wystąpieniu jednostki w jego monitorze zmian.</span><span class="sxs-lookup"><span data-stu-id="72fd9-103">Tracking behavior controls whether or not Entity Framework Core will keep information about an entity instance in its change tracker.</span></span> <span data-ttu-id="72fd9-104">Jeśli jednostka jest śledzona, wszelkie zmiany wykryte w jednostce zostaną utrwalone w bazie danych w trakcie `SaveChanges()`.</span><span class="sxs-lookup"><span data-stu-id="72fd9-104">If an entity is tracked, any changes detected in the entity will be persisted to the database during `SaveChanges()`.</span></span> <span data-ttu-id="72fd9-105">Entity Framework Core również poprawi właściwości nawigacji między jednostkami uzyskanymi z zapytania śledzenia i jednostek, które zostały wcześniej załadowane do wystąpienia DbContext.</span><span class="sxs-lookup"><span data-stu-id="72fd9-105">Entity Framework Core will also fix-up navigation properties between entities that are obtained from a tracking query and entities that were previously loaded into the DbContext instance.</span></span>
 
 > [!TIP]  
-> <span data-ttu-id="4be88-106">[Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.</span><span class="sxs-lookup"><span data-stu-id="4be88-106">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) on GitHub.</span></span>
+> <span data-ttu-id="72fd9-106">[Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.</span><span class="sxs-lookup"><span data-stu-id="72fd9-106">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) on GitHub.</span></span>
 
-## <a name="tracking-queries"></a><span data-ttu-id="4be88-107">Śledzenia zapytań</span><span class="sxs-lookup"><span data-stu-id="4be88-107">Tracking queries</span></span>
+## <a name="tracking-queries"></a><span data-ttu-id="72fd9-107">Zapytania śledzenia</span><span class="sxs-lookup"><span data-stu-id="72fd9-107">Tracking queries</span></span>
 
-<span data-ttu-id="4be88-108">Domyślnie są śledzenia zapytań, które zwracają typów jednostek.</span><span class="sxs-lookup"><span data-stu-id="4be88-108">By default, queries that return entity types are tracking.</span></span> <span data-ttu-id="4be88-109">Oznacza to, można wprowadzić zmiany do tych wystąpień jednostki i utrwalonych te zmiany przez `SaveChanges()`.</span><span class="sxs-lookup"><span data-stu-id="4be88-109">This means you can make changes to those entity instances and have those changes persisted by `SaveChanges()`.</span></span>
+<span data-ttu-id="72fd9-108">Domyślnie zapytania zwracające typy jednostek są śledzone.</span><span class="sxs-lookup"><span data-stu-id="72fd9-108">By default, queries that return entity types are tracking.</span></span> <span data-ttu-id="72fd9-109">Oznacza to, że można wprowadzać zmiany w tych wystąpieniach jednostek i mieć te zmiany `SaveChanges()`utrwalane przez program.</span><span class="sxs-lookup"><span data-stu-id="72fd9-109">This means you can make changes to those entity instances and have those changes persisted by `SaveChanges()`.</span></span>
 
-<span data-ttu-id="4be88-110">W poniższym przykładzie zostanie wykryte i utrwalone w bazie danych podczas zmiany klasyfikacji blogi `SaveChanges()`.</span><span class="sxs-lookup"><span data-stu-id="4be88-110">In the following example, the change to the blogs rating will be detected and persisted to the database during `SaveChanges()`.</span></span>
+<span data-ttu-id="72fd9-110">W poniższym przykładzie zmiana klasyfikacji blogów zostanie wykryta i utrwalona w bazie danych w trakcie `SaveChanges()`.</span><span class="sxs-lookup"><span data-stu-id="72fd9-110">In the following example, the change to the blogs rating will be detected and persisted to the database during `SaveChanges()`.</span></span>
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -34,13 +34,13 @@ using (var context = new BloggingContext())
 }
 ```
 
-## <a name="no-tracking-queries"></a><span data-ttu-id="4be88-111">Bez śledzenia zapytań</span><span class="sxs-lookup"><span data-stu-id="4be88-111">No-tracking queries</span></span>
+## <a name="no-tracking-queries"></a><span data-ttu-id="72fd9-111">Zapytania bez śledzenia</span><span class="sxs-lookup"><span data-stu-id="72fd9-111">No-tracking queries</span></span>
 
-<span data-ttu-id="4be88-112">Nie śledzenia zapytań są przydatne, gdy wyniki są używane w scenariuszu tylko do odczytu.</span><span class="sxs-lookup"><span data-stu-id="4be88-112">No tracking queries are useful when the results are used in a read-only scenario.</span></span> <span data-ttu-id="4be88-113">Są one szybsze wykonywanie, ponieważ nie ma potrzeby informacje o monitorowaniu zmian konfiguracji.</span><span class="sxs-lookup"><span data-stu-id="4be88-113">They are quicker to execute because there is no need to setup change tracking information.</span></span>
+<span data-ttu-id="72fd9-112">Zapytania śledzenia nie są przydatne, gdy wyniki są używane w scenariuszu tylko do odczytu.</span><span class="sxs-lookup"><span data-stu-id="72fd9-112">No tracking queries are useful when the results are used in a read-only scenario.</span></span> <span data-ttu-id="72fd9-113">Są one szybciej wykonywane, ponieważ nie ma potrzeby konfigurowania informacji o śledzeniu zmian.</span><span class="sxs-lookup"><span data-stu-id="72fd9-113">They are quicker to execute because there is no need to setup change tracking information.</span></span>
 
-<span data-ttu-id="4be88-114">Można wymienić określone zapytanie do śledzenia nie można:</span><span class="sxs-lookup"><span data-stu-id="4be88-114">You can swap an individual query to be no-tracking:</span></span>
+<span data-ttu-id="72fd9-114">Pojedyncze zapytanie można zamienić na brak śledzenia:</span><span class="sxs-lookup"><span data-stu-id="72fd9-114">You can swap an individual query to be no-tracking:</span></span>
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=4)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=4)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -50,9 +50,9 @@ using (var context = new BloggingContext())
 }
 ```
 
-<span data-ttu-id="4be88-115">Możesz również zmienić domyślne zachowanie na poziomie wystąpienia kontekstu śledzenia:</span><span class="sxs-lookup"><span data-stu-id="4be88-115">You can also change the default tracking behavior at the context instance level:</span></span>
+<span data-ttu-id="72fd9-115">Możesz również zmienić domyślne zachowanie śledzenia na poziomie wystąpienia kontekstu:</span><span class="sxs-lookup"><span data-stu-id="72fd9-115">You can also change the default tracking behavior at the context instance level:</span></span>
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=3)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=3)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -63,13 +63,13 @@ using (var context = new BloggingContext())
 ```
 
 > [!NOTE]  
-> <span data-ttu-id="4be88-116">Nie śledzenia zapytań w dalszym ciągu wykonywać rozwiązanie tożsamości w ramach wykonywania zapytania.</span><span class="sxs-lookup"><span data-stu-id="4be88-116">No tracking queries still perform identity resolution within the executing query.</span></span> <span data-ttu-id="4be88-117">Jeśli zestaw wyników zawiera tej samej jednostki wiele razy, to samo wystąpienie elementu Klasa jednostki zostanie zwrócony dla każdego wystąpienia w zestawie wyników.</span><span class="sxs-lookup"><span data-stu-id="4be88-117">If the result set contains the same entity multiple times, the same instance of the entity class will be returned for each occurrence in the result set.</span></span> <span data-ttu-id="4be88-118">Jednak słabe odwołania są używane do śledzenia jednostek, które już zostały zwrócone.</span><span class="sxs-lookup"><span data-stu-id="4be88-118">However, weak references are used to keep track of entities that have already been returned.</span></span> <span data-ttu-id="4be88-119">Jeśli poprzedni wynik z tą samą tożsamością wykracza poza zakres, a następnie uruchamia wyrzucanie elementów bezużytecznych, może pojawić się nowe wystąpienie jednostki.</span><span class="sxs-lookup"><span data-stu-id="4be88-119">If a previous result with the same identity goes out of scope, and garbage collection runs, you may get a new entity instance.</span></span> <span data-ttu-id="4be88-120">Aby uzyskać więcej informacji, zobacz [jak działa zapytanie](overview.md).</span><span class="sxs-lookup"><span data-stu-id="4be88-120">For more information, see [How Query Works](overview.md).</span></span>
+> <span data-ttu-id="72fd9-116">Żadne zapytania śledzenia nadal nie wykonują rozpoznawania tożsamości w ramach wykonywania zapytania.</span><span class="sxs-lookup"><span data-stu-id="72fd9-116">No tracking queries still perform identity resolution within the executing query.</span></span> <span data-ttu-id="72fd9-117">Jeśli zestaw wyników zawiera tę samą jednostkę wiele razy, to samo wystąpienie klasy Entity zostanie zwrócone dla każdego wystąpienia w zestawie wyników.</span><span class="sxs-lookup"><span data-stu-id="72fd9-117">If the result set contains the same entity multiple times, the same instance of the entity class will be returned for each occurrence in the result set.</span></span> <span data-ttu-id="72fd9-118">Jednak słabe odwołania są używane do śledzenia jednostek, które zostały już zwrócone.</span><span class="sxs-lookup"><span data-stu-id="72fd9-118">However, weak references are used to keep track of entities that have already been returned.</span></span> <span data-ttu-id="72fd9-119">Jeśli poprzedni wynik z tą samą tożsamością wykracza poza zakres i zostanie uruchomione odzyskiwanie pamięci, może zostać wyświetlone nowe wystąpienie jednostki.</span><span class="sxs-lookup"><span data-stu-id="72fd9-119">If a previous result with the same identity goes out of scope, and garbage collection runs, you may get a new entity instance.</span></span> <span data-ttu-id="72fd9-120">Aby uzyskać więcej informacji, zobacz [jak działa zapytanie](overview.md).</span><span class="sxs-lookup"><span data-stu-id="72fd9-120">For more information, see [How Query Works](overview.md).</span></span>
 
-## <a name="tracking-and-projections"></a><span data-ttu-id="4be88-121">Śledzenie i projekcji</span><span class="sxs-lookup"><span data-stu-id="4be88-121">Tracking and projections</span></span>
+## <a name="tracking-and-projections"></a><span data-ttu-id="72fd9-121">Śledzenie i projekcje</span><span class="sxs-lookup"><span data-stu-id="72fd9-121">Tracking and projections</span></span>
 
-<span data-ttu-id="4be88-122">Nawet jeśli typ wyniku zapytania nie jest typem jednostki, jeśli wynik zawiera typy jednostek nadal będą one śledzone domyślnie.</span><span class="sxs-lookup"><span data-stu-id="4be88-122">Even if the result type of the query isn't an entity type, if the result contains entity types they will still be tracked by default.</span></span> <span data-ttu-id="4be88-123">W następującym zapytaniu, która zwraca typ anonimowy, wystąpienia `Blog` w wyniku będą śledzone zestawu.</span><span class="sxs-lookup"><span data-stu-id="4be88-123">In the following query, which returns an anonymous type, the instances of `Blog` in the result set will be tracked.</span></span>
+<span data-ttu-id="72fd9-122">Nawet jeśli typ wyniku zapytania nie jest typem jednostki, jeśli wynik zawiera typy jednostek, nadal będą domyślnie śledzone.</span><span class="sxs-lookup"><span data-stu-id="72fd9-122">Even if the result type of the query isn't an entity type, if the result contains entity types they will still be tracked by default.</span></span> <span data-ttu-id="72fd9-123">W poniższym zapytaniu, które zwraca typ anonimowy, wystąpienia `Blog` w zestawie wyników będą śledzone.</span><span class="sxs-lookup"><span data-stu-id="72fd9-123">In the following query, which returns an anonymous type, the instances of `Blog` in the result set will be tracked.</span></span>
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=7)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=7)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -83,9 +83,9 @@ using (var context = new BloggingContext())
 }
 ```
 
-<span data-ttu-id="4be88-124">Jeśli zestaw wyników nie zawiera żadnych typów jednostek, Brak śledzenia jest wykonywana.</span><span class="sxs-lookup"><span data-stu-id="4be88-124">If the result set does not contain any entity types, then no tracking is performed.</span></span> <span data-ttu-id="4be88-125">W następującym zapytaniu, która zwraca typ anonimowy z niektórych wartości z jednostki (ale nie wystąpień typu rzeczywistego jednostek) nie jest Brak śledzenia wykonywane.</span><span class="sxs-lookup"><span data-stu-id="4be88-125">In the following query, which returns an anonymous type with some of the values from the entity (but no instances of the actual entity type), there is no tracking performed.</span></span>
+<span data-ttu-id="72fd9-124">Jeśli zestaw wyników nie zawiera żadnych typów jednostek, śledzenie nie jest wykonywane.</span><span class="sxs-lookup"><span data-stu-id="72fd9-124">If the result set does not contain any entity types, then no tracking is performed.</span></span> <span data-ttu-id="72fd9-125">W poniższym zapytaniu, które zwraca typ anonimowy z niektórymi wartościami z jednostki (ale nie wystąpienia rzeczywistego typu jednostki), nie wykonano śledzenia.</span><span class="sxs-lookup"><span data-stu-id="72fd9-125">In the following query, which returns an anonymous type with some of the values from the entity (but no instances of the actual entity type), there is no tracking performed.</span></span>
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
