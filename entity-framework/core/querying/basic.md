@@ -1,30 +1,30 @@
 ---
-title: Podstawowe zapytania — EF Core
+title: Zapytania podstawowe — EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ab6e35f1-397f-41c0-9ef4-85aec5466377
 uid: core/querying/basic
-ms.openlocfilehash: 6a381f419cb0958ea0835070e22fe7a3212457d7
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 49daa0d37175244617993cc6e911cbd59d27079f
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993708"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921742"
 ---
-# <a name="basic-queries"></a>Podstawowe zapytania
+# <a name="basic-queries"></a>Zapytania podstawowe
 
-Dowiedz się, jak można załadować jednostek z bazy danych przy użyciu Language Integrated Query (LINQ).
+Dowiedz się, jak ładować jednostki z bazy danych za pomocą programu Language Integrated Query (LINQ).
 
 > [!TIP]  
 > [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
-## <a name="101-linq-samples"></a>101 przykładów LINQ
+## <a name="101-linq-samples"></a>Przykłady dla LINQ 101
 
-Ta strona zawiera kilka przykładów, aby osiągnąć typowych zadań przy użyciu platformy Entity Framework Core. Aby uzyskać obszerny zestaw przykładów pokazujący, co jest możliwe za pomocą LINQ, zobacz [101 przykładów LINQ](https://code.msdn.microsoft.com/101-LINQ-Samples-3fb9811b).
+Na tej stronie przedstawiono kilka przykładów umożliwiających wykonywanie typowych zadań z Entity Framework Core. Aby zapoznać się z obszernym zestawem próbek pokazujących, co jest możliwe za pomocą LINQ, zobacz [101 LINQ Samples](https://code.msdn.microsoft.com/101-LINQ-Samples-3fb9811b).
 
-## <a name="loading-all-data"></a>Podczas ładowania wszystkie dane
+## <a name="loading-all-data"></a>Ładowanie wszystkich danych
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Basics/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Basics/Sample.cs)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -32,9 +32,9 @@ using (var context = new BloggingContext())
 }
 ```
 
-## <a name="loading-a-single-entity"></a>Trwa ładowanie pojedynczej jednostki
+## <a name="loading-a-single-entity"></a>Ładowanie pojedynczej jednostki
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Basics/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Basics/Sample.cs)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -45,7 +45,7 @@ using (var context = new BloggingContext())
 
 ## <a name="filtering"></a>Filtrowanie
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Basics/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Basics/Sample.cs)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {

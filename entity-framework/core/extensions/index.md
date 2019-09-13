@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 01/07/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 08231cd93002a6d1b3cebe20f4f7cf57ea085af2
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 43b98c1f09a89f7e5451e28cbf2f78a2cb1040e5
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306404"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921763"
 ---
 # <a name="ef-core-tools--extensions"></a>Rozszerzenia narzędzi EF Core &
 
@@ -168,3 +168,9 @@ Rozszerza DbContext z funkcjami, takimi jak: Dołącz filtr, inspekcję, buforow
 Rozszerza swój kontekst dbwith operacji zbiorczych o wysokiej wydajności: BulkSaveChanges, BulkInsert, BulkUpdate, BulkDelete, BulkMerge i inne.
 
 [Witryny sieci Web](https://entityframework-extensions.net/)
+
+### <a name="reconciler"></a>Uzgadnianie
+
+Aktualizowanie grafu jednostki w sklepie do danego elementu przez wstawienie, zaktualizowanie i usunięcie odpowiednich jednostek.
+
+[Repozytorium GitHub](https://github.com/jtheisen/reconciler)

@@ -3,12 +3,12 @@ title: Zapytanie asynchroniczne i Save-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: bf2039110962e8dd114242dcd0b9454963750774
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: ae578976ffc88b407ef0aaa0017935005bedd093
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306582"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921631"
 ---
 # <a name="async-query-and-save"></a>Zapytanie asynchroniczne i zapisywanie
 > [!NOTE]
@@ -221,12 +221,14 @@ Aby uzyskać pełną listę dostępnych metod rozszerzenia w przestrzeni nazw Sy
 
 Teraz, gdy kod jest asynchroniczny, można obserwować inny przepływ wykonywania podczas uruchamiania programu:
 
-1.  **Metody SaveChanges** rozpoczyna wypychanie nowego **bloga** do bazy danych *po wysłaniu polecenia do bazy danych nie jest więcej czasu obliczeniowego w bieżącym wątku zarządzanym. Metoda **PerformDatabaseOperations** zwraca (nawet jeśli nie została ukończona), a przepływ programu w metodzie Main jest kontynuowany.*
-2.  **Cytat dnia jest zapisywana w konsoli**
-     *, ponieważ nie ma więcej pracy do wykonania w metodzie Main, zarządzany wątek jest blokowany na wywołanie oczekiwania do momentu zakończenia operacji bazy danych. Po zakończeniu zostanie wykonane pozostała część naszych **PerformDatabaseOperations** .*
-3.  **Metody SaveChanges**
-4.  Zapytanie dotyczące wszystkich **blogów** jest ponownie wysyłane do bazy *danych, ale zarządzany wątek jest bezpłatny do wykonywania innych czynności w czasie przetwarzania zapytania w bazie danych. Ponieważ wszystkie inne wykonania zostały ukończone, wątek zostanie po prostu zatrzymany na wywołaniu oczekiwania.*
-5.  Zapytania zwracane i wyniki są zapisywane w **konsoli**
+1. **Metody SaveChanges** rozpoczyna wypychanie nowego **bloga** do bazy danych  
+    *Po wysłaniu polecenia do bazy danych nie jest wymagany czas obliczeniowy w bieżącym wątku zarządzanym. Metoda **PerformDatabaseOperations** zwraca (nawet jeśli nie została ukończona), a przepływ programu w metodzie Main jest kontynuowany.*
+2. **Cytat dnia jest zapisywana w konsoli**  
+    *Ponieważ nie ma więcej pracy do wykonania w metodzie Main, zarządzany wątek jest blokowany na wywołanie oczekiwania do momentu zakończenia operacji bazy danych. Po zakończeniu zostanie wykonane pozostała część naszych **PerformDatabaseOperations** .*
+3.  **Metody SaveChanges**  
+4.  Zapytanie dotyczące wszystkich **blogów** jest wysyłane do bazy danych  
+    *Ponownie zarządzany wątek jest bezpłatny do wykonywania innych czynności w czasie przetwarzania zapytania w bazie danych. Ponieważ wszystkie inne wykonania zostały ukończone, wątek zostanie po prostu zatrzymany na wywołaniu oczekiwania.*
+5.  Zapytania zwracane i wyniki są zapisywane w **konsoli**  
 
 ![Asynchroniczne dane wyjściowe](~/ef6/media/asyncoutput.png) 
 

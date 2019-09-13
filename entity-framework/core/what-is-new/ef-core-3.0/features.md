@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: a71aa01e81d9830d7b9e6cb01c200851100a15df
-ms.sourcegitcommit: 87e72899d17602f7526d6ccd22f3c8ee844145df
+ms.openlocfilehash: d61fa884f4669daa220ffc96ae59dd63518e6d5a
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/20/2019
-ms.locfileid: "69628431"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921675"
 ---
 # <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Nowe funkcje zawarte w EF Core 3,0 (obecnie w wersji zapoznawczej)
 
@@ -94,15 +94,6 @@ Ta funkcja nie jest uwzględniona w bieżącej wersji zapoznawczej.
 
 [Typy zapytań](xref:core/modeling/query-types)wprowadzone w EF Core 2,1 i uznawane za typy jednostek bez kluczy w EF Core 3,0 reprezentują dane, które można odczytać z bazy danych, ale nie można ich zaktualizować.
 Ta cecha sprawia, że najlepiej pasuje do widoków bazy danych w większości scenariuszy, dlatego planujemy zautomatyzować tworzenie typów jednostek bez kluczy podczas odtwarzania widoków bazy danych.
-
-## <a name="property-bag-entities"></a>Jednostki zbioru właściwości
-
-[Śledzenie problemów #13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) i [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914)
-
-Pracę nad tą funkcją uruchomiono, ale nie jest ona uwzględniona w bieżącej wersji zapoznawczej. 
-
-Ta funkcja służy do włączania jednostek, które przechowują dane we właściwościach indeksowanych zamiast zwykłych właściwości, a także z możliwością używania wystąpień tej samej klasy .NET (potencjalnie jako prostej `Dictionary<string, object>`jako) do reprezentowania różnych typów jednostek w tym samym modelu EF Core.
-Ta funkcja to krok do obsługi relacji wiele-do-wielu bez jednostki sprzężenia ([#1368 problemu](https://github.com/aspnet/EntityFrameworkCore/issues/1368)), która jest jednym z najbardziej żądanych ulepszeń EF Core.
 
 ## <a name="ef-63-on-net-core"></a>Dr 6,3 na platformie .NET Core
 

@@ -1,91 +1,91 @@
 ---
-title: Tabela projektanta dzielenia - EF6
+title: Dzielenie tabeli projektanta — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 452f17c3-9f26-4de4-9894-8bc036e23b0f
-ms.openlocfilehash: 8b0ca6778a06ed43b1365d2e5969ff15948f8004
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: f5e7532e6c0b473d8ce77cbd11e3e673b0af6cbe
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490701"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921782"
 ---
-# <a name="designer-table-splitting"></a>Tabela projektanta dzielenia
-Ten poradnik pokazuje jak mapować wielu typów jednostek do pojedynczej tabeli, modyfikując model przy użyciu narzędzia Entity Framework Designer (Projektant EF).
+# <a name="designer-table-splitting"></a>Dzielenie tabeli projektanta
+W tym instruktażu pokazano, jak zmapować wiele typów jednostek do pojedynczej tabeli, modyfikując model przy użyciu Entity Framework Designer (Dr Designer).
 
-Jeden powodów, dla którego chcesz użyć tabeli podział opóźnia ładowanie niektórych właściwości podczas korzystania z opóźnieniem, ładowania do ładowania obiektów. Można oddzielić właściwości, które mogą zawierać bardzo duże ilości danych na osobne jednostki i tylko załadować je, gdy jest to wymagane.
+Jednym z powodów użycia dzielenia tabeli jest opóźnienie ładowania niektórych właściwości w przypadku ładowania obiektów przy użyciu opóźnionych obciążeń. Możesz oddzielić właściwości, które mogą zawierać bardzo dużą ilość danych w osobnej jednostce i ładować ją tylko wtedy, gdy jest to wymagane.
 
-Na poniższej ilustracji przedstawiono główne systemu windows, które są używane podczas pracy z projektancie platformy EF.
+Na poniższej ilustracji przedstawiono główne okna, które są używane podczas pracy z programem Dr Designer.
 
-![Projektancie platformy EF](~/ef6/media/efdesigner.png)
+![Projektant EF](~/ef6/media/efdesigner.png)
 
 ## <a name="prerequisites"></a>Wymagania wstępne
 
 W celu wykonania instrukcji w tym przewodniku potrzebne są następujące elementy:
 
-- Najnowszą wersję programu Visual Studio.
-- [Przykładowej bazy danych School](~/ef6/resources/school-database.md).
+- Najnowsza wersja programu Visual Studio.
+- [Przykładowa baza danych szkoły](~/ef6/resources/school-database.md).
 
 ## <a name="set-up-the-project"></a>Konfigurowanie projektu
 
-Ten przewodnik korzysta z programu Visual Studio 2012.
+W tym instruktażu jest używany program Visual Studio 2012.
 
--   Otwórz program Visual Studio 2012.
--   Na **pliku** menu wskaż **New**, a następnie kliknij przycisk **projektu**.
--   W okienku po lewej stronie kliknij Visual C\#, a następnie wybierz szablon Aplikacja konsoli.
--   Wprowadź **TableSplittingSample** jako nazwę projektu i kliknij przycisk **OK**.
+-   Open Visual Studio 2012.
+-   W menu **plik** wskaż polecenie **Nowy**, a następnie kliknij pozycję **projekt**.
+-   W lewym okienku kliknij pozycję Visual C\#, a następnie wybierz szablon Aplikacja konsolowa.
+-   Wprowadź **TableSplittingSample** jako nazwę projektu, a następnie kliknij przycisk **OK**.
 
-## <a name="create-a-model-based-on-the-school-database"></a>Tworzenie modelu, w oparciu o bazę danych School
+## <a name="create-a-model-based-on-the-school-database"></a>Tworzenie modelu opartego na bazie danych szkoły
 
--   Kliknij prawym przyciskiem myszy nazwę projektu w Eksploratorze rozwiązań, wskaż opcję **Dodaj**, a następnie kliknij przycisk **nowy element**.
--   Wybierz **danych** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablonów.
--   Wprowadź **TableSplittingModel.edmx** nazwę pliku, a następnie kliknij przycisk **Dodaj**.
--   W oknie dialogowym Wybierz zawartość modelu, wybierz **Generuj z bazy danych**, a następnie kliknij przycisk **dalej.**
--   Kliknij przycisk nowe połączenie. W oknie dialogowym właściwości połączenia, wprowadź nazwę serwera (na przykład **(localdb)\\mssqllocaldb**), wybierz metodę uwierzytelniania, wpisz **School** nazwy bazy danych, a następnie Kliknij przycisk **OK**.
-    Okno dialogowe Wybierz połączenie danych jest aktualizowana ustawienie połączenia bazy danych.
--   W oknie dialogowym Wybierz obiekty bazy danych należy ujawniać **tabel** węzła i wyboru **osoby** tabeli. Spowoduje to dodanie określonej tabeli, aby **School** modelu.
--   Kliknij przycisk **Zakończ**.
+-   Kliknij prawym przyciskiem myszy nazwę projektu w Eksplorator rozwiązań, wskaż polecenie **Dodaj**, a następnie kliknij pozycję **nowy element**.
+-   Wybierz pozycję **dane** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablony.
+-   W polu Nazwa pliku wprowadź **TableSplittingModel. edmx** , a następnie kliknij przycisk **Dodaj**.
+-   W oknie dialogowym Wybierz zawartość modelu wybierz pozycję **Generuj z bazy danych**, a następnie kliknij przycisk **Dalej.**
+-   Kliknij pozycję nowe połączenie. W oknie dialogowym właściwości połączenia wprowadź nazwę serwera (na przykład **(LocalDB)\\mssqllocaldb**), wybierz metodę uwierzytelniania, wpisz **szkołę** dla nazwy bazy danych, a następnie kliknij przycisk **OK**.
+    Okno dialogowe Wybieranie połączenia danych zostanie zaktualizowane przy użyciu ustawienia połączenia z bazą danych.
+-   W oknie dialogowym Wybierz obiekty bazy danych unfold węzeł **tabele** i sprawdź tabelę **Person** . Spowoduje to dodanie określonej tabeli do modelu **szkoły** .
+-   Kliknij przycisk **Zakończ**.
 
-Zostanie wyświetlona Projektancie jednostki, zapewniającą powierzchnię projektową do edycji modelu. Wszystkie obiekty, które wybrano w **wybierz obiekty bazy danych** okno dialogowe, są dodawane do modelu.
+Zostanie wyświetlona Entity Designer, która zapewnia powierzchnię projektową do edycji modelu. Wszystkie obiekty wybrane w oknie dialogowym  **Wybierz obiekty bazy danych**zostaną dodane do modelu.
 
-## <a name="map-two-entities-to-a-single-table"></a>Dwie jednostki mapy do pojedynczej tabeli
+## <a name="map-two-entities-to-a-single-table"></a>Mapuj dwie jednostki na jedną tabelę
 
-W tej sekcji zostanie podzielona **osoby** jednostki do dwóch jednostek i zamapować je do jednej tabeli.
+W tej sekcji podzielę jednostkę **osoby** na dwie jednostki, a następnie mapując je do pojedynczej tabeli.
 
 > [!NOTE]
-> **Osoby** jednostka nie zawiera żadnych właściwości, które mogą zawierać dużą ilość danych; jest używany tylko jako przykład.
+> Jednostka **osoby** nie zawiera żadnych właściwości, które mogą zawierać dużą ilość danych; jest on właśnie używany jako przykład.
 
--   Kliknij prawym przyciskiem myszy pusty obszar powierzchni projektu, wskaż opcję **Dodaj nowe**i kliknij przycisk **jednostki**.
-    **Nowa jednostka** pojawi się okno dialogowe.
--   Typ **HireInfo** dla **nazwa jednostki** i **PersonID** dla **właściwości klucza** nazwy.
--   Kliknij przycisk **OK**.
--   Nowy typ jednostki jest tworzone i wyświetlane na powierzchni projektowej.
--   Wybierz **DataZatrudnienia** właściwość **osoby** typu jednostki, a następnie naciśnij klawisz **Ctrl + X** kluczy.
--   Wybierz **HireInfo** jednostki, a następnie naciśnij klawisz **klawisze Ctrl + V** kluczy.
--   Tworzenie skojarzenia między **osoby** i **HireInfo**. Aby to zrobić, kliknij prawym przyciskiem myszy pusty obszar powierzchni projektu, wskaż opcję **Dodaj nowe**i kliknij przycisk **skojarzenie**.
--   **Dodawanie skojarzenia** pojawi się okno dialogowe. **PersonHireInfo** domyślnie zostanie podana nazwa.
--   Określać liczebność **1(One)** po obu stronach relacji.
+-   Kliknij prawym przyciskiem myszy pusty obszar na powierzchni projektowej, wskaż polecenie **Dodaj nowe**, a następnie kliknij pozycję **Jednostka**.
+    Zostanie wyświetlone okno dialogowe **Nowa jednostka** .
+-   Wpisz **HireInfo** dla **nazwy obiektu** i **PersonID** dla nazwy **właściwości klucza** .
+-   Kliknij przycisk **OK**.
+-   Nowy typ jednostki jest tworzony i wyświetlany na powierzchni projektowej.
+-   Wybierz właściwość **HireDate** typu jednostki **osoba** i naciśnij klawisze **Ctrl + X** .
+-   Wybierz jednostkę **HireInfo** i naciśnij klawisze **Ctrl + V** .
+-   Utwórz skojarzenie między **osobą** i **HireInfo**. W tym celu kliknij prawym przyciskiem myszy pusty obszar na powierzchni projektowej, wskaż polecenie **Dodaj nowe**, a następnie kliknij pozycję **skojarzenie**.
+-   Zostanie wyświetlone okno dialogowe **Dodawanie skojarzenia** . Nazwa **PersonHireInfo** jest domyślnie określona.
+-   Określ liczebność **1 (jeden)** na obu końcach relacji.
 -   Naciśnij klawisz **OK**.
 
-Następny krok wymaga **szczegóły mapowania** okna. Jeśli nie widzisz tego okna, kliknij prawym przyciskiem myszy projekt powierzchni i wybierz **szczegóły mapowania**.
+Następny krok wymaga okna **szczegóły** mapowania. Jeśli nie widzisz tego okna, kliknij prawym przyciskiem myszy powierzchnię projektu i wybierz polecenie **szczegóły mapowania**.
 
--   Wybierz **HireInfo** typu jednostki i kliknij przycisk **&lt;Dodaj tabelę lub widok&gt;** w **szczegóły mapowania** okna.
--   Wybierz **osoby** z **&lt;Dodaj tabelę lub widok&gt;** pole listy rozwijanej. Lista zawiera tabele lub widoki, które można mapować wybranej jednostki.
-    Odpowiednie właściwości powinny być mapowane domyślnie.
+-   Wybierz typ jednostki **HireInfo** , a następnie kliknij pozycję **&lt;Dodaj tabelę lub&gt;widok** w oknie **szczegóły** mapowania.
+-   Wybierz **osobę** z   **&lt;listy rozwijanej Dodaj tabelę lub&gt;widok**. Lista zawiera tabele lub widoki, do których można zamapować wybraną jednostkę.
+    Odpowiednie właściwości powinny być domyślnie mapowane.
 
     ![Mapowanie](~/ef6/media/mapping.png)
 
--   Wybierz **PersonHireInfo** skojarzenia na powierzchni projektowej.
--   Kliknij prawym przyciskiem myszy asocjacji na projekt powierzchni i wybierz **właściwości**.
--   W **właściwości** wybierz **ograniczenia referencyjne** właściwości i kliknij przycisk z wielokropkiem.
--   Wybierz **osoby** z **jednostki** listy rozwijanej.
+-   Wybierz skojarzenie **PersonHireInfo** na powierzchni projektowej.
+-   Kliknij prawym przyciskiem myszy skojarzenie na powierzchni projektowej i wybierz polecenie **Właściwości**.
+-   W oknie **Właściwości** wybierz właściwość **ograniczenia referencyjne** i kliknij przycisk wielokropka.
+-   Wybierz **osobę** z listy rozwijanej **główna** .
 -   Naciśnij klawisz **OK**.
 
- 
+ 
 
-## <a name="use-the-model"></a>Użyj modelu
+## <a name="use-the-model"></a>Korzystanie z modelu
 
--   Wklej następujący kod dla metody Main.
+-   Wklej następujący kod w metodzie Main.
 
 ``` csharp
     using (var context = new SchoolEntities())
@@ -120,18 +120,18 @@ Następny krok wymaga **szczegóły mapowania** okna. Jeśli nie widzisz tego ok
             existingPerson.LastName, hireInfo.HireDate);
     }
 ```
--   Skompilować i uruchomić aplikację.
+-   Skompiluj i uruchom aplikację.
 
-Poniższe instrukcje języka T-SQL zostały wykonane na **School** bazy danych w wyniku działania tej aplikacji. 
+Następujące instrukcje języka T-SQL zostały wykonane względem bazy danych **szkoły** w wyniku uruchomienia tej aplikacji. 
 
--   Następujące **Wstaw** zostało wykonane w wyniku wykonania z kontekstu. SaveChanges() i łączy dane z **osoby** i **HireInfo** jednostek
+-   Następujący element **INSERT** został wykonany w wyniku wykonywania kontekstu. Metody SaveChanges () i łączy dane od **osoby** i jednostek **HireInfo**
 
     ![Insert](~/ef6/media/insert.png)
 
--   Następujące **wybierz** zostało wykonane w wyniku wykonania z kontekstu. People.FirstOrDefault() i wybiera tylko potrzebne kolumny mapowane na **osoby**
+-   Następujący **wybór** został wykonany w wyniku wykonywania kontekstu. **Persons** . FirstOrDefault () i wybiera tylko kolumny mapowane do osoby
 
     ![Wybierz 1](~/ef6/media/select1.png)
 
--   Następujące **wybierz** zostało wykonane w wyniku uzyskiwania dostępu do existingPerson.Instructor właściwość nawigacji z wybiera tylko potrzebne kolumny, które są mapowane na **HireInfo**
+-   Następujący **wybór** został wykonany w wyniku uzyskania dostępu do właściwości nawigacji ExistingPerson. instruktor i wybiera tylko kolumny mapowane na **HireInfo**
 
-    ![Wybierz opcję 2](~/ef6/media/select2.png)
+    ![Wybierz 2](~/ef6/media/select2.png)

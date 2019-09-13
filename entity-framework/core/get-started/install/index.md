@@ -4,12 +4,12 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: db1b83a9222e00a5e226a134085b18247b31f29a
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 62194d1db4efcdaed53ca0e14f160315f8e3cf03
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306485"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921755"
 ---
 # <a name="installing-entity-framework-core"></a>Instalowanie Entity Framework Core
 
@@ -19,9 +19,9 @@ ms.locfileid: "68306485"
 
 * Na przykład można użyć EF Core do tworzenia aplikacji przeznaczonych dla platformy .NET Core. Tworzenie aplikacji .NET Core wymaga [zestaw .NET Core SDK](https://dotnet.microsoft.com/download). Opcjonalnie możesz również użyć środowiska programistycznego, takiego jak Visual Studio, Visual Studio dla komputerów Mac lub Visual Studio Code. Aby uzyskać więcej informacji, sprawdź [wprowadzenie z platformą .NET Core](/dotnet/core/get-started).
 
-* Za pomocą programu Visual Studio można opracowywać aplikacje EF Core przeznaczone dla .NET Framework 4.6.1 lub nowszych w systemie Windows. Zalecana jest Najnowsza wersja programu Visual Studio. Jeśli chcesz użyć starszej wersji, np. programu Visual Studio 2015, upewnij się, że [uaktualnisz klienta NuGet do wersji 3.6.0](https://www.nuget.org/downloads) , aby współpracował z bibliotekami .NET Standard 2,0.
+* Za pomocą programu Visual Studio można opracowywać aplikacje EF Core przeznaczone dla .NET Framework 4.6.1 lub nowszych w systemie Windows. Zalecana jest Najnowsza wersja programu [Visual Studio](https://visualstudio.microsoft.com/vs) . Jeśli chcesz użyć starszej wersji, np. programu Visual Studio 2015, upewnij się, że [uaktualnisz klienta NuGet do wersji 3.6.0](https://www.nuget.org/downloads) , aby współpracował z bibliotekami .NET Standard 2,0.
 
-* EF Core można uruchamiać na innych implementacjach platformy .NET, takich jak Xamarin i .NET Native. Jednak w ramach tych implementacji obowiązują ograniczenia środowiska uruchomieniowego, które mogą mieć wpływ na działanie EF Core w aplikacji. Aby uzyskać więcej informacji, zobacz [implementacje platformy .NET obsługiwane przez EF Core](xref:core/platforms/index).
+* EF Core można uruchamiać na innych implementacjach platformy .NET, takich jak [Xamarin](https://dotnet.microsoft.com/apps/xamarin) i .NET Native. Jednak w ramach tych implementacji obowiązują ograniczenia środowiska uruchomieniowego, które mogą mieć wpływ na działanie EF Core w aplikacji. Aby uzyskać więcej informacji, zobacz [implementacje platformy .NET obsługiwane przez EF Core](xref:core/platforms/index).
 
 * Na koniec różni dostawcy baz danych mogą wymagać określonych wersji aparatu bazy danych, implementacji platformy .NET lub systemów operacyjnych. Upewnij się, że [dostawca bazy danych EF Core](xref:core/providers/index) jest dostępny, który obsługuje odpowiednie środowisko dla aplikacji.
 
@@ -33,7 +33,7 @@ W przypadku kompilowania aplikacji ASP.NET Core nie trzeba instalować dostawcó
 
 Aby zainstalować lub zaktualizować pakiety NuGet, można użyć interfejsu wiersza polecenia platformy .NET Core (CLI), okna dialogowego Menedżera pakietów programu Visual Studio lub konsoli Menedżera pakietów programu Visual Studio.
 
-### <a name="net-core-cli"></a>interfejs wiersza polecenia platformy .NET Core
+### <a name="net-core-cli"></a>Interfejs wiersza polecenia platformy .NET Core
 
 * Użyj następującego polecenia interfejs wiersza polecenia platformy .NET Core w wierszu polecenia systemu operacyjnego, aby zainstalować lub zaktualizować dostawcę EF Core SQL Server:
 
