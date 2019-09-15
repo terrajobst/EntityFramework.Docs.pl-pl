@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 884cc6611b986fb213d99d3d2fc69d7bebe34aa2
-ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
+ms.openlocfilehash: 10a0f0edc5f98baea26b1a5b9c0aa869b1df01af
+ms.sourcegitcommit: df181e201365c20610ba56dcd5c5ed30cfda00c2
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69565314"
+ms.lasthandoff: 09/15/2019
+ms.locfileid: "70997859"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w EF Core 3,0 (obecnie w wersji zapoznawczej)
 
@@ -386,7 +386,7 @@ Ta zmiana została wprowadzona w celu poprawy środowiska związanego z scenariu
 **Środki zaradcze**
 
 Poprzednie zachowanie można przywrócić za pomocą ustawień na stronie `context.ChangedTracker`.
-Przykład:
+Na przykład:
 
 ```C#
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
@@ -470,7 +470,7 @@ modelBuilder.Entity<Order>.OwnsOne(e => e.Details).WithOwner(e => e.Order);
 
 Konfiguracja odnosząca się do relacji między właścicielem i właścicielem powinna teraz być łańcuchem `WithOwner()` po podobnym sposobie, jak inne relacje są skonfigurowane.
 Mimo że konfiguracja dla samego samego typu jest nadal łańcuchem `OwnsOne()/OwnsMany()`.
-Przykład:
+Na przykład:
 
 ```C#
 modelBuilder.Entity<Order>.OwnsOne(e => e.Details, eb =>
@@ -692,7 +692,7 @@ Jeśli `Order` jednak jest typem będącym własnością, to `CustomerId` równi
 
 Począwszy od 3,0, EF Core nie próbuje użyć właściwości kluczy obcych według Konwencji, jeśli mają taką samą nazwę jak właściwość podmiotu zabezpieczeń.
 Nazwa typu podmiotu zabezpieczeń połączona z nazwą właściwości głównej i nazwa nawigacji połączonej ze wzorcami nazw właściwości głównych są nadal dopasowane.
-Przykład:
+Na przykład:
 
 ```C#
 public class Customer
@@ -834,7 +834,7 @@ Ta zmiana została wprowadzona w celu uniemożliwienia EF Core błędnego wyzwal
 **Środki zaradcze**
 
 Zachowanie przed 3,0 może zostać przywrócone przez konfigurację trybu `ModelBuilder`dostępu do właściwości.
-Na przykład:
+Przykład:
 
 ```C#
 modelBuilder.UsePropertyAccessMode(PropertyAccessMode.PreferFieldDuringConstruction);
@@ -908,7 +908,7 @@ Ta zmiana została podjęta, aby uniknąć używania tego samego pola dla dwóch
 **Środki zaradcze**
 
 Właściwości "Only" muszą mieć taką samą nazwę jak pole, do którego są mapowane.
-W nowszej wersji zapoznawczej EF Core 3,0 planujemy ponowne włączenie jawnie skonfigurowanej nazwy pola, która różni się od nazwy właściwości:
+W przyszłej wersji EF Core po 3,0 planujemy ponowne włączenie jawnie skonfigurowanej nazwy pola, która jest inna niż nazwa właściwości (zobacz problem [#15307](https://github.com/aspnet/EntityFrameworkCore/issues/15307)):
 
 ```C#
 modelBuilder
@@ -927,7 +927,7 @@ Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 4.
 
 **Stare zachowanie**
 
-Przed EF Core 3,0 `AddDbContext` , wywoływanie `AddDbContextPool` lub zarejestrowanie usługi rejestrowania i pamięci podręcznej w usłudze D. I przez wywołania funkcji addlogging i [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache). [](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging)
+Przed `AddDbContext` EF Core 3,0, wywoływanie `AddDbContextPool` lub zarejestrowanie usługi rejestrowania i pamięci podręcznej w usłudze D. I przez wywołania funkcji [addlogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) i [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
 
 **Nowe zachowanie**
 
@@ -939,7 +939,7 @@ EF Core 3,0 nie wymaga, aby te usługi były w zakresie DI kontenera aplikacji. 
 
 **Środki zaradcze**
 
-Jeśli aplikacja wymaga tych usług, należy zarejestrować je jawnie przy użyciu funkcji addlogging lub [](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
+Jeśli aplikacja wymaga tych usług, należy zarejestrować je jawnie przy użyciu funkcji [addlogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) lub [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
 
 <a name="dbe"></a>
 
@@ -1107,7 +1107,7 @@ Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 4.
 **Stare zachowanie**
 
 Przed EF Core 3,0 kod wywołujący `HasOne` lub `HasMany` z pojedynczym ciągiem został zinterpretowany w sposób mylący.
-Na przykład:
+Przykład:
 ```C#
 modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
 ```
@@ -1489,7 +1489,7 @@ Wprowadzamy tę zmianę, ponieważ [SQL Server 2008 nie jest już obsługiwanym 
 
 **Środki zaradcze**
 
-Zalecamy zaktualizowanie do nowszej wersji SQL Server lub przy użyciu wyższego poziomu zgodności, aby obsługiwał wygenerowane SQL. Jeśli nie możesz tego zrobić, Dodaj komentarz dotyczący [problemu](https://github.com/aspnet/EntityFrameworkCore/issues/16400) ze śledzeniem ze szczegółowymi informacjami. Firma Microsoft może ponownie odwiedzać tę decyzję na podstawie opinii.
+Zalecamy zaktualizowanie do nowszej wersji SQL Server lub przy użyciu wyższego poziomu zgodności, aby obsługiwał wygenerowane SQL. Jeśli nie możesz tego zrobić, Dodaj komentarz dotyczący [problemu ze śledzeniem](https://github.com/aspnet/EntityFrameworkCore/issues/16400) ze szczegółowymi informacjami. Firma Microsoft może ponownie odwiedzać tę decyzję na podstawie opinii.
 
 <a name="xinfo"></a>
 
@@ -1547,7 +1547,7 @@ Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 4.
 
 **Stare zachowanie**
 
-Przed EF Core 3,0, nazwy ograniczeń klucza obcego były określane jako "nazwa". Przykład:
+Przed EF Core 3,0, nazwy ograniczeń klucza obcego były określane jako "nazwa". Na przykład:
 
 ```C#
 var constraintName = myForeignKey.Name;
@@ -1647,7 +1647,7 @@ Wersja 2.0.0 z SQLitePCL. Raw targets .NET Standard 2,0. Wcześniej była przezn
 
 **Środki zaradcze**
 
-SQLitePCL. Raw wersja 2.0.0 zawiera pewne istotne zmiany. Szczegółowe informacje można znaleźć w informacjach o [wersji](https://github.com/ericsink/SQLitePCL.raw/blob/v2/v2.md) .
+SQLitePCL. Raw wersja 2.0.0 zawiera pewne istotne zmiany. Szczegółowe informacje można znaleźć w [informacjach o wersji](https://github.com/ericsink/SQLitePCL.raw/blob/v2/v2.md) .
 
 <a name="NetTopologySuite"></a>
 
@@ -1671,7 +1671,7 @@ Wersja 2.0.0 programu NetTopologySuite ma na celu rozwiązanie kilku problemów 
 
 **Środki zaradcze**
 
-NetTopologySuite wersja 2.0.0 zawiera pewne istotne zmiany. Szczegółowe informacje można znaleźć w informacjach o [wersji](https://www.nuget.org/packages/NetTopologySuite/2.0.0-pre001) .
+NetTopologySuite wersja 2.0.0 zawiera pewne istotne zmiany. Szczegółowe informacje można znaleźć w [informacjach o wersji](https://www.nuget.org/packages/NetTopologySuite/2.0.0-pre001) .
 
 <a name="mersa"></a>
 
@@ -1683,7 +1683,7 @@ Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 6.
 
 **Stare zachowanie**
 
-Typ jednostki z wieloma odwołującymi się do siebie właściwości nawigacji jednokierunkowej i pasujących FKs został niepoprawnie skonfigurowany jako pojedynczej relacji. Na przykład:
+Typ jednostki z wieloma odwołującymi się do siebie właściwości nawigacji jednokierunkowej i pasujących FKs został niepoprawnie skonfigurowany jako pojedynczej relacji. Przykład:
 
 ```C#
 public class User 
