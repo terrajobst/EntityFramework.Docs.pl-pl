@@ -1,23 +1,19 @@
 ---
-title: What's new in EF Core 3.0 — EF Core
+title: Co nowego w EF Core 3,0 — EF Core
 author: divega
 ms.date: 02/19/2019
 ms.assetid: 8C90C074-0A5B-4567-AF79-799B7BC78062
 uid: core/what-is-new/ef-core-3.0/index
-ms.openlocfilehash: 9490b0377a383e3ea7c7e70da33799b25e04395a
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: 611689b23bfea7e4597466129b2a0e5d4afb6d96
+ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463398"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005573"
 ---
-# <a name="what-is-new-in-ef-core-30-currently-in-preview"></a>What's new in EF Core 3.0 (obecnie w wersji zapoznawczej)
+# <a name="what-is-new-in-ef-core-30"></a>Co nowego w EF Core 3,0
 
-> [!IMPORTANT]
-> Należy pamiętać, że zestawy funkcji i harmonogramy przyszłych wersji zawsze mogą ulec zmianie i czasu, mimo że firma Microsoft podejmie próbę tej strony na bieżąco, jego mogą nie odzwierciedlać najnowszych plany na wszystkich.
+EF Core 3,0 jest dostępny jako [pakiety NuGet w NuGet.org](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/). 
 
-EF Core 3.0 jest obecnie w fazie projektowania i jest dostępna jako [pakiety opublikowane w galerii NuGet w wersji zapoznawczej](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/). 
+Zawiera [nowe funkcje](xref:core/what-is-new/ef-core-3.0/features) i istotne [zmiany](xref:core/what-is-new/ef-core-3.0/breaking-changes). 
 
-Bieżące wersje zapoznawcze programu EF Core 3.0 są uwzględnione jedynie drobne ulepszenia i [istotne zmiany w](xref:core/what-is-new/ef-core-3.0/breaking-changes) wprowadziliśmy w ramach przygotowania do pozostałej pracy w wersji 3.0. 
-
-Kolejne wersje zapoznawcze będzie zawierał więcej [funkcje usunięte EF Core 3.0](xref:core/what-is-new/ef-core-3.0/features).

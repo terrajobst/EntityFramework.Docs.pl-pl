@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: 7d97551044ae4a8fc42d1676199da884f3e2994d
-ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
+ms.openlocfilehash: ffa9a34f13ab29f0ba93f9fd1f469398630604ce
+ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69565260"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005458"
 ---
 <a name="migrations"></a>Migracje
 ==========
@@ -26,6 +26,9 @@ Migracje obejmują narzędzia wiersza polecenia i interfejsy API, które ułatwi
 * [Generuj skrypty SQL](#generate-sql-scripts). Może być potrzebny skrypt do zaktualizowania produkcyjnej bazy danych lub rozwiązywania problemów z kodem migracji.
 * [Zastosuj migracje w czasie wykonywania](#apply-migrations-at-runtime). W przypadku aktualizacji i uruchamiania skryptów w czasie projektowania nie są najlepszym rozwiązaniem, należy `Migrate()` wywołać metodę.
 
+> [!TIP]
+> Jeśli znajduje się w innym zestawie niż projekt startowy, można jawnie określić projekty docelowe i uruchomieniowe w [narzędziu Konsola Menedżera pakietów](xref:core/miscellaneous/cli/powershell#target-and-startup-project) lub [Narzędzia interfejs wiersza polecenia platformy .NET Core.](xref:core/miscellaneous/cli/dotnet#target-project-and-startup-project) `DbContext`
+
 <a name="install-the-tools"></a>Instalowanie narzędzi
 -----------------
 
@@ -36,7 +39,7 @@ Zainstaluj [narzędzia wiersza polecenia](xref:core/miscellaneous/cli/index):
 <a name="create-a-migration"></a>Tworzenie migracji
 ------------------
 
-Po zdefiniowaniu [modelu początkowego](xref:core/modeling/index)należy utworzyć bazę danych. Aby dodać początkową migrację, uruchom następujące polecenie.
+Po [zdefiniowaniu modelu początkowego](xref:core/modeling/index)należy utworzyć bazę danych. Aby dodać początkową migrację, uruchom następujące polecenie.
 
 ``` powershell
 Add-Migration InitialCreate

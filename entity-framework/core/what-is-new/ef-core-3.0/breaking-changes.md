@@ -4,21 +4,17 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 10a0f0edc5f98baea26b1a5b9c0aa869b1df01af
-ms.sourcegitcommit: df181e201365c20610ba56dcd5c5ed30cfda00c2
+ms.openlocfilehash: 04487291f24bb702dad4b497c34234afdd5e3c9a
+ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/15/2019
-ms.locfileid: "70997859"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005586"
 ---
-# <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Istotne zmiany zawarte w EF Core 3,0 (obecnie w wersji zapoznawczej)
-
-> [!IMPORTANT]
-> Należy pamiętać, że zestawy funkcji i harmonogramy przyszłych wersji zawsze mogą ulec zmianie, a mimo to, że firma Microsoft podejmie próbę zapewnienia aktualności tej strony, może nie odzwierciedlać naszych najnowszych planów przez cały czas.
-
-Poniższe zmiany dotyczące interfejsu API i zachowania mogą spowodować przerwanie aplikacji utworzonych dla EF Core 2.2. x podczas uaktualniania ich do 3.0.0.
+# <a name="breaking-changes-included-in-ef-core-30"></a>Istotne zmiany zawarte w EF Core 3,0
+Poniższe zmiany dotyczące interfejsu API i zachowania mogą powodować przerwanie istniejących aplikacji podczas uaktualniania ich do 3.0.0.
 Zmiany, których oczekujemy tylko dostawcy bazy danych, są udokumentowane w obszarze [zmiany dostawcy](../../providers/provider-log.md).
-Przerwy w nowych funkcjach wprowadzonych z jednej wersji zapoznawczej 3,0 do innej wersji zapoznawczej 3,0 nie są tutaj udokumentowane.
+Przerwy z jednej wersji zapoznawczej 3,0 do innej wersji zapoznawczej 3,0 nie są tutaj udokumentowane.
 
 ## <a name="summary"></a>Podsumowanie
 
@@ -206,7 +202,7 @@ context.Products.FromSqlRaw(
 ```
 
 Użyj `FromSqlInterpolated`, `ExecuteSqlInterpolated`, i`ExecuteSqlInterpolatedAsync` , aby utworzyć zapytanie parametryczne, gdzie parametry są przenoszone w ramach interpolowanego ciągu zapytania.
-Na przykład:
+Przykład:
 
 ```C#
 context.Products.FromSqlInterpolated(
@@ -386,7 +382,7 @@ Ta zmiana została wprowadzona w celu poprawy środowiska związanego z scenariu
 **Środki zaradcze**
 
 Poprzednie zachowanie można przywrócić za pomocą ustawień na stronie `context.ChangedTracker`.
-Na przykład:
+Przykład:
 
 ```C#
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
@@ -470,7 +466,7 @@ modelBuilder.Entity<Order>.OwnsOne(e => e.Details).WithOwner(e => e.Order);
 
 Konfiguracja odnosząca się do relacji między właścicielem i właścicielem powinna teraz być łańcuchem `WithOwner()` po podobnym sposobie, jak inne relacje są skonfigurowane.
 Mimo że konfiguracja dla samego samego typu jest nadal łańcuchem `OwnsOne()/OwnsMany()`.
-Na przykład:
+Przykład:
 
 ```C#
 modelBuilder.Entity<Order>.OwnsOne(e => e.Details, eb =>
@@ -834,7 +830,7 @@ Ta zmiana została wprowadzona w celu uniemożliwienia EF Core błędnego wyzwal
 **Środki zaradcze**
 
 Zachowanie przed 3,0 może zostać przywrócone przez konfigurację trybu `ModelBuilder`dostępu do właściwości.
-Przykład:
+Na przykład:
 
 ```C#
 modelBuilder.UsePropertyAccessMode(PropertyAccessMode.PreferFieldDuringConstruction);
@@ -1107,7 +1103,7 @@ Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 4.
 **Stare zachowanie**
 
 Przed EF Core 3,0 kod wywołujący `HasOne` lub `HasMany` z pojedynczym ciągiem został zinterpretowany w sposób mylący.
-Przykład:
+Na przykład:
 ```C#
 modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
 ```
@@ -1129,7 +1125,7 @@ Stare zachowanie było bardzo mylące, szczególnie podczas odczytywania kodu ko
 Spowoduje to przerwanie aplikacji, które jawnie konfigurują relacje przy użyciu ciągów nazw typów i bez określania jawnie właściwości nawigacji.
 Nie jest to typowy sposób.
 Poprzednie zachowanie można uzyskać poprzez jawne przekazanie `null` nazwy właściwości nawigacji.
-Na przykład:
+Przykład:
 
 ```C#
 modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
@@ -1547,7 +1543,7 @@ Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 4.
 
 **Stare zachowanie**
 
-Przed EF Core 3,0, nazwy ograniczeń klucza obcego były określane jako "nazwa". Na przykład:
+Przed EF Core 3,0, nazwy ograniczeń klucza obcego były określane jako "nazwa". Przykład:
 
 ```C#
 var constraintName = myForeignKey.Name;
@@ -1706,7 +1702,7 @@ Model wynikowy jest niejednoznaczny i prawdopodobnie jest zwykle niewłaściwy w
 
 **Środki zaradcze**
 
-Użyj pełnej konfiguracji relacji. Na przykład:
+Użyj pełnej konfiguracji relacji. Przykład:
 
 ```C#
 modelBuilder
