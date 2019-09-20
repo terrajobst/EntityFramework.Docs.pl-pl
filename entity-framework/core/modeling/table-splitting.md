@@ -1,52 +1,53 @@
 ---
-title: Tabela dzielenia - programu EF Core
+title: Podział tabeli — EF Core
 author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 04/10/2019
 ms.assetid: 0EC2CCE1-BD55-45D8-9EA9-20634987F094
 uid: core/modeling/table-splitting
-ms.openlocfilehash: 4a0bfaf017106a0bfdff084b1c472bdc17459a89
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: 684fcfbb66debfd1b89e23c8aaf0a32909378c6b
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562601"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149188"
 ---
-# <a name="table-splitting"></a>Dzielenie tabeli
+# <a name="table-splitting"></a>Podział tabeli
 
 >[!NOTE]
-> Ta funkcja jest nowa w programie EF Core 2.0.
+> Ta funkcja jest nowa w EF Core 2,0.
 
-EF Core umożliwia mapowanie dwóch lub więcej podmiotów na jeden wiersz. Jest to nazywane _tabeli podział_ lub _udostępnianie tabeli_.
+EF Core umożliwia mapowanie dwóch lub więcej jednostek do jednego wiersza. Jest to tzw. _dzielenie tabeli_ lub _udostępnianie tabel_.
 
 ## <a name="configuration"></a>Konfiguracja
 
-Aby korzystać z tabeli dzielenia, które typy jednostek, które muszą być mapowane do tej samej tabeli, mają klucze podstawowe mapowane na te same kolumny i co najmniej jednej relacji skonfigurowana między klucza podstawowego typu jednostki jednego i drugiego w tej samej tabeli.
+Aby używać dzielenia tabel, należy zamapować typy jednostek na tę samą tabelę, mieć klucze podstawowe zamapowane na te same kolumny i co najmniej jedną relację skonfigurowaną między kluczem podstawowym jednego typu jednostki a inną w tej samej tabeli.
 
-Typowy scenariusz do dzielenia tabeli używa tylko podzbiór kolumn w tabeli dla większej wydajności lub hermetyzacji.
+Typowy scenariusz dzielenia tabeli polega na użyciu tylko podzbioru kolumn w tabeli w celu uzyskania większej wydajności lub hermetyzacji.
 
-W tym przykładzie `Order` reprezentuje podzbiór `DetailedOrder`.
+W tym przykładzie `Order` reprezentuje `DetailedOrder`podzestaw.
 
 [!code-csharp[Order](../../../samples/core/Modeling/TableSplitting/Order.cs?name=Order)]
 
 [!code-csharp[DetailedOrder](../../../samples/core/Modeling/TableSplitting/DetailedOrder.cs?name=DetailedOrder)]
 
-Oprócz wymaganej konfiguracji nazywamy `HasBaseType((string)null)` w celu uniknięcia mapowania `DetailedOrder` w tej samej hierarchii co `Order`.
+Poza wymaganą konfiguracją, która jest `Property(o => o.Status).HasColumnName("Status")` wywoływana w `DetailedOrder.Status` celu mapowania do tej samej `Order.Status`kolumny co.
 
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=TableSplitting&highlight=3)]
 
-Zobacz [pełny przykład projektu](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting) Aby uzyskać dodatkowy kontekst.
+> [!TIP]
+> Zobacz [pełny przykładowy projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting) , aby uzyskać więcej kontekstu.
 
 ## <a name="usage"></a>Użycie
 
-Zapisywanie i zapytania jednostki przy użyciu tabeli podział odbywa się w taki sam sposób jak inne podmioty, jedyną różnicą jest to, że wszystkie jednostki udostępnianie wiersza musi być śledzona dla insert.
+Zapisywanie i wykonywanie zapytań względem jednostek przy użyciu dzielenia tabeli odbywa się tak samo jak w przypadku innych jednostek. I począwszy od EF Core 3,0 odwołanie do jednostki zależnej może `null`być. Jeśli wszystkie kolumny używane przez jednostkę zależną są `NULL` bazami danych, żadne wystąpienie dla niego nie zostanie utworzone podczas wykonywania zapytania. W takim przypadku wszystkie właściwości są opcjonalne i są ustawiane na `null`, co może nie być oczekiwane.
 
 [!code-csharp[Usage](../../../samples/core/Modeling/TableSplitting/Program.cs?name=Usage)]
 
 ## <a name="concurrency-tokens"></a>Tokeny współbieżności
 
-Jeśli żadnego z typów jednostek, udostępnianie tabeli jest tokenem współbieżności następnie go muszą być zawarte w wszystkich innych typów jednostek, aby uniknąć wartość tokenu współbieżności starych po zaktualizowaniu tylko jeden z jednostkami mapowany do tej samej tabeli.
+Jeśli którykolwiek z typów jednostek współużytkujących tabelę ma token współbieżności, musi być uwzględniony we wszystkich innych typach jednostek, aby uniknąć nieodświeżonej wartości tokenu współbieżności, gdy jest aktualizowana tylko jedna z jednostek mapowanych na tę samą tabelę.
 
-Aby uniknąć uwidaczniania go do kod konsumencki jest możliwe tworzenie, jeden w stanie w tle.
+Aby nie ujawniać go w kodzie konsumowanym, można go utworzyć w tle.
 
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=ConcurrencyToken&highlight=2)]

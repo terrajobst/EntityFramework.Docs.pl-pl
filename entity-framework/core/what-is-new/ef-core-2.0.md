@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 28b2180e898b91d233b590b1639674a464f8c679
-ms.sourcegitcommit: 0cc9578fd49802789a00c0044b4e57325476ca2e
+ms.openlocfilehash: 781578d9de05895cdbc777aa53c3f6d6f9777869
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/04/2019
-ms.locfileid: "70271433"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149054"
 ---
 # <a name="new-features-in-ef-core-20"></a>Nowe funkcje w EF Core 2,0
 
@@ -36,7 +36,7 @@ Zapoznaj się z [sekcją dotyczącą dzielenia tabeli](xref:core/modeling/table-
 
 ### <a name="owned-types"></a>Typy własności
 
-Typ jednostki będącej własnością może współużytkować ten sam typ środowiska CLR z innym typem jednostki będącej własnością, ale ponieważ nie można go zidentyfikować tylko przez typ CLR, musi istnieć Nawigacja z innego typu jednostki. Jednostką zawierającą zdefiniowaną nawigację jest właściciel. Podczas wykonywania zapytania dotyczącego właściciela typy będą uwzględniane domyślnie.
+Typ jednostki będącej własnością może współużytkować ten sam typ .NET z innym typem jednostki będącej własnością, ale ponieważ nie można go zidentyfikować tylko przez typ .NET, musi istnieć Nawigacja z innego typu jednostki. Jednostką zawierającą zdefiniowaną nawigację jest właściciel. Podczas wykonywania zapytania dotyczącego właściciela typy będą uwzględniane domyślnie.
 
 Według Konwencji klucz podstawowy w tle zostanie utworzony dla typu będącego własnością i zostanie zamapowany do tej samej tabeli co właściciel przy użyciu dzielenia tabeli. Pozwala to na używanie typów posiadanych w sposób podobny do sposobu używania typów złożonych w EF6:
 

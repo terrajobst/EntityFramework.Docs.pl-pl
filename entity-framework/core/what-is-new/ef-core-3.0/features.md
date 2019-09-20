@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: 528733d6eec33de2c9538541a6ed5be704b9d433
-ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
+ms.openlocfilehash: d938f17daecd5031147951d0018602c5635de41d
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005556"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149096"
 ---
 # <a name="new-features-included-in-ef-core-30"></a>Nowe funkcje zawarte w EF Core 3,0
 
@@ -57,7 +57,7 @@ var orders =
 
 await foreach(var o in orders)
 {
-  Proccess(o);
+  Process(o);
 } 
 ```
 
@@ -71,7 +71,7 @@ Nowy interfejs API przechwytywania w EF Core 3,0 umożliwia programowo przestrze
 
 ## <a name="reverse-engineering-of-database-views"></a>Odtwarzanie widoków bazy danych
 
-Typy jednostek bez kluczy (wcześniej znanych jako [typy zapytań](xref:core/modeling/query-types)) reprezentują dane, które można odczytać z bazy danych, ale nie można ich zaktualizować.
+Typy jednostek bez kluczy (wcześniej znanych jako [typy zapytań](xref:core/modeling/keyless-entity-types)) reprezentują dane, które można odczytać z bazy danych, ale nie można ich zaktualizować.
 Ta cecha sprawia, że są one doskonałą zaletą mapowania widoków bazy danych w większości scenariuszy, dzięki czemu tworzymy typy jednostek bez kluczy podczas odtwarzania widoków bazy danych.
 
 ## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Jednostki zależne współużytkujące tabelę z podmiotem zabezpieczeń są teraz opcjonalne
@@ -108,5 +108,5 @@ Istnieją pewne ograniczenia, na przykład:
 
 Niektóre funkcje początkowo planowane dla EF Core 3,0 zostały odroczone do przyszłych wersji: 
 
-- Możliwość ingore części modelu w migracjach, śledzonych przez [#2725](https://github.com/aspnet/EntityFrameworkCore/issues/2725).
-- Jednostki zbioru właściwości, śledzone przez dwa oddzielne problemy: [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914) informacji o jednostkach typu udostępnionego i [#13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) o obsłudze mapowania właściwości indeksowanych.
+- Możliwość ingore części modelu w migracjach, śledzonych jako [#2725](https://github.com/aspnet/EntityFrameworkCore/issues/2725).
+- Jednostki zbioru właściwości, śledzone jako dwa oddzielne problemy: [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914) informacji o jednostkach typu udostępnionego i [#13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) o obsłudze mapowania właściwości indeksowanych.

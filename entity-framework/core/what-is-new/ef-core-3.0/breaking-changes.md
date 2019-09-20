@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 04487291f24bb702dad4b497c34234afdd5e3c9a
-ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
+ms.openlocfilehash: 1f63593631017a61c39ccab9216adbc4663700e7
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005586"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71148904"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Istotne zmiany zawarte w EF Core 3,0
 Poniższe zmiany dotyczące interfejsu API i zachowania mogą powodować przerwanie istniejących aplikacji podczas uaktualniania ich do 3.0.0.
@@ -193,7 +193,7 @@ Przed EF Core 3,0 te nazwy metod były przeciążone w celu pracy z zwykłym ci�
 **Nowe zachowanie**
 
 Począwszy od EF Core 3,0, użyj `FromSqlRaw`, `ExecuteSqlRaw`, i `ExecuteSqlRawAsync` , aby utworzyć zapytanie parametryczne, gdzie parametry są przesyłane niezależnie od ciągu zapytania.
-Przykład:
+Na przykład:
 
 ```C#
 context.Products.FromSqlRaw(
@@ -202,7 +202,7 @@ context.Products.FromSqlRaw(
 ```
 
 Użyj `FromSqlInterpolated`, `ExecuteSqlInterpolated`, i`ExecuteSqlInterpolatedAsync` , aby utworzyć zapytanie parametryczne, gdzie parametry są przenoszone w ramach interpolowanego ciągu zapytania.
-Przykład:
+Na przykład:
 
 ```C#
 context.Products.FromSqlInterpolated(
@@ -382,7 +382,7 @@ Ta zmiana została wprowadzona w celu poprawy środowiska związanego z scenariu
 **Środki zaradcze**
 
 Poprzednie zachowanie można przywrócić za pomocą ustawień na stronie `context.ChangedTracker`.
-Przykład:
+Na przykład:
 
 ```C#
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
@@ -420,7 +420,7 @@ Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 3.
 
 **Stare zachowanie**
 
-Przed EF Core 3,0 [typy zapytań](xref:core/modeling/query-types) były sposobem na wykonywanie zapytań dotyczących danych, które nie definiują klucza podstawowego w uporządkowany sposób.
+Przed EF Core 3,0 [typy zapytań](xref:core/modeling/keyless-entity-types) były sposobem na wykonywanie zapytań dotyczących danych, które nie definiują klucza podstawowego w uporządkowany sposób.
 Oznacza to, że typ zapytania został użyty do mapowania typów jednostek bez kluczy (prawdopodobnie z widoku, ale prawdopodobnie z tabeli), podczas gdy jest używany zwykły typ jednostki, gdy klucz był dostępny (prawdopodobnie z tabeli, ale prawdopodobnie z widoku).
 
 **Nowe zachowanie**
@@ -466,7 +466,7 @@ modelBuilder.Entity<Order>.OwnsOne(e => e.Details).WithOwner(e => e.Order);
 
 Konfiguracja odnosząca się do relacji między właścicielem i właścicielem powinna teraz być łańcuchem `WithOwner()` po podobnym sposobie, jak inne relacje są skonfigurowane.
 Mimo że konfiguracja dla samego samego typu jest nadal łańcuchem `OwnsOne()/OwnsMany()`.
-Przykład:
+Na przykład:
 
 ```C#
 modelBuilder.Entity<Order>.OwnsOne(e => e.Details, eb =>
@@ -873,7 +873,7 @@ Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 4.
 
 **Stare zachowanie**
 
-Przed EF Core 3,0, właściwość może być określona przez wartość ciągu i jeśli żadna właściwość o tej nazwie nie została znaleziona w typie CLR, EF Core spróbuje dopasować ją do pola przy użyciu reguł Konwencji.
+Przed EF Core 3,0, właściwość może być określona przez wartość ciągu i jeśli żadna właściwość o tej nazwie nie została znaleziona w typie .NET, EF Core spróbuje dopasować ją do pola przy użyciu reguł Konwencji.
 ```C#
 private class Blog
 {
@@ -1125,7 +1125,7 @@ Stare zachowanie było bardzo mylące, szczególnie podczas odczytywania kodu ko
 Spowoduje to przerwanie aplikacji, które jawnie konfigurują relacje przy użyciu ciągów nazw typów i bez określania jawnie właściwości nawigacji.
 Nie jest to typowy sposób.
 Poprzednie zachowanie można uzyskać poprzez jawne przekazanie `null` nazwy właściwości nawigacji.
-Przykład:
+Na przykład:
 
 ```C#
 modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
@@ -1543,7 +1543,7 @@ Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 4.
 
 **Stare zachowanie**
 
-Przed EF Core 3,0, nazwy ograniczeń klucza obcego były określane jako "nazwa". Przykład:
+Przed EF Core 3,0, nazwy ograniczeń klucza obcego były określane jako "nazwa". Na przykład:
 
 ```C#
 var constraintName = myForeignKey.Name;
@@ -1679,7 +1679,7 @@ Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 6.
 
 **Stare zachowanie**
 
-Typ jednostki z wieloma odwołującymi się do siebie właściwości nawigacji jednokierunkowej i pasujących FKs został niepoprawnie skonfigurowany jako pojedynczej relacji. Przykład:
+Typ jednostki z wieloma odwołującymi się do siebie właściwości nawigacji jednokierunkowej i pasujących FKs został niepoprawnie skonfigurowany jako pojedynczej relacji. Na przykład:
 
 ```C#
 public class User 
@@ -1702,7 +1702,7 @@ Model wynikowy jest niejednoznaczny i prawdopodobnie jest zwykle niewłaściwy w
 
 **Środki zaradcze**
 
-Użyj pełnej konfiguracji relacji. Przykład:
+Użyj pełnej konfiguracji relacji. Na przykład:
 
 ```C#
 modelBuilder

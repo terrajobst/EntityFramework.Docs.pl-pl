@@ -4,16 +4,16 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 7a0df6fb656be58103971f45b9e12e9f1383311f
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: b0c9ba1bb452e47e8348d000e3f7b88cc2730d8e
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921719"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149300"
 ---
 # <a name="raw-sql-queries"></a>Nieprzetworzone zapytania SQL
 
-Entity Framework Core pozwala na rozwijanie do nieprzetworzonych zapytań SQL podczas pracy z relacyjną bazą danych. Może to być przydatne, jeśli zapytanie, które chcesz wykonać, nie może być wyrażone przy użyciu LINQ, lub jeśli użycie zapytania LINQ jest wynikiem nieefektywnych zapytań SQL. Surowe zapytania SQL mogą zwracać typy jednostek lub, rozpoczynając od EF Core 2,1, [typy zapytań](xref:core/modeling/query-types) , które są częścią modelu.
+Entity Framework Core pozwala na rozwijanie do nieprzetworzonych zapytań SQL podczas pracy z relacyjną bazą danych. Może to być przydatne, jeśli zapytanie, które chcesz wykonać, nie może być wyrażone przy użyciu LINQ, lub jeśli użycie zapytania LINQ jest wynikiem nieefektywnych zapytań SQL. Surowe zapytania SQL mogą zwracać typy jednostek lub, rozpoczynając od EF Core 2,1, [typy jednostek](xref:core/modeling/keyless-entity-types) , które są częścią modelu.
 
 > [!TIP]  
 > [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.
