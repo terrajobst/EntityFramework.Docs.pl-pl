@@ -1,27 +1,27 @@
 ---
-title: Entity Framework Core odnoszą się narzędzia — EF Core
+title: Dokumentacja narzędzi Entity Framework Core Tools — EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 09/19/2018
 uid: core/miscellaneous/cli/index
-ms.openlocfilehash: 13e80f740bc5ce3404e8dba40b65ec872c5e3f90
-ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
+ms.openlocfilehash: 237192c55ea3542521a7a292ac8550d72e4ef82c
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 05/31/2019
-ms.locfileid: "66452257"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149080"
 ---
-# <a name="entity-framework-core-tools-reference"></a><span data-ttu-id="eae91-102">Dotyczące narzędzi programu Entity Framework Core</span><span class="sxs-lookup"><span data-stu-id="eae91-102">Entity Framework Core tools reference</span></span>
+# <a name="entity-framework-core-tools-reference"></a><span data-ttu-id="2b38d-102">Dokumentacja narzędzi Entity Framework Core Tools</span><span class="sxs-lookup"><span data-stu-id="2b38d-102">Entity Framework Core tools reference</span></span>
 
-<span data-ttu-id="eae91-103">Pomoc narzędzia Entity Framework Core przy użyciu zadania podczas projektowania.</span><span class="sxs-lookup"><span data-stu-id="eae91-103">The Entity Framework Core tools help with design-time development tasks.</span></span> <span data-ttu-id="eae91-104">Są głównie używane do zarządzania, migracji i do tworzenia szkieletu `DbContext` i typów jednostki przez odtwarzanie schemat bazy danych.</span><span class="sxs-lookup"><span data-stu-id="eae91-104">They're primarily used to manage Migrations and to scaffold a `DbContext` and entity types by reverse engineering the schema of a database.</span></span>
+<span data-ttu-id="2b38d-103">Narzędzia Entity Framework Core ułatwiają wykonywanie zadań deweloperskich w czasie projektowania.</span><span class="sxs-lookup"><span data-stu-id="2b38d-103">The Entity Framework Core tools help with design-time development tasks.</span></span> <span data-ttu-id="2b38d-104">Są one głównie używane do zarządzania migracjami oraz do tworzenia szkieletów `DbContext` i typów jednostek przez odtwarzanie schematu bazy danych.</span><span class="sxs-lookup"><span data-stu-id="2b38d-104">They're primarily used to manage Migrations and to scaffold a `DbContext` and entity types by reverse engineering the schema of a database.</span></span>
 
-* <span data-ttu-id="eae91-105">[Narzędzia Konsola Menedżera pakietów programu EF Core](powershell.md) uruchamiane w [Konsola Menedżera pakietów](https://docs.microsoft.com/nuget/tools/package-manager-console) w programie Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="eae91-105">The [EF Core Package Manager Console tools](powershell.md) run in the [Package Manager Console](https://docs.microsoft.com/nuget/tools/package-manager-console) in Visual Studio.</span></span> <span data-ttu-id="eae91-106">Te narzędzia działają w projektach .NET Core i .NET Framework.</span><span class="sxs-lookup"><span data-stu-id="eae91-106">These tools work with both .NET Framework and .NET Core projects.</span></span>
+* <span data-ttu-id="2b38d-105">[Narzędzia konsoli Menedżera pakietów EF Core](powershell.md) uruchamiane w [konsoli Menedżera pakietów](https://docs.microsoft.com/nuget/tools/package-manager-console) w programie Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="2b38d-105">The [EF Core Package Manager Console tools](powershell.md) run in the [Package Manager Console](https://docs.microsoft.com/nuget/tools/package-manager-console) in Visual Studio.</span></span>
 
-* <span data-ttu-id="eae91-107">[Narzędzi interfejsu wiersza polecenia (CLI) platformy EF Core .NET](dotnet.md) to rozszerzenie dla wielu platform [narzędzi interfejsu wiersza polecenia platformy .NET Core](https://docs.microsoft.com/dotnet/core/tools/).</span><span class="sxs-lookup"><span data-stu-id="eae91-107">The [EF Core .NET command-line interface (CLI) tools](dotnet.md) are an extension to the cross-platform [.NET Core CLI tools](https://docs.microsoft.com/dotnet/core/tools/).</span></span> <span data-ttu-id="eae91-108">Narzędzia te wymagają projektu .NET Core SDK (z `Sdk="Microsoft.NET.Sdk"` lub podobne w pliku projektu).</span><span class="sxs-lookup"><span data-stu-id="eae91-108">These tools require a .NET Core SDK project (one with `Sdk="Microsoft.NET.Sdk"` or similar in the project file).</span></span>
+* <span data-ttu-id="2b38d-106">[EF Core narzędzia interfejsu wiersza polecenia (CLI) platformy .NET](dotnet.md) to rozszerzenie [narzędzi interfejs wiersza polecenia platformy .NET Core](https://docs.microsoft.com/dotnet/core/tools/)dla wielu platform.</span><span class="sxs-lookup"><span data-stu-id="2b38d-106">The [EF Core .NET command-line interface (CLI) tools](dotnet.md) are an extension to the cross-platform [.NET Core CLI tools](https://docs.microsoft.com/dotnet/core/tools/).</span></span> <span data-ttu-id="2b38d-107">Te narzędzia wymagają projektu zestaw .NET Core SDK (jeden z `Sdk="Microsoft.NET.Sdk"` lub podobny w pliku projektu).</span><span class="sxs-lookup"><span data-stu-id="2b38d-107">These tools require a .NET Core SDK project (one with `Sdk="Microsoft.NET.Sdk"` or similar in the project file).</span></span>
 
-<span data-ttu-id="eae91-109">Oba narzędzia uwidaczniają taką samą funkcjonalność.</span><span class="sxs-lookup"><span data-stu-id="eae91-109">Both tools expose the same functionality.</span></span> <span data-ttu-id="eae91-110">Jeśli tworzysz w programie Visual Studio, zalecamy użycie **Konsola Menedżera pakietów** narzędzi, ponieważ zapewniają one bardziej zintegrowanego środowiska pracy.</span><span class="sxs-lookup"><span data-stu-id="eae91-110">If you're developing in Visual Studio, we recommend using the **Package Manager Console** tools since they provide a more integrated experience.</span></span>
+<span data-ttu-id="2b38d-108">Oba narzędzia uwidaczniają te same funkcje.</span><span class="sxs-lookup"><span data-stu-id="2b38d-108">Both tools expose the same functionality.</span></span> <span data-ttu-id="2b38d-109">Jeśli tworzysz program w programie Visual Studio, zalecamy korzystanie z narzędzi **konsoli Menedżera pakietów** , ponieważ zapewniają one bardziej zintegrowane środowisko pracy.</span><span class="sxs-lookup"><span data-stu-id="2b38d-109">If you're developing in Visual Studio, we recommend using the **Package Manager Console** tools since they provide a more integrated experience.</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="eae91-111">Następne kroki</span><span class="sxs-lookup"><span data-stu-id="eae91-111">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="2b38d-110">Następne kroki</span><span class="sxs-lookup"><span data-stu-id="2b38d-110">Next steps</span></span>
 
-* [<span data-ttu-id="eae91-112">Konsola Menedżera pakietów programu EF Core odnoszą się narzędzia</span><span class="sxs-lookup"><span data-stu-id="eae91-112">EF Core Package Manager Console tools reference</span></span>](powershell.md)
-* [<span data-ttu-id="eae91-113">Odwołują się do narzędzia .NET Core interfejsu wiersza polecenia platformy EF</span><span class="sxs-lookup"><span data-stu-id="eae91-113">EF Core .NET CLI tools reference</span></span>](dotnet.md)
+* [<span data-ttu-id="2b38d-111">Dokumentacja narzędzi konsoli Menedżera pakietów EF Core</span><span class="sxs-lookup"><span data-stu-id="2b38d-111">EF Core Package Manager Console tools reference</span></span>](powershell.md)
+* [<span data-ttu-id="2b38d-112">Dokumentacja narzędzi interfejsu wiersza polecenia platformy .NET EF Core</span><span class="sxs-lookup"><span data-stu-id="2b38d-112">EF Core .NET CLI tools reference</span></span>](dotnet.md)

@@ -1,52 +1,53 @@
 ---
-title: Tabela dzielenia - programu EF Core
+title: Podział tabeli — EF Core
 author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 04/10/2019
 ms.assetid: 0EC2CCE1-BD55-45D8-9EA9-20634987F094
 uid: core/modeling/table-splitting
-ms.openlocfilehash: 4a0bfaf017106a0bfdff084b1c472bdc17459a89
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: 684fcfbb66debfd1b89e23c8aaf0a32909378c6b
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562601"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149188"
 ---
-# <a name="table-splitting"></a><span data-ttu-id="e807f-102">Dzielenie tabeli</span><span class="sxs-lookup"><span data-stu-id="e807f-102">Table Splitting</span></span>
+# <a name="table-splitting"></a><span data-ttu-id="b4f61-102">Podział tabeli</span><span class="sxs-lookup"><span data-stu-id="b4f61-102">Table Splitting</span></span>
 
 >[!NOTE]
-> <span data-ttu-id="e807f-103">Ta funkcja jest nowa w programie EF Core 2.0.</span><span class="sxs-lookup"><span data-stu-id="e807f-103">This feature is new in EF Core 2.0.</span></span>
+> <span data-ttu-id="b4f61-103">Ta funkcja jest nowa w EF Core 2,0.</span><span class="sxs-lookup"><span data-stu-id="b4f61-103">This feature is new in EF Core 2.0.</span></span>
 
-<span data-ttu-id="e807f-104">EF Core umożliwia mapowanie dwóch lub więcej podmiotów na jeden wiersz.</span><span class="sxs-lookup"><span data-stu-id="e807f-104">EF Core allows to map two or more entities to a single row.</span></span> <span data-ttu-id="e807f-105">Jest to nazywane _tabeli podział_ lub _udostępnianie tabeli_.</span><span class="sxs-lookup"><span data-stu-id="e807f-105">This is called _table splitting_ or _table sharing_.</span></span>
+<span data-ttu-id="b4f61-104">EF Core umożliwia mapowanie dwóch lub więcej jednostek do jednego wiersza.</span><span class="sxs-lookup"><span data-stu-id="b4f61-104">EF Core allows to map two or more entities to a single row.</span></span> <span data-ttu-id="b4f61-105">Jest to tzw. _dzielenie tabeli_ lub _udostępnianie tabel_.</span><span class="sxs-lookup"><span data-stu-id="b4f61-105">This is called _table splitting_ or _table sharing_.</span></span>
 
-## <a name="configuration"></a><span data-ttu-id="e807f-106">Konfiguracja</span><span class="sxs-lookup"><span data-stu-id="e807f-106">Configuration</span></span>
+## <a name="configuration"></a><span data-ttu-id="b4f61-106">Konfiguracja</span><span class="sxs-lookup"><span data-stu-id="b4f61-106">Configuration</span></span>
 
-<span data-ttu-id="e807f-107">Aby korzystać z tabeli dzielenia, które typy jednostek, które muszą być mapowane do tej samej tabeli, mają klucze podstawowe mapowane na te same kolumny i co najmniej jednej relacji skonfigurowana między klucza podstawowego typu jednostki jednego i drugiego w tej samej tabeli.</span><span class="sxs-lookup"><span data-stu-id="e807f-107">To use table splitting the entity types need to be mapped to the same table, have the primary keys mapped to the same columns and at least one relationship configured between the primary key of one entity type and another in the same table.</span></span>
+<span data-ttu-id="b4f61-107">Aby używać dzielenia tabel, należy zamapować typy jednostek na tę samą tabelę, mieć klucze podstawowe zamapowane na te same kolumny i co najmniej jedną relację skonfigurowaną między kluczem podstawowym jednego typu jednostki a inną w tej samej tabeli.</span><span class="sxs-lookup"><span data-stu-id="b4f61-107">To use table splitting the entity types need to be mapped to the same table, have the primary keys mapped to the same columns and at least one relationship configured between the primary key of one entity type and another in the same table.</span></span>
 
-<span data-ttu-id="e807f-108">Typowy scenariusz do dzielenia tabeli używa tylko podzbiór kolumn w tabeli dla większej wydajności lub hermetyzacji.</span><span class="sxs-lookup"><span data-stu-id="e807f-108">A common scenario for table splitting is using only a subset of the columns in the table for greater performance or encapsulation.</span></span>
+<span data-ttu-id="b4f61-108">Typowy scenariusz dzielenia tabeli polega na użyciu tylko podzbioru kolumn w tabeli w celu uzyskania większej wydajności lub hermetyzacji.</span><span class="sxs-lookup"><span data-stu-id="b4f61-108">A common scenario for table splitting is using only a subset of the columns in the table for greater performance or encapsulation.</span></span>
 
-<span data-ttu-id="e807f-109">W tym przykładzie `Order` reprezentuje podzbiór `DetailedOrder`.</span><span class="sxs-lookup"><span data-stu-id="e807f-109">In this example `Order` represents a subset of `DetailedOrder`.</span></span>
+<span data-ttu-id="b4f61-109">W tym przykładzie `Order` reprezentuje `DetailedOrder`podzestaw.</span><span class="sxs-lookup"><span data-stu-id="b4f61-109">In this example `Order` represents a subset of `DetailedOrder`.</span></span>
 
 [!code-csharp[Order](../../../samples/core/Modeling/TableSplitting/Order.cs?name=Order)]
 
 [!code-csharp[DetailedOrder](../../../samples/core/Modeling/TableSplitting/DetailedOrder.cs?name=DetailedOrder)]
 
-<span data-ttu-id="e807f-110">Oprócz wymaganej konfiguracji nazywamy `HasBaseType((string)null)` w celu uniknięcia mapowania `DetailedOrder` w tej samej hierarchii co `Order`.</span><span class="sxs-lookup"><span data-stu-id="e807f-110">In addition to the required configuration we call `HasBaseType((string)null)` to avoid mapping `DetailedOrder` in the same hierarchy as `Order`.</span></span>
+<span data-ttu-id="b4f61-110">Poza wymaganą konfiguracją, która jest `Property(o => o.Status).HasColumnName("Status")` wywoływana w `DetailedOrder.Status` celu mapowania do tej samej `Order.Status`kolumny co.</span><span class="sxs-lookup"><span data-stu-id="b4f61-110">In addition to the required configuration we call `Property(o => o.Status).HasColumnName("Status")` to map `DetailedOrder.Status` to the same column as `Order.Status`.</span></span>
 
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=TableSplitting&highlight=3)]
 
-<span data-ttu-id="e807f-111">Zobacz [pełny przykład projektu](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting) Aby uzyskać dodatkowy kontekst.</span><span class="sxs-lookup"><span data-stu-id="e807f-111">See the [full sample project](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting) for more context.</span></span>
+> [!TIP]
+> <span data-ttu-id="b4f61-111">Zobacz [pełny przykładowy projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting) , aby uzyskać więcej kontekstu.</span><span class="sxs-lookup"><span data-stu-id="b4f61-111">See the [full sample project](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting) for more context.</span></span>
 
-## <a name="usage"></a><span data-ttu-id="e807f-112">Użycie</span><span class="sxs-lookup"><span data-stu-id="e807f-112">Usage</span></span>
+## <a name="usage"></a><span data-ttu-id="b4f61-112">Użycie</span><span class="sxs-lookup"><span data-stu-id="b4f61-112">Usage</span></span>
 
-<span data-ttu-id="e807f-113">Zapisywanie i zapytania jednostki przy użyciu tabeli podział odbywa się w taki sam sposób jak inne podmioty, jedyną różnicą jest to, że wszystkie jednostki udostępnianie wiersza musi być śledzona dla insert.</span><span class="sxs-lookup"><span data-stu-id="e807f-113">Saving and querying entities using table splitting is done in the same way as other entities, the only difference is that all entities sharing a row must be tracked for the insert.</span></span>
+<span data-ttu-id="b4f61-113">Zapisywanie i wykonywanie zapytań względem jednostek przy użyciu dzielenia tabeli odbywa się tak samo jak w przypadku innych jednostek.</span><span class="sxs-lookup"><span data-stu-id="b4f61-113">Saving and querying entities using table splitting is done in the same way as other entities.</span></span> <span data-ttu-id="b4f61-114">I począwszy od EF Core 3,0 odwołanie do jednostki zależnej może `null`być.</span><span class="sxs-lookup"><span data-stu-id="b4f61-114">And starting with EF Core 3.0 the dependent entity reference can be `null`.</span></span> <span data-ttu-id="b4f61-115">Jeśli wszystkie kolumny używane przez jednostkę zależną są `NULL` bazami danych, żadne wystąpienie dla niego nie zostanie utworzone podczas wykonywania zapytania.</span><span class="sxs-lookup"><span data-stu-id="b4f61-115">If all of the columns used by the dependent entity are `NULL` is the database then no instance for it will be created when queried.</span></span> <span data-ttu-id="b4f61-116">W takim przypadku wszystkie właściwości są opcjonalne i są ustawiane na `null`, co może nie być oczekiwane.</span><span class="sxs-lookup"><span data-stu-id="b4f61-116">This would also happen all of the properties are optional and set to `null`, which might not be expected.</span></span>
 
 [!code-csharp[Usage](../../../samples/core/Modeling/TableSplitting/Program.cs?name=Usage)]
 
-## <a name="concurrency-tokens"></a><span data-ttu-id="e807f-114">Tokeny współbieżności</span><span class="sxs-lookup"><span data-stu-id="e807f-114">Concurrency tokens</span></span>
+## <a name="concurrency-tokens"></a><span data-ttu-id="b4f61-117">Tokeny współbieżności</span><span class="sxs-lookup"><span data-stu-id="b4f61-117">Concurrency tokens</span></span>
 
-<span data-ttu-id="e807f-115">Jeśli żadnego z typów jednostek, udostępnianie tabeli jest tokenem współbieżności następnie go muszą być zawarte w wszystkich innych typów jednostek, aby uniknąć wartość tokenu współbieżności starych po zaktualizowaniu tylko jeden z jednostkami mapowany do tej samej tabeli.</span><span class="sxs-lookup"><span data-stu-id="e807f-115">If any of the entity types sharing a table has a concurrency token then it must be included in all other entity types to avoid a stale concurrency token value when only one of the entities mapped to the same table is updated.</span></span>
+<span data-ttu-id="b4f61-118">Jeśli którykolwiek z typów jednostek współużytkujących tabelę ma token współbieżności, musi być uwzględniony we wszystkich innych typach jednostek, aby uniknąć nieodświeżonej wartości tokenu współbieżności, gdy jest aktualizowana tylko jedna z jednostek mapowanych na tę samą tabelę.</span><span class="sxs-lookup"><span data-stu-id="b4f61-118">If any of the entity types sharing a table has a concurrency token then it must be included in all other entity types to avoid a stale concurrency token value when only one of the entities mapped to the same table is updated.</span></span>
 
-<span data-ttu-id="e807f-116">Aby uniknąć uwidaczniania go do kod konsumencki jest możliwe tworzenie, jeden w stanie w tle.</span><span class="sxs-lookup"><span data-stu-id="e807f-116">To avoid exposing it to the consuming code it's possible the create one in shadow-state.</span></span>
+<span data-ttu-id="b4f61-119">Aby nie ujawniać go w kodzie konsumowanym, można go utworzyć w tle.</span><span class="sxs-lookup"><span data-stu-id="b4f61-119">To avoid exposing it to the consuming code it's possible the create one in shadow-state.</span></span>
 
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=ConcurrencyToken&highlight=2)]
