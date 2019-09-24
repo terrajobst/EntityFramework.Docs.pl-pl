@@ -1,40 +1,68 @@
 ---
-title: Tworzenie typu DbContext w czasie projektowania - programu EF Core
+title: Tworzenie DbContext w czasie projektowania — EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 10/27/2017
+ms.date: 09/16/2019
 uid: core/miscellaneous/cli/dbcontext-creation
-ms.openlocfilehash: 66fec7605b6ac2da0af1e801f8a1dca0789aea35
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: f83d4b16227d114a1cac1514667484a908fea4ac
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993721"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197575"
 ---
-<a name="design-time-dbcontext-creation"></a>Tworzenie typu DbContext w czasie projektowania
+<a name="design-time-dbcontext-creation"></a>Tworzenie klasy DbContext w czasie projektowania
 ==============================
-Niektóre polecenia EF Core Tools (na przykład [migracje][1] poleceń) wymagają pochodnej `DbContext` wystąpienia, które ma zostać utworzony w czasie projektowania, aby można było zbierać szczegółowe informacje o aplikacji typy jednostek i sposobu mapowania ich na schemat bazy danych. W większości przypadków jest pożądane, `DbContext` utworzone w ten sposób jest skonfigurowany w podobny sposób, jak będzie [skonfigurowane w czasie wykonywania][2].
+Niektóre polecenia narzędzi EF Core (na przykład polecenia [migracji][1] ) wymagają utworzenia wystąpienia pochodnego `DbContext` w czasie projektowania w celu zebrania szczegółowych informacji o typach jednostek aplikacji i sposobie ich mapowania na schemat bazy danych. W większości przypadków wskazane `DbContext` jest, aby utworzone w ten sposób jest skonfigurowane w podobny sposób jak w [czasie wykonywania][2].
 
-Istnieją różne sposoby, narzędzia, spróbuj utworzyć `DbContext`:
+Istnieją różne sposoby tworzenia `DbContext`:
 
-<a name="from-application-services"></a>Z usługi aplikacji
+<a name="from-application-services"></a>Z usług aplikacji
 -------------------------
-Jeśli Twój projekt startowy aplikacji ASP.NET Core, narzędzia próby uzyskania obiektu DbContext od dostawcy usług w aplikacji.
+Jeśli projekt startowy używa hosta [sieci Web ASP.NET Core][3] lub [hosta ogólnego platformy .NET Core][4], narzędzia próbują uzyskać obiekt DbContext od dostawcy usług aplikacji.
 
-Narzędzia najpierw spróbują uzyskać dostawcę usługi za pomocą wywołania `Program.BuildWebHost()` i uzyskiwania dostępu do `IWebHost.Services` właściwości.
+Narzędzia najpierw próbują uzyskać dostawcę `Program.CreateHostBuilder()`usług, wywołując wywoływanie `Build()`, a następnie uzyskując dostęp `Services` do właściwości.
+
+``` csharp
+public class Program
+{
+    public static void Main(string[] args)
+        => CreateHostBuilder(args).Build().Run();
+
+    // EF Core uses this method at design time to access the DbContext
+    public static IHostBuilder CreateHostBuilder(string[] args)
+        => Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(
+                webBuilder => webBuilder.UseStartup<Startup>());
+}
+
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+        => services.AddDbContext<ApplicationDbContext>();
+}
+
+public class ApplicationDbContext : DbContext
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
+    {
+    }
+}
+```
 
 > [!NOTE]
-> Podczas tworzenia nowej aplikacji platformy ASP.NET Core 2.0 tego punktu zaczepienia jest domyślnie. W poprzednich wersjach programu EF Core i ASP.NET Core, narzędzia próbuj wywoływać `Startup.ConfigureServices` bezpośrednio w celu uzyskania dostawcy usług aplikacji, ale ten wzorzec, przestanie działać poprawnie w aplikacjach ASP.NET Core 2.0. Jeśli uaktualniasz aplikacji ASP.NET Core 1.x do 2.0, możesz to zrobić [zmodyfikować swoje `Program` klasy oparte na wzorcu nowe][3].
+> Podczas tworzenia nowej aplikacji ASP.NET Core ten element Hook jest uwzględniany domyślnie.
 
-`DbContext` Sam, jak i wszelkich zależności w jego konstruktorze muszą być zarejestrowani jako usługi w aplikacji usługodawcy. Można to łatwo osiągnąć dzięki [Konstruktor w `DbContext` przyjmującej wystąpienie `DbContextOptions<TContext>` jako argument][4] i przy użyciu [`AddDbContext<TContext>` —Metoda][5].
+`DbContext` Sama i wszystkie zależności w jego konstruktorze muszą być zarejestrowane jako usługi w dostawcy usług aplikacji. Można to łatwo osiągnąć poprzez posiadanie [ `DbContext` konstruktora na, który przyjmuje wystąpienie `DbContextOptions<TContext>` ][5] [ `AddDbContext<TContext>` ][6]jako argument i przy użyciu metody.
 
-<a name="using-a-constructor-with-no-parameters"></a>Za pomocą konstruktora bez parametrów
+<a name="using-a-constructor-with-no-parameters"></a>Korzystanie z konstruktora bez parametrów
 --------------------------------------
-Jeśli kontekst DbContext nie można uzyskać od dostawcy usług w aplikacji, wyszukaj narzędzia pochodnej `DbContext` typów wewnątrz projektu. Następnie próby utworzenia wystąpienia przy użyciu konstruktora bez parametrów. Może to być domyślnego konstruktora, jeśli `DbContext` została skonfigurowana przy użyciu [`OnConfiguring`][6] metody.
+Jeśli nie można uzyskać elementu DbContext od dostawcy usług aplikacji, narzędzia szukają typu pochodnego `DbContext` wewnątrz projektu. Następnie próbują utworzyć wystąpienie przy użyciu konstruktora bez parametrów. Może to być Konstruktor domyślny, jeśli `DbContext` jest skonfigurowany [`OnConfiguring`][7] przy użyciu metody.
 
 <a name="from-a-design-time-factory"></a>Z fabryki czasu projektowania
 --------------------------
-Możesz również poinformować narzędzia sposób tworzenia usługi DbContext implementując `IDesignTimeDbContextFactory<TContext>` interfejsu: Jeśli klasy implementującej interfejs ten jest odnaleziony ani w tym samym projekcie jako pochodnej `DbContext` lub w projekcie uruchamiania aplikacji, obejście narzędzia inne sposoby tworzenia DbContext i używania fabryki czasu projektowania, a zamiast tego.
+Możesz również poinformować o narzędziach, jak utworzyć DbContext, implementując `IDesignTimeDbContextFactory<TContext>` interfejs: Jeśli klasa implementująca ten interfejs znajduje się w tym samym projekcie co pochodna `DbContext` lub w projekcie startowym aplikacji, narzędzia te pomijają inne sposoby tworzenia kontekstu DBI używają zamiast nich fabryki czasu projektowania.
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
@@ -57,14 +85,15 @@ namespace MyProject
 ```
 
 > [!NOTE]
-> `args` Parametru jest aktualnie używana. Brak [problemu][7] śledzenia możliwość określenia czasu projektowania argumentów z poziomu narzędzi.
+> `args` Parametr jest aktualnie nieużywany. Występuje [problem][8] ze śledzeniem możliwości określania argumentów czasu projektowania z narzędzi.
 
-Fabryka projektowania może być szczególnie przydatne, jeśli musisz skonfigurować kontekstu DbContext inaczej czas projektowania niż w czasie wykonywania, jeśli `DbContext` Konstruktor przyjmuje dodatkowych parametrów nie są zarejestrowane w DI, jeśli nie używasz DI wcale, lub w przypadku niektórych przyczyny nie chcesz mieć `BuildWebHost` metody w aplikacji platformy ASP.NET Core `Main` klasy.
+Fabryka czasu projektowania może być szczególnie przydatna, jeśli trzeba skonfigurować DbContext w inny sposób niż czas projektowania niż w czasie wykonywania, jeśli `DbContext` Konstruktor przyjmuje dodatkowe parametry nie są zarejestrowane w programie di, jeśli nie są używane w ogóle, lub jeśli w przypadku niektórych powód, dla którego wolisz, `BuildWebHost` aby nie mieć metody w `Main` klasie ASP.NET Core aplikacji.
 
   [1]: xref:core/managing-schemas/migrations/index
   [2]: xref:core/miscellaneous/configuring-dbcontext
-  [3]: https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/#update-main-method-in-programcs
-  [4]: xref:core/miscellaneous/configuring-dbcontext#constructor-argument
-  [5]: xref:core/miscellaneous/configuring-dbcontext#using-dbcontext-with-dependency-injection
-  [6]: xref:core/miscellaneous/configuring-dbcontext#onconfiguring
-  [7]: https://github.com/aspnet/EntityFrameworkCore/issues/8332
+  [3]: /aspnet/core/fundamentals/host/web-host
+  [4]: /aspnet/core/fundamentals/host/generic-host
+  [5]: xref:core/miscellaneous/configuring-dbcontext#constructor-argument
+  [6]: xref:core/miscellaneous/configuring-dbcontext#using-dbcontext-with-dependency-injection
+  [7]: xref:core/miscellaneous/configuring-dbcontext#onconfiguring
+  [8]: https://github.com/aspnet/EntityFrameworkCore/issues/8332

@@ -5,12 +5,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
-ms.openlocfilehash: ad0807a3cfd62c6c09a97df1a45134db7a538623
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 3d2f72e64e6846d2d8bb6d4d507e04090287114d
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149055"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71198011"
 ---
 # <a name="compare-ef-core--ef6"></a>Porównanie programów EF Core i EF6
 
@@ -125,7 +125,7 @@ Kolumna EF Core wskazuje wersję produktu, w której pierwsza pojawiła się fun
 | MySQL                                                 | Tak      | 1.0                                   |
 | PostgreSQL                                            | Tak      | 1.0                                   |
 | Oracle                                                | Tak      | 1.0                                   |
-| Bazy danych SQLite                                                | Tak      | 1.0                                   |
+| SQLite                                                | Tak      | 1.0                                   |
 | SQL Server Compact                                    | Tak      | 1,0 <sup>(1)</sup>                    |
 | DB2                                                   | Tak      | 1.0                                   |
 | Firebird                                              | Tak      | 2.0                                   |
@@ -148,7 +148,7 @@ Kolumna EF Core wskazuje wersję produktu, w której pierwsza pojawiła się fun
 
 Rozważ użycie EF Core dla nowej aplikacji, jeśli są spełnione oba z następujących warunków:
 * Aplikacja wymaga możliwości platformy .NET Core. Aby uzyskać więcej informacji, zobacz [Wybieranie między platformą .NET Core i .NET Framework dla aplikacji serwerowych](https://docs.microsoft.com/dotnet/standard/choosing-core-framework-server).
-* EF Core obsługuje wszystkie funkcje wymagane przez aplikację. Jeśli brakuje odpowiedniej funkcji, zapoznaj się z [planem EF Core](xref:core/what-is-new/roadmap) , aby dowiedzieć się, czy istnieją plany obsługi tego programu w przyszłości.
+* EF Core obsługuje wszystkie funkcje wymagane przez aplikację. Jeśli brakuje odpowiedniej funkcji, zapoznaj się z [planem EF Core](xref:core/what-is-new/index) , aby dowiedzieć się, czy istnieją plany obsługi tego programu w przyszłości. 
 
 Rozważ użycie EF6, jeśli są spełnione oba z następujących warunków:
 * Aplikacja będzie działać w systemie Windows i w .NET Framework 4,0 lub nowszej.

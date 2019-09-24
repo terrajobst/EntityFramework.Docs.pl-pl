@@ -3,41 +3,41 @@ title: Obsługa konfliktów współbieżności — EF Core
 author: rowanmiller
 ms.date: 03/03/2018
 uid: core/saving/concurrency
-ms.openlocfilehash: e050b17bfa31a4785161c700bc0355e83162b405
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 4d6ff24e58caa0b228e9c1e4313beda78d1025fc
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993115"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197832"
 ---
 # <a name="handling-concurrency-conflicts"></a>Obsługa konfliktów współbieżności
 
 > [!NOTE]
-> Ta strona dokumentów, jak współbieżność działa w programie EF Core i sposób obsługi konfliktów współbieżności w aplikacji. Zobacz [tokeny współbieżności](xref:core/modeling/concurrency) Aby uzyskać szczegółowe informacje na temat konfigurowania tokeny współbieżności w modelu.
+> Ta strona dokumentuje sposób działania współbieżności w EF Core oraz sposób obsługi konfliktów współbieżności w aplikacji. Zobacz [tokeny współbieżności](xref:core/modeling/concurrency) , aby uzyskać szczegółowe informacje na temat konfigurowania tokenów współbieżności w modelu.
 
 > [!TIP]
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Concurrency/) użyty w tym artykule można zobaczyć w witrynie GitHub.
+> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Concurrency/) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
-_Baza danych współbieżności_ odnosi się do sytuacji, w których wiele procesów lub użytkownikom dostęp lub zmienić te same dane w bazie danych, w tym samym czasie. _Kontrola współbieżności_ odwołuje się do określonych mechanizmów używane w celu zapewnienia spójności danych w obecności równoczesnych zmian.
+_Współbieżność bazy danych_ odnosi się do sytuacji, w których wiele procesów lub użytkowników uzyskuje dostęp lub zmienia te same dane w bazie danych w tym samym czasie. _Kontrola współbieżności_ odnosi się do określonych mechanizmów używanych do zapewnienia spójności danych w obecności współbieżnych zmian.
 
-Implementuje programu EF Core _mechanizmu kontroli optymistycznej współbieżności_, co oznacza, że umożliwi ona wiele procesów lub użytkownicy wprowadzać zmiany, niezależnie od siebie bez konieczności synchronizacji lub blokowania. W sytuacji idealnej te zmiany nie kolidują ze sobą i w związku z tym będzie można pomyślnie. W najgorszym przypadku wielkości liter dwa lub więcej procesów podejmie próbę zmiany powodujące konflikt, i tylko jeden z nich ma być pomyślnie wykonane.
+EF Core implementuje _optymistyczną kontrolę współbieżności_, co oznacza, że umożliwia wiele procesów lub użytkownikom wprowadzanie zmian niezależnie od obciążenia synchronizacji lub blokowania. W przypadku idealnej sytuacji te zmiany nie będą zakłócać działania i w związku z tym będą mogły się powieść. W scenariuszu najgorszego przypadku co najmniej dwa procesy będą próbować wprowadzać zmiany w konflikcie, a tylko jeden z nich powinien pomyślnie.
 
-## <a name="how-concurrency-control-works-in-ef-core"></a>Jak działa Kontrola współbieżności w programie EF Core
+## <a name="how-concurrency-control-works-in-ef-core"></a>Jak działa kontrola współbieżności w EF Core
 
-Właściwości skonfigurowane tokeny współbieżności są używane do wdrożenia mechanizmu kontroli optymistycznej współbieżności: zawsze, gdy operacji update lub delete jest wykonywane podczas `SaveChanges`, wartość tokenu współbieżności w bazie danych jest porównywana oryginał wartość odczytu przez platformę EF Core.
+Właściwości skonfigurowane jako tokeny współbieżności są używane do implementowania optymistycznej kontroli współbieżności: za każdym razem, gdy `SaveChanges`operacja aktualizowania lub usuwania jest wykonywana w trakcie, wartość tokenu współbieżności w bazie danych jest porównywana z oryginalną wartość odczytana przez EF Core.
 
-- Jeśli wartości są zgodne, można wykonać operacji.
-- Jeśli wartości nie są zgodne, EF Core założono, że inny użytkownik wykonał operacji powodującej konflikt i przerywa bieżącej transakcji.
+- Jeśli wartości są takie same, operacja może zostać ukończona.
+- Jeśli wartości nie są zgodne, EF Core zakłada, że inny użytkownik wykonał operację powodującą konflikt i przerywa bieżącą transakcję.
 
-Sytuacja, gdy inny użytkownik wykonał operację, która powoduje konflikt z bieżącej operacji jest znany jako _konfliktów współbieżności_.
+Sytuacja, w której inny użytkownik wykonał operację, która powoduje konflikt z bieżącą operacją, jest znana jako _konflikt współbieżności_.
 
-Dostawcy baz danych są odpowiedzialni za wdrażanie porównanie wartości tokenu współbieżności.
+Dostawcy baz danych są odpowiedzialni za implementację porównania wartości tokenów współbieżności.
 
-W relacyjnych baz danych programu EF Core obejmuje sprawdzenia wartości tokenu współbieżności w `WHERE` klauzuli dowolnego `UPDATE` lub `DELETE` instrukcji. Po wykonaniu instrukcji, programem EF Core odczytuje liczbę wierszy, które miały wpływ.
+W relacyjnych bazach danych EF Core obejmuje sprawdzenie wartości tokenu współbieżności w `WHERE` klauzuli `UPDATE` instrukcji or `DELETE` . Po wykonaniu instrukcji EF Core odczytuje liczbę wierszy, których to dotyczy.
 
-Jeśli wpływają żadne wiersze nie został wykryty konflikt współbieżności i zgłasza wyjątek programu EF Core `DbUpdateConcurrencyException`.
+Jeśli nie wpłynie to na żadne wiersze, zostanie wykryte konflikt współbieżności, a `DbUpdateConcurrencyException`EF Core zgłasza.
 
-Na przykład firma Microsoft może być konieczne skonfigurowanie `LastName` na `Person` za tokenem współbieżności. Następnie żadnych operacji aktualizacji w osoba będzie zawierać wyboru współbieżność w `WHERE` klauzuli:
+Na przykład możemy chcieć skonfigurować `LastName` `Person` jako token współbieżności. Następnie każda operacja aktualizacji dla osoby będzie obejmować kontrolę współbieżności w `WHERE` klauzuli:
 
 ``` sql
 UPDATE [Person] SET [FirstName] = @p1
@@ -46,29 +46,29 @@ WHERE [PersonId] = @p0 AND [LastName] = @p2;
 
 ## <a name="resolving-concurrency-conflicts"></a>Rozwiązywanie konfliktów współbieżności
 
-Kontynuując poprzedni przykład gdy jeden użytkownik próbuje zapisać pewne zmiany `Person`, ale już inny użytkownik zmienił `LastName`, a następnie zostanie zgłoszony wyjątek.
+Kontynuując poprzedni przykład, jeśli jeden użytkownik próbuje zapisać pewne zmiany w `Person`, ale inny użytkownik już `LastName`zmienił, zostanie zgłoszony wyjątek.
 
-W tym momencie aplikacja może po prostu informować użytkownika, że aktualizacja zakończyła się niepowodzeniem z powodu zmian powodujących konflikt i przejść. Jednak może być pożądane, aby monitować użytkownika, upewnij się, że ten rekord reprezentuje nadal tę samą osobę rzeczywiste i spróbuj ponownie wykonać operację.
+W tym momencie aplikacja może po prostu poinformować użytkownika o tym, że aktualizacja nie powiodła się z powodu sprzecznych zmian i przejścia. Może jednak być wskazane monitowanie użytkownika o zapewnienie, że ten rekord nadal reprezentuje tę samą osobę rzeczywistą i spróbuje ponownie wykonać operację.
 
-Ten proces jest przykładem _Rozwiązywanie konfliktów współbieżności_.
+Ten proces jest przykładem _rozwiązania konfliktu współbieżności_.
 
-Rozwiązywanie konfliktów współbieżności obejmuje scalanie oczekujące zmiany z bieżącej `DbContext` z wartościami w bazie danych. Scalony jakie wartości będą się różnić w zależności od aplikacji i zaleceniami dane wejściowe użytkownika.
+Rozwiązanie konfliktu współbieżności polega na scaleniu oczekujących zmian z bieżącego `DbContext` z wartościami w bazie danych. Jakie wartości są scalane, różnią się w zależności od aplikacji i mogą być kierowane przez dane wejściowe użytkownika.
 
-**Istnieją trzy rodzaje wartości może pomóc rozwiązać konflikt współbieżności:**
+**Dostępne są trzy zestawy wartości, które ułatwiają rozwiązanie konfliktu współbieżności:**
 
-* **Bieżące wartości** są wartościami, które aplikacja próby zapisu w bazie danych.
+* **Bieżące wartości** to wartości, które aplikacja podjęła próbę zapisu w bazie danych.
 
-* **Oryginalne wartości** są wartościami, które zostały pierwotnie pobrany z bazy danych, zanim zmiany zostały wprowadzone.
+* **Pierwotne wartości** to wartości, które zostały pierwotnie pobrane z bazy danych, przed wprowadzeniem jakichkolwiek zmian.
 
-* **Bazy danych wartości** wartości przechowywane w bazie danych.
+* **Wartości bazy danych** są obecnie przechowywane w bazie danych.
 
-Obsługa konfliktów współbieżności ogólne podejście jest:
+Ogólnym podejściem do obsłużenia konfliktów współbieżności jest:
 
-1. CATCH `DbUpdateConcurrencyException` podczas `SaveChanges`.
-2. Użyj `DbUpdateConcurrencyException.Entries` Aby przygotować nowy zestaw zmian dla obiektów, których to dotyczy.
-3. Odśwież oryginalne wartości parametru tokenu współbieżności do bieżącej wartości w bazie danych.
-4. Ponów próbę wykonania procesu, dopóki nie występują żadne konflikty.
+1. Catch `DbUpdateConcurrencyException` w `SaveChanges`trakcie.
+2. Służy `DbUpdateConcurrencyException.Entries` do przygotowywania nowego zestawu zmian dla odnośnych jednostek.
+3. Odśwież oryginalne wartości tokenu współbieżności, aby odzwierciedlić bieżące wartości w bazie danych.
+4. Ponów próbę wykonania procesu, dopóki nie wystąpią żadne konflikty.
 
-W poniższym przykładzie `Person.FirstName` i `Person.LastName` są skonfigurowane jako tokeny współbieżności. Brak `// TODO:` komentarz w lokalizacji, gdzie obejmują określonej logiki aplikacji, aby wybrać wartość do zapisania.
+W poniższym przykładzie `Person.FirstName` i `Person.LastName` są skonfigurowane jako tokeny współbieżności. `// TODO:` Istnieje komentarz w lokalizacji, w której dołączysz logikę specyficzną dla aplikacji w celu wybrania wartości do zapisania.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Concurrency/Sample.cs?name=ConcurrencyHandlingCode&highlight=34-35)]
+[!code-csharp[Main](../../../samples/core/Saving/Concurrency/Sample.cs?name=ConcurrencyHandlingCode&highlight=34-35)]

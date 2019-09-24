@@ -1,19 +1,19 @@
 ---
-title: Przegląd — EF Core
+title: Omówienie Entity Framework Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 uid: core/index
-ms.openlocfilehash: 0e35a2b3f89c92b717b8e05c8fa3ae5af5ce8fd3
-ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
+ms.openlocfilehash: 0107a520e5a698eaf76426b63c6f784392559167
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 06/24/2019
-ms.locfileid: "67333778"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71196972"
 ---
 # <a name="entity-framework-core"></a>Entity Framework Core
 
-Entity Framework (EF) Core to lekkie, rozszerzalne, ["open source"](https://github.com/aspnet/EntityFrameworkCore) dla wielu platform wersję popularnych danych Entity Framework dostęp do technologii.
+Entity Framework (EF) Core to [lekkie, rozszerzalne i](https://github.com/aspnet/EntityFrameworkCore) wieloplatformowe wersje popularnej Entity Framework technologii dostępu do danych.
 
 EF Core może służyć jako maper obiektowo relacyjny (O/RM), dzięki czemu deweloperzy platformy .NET mogą pracować z bazą danych, używając obiektów platformy .NET i eliminując potrzebę pisania większości kodu dostępu do danych.
 
@@ -21,9 +21,9 @@ EF Core obsługuje wiele aparatów baz danych, zobacz [Dostawcy baz danych](prov
 
 ## <a name="the-model"></a>Model
 
-Z programem EF Core dostęp do danych odbywa się przy użyciu modelu. Model składa się z klas jednostek i obiekt kontekstu, który reprezentuje sesję z bazą danych, dzięki czemu zapytania i zapisywać dane. Zobacz [Tworzenie modelu](modeling/index.md), aby dowiedzieć się więcej.
+W przypadku EF Core dostęp do danych odbywa się przy użyciu modelu. Model składa się z klas jednostek i obiektu kontekstu, który reprezentuje sesję z bazą danych, co pozwala na wykonywanie zapytań i zapisywanie danych. Zobacz [Tworzenie modelu](modeling/index.md), aby dowiedzieć się więcej.
 
-Można wygenerować model z istniejącej bazy danych, przekazania kodu z modelu, aby dopasować bazy danych lub użyj [migracji EF](managing-schemas/migrations/index.md) można utworzyć bazę danych z modelu, a następnie rozwój, jak model zmienia się wraz z upływem czasu.
+Można wygenerować model z istniejącej bazy danych, ręcznie nakodować model do bazy danych lub użyć [migracji EF](managing-schemas/migrations/index.md) do utworzenia bazy danych z modelu, a następnie przydzielenia go wraz ze zmianą modelu w miarę upływu czasu.
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;

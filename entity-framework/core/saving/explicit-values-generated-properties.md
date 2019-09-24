@@ -1,60 +1,60 @@
 ---
-title: Ustawienie jawne wartości dla wygenerowanych właściwości - programu EF Core
+title: Ustawianie wartości jawnych dla wygenerowanych właściwości — EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 3f1993c2-cdf5-425b-bac2-a2665a20322b
 uid: core/saving/explicit-values-generated-properties
-ms.openlocfilehash: 00abef4d1208400ff68ced0a241b98b8dc9be5c0
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: d6aa9a0a9ce34e09a39026ad7ea9195b6777858c
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997856"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197856"
 ---
-# <a name="setting-explicit-values-for-generated-properties"></a>Ustawienie jawne wartości dla wygenerowanych właściwości
+# <a name="setting-explicit-values-for-generated-properties"></a>Ustawianie wartości jawnych dla wygenerowanych właściwości
 
-Wygenerowana właściwość jest właściwością, którego wartość jest generowana (albo przez EF lub bazy danych) podczas dodane lub zaktualizowane jednostki. Zobacz [wygenerowanych właściwości](../modeling/generated-properties.md) Aby uzyskać więcej informacji.
+Wygenerowana Właściwość to właściwość, której wartość jest generowana (przez EF lub bazę danych), gdy jednostka zostanie dodana i/lub zaktualizowana. Aby uzyskać więcej informacji, zobacz [wygenerowane właściwości](../modeling/generated-properties.md) .
 
-Mogą wystąpić sytuacje, w której chcesz ustawić jawną wartość dla wygenerowanej właściwości zamiast plan wygenerowany.
+Mogą wystąpić sytuacje, w których chcesz ustawić wartość jawną dla wygenerowanej właściwości, zamiast wygenerowania jednego.
 
 > [!TIP]  
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/ExplicitValuesGenerateProperties/) użyty w tym artykule można zobaczyć w witrynie GitHub.
+> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/ExplicitValuesGenerateProperties/) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
 ## <a name="the-model"></a>Model
 
-Model używany w tym artykule zawiera pojedynczy `Employee` jednostki.
+Model używany w tym artykule zawiera jedną `Employee` jednostkę.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Employee.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/Employee.cs#Sample)]
 
-## <a name="saving-an-explicit-value-during-add"></a>Zapisywanie jawną wartość podczas Dodaj
+## <a name="saving-an-explicit-value-during-add"></a>Zapisywanie wartości jawnej podczas dodawania
 
-`Employee.EmploymentStarted` Skonfigurowano właściwości do wartości generowane przez bazę danych do nowych jednostek (przy użyciu wartości domyślnej).
+`Employee.EmploymentStarted` Właściwość jest skonfigurowana tak, aby wartości wygenerowały przez bazę danych dla nowych jednostek (przy użyciu wartości domyślnej).
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#EmploymentStarted)]
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#EmploymentStarted)]
 
-Poniższy kod powoduje wstawienie dwóch pracowników do bazy danych.
-* W pierwszym, zostanie przypisana żadna wartość, aby `Employee.EmploymentStarted` , dzięki czemu pozostanie ustawioną na wartość domyślną CLR dla `DateTime`.
-* Z drugiej ustawimy mają jawne wartości `1-Jan-2000`.
+Poniższy kod wstawia dwóch pracowników do bazy danych programu.
+* Dla pierwszej, żadna wartość nie jest przypisana `Employee.EmploymentStarted` do właściwości, więc pozostaje ustawiona na wartość domyślną środowiska CLR dla `DateTime`.
+* Dla drugiej ustawimy wartość `1-Jan-2000`jawną.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmploymentStarted)]
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmploymentStarted)]
 
-Dane wyjściowe pokazują, że bazy danych wygenerowaną wartość dla pierwszego pracownika i użyto naszych jawną wartość dla drugiego.
+Dane wyjściowe pokazują, że baza danych wygenerowała wartość pierwszego pracownika, a nasza wartość została użyta w drugim.
 
 ``` Console
 1: John Doe, 1/26/2017 12:00:00 AM
 2: Jane Doe, 1/1/2000 12:00:00 AM
 ```
 
-### <a name="explicit-values-into-sql-server-identity-columns"></a>Jawne wartości w kolumnach tożsamości serwera SQL
+### <a name="explicit-values-into-sql-server-identity-columns"></a>Jawne wartości do kolumn tożsamości SQL Server
 
-Zgodnie z Konwencją `Employee.EmployeeId` właściwość jest magazynem generowane `IDENTITY` kolumny.
+Według Konwencji `Employee.EmployeeId` właściwość jest kolumną wygenerowaną `IDENTITY` przez magazyn.
 
-W większości sytuacji to podejście pokazano powyżej będzie działać w przypadku właściwości klucza. Jednakże można wstawić jawnej wartości do programu SQL Server `IDENTITY` kolumnę, musisz ręcznie włączyć `IDENTITY_INSERT` przed wywołaniem `SaveChanges()`.
+W większości sytuacji wskazane powyżej podejście będzie działało dla właściwości klucza. Aby jednak wstawić wartości jawne do kolumny SQL Server `IDENTITY` , musisz ręcznie włączyć `IDENTITY_INSERT` przed wywołaniem `SaveChanges()`.
 
 > [!NOTE]  
-> Mamy [zgłoszenie dotyczące funkcji](https://github.com/aspnet/EntityFramework/issues/703) na naszej liście prac, aby to zrobić automatycznie przy użyciu dostawcy programu SQL Server.
+> Mamy żądanie dotyczące [funkcji](https://github.com/aspnet/EntityFramework/issues/703) w naszym zaległości, aby to zrobić automatycznie w ramach dostawcy SQL Server.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmployeeId)]
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmployeeId)]
 
 Dane wyjściowe pokazują, że podane identyfikatory zostały zapisane w bazie danych.
 
@@ -63,29 +63,29 @@ Dane wyjściowe pokazują, że podane identyfikatory zostały zapisane w bazie d
 101: Jane Doe
 ```
 
-## <a name="setting-an-explicit-value-during-update"></a>Ustawianie jawną wartość podczas aktualizacji
+## <a name="setting-an-explicit-value-during-update"></a>Ustawianie jawnej wartości podczas aktualizacji
 
-`Employee.LastPayRaise` Skonfigurowano właściwości do wartości generowane przez bazę danych podczas aktualizacji.
+`Employee.LastPayRaise` Właściwość jest skonfigurowana tak, aby wartości były generowane przez bazę danych podczas aktualizacji.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#LastPayRaise)]
-
-> [!NOTE]  
-> Domyślnie program EF Core spowoduje zgłoszenie wyjątku, jeśli zostanie podjęta próba zapisania jawną wartość dla właściwości, który jest skonfigurowany do wygenerowania podczas aktualizacji. Aby tego uniknąć, należy do listy rozwijanej na niższym poziomie metadanych interfejsu API i ustaw `AfterSaveBehavior` (jak pokazano powyżej).
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#LastPayRaise)]
 
 > [!NOTE]  
-> **Zmiany w programie EF Core 2.0:** w poprzednich wersjach zachowanie wtórnym Zapisz został kontrolowane za pośrednictwem `IsReadOnlyAfterSave` flagi. Ta flaga został zamieniono przestarzały parametr i zastąpione przez `AfterSaveBehavior`.
+> Domyślnie EF Core zgłosi wyjątek, jeśli spróbujesz zapisać wartość jawną dla właściwości, która jest skonfigurowana do generowania podczas aktualizacji. Aby tego uniknąć, należy rozwinąć do interfejsu API metadanych niższego poziomu i ustawić `AfterSaveBehavior` (jak pokazano powyżej).
 
-Istnieje również wyzwalacza w bazie danych do generowania wartości dla `LastPayRaise` kolumny podczas `UPDATE` operacji.
+> [!NOTE]  
+> **Zmiany w EF Core 2,0:** W poprzednich wersjach zachowanie po zapisaniu było kontrolowane przez `IsReadOnlyAfterSave` flagę. Ta flaga jest przestarzała i zastąpiona przez `AfterSaveBehavior`.
 
-[!code-sql[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/employee_UPDATE.sql)]
+W bazie danych istnieje również wyzwalacz służący do generowania wartości dla `LastPayRaise` kolumny podczas `UPDATE` operacji.
 
-Poniższy kod powoduje zwiększenie wynagrodzenia dwóch pracowników w bazie danych.
-* W pierwszym, zostanie przypisana żadna wartość, aby `Employee.LastPayRaise` właściwości, dzięki czemu pozostanie ustawiony na wartość null.
-* Dla drugiego firma Microsoft ustawiono jawną wartość jeden tydzień temu (podniesienie płatność sięga wstecz).
+[!code-sql[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/employee_UPDATE.sql)]
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs#LastPayRaise)]
+Poniższy kod zwiększa wynagrodzenie dwóch pracowników w bazie danych.
+* Dla pierwszej, żadna wartość nie jest przypisana `Employee.LastPayRaise` do właściwości, więc pozostanie ustawiona na wartość null.
+* Dla drugiej ustawimy jawną wartość jednego tygodnia temu (Wstecz Datowanie Zgłoś płatność).
 
-Dane wyjściowe pokazują, że bazy danych wygenerowaną wartość dla pierwszego pracownika i użyto naszych jawną wartość dla drugiego.
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/Sample.cs#LastPayRaise)]
+
+Dane wyjściowe pokazują, że baza danych wygenerowała wartość pierwszego pracownika, a nasza wartość została użyta w drugim.
 
 ``` Console
 1: John Doe, 1/26/2017 12:00:00 AM

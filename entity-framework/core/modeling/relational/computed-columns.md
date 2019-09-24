@@ -4,33 +4,33 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e9d81f06-805d-45c9-97c2-3546df654829
 uid: core/modeling/relational/computed-columns
-ms.openlocfilehash: b88efdf69e5100e4eff55f3a41925d2d8e7c3178
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: da106c94698a202744d7cd465aa84d0d72802833
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993956"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197235"
 ---
 # <a name="computed-columns"></a>Kolumny obliczane
 
 > [!NOTE]  
-> Ogólnie rzecz biorąc jest odpowiednie dla relacyjnych baz danych konfiguracji w tej sekcji. Metody rozszerzenia, pokazane tutaj staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionej *Microsoft.EntityFrameworkCore.Relational* pakietu).
+> Konfiguracja w tej sekcji jest ogólnie stosowana do relacyjnych baz danych. Przedstawione tutaj metody rozszerzania staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (ze względu na współużytkowany pakiet *Microsoft. EntityFrameworkCore. relacyjny* ).
 
-Kolumna obliczana jest kolumna, której wartość jest obliczana w bazie danych. Kolumna obliczana można użyć innych kolumn w tabeli można obliczyć jej wartość.
+Kolumna obliczana to kolumna, której wartość jest obliczana w bazie danych. Kolumna obliczana może użyć innych kolumn w tabeli do obliczenia jej wartości.
 
 ## <a name="conventions"></a>Konwencje
 
-Zgodnie z Konwencją kolumnach obliczanych nie są tworzone w modelu.
+Według Konwencji kolumny obliczane nie są tworzone w modelu.
 
 ## <a name="data-annotations"></a>Adnotacje danych
 
-Nie można skonfigurować przy użyciu adnotacji danych kolumn obliczanych.
+Kolumn obliczanych nie można skonfigurować za pomocą adnotacji danych.
 
-## <a name="fluent-api"></a>Interfejs Fluent API
+## <a name="fluent-api"></a>Interfejs API Fluent
 
-Interfejs Fluent API służy do określenia, czy właściwość powinna być zamapowana z kolumną obliczaną.
+Możesz użyć interfejsu API Fluent, aby określić, że właściwość powinna być mapowana na kolumnę obliczaną.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/ComputedColumn.cs?highlight=9)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/ComputedColumn.cs?highlight=9)] -->
 ``` csharp
 class MyContext : DbContext
 {

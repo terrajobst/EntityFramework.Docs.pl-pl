@@ -4,16 +4,16 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 1f63593631017a61c39ccab9216adbc4663700e7
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: f7c241159c689d4648b2778b53e50c22f580deb0
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71148904"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197924"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Istotne zmiany zawarte w EF Core 3,0
 Poniższe zmiany dotyczące interfejsu API i zachowania mogą powodować przerwanie istniejących aplikacji podczas uaktualniania ich do 3.0.0.
-Zmiany, których oczekujemy tylko dostawcy bazy danych, są udokumentowane w obszarze [zmiany dostawcy](../../providers/provider-log.md).
+Zmiany, których oczekujemy tylko dostawcy bazy danych, są udokumentowane w obszarze [zmiany dostawcy](xref:core/providers/provider-log).
 Przerwy z jednej wersji zapoznawczej 3,0 do innej wersji zapoznawczej 3,0 nie są tutaj udokumentowane.
 
 ## <a name="summary"></a>Podsumowanie
@@ -23,6 +23,7 @@ Przerwy z jednej wersji zapoznawczej 3,0 do innej wersji zapoznawczej 3,0 nie s�
 | [Zapytania LINQ nie są już oceniane na kliencie](#linq-queries-are-no-longer-evaluated-on-the-client)         | Wysoka       |
 | [EF Core 3,0 cele .NET Standard 2,1, a nie .NET Standard 2,0](#netstandard21) | Wysoka      |
 | [Narzędzie wiersza polecenia EF Core, dotnet EF, nie jest już częścią zestaw .NET Core SDK](#dotnet-ef) | Wysoka      |
+| [DetectChanges uznaje wartości klucza generowane przez magazyn](#dc) | Wysoka      |
 | [Nazwy Z tabel, ExecuteSql by i ExecuteSqlAsync](#fromsql) | Wysoka      |
 | [Typy zapytań są konsolidowane z typami jednostek](#qt) | Wysoka      |
 | [Entity Framework Core nie jest już częścią ASP.NET Core współdzielonej struktury](#no-longer) | Średni      |
@@ -37,7 +38,6 @@ Przerwy z jednej wersji zapoznawczej 3,0 do innej wersji zapoznawczej 3,0 nie s�
 | [Metody Z tabel można określić tylko dla katalogów głównych zapytań](#fromsql) | Małe      |
 | [~~Wykonywanie zapytania jest rejestrowane na poziomie debugowania~~ Przywrócono](#qe) | Małe      |
 | [Wartości klucza tymczasowego nie są już ustawione na wystąpienia jednostek](#tkv) | Małe      |
-| [DetectChanges uznaje wartości klucza generowane przez magazyn](#dc) | Małe      |
 | [Jednostki zależne współużytkujące tabelę z podmiotem zabezpieczeń są teraz opcjonalne](#de) | Małe      |
 | [Wszystkie jednostki współużytkujące tabelę z kolumną Token współbieżności muszą mapować ją na Właściwość](#aes) | Małe      |
 | [Dziedziczone właściwości z niemapowanych typów są teraz mapowane na pojedynczą kolumnę dla wszystkich typów pochodnych](#ip) | Małe      |
@@ -69,6 +69,7 @@ Przerwy z jednej wersji zapoznawczej 3,0 do innej wersji zapoznawczej 3,0 nie s�
 | [SQLitePCL. Raw Zaktualizowano do wersji 2.0.0](#SQLitePCL) | Małe      |
 | [NetTopologySuite Zaktualizowano do wersji 2.0.0](#NetTopologySuite) | Małe      |
 | [Należy skonfigurować wiele niejednoznacznych relacji odwołujących się do siebie.](#mersa) | Małe      |
+| [Dbfunction. schemat mający wartość null lub pusty ciąg konfiguruje go jako domyślny schemat modelu](#udf-empty-string) | Małe      |
 
 ### <a name="linq-queries-are-no-longer-evaluated-on-the-client"></a>Zapytania LINQ nie są już oceniane na kliencie
 
@@ -174,7 +175,7 @@ Ta zmiana umożliwia dystrybuowanie i aktualizowanie `dotnet ef` jako zwykłego 
 Aby móc zarządzać migracjami lub szkieletem a `DbContext`, zainstaluj `dotnet-ef` program jako narzędzie globalne:
 
   ``` console
-    $ dotnet tool install --global dotnet-ef --version 3.0.0-*
+    $ dotnet tool install --global dotnet-ef
   ```
 
 Można również uzyskać narzędzie lokalne podczas przywracania zależności projektu, który deklaruje go jako zależność narzędzia przy użyciu [pliku manifestu narzędzia](https://github.com/dotnet/cli/issues/10288).
@@ -1714,4 +1715,39 @@ modelBuilder
      .Entity<User>()
      .HasOne(e => e.UpdatedBy)
      .WithMany();
+```
+
+<a name="udf-empty-string"></a>
+### <a name="dbfunctionschema-being-null-or-empty-string-configures-it-to-be-in-models-default-schema"></a>Dbfunction. schemat mający wartość null lub pusty ciąg konfiguruje go jako domyślny schemat modelu
+
+[Śledzenie problemu #12757](https://github.com/aspnet/EntityFrameworkCore/issues/12757)
+
+Ta zmiana została wprowadzona w EF Core 3,0 — wersja zapoznawcza 7.
+
+**Stare zachowanie**
+
+Funkcja dbzostała skonfigurowana ze schematem jako pusty ciąg był traktowany jak wbudowana funkcja bez schematu. Na przykład poniższy kod mapuje `DatePart` funkcję CLR na `DATEPART` wbudowaną funkcję na serwerze SqlServer.
+
+```C#
+[DbFunction("DATEPART", Schema = "")]
+public static int? DatePart(string datePartArg, DateTime? date) => throw new Exception();
+
+```
+
+**Nowe zachowanie**
+
+Wszystkie mapowania funkcji dbfunction są uznawane za mapowane do funkcji zdefiniowanych przez użytkownika. W związku z tym wartość pustego ciągu spowodowałaby umieszczenie funkcji wewnątrz domyślnego schematu modelu. Może to być schemat skonfigurowany jawnie za pośrednictwem interfejsu `modelBuilder.HasDefaultSchema()` API `dbo` Fluent lub w inny sposób.
+
+**Zalet**
+
+Poprzednio pusty schemat był sposobem traktowania tej funkcji, ale ta logika jest stosowana tylko dla SqlServer, w której wbudowane funkcje nie należą do żadnego schematu.
+
+**Środki zaradcze**
+
+Skonfiguruj ręcznie tłumaczenie funkcji dbfunction, aby zamapować ją na wbudowaną funkcję.
+
+```C#
+modelBuilder
+    .HasDbFunction(typeof(MyContext).GetMethod(nameof(MyContext.DatePart)))
+    .HasTranslation(args => SqlFunctionExpression.Create("DatePart", args, typeof(int?), null));
 ```

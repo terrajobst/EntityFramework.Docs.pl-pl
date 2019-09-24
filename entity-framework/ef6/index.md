@@ -1,50 +1,50 @@
 ---
-title: Przegląd — EF6
+title: Przegląd Entity Framework 6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8ae74d63-6bad-4686-b325-bbf9d68f3743
 uid: ef6/index
-ms.openlocfilehash: 1efadf4484a13d5df2a2f11aad3d0e8f9ceff543
-ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
+ms.openlocfilehash: fcd514eebbf09e50403b95c88db04c33520011e9
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/14/2018
-ms.locfileid: "49315636"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71198059"
 ---
 # <a name="entity-framework-6"></a>Entity Framework 6
-Entity Framework 6 (EF6) jest sprawdzonych obiektowo relacyjny mapowania (O/RM) dla platformy .NET przy użyciu wielu lat pracy nad rozwój funkcji i stabilizacją.
+Entity Framework 6 (EF6) to próba i przetestowana funkcja mapowania obiektów relacyjnych (O/RM) dla platformy .NET z wieloma latami tworzenia i stabilizacji funkcji.
 
-Jako Obiektowo, EF6 zmniejsza niezgodności impedancji między rozwiązań relacyjnych i zorientowane obiektowo, dzięki czemu deweloperzy mogą pisać aplikacje, które współdziałają z danymi przechowywanymi w relacyjnej bazy danych za pomocą silnie typizowanych obiektów platformy .NET, które reprezentują Aplikacja firmy domeny i eliminując potrzebę dużą część zazwyczaj wymaga, aby napisać kod "instalację" dostępu do danych.
+Jako O/RM EF6 zmniejszają niezgodność zależności między światowymi i zorientowanymi na obiektach, dzięki czemu deweloperzy mogą pisać aplikacje, które współdziałają z danymi przechowywanymi w relacyjnych bazach danych przy użyciu obiektów .NET o jednoznacznie określonym typie, które reprezentują domena aplikacji i eliminuje konieczność użycia dużej części kodu "wodociąging" do uzyskiwania dostępu do danych, które zwykle wymagają zapisu.
 
-EF6 implementuje wiele popularnych funkcji Obiektowo:
-- Mapowanie [POCO](~/ef6/resources/glossary.md#poco) klas jednostek, które nie są zależne od żadnych typów EF
+EF6 implementuje wiele popularnych funkcji O/RM:
+- Mapowanie klas jednostek [poco](~/ef6/resources/glossary.md#poco) , które nie są zależne od żadnych typów EF
 - Automatyczne śledzenie zmian
-- Rozwiązanie tożsamości i jednostki pracy
-- Eager, opóźnieniem i jawne ładowanie
-- Tłumaczenie silnie typizowane zapytań za pomocą LINQ (Language INtegrated Query)
-- Obsługa zaawansowanych możliwości mapowania, w tym:
-  - Relacje jeden do jednego, jeden do wielu i wiele do wielu
-  - Dziedziczenie (Tabela w danej hierarchii, tabelę według typu, a tabela na konkretnej klasy)
+- Rozpoznawanie tożsamości i jednostka pracy
+- Eager, opóźnienie i jawne ładowanie
+- Tłumaczenie zapytań o jednoznacznie określonym typie przy użyciu LINQ (zapytanie w języku INtegrated Language)
+- Bogate możliwości mapowania, w tym obsługa:
+  - Relacje jeden-do-jednego, jeden-do-wielu i wiele-do-wielu
+  - Dziedziczenie (tabela na hierarchię, tabela na typ i tabela dla konkretnej klasy)
   - Typy złożone
   - Procedury składowane
-- Projektant wizualny pozwala tworzyć modele jednostki.
-- "Code First" środowisko do tworzenia modeli entity przez napisanie kodu.
-- Modele może być wygenerowany z istniejących baz danych, a następnie ręcznie modyfikować lub można je tworzyć od podstaw i następnie używany do generowania nowych baz danych.
-- Integracja z modeli aplikacji .NET Framework, w tym ASP.NET i za pomocą wiązania danych oraz platforma WPF i WinForms.
-- Łączność z bazą danych na podstawie ADO.NET i wielu dostawców można podłączyć do programu SQL Server, Oracle, MySQL, SQLite, PostgreSQL, DB2 itd.
+- Projektant wizualny służący do tworzenia modeli jednostek.
+- Środowisko "Code First" do tworzenia modeli jednostek przez napisanie kodu.
+- Modele można generować z istniejących baz danych, a następnie edytować je ręcznie lub tworzyć od podstaw, a następnie używać do generowania nowych baz danych.
+- Integracja z .NET Framework modelami aplikacji, w tym ASP.NET, i za pomocą powiązań danych z WPF i WinForms.
+- Łączność z bazą danych oparta na ADO.NET i wielu dostawcach dostępnych do łączenia się z SQL Server, Oracle, MySQL, SQLite, PostgreSQL, DB2 itp.
 
-## <a name="should-i-use-ef6-or-ef-core"></a>Należy użyć EF6 i EF Core?
+## <a name="should-i-use-ef6-or-ef-core"></a>Czy należy używać EF6 czy EF Core?
 
-EF Core jest bardziej nowoczesny, uproszczone i rozszerzalny wersję platformy Entity Framework jest bardzo podobne funkcje i korzyści z platformy EF6.
-EF Core jest pełne ponowne zapisywanie adresów i zawiera wiele nowych funkcji nie jest dostępna w EF6, mimo że nadal brakuje niektórych najbardziej zaawansowanych możliwości mapowania EF6.
-Należy rozważyć użycie programu EF Core w nowej aplikacji, jeśli zestaw funkcji pasuje do wymagań.
-[Porównanie programów EF Core i EF6](xref:efcore-and-ef6/index) sprawdza, czy ten wybór bardziej szczegółowo.
+EF Core to bardziej nowoczesny, lekki i rozszerzalny wersja Entity Framework, która ma bardzo podobne możliwości i korzyści EF6.
+EF Core to pełny ponowny zapis i zawiera wiele nowych funkcji, które nie są dostępne w EF6, chociaż nadal nie ma niektórych najbardziej zaawansowanych funkcji mapowania EF6.
+Jeśli zestaw funkcji spełnia Twoje wymagania, należy rozważyć użycie EF Core w nowych aplikacjach.
+[Porównaj EF Core &AMP; Ef6](xref:efcore-and-ef6/index) sprawdza ten wybór bardziej szczegółowo.
 
 ## <a name="get-startedef6get-startedmd"></a>[Wprowadzenie](~/ef6/get-started.md)
 
-Dodaj pakiet NuGet platformy EntityFramework do projektu lub instalowanie narzędzi Entity Framework Tools for Visual Studio. Następnie Obejrzyj wideo, odczytu, samouczki i zaawansowane dokumentację, aby pomóc Państwu jak najlepiej wykorzystać możliwości platformy EF6.
+Dodaj pakiet NuGet EntityFramework do projektu lub zainstaluj Entity Framework Tools dla programu Visual Studio. Następnie Obejrzyj filmy wideo, samouczki odczytywania oraz zaawansowaną dokumentację, aby ułatwić EF6.
 
-## <a name="past-entity-framework-versions"></a>Wcześniejsze wersje programu Entity Framework
+## <a name="past-entity-framework-versions"></a>Wcześniejsze wersje Entity Framework
 
-Jest to dokumentację dla najnowszej wersji programu Entity Framework 6, ale część informacji ma zastosowanie również do poprzednich wersjach.
-Zapoznaj się z [What's New](~/ef6/what-is-new/index.md) i [wydania w ciągu ostatnich](~/ef6/what-is-new/past-releases.md) pełną listę wydań EF i funkcje one wprowadzone.
+Jest to dokumentacja dotycząca najnowszej wersji programu Entity Framework 6, chociaż większość z nich ma zastosowanie również do poprzednich wersji.
+Zapoznaj się z [nowościami](~/ef6/what-is-new/index.md) i [poprzednimi wersjami](~/ef6/what-is-new/past-releases.md) , aby zapoznać się z pełną listą wydań EF i wprowadzonych przez nie funkcji.

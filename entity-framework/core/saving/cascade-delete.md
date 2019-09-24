@@ -1,82 +1,82 @@
 ---
-title: Usuwanie — EF Core kaskadowe
+title: Kaskadowe usuwanie EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 15b7e69676ef9aeb70121fcec404c34a17e5e2bb
-ms.sourcegitcommit: 8d04a2ad98036f32ca70c77ce3040c5edb1cdf82
+ms.openlocfilehash: ec04de4eab2a28e3aa81ff27accef4fc11c83995
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/11/2018
-ms.locfileid: "44384842"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197791"
 ---
 # <a name="cascade-delete"></a>Usuwanie kaskadowe
 
-Usuwanie kaskadowe jest najczęściej używany w terminologii bazy danych do opisania cechę, która umożliwia usunięcie wiersza automatycznie wyzwalać usunięcie powiązane wiersze. Ściśle powiązanych koncepcji, również pasuje do żadnego zachowań usuwania programu EF Core jest automatyczne usuwanie obiektu podrzędnego, gdy relacji do elementu nadrzędnego zostały oddzielone — jest to często nazywane "Usuwanie porzucone".
+Funkcja usuwania kaskadowego jest często używana w terminologii bazy danych do opisywania cechy, która umożliwia usunięcie wiersza w celu automatycznego wyzwalania usuwania powiązanych wierszy. Silnie powiązane koncepcje objęte również EF Core zachowaniem usunięcia to automatyczne usunięcie jednostki podrzędnej, gdy jest ona relacją z elementem nadrzędnym — jest to często nazywane "usuwaniem sierotów".
 
-EF Core implementuje kilka różnych delete zachowań i umożliwia konfigurację zachowania Usuń poszczególne relacji. EF Core implementuje również konwencje, które automatycznie konfigurują zachowania delete przydatne domyślne dla każdej relacji na podstawie [requiredness relacji](../modeling/relationships.md#required-and-optional-relationships).
+EF Core implementuje kilka różnych zachowań usuwania i umożliwia konfigurację zachowań poszczególnych relacji. EF Core również implementuje konwencje, które automatycznie skonfigurują domyślne zachowania usuwania dla każdej relacji w zależności od [wymaganej relacji](../modeling/relationships.md#required-and-optional-relationships).
 
-## <a name="delete-behaviors"></a>Usuń zachowania
-Usuń zachowania są zdefiniowane w *DeleteBehavior* moduł wyliczający typu i mogą być przekazywane do *OnDelete* wygodnego interfejsu API do kontroli czy usunięcie jednostki jednostki/element nadrzędny lub severing programu Relacja do podmiotów zależnych od ustawień lokalnych/podrzędny musi mieć efekt uboczny w jednostek zależnych od ustawień lokalnych/podrzędny.
+## <a name="delete-behaviors"></a>Usuwanie zachowań
+Zachowania usuwania są zdefiniowane w typie modułu wyliczającego *DeleteBehavior* i mogą być przenoszone do interfejsu API Fluent przy użyciu metody *onDelete* , aby określić, czy usunięcie podmiotu zabezpieczeń/jednostki nadrzędnej lub nawiązanie relacji z jednostkami zależnymi/podrzędnymi powinno mieć efekt uboczny dla jednostek zależnych/podrzędnych.
 
-Dostępne są trzy akcje, które EF można podjąć, gdy jednostka jednostki/nadrzędna została usunięta lub jest oddzielone relacji do elementu podrzędnego:
-* Można je usunąć podrzędnych/zależnych od ustawień lokalnych
-* Wartości klucza obcego elementu podrzędnego można ustawić na wartość null
-* Element podrzędny nie jest zmieniany
+Istnieją trzy akcje, które można wykonać, gdy jednostka główna/nadrzędna jest usuwana lub relacja do elementu podrzędnego jest poważna:
+* Można usunąć element podrzędny/zależny
+* Wartości klucza obcego dziecka można ustawić na wartość null.
+* Element podrzędny pozostaje niezmieniony
 
 > [!NOTE]  
-> Zachowanie dotyczące usuwania konfigurowane w modelu platformy EF Core jest stosowane tylko jednostki głównej jest usuwana za pomocą programu EF Core i podmioty zależne są ładowane do pamięci (czyli pod kątem śledzonych zależności). Odpowiednie zachowania kaskadowe musi być Instalator w bazie danych, aby upewnić się, dane, które nie jest śledzony przez kontekst ma niezbędnych działań, które są stosowane. Jeśli użyjesz programu EF Core do utworzenia bazy danych tego zachowania kaskadowe będzie Instalatora dla Ciebie.
+> Zachowanie usuwania skonfigurowane w modelu EF Core jest stosowane tylko wtedy, gdy jednostka główna jest usuwana przy użyciu EF Core i jednostki zależne są ładowane w pamięci (czyli dla śledzonych elementów zależnych). Odpowiednie zachowanie kaskadowe musi być konfiguracją w bazie danych, aby upewnić się, że dane, które nie są śledzone przez kontekst, mają zastosowane wymagane działanie. Jeśli używasz EF Core do tworzenia bazy danych, to zachowanie kaskadowe zostanie skonfigurowane.
 
-Dla drugiego z powyższej akcji ustawienie wartości klucza obcego o wartości null jest nieprawidłowa w przypadku klucza obcego nie dopuszcza wartości null. (Dopuszcza klucz obcy jest odpowiednikiem wymaganej relacji). W takich przypadkach programu EF Core śledzi, czy właściwość klucza obcego została oznaczona jako wartości null do momentu SaveChanges jest wywoływana, co jest zgłaszany wyjątek, ponieważ zmiana nie może zostać utrwalona w bazie danych. Jest to podobne do pobierania naruszenie ograniczenia z bazy danych.
+Dla drugiej czynności powyżej ustawienie wartości klucza obcego na null jest nieprawidłowe, jeśli klucz obcy nie dopuszcza wartości null. (Klucz obcy niedopuszczający wartości null jest równoważny z wymaganą relacją). W takich przypadkach EF Core śledzi, że właściwość klucza obcego została oznaczona jako null do momentu wywołania metody SaveChanges, podczas gdy wyjątek jest zgłaszany, ponieważ zmiana nie może zostać utrwalona w bazie danych. Jest to podobne do uzyskiwania naruszenia ograniczenia z bazy danych.
 
-Istnieją cztery Usuń zachowań, zgodnie z opisem w poniższych tabelach.
+Istnieją cztery zachowania dotyczące usuwania, jak pokazano w poniższej tabeli.
 
-### <a name="optional-relationships"></a>Opcjonalne relacji
-W przypadku relacji opcjonalne (dopuszcza wartości null z kluczem obcym) on _jest_ można zapisać wartości null wartości klucza obcego, co powoduje następujące skutki:
+### <a name="optional-relationships"></a>Opcjonalne relacje
+W przypadku opcjonalnej relacji (klucz obcy dopuszczający wartość null _) można zapisać_ wartość null klucza obcego, co spowoduje następujące skutki:
 
-| Nazwa zachowania               | Wpływ na zależnych od ustawień lokalnych/podrzędny w pamięci    | Wpływ na zależnych od ustawień lokalnych/podrzędnej bazy danych  |
+| Nazwa zachowania               | Efekt zależny/podrzędny w pamięci    | Efekt zależny/podrzędny w bazie danych  |
 |:----------------------------|:---------------------------------------|:---------------------------------------|
-| **Kaskadowe**                 | Jednostki są usuwane.                   | Jednostki są usuwane.                   |
-| **ClientSetNull** (opcja domyślna) | Właściwości klucza obcego są ustawione na wartość null | Brak                                   |
-| **SetNull**                 | Właściwości klucza obcego są ustawione na wartość null | Właściwości klucza obcego są ustawione na wartość null |
-| **ograniczenia**                | Brak                                   | Brak                                   |
+| **Cascade**                 | Jednostki zostały usunięte                   | Jednostki zostały usunięte                   |
+| **ClientSetNull** Wartooć | Właściwości klucza obcego są ustawione na wartość null. | Brak                                   |
+| **SetNull**                 | Właściwości klucza obcego są ustawione na wartość null. | Właściwości klucza obcego są ustawione na wartość null. |
+| **Ograniczone**                | Brak                                   | Brak                                   |
 
 ### <a name="required-relationships"></a>Wymagane relacje
-W przypadku relacji (innych niż null z kluczem obcym), wymagane jest _nie_ można zapisać wartości null wartości klucza obcego, co powoduje następujące skutki:
+W przypadku wymaganych relacji (klucz obcy niedopuszczający wartości null) _nie_ można zapisać wartości null klucza obcego, co spowoduje następujące skutki:
 
-| Nazwa zachowania         | Wpływ na zależnych od ustawień lokalnych/podrzędny w pamięci | Wpływ na zależnych od ustawień lokalnych/podrzędnej bazy danych |
+| Nazwa zachowania         | Efekt zależny/podrzędny w pamięci | Efekt zależny/podrzędny w bazie danych |
 |:----------------------|:------------------------------------|:--------------------------------------|
-| **Kaskadowe** (opcja domyślna) | Jednostki są usuwane.                | Jednostki są usuwane.                  |
-| **ClientSetNull**     | Zgłasza SaveChanges                  | Brak                                  |
-| **SetNull**           | Zgłasza SaveChanges                  | Zgłasza SaveChanges                    |
-| **ograniczenia**          | Brak                                | Brak                                  |
+| **Kaskada** Wartooć | Jednostki zostały usunięte                | Jednostki zostały usunięte                  |
+| **ClientSetNull**     | Metody SaveChanges zgłasza                  | Brak                                  |
+| **SetNull**           | Metody SaveChanges zgłasza                  | Metody SaveChanges zgłasza                    |
+| **Ograniczone**          | Brak                                | Brak                                  |
 
-W tabelach powyżej *Brak* może doprowadzić do naruszenia ograniczenia. Na przykład jeśli jednostka jednostki/podrzędny jest usuwana, lecz nie podjęto żadnej akcji można zmienić klucza obcego z zależnych od ustawień lokalnych/podrzędny, następnie bazie danych prawdopodobnie zgłosi na SaveChanges z powodu naruszenia ograniczenia obcego.
+W podanych powyżej tabelach *żaden* z nich może spowodować naruszenie ograniczenia. Na przykład, jeśli jednostka główna/podrzędna jest usuwana, ale nie jest podejmowana żadna akcja w celu zmiany klucza obcego elementu zależnego/podrzędnego, baza danych prawdopodobnie zgłosi się na metody SaveChanges z powodu naruszenia ograniczenia obcego.
 
 Na wysokim poziomie:
-* Jeśli masz jednostek, które nie mogą istnieć bez klasy nadrzędnej, a EF automatyzującą automatycznego usuwania elementy podrzędne, a następnie użyć *Cascade*.
-  * Jednostki, które nie mogą znajdować się bez nadrzędnej zwykle należy na użytek wymaganych relacji, które *Cascade* jest ustawieniem domyślnym.
-* Jeśli masz jednostek, które mogą lub nie może mieć elementu nadrzędnego i EF, aby zadbać o nulling się klucz obcy dla Ciebie, a następnie użyć *ClientSetNull*
-  * Jednostek, które może istnieć bez nadrzędnej zwykle należy użyć opcjonalne relacji, dla którego *ClientSetNull* jest ustawieniem domyślnym.
-  * Jeśli mają również próbować nawet propagację wartości null do podrzędnych klucze obce w bazie danych po jednostce podrzędnej nie został załadowany, następnie za pomocą *SetNull*. Jednak pamiętaj, że baza danych musi obsługiwać to Konfigurowanie bazy danych, np. to może spowodować inne ograniczenia, co w praktyce często sprawia, że ta opcja niepraktyczne. Dlatego *SetNull* nie jest ustawieniem domyślnym.
-* Jeśli nie chcesz programu EF Core kiedykolwiek automatycznie Usuń jednostkę lub wartość null out klucza obcego, automatycznie, a następnie użyć *Ogranicz*. Należy pamiętać, że wymaga to, że Twój kod Synchronizuj podrzędnych jednostek i ich wartości klucza obcego ręcznie w przeciwnym razie ograniczenie wyjątki zostanie wygenerowany.
+* Jeśli masz jednostki, które nie mogą istnieć bez elementu nadrzędnego, i chcesz, aby program Dr zadbać o automatyczne usunięcie elementów podrzędnych, a następnie użyj opcji *kaskadowych*.
+  * Jednostki, które nie mogą istnieć bez elementu nadrzędnego zwykle korzystają z wymaganych relacji, dla których *Kaskada* jest wartością domyślną.
+* Jeśli masz jednostki, które mogą lub nie mają elementu nadrzędnego, i chcesz, aby EF zadbać o wyzerowanie klucza obcego, a następnie użyj *ClientSetNull*
+  * Jednostki, które mogą istnieć bez elementu nadrzędnego zwykle używają relacji opcjonalnych, dla których *ClientSetNull* jest wartością domyślną.
+  * Jeśli chcesz, aby baza danych mogła próbować propagować wartości null do podrzędnych kluczy obcych, nawet gdy jednostka podrzędna nie została załadowana, użyj właściwości *SetNull*. Należy jednak pamiętać, że ta baza danych programu musi obsługiwać ten program, a Konfiguracja bazy danych może spowodować inne ograniczenia, które w praktyce często powodują, że ta opcja jest nieprzydatna. To dlatego, że *SetNull* nie jest wartością domyślną.
+* Jeśli nie chcesz, aby EF Core kiedykolwiek usunąć jednostki automatycznie lub wyzerować klucz obcy automatycznie, użyj opcji *Ogranicz*. Należy zauważyć, że wymaga to, aby kod utrzymywać jednostki podrzędne i ich wartości klucza obcego w synchronizacji ręcznie w przeciwnym razie zostaną zgłoszone wyjątki ograniczenia.
 
 > [!NOTE]
-> W programie EF Core, w odróżnieniu od EF6 efekty kaskadowych nie nawiązały natychmiast, ale zamiast tego tylko wtedy, gdy jest wywoływana SaveChanges.
+> W EF Core, w przeciwieństwie do EF6, efekty kaskadowe nie są wykonywane natychmiast, ale tylko wtedy, gdy jest wywoływana metody SaveChanges.
 
 > [!NOTE]  
-> **Zmiany w programie EF Core 2.0:** w poprzednich wersjach *Ogranicz* spowodowałoby opcjonalne właściwości klucza obcego w śledzonych jednostki zależne, należy ustawić wartości null i zostało domyślne zachowanie dla relacji opcjonalne przy usuwaniu. W programie EF Core 2.0 *ClientSetNull* została wprowadzona do reprezentowania tego zachowania i stało się domyślnie w przypadku relacji opcjonalne. Zachowanie *Ogranicz* została dostosowana do nigdy nie ma żadnych efektów ubocznych na jednostki zależne.
+> **Zmiany w EF Core 2,0:** W poprzednich wersjach *ograniczenie* mogłoby spowodować, że właściwości opcjonalnego klucza obcego w śledzonych jednostkach zależnych mają być ustawione na wartość null, i było domyślnym zachowaniem usuwania dla relacji opcjonalnych. W EF Core 2,0 został wprowadzony *ClientSetNull* do reprezentowania tego zachowania i stał się wartością domyślną dla relacji opcjonalnych. Zachowanie *ograniczenia* zostało dostosowane do wartości nigdy nie mają żadnych efektów ubocznych w jednostkach zależnych.
 
-## <a name="entity-deletion-examples"></a>Przykłady usuwania jednostki
+## <a name="entity-deletion-examples"></a>Przykłady usuwania jednostek
 
-Poniższy kod jest częścią [przykładowe](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/) , można pobrać i uruchomić. Przykład pokazuje, co się stanie dla każdego zachowanie dotyczące usuwania dla relacji wymagane i opcjonalne, po usunięciu obiektu nadrzędnego.
+Poniższy kod jest częścią [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/) , którą można pobrać i uruchomić. Przykład pokazuje, co się stanie w przypadku każdego zachowania usuwania zarówno dla relacji opcjonalnych, jak i wymaganych, gdy jednostka nadrzędna jest usuwana.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
+[!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
 
-Przejdźmy teraz przez poszczególnych odmian, aby zrozumieć, co się dzieje.
+Zapoznaj się z informacjami o tym, co się dzieje.
 
-### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior.Cascade z relacją wymagane lub opcjonalne
+### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior. Kaskada z wymaganą lub opcjonalną relacją
 
 ```
   After loading entities:
@@ -101,11 +101,11 @@ Przejdźmy teraz przez poszczególnych odmian, aby zrozumieć, co się dzieje.
 ```
 
 * Blog jest oznaczony jako usunięty
-* Wpisy początkowo pozostać Unchanged, ponieważ kaskady tak się nie stanie do momentu SaveChanges
-* SaveChanges wysyła usuwa zarówno zależności/podrzędnych (wpisy), a następnie jednostkę/element nadrzędny (blog)
-* Po zapisaniu wszystkich jednostek są odłączone od teraz zostały usunięte z bazy danych
+* Wpisy pozostają początkowo niezmienione, ponieważ kaskady nie są wykonywane do metody SaveChanges
+* Metody SaveChanges wysyła usunięcia zarówno dla elementów zależnych, jak i podrzędnych (wpisów), a następnie podmiotu zabezpieczeń/elementu nadrzędnego (blog)
+* Po zapisaniu wszystkie jednostki są odłączone, ponieważ zostały usunięte z bazy danych
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior.ClientSetNull lub DeleteBehavior.SetNull z wymaganą relację
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior. ClientSetNull lub DeleteBehavior. SetNull z wymaganą relacją
 
 ```
   After loading entities:
@@ -125,10 +125,10 @@ Przejdźmy teraz przez poszczególnych odmian, aby zrozumieć, co się dzieje.
 ```
 
 * Blog jest oznaczony jako usunięty
-* Wpisy początkowo pozostać Unchanged, ponieważ kaskady tak się nie stanie do momentu SaveChanges
-* SaveChanges podejmuje próbę ustawienia wpisu klucza Obcego na wartość null, ale to nie powiodło się ponieważ klucza Obcego nie dopuszcza wartości null
+* Wpisy pozostają początkowo niezmienione, ponieważ kaskady nie są wykonywane do metody SaveChanges
+* Metody SaveChanges próbuje ustawić wartość null dla wpisu klucza obcego, ale to nie powiodło się, ponieważ obcy nie dopuszcza wartości null
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior.ClientSetNull lub DeleteBehavior.SetNull z opcjonalną relację
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior. ClientSetNull lub DeleteBehavior. SetNull z opcjonalną relacją
 
 ```
   After loading entities:
@@ -153,12 +153,12 @@ Przejdźmy teraz przez poszczególnych odmian, aby zrozumieć, co się dzieje.
 ```
 
 * Blog jest oznaczony jako usunięty
-* Wpisy początkowo pozostać Unchanged, ponieważ kaskady tak się nie stanie do momentu SaveChanges
-* Próby SaveChanges ustawia klucza Obcego z obu zależności/elementów podrzędnych (ogłoszeń) o wartości null przed usunięciem jednostki/element nadrzędny (blog)
-* Po zapisaniu jednostki/element nadrzędny (blog) zostanie usunięty, ale zależności/elementy podrzędne (ogłoszeń) nadal są śledzone.
-* Śledzone zależności/elementy podrzędne (ogłoszeń) ma wartości null klucza Obcego, a ich odwołania do jednostki/nadrzędnych usunięte (blog) została usunięta.
+* Wpisy pozostają początkowo niezmienione, ponieważ kaskady nie są wykonywane do metody SaveChanges
+* Metody SaveChanges próbuje przed usunięciem podmiotu zabezpieczeń/elementu nadrzędnego (ogłoszenia) do wartości null
+* Po zapisaniu podmiot zabezpieczeń/nadrzędne (blog) zostanie usunięty, ale zależności/elementy podrzędne (wpisy) są nadal śledzone
+* Śledzone zależności/elementy podrzędne (wpisy) mają teraz wartości klucza obcego i ich odwołanie do usuniętego podmiotu zabezpieczeń/nadrzędnego (blog) zostało usunięte
 
-### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior.Restrict z relacją wymagane lub opcjonalne
+### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior. Ogranicz z wymaganą lub opcjonalną relacją
 
 ```
   After loading entities:
@@ -176,18 +176,18 @@ Przejdźmy teraz przez poszczególnych odmian, aby zrozumieć, co się dzieje.
 ```
 
 * Blog jest oznaczony jako usunięty
-* Wpisy początkowo pozostać Unchanged, ponieważ kaskady tak się nie stanie do momentu SaveChanges
-* Ponieważ *Ogranicz* informuje EF, aby automatycznie ustawić klucza Obcego o wartości null, pozostaje inną niż null, i SaveChanges zgłasza bez zapisywania
+* Wpisy pozostają początkowo niezmienione, ponieważ kaskady nie są wykonywane do metody SaveChanges
+* Ponieważ wartość *ograniczenia* powoduje, że EF nie ustawia automatycznie klucza obcego na null, pozostaje nierówna null i metody SaveChanges zgłasza bez zapisywania
 
-## <a name="delete-orphans-examples"></a>Usuń porzucone przykłady
+## <a name="delete-orphans-examples"></a>Usuń przykłady oddzielonych
 
-Poniższy kod jest częścią [przykładowe](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/) , można pobrać i uruchomić. Przykład pokazuje, co się stanie dla każdego zachowanie dotyczące usuwania dla relacji wymagane i opcjonalne po relacji między nadrzędnym/jednostki i jego elementy podrzędne/dependents jest oddzielone. W tym przykładzie relacji jest oddzielone przez usunięcie zależności/elementy podrzędne (ogłoszeń) z właściwości nawigacji kolekcji jednostki/nadrzędnej (blog). Jednak to zachowanie jest taka sama Jeśli odwołanie z zależnych od ustawień lokalnych/podrzędny do podmiotu zabezpieczeń/element nadrzędny jest zamiast tego pustych.
+Poniższy kod jest częścią [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/) , którą można pobrać i uruchomić. Przykład pokazuje, co się stanie w przypadku każdego zachowania usuwania zarówno dla relacji opcjonalnych, jak i wymaganych, gdy relacja między obiektem nadrzędnym/podmiotem zabezpieczeń a jego elementami podrzędnymi/zależnymi jest poważna. W tym przykładzie relacja jest porzucana przez usunięcie elementów zależnych/podrzędnych (wpisów) z właściwości nawigacji kolekcji na serwerze głównym/nadrzędnym (blog). Zachowanie jest jednak takie samo, jeśli odwołanie od elementu zależnego/podrzędnego do podmiotu zabezpieczeń/nadrzędne jest w zamian wartością null.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteOrphansVariations)]
+[!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteOrphansVariations)]
 
-Przejdźmy teraz przez poszczególnych odmian, aby zrozumieć, co się dzieje.
+Zapoznaj się z informacjami o tym, co się dzieje.
 
-### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior.Cascade z relacją wymagane lub opcjonalne
+### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior. Kaskada z wymaganą lub opcjonalną relacją
 
 ```
   After loading entities:
@@ -210,12 +210,12 @@ Przejdźmy teraz przez poszczególnych odmian, aby zrozumieć, co się dzieje.
       Post '2' is in state Detached with FK '1' and no reference to a blog.
 ```
 
-* Wpisy są oznaczane jako zmodyfikowane, ponieważ severing relacji klucza Obcego być oznaczony jako wartość null
-  * W przypadku klucza Obcego nie dopuszcza wartości null, następnie wartość rzeczywista nie zmieni, nawet jeśli nie jest oznaczona jako wartości null
-* SaveChanges wysyła usuwa dla zależności/dzieci (wpisów)
-* Po zapisaniu zależności/elementy podrzędne (ogłoszeń) są odłączone od teraz zostały usunięte z bazy danych
+* Wpisy są oznaczane jako zmodyfikowane, ponieważ powoduje to odłączenie relacji, co spowodowało oznaczenie klucza obcego jako null
+  * Jeśli obcy nie dopuszcza wartości null, wartość rzeczywista nie zmieni się, mimo że jest oznaczona jako null
+* Metody SaveChanges wysyła usunięcia dla elementów zależnych/podrzędnych (wpisów)
+* Po zapisaniu elementy zależne/podrzędne (wpisy) są odłączone, ponieważ zostały usunięte z bazy danych.
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior.ClientSetNull lub DeleteBehavior.SetNull z wymaganą relację
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior. ClientSetNull lub DeleteBehavior. SetNull z wymaganą relacją
 
 ```
   After loading entities:
@@ -234,11 +234,11 @@ Przejdźmy teraz przez poszczególnych odmian, aby zrozumieć, co się dzieje.
   SaveChanges threw DbUpdateException: Cannot insert the value NULL into column 'BlogId', table 'EFSaving.CascadeDelete.dbo.Posts'; column does not allow nulls. UPDATE fails. The statement has been terminated.
 ```
 
-* Wpisy są oznaczane jako zmodyfikowane, ponieważ severing relacji klucza Obcego być oznaczony jako wartość null
-  * W przypadku klucza Obcego nie dopuszcza wartości null, następnie wartość rzeczywista nie zmieni, nawet jeśli nie jest oznaczona jako wartości null
-* SaveChanges podejmuje próbę ustawienia wpisu klucza Obcego na wartość null, ale to nie powiodło się ponieważ klucza Obcego nie dopuszcza wartości null
+* Wpisy są oznaczane jako zmodyfikowane, ponieważ powoduje to odłączenie relacji, co spowodowało oznaczenie klucza obcego jako null
+  * Jeśli obcy nie dopuszcza wartości null, wartość rzeczywista nie zmieni się, mimo że jest oznaczona jako null
+* Metody SaveChanges próbuje ustawić wartość null dla wpisu klucza obcego, ale to nie powiodło się, ponieważ obcy nie dopuszcza wartości null
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior.ClientSetNull lub DeleteBehavior.SetNull z opcjonalną relację
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior. ClientSetNull lub DeleteBehavior. SetNull z opcjonalną relacją
 
 ```
   After loading entities:
@@ -261,12 +261,12 @@ Przejdźmy teraz przez poszczególnych odmian, aby zrozumieć, co się dzieje.
       Post '2' is in state Unchanged with FK 'null' and no reference to a blog.
 ```
 
-* Wpisy są oznaczane jako zmodyfikowane, ponieważ severing relacji klucza Obcego być oznaczony jako wartość null
-  * W przypadku klucza Obcego nie dopuszcza wartości null, następnie wartość rzeczywista nie zmieni, nawet jeśli nie jest oznaczona jako wartości null
-* SaveChanges ustawia klucza Obcego z obu zależności/elementów podrzędnych (ogłoszeń) o wartości null
-* Po zapisaniu zależności/elementy podrzędne (ogłoszeń) ma wartości null klucza Obcego, a ich odwołania do jednostki/nadrzędnych usunięte (blog) została usunięta.
+* Wpisy są oznaczane jako zmodyfikowane, ponieważ powoduje to odłączenie relacji, co spowodowało oznaczenie klucza obcego jako null
+  * Jeśli obcy nie dopuszcza wartości null, wartość rzeczywista nie zmieni się, mimo że jest oznaczona jako null
+* Metody SaveChanges ustawia wartość klucza obcego obu zależności/elementów podrzędnych (wpisów) na null
+* Po zapisaniu elementy zależne/podrzędne (wpisy) mają teraz wartości klucza obcego i ich odwołanie do usuniętego podmiotu zabezpieczeń/nadrzędnego (blog) zostało usunięte
 
-### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior.Restrict z relacją wymagane lub opcjonalne
+### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior. Ogranicz z wymaganą lub opcjonalną relacją
 
 ```
   After loading entities:
@@ -283,13 +283,13 @@ Przejdźmy teraz przez poszczególnych odmian, aby zrozumieć, co się dzieje.
   SaveChanges threw InvalidOperationException: The association between entity types 'Blog' and 'Post' has been severed but the foreign key for this relationship cannot be set to null. If the dependent entity should be deleted, then setup the relationship to use cascade deletes.
 ```
 
-* Wpisy są oznaczane jako zmodyfikowane, ponieważ severing relacji klucza Obcego być oznaczony jako wartość null
-  * W przypadku klucza Obcego nie dopuszcza wartości null, następnie wartość rzeczywista nie zmieni, nawet jeśli nie jest oznaczona jako wartości null
-* Ponieważ *Ogranicz* informuje EF, aby automatycznie ustawić klucza Obcego o wartości null, pozostaje inną niż null, i SaveChanges zgłasza bez zapisywania
+* Wpisy są oznaczane jako zmodyfikowane, ponieważ powoduje to odłączenie relacji, co spowodowało oznaczenie klucza obcego jako null
+  * Jeśli obcy nie dopuszcza wartości null, wartość rzeczywista nie zmieni się, mimo że jest oznaczona jako null
+* Ponieważ wartość *ograniczenia* powoduje, że EF nie ustawia automatycznie klucza obcego na null, pozostaje nierówna null i metody SaveChanges zgłasza bez zapisywania
 
-## <a name="cascading-to-untracked-entities"></a>Kaskadowe nieśledzone jednostek
+## <a name="cascading-to-untracked-entities"></a>Kaskadowanie do nieśledzonych jednostek
 
-Gdy wywołujesz *SaveChanges*, reguły usuwanie kaskadowe zostaną zastosowane do dowolnej jednostki, które są śledzone przez kontekst. Jest to sytuacja we wszystkich przykładach pokazano powyżej, co jest Dlaczego SQL został wygenerowany można usunąć jednostki/element nadrzędny (blog) i wszystkie zależności/elementy podrzędne (ogłoszeń):
+Po wywołaniu *metody SaveChanges*reguły usuwania kaskadowego będą stosowane do wszystkich jednostek, które są śledzone przez kontekst. Jest to sytuacja we wszystkich przykładach przedstawionych powyżej, co oznacza, że program SQL został wygenerowany w celu usunięcia zarówno podmiotu zabezpieczeń, jak i wszystkich elementów zależnych/podrzędnych (wpisów):
 
 ```sql
     DELETE FROM [Posts] WHERE [PostId] = 1
@@ -297,10 +297,10 @@ Gdy wywołujesz *SaveChanges*, reguły usuwanie kaskadowe zostaną zastosowane d
     DELETE FROM [Blogs] WHERE [BlogId] = 1
 ```
 
-Jeśli tylko podmiot zabezpieczeń jest ładowany — na przykład, gdy zapytania są tworzone dla bloga bez `Include(b => b.Posts)` też dołączyć wpisy — następnie SaveChanges będą generowane tylko SQL, aby usunąć jednostkę/element nadrzędny:
+W przypadku załadowania tylko podmiotu zabezpieczeń — na przykład gdy zapytanie jest tworzone dla blogu bez `Include(b => b.Posts)` również wpisów, a następnie metody SaveChanges będzie generować tylko SQL do usunięcia podmiotu zabezpieczeń/elementu nadrzędnego:
 
 ```sql
     DELETE FROM [Blogs] WHERE [BlogId] = 1
 ```
 
-Zależności/elementy podrzędne (ogłoszeń) tylko zostaną usunięte, jeśli baza danych ma odpowiedni zachowania kaskadowe skonfigurowane. Jeśli używasz programu EF utworzyć bazę danych, zachowania kaskadowe będzie Instalatora dla Ciebie.
+Zależności/elementy podrzędne (wpisy) zostaną usunięte tylko wtedy, gdy baza danych ma skonfigurowane odpowiednie zachowanie kaskadowe. Jeśli utworzysz bazę danych za pomocą programu EF, to zachowanie kaskadowe zostanie skonfigurowane.

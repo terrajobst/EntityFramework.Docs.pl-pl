@@ -4,33 +4,33 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e541366a-130f-47dd-9997-1b110a11febe
 uid: core/modeling/relational/default-values
-ms.openlocfilehash: 341f243ddddc345bb4236e5c34f814694b71e32a
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 0d3613606f21a78e22cfe0ee752ea982a6a17f93
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996255"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71196986"
 ---
 # <a name="default-values"></a>Wartości domyślne
 
 > [!NOTE]  
-> Ogólnie rzecz biorąc jest odpowiednie dla relacyjnych baz danych konfiguracji w tej sekcji. Metody rozszerzenia, pokazane tutaj staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (z powodu udostępnionej *Microsoft.EntityFrameworkCore.Relational* pakietu).
+> Konfiguracja w tej sekcji jest ogólnie stosowana do relacyjnych baz danych. Przedstawione tutaj metody rozszerzania staną się dostępne po zainstalowaniu dostawcy relacyjnej bazy danych (ze względu na współużytkowany pakiet *Microsoft. EntityFrameworkCore. relacyjny* ).
 
-Wartość domyślna w kolumnie jest wartość, która zostanie wstawiony, jeśli jest wstawiany nowego wiersza, ale nie określono wartości dla kolumny.
+Wartość domyślna kolumny to wartość, która zostanie wstawiona, jeśli zostanie wstawiony nowy wiersz, ale nie określono wartości dla tej kolumny.
 
 ## <a name="conventions"></a>Konwencje
 
-Zgodnie z Konwencją wartość domyślna jest nieskonfigurowany.
+Zgodnie z Konwencją wartość domyślna nie jest skonfigurowana.
 
 ## <a name="data-annotations"></a>Adnotacje danych
 
-Nie można ustawić wartość domyślną, przy użyciu adnotacji danych.
+Nie można ustawić wartości domyślnej przy użyciu adnotacji danych.
 
-## <a name="fluent-api"></a>Interfejs Fluent API
+## <a name="fluent-api"></a>Interfejs API Fluent
 
-Interfejs Fluent API umożliwia określenie wartości domyślnej dla właściwości.
+Możesz użyć interfejsu API Fluent, aby określić wartość domyślną dla właściwości.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/DefaultValue.cs?highlight=9)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/DefaultValue.cs?highlight=9)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -54,7 +54,7 @@ public class Blog
 
 Można również określić fragment SQL, który jest używany do obliczania wartości domyślnej.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/DefaultValueSql.cs?highlight=9)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/DefaultValueSql.cs?highlight=9)] -->
 ``` csharp
 class MyContext : DbContext
 {

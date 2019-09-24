@@ -1,29 +1,29 @@
 ---
-title: Właściwości w tle — EF Core
+title: Właściwości cienia — EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 75369266-d2b9-4416-b118-ed238f81f599
 uid: core/modeling/shadow-properties
-ms.openlocfilehash: 4029539f3642f539a427f5901577d4df96c00f30
-ms.sourcegitcommit: 119058fefd7f35952048f783ada68be9aa612256
+ms.openlocfilehash: 5fdc4c50c295f73d0fa5eef3518adf4d3eb95599
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66749705"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197705"
 ---
 # <a name="shadow-properties"></a>Właściwości w tle
 
-Właściwości w tle są właściwości, które nie są zdefiniowane w klasie jednostki .NET, ale są zdefiniowane dla tego typu jednostki w modelu platformy EF Core. Wartość i stan tych właściwości jest obsługiwane wyłącznie w śledzenie zmian.
+Właściwości cienia to właściwości, które nie są zdefiniowane w klasie jednostki .NET, ale są zdefiniowane dla tego typu jednostki w modelu EF Core. Wartość i stan tych właściwości są utrzymywane wyłącznie w monitorze zmian.
 
-Właściwości w tle są przydatne w przypadku danych w bazie danych, które nie powinny zostać ujawnione w typach zamapowanego jednostki. W większości przypadków są one używane dla właściwości klucza obcego, których relację między dwiema jednostkami jest reprezentowany przez wartość klucza obcego w bazie danych, lecz relację odbywa się na typy jednostek przy użyciu właściwości nawigacji między typami encji.
+Właściwości cienia są przydatne, gdy w bazie danych znajdują się dane, które nie powinny być uwidocznione w mapowanych typach obiektów. Są one najczęściej używane w przypadku właściwości klucza obcego, gdzie relacja między dwiema jednostkami jest reprezentowana przez wartość klucza obcego w bazie danych, ale relacja jest zarządzana w typach jednostek przy użyciu właściwości nawigacji między typami jednostek.
 
-Wartości właściwości w tle, które mogą być uzyskane i zmienić za pomocą `ChangeTracker` interfejsu API.
+Wartości właściwości cienia można uzyskać i zmienić za pomocą `ChangeTracker` interfejsu API.
 
 ``` csharp
 context.Entry(myBlog).Property("LastUpdated").CurrentValue = DateTime.Now;
 ```
 
-Właściwości w tle mogą być przywoływane w zapytaniach LINQ za pośrednictwem `EF.Property` metody statycznej.
+Właściwości cienia można przywoływać w zapytaniach `EF.Property` LINQ za pomocą metody statycznej.
 
 ``` csharp
 var blogs = context.Blogs
@@ -32,11 +32,11 @@ var blogs = context.Blogs
 
 ## <a name="conventions"></a>Konwencje
 
-Właściwości w tle mogą być tworzone przez Konwencję, gdy relacji został odnaleziony, ale nie właściwość klucza obcego znajduje się w klasie jednostki zależne. W takim przypadku zostaną wprowadzone właściwości klucza obcego w tle. Właściwość klucza obcego w tle będą miały nazwę nadaną `<navigation property name><principal key property name>` (nawigacji na jednostki zależne wskazuje główną jednostki, używany na potrzeby nazywania). Jeśli nazwa właściwości klucza podmiotu zabezpieczeń zawiera nazwę właściwości nawigacji, a następnie po prostu nazwą będzie `<principal key property name>`. Jeśli nie ma właściwości nawigacji jednostki zależne, Nazwa Typ podmiotu zabezpieczeń jest używana w tym miejscu.
+Właściwości cienia można utworzyć według Konwencji, gdy zostanie wykryta relacja, ale w klasie jednostki zależnej nie znaleziono żadnej właściwości klucza obcego. W takim przypadku zostanie wprowadzona właściwość klucza obcego cienia. Właściwość klucza obcego cienia zostanie nazwana `<navigation property name><principal key property name>` (Nawigacja w jednostce zależnej, która wskazuje podmiotowi głównemu, jest używana do nazewnictwa). Jeśli nazwa właściwości klucza podmiotu zabezpieczeń zawiera nazwę właściwości nawigacji, nazwa zostanie `<principal key property name>`wydana. Jeśli w jednostce zależnej nie ma właściwości nawigacji, w jej miejscu zostanie użyta nazwa typu podmiotu zabezpieczeń.
 
-Na przykład w poniższym fragmencie kodu spowoduje `BlogId` właściwości w tle są wprowadzane do `Post` jednostki.
+Na przykład następująca lista kodu spowoduje, że właściwość `BlogId` Shadow zostanie wprowadzona `Post` do jednostki.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/ShadowForeignKey.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/ShadowForeignKey.cs)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -64,15 +64,15 @@ public class Post
 
 ## <a name="data-annotations"></a>Adnotacje danych
 
-Nie można utworzyć właściwości w tle przy użyciu adnotacji danych.
+Właściwości cienia nie mogą być tworzone za pomocą adnotacji danych.
 
-## <a name="fluent-api"></a>Interfejs Fluent API
+## <a name="fluent-api"></a>Interfejs API Fluent
 
-Interfejs Fluent API umożliwiają skonfigurowanie właściwości w tle. Gdy wywołujesz przeciążenie ciągu `Property` można połączyć w łańcuch dowolne wywołania konfiguracji, jak w przypadku innych właściwości.
+Aby skonfigurować właściwości cienia, można użyć interfejsu API Fluent. Po wywołaniu przeciążania `Property` ciągu można utworzyć łańcuch dowolnego wywołania konfiguracji dla innych właściwości.
 
-Jeśli nazwa dostarczona do `Property` metody jest zgodna z nazwą istniejącej właściwości (właściwość w tle lub jeden zdefiniowany w klasie jednostek), a następnie kod służy do konfigurowania właściwości istniejących, zamiast wprowadzać nowe właściwości w tle.
+Jeśli nazwa przekazywana do `Property` metody jest zgodna z nazwą istniejącej właściwości (właściwości cienia lub jednej zdefiniowanej w klasie jednostki), wówczas kod skonfiguruje istniejącą właściwość zamiast wprowadzać nową właściwość Shadow.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/ShadowProperty.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/ShadowProperty.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {

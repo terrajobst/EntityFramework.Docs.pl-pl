@@ -4,16 +4,16 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 0278353640ea242df9e6ee5278c9dda78bfd341b
-ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
+ms.openlocfilehash: 910136871cce5818b8e70a012e5132259b66e4c1
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69565267"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197580"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Dokumentacja narzędzi Entity Framework Core Tools — interfejs wiersza polecenia platformy .NET
 
-Narzędzia interfejsu wiersza polecenia (CLI) dla Entity Framework Core wykonują zadania deweloperskie czasu projektowania. Na przykład tworzą migracje [](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations), stosują migracje i generują kod dla modelu na podstawie istniejącej bazy danych. Polecenia są rozszerzeniem dla międzyplatformowego polecenia [dotnet](/dotnet/core/tools) , które jest częścią [zestaw .NET Core SDK](https://www.microsoft.com/net/core). Te narzędzia współpracują z projektami .NET Core.
+Narzędzia interfejsu wiersza polecenia (CLI) dla Entity Framework Core wykonują zadania deweloperskie czasu projektowania. Na przykład tworzą [migracje](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations), stosują migracje i generują kod dla modelu na podstawie istniejącej bazy danych. Polecenia są rozszerzeniem dla międzyplatformowego polecenia [dotnet](/dotnet/core/tools) , które jest częścią [zestaw .NET Core SDK](https://www.microsoft.com/net/core). Te narzędzia współpracują z projektami .NET Core.
 
 Jeśli używasz programu Visual Studio, zalecamy użycie [narzędzi konsoli Menedżera pakietów](powershell.md) :
 * Automatycznie pracują z bieżącym projektem wybranym w **konsoli Menedżera pakietów** bez konieczności ręcznego przełączania katalogów.
@@ -33,7 +33,7 @@ Procedura instalacji zależy od typu projektu i wersji:
 * `dotnet ef`musi być zainstalowany jako narzędzie globalne lub lokalne. Większość deweloperów zostanie zainstalowana `dotnet ef` jako narzędzie globalne przy użyciu następującego polecenia:
 
   ``` console
-  dotnet tool install --global dotnet-ef --version 3.0.0-*
+  dotnet tool install --global dotnet-ef
   ```
 
   Można również użyć `dotnet ef` programu jako lokalnego narzędzia. Aby użyć go jako narzędzia lokalnego, Przywróć zależności projektu, które deklaruje jako zależność narzędzia przy użyciu [pliku manifestu narzędzia](https://github.com/dotnet/cli/issues/10288).
@@ -230,7 +230,7 @@ Opcje:
 | `-t`            | `--table <TABLE_NAME>`...                | Tabele, dla których mają zostać wygenerowane typy jednostek. Aby określić wiele tabel, powtórz `-t` lub `--table` dla każdej z nich. W przypadku pominięcia tej opcji są uwzględniane wszystkie tabele.                |
 |                 | `--use-database-names`                   | Nazwy tabel i kolumn należy używać dokładnie tak, jak pojawiają się one w bazie danych. Jeśli ta opcja zostanie pominięta, nazwy baz danych są zmieniane na bardziej ścisłe, zgodne z C# konwencjami stylu nazwy. |
 
-Poniższy przykład szkieletuje wszystkie schematy i tabele i umieszcza nowe pliki w folderze models .
+Poniższy przykład szkieletuje wszystkie schematy i tabele i umieszcza nowe pliki w folderze *models* .
 
 ```console
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models

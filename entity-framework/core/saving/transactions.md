@@ -4,19 +4,19 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 uid: core/saving/transactions
-ms.openlocfilehash: 4c50d6694c6678678c0af8defe2601abee923af1
-ms.sourcegitcommit: 5f11a5fa5d2cde81a4e4d0d5c3a60aa74b83cbd4
+ms.openlocfilehash: ff12c4e7ace1f1b9e503cb2353bcdd53efd87cce
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/11/2019
-ms.locfileid: "54226195"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197898"
 ---
-# <a name="using-transactions"></a>Za pomocą transakcji
+# <a name="using-transactions"></a>Korzystanie z transakcji
 
 Transakcje pozwalają na wykonanie kilku operacji na bazie danych w sposób niepodzielny. Jeżeli transakcja zostanie zatwierdzona, wszystkie operacje zostaną pomyślnie wykonane na bazie danych. Jeśli transakcja zostanie wycofana, żadna z operacji nie zostanie wykonana na bazie danych.
 
 > [!TIP]  
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Transactions/) użyty w tym artykule można zobaczyć w witrynie GitHub.
+> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Transactions/) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
 ## <a name="default-transaction-behavior"></a>Domyślne zachowanie transakcji
 
@@ -30,7 +30,7 @@ Transakcje można rozpoczynać, zatwierdzać i wycofywać w interfejsie API `DbC
 
 Nie wszyscy dostawcy bazy danych obsługują transakcje. Niektórzy dostawcy mogą zgłaszać wyjątki lub nie wykonywać żadnych operacji po wywołaniu interfejsu API transakcji.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/ControllingTransaction/Sample.cs?name=Transaction&highlight=3,17,18,19)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/ControllingTransaction/Sample.cs?name=Transaction&highlight=3,17,18,19)]
 
 ## <a name="cross-context-transaction-relational-databases-only"></a>Transakcja międzykontekstowa (tylko relacyjne bazy danych)
 
@@ -47,7 +47,7 @@ Najprostszym sposobem na to, aby dostarczanie parametru `DbConnection` było mo�
 > [!TIP]  
 > Parametr `DbContextOptionsBuilder` jest interfejsem API używanym w parametrze `DbContext.OnConfiguring` do konfigurowania kontekstu. Zostanie on teraz użyty zewnętrznie do utworzenia parametru `DbContextOptions`.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Context&highlight=3,4,5)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/SharingTransaction/Sample.cs?name=Context&highlight=3,4,5)]
 
 Alternatywą jest dalsze używanie parametru `DbContext.OnConfiguring`, ale akceptowanie parametru `DbConnection`, który jest zapisywany i następnie używany w parametrze `DbContext.OnConfiguring`.
 
@@ -74,7 +74,7 @@ public class BloggingContext : DbContext
 
 Teraz możesz utworzyć wiele wystąpień kontekstu współużytkujących to samo połączenie. Następnie użyj interfejsu API `DbContext.Database.UseTransaction(DbTransaction)` do zarejestrowania wielu kontekstów do jednej transakcji.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Transaction&highlight=1,2,3,7,16,23,24,25)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/SharingTransaction/Sample.cs?name=Transaction&highlight=1,2,3,7,16,23,24,25)]
 
 ## <a name="using-external-dbtransactions-relational-databases-only"></a>Korzystanie z zewnętrznych transakcji `DbTransaction` (tylko relacyjne bazy danych)
 
@@ -82,26 +82,26 @@ Korzystając z wielu metod dostępu do danych w relacyjnej bazie danych, można 
 
 Poniższy przykład przedstawia sposób wykonywania operacji ADO.NET SqlClient i Entity Framework Core w tej samej transakcji.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/ExternalDbTransaction/Sample.cs?name=Transaction&highlight=4,10,21,26,27,28)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/ExternalDbTransaction/Sample.cs?name=Transaction&highlight=4,10,21,26,27,28)]
 
-## <a name="using-systemtransactions"></a>Używanie System.Transactions
+## <a name="using-systemtransactions"></a>Korzystanie z System. Transactions
 
 > [!NOTE]  
 > Ta funkcja jest nowa na platformie EF Core 2.1.
 
 Istnieje możliwość użycia transakcji otoczenia, aby umożliwić koordynację na większą skalę.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/AmbientTransaction/Sample.cs?name=Transaction&highlight=1,2,3,26,27,28)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/AmbientTransaction/Sample.cs?name=Transaction&highlight=1,2,3,26,27,28)]
 
 Istnieje również możliwość zarejestrowania w transakcji jawnej.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/CommitableTransaction/Sample.cs?name=Transaction&highlight=1,15,28,29,30)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/CommitableTransaction/Sample.cs?name=Transaction&highlight=1,15,28,29,30)]
 
 ### <a name="limitations-of-systemtransactions"></a>Ograniczenia przestrzeni nazw System.Transactions  
 
-1. Platforma EF Core korzysta z dostawców baz danych do implementowania obsługi przestrzeni nazw `System.Transactions`. Mimo że dostawcy ADO.NET często obsługują platformę .NET Framework, ten interfejs API został dopiero niedawno dodany do platformy EF Core. Jeżeli dostawca nie implementuje obsługi przestrzeni nazw `System.Transactions,` możliwe jest, że wywołania do tego interfejsu API zostaną zignorowane. SqlClient dla platformy .NET Core obsługuje je od wersji 2.1 w górę. Klient SQL dla platformy .NET Core 2.0 spowoduje zgłoszenie wyjątku, Jeśli spróbujesz użyć funkcji. 
+1. Platforma EF Core korzysta z dostawców baz danych do implementowania obsługi przestrzeni nazw `System.Transactions`. Mimo że dostawcy ADO.NET często obsługują platformę .NET Framework, ten interfejs API został dopiero niedawno dodany do platformy EF Core. Jeżeli dostawca nie implementuje obsługi przestrzeni nazw `System.Transactions,` możliwe jest, że wywołania do tego interfejsu API zostaną zignorowane. SqlClient dla platformy .NET Core obsługuje je od wersji 2.1 w górę. Program SqlClient dla programu .NET Core 2,0 zgłosi wyjątek, jeśli spróbujesz użyć tej funkcji. 
 
    > [!IMPORTANT]  
    > Zaleca się przetestowanie, czy ten interfejs API działa poprawnie z Twoim dostawcą, zanim skorzystasz z niego do zarządzania transakcjami. W przypadku problemów zachęcamy do kontaktu z osobami obsługującymi danego dostawcę bazy danych. 
 
-2. Począwszy od wersji 2.1 implementacja przestrzeni nazw `System.Transactions` na platformie .NET Core nie obsługuje transakcji rozproszonych, dlatego nie można używać parametrów `TransactionScope` lub `CommittableTransaction` do koordynowania transakcji w wielu menedżerach zasobów.  
+2. Począwszy od wersji 2.1 implementacja przestrzeni nazw `System.Transactions` na platformie .NET Core nie obsługuje transakcji rozproszonych, dlatego nie można używać parametrów `TransactionScope` lub `CommittableTransaction` do koordynowania transakcji w wielu menedżerach zasobów. 

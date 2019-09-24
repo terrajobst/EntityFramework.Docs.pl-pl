@@ -4,27 +4,27 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 8a5931d4-b480-4298-af36-0e29d74a37c0
 uid: core/modeling/alternate-keys
-ms.openlocfilehash: b26d8bc1630af9e811d9c4e7da850a618bc8042e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 87df5d174a1db12fb3ab763ac76c3b863a83087e
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996974"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197472"
 ---
 # <a name="alternate-keys"></a>Klucze alternatywne
 
-Klucza alternatywnego służy jako alternatywne Unikatowy identyfikator dla każdego wystąpienia jednostki, oprócz klucz podstawowy. Klucze alternatywne może służyć jako element docelowy relacji. Przy użyciu relacyjnej bazy danych to mapuje do koncepcji unikatowego indeksu/ograniczenia na alternatywny kolumn kluczy i jeden lub więcej ograniczeń klucza obcego odwołujące się do kolumn na liście.
+Alternatywny klucz służy jako alternatywny unikatowy identyfikator dla każdego wystąpienia jednostki oprócz klucza podstawowego. Klucze alternatywne mogą służyć jako element docelowy relacji. W przypadku korzystania z relacyjnej bazy danych mapowanie do koncepcji unikatowego indeksu/ograniczenia w kolumnach klucza alternatywnego oraz co najmniej jedno ograniczenie klucza obcego odwołujące się do kolumn.
 
 > [!TIP]  
-> Jeśli chcesz wymusić unikatowość kolumny, a następnie chcesz, aby zamiast klucza alternatywnego unikatowego indeksu, zobacz [indeksów](indexes.md). W programie EF klucze alternatywne zapewnić większą funkcjonalność niż indeksy unikatowe, ponieważ może służyć jako cel klucza obcego.
+> Jeśli chcesz, aby wymusić unikatowość kolumny, a następnie chcesz użyć indeksu unikatowego, a nie klucza alternatywnego, zobacz [indeksy](indexes.md). W EF klucze alternatywne zapewniają większą funkcjonalność niż indeksy unikatowe, ponieważ mogą być używane jako obiekty docelowe klucza obcego.
 
-Klucze alternatywne są zwykle wprowadzane dla Ciebie w razie i nie trzeba ręcznie skonfigurować je. Zobacz [konwencje](#conventions) Aby uzyskać więcej informacji.
+Klucze alternatywne są zwykle wprowadzane w razie potrzeby i nie trzeba ich ręcznie konfigurować. Aby uzyskać więcej informacji, zobacz [konwencje](#conventions) .
 
 ## <a name="conventions"></a>Konwencje
 
-Zgodnie z Konwencją klucza alternatywnego został wprowadzony dla Ciebie podczas określania właściwości, który nie jest kluczem podstawowym jako element docelowy relacji.
+Przy użyciu konwencji klucz alternatywny jest wprowadzany w przypadku identyfikowania właściwości, która nie jest kluczem podstawowym jako elementu docelowego relacji.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/AlternateKey.cs?highlight=12)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/AlternateKey.cs?highlight=12)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -62,13 +62,13 @@ public class Post
 
 ## <a name="data-annotations"></a>Adnotacje danych
 
-Klucze alternatywne nie można skonfigurować przy użyciu adnotacji danych.
+Nie można skonfigurować kluczy alternatywnych przy użyciu adnotacji danych.
 
-## <a name="fluent-api"></a>Interfejs Fluent API
+## <a name="fluent-api"></a>Interfejs API Fluent
 
-Interfejs Fluent API umożliwiają skonfigurowanie jednej właściwości klucza alternatywnego.
+Korzystając z interfejsu API Fluent, można skonfigurować pojedynczą właściwość jako klucz alternatywny.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeySingle.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/AlternateKeySingle.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -90,9 +90,9 @@ class Car
 }
 ```
 
-Można również skonfigurować wiele właściwości jako klucza alternatywnego (znanych jako alternatywne klucz złożony) za pomocą Fluent interfejsu API.
+Możesz również użyć interfejsu API Fluent, aby skonfigurować wiele właściwości jako klucz alternatywny (nazywany kluczem alternatywnym).
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeyComposite.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/AlternateKeyComposite.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {

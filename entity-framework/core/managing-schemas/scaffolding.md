@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/13/2018
 ms.assetid: 6263EF7D-4989-42E6-BDEE-45DA770342FB
 uid: core/managing-schemas/scaffolding
-ms.openlocfilehash: 775a929982b9f4fb10aad9cd43bbb555ce632ad1
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: afe2c865305ade93dd10c8838b80c8b4177e7e8e
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149019"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197198"
 ---
 # <a name="reverse-engineering"></a>Odwrócenie inżynierii
 
@@ -121,13 +121,12 @@ Następnie używa informacji o schemacie do tworzenia modelu EF Core. Tabele są
 
 Na koniec model jest używany do generowania kodu. Odpowiednie klasy typu jednostki, interfejs API Fluent i adnotacje danych są szkieletami, aby można było ponownie utworzyć ten sam model z poziomu aplikacji.
 
-## <a name="what-doesnt-work"></a>Co nie działa
+## <a name="limitations"></a>Ograniczenia
 
-Nie wszystkie elementy dotyczące modelu mogą być reprezentowane za pomocą schematu bazy danych. Na przykład informacje o [**hierarchiach dziedziczenia**](../modeling/inheritance.md), [**typach będących własnością**](../modeling/owned-entities.md)i [**podziałie tabeli**](../modeling/table-splitting.md) nie są obecne w schemacie bazy danych. W związku z tym konstrukcje te nigdy nie będą odtwarzane.
-
-Ponadto **niektóre typy kolumn** mogą nie być obsługiwane przez dostawcę EF Core. Te kolumny nie zostaną uwzględnione w modelu.
-
-Można zdefiniować [**tokeny współbieżności**](../modeling/concurrency.md)w modelu EF Core, aby uniemożliwić dwóm użytkownikom Aktualizowanie tej samej jednostki w tym samym czasie. Niektóre bazy danych mają specjalny typ reprezentujący ten typ kolumny (na przykład rowversion w SQL Server), w którym można odtworzyć te informacje. Jednak inne tokeny współbieżności nie będą odtwarzane.
+* Nie wszystkie elementy dotyczące modelu mogą być reprezentowane za pomocą schematu bazy danych. Na przykład informacje o [**hierarchiach dziedziczenia**](../modeling/inheritance.md), [**typach będących własnością**](../modeling/owned-entities.md)i [**podziałie tabeli**](../modeling/table-splitting.md) nie są obecne w schemacie bazy danych. W związku z tym konstrukcje te nigdy nie będą odtwarzane.
+* Ponadto **niektóre typy kolumn** mogą nie być obsługiwane przez dostawcę EF Core. Te kolumny nie zostaną uwzględnione w modelu.
+* Można zdefiniować [**tokeny współbieżności**](../modeling/concurrency.md)w modelu EF Core, aby uniemożliwić dwóm użytkownikom Aktualizowanie tej samej jednostki w tym samym czasie. Niektóre bazy danych mają specjalny typ reprezentujący ten typ kolumny (na przykład rowversion w SQL Server), w którym można odtworzyć te informacje. Jednak inne tokeny współbieżności nie będą odtwarzane.
+* [Funkcja C# typu referencyjnego 8 dopuszczających wartość null](/dotnet/csharp/tutorials/nullable-reference-types) nie jest obecnie obsługiwana w przypadku odtwarzania: EF Core zawsze generuje C# kod, który zakłada, że funkcja jest wyłączona. Na przykład kolumny tekstu dopuszczające wartość null będą szkieletem jako właściwość typu `string` , a nie `string?`z interfejsem API Fluent lub adnotacjami danych używanymi do konfigurowania, czy właściwość jest wymagana. Można edytować kod szkieletowy i zastąpić je adnotacjami o C# wartości null. Obsługa tworzenia szkieletów dla typów odwołań do wartości null jest śledzona przez [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)problemu.
 
 ## <a name="customizing-the-model"></a>Dostosowywanie modelu
 
