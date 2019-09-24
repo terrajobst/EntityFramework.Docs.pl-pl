@@ -1,91 +1,91 @@
 ---
-title: Ustawienie jawne wartości dla wygenerowanych właściwości - programu EF Core
+title: Ustawianie wartości jawnych dla wygenerowanych właściwości — EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 3f1993c2-cdf5-425b-bac2-a2665a20322b
 uid: core/saving/explicit-values-generated-properties
-ms.openlocfilehash: 00abef4d1208400ff68ced0a241b98b8dc9be5c0
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: d6aa9a0a9ce34e09a39026ad7ea9195b6777858c
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997856"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197856"
 ---
-# <a name="setting-explicit-values-for-generated-properties"></a><span data-ttu-id="cee5f-102">Ustawienie jawne wartości dla wygenerowanych właściwości</span><span class="sxs-lookup"><span data-stu-id="cee5f-102">Setting Explicit Values for Generated Properties</span></span>
+# <a name="setting-explicit-values-for-generated-properties"></a><span data-ttu-id="43fc7-102">Ustawianie wartości jawnych dla wygenerowanych właściwości</span><span class="sxs-lookup"><span data-stu-id="43fc7-102">Setting Explicit Values for Generated Properties</span></span>
 
-<span data-ttu-id="cee5f-103">Wygenerowana właściwość jest właściwością, którego wartość jest generowana (albo przez EF lub bazy danych) podczas dodane lub zaktualizowane jednostki.</span><span class="sxs-lookup"><span data-stu-id="cee5f-103">A generated property is a property whose value is generated (either by EF or the database) when the entity is added and/or updated.</span></span> <span data-ttu-id="cee5f-104">Zobacz [wygenerowanych właściwości](../modeling/generated-properties.md) Aby uzyskać więcej informacji.</span><span class="sxs-lookup"><span data-stu-id="cee5f-104">See [Generated Properties](../modeling/generated-properties.md) for more information.</span></span>
+<span data-ttu-id="43fc7-103">Wygenerowana Właściwość to właściwość, której wartość jest generowana (przez EF lub bazę danych), gdy jednostka zostanie dodana i/lub zaktualizowana.</span><span class="sxs-lookup"><span data-stu-id="43fc7-103">A generated property is a property whose value is generated (either by EF or the database) when the entity is added and/or updated.</span></span> <span data-ttu-id="43fc7-104">Aby uzyskać więcej informacji, zobacz [wygenerowane właściwości](../modeling/generated-properties.md) .</span><span class="sxs-lookup"><span data-stu-id="43fc7-104">See [Generated Properties](../modeling/generated-properties.md) for more information.</span></span>
 
-<span data-ttu-id="cee5f-105">Mogą wystąpić sytuacje, w której chcesz ustawić jawną wartość dla wygenerowanej właściwości zamiast plan wygenerowany.</span><span class="sxs-lookup"><span data-stu-id="cee5f-105">There may be situations where you want to set an explicit value for a generated property, rather than having one generated.</span></span>
+<span data-ttu-id="43fc7-105">Mogą wystąpić sytuacje, w których chcesz ustawić wartość jawną dla wygenerowanej właściwości, zamiast wygenerowania jednego.</span><span class="sxs-lookup"><span data-stu-id="43fc7-105">There may be situations where you want to set an explicit value for a generated property, rather than having one generated.</span></span>
 
 > [!TIP]  
-> <span data-ttu-id="cee5f-106">[Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/ExplicitValuesGenerateProperties/) użyty w tym artykule można zobaczyć w witrynie GitHub.</span><span class="sxs-lookup"><span data-stu-id="cee5f-106">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/ExplicitValuesGenerateProperties/) on GitHub.</span></span>
+> <span data-ttu-id="43fc7-106">[Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/ExplicitValuesGenerateProperties/) użyty w tym artykule można zobaczyć w witrynie GitHub.</span><span class="sxs-lookup"><span data-stu-id="43fc7-106">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/ExplicitValuesGenerateProperties/) on GitHub.</span></span>
 
-## <a name="the-model"></a><span data-ttu-id="cee5f-107">Model</span><span class="sxs-lookup"><span data-stu-id="cee5f-107">The model</span></span>
+## <a name="the-model"></a><span data-ttu-id="43fc7-107">Model</span><span class="sxs-lookup"><span data-stu-id="43fc7-107">The model</span></span>
 
-<span data-ttu-id="cee5f-108">Model używany w tym artykule zawiera pojedynczy `Employee` jednostki.</span><span class="sxs-lookup"><span data-stu-id="cee5f-108">The model used in this article contains a single `Employee` entity.</span></span>
+<span data-ttu-id="43fc7-108">Model używany w tym artykule zawiera jedną `Employee` jednostkę.</span><span class="sxs-lookup"><span data-stu-id="43fc7-108">The model used in this article contains a single `Employee` entity.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Employee.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/Employee.cs#Sample)]
 
-## <a name="saving-an-explicit-value-during-add"></a><span data-ttu-id="cee5f-109">Zapisywanie jawną wartość podczas Dodaj</span><span class="sxs-lookup"><span data-stu-id="cee5f-109">Saving an explicit value during add</span></span>
+## <a name="saving-an-explicit-value-during-add"></a><span data-ttu-id="43fc7-109">Zapisywanie wartości jawnej podczas dodawania</span><span class="sxs-lookup"><span data-stu-id="43fc7-109">Saving an explicit value during add</span></span>
 
-<span data-ttu-id="cee5f-110">`Employee.EmploymentStarted` Skonfigurowano właściwości do wartości generowane przez bazę danych do nowych jednostek (przy użyciu wartości domyślnej).</span><span class="sxs-lookup"><span data-stu-id="cee5f-110">The `Employee.EmploymentStarted` property is configured to have values generated by the database for new entities (using a default value).</span></span>
+<span data-ttu-id="43fc7-110">`Employee.EmploymentStarted` Właściwość jest skonfigurowana tak, aby wartości wygenerowały przez bazę danych dla nowych jednostek (przy użyciu wartości domyślnej).</span><span class="sxs-lookup"><span data-stu-id="43fc7-110">The `Employee.EmploymentStarted` property is configured to have values generated by the database for new entities (using a default value).</span></span>
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#EmploymentStarted)]
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#EmploymentStarted)]
 
-<span data-ttu-id="cee5f-111">Poniższy kod powoduje wstawienie dwóch pracowników do bazy danych.</span><span class="sxs-lookup"><span data-stu-id="cee5f-111">The following code inserts two employees into the database.</span></span>
-* <span data-ttu-id="cee5f-112">W pierwszym, zostanie przypisana żadna wartość, aby `Employee.EmploymentStarted` , dzięki czemu pozostanie ustawioną na wartość domyślną CLR dla `DateTime`.</span><span class="sxs-lookup"><span data-stu-id="cee5f-112">For the first, no value is assigned to `Employee.EmploymentStarted` property, so it remains set to the CLR default value for `DateTime`.</span></span>
-* <span data-ttu-id="cee5f-113">Z drugiej ustawimy mają jawne wartości `1-Jan-2000`.</span><span class="sxs-lookup"><span data-stu-id="cee5f-113">For the second, we have set an explicit value of `1-Jan-2000`.</span></span>
+<span data-ttu-id="43fc7-111">Poniższy kod wstawia dwóch pracowników do bazy danych programu.</span><span class="sxs-lookup"><span data-stu-id="43fc7-111">The following code inserts two employees into the database.</span></span>
+* <span data-ttu-id="43fc7-112">Dla pierwszej, żadna wartość nie jest przypisana `Employee.EmploymentStarted` do właściwości, więc pozostaje ustawiona na wartość domyślną środowiska CLR dla `DateTime`.</span><span class="sxs-lookup"><span data-stu-id="43fc7-112">For the first, no value is assigned to `Employee.EmploymentStarted` property, so it remains set to the CLR default value for `DateTime`.</span></span>
+* <span data-ttu-id="43fc7-113">Dla drugiej ustawimy wartość `1-Jan-2000`jawną.</span><span class="sxs-lookup"><span data-stu-id="43fc7-113">For the second, we have set an explicit value of `1-Jan-2000`.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmploymentStarted)]
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmploymentStarted)]
 
-<span data-ttu-id="cee5f-114">Dane wyjściowe pokazują, że bazy danych wygenerowaną wartość dla pierwszego pracownika i użyto naszych jawną wartość dla drugiego.</span><span class="sxs-lookup"><span data-stu-id="cee5f-114">Output shows that the database generated a value for the first employee and our explicit value was used for the second.</span></span>
+<span data-ttu-id="43fc7-114">Dane wyjściowe pokazują, że baza danych wygenerowała wartość pierwszego pracownika, a nasza wartość została użyta w drugim.</span><span class="sxs-lookup"><span data-stu-id="43fc7-114">Output shows that the database generated a value for the first employee and our explicit value was used for the second.</span></span>
 
 ``` Console
 1: John Doe, 1/26/2017 12:00:00 AM
 2: Jane Doe, 1/1/2000 12:00:00 AM
 ```
 
-### <a name="explicit-values-into-sql-server-identity-columns"></a><span data-ttu-id="cee5f-115">Jawne wartości w kolumnach tożsamości serwera SQL</span><span class="sxs-lookup"><span data-stu-id="cee5f-115">Explicit values into SQL Server IDENTITY columns</span></span>
+### <a name="explicit-values-into-sql-server-identity-columns"></a><span data-ttu-id="43fc7-115">Jawne wartości do kolumn tożsamości SQL Server</span><span class="sxs-lookup"><span data-stu-id="43fc7-115">Explicit values into SQL Server IDENTITY columns</span></span>
 
-<span data-ttu-id="cee5f-116">Zgodnie z Konwencją `Employee.EmployeeId` właściwość jest magazynem generowane `IDENTITY` kolumny.</span><span class="sxs-lookup"><span data-stu-id="cee5f-116">By convention the `Employee.EmployeeId` property is a store generated `IDENTITY` column.</span></span>
+<span data-ttu-id="43fc7-116">Według Konwencji `Employee.EmployeeId` właściwość jest kolumną wygenerowaną `IDENTITY` przez magazyn.</span><span class="sxs-lookup"><span data-stu-id="43fc7-116">By convention the `Employee.EmployeeId` property is a store generated `IDENTITY` column.</span></span>
 
-<span data-ttu-id="cee5f-117">W większości sytuacji to podejście pokazano powyżej będzie działać w przypadku właściwości klucza.</span><span class="sxs-lookup"><span data-stu-id="cee5f-117">For most situations, the approach shown above will work for key properties.</span></span> <span data-ttu-id="cee5f-118">Jednakże można wstawić jawnej wartości do programu SQL Server `IDENTITY` kolumnę, musisz ręcznie włączyć `IDENTITY_INSERT` przed wywołaniem `SaveChanges()`.</span><span class="sxs-lookup"><span data-stu-id="cee5f-118">However, to insert explicit values into a SQL Server `IDENTITY` column, you need to manually enable `IDENTITY_INSERT` before calling `SaveChanges()`.</span></span>
+<span data-ttu-id="43fc7-117">W większości sytuacji wskazane powyżej podejście będzie działało dla właściwości klucza.</span><span class="sxs-lookup"><span data-stu-id="43fc7-117">For most situations, the approach shown above will work for key properties.</span></span> <span data-ttu-id="43fc7-118">Aby jednak wstawić wartości jawne do kolumny SQL Server `IDENTITY` , musisz ręcznie włączyć `IDENTITY_INSERT` przed wywołaniem `SaveChanges()`.</span><span class="sxs-lookup"><span data-stu-id="43fc7-118">However, to insert explicit values into a SQL Server `IDENTITY` column, you need to manually enable `IDENTITY_INSERT` before calling `SaveChanges()`.</span></span>
 
 > [!NOTE]  
-> <span data-ttu-id="cee5f-119">Mamy [zgłoszenie dotyczące funkcji](https://github.com/aspnet/EntityFramework/issues/703) na naszej liście prac, aby to zrobić automatycznie przy użyciu dostawcy programu SQL Server.</span><span class="sxs-lookup"><span data-stu-id="cee5f-119">We have a [feature request](https://github.com/aspnet/EntityFramework/issues/703) on our backlog to do this automatically within the SQL Server provider.</span></span>
+> <span data-ttu-id="43fc7-119">Mamy żądanie dotyczące [funkcji](https://github.com/aspnet/EntityFramework/issues/703) w naszym zaległości, aby to zrobić automatycznie w ramach dostawcy SQL Server.</span><span class="sxs-lookup"><span data-stu-id="43fc7-119">We have a [feature request](https://github.com/aspnet/EntityFramework/issues/703) on our backlog to do this automatically within the SQL Server provider.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmployeeId)]
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmployeeId)]
 
-<span data-ttu-id="cee5f-120">Dane wyjściowe pokazują, że podane identyfikatory zostały zapisane w bazie danych.</span><span class="sxs-lookup"><span data-stu-id="cee5f-120">Output shows that the supplied ids were saved to the database.</span></span>
+<span data-ttu-id="43fc7-120">Dane wyjściowe pokazują, że podane identyfikatory zostały zapisane w bazie danych.</span><span class="sxs-lookup"><span data-stu-id="43fc7-120">Output shows that the supplied ids were saved to the database.</span></span>
 
 ``` Console
 100: John Doe
 101: Jane Doe
 ```
 
-## <a name="setting-an-explicit-value-during-update"></a><span data-ttu-id="cee5f-121">Ustawianie jawną wartość podczas aktualizacji</span><span class="sxs-lookup"><span data-stu-id="cee5f-121">Setting an explicit value during update</span></span>
+## <a name="setting-an-explicit-value-during-update"></a><span data-ttu-id="43fc7-121">Ustawianie jawnej wartości podczas aktualizacji</span><span class="sxs-lookup"><span data-stu-id="43fc7-121">Setting an explicit value during update</span></span>
 
-<span data-ttu-id="cee5f-122">`Employee.LastPayRaise` Skonfigurowano właściwości do wartości generowane przez bazę danych podczas aktualizacji.</span><span class="sxs-lookup"><span data-stu-id="cee5f-122">The `Employee.LastPayRaise` property is configured to have values generated by the database during updates.</span></span>
+<span data-ttu-id="43fc7-122">`Employee.LastPayRaise` Właściwość jest skonfigurowana tak, aby wartości były generowane przez bazę danych podczas aktualizacji.</span><span class="sxs-lookup"><span data-stu-id="43fc7-122">The `Employee.LastPayRaise` property is configured to have values generated by the database during updates.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#LastPayRaise)]
-
-> [!NOTE]  
-> <span data-ttu-id="cee5f-123">Domyślnie program EF Core spowoduje zgłoszenie wyjątku, jeśli zostanie podjęta próba zapisania jawną wartość dla właściwości, który jest skonfigurowany do wygenerowania podczas aktualizacji.</span><span class="sxs-lookup"><span data-stu-id="cee5f-123">By default, EF Core will throw an exception if you try to save an explicit value for a property that is configured to be generated during update.</span></span> <span data-ttu-id="cee5f-124">Aby tego uniknąć, należy do listy rozwijanej na niższym poziomie metadanych interfejsu API i ustaw `AfterSaveBehavior` (jak pokazano powyżej).</span><span class="sxs-lookup"><span data-stu-id="cee5f-124">To avoid this, you need to drop down to the lower level metadata API and set the `AfterSaveBehavior` (as shown above).</span></span>
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#LastPayRaise)]
 
 > [!NOTE]  
-> <span data-ttu-id="cee5f-125">**Zmiany w programie EF Core 2.0:** w poprzednich wersjach zachowanie wtórnym Zapisz został kontrolowane za pośrednictwem `IsReadOnlyAfterSave` flagi.</span><span class="sxs-lookup"><span data-stu-id="cee5f-125">**Changes in EF Core 2.0:** In previous releases the after-save behavior was controlled through the `IsReadOnlyAfterSave` flag.</span></span> <span data-ttu-id="cee5f-126">Ta flaga został zamieniono przestarzały parametr i zastąpione przez `AfterSaveBehavior`.</span><span class="sxs-lookup"><span data-stu-id="cee5f-126">This flag has been obsoleted and replaced by `AfterSaveBehavior`.</span></span>
+> <span data-ttu-id="43fc7-123">Domyślnie EF Core zgłosi wyjątek, jeśli spróbujesz zapisać wartość jawną dla właściwości, która jest skonfigurowana do generowania podczas aktualizacji.</span><span class="sxs-lookup"><span data-stu-id="43fc7-123">By default, EF Core will throw an exception if you try to save an explicit value for a property that is configured to be generated during update.</span></span> <span data-ttu-id="43fc7-124">Aby tego uniknąć, należy rozwinąć do interfejsu API metadanych niższego poziomu i ustawić `AfterSaveBehavior` (jak pokazano powyżej).</span><span class="sxs-lookup"><span data-stu-id="43fc7-124">To avoid this, you need to drop down to the lower level metadata API and set the `AfterSaveBehavior` (as shown above).</span></span>
 
-<span data-ttu-id="cee5f-127">Istnieje również wyzwalacza w bazie danych do generowania wartości dla `LastPayRaise` kolumny podczas `UPDATE` operacji.</span><span class="sxs-lookup"><span data-stu-id="cee5f-127">There is also a trigger in the database to generate values for the `LastPayRaise` column during `UPDATE` operations.</span></span>
+> [!NOTE]  
+> <span data-ttu-id="43fc7-125">**Zmiany w EF Core 2,0:** W poprzednich wersjach zachowanie po zapisaniu było kontrolowane przez `IsReadOnlyAfterSave` flagę.</span><span class="sxs-lookup"><span data-stu-id="43fc7-125">**Changes in EF Core 2.0:** In previous releases the after-save behavior was controlled through the `IsReadOnlyAfterSave` flag.</span></span> <span data-ttu-id="43fc7-126">Ta flaga jest przestarzała i zastąpiona przez `AfterSaveBehavior`.</span><span class="sxs-lookup"><span data-stu-id="43fc7-126">This flag has been obsoleted and replaced by `AfterSaveBehavior`.</span></span>
 
-[!code-sql[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/employee_UPDATE.sql)]
+<span data-ttu-id="43fc7-127">W bazie danych istnieje również wyzwalacz służący do generowania wartości dla `LastPayRaise` kolumny podczas `UPDATE` operacji.</span><span class="sxs-lookup"><span data-stu-id="43fc7-127">There is also a trigger in the database to generate values for the `LastPayRaise` column during `UPDATE` operations.</span></span>
 
-<span data-ttu-id="cee5f-128">Poniższy kod powoduje zwiększenie wynagrodzenia dwóch pracowników w bazie danych.</span><span class="sxs-lookup"><span data-stu-id="cee5f-128">The following code increases the salary of two employees in the database.</span></span>
-* <span data-ttu-id="cee5f-129">W pierwszym, zostanie przypisana żadna wartość, aby `Employee.LastPayRaise` właściwości, dzięki czemu pozostanie ustawiony na wartość null.</span><span class="sxs-lookup"><span data-stu-id="cee5f-129">For the first, no value is assigned to `Employee.LastPayRaise` property, so it remains set to null.</span></span>
-* <span data-ttu-id="cee5f-130">Dla drugiego firma Microsoft ustawiono jawną wartość jeden tydzień temu (podniesienie płatność sięga wstecz).</span><span class="sxs-lookup"><span data-stu-id="cee5f-130">For the second, we have set an explicit value of one week ago (back dating the pay raise).</span></span>
+[!code-sql[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/employee_UPDATE.sql)]
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs#LastPayRaise)]
+<span data-ttu-id="43fc7-128">Poniższy kod zwiększa wynagrodzenie dwóch pracowników w bazie danych.</span><span class="sxs-lookup"><span data-stu-id="43fc7-128">The following code increases the salary of two employees in the database.</span></span>
+* <span data-ttu-id="43fc7-129">Dla pierwszej, żadna wartość nie jest przypisana `Employee.LastPayRaise` do właściwości, więc pozostanie ustawiona na wartość null.</span><span class="sxs-lookup"><span data-stu-id="43fc7-129">For the first, no value is assigned to `Employee.LastPayRaise` property, so it remains set to null.</span></span>
+* <span data-ttu-id="43fc7-130">Dla drugiej ustawimy jawną wartość jednego tygodnia temu (Wstecz Datowanie Zgłoś płatność).</span><span class="sxs-lookup"><span data-stu-id="43fc7-130">For the second, we have set an explicit value of one week ago (back dating the pay raise).</span></span>
 
-<span data-ttu-id="cee5f-131">Dane wyjściowe pokazują, że bazy danych wygenerowaną wartość dla pierwszego pracownika i użyto naszych jawną wartość dla drugiego.</span><span class="sxs-lookup"><span data-stu-id="cee5f-131">Output shows that the database generated a value for the first employee and our explicit value was used for the second.</span></span>
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/Sample.cs#LastPayRaise)]
+
+<span data-ttu-id="43fc7-131">Dane wyjściowe pokazują, że baza danych wygenerowała wartość pierwszego pracownika, a nasza wartość została użyta w drugim.</span><span class="sxs-lookup"><span data-stu-id="43fc7-131">Output shows that the database generated a value for the first employee and our explicit value was used for the second.</span></span>
 
 ``` Console
 1: John Doe, 1/26/2017 12:00:00 AM
