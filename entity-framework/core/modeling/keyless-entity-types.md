@@ -5,16 +5,16 @@ ms.author: ansvyryd
 ms.date: 02/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 uid: core/modeling/keyless-entity-types
-ms.openlocfilehash: b968ac9602b9aa1f1c1e3181b6b76a64394d70f0
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: e78b9f91fd2505de300ced7b5e73291b5d1ad3b4
+ms.sourcegitcommit: 7bc43f21e7bdd64926314ea949aae689f1911956
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71150844"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71266775"
 ---
-# <a name="keyless-entity-types"></a>Typy jednostek z mniejszą ilością
+# <a name="keyless-entity-types"></a>Typy jednostek bez kluczy
 > [!NOTE]
-> Ta funkcja jest nowa na platformie EF Core 2.1. Przed 3,0 są one znane jako typy zapytań
+> Ta funkcja została dodana w EF Core 2,1 pod nazwą typów zapytań. W EF Core 3,0 nazwa koncepcji została zmieniona na typy jednostek, które nie są mniejsze.
 
 Oprócz zwykłych typów jednostek model EF Core może zawierać _typy jednostek_bez kluczy, które mogą być używane do przeprowadzania zapytań bazy danych do danych, które nie zawierają wartości klucza.
 
@@ -56,7 +56,7 @@ Mapowanie typu jednostki o mniejszym stopniu do obiektu bazy danych jest realizo
 Poniższy przykład pokazuje, jak używać typów jednostek bez użycia do wykonywania zapytań w widoku bazy danych.
 
 > [!TIP]
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/QueryTypes) użyty w tym artykule można zobaczyć w witrynie GitHub.
+> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/KeylessEntityTypes) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
 Najpierw należy zdefiniować prosty model blogu i Post:
 
