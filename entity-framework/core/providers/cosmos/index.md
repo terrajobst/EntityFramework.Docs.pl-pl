@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 09/12/2019
 ms.assetid: 28264681-4486-4891-888c-be5e4ade24f1
 uid: core/providers/cosmos/index
-ms.openlocfilehash: c753bb71089c91cbb26b970cddd118645fb18d56
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 683436aa485d2fef9aa8bf6c6ff02b00dfeb28cf
+ms.sourcegitcommit: 2caec1e63f2ce1d9439ef6193df5a77da2fedd0f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71150820"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71317561"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>Dostawca Azure Cosmos DB EF Core
 
@@ -21,7 +21,7 @@ Ten dostawca bazy danych umożliwia używanie Entity Framework Core z Azure Cosm
 
 Zdecydowanie zalecamy zapoznanie się z [dokumentacją Azure Cosmos DB](https://docs.microsoft.com/en-us/azure/cosmos-db/introduction) przed przeczytaniem tej sekcji.
 
-## <a name="install"></a>Zainstaluj
+## <a name="install"></a>Instalowanie
 
 Zainstaluj [pakiet NuGet Microsoft. EntityFrameworkCore. Cosmos](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos/).
 
@@ -34,7 +34,9 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 > [!TIP]  
 > Przykład tego artykułu można wyświetlić [w witrynie GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Cosmos).
 
-Podobnie jak w przypadku innych dostawców, pierwszym krokiem jest `UseCosmos`wywołanie:[!code-csharp[Configuration](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Configuration)]
+Podobnie jak w przypadku innych dostawców, pierwszym krokiem jest `UseCosmos`wywołanie:
+
+[!code-csharp[Configuration](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Configuration)]
 
 > [!WARNING]
 > Punkt końcowy i klucz są stałe tutaj dla uproszczenia, ale w aplikacji produkcyjnej powinny być [przechowywane securily](https://docs.microsoft.com/aspnet/core/security/app-secrets#secret-manager)
@@ -45,7 +47,9 @@ W tym przykładzie `Order` jest prostą jednostką z odwołaniem do [typu](../..
 
 [!code-csharp[StreetAddress](../../../../samples/core/Cosmos/ModelBuilding/StreetAddress.cs?name=StreetAddress)]
 
-Zapisywanie i quering danych jest zgodna z normalnym wzorcem EF:[!code-csharp[HelloCosmos](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=HelloCosmos)]
+Zapisywanie i quering danych jest zgodna z normalnym wzorcem EF:
+
+[!code-csharp[HelloCosmos](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=HelloCosmos)]
 
 > [!IMPORTANT]
 > Wywołanie `EnsureCreated` jest niezbędne do utworzenia wymaganych kolekcji i wstawienia [danych inicjatora](../../modeling/data-seeding.md) , jeśli są obecne w modelu. Jednak `EnsureCreated` powinien być wywoływany tylko podczas wdrażania, nie normalnego działania, ponieważ może to powodować problemy z wydajnością.

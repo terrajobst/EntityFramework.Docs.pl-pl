@@ -4,12 +4,12 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: eb808dd9d9b1b214947524cd83999f67be9cc0ff
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 7bdedf563b7d919ba334db79af73c3eed3ba4129
+ms.sourcegitcommit: 2caec1e63f2ce1d9439ef6193df5a77da2fedd0f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149074"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71317580"
 ---
 # <a name="installing-entity-framework-core"></a>Instalowanie Entity Framework Core
 
@@ -17,7 +17,7 @@ ms.locfileid: "71149074"
 
 * EF Core jest biblioteką [.NET Standard 2,1](/dotnet/standard/net-standard) . Dlatego EF Core wymaga implementacji platformy .NET obsługującej .NET Standard 2,1 do uruchomienia. EF Core można także odwoływać się do innych bibliotek .NET Standard 2,1. 
 
-* Na przykład można użyć EF Core do tworzenia aplikacji przeznaczonych dla platformy .NET Core. Tworzenie aplikacji .NET Core wymaga [zestaw .NET Core SDK](https://dotnet.microsoft.com/download). Opcjonalnie możesz również użyć środowiska programistycznego, takiego jak Visual Studio, Visual Studio dla komputerów Mac lub Visual Studio Code. Aby uzyskać więcej informacji, sprawdź [wprowadzenie z platformą .NET Core](/dotnet/core/get-started).
+* Na przykład można użyć EF Core do tworzenia aplikacji przeznaczonych dla platformy .NET Core. Tworzenie aplikacji .NET Core wymaga [zestaw .NET Core SDK](https://dotnet.microsoft.com/download). Opcjonalnie możesz również użyć środowiska programistycznego, takiego jak [Visual Studio](https://visualstudio.microsoft.com/vs), [Visual Studio dla komputerów Mac](https://visualstudio.microsoft.com/vs/mac)lub [Visual Studio Code](https://code.visualstudio.com). Aby uzyskać więcej informacji, sprawdź [wprowadzenie z platformą .NET Core](/dotnet/core/get-started).
 
 * Za pomocą programu Visual Studio EF Core można opracowywać aplikacje w systemie Windows. Zalecana jest Najnowsza wersja programu [Visual Studio](https://visualstudio.microsoft.com/vs) .
 
