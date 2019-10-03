@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 02/23/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/providers/index
-ms.openlocfilehash: 096d68f814e279bd224dfc50111d6576ab5eb223
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: db06906e6af518a27a21f30b12d722ce06e9bd52
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149241"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813521"
 ---
 # <a name="database-providers"></a>Dostawcy baz danych
 
@@ -44,27 +44,23 @@ Entity Framework Core mogą uzyskać dostęp do wielu różnych baz danych za za
 | [Devart.Data.SQLite.EFCore](https://www.nuget.org/packages/Devart.Data.SQLite.EFCore/)                               | SQLite 3 lub nowszy           | [DevArt](https://www.devart.com/)                                             | Święcona                 | [docs](https://www.devart.com/dotconnect/sqlite/docs/)                                                                                                                                             |
 | [Devart.Data.MySql.EFCore](https://www.nuget.org/packages/Devart.Data.MySql.EFCore/)                                 | Baza danych MySQL 5            | [DevArt](https://www.devart.com/)                                             | Święcona                 | [docs](https://www.devart.com/dotconnect/mysql/docs/)                                                                                                                                              |
 
-## <a name="future-providers"></a>Dostawcy w przyszłości
-
-### <a name="cosmos-db"></a>Cosmos DB
-
-Utworzyliśmy dostawcę EF Core dla interfejsu API SQL w programie Cosmos DB.
-Będzie to pierwszy kompletny, oparty na dokumentach dostawca bazy danych, który został utworzony, a informacje z tego ćwiczenia będą informować o ulepszeniach w projekcie przyszłych wydań EF Core i innych nierelacyjnych dostawców.
-Wersja zapoznawcza jest dostępna w [galerii NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos).
-
 ## <a name="adding-a-database-provider-to-your-application"></a>Dodawanie dostawcy bazy danych do aplikacji
 
-Większość dostawców baz danych dla EF Core są dystrybuowane jako pakiety NuGet. Oznacza to, `dotnet` że można je zainstalować za pomocą narzędzia w wierszu polecenia:
+Większość dostawców baz danych dla EF Core są dystrybuowane jako pakiety NuGet i można ją zainstalować w następujący sposób:
+
+# <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ``` console
 dotnet add package provider_package_name
 ```
 
-Lub w programie Visual Studio, korzystając z konsoli Menedżera pakietów NuGet:
+# <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 install-package provider_package_name
 ```
+
+***
 
 Po zainstalowaniu dostawca zostanie skonfigurowany w `DbContext` `OnConfiguring` metodzie lub w `AddDbContext` metodzie, jeśli używasz kontenera iniekcji zależności.
 Na przykład poniższy wiersz konfiguruje dostawcę SQL Server z przekazywaniem parametrów połączenia:

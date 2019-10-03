@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: ebec5775770c0f1e297eaaf35bf644c605a69afc
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: d8f52edfdf4bd7776ab8d81185c867cbfd7bcf44
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197775"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813593"
 ---
 # <a name="raw-sql-queries"></a>Pierwotne zapytania SQL
 
@@ -62,7 +62,6 @@ Jako alternatywę dla `FromSqlRaw`, można użyć `FromSqlInterpolated` , która
 
 > [!NOTE]
 > Przed wersjami 3,0 `FromSqlRaw` i `FromSqlInterpolated` były dwa przeciążenia o nazwie `FromSql`. Zobacz [sekcję poprzednie wersje](#previous-versions) , aby uzyskać więcej informacji.
-
 
 <!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -172,6 +171,6 @@ Istnieje kilka ograniczeń, które należy wziąć pod uwagę podczas korzystani
 
 * Należy pamiętać, że SQL Server nie zezwala na tworzenie wywołań procedur składowanych, więc każda próba zastosowania dodatkowych operatorów zapytań do takiego wywołania spowoduje nieprawidłowe użycie języka SQL. Operatory zapytań można wprowadzać po `AsEnumerable()` przeprowadzeniu oceny klienta.
 
-# <a name="previous-versions"></a>Poprzednie wersje
+## <a name="previous-versions"></a>Poprzednie wersje
 
 EF Core wersja 2,2 i wcześniejsze mają dwa przeciążenia o `FromSql` nazwach, które zachowują się w taki sam `FromSqlRaw` sposób `FromSqlInterpolated`jak nowsze i. Dzięki temu bardzo łatwo można przypadkowo wywołać metodę nieprzetworzonego ciągu, gdy zamiarem było wywołanie interpolowanej metody String i odwrotnie. Może to spowodować, że kwerendy nie są sparametryzowane, gdy powinny one być.

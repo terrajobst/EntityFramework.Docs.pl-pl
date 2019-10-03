@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: 4bf9598f9b7e74c2835d3926215de9a7ef4e6f96
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 4e4ba21cd099daab4db8a8f358800fde26980c14
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921791"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813579"
 ---
 # <a name="loading-related-data"></a>Ładowanie powiązanych danych
 
@@ -30,7 +30,6 @@ Możesz użyć metody, `Include` aby określić powiązane dane, które mają by
 > [!TIP]  
 > Entity Framework Core automatycznie naprawia właściwości nawigacji do wszystkich innych jednostek, które zostały wcześniej załadowane do wystąpienia kontekstu. Dlatego nawet jeśli nie dołączysz jawnie danych dla właściwości nawigacji, właściwość może nadal zostać wypełniona, jeśli niektóre lub wszystkie powiązane jednostki zostały wcześniej załadowane.
 
-
 Można uwzględnić powiązane dane z wielu relacji w pojedynczym zapytaniu.
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleIncludes)]
@@ -40,9 +39,6 @@ Można uwzględnić powiązane dane z wielu relacji w pojedynczym zapytaniu.
 Możesz przejść do szczegółów relacji, aby dołączyć wiele poziomów powiązanych danych przy użyciu `ThenInclude` metody. Poniższy przykład ładuje wszystkie blogi, ich powiązane wpisy i autora każdego wpisu.
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#SingleThenInclude)]
-
-> [!NOTE]  
-> Bieżące wersje programu Visual Studio oferują nieprawidłowe opcje uzupełniania kodu i mogą spowodować, że poprawne wyrażenia mają być oflagowane z błędami `ThenInclude` składniowymi przy użyciu metody po właściwości nawigacji kolekcji. Jest to objaw błędu IntelliSense śledzonego w https://github.com/dotnet/roslyn/issues/8237. Można bezpiecznie zignorować te błędy składni fałszywe o ile kod jest poprawny i może zostać skompilowany pomyślnie. 
 
 Można `ThenInclude` połączyć wiele wywołań, aby kontynuować, włączając dalsze poziomy pokrewnych danych.
 
@@ -55,6 +51,9 @@ Możesz połączyć wszystkie te elementy, aby uwzględnić powiązane dane z wi
 Możesz chcieć dołączyć wiele powiązanych jednostek dla jednej z dołączanych jednostek. Na przykład, podczas wykonywania zapytania `Blogs`, należy dołączyć `Posts` `Posts`zarówno `Author` , jak i `Tags` . W tym celu należy określić wszystkie ścieżki dołączania, zaczynając od elementu głównego. Na przykład `Blog -> Posts -> Author` i `Blog -> Posts -> Tags`. Nie oznacza to, że nastąpi nadmiarowe sprzężenia; w większości przypadków program Dr konsoliduje sprzężenia podczas generowania bazy danych SQL.
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
+
+> [!CAUTION]
+> Ponieważ wersja 3.0.0, każda `Include` spowoduje dodanie dodatkowego SPRZĘŻENIa do zapytań SQL generowanych przez dostawców relacyjnych, podczas gdy poprzednie wersje wygenerowały dodatkowe zapytania SQL. Może to znacząco zmienić wydajność zapytań, aby lepiej lub gorszyć. W szczególności zapytania LINQ o przekroczeniu dużej liczbie operatorów `Include` muszą zostać podzielone na wiele oddzielnych zapytań LINQ, aby uniknąć problemów z wybuchem kartezjańskiego.
 
 ### <a name="include-on-derived-types"></a>Uwzględnij w typach pochodnych
 
@@ -111,22 +110,7 @@ public class School
   context.People.Include("School").ToList()
   ```
 
-### <a name="ignored-includes"></a>Zignorowane obejmuje
-
-W przypadku zmiany zapytania, tak aby nie zwracało już wystąpień typu jednostki, z którym rozpoczyna się zapytanie, a następnie operatory include są ignorowane.
-
-W poniższym przykładzie operatory include są oparte na `Blog`, ale `Select` następnie operator służy do zmiany zapytania w celu zwrócenia typu anonimowego. W takim przypadku operatory include nie mają żadnego wpływu.
-
-[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#IgnoredInclude)]
-
-Domyślnie EF Core będzie rejestrować ostrzeżenie, gdy operatory include są ignorowane. Zobacz [Rejestrowanie](../miscellaneous/logging.md) , aby uzyskać więcej informacji na temat wyświetlania danych wyjściowych rejestrowania. Można zmienić zachowanie, gdy operator include jest ignorowany do throw lub nic nie rób. Jest to wykonywane podczas konfigurowania opcji dla kontekstu — zwykle w programie `DbContext.OnConfiguring`, lub w `Startup.cs` przypadku korzystania z ASP.NET Core.
-
-[!code-csharp[Main](../../../samples/core/Querying/RelatedData/ThrowOnIgnoredInclude/BloggingContext.cs#OnConfiguring)]
-
 ## <a name="explicit-loading"></a>jawne ładowanie
-
-> [!NOTE]  
-> Ta funkcja została wprowadzona w EF Core 1,1.
 
 Można jawnie załadować właściwość nawigacji za pośrednictwem `DbContext.Entry(...)` interfejsu API.
 
@@ -148,10 +132,8 @@ Można również filtrować powiązane jednostki, które są ładowane do pamię
 
 ## <a name="lazy-loading"></a>ładowanie z opóźnieniem
 
-> [!NOTE]  
-> Ta funkcja została wprowadzona w EF Core 2,1.
-
 Najprostszym sposobem użycia ładowania z opóźnieniem jest zainstalowanie pakietu [Microsoft. EntityFrameworkCore. proxy](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) i włączenie go z wywołaniem do `UseLazyLoadingProxies`. Na przykład:
+
 ```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
@@ -159,12 +141,15 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         .UseSqlServer(myConnectionString);
 ```
 Lub w przypadku korzystania z AddDbContext:
+
 ```csharp
 .AddDbContext<BloggingContext>(
     b => b.UseLazyLoadingProxies()
           .UseSqlServer(myConnectionString));
 ```
+
 EF Core następnie włącza ładowanie z opóźnieniem dla każdej właściwości nawigacji, która może zostać przesłonięta — to oznacza, `virtual` że musi być i na klasie, z której można dziedziczyć. Na przykład w następujących jednostkach `Post.Blog` właściwości i `Blog.Posts` nawigacji zostaną załadowane z opóźnieniem.
+
 ```csharp
 public class Blog
 {
@@ -183,9 +168,11 @@ public class Post
     public virtual Blog Blog { get; set; }
 }
 ```
+
 ### <a name="lazy-loading-without-proxies"></a>Ładowanie z opóźnieniem bez serwerów proxy
 
 Ładowanie serwerów proxy z opóźnieniem, które działają przez `ILazyLoader` wstrzyknięcie usługi do jednostki, zgodnie z opisem w [konstruktorach typu jednostki](../modeling/constructors.md). Na przykład:
+
 ```csharp
 public class Blog
 {
@@ -238,7 +225,9 @@ public class Post
     }
 }
 ```
+
 Nie wymaga to dziedziczenia typów jednostek ani właściwości nawigacji, które mają być wirtualne, i umożliwia wystąpienia jednostki utworzone za `new` pomocą do ładowania opóźnionego po dołączeniu do kontekstu. Jednak wymaga odwołania do `ILazyLoader` usługi, która jest zdefiniowana w pakiecie [Microsoft. EntityFrameworkCore. Abstracts](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Abstractions/) . Ten pakiet zawiera minimalny zestaw typów, dzięki czemu w zależności od tego ma być bardzo niewielki wpływ. Jednak aby całkowicie uniknąć w zależności od dowolnego EF Core pakietów w typach jednostek, można wstrzyknąć `ILazyLoader.Load` metodę jako delegata. Na przykład:
+
 ```csharp
 public class Blog
 {
@@ -291,7 +280,9 @@ public class Post
     }
 }
 ```
+
 W powyższym kodzie `Load` użyto metody rozszerzenia, aby użyć delegata:
+
 ```csharp
 public static class PocoLoadingExtensions
 {
@@ -308,6 +299,7 @@ public static class PocoLoadingExtensions
     }
 }
 ```
+
 > [!NOTE]  
 > Parametr konstruktora dla delegata ładowania z opóźnieniem musi mieć nazwę "lazyLoader". Konfiguracja służąca do używania innej nazwy niż jest planowana dla przyszłej wersji.
 

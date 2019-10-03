@@ -1,27 +1,23 @@
 ---
-title: Program Microsoft SQL Server bazy danych dostawcy — tabele zoptymalizowane pod kątem pamięci — EF Core
+title: Dostawca bazy danych Microsoft SQL Server — tabele zoptymalizowane pod kątem pamięci — EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 2e007c82-c6e4-45bb-8129-851b79ec1a0a
 uid: core/providers/sql-server/memory-optimized-tables
-ms.openlocfilehash: 63d2cbf8b69e4f1945ad60914e284fb42c48e8db
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 7383e74b3f83172f9b8e0eaf9bd09d4e187e87f8
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995805"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813496"
 ---
-# <a name="memory-optimized-tables-support-in-sql-server-ef-core-database-provider"></a>Tabele zoptymalizowane pod kątem pamięci, obsługa w dostawcy bazy danych programu SQL Server programu EF Core
+# <a name="memory-optimized-tables-support-in-sql-server-ef-core-database-provider"></a>Obsługa tabel zoptymalizowanych pod kątem pamięci w SQL Server EF Core dostawcy bazy danych
 
-> [!NOTE]  
->
-> Ta funkcja została wprowadzona w programie EF Core 1.1.
-
-[Zoptymalizowane pod kątem pamięci tabeli](https://docs.microsoft.com/sql/relational-databases/in-memory-oltp/memory-optimized-tables) są funkcją programu SQL Server, w którym cała tabela znajduje się w pamięci. Drugą kopię danych tabeli jest zachowywana na dysku, ale tylko na potrzeby trwałości. Dane w tabelach zoptymalizowanych pod kątem pamięci jest tylko do odczytu z dysku podczas odzyskiwania bazy danych. Na przykład po serwera należy uruchomić ponownie.
+[Tabele zoptymalizowane pod kątem pamięci](https://docs.microsoft.com/sql/relational-databases/in-memory-oltp/memory-optimized-tables) są funkcją SQL Server, w której cała tabela znajduje się w pamięci. Druga kopia danych tabeli jest utrzymywana na dysku, ale tylko w celach trwałości. Dane w tabelach zoptymalizowanych pod kątem pamięci są odczytywane tylko z dysku podczas odzyskiwania bazy danych. Na przykład po ponownym uruchomieniu serwera.
 
 ## <a name="configuring-a-memory-optimized-table"></a>Konfigurowanie tabeli zoptymalizowanej pod kątem pamięci
 
-Można określić, czy jednostka jest zamapowana do tabel jest zoptymalizowane pod kątem pamięci. Podczas tworzenia i bazę danych przy użyciu programu EF Core na podstawie modelu (przy użyciu migracji lub `Database.EnsureCreated()`), zoptymalizowana pod kątem pamięci tabeli zostanie utworzony dla tych jednostek.
+Można określić, że tabela, do której jest zamapowana jednostka, jest zoptymalizowana pod kątem pamięci. Przy użyciu EF Core do tworzenia i konserwowania bazy danych opartej na modelu (z migracją lub `Database.EnsureCreated()`) dla tych jednostek zostanie utworzona tabela zoptymalizowana pod kątem pamięci.
 
 ``` csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
