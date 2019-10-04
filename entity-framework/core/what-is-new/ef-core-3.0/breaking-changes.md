@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 0dd4c5c4aa1a5d241fb48abf1372a678d0f7a7a3
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: f7f04efa8fb8ebc1eb06f256b8ccbd3110af47ab
+ms.sourcegitcommit: 705e898b4684e639a57c787fb45c932a27650c2d
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813618"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71934880"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Istotne zmiany zawarte w EF Core 3,0
 Poniższe zmiany dotyczące interfejsu API i zachowania mogą powodować przerwanie istniejących aplikacji podczas uaktualniania ich do 3.0.0.
@@ -27,6 +27,7 @@ Zmiany, których oczekujemy tylko dostawcy bazy danych, są udokumentowane w obs
 | [Typy zapytań są konsolidowane z typami jednostek](#qt) | Wysoka      |
 | [Entity Framework Core nie jest już częścią ASP.NET Core współdzielonej struktury](#no-longer) | Średni      |
 | [Usuwanie kaskadowe jest teraz wykonywane natychmiast domyślnie](#cascade) | Średni      |
+| [Eager ładowanie pokrewnych jednostek odbywa się teraz w pojedynczym zapytaniu](#eager-loading-single-query) | Średni      |
 | [DeleteBehavior. ograniczanie ma semantykę oczyszczarki](#deletebehavior) | Średni      |
 | [Interfejs API konfiguracji dla relacji typu posiadanego został zmieniony](#config) | Średni      |
 | [Każda właściwość używa niezależnej generacji klucza w pamięci](#each) | Średni      |
@@ -34,6 +35,7 @@ Zmiany, których oczekujemy tylko dostawcy bazy danych, są udokumentowane w obs
 | [Zmiany interfejsu API metadanych](#metadata-api-changes) | Średni      |
 | [Zmiany w interfejsie API metadanych specyficzne dla dostawcy](#provider) | Średni      |
 | [UseRowNumberForPaging został usunięty](#urn) | Średni      |
+| [Nie można składować metody Z tabel, gdy jest używana z procedurą składowaną](#fromsqlsproc) | Średni      |
 | [Metody Z tabel można określić tylko dla katalogów głównych zapytań](#fromsql) | Małe      |
 | [~~Wykonywanie zapytania jest rejestrowane na poziomie debugowania~~ Przywrócono](#qe) | Małe      |
 | [Wartości klucza tymczasowego nie są już ustawione na wystąpienia jednostek](#tkv) | Małe      |
@@ -210,6 +212,35 @@ Może to spowodować, że kwerendy nie są sparametryzowane, gdy powinny one by�
 
 Przełącz, aby użyć nowych nazw metod.
 
+<a name="fromsqlsproc"></a>
+### <a name="fromsql-method-when-used-with-stored-procedure-cannot-be-composed"></a>Nie można składować metody Z tabel, gdy jest używana z procedurą składowaną
+
+[Śledzenie problemu #15392](https://github.com/aspnet/EntityFrameworkCore/issues/15392)
+
+**Stare zachowanie**
+
+Przed EF Core 3,0, Metoda Z tabel podjęła próbę wykrycia, czy może być złożona pozostała wartość SQL. Klient przeprowadził ocenę, gdy nie udało się utworzyć kodu SQL, podobnie jak procedury składowanej. Następujące zapytanie działało przez uruchomienie procedury składowanej na serwerze i wykonanie FirstOrDefault po stronie klienta.
+
+```C#
+context.Products.FromSqlRaw("[dbo].[Ten Most Expensive Products]").FirstOrDefault();
+```
+
+**Nowe zachowanie**
+
+Począwszy od EF Core 3,0, EF Core nie będzie próbować przeanalizować bazy danych SQL. Dlatego w przypadku redagowania po FromSqlRaw/FromSqlInterpolated, EF Core nastąpi złożenie zapytania podrzędnego. Dlatego jeśli używasz procedury składowanej z kompozycją, zostanie pobrany wyjątek dla nieprawidłowej składni SQL.
+
+**Zalet**
+
+EF Core 3,0 nie obsługuje automatycznej oceny klienta, ponieważ została ona podatna na błędy, jak wyjaśniono [tutaj](#linq-queries-are-no-longer-evaluated-on-the-client).
+
+**Środki zaradcze**
+
+Jeśli używasz procedury składowanej w FromSqlRaw/FromSqlInterpolated, wiesz, że nie można jej składować, więc możesz dodać __AsEnumerable/AsAsyncEnumerable__ bezpośrednio po wywołaniu metody z tabel, aby uniknąć jakiegokolwiek złożenia po stronie serwera.
+
+```C#
+context.Products.FromSqlRaw("[dbo].[Ten Most Expensive Products]").AsEnumerable().FirstOrDefault();
+```
+
 <a name="fromsql"></a>
 
 ### <a name="fromsql-methods-can-only-be-specified-on-query-roots"></a>Metody Z tabel można określić tylko dla katalogów głównych zapytań
@@ -366,6 +397,29 @@ Na przykład:
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
 context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 ```
+<a name="eager-loading-single-query"></a>
+### <a name="eager-loading-of-related-entities-now-happens-in-a-single-query"></a>Eager ładowanie pokrewnych jednostek odbywa się teraz w pojedynczym zapytaniu
+
+[Śledzenie problemu #18022](https://github.com/aspnet/EntityFrameworkCore/issues/18022)
+
+**Stare zachowanie**
+
+Przed 3,0 eagerly załadowanie nawigacji kolekcji za pośrednictwem operatorów `Include` spowodowało generowanie wielu zapytań w relacyjnej bazie danych, po jednej dla każdego powiązanego typu jednostki.
+
+**Nowe zachowanie**
+
+Począwszy od 3,0, EF Core generuje pojedyncze zapytanie z sprzężeniami w relacyjnych bazach danych.
+
+**Zalet**
+
+Wygenerowanie wielu zapytań w celu zaimplementowania pojedynczej kwerendy LINQ powodowało wiele problemów, w tym negatywną wydajność, ponieważ wiele danych jest niezbędnych, a błędy spójność danych, ponieważ każde zapytanie może obserwować inny stan bazy danych.
+
+**Środki zaradcze**
+
+Chociaż technicznie nie jest to zmiana, może ona mieć znaczny wpływ na wydajność aplikacji, gdy pojedyncze zapytanie zawiera dużą liczbę operatora `Include` na nawigowaniu po kolekcji. [Zobacz ten komentarz](https://github.com/aspnet/EntityFrameworkCore/issues/18022#issuecomment-537219137) , aby uzyskać więcej informacji i przepisać zapytania w bardziej wydajny sposób.
+
+**
+
 <a name="deletebehavior"></a>
 ### <a name="deletebehaviorrestrict-has-cleaner-semantics"></a>DeleteBehavior. ograniczanie ma semantykę oczyszczarki
 
