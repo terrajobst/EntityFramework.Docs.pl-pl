@@ -1,15 +1,15 @@
 ---
-title: Nowe funkcje w Entity Framework Core 3,0
+title: Nowe funkcje w Entity Framework Core 3,0 — EF Core
 author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/index
-ms.openlocfilehash: ce53d0fa21acfd52dc5e8b37911202cab02f00c8
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: ccfb8259c70cf8706a06eb3b22b9541224c3b9bb
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813461"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182075"
 ---
 # <a name="new-features-in-entity-framework-core-30"></a>Nowe funkcje w Entity Framework Core 3,0
 
@@ -31,7 +31,7 @@ Najważniejszym zmianą projektu jest to, jak obsługujemy wyrażenia LINQ, któ
 W poprzednich wersjach EF Core zidentyfikować, jakie fragmenty zapytania można przetłumaczyć na SQL i wykonać pozostałą część zapytania na kliencie.
 Ten typ wykonywania po stronie klienta jest pożądany w niektórych sytuacjach, ale w wielu innych przypadkach może to spowodować niewydajne zapytania.
 
-Na przykład jeśli EF Core 2,2 nie może przetłumaczyć predykatu `Where()` w wywołaniu, wykonał instrukcję SQL bez filtru, przesłał wszystkie wiersze z bazy danych, a następnie przefiltrowanych je w pamięci:
+Na przykład jeśli EF Core 2,2 nie może przetłumaczyć predykatu w wywołaniu `Where()`, wykonał instrukcję SQL bez filtru, przeniesiono wszystkie wiersze z bazy danych, a następnie przefiltrowane je w pamięci:
 
 ``` csharp
 var specialCustomers = 
@@ -58,7 +58,7 @@ Zapoznaj się z dokumentacją dotyczącą istotnych [zmian](xref:core/what-is-ne
 
 ### <a name="single-sql-statement-per-linq-query"></a>Pojedyncza instrukcja SQL na zapytanie LINQ
 
-Innym aspektem projektu, który został znacząco zmieniony w 3,0, jest zawsze generowanie pojedynczej instrukcji SQL na zapytanie LINQ. W poprzednich wersjach użyto do wygenerowania wielu instrukcji SQL w niektórych przypadkach, takich jak translacja `Include()` wywołań właściwości nawigacji kolekcji i translacja zapytań, które miały pewne wzorce z podzapytaniami. Mimo że było to w niektórych przypadkach wygodne, a `Include()` w przypadku, gdy jeszcze więcej pomaga uniknąć wysyłania nadmiarowych danych przez sieć, implementacja była złożona, jednak powodowało to pewne niezwykle niewydajne zachowania (kwerendy N + 1), a także sytuacje, w których dane zwrócone przez wiele zapytań mogą być niespójne.
+Innym aspektem projektu, który został znacząco zmieniony w 3,0, jest zawsze generowanie pojedynczej instrukcji SQL na zapytanie LINQ. W poprzednich wersjach użyto do wygenerowania wielu instrukcji SQL w niektórych przypadkach, takich jak translacja wywołań `Include()` na właściwościach nawigacji kolekcji i translacja zapytań, które miały pewne wzorce z podzapytaniami. Mimo że było to w niektórych przypadkach wygodne, a dla `Include()`, nawet aby uniknąć wysyłania nadmiarowych danych przez sieć, implementacja była złożona, co spowodowało pewne niezwykle niewydajne zachowania (liczba zapytań: N + 1), a także sytuacje, w których dane zwrócenie między wieloma zapytaniami może być niespójne.
 
 Podobnie jak w przypadku oceny klienta, jeśli EF Core 3,0 nie można przetłumaczyć zapytania LINQ na pojedynczą instrukcję SQL, zgłasza wyjątek czasu wykonania. Ale wprowadziliśmy EF Core możliwości tłumaczenia wielu wspólnych wzorców, które były używane do generowania wielu zapytań do pojedynczego zapytania z sprzężeniami.
 
@@ -74,7 +74,7 @@ EF Core 3,0 wykorzystuje kilka [nowych funkcji w C# 8,0](https://docs.microsoft.
 
 ### <a name="asynchronous-streams"></a>Strumienie asynchroniczne
 
-Asynchroniczne wyniki zapytania są teraz udostępniane przy użyciu nowego interfejsu `IAsyncEnumerable<T>` standardowego i mogą być używane przy `await foreach`użyciu programu.
+Asynchroniczne wyniki zapytania są teraz uwidaczniane przy użyciu nowego interfejsu `IAsyncEnumerable<T>` i mogą być używane przy użyciu `await foreach`.
 
 ``` csharp
 var orders = 
@@ -92,9 +92,9 @@ Aby uzyskać więcej informacji, zobacz [strumienie asynchroniczne C# w dokument
 
 ### <a name="nullable-reference-types"></a>Typy referencyjne dopuszczające wartość null 
 
-Gdy ta nowa funkcja jest włączona w kodzie, EF Core bada wartości null właściwości typu odwołania i stosuje je do odpowiednich kolumn i relacji w bazie danych: właściwości typów odwołań niedopuszczających wartości null są traktowane tak, jakby były `[Required]` atrybut adnotacji danych.
+Gdy ta nowa funkcja jest włączona w kodzie, EF Core bada wartości null właściwości typu odwołania i stosuje je do odpowiednich kolumn i relacji w bazie danych: właściwości typów odwołań niedopuszczających wartości null są traktowane tak, jakby były @no__ atrybut adnotacji danych t-0.
 
-Na przykład w poniższej klasie właściwości oznaczone jako typu `string?` zostaną skonfigurowane jako opcjonalne, a `string` program zostanie skonfigurowany zgodnie z wymaganiami:
+Na przykład w poniższej klasie właściwości oznaczone jako typu `string?` zostaną skonfigurowane jako opcjonalne, natomiast `string` zostanie skonfigurowany zgodnie z wymaganiami:
 
 ``` csharp
 public class Customer
@@ -131,7 +131,7 @@ public class HintCommandInterceptor : DbCommandInterceptor
 }
 ``` 
 
-I zarejestruj go w `DbContext`:
+I zarejestruj ją za pomocą @ no__t-0:
 
 ``` csharp
 services.AddDbContext(b => b
@@ -169,9 +169,9 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Jednostki zależne współużytkujące tabelę z podmiotem zabezpieczeń są teraz opcjonalne
 
-Począwszy od EF Core 3,0, jeśli `OrderDetails` jest `Order` własnością lub jawnie zamapowana na tę samą tabelę, będzie możliwe dodanie `Order` bez `OrderDetails` i wszystkich `OrderDetails` właściwości, z wyjątkiem tego, że klucz podstawowy zostanie zmapowany na kolumny dopuszczające wartość null.
+Począwszy od EF Core 3,0, jeśli `OrderDetails` należy do `Order` lub jawnie mapowanych do tej samej tabeli, będzie możliwe dodanie `Order` bez `OrderDetails` i wszystkich właściwości `OrderDetails`, z wyjątkiem tego, że klucz podstawowy zostanie zmapowany na kolumny dopuszczające wartość null.
 
-Podczas wykonywania zapytania, EF Core zostanie ustawiona `OrderDetails` na `null` , Jeśli którakolwiek z wymaganych właściwości nie ma wartości lub jeśli nie ma żadnych wymaganych właściwości poza kluczem podstawowym i wszystkie właściwości są `null`.
+Podczas wykonywania zapytania EF Core ustawi `OrderDetails`, aby `null`, Jeśli którakolwiek z wymaganych właściwości nie ma wartości lub jeśli nie ma żadnych wymaganych właściwości poza kluczem podstawowym, a wszystkie właściwości są `null`.
 
 ``` csharp
 public class Order

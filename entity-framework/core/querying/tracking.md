@@ -4,25 +4,25 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: d93be5c2b727d8fbaddd103f8f367c699ae80a7c
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 588dee012039ce5ecc83f0ecf263a4ea6ca38c29
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921656"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181984"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>Śledzenie a Zapytania bez śledzenia
 
-Śledzenie zachowania kontroluje, czy Entity Framework Core będą utrzymywać informacje o wystąpieniu jednostki w jego monitorze zmian. Jeśli jednostka jest śledzona, wszelkie zmiany wykryte w jednostce zostaną utrwalone w bazie danych w trakcie `SaveChanges()`. Entity Framework Core również poprawi właściwości nawigacji między jednostkami uzyskanymi z zapytania śledzenia i jednostek, które zostały wcześniej załadowane do wystąpienia DbContext.
+Śledzenie zachowania kontroluje, czy Entity Framework Core będą utrzymywać informacje o wystąpieniu jednostki w jego monitorze zmian. W przypadku śledzenia jednostki wszystkie zmiany wykryte w jednostce zostaną utrwalone w bazie danych podczas `SaveChanges()`. Entity Framework Core również poprawi właściwości nawigacji między jednostkami uzyskanymi z zapytania śledzenia i jednostek, które zostały wcześniej załadowane do wystąpienia DbContext.
 
 > [!TIP]  
 > [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
 ## <a name="tracking-queries"></a>Zapytania śledzenia
 
-Domyślnie zapytania zwracające typy jednostek są śledzone. Oznacza to, że można wprowadzać zmiany w tych wystąpieniach jednostek i mieć te zmiany `SaveChanges()`utrwalane przez program.
+Domyślnie zapytania zwracające typy jednostek są śledzone. Oznacza to, że można wprowadzać zmiany w tych wystąpieniach jednostek i mieć te zmiany utrwalane przez `SaveChanges()`.
 
-W poniższym przykładzie zmiana klasyfikacji blogów zostanie wykryta i utrwalona w bazie danych w trakcie `SaveChanges()`.
+W poniższym przykładzie zmiana klasyfikacji blogów zostanie wykryta i utrwalona w bazie danych podczas `SaveChanges()`.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
 ``` csharp
@@ -63,11 +63,11 @@ using (var context = new BloggingContext())
 ```
 
 > [!NOTE]  
-> Żadne zapytania śledzenia nadal nie wykonują rozpoznawania tożsamości w ramach wykonywania zapytania. Jeśli zestaw wyników zawiera tę samą jednostkę wiele razy, to samo wystąpienie klasy Entity zostanie zwrócone dla każdego wystąpienia w zestawie wyników. Jednak słabe odwołania są używane do śledzenia jednostek, które zostały już zwrócone. Jeśli poprzedni wynik z tą samą tożsamością wykracza poza zakres i zostanie uruchomione odzyskiwanie pamięci, może zostać wyświetlone nowe wystąpienie jednostki. Aby uzyskać więcej informacji, zobacz [jak działa zapytanie](overview.md).
+> Żadne zapytania śledzenia nadal nie wykonują rozpoznawania tożsamości w ramach wykonywania zapytania. Jeśli zestaw wyników zawiera tę samą jednostkę wiele razy, to samo wystąpienie klasy Entity zostanie zwrócone dla każdego wystąpienia w zestawie wyników. Jednak słabe odwołania są używane do śledzenia jednostek, które zostały już zwrócone. Jeśli poprzedni wynik z tą samą tożsamością wykracza poza zakres i zostanie uruchomione odzyskiwanie pamięci, może zostać wyświetlone nowe wystąpienie jednostki. Aby uzyskać więcej informacji, zobacz [jak działa zapytanie](xref:core/querying/how-query-works).
 
 ## <a name="tracking-and-projections"></a>Śledzenie i projekcje
 
-Nawet jeśli typ wyniku zapytania nie jest typem jednostki, jeśli wynik zawiera typy jednostek, nadal będą domyślnie śledzone. W poniższym zapytaniu, które zwraca typ anonimowy, wystąpienia `Blog` w zestawie wyników będą śledzone.
+Nawet jeśli typ wyniku zapytania nie jest typem jednostki, jeśli wynik zawiera typy jednostek, nadal będą domyślnie śledzone. W poniższym zapytaniu, które zwraca typ anonimowy, będą śledzone wystąpienia `Blog` w zestawie wyników.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=7)] -->
 ``` csharp

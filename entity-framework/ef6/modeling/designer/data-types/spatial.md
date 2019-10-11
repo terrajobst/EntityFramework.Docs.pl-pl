@@ -1,93 +1,93 @@
 ---
-title: Przestrzenne EF6 - projektancie platformy EF -
+title: Projektant przestrzenny-EF — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 06baa6e1-d680-4a95-845b-81305c87a962
-ms.openlocfilehash: 67cc6c007a4477b650e7c4875de8fac36a9ba2be
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: a9c54fbc14dd02ce5d4d91449a0d5f9e72f7f0f7
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283761"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182504"
 ---
-# <a name="spatial---ef-designer"></a>Przestrzenne - projektancie platformy EF
+# <a name="spatial---ef-designer"></a>Projektant przestrzenny-EF
 > [!NOTE]
-> **EF5 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 5. Jeśli używasz starszej wersji, niektóre lub wszystkie informacje, nie ma zastosowania.
+> **EF5 tylko** — funkcje, interfejsy API itp. omówione na tej stronie zostały wprowadzone w Entity Framework 5. Jeśli używasz wcześniejszej wersji, niektóre lub wszystkie informacje nie są stosowane.
 
-Przewodnik krok po kroku i wideo pokazuje, jak do mapowania typów przestrzennych z programu Entity Framework Designer. Ilustruje też sposób używania zapytania LINQ można znaleźć odległość między dwiema lokalizacjami.
+Film wideo i przewodnik krok po kroku przedstawiają sposób mapowania typów przestrzennych przy użyciu Entity Framework Designer. Pokazano również, jak używać zapytania LINQ, aby znaleźć odległość między dwiema lokalizacjami.
 
-W tym przewodniku użyje pierwszego modelu do utworzenia nowej bazy danych, ale może również służyć projektancie platformy EF z [Database First](~/ef6/modeling/designer/workflows/database-first.md) przepływu pracy do mapowania istniejącej bazy danych.
+Ten Instruktaż będzie używać Model First do tworzenia nowej bazy danych, ale można również użyć programu Dr Designer z przepływem pracy [Database First](~/ef6/modeling/designer/workflows/database-first.md) , aby mapować do istniejącej bazy danych.
 
-Obsługa przestrzenne typu została wprowadzona w programie Entity Framework 5. Należy pamiętać, że aby korzystać z nowych funkcji, takich jak typ przestrzennych, wyliczeń i funkcji z wartościami przechowywanymi w tabeli, należy wskazać .NET Framework 4.5. Program Visual Studio 2012 jest przeznaczony dla platformy .NET 4.5 domyślnie.
+Obsługa typów przestrzennych została wprowadzona w Entity Framework 5. Należy pamiętać, że aby korzystać z nowych funkcji, takich jak typ przestrzenny, wyliczenia i funkcje zwracające tabelę, należy określić wartość docelową .NET Framework 4,5. Program Visual Studio 2012 Domyślnie kieruje .NET 4,5.
 
-Używanie typów danych przestrzennych, należy również użyć dostawcy środowiska Entity Framework, który obsługuje przestrzennych. Zobacz [Obsługa dostawców dla typów przestrzennych](~/ef6/fundamentals/providers/spatial-support.md) Aby uzyskać więcej informacji.
+Aby można było używać typów danych przestrzennych, należy również użyć dostawcy Entity Framework z obsługą przestrzenną. Aby uzyskać więcej informacji, zobacz [Obsługa dostawcy dla typów przestrzennych](~/ef6/fundamentals/providers/spatial-support.md) .
 
-Istnieją dwa typy danych przestrzennych głównego: geometry i położenia geograficznego. Typ danych Geografia przechowuje dane ellipsoidal (na przykład współrzędne geograficzne GPS koordynuje). Typ danych Geometria reprezentuje euklidesowa współrzędnych (płaski).
+Istnieją dwa główne typy danych przestrzennych: Geografia i geometria. Typ danych Geografia przechowuje dane ellipsoidal (na przykład współrzędne geograficzne i Długość geograficzna). Typ danych geometrii reprezentuje układ współrzędnych Euclidean (płaski).
 
 ## <a name="watch-the-video"></a>Obejrzyj wideo
-To wideo pokazuje, jak do mapowania typów przestrzennych z programu Entity Framework Designer. Ilustruje też sposób używania zapytania LINQ można znaleźć odległość między dwiema lokalizacjami.
+W tym filmie wideo przedstawiono sposób mapowania typów przestrzennych przy użyciu Entity Framework Designer. Pokazano również, jak używać zapytania LINQ, aby znaleźć odległość między dwiema lokalizacjami.
 
-**Osoba prezentująca**: Julia Kornich
+**Przedstawione przez**: Julia Kornich
 
 **Film wideo**: [WMV](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.wmv) | [MP4](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-mp4video-spatialwithdesigner.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.zip)
 
 ## <a name="pre-requisites"></a>Wymagania wstępne
 
-Musisz być w wersji programu Visual Studio 2012 Ultimate, Premium, Professional i Web Express zainstalowany w celu przeprowadzenia tego instruktażu.
+Aby ukończyć ten przewodnik, musisz mieć zainstalowaną wersję Visual Studio 2012, Ultimate, Premium, Professional lub Web Express Edition.
 
 ## <a name="set-up-the-project"></a>Konfigurowanie projektu
 
 1.  Otwórz program Visual Studio 2012
-2.  Na **pliku** menu wskaż **New**, a następnie kliknij przycisk **projektu**
-3.  W okienku po lewej stronie kliknij **Visual C\#**, a następnie wybierz pozycję **konsoli** szablonu
-4.  Wprowadź **SpatialEFDesigner** jako nazwę projektu i kliknij przycisk **OK**
+2.  W menu **plik** wskaż polecenie **Nowy**, a następnie kliknij pozycję **projekt** .
+3.  W lewym okienku kliknij pozycję **Visual C @ no__t-1**, a następnie wybierz szablon **konsoli**
+4.  Wprowadź **SpatialEFDesigner** jako nazwę projektu, a następnie kliknij przycisk **OK** .
 
-## <a name="create-a-new-model-using-the-ef-designer"></a>Utwórz nowy Model przy użyciu projektanta EF
+## <a name="create-a-new-model-using-the-ef-designer"></a>Tworzenie nowego modelu przy użyciu narzędzia Dr Designer
 
-1.  Kliknij prawym przyciskiem myszy nazwę projektu w Eksploratorze rozwiązań, wskaż opcję **Dodaj**, a następnie kliknij przycisk **nowy element**
-2.  Wybierz **danych** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablonów
-3.  Wprowadź **UniversityModel.edmx** nazwę pliku, a następnie kliknij przycisk **Dodaj**
-4.  Na stronie Kreator modelu Entity Data Model wybierz **pusty Model** w oknie dialogowym Wybierz zawartość modelu
-5.  Kliknij przycisk **Zakończ**
+1.  Kliknij prawym przyciskiem myszy nazwę projektu w Eksplorator rozwiązań, wskaż polecenie **Dodaj**, a następnie kliknij pozycję **nowy element** .
+2.  Wybierz pozycję **dane** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablony.
+3.  W polu Nazwa pliku wprowadź **UniversityModel. edmx** , a następnie kliknij przycisk **Dodaj** .
+4.  Na stronie kreatora Entity Data Model wybierz pozycję **pusty model** w oknie dialogowym Wybierz zawartość modelu
+5.  Kliknij przycisk **Zakończ** .
 
-Zostanie wyświetlona Projektancie jednostki, zapewniającą powierzchnię projektową do edycji modelu.
+Zostanie wyświetlona Entity Designer, która zapewnia powierzchnię projektową do edycji modelu.
 
 Kreator wykonuje następujące czynności:
 
--   Generuje plik EnumTestModel.edmx, który definiuje modelu koncepcyjnego, model magazynu i mapowanie między nimi. Ustawia właściwość metadanych artefaktów przetwarzania pliku edmx osadzania w zestawie danych wyjściowych, więc pliki metadanych wygenerowanych Pobierz osadzone w zestawie.
--   Dodanie odwołania do następujących zestawów: platformy EntityFramework, System.ComponentModel.DataAnnotations i System.Data.Entity.
--   Tworzy pliki UniversityModel.tt i UniversityModel.Context.tt i dodaje je w pliku edmx. Te pliki szablonów T4 generowania kodu, który definiuje typu DbContext pochodnych i POCO typów, które mapują jednostek w modelu edmx
+-   Generuje plik EnumTestModel. edmx, który definiuje model koncepcyjny, model magazynu i mapowanie między nimi. Ustawia właściwość przetwarzania artefaktu metadanych pliku. edmx na osadzony w zestawie danych wyjściowych, aby wygenerowane pliki metadanych zostały osadzone w zestawie.
+-   Dodaje odwołanie do następujących zestawów: EntityFramework, system. ComponentModel. DataAnnotations i system. Data. Entity.
+-   Tworzy pliki UniversityModel.tt i UniversityModel.Context.tt i dodaje je do pliku. edmx. Te pliki szablonów T4 generują kod, który definiuje typ pochodny DbContext i typy POCO, które są mapowane na jednostki w modelu. edmx
 
 ## <a name="add-a-new-entity-type"></a>Dodaj nowy typ jednostki
 
-1.  Kliknij prawym przyciskiem myszy pusty obszar powierzchni projektu, wybierz opcję **Add -&gt; jednostki**, pojawi się okno dialogowe nowej jednostki
-2.  Określ **University** dla typu nazwy i określ **UniversityID** dla danej nazwy właściwości klucza, pozostaw typ jako **Int32**
+1.  Kliknij prawym przyciskiem myszy pusty obszar na powierzchni projektowej, a następnie wybierz polecenie **Dodaj-&gt; jednostki**, pojawi się okno dialogowe Nowa jednostka
+2.  Określ nazwę typu dla **Uniwersytetu** i określ **UniversityID** dla nazwy właściwości klucza, pozostaw typ jako **Int32**
 3.  Kliknij przycisk **OK**
-4.  Kliknij prawym przyciskiem myszy jednostkę, a następnie wybierz pozycję **Dodaj nowy -&gt; właściwość skalarną**
-5.  Zmień nazwę nowej właściwości **nazwy**
-6.  Dodawanie innej skalarne właściwości i zmień jej nazwę na **lokalizacji** Otwórz okno właściwości, a następnie zmień typ nowej właściwości **lokalizacji geograficznej**
+4.  Kliknij prawym przyciskiem myszy jednostkę i wybierz polecenie **Dodaj nową-&gt; Właściwość skalarna**
+5.  Zmień nazwę nowej właściwości na **nazwę**
+6.  Dodaj kolejną Właściwość skalarną i zmień jej nazwę na **lokalizację** Otwórz okno właściwości i Zmień typ nowej właściwości na **Geografia**
 7.  Zapisz model i skompiluj projekt
     > [!NOTE]
-    > W przypadku tworzenia, ostrzeżenia dotyczące podmiotów niezmapowanych i skojarzenia może pojawić się na liście błędów. Można zignorować te ostrzeżenia, ponieważ po Wybierzmy wygenerować bazę danych z modelu, błędy znikną.
+    > Podczas kompilowania w Lista błędów mogą pojawić się ostrzeżenia dotyczące niezamapowanych jednostek i skojarzeń. Te ostrzeżenia można zignorować, ponieważ po wybraniu opcji wygenerowania bazy danych z modelu te błędy zostaną odrzucone.
 
-## <a name="generate-database-from-model"></a>Generuj bazę danych z modelu
+## <a name="generate-database-from-model"></a>Generuj bazę danych na podstawie modelu
 
-Teraz możemy wygenerować bazę danych, która jest oparta na modelu.
+Teraz możemy wygenerować bazę danych opartą na modelu.
 
-1.  Kliknij prawym przyciskiem myszy pusty obszar w Projektancie jednostki powierzchni i wybierz **Generuj z bazy danych z modelu**
-2.  Wybierz połączenie danych dialogowym Generuj Kreatora bazy danych jest wyświetlany, kliknij przycisk **nowe połączenie** przycisk Określ **(localdb)\\mssqllocaldb** dla nazwy serwera i  **Uniwersytet** bazy danych, a następnie kliknij przycisk **OK**
-3.  Okno z pytaniem, jeśli chcesz utworzyć nową bazę danych będą się pojawiać, kliknij przycisk **tak**.
-4.  Kliknij przycisk **dalej** i Kreatora tworzenia bazy danych generuje języka definicji danych (DDL) dla tworzenia bazy danych wygenerowanej języka DDL są wyświetlane w Podsumowanie i okna dialogowego pole Uwaga dotycząca ustawień, który DDL nie zawiera definicji dla tabelę, która mapuje do typu wyliczenia
-5.  Kliknij przycisk **Zakończ** kliknięcie przycisku Zakończ nie wykonuje skrypt języka DDL.
-6.  Kreator tworzenia bazy danych wykonuje następujące czynności: Otwiera **UniversityModel.edmx.sql** w Edytor T-SQL generuje sekcje schematu i mapowania magazynu EDMX pliku informacji o parametrach połączenia usług AD DS do pliku App.config
-7.  Kliknij prawym przyciskiem myszy w edytorze języka T-SQL i wybierz pozycję **Execute** nawiązać połączenie z serwerem w oknie dialogowym wyświetlony, podaj informacje o połączeniu z kroku 2, a następnie kliknij polecenie **Connect**
-8.  Aby wyświetlić wygenerowany schemat, kliknij prawym przyciskiem myszy nazwę bazy danych w Eksploratorze obiektów SQL Server, a następnie wybierz **odświeżania**
+1.  Kliknij prawym przyciskiem myszy puste miejsce na Entity Designer powierzchni i wybierz polecenie **Generuj bazę danych na podstawie modelu**
+2.  Zostanie wyświetlone okno dialogowe Wybieranie połączenia danych w Kreatorze generowania bazy danych. kliknij przycisk **nowe połączenie** , określ **(LocalDB) \\mssqllocaldb** dla nazwy serwera i **University** dla bazy danych, a następnie kliknij przycisk **OK.**
+3.  Zostanie wyświetlone okno dialogowe z pytaniem, czy chcesz utworzyć nową bazę danych, kliknij przycisk **tak**.
+4.  Kliknij przycisk **dalej** , aby Kreator tworzenia bazy danych wygenerował język definicji danych (DDL) służący do tworzenia bazy danych, wygenerowany kod DDL jest wyświetlany w oknie dialogowym Podsumowanie i ustawienia Zanotuj, że kod DDL nie zawiera definicji tabeli mapowanej na typ wyliczenia
+5.  Kliknij przycisk **Zakończ** kliknięcie przycisku Zakończ nie powoduje wykonania skryptu DDL.
+6.  Kreator tworzenia bazy danych wykonuje następujące czynności: Otwiera plik **UniversityModel. edmx. SQL** w edytorze T-SQL generuje schemat magazynu i sekcje mapowania pliku edmx dodaje informacje o parametrach połączenia do pliku App. config
+7.  Kliknij prawym przyciskiem myszy w edytorze T-SQL i wybierz polecenie **Wykonaj** okno dialogowe łączenie z serwerem, wprowadź informacje o połączeniu z kroku 2 i kliknij pozycję **Połącz** .
+8.  Aby wyświetlić wygenerowany schemat, kliknij prawym przyciskiem myszy nazwę bazy danych w Eksplorator obiektów SQL Server i wybierz polecenie **Odśwież** .
 
 ## <a name="persist-and-retrieve-data"></a>Utrwalanie i pobieranie danych
 
-Otwórz plik Program.cs, w którym jest zdefiniowana metoda Main. Dodaj następujący kod do funkcji Main.
+Otwórz plik Program.cs, w którym jest zdefiniowana Metoda Main. Dodaj następujący kod do funkcji main.
 
-Ten kod dodaje dwa nowe obiekty University do kontekstu. Właściwości przestrzenne są inicjowane za pomocą metody DbGeography.FromText. Punkt lokalizacji geograficznej, reprezentowane jako WellKnownText jest przekazywany do metody. Kod następnie zapisuje dane. Następnie zapytania LINQ, która zwraca obiekt University, gdzie jego lokalizacja jest najbardziej zbliżony do określonej lokalizacji jest tworzony i wykonywane.
+Kod dodaje dwa nowe obiekty University do kontekstu. Właściwości przestrzenne są inicjowane przy użyciu metody DbGeography. FromText. Punkt geografii reprezentowany jako WellKnownText jest przenoszona do metody. Następnie kod zapisuje dane. Następnie zapytanie LINQ, które zwraca obiekt University, gdzie jego lokalizacja znajduje się najbliżej określonej lokalizacji, jest konstruowany i wykonywany.
 
 ``` csharp
 using (var context = new UniversityModelContainer())
@@ -118,14 +118,14 @@ using (var context = new UniversityModelContainer())
 }
 ```
 
-Skompilować i uruchomić aplikację. Program generuje następujące wyniki:
+Skompiluj i uruchom aplikację. Program tworzy następujące dane wyjściowe:
 
-```
+```console
 The closest University to you is: School of Fine Art.
 ```
 
-Aby wyświetlić dane w bazie danych, kliknij prawym przyciskiem myszy nazwę bazy danych w Eksploratorze obiektów SQL Server, a następnie wybierz **Odśwież**. Kliknięcie prawym przyciskiem myszy tabelę i wybierz pozycję **dane widoku**.
+Aby wyświetlić dane w bazie danych, kliknij prawym przyciskiem myszy nazwę bazy danych w Eksplorator obiektów SQL Server i wybierz polecenie **Odśwież**. Następnie kliknij prawym przyciskiem myszy w tabeli i wybierz polecenie **Wyświetl dane**.
 
 ## <a name="summary"></a>Podsumowanie
 
-W tym przewodniku zobaczyliśmy, jak do mapowania typów przestrzennych, za pomocą programu Entity Framework Designer oraz jak używać typów przestrzennych w kodzie. 
+W tym instruktażu przedstawiono sposób mapowania typów przestrzennych przy użyciu Entity Framework Designer i sposobu używania typów przestrzennych w kodzie. 

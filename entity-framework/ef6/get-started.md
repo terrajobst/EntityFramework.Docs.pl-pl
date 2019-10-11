@@ -1,72 +1,72 @@
 ---
-title: Wprowadzenie do platformy Entity Framework 6 - EF6
+title: Wprowadzenie do Entity Framework 6 EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 66ce9113-81d2-480f-8c16-d00ec405b2f7
-ms.openlocfilehash: c25bf16bd2c39530d54b286b7743ceb83c941e4d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: bf54879ea94e597dfeac3e4bd70571dad290dd9e
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489294"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181397"
 ---
-# <a name="get-started-with-entity-framework-6"></a>Wprowadzenie do platformy Entity Framework 6
+# <a name="get-started-with-entity-framework-6"></a>Wprowadzenie do Entity Framework 6
 
-Ten przewodnik zawiera zbiór linków do artykułów dotyczących dokumentacji wybrane, przewodników i filmów wideo, które mogą pomóc Ci szybko rozpocząć pracę.
+Ten przewodnik zawiera kolekcję linków do wybranych artykułów dokumentacji, przewodników i filmów wideo, które mogą pomóc szybko rozpocząć pracę.
 
 ## <a name="fundamentals"></a>Podstawy
 
 * [Pobieranie platformy Entity Framework](~/ef6/fundamentals/install.md)
 
-  W tym miejscu będą dowiesz się, jak dodawanie Entity Framework do aplikacji i, jeśli chcesz używać projektancie platformy EF, sprawdź, czy otrzymasz ona zainstalowana w programie Visual Studio.
+  W tym artykule dowiesz się, jak dodać Entity Framework do aplikacji i, jeśli chcesz używać projektanta EF, upewnij się, że zainstalowano go w programie Visual Studio.
 
-* [Tworzenie modelu: kod najpierw projektancie platformy EF i przepływów pracy programu EF](~/ef6/modeling/index.md)
+* [Creating model: Code First, Projektant EF i przepływy pracy EF @ no__t-0
 
-  Wolisz do określania modelu platformy EF pisania kodu lub rysunku pól i wierszy?
-Będą mapowanie obiektów do istniejącej bazy danych przy użyciu programu EF lub chcesz EF, tworzenia zoptymalizowanych pod kątem obiektów bazy danych?
-W tym miejscu Twoje informacje o dwa różne podejścia do użycia EF6: Code First i projektancie platformy EF.
-Upewnij się, postępuj zgodnie z dyskusją i obejrzeć wideo dotyczące różnicy.
+  Czy wolisz określić model EF piszący kod lub pola i linie rysowania?
+Czy zamierzasz użyć EF do mapowania obiektów do istniejącej bazy danych, czy chcesz, aby program Dr utworzył bazę danych dostosowaną do Twoich obiektów?
+Dowiesz się więcej na temat dwóch różnych metod korzystania z EF6: Narzędzia Dr Designer i Code First.
+Upewnij się, że obserwujemy dyskusję i Obejrzyj film wideo dotyczący różnic.
 
 * [Praca z klasą DbContext](~/ef6/fundamentals/working-with-dbcontext.md)
 
-  DbContext jest pierwszy i najważniejszy EF typ który należy poznać sposób użycia. Jego służy jako launchpad dla zapytań bazy danych i śledzi zmiany wprowadzane do obiektów, dzięki czemu mogą zostać utrwalone w bazie danych.
+  DbContext to pierwszy i najważniejszy typ EF, które należy poznać, jak korzystać z programu. Służy jako Program Launchpad dla zapytań bazy danych i śledzi zmiany wprowadzone w obiektach, dzięki czemu można je utrwalić z powrotem do bazy danych.
 
-* [Zadaj pytanie](~/ef6/resources/get-help.md)
+* [Pytanie](~/ef6/resources/get-help.md)
 
-  Dowiedz się, jak uzyskać pomoc od ekspertów i Współtworzenie odpowiedzi społeczności.
+  Dowiedz się, jak uzyskać pomoc od ekspertów i podzielić się swoimi odpowiedziami na społeczność.
 
-* [Współtworzenie](http://github.com/aspnet/EntityFramework6/)
+* [Współtworzenie](https://github.com/aspnet/EntityFramework6/)
 
-  Entity Framework 6 używa otwarty model opracowywania. Dowiedz się, jak możesz pomóc ulepszyć EF, odwiedzając repozytorium GitHub.
+  Entity Framework 6 używa otwartego modelu programowania. Dowiedz się, jak możesz pomóc ulepszyć program EF, odwiedzając nasz repozytorium GitHub.
 
-## <a name="code-first-resources"></a>Pierwszy zasoby kodu
+## <a name="code-first-resources"></a>Zasoby Code First
 
-  - [Kod najpierw istniejący przepływ pracy bazy danych](~/ef6/modeling/code-first/workflows/existing-database.md)
-  - [Najpierw kod do nowej bazy danych przepływu pracy](~/ef6/modeling/code-first/workflows/new-database.md)
-  - [Mapowanie typów wyliczeniowych najpierw przy użyciu kodu](~/ef6/modeling/code-first/data-types/enums.md)
-  - [Mapowanie typów przestrzennych, najpierw przy użyciu kodu](~/ef6/modeling/code-first/data-types/spatial.md)
-  - [Pisanie pierwszego konwencje kod niestandardowy](~/ef6/modeling/code-first/conventions/custom.md)
-  - [Za pomocą pierwsza Konfiguracja Fluent kodu za pomocą Visual Basic](~/ef6/modeling/code-first/fluent/vb.md)
+  - [Code First istniejący przepływ pracy bazy danych](~/ef6/modeling/code-first/workflows/existing-database.md)
+  - [Code First nowego przepływu pracy bazy danych](~/ef6/modeling/code-first/workflows/new-database.md)
+  - [Mapowanie tekstów stałych przy użyciu Code First](~/ef6/modeling/code-first/data-types/enums.md)
+  - [Mapowanie typów przestrzennych przy użyciu Code First](~/ef6/modeling/code-first/data-types/spatial.md)
+  - [Pisanie niestandardowych Konwencji Code First](~/ef6/modeling/code-first/conventions/custom.md)
+  - [Korzystanie z konfiguracji Code First Fluent z Visual Basic](~/ef6/modeling/code-first/fluent/vb.md)
   - [Migracje Code First](~/ef6/modeling/code-first/migrations/index.md)
-  - [Migracje Code First na środowiska zespołowe](~/ef6/modeling/code-first/migrations/teams.md)
-  - [Automatyczne migracje Code First](~/ef6/modeling/code-first/migrations/automatic.md) (to nie jest już zalecany)
+  - [Migracje Code First w środowiskach zespołu](~/ef6/modeling/code-first/migrations/teams.md)
+  - [Automatyczne migracje Code First](~/ef6/modeling/code-first/migrations/automatic.md) (nie jest to już zalecane)
 
-## <a name="ef-designer-resources"></a>Zasoby projektanta EF
-  - [Baza danych pierwszego przepływu pracy](~/ef6/modeling/designer/workflows/database-first.md)
-  - [Model pierwszego przepływu pracy](~/ef6/modeling/designer/workflows/model-first.md)
+## <a name="ef-designer-resources"></a>Zasoby narzędzia Dr Designer
+  - [Przepływ pracy Database First](~/ef6/modeling/designer/workflows/database-first.md)
+  - [Przepływ pracy Model First](~/ef6/modeling/designer/workflows/model-first.md)
   - [Mapowanie typów wyliczeniowych](~/ef6/modeling/designer/data-types/enums.md)
   - [Mapowanie typów przestrzennych](~/ef6/modeling/designer/data-types/spatial.md)
-  - [Tabela wg hierarchii dziedziczenia mapowania](~/ef6/modeling/designer/inheritance/tph.md)
-  - [Tabela wg typu dziedziczenia mapowania](~/ef6/modeling/designer/inheritance/tpt.md)
-  - [Procedura składowana mapowania aktualizacji](~/ef6/modeling/designer/stored-procedures/cud.md)
-  - [Zapisane mapowanie procedur dla zapytania](~/ef6/modeling/designer/stored-procedures/query.md)
+  - [Mapowanie dziedziczenia w hierarchii na hierarchię](~/ef6/modeling/designer/inheritance/tph.md)
+  - [Mapowanie dziedziczenia według typu tabeli](~/ef6/modeling/designer/inheritance/tpt.md)
+  - [Mapowanie procedury składowanej dla aktualizacji](~/ef6/modeling/designer/stored-procedures/cud.md)
+  - [Mapowanie procedury składowanej dla zapytania](~/ef6/modeling/designer/stored-procedures/query.md)
   - [Dzielenie jednostki](~/ef6/modeling/designer/entity-splitting.md)
   - [Dzielenie tabeli](~/ef6/modeling/designer/table-splitting.md)
-  - [Definiowanie zapytania](~/ef6/modeling/designer/advanced/defining-query.md) (zaawansowane)
-  - [Funkcje zwracające tabelę](~/ef6/modeling/designer/advanced/tvfs.md) (zaawansowane)
+  - [Definiowanie zapytania](~/ef6/modeling/designer/advanced/defining-query.md) (Zaawansowane)
+  - [Funkcje z wartościami przechowywanymi w tabeli](~/ef6/modeling/designer/advanced/tvfs.md) (Zaawansowane)
 
 ## <a name="other-resources"></a>Inne zasoby
-  - [Zapytania asynchroniczne i Zapisz](~/ef6/fundamentals/async.md)
+  - [Zapytanie asynchroniczne i zapisywanie](~/ef6/fundamentals/async.md)
   - [Wiązanie danych z WinForms](~/ef6/fundamentals/databinding/winforms.md)
-  - [Powiązanie danych przy użyciu platformy WPF](~/ef6/fundamentals/databinding/wpf.md)
-  - [Rozłączonych scenariuszy z jednostkami Self-Tracking](~/ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md) (to nie jest już zalecany)
+  - [Wiązanie danych z WPF](~/ef6/fundamentals/databinding/wpf.md)
+  - [Rozłączone scenariusze z jednostkami samośledzenia](~/ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md) (nie jest to już zalecane)

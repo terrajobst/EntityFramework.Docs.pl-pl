@@ -1,49 +1,49 @@
 ---
-title: Uaktualnianie z programu EF Core 1.0 RC2 do RTM — EF Core
+title: Uaktualnianie z wersji EF Core 1,0 RC2 do wersji RTM — EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: c3c1940b-136d-45d8-aa4f-cb5040f8980a
 uid: core/miscellaneous/rc2-rtm-upgrade
-ms.openlocfilehash: 1b95b2ab1943dfb541b3a7c873cff3cb4c16d9c1
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e7f121d18931e26e7b5d11842da6da4a9b789efe
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998322"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181362"
 ---
-# <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Uaktualnianie z programu EF Core 1.0 RC2 do RTM
+# <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Uaktualnianie z wersji EF Core 1,0 RC2 do wersji RTM
 
-Ten artykuł zawiera wskazówki dotyczące przenoszenia aplikacji skompilowanej za pomocą pakietów 1.0.0 RC2 RTM.
+Ten artykuł zawiera wskazówki dotyczące przesuwania aplikacji skompilowanej z pakietami RC2 do 1.0.0 RTM.
 
-## <a name="package-versions"></a>Wersje pakietów
+## <a name="package-versions"></a>Wersje pakietu
 
-Nazwy pakietów najwyższego poziomu, które zazwyczaj można zainstalować na aplikację nie zmienił się od wersji RC2 i RTM.
+Nazwy pakietów najwyższego poziomu, które zazwyczaj instalują się do aplikacji, nie zmieniają się między RC2 i RTM.
 
 **Należy uaktualnić zainstalowane pakiety do wersji RTM:**
 
-* Pakiety środowiska uruchomieniowego (na przykład `Microsoft.EntityFrameworkCore.SqlServer`) zmieniła się z `1.0.0-rc2-final` do `1.0.0`.
+* Pakiety środowiska uruchomieniowego (na przykład `Microsoft.EntityFrameworkCore.SqlServer`) zmieniły się z `1.0.0-rc2-final` na `1.0.0`.
 
-* `Microsoft.EntityFrameworkCore.Tools` Pakietu zmieniła się z `1.0.0-preview1-final` do `1.0.0-preview2-final`. Należy pamiętać, że narzędzia jest nadal w wersji wstępnej.
+* Pakiet `Microsoft.EntityFrameworkCore.Tools` został zmieniony z `1.0.0-preview1-final` na `1.0.0-preview2-final`. Należy zauważyć, że narzędzia nadal są w wersji wstępnej.
 
-## <a name="existing-migrations-may-need-maxlength-added"></a>Migracja istniejących może być konieczne maxLength dodane
+## <a name="existing-migrations-may-need-maxlength-added"></a>Istniejące migracje mogą wymagać dodania maxLength
 
-W wersji RC2, definicji kolumny, w przypadku migracji wyglądał jak `table.Column<string>(nullable: true)` i długość kolumny został wyszukiwane w niektóre metadane są przechowywane w kodzie migracji. W wersji RTM, długość jest teraz zawarta w utworzony szkielet kodu `table.Column<string>(maxLength: 450, nullable: true)`.
+W wersji RC2 Definicja kolumny w migracji wyglądała jak `table.Column<string>(nullable: true)` i długość kolumny została wyszukiwana w niektórych metadanych przechowywanych w kodzie związanym z migracją. W wersji RTM, długość jest teraz dołączana do kodu szkieletowego `table.Column<string>(maxLength: 450, nullable: true)`.
 
-Istniejące migracji, które zostały szkieletu przed użyciem RTM nie będzie miał `maxLength` określony argument. Oznacza to, maksymalna długość obsługiwane przez bazę danych, który będzie używany (`nvarchar(max)` w programie SQL Server). Może to być dobrym rozwiązaniem dla niektórych kolumn, ale także kolumny, które są częścią klucza, klucz obcy lub indeksu, należy zaktualizować maksymalną długość. Zgodnie z Konwencją 450 jest maksymalna długość używane do kluczy, kluczy obcych i indeksowanych kolumn. Jeśli długość skonfigurowano jawnie w modelu, następnie należy użyć tej długości zamiast tego.
+Wszystkie istniejące migracje, które były szkieletem przed użyciem RTM, nie będą miały określonego argumentu `maxLength`. Oznacza to, że maksymalna długość obsługiwana przez bazę danych zostanie użyta (`nvarchar(max)` na SQL Server). Może to być konieczne w przypadku niektórych kolumn, ale kolumny, które są częścią klucza, klucza obcego lub indeksu, muszą zostać zaktualizowane, aby zawierały maksymalną długość. Zgodnie z Konwencją 450 jest maksymalną długość używaną dla kluczy, kluczy obcych i indeksowanych kolumn. Jeśli w modelu określono jawnie długość, należy zamiast tego użyć tej długości.
 
 **ASP.NET Identity**
 
-Ta zmiana ma wpływ na projekty użycia produktu ASP.NET Identity, które zostały utworzone na podstawie pre-RTM szablonu projektu. Szablon projektu obejmuje migrację użyty do utworzenia bazy danych. Ta migracja musi być edytowany, aby określić maksymalną długość `256` dla następujących kolumn.
+Ta zmiana wpływa na projekty, które używają ASP.NET Identity i zostały utworzone na podstawie szablonu projektu sprzed-RTM. Szablon projektu zawiera migrację używaną do utworzenia bazy danych. Tę migrację należy edytować, aby określić maksymalną długość `256` dla następujących kolumn.
 
 *  **AspNetRoles**
 
-    * Nazwa
+    * Name
 
     * NormalizedName
 
 *  **AspNetUsers**
 
-   * Adres e-mail
+   * Email
 
    * NormalizedEmail
 
@@ -51,13 +51,15 @@ Ta zmiana ma wpływ na projekty użycia produktu ASP.NET Identity, które zosta�
 
    * UserName
 
-Nie można dokonać tej zmiany spowoduje następujący wyjątek podczas początkowej migracji jest stosowana do bazy danych.
+Niewprowadzenie tej zmiany spowoduje, że po zastosowaniu początkowej migracji do bazy danych wystąpi następujący wyjątek.
 
-    System.Data.SqlClient.SqlException (0x80131904): Column 'NormalizedName' in table 'AspNetRoles' is of a type that is invalid for use as a key column in an index.
+```console
+System.Data.SqlClient.SqlException (0x80131904): Column 'NormalizedName' in table 'AspNetRoles' is of a type that is invalid for use as a key column in an index.
+```
 
-## <a name="net-core-remove-imports-in-projectjson"></a>.NET core: Usuń "import" w pliku project.json
+## <a name="net-core-remove-imports-in-projectjson"></a>.NET Core: Usuwanie "Imports" w pliku Project. JSON
 
-Jeśli zostały przeznaczone dla platformy .NET Core za pomocą RC2, trzeba było dodać `imports` do pliku project.json jako rozwiązanie tymczasowe dla niektórych zależności programu EF Core nie obsługuje .NET Standard. Te można teraz usunąć.
+Jeśli celem jest program .NET Core z RC2, należy dodać `imports` do pliku Project. JSON jako tymczasowe obejście niektórych EF Core zależności, które nie obsługują .NET Standard. Teraz można je usunąć.
 
 ``` json
 {
@@ -70,17 +72,19 @@ Jeśli zostały przeznaczone dla platformy .NET Core za pomocą RC2, trzeba był
 ```
 
 > [!NOTE]  
-> Począwszy od wersji 1.0 RTM, [zestawu .NET Core SDK](https://www.microsoft.com/net/download/core) nie obsługuje już `project.json` lub tworzenia aplikacji platformy .NET Core przy użyciu programu Visual Studio 2015. Firma Microsoft zaleca [migracji z plików project.json do csproj](https://docs.microsoft.com/dotnet/articles/core/migration/). Jeśli używasz programu Visual Studio, zaleca się uaktualnienie do [programu Visual Studio 2017](https://www.visualstudio.com/downloads/).
+> Począwszy od wersji 1,0 RTM, [zestaw .NET Core SDK](https://www.microsoft.com/net/download/core) nie obsługuje już `project.json` ani tworzenia aplikacji platformy .NET Core przy użyciu programu Visual Studio 2015. Zalecamy [Migrowanie z pliku Project. JSON do csproj](https://docs.microsoft.com/dotnet/articles/core/migration/). Jeśli używasz programu Visual Studio, zalecamy przeprowadzenie uaktualnienia do [programu Visual studio 2017](https://www.visualstudio.com/downloads/).
 
-## <a name="uwp-add-binding-redirects"></a>Platformy uniwersalnej systemu Windows: Dodać przekierowania powiązań
+## <a name="uwp-add-binding-redirects"></a>UWP: Dodawanie przekierowań powiązań
 
-Przy próbie uruchomienia programu EF poleceń na wynikach projektów platformy uniwersalnej Windows (UWP) w następujący błąd:
+Próba uruchomienia poleceń EF w projektach platforma uniwersalna systemu Windows (platformy UWP) skutkuje następującym błędem:
 
-    System.IO.FileLoadException: Could not load file or assembly 'System.IO.FileSystem.Primitives, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference.
+```console
+System.IO.FileLoadException: Could not load file or assembly 'System.IO.FileSystem.Primitives, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference.
+```
 
-Należy ręcznie dodać przekierowania powiązań do projektu platformy uniwersalnej systemu Windows. Utwórz plik o nazwie `App.config` w projekcie folder główny i dodać przekierowania do wersji poprawny zestaw.
+Należy ręcznie dodać przekierowania powiązań do projektu platformy UWP. Utwórz plik o nazwie `App.config` w folderze głównym projektu i dodaj przekierowania do poprawnych wersji zestawu.
 
-``` xml
+```xml
 <configuration>
  <runtime>
    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">

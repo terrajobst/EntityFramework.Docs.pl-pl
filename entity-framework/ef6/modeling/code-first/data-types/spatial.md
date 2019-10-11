@@ -1,52 +1,52 @@
 ---
-title: Przestrzenne — najpierw - Code EF6
+title: Przestrzenny Code First EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d617aed1-15f2-48a9-b187-186991c666e3
-ms.openlocfilehash: b8f2485a7002dcb4079f4045432f3224123fdb2f
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: 018f480c1f0f1e74fc9f7a8950a6880e96f1facc
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283605"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182649"
 ---
-# <a name="spatial---code-first"></a>Przestrzenne - Code pierwszy
+# <a name="spatial---code-first"></a>Code First przestrzenne
 > [!NOTE]
-> **EF5 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 5. Jeśli używasz starszej wersji, niektóre lub wszystkie informacje, nie ma zastosowania.
+> **EF5 tylko** — funkcje, interfejsy API itp. omówione na tej stronie zostały wprowadzone w Entity Framework 5. Jeśli używasz wcześniejszej wersji, niektóre lub wszystkie informacje nie są stosowane.
 
-Przewodnik krok po kroku i wideo pokazuje, jak do mapowania typów przestrzennych z Entity Framework Code First. Ilustruje też sposób używania zapytania LINQ można znaleźć odległość między dwiema lokalizacjami.
+Film wideo i przewodnik krok po kroku przedstawiają sposób mapowania typów przestrzennych przy użyciu Entity Framework Code First. Pokazano również, jak używać zapytania LINQ, aby znaleźć odległość między dwiema lokalizacjami.
 
-W tym przewodniku będzie używać Code First, aby utworzyć nową bazę danych, ale można również użyć [Code First istniejącą bazę danych](~/ef6/modeling/code-first/workflows/existing-database.md).
+Ten Instruktaż będzie używać Code First do tworzenia nowej bazy danych, ale można również użyć [Code First do istniejącej bazy danych](~/ef6/modeling/code-first/workflows/existing-database.md).
 
-Obsługa przestrzenne typu została wprowadzona w programie Entity Framework 5. Należy pamiętać, że aby korzystać z nowych funkcji, takich jak typ przestrzennych, wyliczeń i funkcji z wartościami przechowywanymi w tabeli, należy wskazać .NET Framework 4.5. Program Visual Studio 2012 jest przeznaczony dla platformy .NET 4.5 domyślnie.
+Obsługa typów przestrzennych została wprowadzona w Entity Framework 5. Należy pamiętać, że aby korzystać z nowych funkcji, takich jak typ przestrzenny, wyliczenia i funkcje zwracające tabelę, należy określić wartość docelową .NET Framework 4,5. Program Visual Studio 2012 Domyślnie kieruje .NET 4,5.
 
-Używanie typów danych przestrzennych, należy również użyć dostawcy środowiska Entity Framework, który obsługuje przestrzennych. Zobacz [Obsługa dostawców dla typów przestrzennych](~/ef6/fundamentals/providers/spatial-support.md) Aby uzyskać więcej informacji.
+Aby można było używać typów danych przestrzennych, należy również użyć dostawcy Entity Framework z obsługą przestrzenną. Aby uzyskać więcej informacji, zobacz [Obsługa dostawcy dla typów przestrzennych](~/ef6/fundamentals/providers/spatial-support.md) .
 
-Istnieją dwa typy danych przestrzennych głównego: geometry i położenia geograficznego. Typ danych Geografia przechowuje dane ellipsoidal (na przykład współrzędne geograficzne GPS koordynuje). Typ danych Geometria reprezentuje euklidesowa współrzędnych (płaski).
+Istnieją dwa główne typy danych przestrzennych: Geografia i geometria. Typ danych Geografia przechowuje dane ellipsoidal (na przykład współrzędne geograficzne i Długość geograficzna). Typ danych geometrii reprezentuje układ współrzędnych Euclidean (płaski).
 
 ## <a name="watch-the-video"></a>Obejrzyj wideo
-To wideo pokazuje, jak do mapowania typów przestrzennych z Entity Framework Code First. Ilustruje też sposób używania zapytania LINQ można znaleźć odległość między dwiema lokalizacjami.
+W tym filmie wideo pokazano, jak mapować typy przestrzenne za pomocą Entity Framework Code First. Pokazano również, jak używać zapytania LINQ, aby znaleźć odległość między dwiema lokalizacjami.
 
-**Osoba prezentująca**: Julia Kornich
+**Przedstawione przez**: Julia Kornich
 
 **Film wideo**: [WMV](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.wmv) | [MP4](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-mp4video-spatialwithcodefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.zip)
 
 ## <a name="pre-requisites"></a>Wymagania wstępne
 
-Musisz być w wersji programu Visual Studio 2012 Ultimate, Premium, Professional i Web Express zainstalowany w celu przeprowadzenia tego instruktażu.
+Aby ukończyć ten przewodnik, musisz mieć zainstalowaną wersję Visual Studio 2012, Ultimate, Premium, Professional lub Web Express Edition.
 
 ## <a name="set-up-the-project"></a>Konfigurowanie projektu
 
 1.  Otwórz program Visual Studio 2012
-2.  Na **pliku** menu wskaż **New**, a następnie kliknij przycisk **projektu**
-3.  W okienku po lewej stronie kliknij **Visual C\#**, a następnie wybierz pozycję **konsoli** szablonu
-4.  Wprowadź **SpatialCodeFirst** jako nazwę projektu i kliknij przycisk **OK**
+2.  W menu **plik** wskaż polecenie **Nowy**, a następnie kliknij pozycję **projekt** .
+3.  W lewym okienku kliknij pozycję **Visual C @ no__t-1**, a następnie wybierz szablon **konsoli**
+4.  Wprowadź **SpatialCodeFirst** jako nazwę projektu, a następnie kliknij przycisk **OK** .
 
-## <a name="define-a-new-model-using-code-first"></a>Definiowanie nowego modelu za pomocą funkcji Code First
+## <a name="define-a-new-model-using-code-first"></a>Zdefiniuj nowy model przy użyciu Code First
 
-Korzystając z rozwiązania deweloperskiego Code First zwykle Rozpocznij od pisania klas .NET Framework, które definiują model koncepcyjny (domena). Poniższy kod definiuje klasę University.
+W przypadku korzystania z Code First projektowania zwykle zaczynasz od pisania klas .NET Framework, które definiują model koncepcyjny (domeny). Poniższy kod definiuje klasę University.
 
-Uniwersytecie ma właściwość lokalizacji, typu DbGeography. Aby użyć typu DbGeography, należy dodać odwołanie do zestawu System.Data.Entity, a także dodać System.Data.Spatial za pomocą instrukcji.
+Uniwersytet ma właściwość Location typu DbGeography. Aby użyć typu DbGeography, należy dodać odwołanie do zestawu System. Data. Entity, a także dodać instrukcję system. Data. przestrzenny using.
 
 Otwórz plik Program.cs i wklej następujące instrukcje using na początku pliku:
 
@@ -65,20 +65,20 @@ public class University
 }
 ```
 
-## <a name="define-the-dbcontext-derived-type"></a>Definiowanie typu pochodnego typu DbContext
+## <a name="define-the-dbcontext-derived-type"></a>Zdefiniuj typ pochodny DbContext
 
-Oprócz definiowania jednostek, musisz zdefiniować klasę, która pochodzi od typu DbContext i udostępnia DbSet&lt;TEntity&gt; właściwości. DbSet&lt;TEntity&gt; właściwości umożliwiają kontekstu wiedzieć, jakie typy, które mają zostać uwzględnione w modelu.
+Oprócz definiowania jednostek należy zdefiniować klasę, która dziedziczy z DbContext i uwidacznia Nieogólnymi @ no__t-0TEntity @ no__t-1. Właściwości Nieogólnymi @ no__t-0TEntity @ no__t-1 pozwalają kontekstowi znać, które typy mają być uwzględnione w modelu.
 
-Wystąpienie typu DbContext pochodzące zarządza obiektami jednostki w czasie wykonywania, zawierającą wypełnianie obiektów przy użyciu danych z bazy danych, zmień śledzenie i przechowywanie danych w bazie danych.
+Wystąpienie typu pochodnego DbContext zarządza obiektami obiektów w czasie wykonywania, co obejmuje wypełnianie obiektów danymi z bazy danych, śledzenie zmian i utrwalanie danych w bazie danych.
 
-Typy DbContext i DbSet są definiowane w zestawie platformy EntityFramework. Firma Microsoft doda odwołanie do tej biblioteki DLL przy użyciu pakietu EntityFramework NuGet.
+Typy DbContext i Nieogólnymi są zdefiniowane w zestawie EntityFramework. Dodamy odwołanie do tej biblioteki DLL przy użyciu pakietu NuGet EntityFramework.
 
-1.  W Eksploratorze rozwiązań kliknij prawym przyciskiem myszy nazwę projektu.
-2.  Wybierz **Zarządzaj pakietami NuGet...**
-3.  W oknie dialogowym pakiety zarządzania NuGet wybierz **Online** kartę i wybierz polecenie **EntityFramework** pakietu.
-4.  Kliknij przycisk **instalacji**
+1.  W Eksplorator rozwiązań kliknij prawym przyciskiem myszy nazwę projektu.
+2.  Wybierz pozycję **Zarządzaj pakietami NuGet...**
+3.  W oknie dialogowym Zarządzanie pakietami NuGet wybierz kartę **online** i wybierz pakiet **EntityFramework** .
+4.  Kliknij przycisk **Instaluj**
 
-Należy zauważyć, że oprócz zestawu platformy EntityFramework, odwołanie do zestawu System.ComponentModel.DataAnnotations jest także dodawane.
+Należy zauważyć, że oprócz zestawu EntityFramework dodawane jest również odwołanie do zestawu System. ComponentModel. DataAnnotations.
 
 W górnej części pliku Program.cs Dodaj następującą instrukcję using:
 
@@ -86,7 +86,7 @@ W górnej części pliku Program.cs Dodaj następującą instrukcję using:
 using System.Data.Entity;
 ```
 
-W pliku Program.cs Dodaj definicję kontekstu. 
+W Program.cs Dodaj definicję kontekstu. 
 
 ``` csharp
 public partial class UniversityContext : DbContext
@@ -97,9 +97,9 @@ public partial class UniversityContext : DbContext
 
 ## <a name="persist-and-retrieve-data"></a>Utrwalanie i pobieranie danych
 
-Otwórz plik Program.cs, w którym jest zdefiniowana metoda Main. Dodaj następujący kod do funkcji Main.
+Otwórz plik Program.cs, w którym jest zdefiniowana Metoda Main. Dodaj następujący kod do funkcji main.
 
-Ten kod dodaje dwa nowe obiekty University do kontekstu. Właściwości przestrzenne są inicjowane za pomocą metody DbGeography.FromText. Punkt lokalizacji geograficznej, reprezentowane jako WellKnownText jest przekazywany do metody. Kod następnie zapisuje dane. Następnie zapytania LINQ, która zwraca obiekt University, gdzie jego lokalizacja jest najbardziej zbliżony do określonej lokalizacji jest tworzony i wykonywane.
+Kod dodaje dwa nowe obiekty University do kontekstu. Właściwości przestrzenne są inicjowane przy użyciu metody DbGeography. FromText. Punkt geografii reprezentowany jako WellKnownText jest przenoszona do metody. Następnie kod zapisuje dane. Następnie zapytanie LINQ, które zwraca obiekt University, gdzie jego lokalizacja znajduje się najbliżej określonej lokalizacji, jest konstruowany i wykonywany.
 
 ``` csharp
 using (var context = new UniversityContext ())
@@ -130,26 +130,26 @@ using (var context = new UniversityContext ())
 }
 ```
 
-Skompilować i uruchomić aplikację. Program generuje następujące wyniki:
+Skompiluj i uruchom aplikację. Program tworzy następujące dane wyjściowe:
 
-```
+```console
 The closest University to you is: School of Fine Art.
 ```
 
-## <a name="view-the-generated-database"></a>Wyświetlanie wygenerowanych bazy danych
+## <a name="view-the-generated-database"></a>Wyświetlanie wygenerowanej bazy danych
 
-Po uruchomieniu aplikacji po raz pierwszy, platformy Entity Framework tworzy bazę danych. Dysponujemy programu Visual Studio 2012, baza danych zostanie utworzony w wystąpieniu programu LocalDB. Domyślnie platforma Entity Framework nazwy bazy danych po w pełni kwalifikowanej nazwie pochodnej kontekstu (w tym przykładzie, który jest **SpatialCodeFirst.UniversityContext**). Kolejne razy, zostanie użyta istniejącej bazy danych.  
+Po pierwszym uruchomieniu aplikacji Entity Framework tworzy bazę danych. Ze względu na to, że zainstalowano program Visual Studio 2012, baza danych zostanie utworzona w wystąpieniu LocalDB. Domyślnie Entity Framework nazw bazy danych po w pełni kwalifikowana nazwa kontekstu pochodnego (w tym przykładzie jest to **SpatialCodeFirst. UniversityContext**). Kolejne użycie istniejącej bazy danych będzie możliwe.  
 
-Należy pamiętać, że jeśli wprowadzisz zmiany do modelu, po utworzeniu bazy danych, należy użyć migracje Code First do zaktualizowania schematu bazy danych. Zobacz [Code First dla nowej bazy danych](~/ef6/modeling/code-first/workflows/new-database.md) na przykład za pomocą migracji.
+Należy pamiętać, że jeśli wprowadzisz zmiany w modelu po utworzeniu bazy danych, należy użyć Migracje Code First, aby zaktualizować schemat bazy danych. Zapoznaj się z tematem [Code First do nowej bazy danych](~/ef6/modeling/code-first/workflows/new-database.md) , aby zapoznać się z przykładem użycia migracji.
 
-Aby wyświetlić i bazy danych, wykonaj następujące czynności:
+Aby wyświetlić bazę danych i dane, wykonaj następujące czynności:
 
-1.  W menu głównym programu Visual Studio 2012, wybierz **widoku**  - &gt; **Eksplorator obiektów SQL Server**.
-2.  Jeśli LocalDB, nie ma na liście serwerów, kliknij prawym przyciskiem myszy **programu SQL Server** i wybierz **dodawania serwera SQL** Użyj domyślnej **uwierzytelniania Windows** połączyć się z wystąpienia LocalDB
+1.  W menu głównym programu Visual Studio 2012 wybierz pozycję **wyświetl** - @ no__t-2 **Eksplorator obiektów SQL Server**.
+2.  Jeśli LocalDB nie znajduje się na liście serwerów, kliknij prawym przyciskiem myszy na **SQL Server** i wybierz polecenie **Dodaj SQL Server** Użyj domyślnego **uwierzytelniania systemu Windows** , aby nawiązać połączenie z wystąpieniem LocalDB
 3.  Rozwiń węzeł LocalDB
-4.  Unfold **baz danych** folder, aby zobaczyć nową bazę danych, a następnie przejdź do **uniwersytety** tabeli
-5.  Aby wyświetlić dane, kliknij prawym przyciskiem myszy w tabeli i wybrać **widoku danych**
+4.  Unfold folder **baz danych** w celu wyświetlenia nowej bazy danych i przechodzenia do tabeli **uniwersytetów**
+5.  Aby wyświetlić dane, kliknij prawym przyciskiem myszy tabelę i wybierz polecenie **Wyświetl dane**
 
 ## <a name="summary"></a>Podsumowanie
 
-W tym przewodniku zobaczyliśmy, jak za pomocą typów przestrzennych programu Entity Framework Code First. 
+W tym instruktażu przedstawiono sposób używania typów przestrzennych z Entity Framework Code First. 

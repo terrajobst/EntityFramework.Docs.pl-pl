@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 01/07/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 43b98c1f09a89f7e5451e28cbf2f78a2cb1040e5
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 0c9671eb77181d85cd493341cd1abf842d13fb0e
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921763"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181274"
 ---
 # <a name="ef-core-tools--extensions"></a>Rozszerzenia narzędzi EF Core &
 
@@ -52,10 +52,10 @@ CatFactory to aparat tworzenia szkieletów dla platformy .NET Core, który umoż
 
 ### <a name="loresofts-entity-framework-core-generator"></a>Generator Entity Framework Core LoreSoft
 
-Generator Entity Framework Core (EFG) to narzędzie interfejs wiersza polecenia platformy .NET Core, które może generować modele EF Core z istniejącej bazy danych, podobnie jak `dotnet ef dbcontext scaffold`, ale również zapewnia bezpieczną regenerację [](https://efg.loresoft.com/en/latest/regeneration/) kodu przez zastąpienie regionu lub przeanalizowanie plików mapowania. To narzędzie obsługuje generowanie modeli widoku, walidacji i kodu mapowania obiektów. 
+Generator Entity Framework Core (EFG) to narzędzie interfejs wiersza polecenia platformy .NET Core, które może generować modele EF Core z istniejącej bazy danych, podobnie jak `dotnet ef dbcontext scaffold`, ale również zapewnia bezpieczną [regenerację](https://efg.loresoft.com/en/latest/regeneration/) kodu przez zastąpienie regionu lub przeanalizowanie plików mapowania. To narzędzie obsługuje generowanie modeli widoku, walidacji i kodu mapowania obiektów. 
 
-[](http://www.loresoft.com/Generate-ASP-NET-Web-API)
-[Dokumentacja](https://efg.loresoft.com/en/latest/) samouczka
+[Samouczek](https://www.loresoft.com/Generate-ASP-NET-Web-API)
+ —[Dokumentacja](https://efg.loresoft.com/en/latest/)
 
 ## <a name="extensions"></a>Rozszerzenia
 
@@ -160,8 +160,7 @@ Pamięć podręczna zapytań o wysokiej wydajności dla EF Core.
 
 Rozszerza DbContext z funkcjami, takimi jak: Dołącz filtr, inspekcję, buforowanie, przyszłe zapytania, usuwanie wsadowe, aktualizowanie wsadowe i inne.
 
-[](https://entityframework-plus.net/)
-[Repozytorium GitHub](https://github.com/zzzprojects/EntityFramework-Plus) witryny sieci Web
+[Witryna internetowa](https://entityframework-plus.net/)@no__t — 1[repozytorium GitHub](https://github.com/zzzprojects/EntityFramework-Plus)
 
 ### <a name="entity-framework-extensions"></a>Rozszerzenia Entity Framework
 

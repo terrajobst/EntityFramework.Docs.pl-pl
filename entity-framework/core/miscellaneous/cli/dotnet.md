@@ -4,16 +4,16 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 910136871cce5818b8e70a012e5132259b66e4c1
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: e5b42275aa575d711e1dcdf3d2ba3cb29a036727
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197580"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181254"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Dokumentacja narzędzi Entity Framework Core Tools — interfejs wiersza polecenia platformy .NET
 
-Narzędzia interfejsu wiersza polecenia (CLI) dla Entity Framework Core wykonują zadania deweloperskie czasu projektowania. Na przykład tworzą [migracje](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations), stosują migracje i generują kod dla modelu na podstawie istniejącej bazy danych. Polecenia są rozszerzeniem dla międzyplatformowego polecenia [dotnet](/dotnet/core/tools) , które jest częścią [zestaw .NET Core SDK](https://www.microsoft.com/net/core). Te narzędzia współpracują z projektami .NET Core.
+Narzędzia interfejsu wiersza polecenia (CLI) dla Entity Framework Core wykonują zadania deweloperskie czasu projektowania. Na przykład tworzą [migracje](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0), stosują migracje i generują kod dla modelu na podstawie istniejącej bazy danych. Polecenia są rozszerzeniem dla międzyplatformowego polecenia [dotnet](/dotnet/core/tools) , które jest częścią [zestaw .NET Core SDK](https://www.microsoft.com/net/core). Te narzędzia współpracują z projektami .NET Core.
 
 Jeśli używasz programu Visual Studio, zalecamy użycie [narzędzi konsoli Menedżera pakietów](powershell.md) :
 * Automatycznie pracują z bieżącym projektem wybranym w **konsoli Menedżera pakietów** bez konieczności ręcznego przełączania katalogów.
@@ -30,17 +30,17 @@ Procedura instalacji zależy od typu projektu i wersji:
 
 ### <a name="ef-core-3x"></a>EF Core 3. x
 
-* `dotnet ef`musi być zainstalowany jako narzędzie globalne lub lokalne. Większość deweloperów zostanie zainstalowana `dotnet ef` jako narzędzie globalne przy użyciu następującego polecenia:
+* `dotnet ef` musi być zainstalowana jako narzędzie globalne lub lokalne. Większość deweloperów zainstaluje `dotnet ef` jako narzędzie globalne przy użyciu następującego polecenia:
 
   ``` console
   dotnet tool install --global dotnet-ef
   ```
 
-  Można również użyć `dotnet ef` programu jako lokalnego narzędzia. Aby użyć go jako narzędzia lokalnego, Przywróć zależności projektu, które deklaruje jako zależność narzędzia przy użyciu [pliku manifestu narzędzia](https://github.com/dotnet/cli/issues/10288).
+  Możesz również użyć `dotnet ef` jako narzędzia lokalnego. Aby użyć go jako narzędzia lokalnego, Przywróć zależności projektu, które deklaruje jako zależność narzędzia przy użyciu [pliku manifestu narzędzia](https://github.com/dotnet/cli/issues/10288).
 
 * Zainstaluj [zestaw .NET Core SDK 3,0](https://dotnet.microsoft.com/download/dotnet-core/3.0)). Zestaw SDK należy zainstalować nawet w przypadku najnowszej wersji programu Visual Studio.
 
-* Zainstaluj najnowszy `Microsoft.EntityFrameworkCore.Design` pakiet.
+* Zainstaluj najnowszy pakiet `Microsoft.EntityFrameworkCore.Design`.
 
   ``` Console
   dotnet add package Microsoft.EntityFrameworkCore.Design
@@ -50,15 +50,15 @@ Procedura instalacji zależy od typu projektu i wersji:
 
 * Zainstaluj bieżącą [zestaw .NET Core SDK](https://www.microsoft.com/net/download/core). Zestaw SDK należy zainstalować nawet w przypadku najnowszej wersji programu Visual Studio 2017.
 
-  Jest to wszystkie niezbędne dla ASP.NET Core 2.1 +, ponieważ `Microsoft.EntityFrameworkCore.Design` pakiet jest zawarty w [pakiecie Microsoft. AspNetCore. app](/aspnet/core/fundamentals/metapackage-app).
+  Jest to wszystkie niezbędne dla ASP.NET Core 2.1 +, ponieważ pakiet `Microsoft.EntityFrameworkCore.Design` jest zawarty w [pakiecie Microsoft. AspNetCore. app](/aspnet/core/fundamentals/metapackage-app).
 
 ### <a name="ef-core-2x-not-aspnet-core"></a>EF Core 2. x (nie ASP.NET Core)
 
-Polecenia są zawarte w zestaw .NET Core SDK, ale w celu włączenia poleceń koniecznych do `Microsoft.EntityFrameworkCore.Design` zainstalowania pakietu. `dotnet ef`
+Polecenia `dotnet ef` są zawarte w zestaw .NET Core SDK, ale w celu włączenia poleceń, aby zainstalować pakiet `Microsoft.EntityFrameworkCore.Design`.
 
 * Zainstaluj bieżącą [zestaw .NET Core SDK](https://www.microsoft.com/net/download/core). Zestaw SDK należy zainstalować nawet w przypadku najnowszej wersji programu Visual Studio.
 
-* Zainstaluj najnowszy stabilny `Microsoft.EntityFrameworkCore.Design` pakiet.
+* Zainstaluj najnowszy stabilny pakiet `Microsoft.EntityFrameworkCore.Design`.
 
   ``` Console
   dotnet add package Microsoft.EntityFrameworkCore.Design
@@ -70,9 +70,9 @@ Polecenia są zawarte w zestaw .NET Core SDK, ale w celu włączenia poleceń ko
 
 * Skonfiguruj aplikację tak, aby korzystała z wersji zestawu SDK 2.1.200, modyfikując jej plik [Global. JSON](/dotnet/core/tools/global-json) . Ten plik jest zwykle zawarty w katalogu rozwiązania (jeden powyżej projektu).
 
-* Edytuj plik projektu i Dodaj `Microsoft.EntityFrameworkCore.Tools.DotNet` `DotNetCliToolReference` jako element. Określ najnowszą wersję 1. x, na przykład: 1.1.6. Zobacz przykład pliku projektu na końcu tej sekcji.
+* Edytuj plik projektu i Dodaj `Microsoft.EntityFrameworkCore.Tools.DotNet` jako element `DotNetCliToolReference`. Określ najnowszą wersję 1. x, na przykład: 1.1.6. Zobacz przykład pliku projektu na końcu tej sekcji.
 
-* Zainstaluj najnowszą wersję `Microsoft.EntityFrameworkCore.Design` 1. x pakietu, na przykład:
+* Zainstaluj najnowszą wersję 1. x pakietu `Microsoft.EntityFrameworkCore.Design`, na przykład:
 
   ```console
   dotnet add package Microsoft.EntityFrameworkCore.Design -v 1.1.6
@@ -98,7 +98,7 @@ Polecenia są zawarte w zestaw .NET Core SDK, ale w celu włączenia poleceń ko
   </Project>
   ```
 
-  Odwołanie do pakietu z `PrivateAssets="All"` nieujawnione dla projektów, które odwołują się do tego projektu. To ograniczenie jest szczególnie przydatne w przypadku pakietów, które są zwykle używane tylko podczas projektowania.
+  Odwołanie do pakietu z `PrivateAssets="All"` nie jest uwidocznione dla projektów, które odwołują się do tego projektu. To ograniczenie jest szczególnie przydatne w przypadku pakietów, które są zwykle używane tylko podczas projektowania.
 
 ### <a name="verify-installation"></a>Weryfikuj instalację
 
@@ -133,9 +133,9 @@ Przed rozpoczęciem korzystania z narzędzi, może być konieczne utworzenie pro
 
 Polecenia odnoszą się do *projektu* i *projektu startowego*.
 
-* *Projekt* jest również znany jako *projekt docelowy* , ponieważ jest to miejsce, w którym polecenia dodają lub usuwają pliki. Domyślnie projekt w bieżącym katalogu jest projektem docelowym. Możesz określić inny projekt jako projekt docelowy przy użyciu <nobr>`--project`</nobr> opcji.
+* *Projekt* jest również znany jako *projekt docelowy* , ponieważ jest to miejsce, w którym polecenia dodają lub usuwają pliki. Domyślnie projekt w bieżącym katalogu jest projektem docelowym. Możesz określić inny projekt jako projekt docelowy przy użyciu opcji <nobr>`--project`</nobr> .
 
-* *Projekt startowy* jest tym, że narzędzia kompilują i uruchamiają. Narzędzia muszą wykonywać kod aplikacji w czasie projektowania, aby uzyskać informacje o projekcie, takie jak parametry połączenia bazy danych i Konfiguracja modelu. Domyślnie projekt w bieżącym katalogu jest projektem startowym. Możesz określić inny projekt jako projekt startowy przy użyciu <nobr>`--startup-project`</nobr> opcji.
+* *Projekt startowy* jest tym, że narzędzia kompilują i uruchamiają. Narzędzia muszą wykonywać kod aplikacji w czasie projektowania, aby uzyskać informacje o projekcie, takie jak parametry połączenia bazy danych i Konfiguracja modelu. Domyślnie projekt w bieżącym katalogu jest projektem startowym. Możesz określić inny projekt jako projekt startowy przy użyciu opcji <nobr>`--startup-project`</nobr> .
 
 Projekt startowy i projekt docelowy są często tymi samymi projektami. Typowy scenariusz, w którym są oddzielnymi projektami, to:
 
@@ -146,7 +146,7 @@ Możliwe jest również [umieszczenie kodu migracji w bibliotece klas odrębnie 
 
 ### <a name="other-target-frameworks"></a>Inne platformy docelowe
 
-Narzędzia interfejsu wiersza polecenia współpracują z projektami .NET Core i projektami .NET Framework. Aplikacje, które mają model EF Core w bibliotece klas .NET Standard mogą nie mieć projektu .NET Core lub .NET Framework. Na przykład jest to prawdziwe w aplikacjach Xamarin i platforma uniwersalna systemu Windows. W takich przypadkach można utworzyć projekt aplikacji konsolowej .NET Core, którego jedynym celem jest działanie jako projekt startowy dla narzędzi. Projekt może być fikcyjnym projektem bez rzeczywistego kodu &mdash; , który jest wymagany tylko do udostępnienia obiektu docelowego dla narzędzi.
+Narzędzia interfejsu wiersza polecenia współpracują z projektami .NET Core i projektami .NET Framework. Aplikacje, które mają model EF Core w bibliotece klas .NET Standard mogą nie mieć projektu .NET Core lub .NET Framework. Na przykład jest to prawdziwe w aplikacjach Xamarin i platforma uniwersalna systemu Windows. W takich przypadkach można utworzyć projekt aplikacji konsolowej .NET Core, którego jedynym celem jest działanie jako projekt startowy dla narzędzi. Projekt może być fikcyjnym projektem bez kodu rzeczywistego &mdash; jest to konieczne tylko w celu udostępnienia obiektu docelowego dla narzędzi.
 
 Dlaczego jest wymagany projekt fikcyjny? Jak wspomniano wcześniej, narzędzia muszą wykonać kod aplikacji w czasie projektowania. W tym celu należy użyć środowiska uruchomieniowego platformy .NET Core. Gdy model EF Core znajduje się w projekcie, który jest przeznaczony dla programu .NET Core lub .NET Framework, narzędzia EF Core zażyczą sobie środowisko uruchomieniowe z projektu. Nie można tego zrobić, jeśli model EF Core znajduje się w .NET Standardej bibliotece klas. .NET Standard nie jest rzeczywistą implementacją platformy .NET; jest to specyfikacja zestawu interfejsów API, które muszą być obsługiwane przez implementacje platformy .NET. W związku z tym .NET Standard nie są wystarczające dla narzędzi EF Core do wykonywania kodu aplikacji. Projekt fikcyjny tworzony do użycia jako projekt startowy zapewnia konkretną platformę docelową, do której narzędzia mogą ładować .NET Standard biblioteki klas.
 
@@ -159,11 +159,11 @@ Aby określić środowisko dla projektów ASP.NET Core, należy ustawić zmienn�
 |                   | Opcja                            | Opis                                                                                                                                                                                                                                                   |
 |:------------------|:----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |                   | `--json`                          | Pokaż dane wyjściowe JSON.                                                                                                                                                                                                                                             |
-| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | Klasa `DbContext` , która ma zostać użyta. Nazwa klasy lub w pełni kwalifikowana z przestrzeniami nazw.  Jeśli ta opcja zostanie pominięta, EF Core odnajdzie klasę kontekstową. Jeśli istnieje wiele klas kontekstu, ta opcja jest wymagana.                                            |
+| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | Klasa `DbContext` do użycia. Nazwa klasy lub w pełni kwalifikowana z przestrzeniami nazw.  Jeśli ta opcja zostanie pominięta, EF Core odnajdzie klasę kontekstową. Jeśli istnieje wiele klas kontekstu, ta opcja jest wymagana.                                            |
 | `-p`              | `--project <PROJECT>`             | Ścieżka względna do folderu projektu projektu docelowego.  Wartość domyślna to bieżący folder.                                                                                                                                                              |
 | `-s`              | `--startup-project <PROJECT>`     | Ścieżka względna do folderu projektu projektu startowego. Wartość domyślna to bieżący folder.                                                                                                                                                              |
 |                   | `--framework <FRAMEWORK>`         | [Moniker platformy docelowej](/dotnet/standard/frameworks#supported-target-framework-versions) dla [platformy docelowej](/dotnet/standard/frameworks).  Użyj, gdy plik projektu określa wiele platform docelowych i chcesz wybrać jedną z nich. |
-|                   | `--configuration <CONFIGURATION>` | Konfiguracja kompilacji, na przykład: `Debug` lub. `Release`                                                                                                                                                                                                   |
+|                   | `--configuration <CONFIGURATION>` | Konfiguracja kompilacji, na przykład: `Debug` lub `Release`.                                                                                                                                                                                                   |
 |                   | `--runtime <IDENTIFIER>`          | Identyfikator docelowego środowiska uruchomieniowego, dla którego mają zostać przywrócone pakiety. Aby uzyskać listę identyfikatorów środowiska uruchomieniowego (RID), zobacz [wykaz identyfikatorów RID](/dotnet/core/rid-catalog).                                                                                                      |
 | `-h`              | `--help`                          | Pokaż informacje pomocy.                                                                                                                                                                                                                                        |
 | `-v`              | `--verbose`                       | Pokaż pełne dane wyjściowe.                                                                                                                                                                                                                                          |
@@ -200,21 +200,21 @@ dotnet ef database update 20180904195021_InitialCreate
 
 ## <a name="dotnet-ef-dbcontext-info"></a>informacje dotyczące kontekstu dotnet EF
 
-Pobiera informacje o `DbContext` typie.
+Pobiera informacje o typie `DbContext`.
 
 ## <a name="dotnet-ef-dbcontext-list"></a>Lista kontekstowa dotnet EF
 
-Wyświetla listę `DbContext` dostępnych typów.
+Wyświetla listę dostępnych typów `DbContext`.
 
 ## <a name="dotnet-ef-dbcontext-scaffold"></a>Szkielet EF DbContext
 
-Generuje kod dla `DbContext` typów jednostek i dla bazy danych. Aby to polecenie generowało typ jednostki, tabela bazy danych musi mieć klucz podstawowy.
+Generuje kod dla `DbContext` i typów jednostek dla bazy danych. Aby to polecenie generowało typ jednostki, tabela bazy danych musi mieć klucz podstawowy.
 
 Argumentu
 
 | Argument       | Opis                                                                                                                                                                                                             |
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<CONNECTION>` | Parametry połączenia z bazą danych. W przypadku projektów ASP.NET Core 2. x wartością może być *nazwa =\<nazwa > parametrów połączenia*. W takim przypadku nazwa pochodzi ze źródeł konfiguracji skonfigurowanych dla projektu. |
+| `<CONNECTION>` | Parametry połączenia z bazą danych. W przypadku projektów ASP.NET Core 2. x wartością może być *Nazwa = \<name parametrów połączenia >* . W takim przypadku nazwa pochodzi ze źródeł konfiguracji skonfigurowanych dla projektu. |
 | `<PROVIDER>`   | Dostawca do użycia. Zazwyczaj jest to nazwa pakietu NuGet, na przykład: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
 Opcje:
@@ -222,8 +222,8 @@ Opcje:
 |                 | Opcja                                   | Opis                                                                                                                                                                    |
 |:----------------|:-----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | <nobr>-c</nobr> | `--data-annotations`                     | Użyj atrybutów, aby skonfigurować model (tam, gdzie to możliwe). Jeśli ta opcja zostanie pominięta, używany jest tylko interfejs API Fluent.                                                                |
-| `-c`            | `--context <NAME>`                       | Nazwa `DbContext` klasy do wygenerowania.                                                                                                                                 |
-|                 | `--context-dir <PATH>`                   | Katalog, w którym ma `DbContext` zostać umieszczony plik klasy. Ścieżki są względne dla katalogu projektu. Przestrzenie nazw są wyprowadzane z nazw folderów.                                 |
+| `-c`            | `--context <NAME>`                       | Nazwa klasy `DbContext` do wygenerowania.                                                                                                                                 |
+|                 | `--context-dir <PATH>`                   | Katalog, w którym ma zostać umieszczony plik klasy `DbContext`. Ścieżki są względne dla katalogu projektu. Przestrzenie nazw są wyprowadzane z nazw folderów.                                 |
 | `-f`            | `--force`                                | Zastąp istniejące pliki.                                                                                                                                                      |
 | `-o`            | `--output-dir <PATH>`                    | Katalog, w którym mają zostać umieszczone pliki klas jednostek. Ścieżki są względne dla katalogu projektu.                                                                                       |
 |                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | Schematy tabel, dla których mają zostać wygenerowane typy jednostek. Aby określić wiele schematów, powtórz `--schema` dla każdej z nich. W przypadku pominięcia tej opcji są uwzględniane wszystkie schematy.          |

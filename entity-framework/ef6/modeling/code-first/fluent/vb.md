@@ -1,45 +1,45 @@
 ---
-title: Interfejs Fluent API przy użyciu VB.NET - EF6
+title: Interfejs API Fluent z VB.NET-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
-ms.openlocfilehash: 6aa74fa72296f66f0b069b9b5ee7e2e016570525
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: df3e61fa5e2d24873336511e90231a7d78d32535
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283748"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182671"
 ---
-# <a name="fluent-api-with-vbnet"></a>Interfejs Fluent API przy użyciu VB.NET
-Kod umożliwia najpierw zdefiniować model za pomocą języka C\# lub klasy VB.NET. Opcjonalnie można wykonać dodatkowe czynności konfiguracyjne przy użyciu atrybutów klas i właściwości lub za pomocą interfejsu API fluent. W tym instruktażu pokazano, jak przeprowadzić fluent Konfiguracja interfejsu API przy użyciu VB.NET.
+# <a name="fluent-api-with-vbnet"></a>Interfejs API Fluent z VB.NET
+Code First umożliwia zdefiniowanie modelu przy użyciu klas C @ no__t-0 lub VB.NET. Można opcjonalnie wykonać dodatkową konfigurację przy użyciu atrybutów klas i właściwości albo za pomocą interfejsu API Fluent. W tym instruktażu pokazano, jak przeprowadzić konfigurację interfejsu API Fluent przy użyciu VB.NET.
 
-Ta strona przyjęto założenie, że masz podstawową wiedzę na temat Code First. Zapoznaj się z przewodnikach, aby uzyskać więcej informacji na temat Code First:
+Na tej stronie założono, że masz podstawową wiedzę na temat Code First. Aby uzyskać więcej informacji na temat Code First, zapoznaj się z następującymi przewodnikami:
 
--   [Najpierw kod do nowej bazy danych](~/ef6/modeling/code-first/workflows/new-database.md)
--   [Najpierw kod istniejącej bazy danych](~/ef6/modeling/code-first/workflows/existing-database.md)
+-   [Code First do nowej bazy danych](~/ef6/modeling/code-first/workflows/new-database.md)
+-   [Code First do istniejącej bazy danych](~/ef6/modeling/code-first/workflows/existing-database.md)
 
 ## <a name="pre-requisites"></a>Wymagania wstępne
 
-Musisz mieć co najmniej programu Visual Studio 2010 lub Visual Studio 2012 są zainstalowane w tym przewodniku.
+Aby ukończyć ten przewodnik, musisz mieć zainstalowany co najmniej program Visual Studio 2010 lub Visual Studio 2012.
 
-Jeśli używasz programu Visual Studio 2010, należy również mieć [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) zainstalowane
+W przypadku korzystania z programu Visual Studio 2010 należy również zainstalować pakiet [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
 
 ## <a name="create-the-application"></a>Tworzenie aplikacji
 
-Aby zachować ich prostotę zamierzamy utworzyć aplikację podstawowa konsola, która używa Code First do dostępu do danych.
+Aby zachować prostotę, możemy utworzyć podstawową aplikację konsolową, która używa Code First do uzyskiwania dostępu do danych.
 
 -   Otwórz program Visual Studio
--   **Plik —&gt; New -&gt; projektu...**
--   Wybierz **Windows** menu po lewej stronie i **aplikacji konsoli**
+-   **Plik-&gt; nowy-&gt; projektu...**
+-   Wybierz pozycję **Windows** z menu po lewej stronie i **aplikacji konsolowej**
 -   Wprowadź **CodeFirstVBSample** jako nazwę
--   Wybierz **OK**
+-   Wybierz **przycisk OK**
 
-## <a name="define-the-model"></a>Zdefiniuj Model
+## <a name="define-the-model"></a>Zdefiniuj model
 
-W tym kroku zdefiniujesz VB.NET obiektów POCO typów jednostek, które reprezentują model koncepcyjny. Klasy nie trzeba implementować żadnych interfejsów lub pochodzić od żadnych klas bazowych.
+W tym kroku określisz typy jednostek VB.NET POCO, które reprezentują model koncepcyjny. Klasy nie muszą pochodzić od żadnych klas bazowych ani implementować interfejsów.
 
--   Dodaj nową klasę do projektu, wprowadź **SchoolModel** nazwy klasy
--   Zastąp zawartość nowej klasy, używając następującego kodu
+-   Dodaj nową klasę do projektu, wprowadź **SchoolModel** dla nazwy klasy
+-   Zastąp zawartość nowej klasy następującym kodem
 
 ``` vb
    Public Class Department
@@ -133,21 +133,21 @@ W tym kroku zdefiniujesz VB.NET obiektów POCO typów jednostek, które reprezen
     End Class
 ```
 
-## <a name="define-a-derived-context"></a>Definiowanie kontekstu pochodne
+## <a name="define-a-derived-context"></a>Definiowanie kontekstu pochodnego
 
-Jesteśmy o, aby rozpocząć używanie typów z programu Entity Framework, dlatego musimy Dodaj pakiet NuGet platformy EntityFramework.
+Zamierzamy zacząć używać typów z Entity Framework, więc musimy dodać pakiet NuGet EntityFramework.
 
--   ** Projektu —&gt; **Zarządzaj pakietami NuGet...**
+-   \* * Projekt — &gt; **Zarządzanie pakietami NuGet...**
 > [!NOTE]
-> Jeśli nie masz **Zarządzaj pakietami NuGet...** opcja, należy zainstalować [najnowszej wersji pakietu NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
--   Wybierz **Online** kartę
--   Wybierz **EntityFramework** pakietu
--   Kliknij przycisk **instalacji**
+> Jeśli nie masz **zarządzania pakietami NuGet...** Opcja należy zainstalować [najnowszą wersję programu NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
+-   Wybierz kartę **online**
+-   Wybierz pakiet **EntityFramework**
+-   Kliknij przycisk **Instaluj**
 
-Teraz nadszedł czas, aby zdefiniować pochodnej kontekst, który reprezentuje sesję z bazą danych, dzięki czemu nam zapytania i Zapisz dane. Definiujemy kontekstu, który pochodzi z System.Data.Entity.DbContext i udostępnia wpisane DbSet&lt;TEntity&gt; dla każdej klasy w naszym modelu.
+Teraz można zdefiniować kontekst pochodny, który reprezentuje sesję z bazą danych, umożliwiając nam wykonywanie zapytań i zapisywanie danych. Definiujemy kontekst, który pochodzi z elementu System. Data. Entity. DbContext i udostępnia typ Nieogólnymi @ no__t-0TEntity @ no__t-1 dla każdej klasy w modelu.
 
--   Dodaj nową klasę do projektu, wprowadź **SchoolContext** nazwy klasy
--   Zastąp zawartość nowej klasy, używając następującego kodu
+-   Dodaj nową klasę do projektu, wprowadź **SchoolContext** dla nazwy klasy
+-   Zastąp zawartość nowej klasy następującym kodem
 
 ``` vb
     Imports System.Data.Entity
@@ -171,9 +171,9 @@ Teraz nadszedł czas, aby zdefiniować pochodnej kontekst, który reprezentuje s
 
 ## <a name="configuring-with-the-fluent-api"></a>Konfigurowanie przy użyciu interfejsu API Fluent
 
-W tej sekcji pokazano, jak skonfigurować typów tabele mapowania właściwości w celu mapowania kolumny i relacje między tabelami przy użyciu interfejsów API fluent\\typu w modelu. Interfejs fluent API jest dostępna za pośrednictwem **DbModelBuilder** wpisz i najczęściej odbywa się przez zastąpienie **OnModelCreating** metody **DbContext**.
+W tej sekcji pokazano, jak za pomocą interfejsów API Fluent skonfigurować typy do mapowania tabel, właściwości do mapowania kolumn i relacje między tabelami @ no__t-0type w modelu. Interfejs API Fluent jest udostępniany za pomocą typu **DbModelBuilder** i jest najczęściej używany przez zastąpienie metody **OnModelCreating** w **DbContext**.
 
--   Skopiuj poniższy kod i dodać go do **OnModelCreating** metody zdefiniowanej w **SchoolContext** klasy zostało wyjaśnione w komentarzach działanie każdego mapowania
+-   Skopiuj poniższy kod i dodaj go do metody **OnModelCreating** zdefiniowanej w klasie **SchoolContext** , komentarze wyjaśniają, jakie są poszczególne mapowania
 
 ``` vb
 ' Configure Code First to ignore PluralizingTableName convention
@@ -363,11 +363,11 @@ modelBuilder.Entity(Of Course)().
     WillCascadeOnDelete(False)
 ```
 
-## <a name="using-the-model"></a>Przy użyciu modelu
+## <a name="using-the-model"></a>Korzystanie z modelu
 
-Przeprowadźmy niektóre dane dostępu za pomocą **SchoolContext** wyświetlić się modelu w działaniu.
+Wykonajmy jakiś dostęp do danych, korzystając z **SchoolContext** , aby zobaczyć, jak działa model.
 
--   Otwórz plik Module1.vb, w którym jest zdefiniowana funkcja Main
+-   Otwórz plik Module1. vb, gdzie jest zdefiniowana funkcja Main
 -   Skopiuj i wklej następującą definicję Module1
 
 ``` vb
@@ -408,9 +408,9 @@ Module Module1
 End Module
 ```
 
-Możesz teraz uruchomić aplikację i ją przetestować.
+Teraz możesz uruchomić aplikację i przetestować ją.
 
-```
+```console
 Enter a name for a new Department: Computing
 All Departments in the database:
 Computing

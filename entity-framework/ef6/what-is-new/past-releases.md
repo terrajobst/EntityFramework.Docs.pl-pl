@@ -3,12 +3,12 @@ title: Wcześniejsze wersje Entity Framework-EF6
 author: divega
 ms.date: 09/12/2019
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
-ms.openlocfilehash: 3ee433ac0932f89841b5cc42fb864eefb9419ef2
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 478dec6b2401efd554e84a231fe78e71dcbf5771
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149283"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182120"
 ---
 # <a name="past-releases-of-entity-framework"></a>Wcześniejsze wersje Entity Framework
 
@@ -58,7 +58,7 @@ Poniżej przedstawiono krótką listę najważniejszych zmian wpływających na 
 Ta wersja zawiera tylko poprawki do wad o wysokim priorytecie i regresje raportowane w wersji 6.1.2.
 Poprawki obejmują:
 
-- Kwerenda: Regresja w EF 6.1.2: STOSOWANIE elementów zewnętrznych zostało wprowadzone i bardziej złożone zapytania dla relacji 1:1 i klauzuli "let"
+- Zapytanie: Regresja w EF 6.1.2: STOSOWANIE elementów zewnętrznych zostało wprowadzone i bardziej złożone zapytania dla relacji 1:1 i klauzuli "let"
 - Wystąpił problem TPT podczas ukrywania właściwości klasy bazowej w klasie dziedziczonej
 - Proces migracji bazy danych SQL kończy się niepowodzeniem, gdy słowo "go" jest zawarte w tekście
 - Utwórz flagę zgodności dla obsługi spłaszczania UnionAll i przecinania
@@ -88,7 +88,7 @@ Ta aktualizacja pomocnicza obejmuje znaczną liczbę nowych funkcji:
 
 - **Konsolidacja narzędzi** zapewnia spójny sposób tworzenia nowego modelu EF. Ta funkcja [rozszerza kreatora Entity Data Model ADO.NET, aby obsługiwał tworzenie modeli Code First](~/ef6/modeling/code-first/workflows/existing-database.md), w tym odtwarzanie z istniejącej bazy danych. Te funkcje były wcześniej dostępne w jakości beta w narzędziach EF.
 - **[Obsługa niepowodzeń zatwierdzania transakcji](~/ef6/fundamentals/connection-resiliency/commit-failures.md)** zapewnia CommitFailureHandler, który korzysta z nowo wprowadzonej zdolności do przechwytywania operacji transakcji. CommitFailureHandler umożliwia automatyczne odzyskiwanie z błędów połączeń podczas zatwierdzania transakcji.
-- **[Indexattribute](~/ef6/modeling/code-first/data-annotations.md)** umożliwia określenie indeksów przez umieszczenie `[Index]` atrybutu we właściwości (lub właściwości) w modelu Code First. Code First następnie utworzy odpowiedni indeks w bazie danych.
+- **[Indexattribute](~/ef6/modeling/code-first/data-annotations.md)** umożliwia określenie indeksów przez umieszczenie atrybutu `[Index]` właściwości (lub właściwości) w modelu Code First. Code First następnie utworzy odpowiedni indeks w bazie danych.
 - **Interfejs API mapowania publicznego** zapewnia dostęp do informacji EF na temat tego, jak właściwości i typy są mapowane na kolumny i tabele w bazie danych. W poprzednich wersjach ten interfejs API był wewnętrzny.
 - **[Możliwość konfigurowania interceptorów za pośrednictwem pliku App/Web. config](~/ef6/fundamentals/configuring/config-file.md)** pozwala na dodawanie interceptorów bez konieczności ponownego kompilowania aplikacji.
 - **System. Data. Entity. Infrastructure. przechwytując. DatabaseLogger**jest nowym interceptorem, dzięki czemu można łatwo rejestrować wszystkie operacje bazy danych do pliku. W połączeniu z poprzednią funkcją umożliwia to łatwe [przełączenie na rejestrowanie operacji bazy danych dla wdrożonej aplikacji](~/ef6/fundamentals/configuring/config-file.md)bez konieczności ponownego kompilowania.
@@ -125,7 +125,7 @@ Następujące funkcje działają dla modeli utworzonych za pomocą Code First lu
 - **Wyliczenia, przestrzenne i lepsza wydajność na platformie .net 4,0** — przez przeniesienie podstawowych składników, które były w .NET Framework do pakietu NuGet EF, możemy teraz oferować pomoc techniczną dla wyliczenia, typy danych przestrzennych oraz ulepszenia wydajności EF5 na platformie .NET 4,0.
 - **Zwiększona wydajność wyliczalnych elementów. zawiera w zapytaniach LINQ**.
 - **Ulepszony czas rozgrzewania (generowanie widoku)** , szczególnie w przypadku dużych modeli.
-- **Usługa pluralizacja &amp; Singularization**.
+- **Pluralizacja &amp; Singularization usługi**.
 - **Niestandardowe implementacje elementu Equals lub GetHashCode** w klasach jednostek są teraz obsługiwane.
 - **Nieogólnymi. AddRange/RemoveRange** zapewnia zoptymalizowany sposób dodawania lub usuwania wielu jednostek z zestawu.
 - **DbChangeTracker. HasChanges** zapewnia łatwy i wydajny sposób, aby sprawdzić, czy istnieją oczekujące zmiany, które mają być zapisane w bazie danych.
@@ -138,9 +138,9 @@ Następujące funkcje mają zastosowanie tylko do Code First:
 - **[Skrypty migracji idempotentne](~/ef6/modeling/code-first/migrations/index.md)** umożliwiają Generowanie skryptu SQL, który może uaktualnić bazę danych w dowolnej wersji do najnowszej wersji.
 - **[Tabela historii konfigurowalnych migracji](~/ef6/modeling/code-first/migrations/history-customization.md)** umożliwia dostosowanie definicji tabeli historii migracji. Jest to szczególnie przydatne w przypadku dostawców baz danych, którzy wymagają odpowiednich typów danych itp., aby można było je określić w celu poprawnego działania tabeli historii migracji.
 - W **wielu kontekstach na bazę danych** program usuwa poprzednie ograniczenie jednego Code First modelu na bazę danych podczas korzystania z migracji lub podczas Code First automatycznie utworzyć bazę danych.
-- **[DbModelBuilder. HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** jest nowym interfejsem API Code First, który umożliwia skonfigurowanie domyślnego schematu bazy danych dla modelu Code First w jednym miejscu. Wcześniej Code First schemat domyślny został zakodowany do &quot;dbo&quot; i jedynym sposobem skonfigurowania schematu, do którego należy tabela, był za pośrednictwem interfejsu API ToTable.
+- **[DbModelBuilder. HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** jest nowym interfejsem API Code First, który umożliwia skonfigurowanie domyślnego schematu bazy danych dla modelu Code First w jednym miejscu. Wcześniej Code First schemat domyślny został zakodowany do &quot;dbo @ no__t-1 i jedynym sposobem skonfigurowania schematu, do którego należy tabela, było za pośrednictwem interfejsu API ToTable.
 - **DbModelBuilder. Configurations. AddFromAssembly Metoda** umożliwia łatwe dodawanie wszystkich klas konfiguracyjnych zdefiniowanych w zestawie podczas korzystania z klas konfiguracji z interfejsem API Fluent Code First.
-- **[Niestandardowe operacje migracji](http://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/)** umożliwiają dodanie dodatkowych operacji do użycia w migracjach opartych na kodzie.
+- **[Niestandardowe operacje migracji](https://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/)** umożliwiają dodanie dodatkowych operacji do użycia w migracjach opartych na kodzie.
 - **Domyślny poziom izolacji transakcji został zmieniony na READ_COMMITTED_SNAPSHOT** dla baz danych utworzonych przy użyciu Code First, co pozwala na większą skalowalność i mniejszą liczbę zakleszczenii.
 - **Jednostki i typy złożone mogą teraz być klasami nestedinside**. |
 

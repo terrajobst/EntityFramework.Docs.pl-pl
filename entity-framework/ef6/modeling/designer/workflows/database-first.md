@@ -1,65 +1,65 @@
 ---
-title: Najpierw — bazy danych platformy EF6
+title: Database First — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: cc6ffdb3-388d-4e79-a201-01ec2577c949
-ms.openlocfilehash: c81025fe7c3ad6398f003f7be2a3f9f072eec327
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: d40cff4ddccf43a394ef4f244653372a5a89b05a
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46284086"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182451"
 ---
-# <a name="database-first"></a>Najpierw bazy danych
-W tym przewodniku krok po kroku i wideo zawierają wprowadzenie do tworzenia pierwszej bazy danych przy użyciu platformy Entity Framework. Baza danych najpierw można odtwarzać modelu z istniejącej bazy danych. Model jest przechowywany w pliku EDMX (z rozszerzeniem edmx) i można wyświetlać i edytować w Projektancie Entity Framework. Klasy, które możesz korzystać z aplikacji są generowane automatycznie z pliku EDMX.
+# <a name="database-first"></a>Database First
+Ten film wideo i przewodnik krok po kroku zawierają wprowadzenie do Database First opracowywania przy użyciu Entity Framework. Database First umożliwia odtwarzanie modelu z istniejącej bazy danych. Model jest przechowywany w pliku EDMX (rozszerzenie EDMX) i można go przeglądać i edytować w Entity Framework Designer. Klasy, z którymi można korzystać w aplikacji, są generowane automatycznie na podstawie pliku EDMX.
 
 ## <a name="watch-the-video"></a>Obejrzyj wideo
-To wideo zawiera wprowadzenie do tworzenia pierwszej bazy danych przy użyciu platformy Entity Framework. Baza danych najpierw można odtwarzać modelu z istniejącej bazy danych. Model jest przechowywany w pliku EDMX (z rozszerzeniem edmx) i można wyświetlać i edytować w Projektancie Entity Framework. Klasy, które możesz korzystać z aplikacji są generowane automatycznie z pliku EDMX.
+To wideo zawiera wprowadzenie do Database First tworzenia przy użyciu Entity Framework. Database First umożliwia odtwarzanie modelu z istniejącej bazy danych. Model jest przechowywany w pliku EDMX (rozszerzenie EDMX) i można go przeglądać i edytować w Entity Framework Designer. Klasy, z którymi można korzystać w aplikacji, są generowane automatycznie na podstawie pliku EDMX.
 
-**Osoba prezentująca**: [Rowan Miller](http://romiller.com/)
+**Przedstawione przez**: [Rowan Miller](https://romiller.com/)
 
 **Film wideo**: [WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
 
 ## <a name="pre-requisites"></a>Wymagania wstępne
 
-Musisz mieć co najmniej programu Visual Studio 2010 lub Visual Studio 2012 są zainstalowane w tym przewodniku.
+Aby ukończyć ten przewodnik, musisz mieć zainstalowany co najmniej program Visual Studio 2010 lub Visual Studio 2012.
 
-Jeśli używasz programu Visual Studio 2010, należy również mieć [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) zainstalowane.
+W przypadku korzystania z programu Visual Studio 2010 należy również zainstalować pakiet [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .
 
- 
+ 
 
-## <a name="1-create-an-existing-database"></a>1. Utwórz istniejącej bazy danych
+## <a name="1-create-an-existing-database"></a>1. Tworzenie istniejącej bazy danych
 
-Zazwyczaj przeznaczonych do istniejącej bazy danych, zostanie już utworzony, ale w tym przewodniku należy utworzyć bazy danych w celu uzyskania dostępu.
+Zwykle w przypadku określania docelowej istniejącej bazy danych zostanie ona już utworzona, ale w tym instruktażu musimy utworzyć bazę danych do uzyskania dostępu.
 
-Serwer bazy danych, który został zainstalowany przy użyciu programu Visual Studio różni się zależnie od wersji programu Visual Studio zostały zainstalowane:
+Serwer bazy danych zainstalowany przy użyciu programu Visual Studio różni się w zależności od zainstalowanej wersji programu Visual Studio:
 
--   Jeśli używasz programu Visual Studio 2010 zostanie utworzona baza danych programu SQL Express.
--   Jeśli używasz programu Visual Studio 2012, a następnie zostanie utworzona [LocalDB](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx) bazy danych.
+-   Jeśli używasz programu Visual Studio 2010, tworzysz bazę danych SQL Express.
+-   Jeśli używasz programu Visual Studio 2012, zostanie utworzona baza danych [LocalDB](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx) .
 
- 
+ 
 
-Rozpocznijmy i wygenerować bazę danych.
+Przyjrzyjmy się i wygenerujemy bazę danych.
 
 -   Otwórz program Visual Studio
--   **Widok —&gt; Eksploratora serwera**
--   Kliknij prawym przyciskiem myszy **połączeń danych -&gt; Dodaj połączenie...**
--   Jeśli nie jest połączona z bazą danych za pomocą Eksploratora serwera przed, musisz wybrać programu Microsoft SQL Server jako źródło danych
+-   **Widok-&gt; Eksplorator serwera**
+-   Kliknij prawym przyciskiem myszy pozycję **połączenia danych-&gt; Dodaj połączenie...**
+-   Jeśli nie masz połączenia z bazą danych Eksplorator serwera przed wybraniem Microsoft SQL Server jako źródła danych
 
-    ![Wybierz źródło danych](~/ef6/media/selectdatasource.png)
+    ![Wybieranie źródła danych](~/ef6/media/selectdatasource.png)
 
--   Łączenie się z LocalDB lub SQL Express, w zależności od tego, który z nich został zainstalowany, a następnie wprowadź **DatabaseFirst.Blogging** jako nazwa bazy danych
+-   Połącz się z usługą LocalDB lub SQL Express, w zależności od tego, który został zainstalowany, a następnie wprowadź **DatabaseFirst. blog** jako nazwę bazy danych
 
-    ![Połączenia programu SQL Express DF](~/ef6/media/sqlexpressconnectiondf.png)
+    ![DF połączenia SQL Express](~/ef6/media/sqlexpressconnectiondf.png)
 
-    ![Połączenie LocalDB DF](~/ef6/media/localdbconnectiondf.png)
+    ![LocalDB połączenia DF](~/ef6/media/localdbconnectiondf.png)
 
--   Wybierz **OK** i uzyskasz, jeśli chcesz utworzyć nową bazę danych, wybierz opcję **tak**
+-   Wybierz pozycję **OK** . pojawi się monit z prośbą o utworzenie nowej bazy danych, a następnie wybierz pozycję **tak** .
 
-    ![Tworzenie okna dialogowego baza danych](~/ef6/media/createdatabasedialog.png)
+    ![Okno dialogowe Tworzenie bazy danych](~/ef6/media/createdatabasedialog.png)
 
--   Nowe bazy danych będą teraz wyświetlane w Eksploratorze serwera, kliknij prawym przyciskiem myszy na nim i wybierz **nowe zapytanie**
--   Skopiuj następujące instrukcje SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy, zapytania i wybierz pozycję **wykonania**
+-   Nowa baza danych będzie teraz wyświetlana w Eksplorator serwera, kliknij ją prawym przyciskiem myszy, a następnie wybierz pozycję **nowe zapytanie** .
+-   Skopiuj następujące SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy zapytanie i wybierz polecenie **Execute (wykonaj** ).
 
 ``` SQL
 CREATE TABLE [dbo].[Blogs] (
@@ -81,75 +81,75 @@ CREATE TABLE [dbo].[Posts] (
 
 ## <a name="2-create-the-application"></a>2. Tworzenie aplikacji
 
-Aby zachować ich prostotę zamierzamy utworzyć aplikację konsoli podstawowe, która używa pierwszej bazy danych do dostępu do danych:
+Aby zachować prostotę, możemy utworzyć podstawową aplikację konsolową, która używa Database First do uzyskiwania dostępu do danych:
 
 -   Otwórz program Visual Studio
--   **Plik —&gt; New -&gt; projektu...**
--   Wybierz **Windows** menu po lewej stronie i **aplikacji konsoli**
+-   **Plik-&gt; nowy-&gt; projektu...**
+-   Wybierz pozycję **Windows** z menu po lewej stronie i **aplikacji konsolowej**
 -   Wprowadź **DatabaseFirstSample** jako nazwę
--   Wybierz **OK**
+-   Wybierz **przycisk OK**
 
- 
+ 
 
-## <a name="3-reverse-engineer-model"></a>3. Model odtwarzania
+## <a name="3-reverse-engineer-model"></a>3. Odtwórz Model
 
-Zamierzamy korzystania z programu Entity Framework Designer, który wchodzi w skład programu Visual Studio, aby utworzyć nasz model.
+Będziemy używać Entity Framework Designer, które są dołączone jako część programu Visual Studio, aby utworzyć nasz model.
 
--   **Projekt —&gt; Dodaj nowy element...**
--   Wybierz **danych** menu po lewej stronie i następnie **ADO.NET Entity Data Model**
--   Wprowadź **BloggingModel** jako nazwę i kliknij przycisk **OK**
--   Spowoduje to uruchomienie **Kreator modelu Entity Data Model**
--   Wybierz **Generuj z bazy danych** i kliknij przycisk **dalej**
+-   **Projekt-&gt; Dodaj nowy element...**
+-   Wybierz pozycję **dane** z menu po lewej stronie, a następnie **ADO.NET Entity Data Model**
+-   Wprowadź **BloggingModel** jako nazwę, a następnie kliknij przycisk **OK** .
+-   Spowoduje to uruchomienie **kreatora Entity Data Model**
+-   Wybierz pozycję **Generuj z bazy danych** i kliknij przycisk **dalej** .
 
-    ![Kreator krok 1](~/ef6/media/wizardstep1.png)
+    ![Krok 1 Kreatora](~/ef6/media/wizardstep1.png)
 
--   Wybierz połączenie do bazy danych utworzonej w pierwszej sekcji, wprowadź **BloggingContext** jako nazwa parametrów połączenia i kliknij przycisk **dalej**
+-   Wybierz połączenie z bazą danych utworzoną w pierwszej sekcji, wprowadź **BloggingContext** jako nazwę parametrów połączenia i kliknij przycisk **dalej** .
 
-    ![Kreator krok 2](~/ef6/media/wizardstep2.png)
+    ![Krok 2 Kreatora](~/ef6/media/wizardstep2.png)
 
--   Kliknij pole wyboru obok "Tabele", aby zaimportować wszystkie tabele i kliknij przycisk "Zakończ"
+-   Kliknij pole wyboru obok pozycji "tabele", aby zaimportować wszystkie tabele, a następnie kliknij przycisk Zakończ.
 
-    ![Kreator krok 3](~/ef6/media/wizardstep3.png)
+    ![Krok 3 Kreatora](~/ef6/media/wizardstep3.png)
 
- 
+ 
 
-Po zakończeniu procesu odtwarzania nowy model jest dodawane do projektu i otworzona w celu wyświetlania w Projektancie Entity Framework. Dodano również pliku App.config do projektu przy użyciu szczegółów połączenia dla bazy danych.
+Po zakończeniu procesu odtwarzania nowy model zostanie dodany do projektu i otwarty do wyświetlania w Entity Framework Designer. Plik App. config został również dodany do projektu i zawiera szczegółowe informacje o połączeniu dla bazy danych.
 
-![Początkowa modelu](~/ef6/media/modelinitial.png)
+![Model początkowy](~/ef6/media/modelinitial.png)
 
 ### <a name="additional-steps-in-visual-studio-2010"></a>Dodatkowe kroki w programie Visual Studio 2010
 
-Jeśli pracujesz w programie Visual Studio 2010 istnieją pewne dodatkowe czynności, które należy wykonać uaktualnienie do najnowszej wersji programu Entity Framework. Uaktualnienie jest ważne, ponieważ daje ona dostęp do ulepszone powierzchni interfejsu API, który jest znacznie łatwiejsze do użycia, a także najnowsze poprawki.
+Jeśli pracujesz w programie Visual Studio 2010, należy wykonać kilka dodatkowych kroków, aby przeprowadzić uaktualnienie do najnowszej wersji programu Entity Framework. Aktualizacja jest ważna, ponieważ zapewnia dostęp do ulepszonej powierzchni interfejsu API, która jest znacznie łatwiejsza w użyciu, a także najnowszych poprawek błędów.
 
-Najpierw up, musimy pobrać najnowszą wersję programu Entity Framework z NuGet.
+Najpierw należy uzyskać najnowszą wersję Entity Framework z narzędzia NuGet.
 
--   **Project —&gt; Zarządzaj pakietami NuGet... ** 
-     *Jeśli nie masz **Zarządzaj pakietami NuGet... ** opcji, należy zainstalować [najnowszej wersji pakietu NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)*
--   Wybierz **Online** kartę
--   Wybierz **EntityFramework** pakietu
--   Kliknij przycisk **instalacji**
+-   **Projekt — &gt; Zarządzaj pakietami NuGet...** 
+    *Jeśli nie masz opcji **Zarządzaj pakietami NuGet...** należy zainstalować [najnowszą wersję programu NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) *
+-   Wybierz kartę **online**
+-   Wybierz pakiet **EntityFramework**
+-   Kliknij przycisk **Instaluj**
 
-Następnie należy zamienić nasz model, aby wygenerować kod, który korzysta z interfejsu API typu DbContext, który został wprowadzony w nowszych wersjach programu Entity Framework.
+Następnie musimy wymienić nasz model, aby wygenerować kod, który korzysta z interfejsu API DbContext, który został wprowadzony w nowszych wersjach Entity Framework.
 
--   Kliknij prawym przyciskiem myszy na puste miejsce modelu w Projektancie platformy EF, a następnie wybierz pozycję **Dodaj element generowanie kodu...**
--   Wybierz **szablonów Online** z menu po lewej stronie i wyszukaj **DbContext**
--   Wybierz EF **5.x Generator DbContext dla języka C\#**, wprowadź **BloggingModel** jako nazwę i kliknij przycisk **Dodaj**
+-   Kliknij prawym przyciskiem myszy pusty punkt w modelu w programie Dr Designer i wybierz polecenie **Dodaj element generowania kodu...**
+-   Wybierz pozycję **Szablony online** z menu po lewej stronie i Wyszukaj w usłudze **DbContext**
+-   Wybierz pozycję Dr **5. x DbContext generator dla języka C @ no__t-1**, wprowadź **BloggingModel** jako nazwę i kliknij przycisk **Dodaj** .
 
-    ![Szablon typu DbContext](~/ef6/media/dbcontexttemplate.png)
+    ![Szablon DbContext](~/ef6/media/dbcontexttemplate.png)
 
- 
+ 
 
-## <a name="4-reading--writing-data"></a>4. Odczytywanie i zapisywanie danych
+## <a name="4-reading--writing-data"></a>4. Odczytywanie & zapisywania danych
 
-Teraz, gdy model, nadszedł czas na potrzeby dostępu do niektórych danych. Klasy użyjemy na potrzeby dostępu do danych są generowane automatycznie na podstawie pliku EDMX.
+Teraz, gdy mamy już model, który jest używany do uzyskiwania dostępu do niektórych danych. Klasy, które będą używane do uzyskiwania dostępu do danych są automatycznie generowane na podstawie pliku EDMX.
 
-*Ten zrzut ekranu pochodzi z programu Visual Studio 2012, jeśli używasz programu Visual Studio 2010 BloggingModel.tt i BloggingModel.Context.tt plików będzie bezpośrednio w ramach projektu, a nie zagnieżdżony w pliku EDMX.*
+*Ten zrzut ekranu pochodzi z programu Visual Studio 2012, jeśli używasz programu Visual Studio 2010 pliki BloggingModel.tt i BloggingModel.Context.tt będą znajdować się bezpośrednio w projekcie, a nie zagnieżdżone w pliku EDMX.*
 
 ![Wygenerowane klasy DF](~/ef6/media/generatedclassesdf.png)
 
- 
+ 
 
-Implementuje metody Main w pliku Program.cs, jak pokazano poniżej. Ten kod tworzy nowe wystąpienie nasz kontekst i używa go do wstawiania nowego bloga. Następnie używa zapytania LINQ, aby pobrać wszystkie blogi z bazy danych uporządkowana w kolejności alfabetycznej według tytułu.
+Zaimplementuj metodę Main w Program.cs, jak pokazano poniżej. Ten kod tworzy nowe wystąpienie naszego kontekstu, a następnie używa go do wstawienia nowego bloga. Następnie używa zapytania LINQ do pobrania wszystkich blogów z bazy danych uporządkowane alfabetycznie według tytułu.
 
 ``` csharp
 class Program
@@ -184,24 +184,24 @@ class Program
 }
 ```
 
-Możesz teraz uruchomić aplikację i ją przetestować.
+Teraz możesz uruchomić aplikację i przetestować ją.
 
-```
+```console
 Enter a name for a new Blog: ADO.NET Blog
 All blogs in the database:
 ADO.NET Blog
 Press any key to exit...
 ```
- 
+ 
 
-## <a name="5-dealing-with-database-changes"></a>5. Zajmowanie się zmian w bazie danych
+## <a name="5-dealing-with-database-changes"></a>5. Rozpatrywanie zmian w bazie danych
 
-Teraz nadszedł czas, aby wprowadzić pewne zmiany na naszych schemat bazy danych, gdy firma Microsoft wprowadza te zmiany, należy również zaktualizować nasz model, aby odzwierciedlać wprowadzone zmiany.
+Teraz można wprowadzić pewne zmiany w naszym schemacie bazy danych, po wprowadzeniu tych zmian należy zaktualizować nasz model, aby odzwierciedlić te zmiany.
 
-Pierwszym krokiem jest wprowadzić pewne zmiany schematu bazy danych. Zamierzamy dodać tabelę użytkowników ze schematem.
+Pierwszym krokiem jest wprowadzenie pewnych zmian w schemacie bazy danych. Zamierzamy dodać tabelę użytkowników do schematu.
 
--   Kliknij prawym przyciskiem myszy **DatabaseFirst.Blogging** bazy danych w Eksploratorze serwera i wybierz **nowe zapytanie**
--   Skopiuj następujące instrukcje SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy, zapytania i wybierz pozycję **wykonania**
+-   Kliknij prawym przyciskiem myszy bazę danych **DatabaseFirst. Blogi** w Eksplorator serwera i wybierz pozycję **nowe zapytanie** .
+-   Skopiuj następujące SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy zapytanie i wybierz polecenie **Execute (wykonaj** ).
 
 ``` SQL
 CREATE TABLE [dbo].[Users]
@@ -211,22 +211,22 @@ CREATE TABLE [dbo].[Users]
 )
 ```
 
-Teraz, gdy schemat jest aktualizowany, nadszedł czas na aktualizowanie modelu z tymi zmianami.
+Teraz, gdy schemat został zaktualizowany, należy zaktualizować model o te zmiany.
 
--   Kliknij prawym przyciskiem myszy na puste miejsce w modelu w Projektancie platformy EF i wybierz opcję "Aktualizuj modelu z bazy danych...", co spowoduje uruchomienie Kreatora aktualizacji
--   Na karcie Dodaj Kreatora aktualizacji zaznacz pole wyboru obok tabel oznacza to, że chcemy dodać nowe tabele ze schematu.
-    *Na karcie odświeżania pokazuje wszystkie istniejące tabele w modelu, który będzie sprawdzany zmian podczas aktualizacji. Usuń kartach wszystkie tabele zostały usunięte ze schematu, które zostaną także usunięte z modelu, w ramach aktualizacji. Informacje dotyczące tych dwóch kart jest wykrywany automatycznie i jest dostępne wyłącznie do celów informacyjnych, nie można zmienić dowolne ustawienia.*
+-   Kliknij prawym przyciskiem myszy pusty punkt w modelu w programie Dr Designer i wybierz polecenie "Aktualizuj model z bazy danych...", co spowoduje uruchomienie Kreatora aktualizacji
+-   Na karcie dodawanie kreatora aktualizacji zaznacz pole wyboru obok pozycji tabele, co oznacza, że chcemy dodać nowe tabele ze schematu.
+    Karta *The Refresh zawiera wszystkie istniejące tabele w modelu, które będą sprawdzane pod kątem zmian podczas aktualizacji. Karty Usuń pokazują wszystkie tabele, które zostały usunięte ze schematu i również zostaną usunięte z modelu w ramach aktualizacji. Informacje dotyczące tych dwóch kart są wykrywane automatycznie i udostępniane wyłącznie do celów informacyjnych. nie można zmienić żadnych ustawień.*
 
-    ![Odśwież Kreatora](~/ef6/media/refreshwizard.png)
+    ![Kreator odświeżania](~/ef6/media/refreshwizard.png)
 
 -   Kliknij przycisk Zakończ w Kreatorze aktualizacji
 
- 
+ 
 
-Model został zaktualizowany do uwzględnienia nowej jednostki użytkownika, który jest mapowany do tabeli użytkowników, którą dodaliśmy do bazy danych.
+Model zostanie zaktualizowany w celu uwzględnienia nowej jednostki użytkownika, która jest mapowana na tabelę użytkowników dodaną do bazy danych.
 
-![Zaktualizowano modelu](~/ef6/media/modelupdated.png)
+![Zaktualizowano model](~/ef6/media/modelupdated.png)
 
 ## <a name="summary"></a>Podsumowanie
 
-W tym przewodniku, który przyjrzeliśmy się tworzenie pierwszej bazy danych, które umożliwiło nam Tworzenie modelu w Projektancie platformy EF, w oparciu o istniejącą bazę danych. Następnie użyliśmy tego modelu do odczytu i zapisu pewne dane z bazy danych. Na koniec Zaktualizowaliśmy modelu aby odzwierciedlić zmiany wprowadzone do schematu bazy danych.
+W tym instruktażu oglądamy Database First opracowywanie, które umożliwiają nam tworzenie modelu w programie Dr Designer na podstawie istniejącej bazy danych. Następnie korzystamy z tego modelu, aby odczytywać i zapisywać dane z bazy danych. Na koniec Zaktualizowaliśmy model w celu odzwierciedlenia zmian wprowadzonych w schemacie bazy danych.

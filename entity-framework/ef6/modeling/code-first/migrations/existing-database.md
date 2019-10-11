@@ -1,101 +1,101 @@
 ---
-title: Migracje Code First przy użyciu istniejącej bazy danych — EF6
+title: Migracje Code First z istniejącą bazą danych — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: f0cc4f93-67dd-4664-9753-0a9f913814db
-ms.openlocfilehash: 77370ec7d922b8324b924a0b4aca3e58f5ec6066
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: eb7948eafb1322cabcf69b47bd5411f762fe8498
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490574"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182582"
 ---
-# <a name="code-first-migrations-with-an-existing-database"></a>Migracje Code First przy użyciu istniejącej bazy danych
+# <a name="code-first-migrations-with-an-existing-database"></a>Migracje Code First z istniejącą bazą danych
 > [!NOTE]
-> **EF4.3 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 4.1. Jeśli używasz starszej wersji, niektóre lub wszystkie informacje, nie ma zastosowania.
+> **Ef 4.3 tylko** — funkcje, interfejsy API itp. omówione na tej stronie zostały wprowadzone w Entity Framework 4,1. Jeśli używasz wcześniejszej wersji, niektóre lub wszystkie informacje nie są stosowane.
 
-W tym artykule opisano, migracje Code First przy użyciu istniejącej bazy danych, który nie został utworzony przez program Entity Framework.
+W tym artykule omówiono używanie Migracje Code First z istniejącą bazą danych, która nie została utworzona przez Entity Framework.
 
 > [!NOTE]
-> W tym artykule przyjęto założenie, że wiesz, jak użyć migracje Code First w podstawowych scenariuszy. Jeśli tego nie zrobisz, a następnie należy odczytać [migracje Code First](~/ef6/modeling/code-first/migrations/index.md) przed kontynuowaniem.
+> W tym artykule założono, że wiesz, jak używać Migracje Code First w podstawowych scenariuszach. Jeśli tego nie zrobisz, musisz przeczytać [migracje Code First](~/ef6/modeling/code-first/migrations/index.md) przed kontynuowaniem.
 
-## <a name="screencasts"></a>Zrzuty ekranu
+## <a name="screencasts"></a>Screencasts
 
-Jeśli zrzut ekranu niż przeczytaj ten artykuł będzie wolisz obejrzeć, następujące dwa filmy wideo obejmuje tę samą zawartość, jak w tym artykule.
+Jeśli wolisz obejrzeć zrzut ekranu przedstawiający niż odczytanie tego artykułu, następujące dwa wideo obejmują tę samą zawartość co ten artykuł.
 
-### <a name="video-one-migrations---under-the-hood"></a>Wideo 1: "Migracje - Under the Hood"
+### <a name="video-one-migrations---under-the-hood"></a>Wideo jeden: "Migracje — pod okapem"
 
-[Ten zrzut ekranu](http://channel9.msdn.com/blogs/ef/migrations-under-the-hood) opisano sposób migracji śledzi i używa informacji o modelu, aby wykrywać zmiany modelu.
+[Ten zrzut ekranu przedstawiający](https://channel9.msdn.com/blogs/ef/migrations-under-the-hood) dotyczy sposobu, w jaki migracja śledzi i używa informacji o modelu do wykrywania zmian modelu.
 
-### <a name="video-two-migrations---existing-databases"></a>Dwa wideo: "Migracje - istniejących baz danych"
+### <a name="video-two-migrations---existing-databases"></a>Wideo dwa: "Migracje — istniejące bazy danych"
 
-Opierając się na koncepcji z poprzednim filmu wideo, [ten zrzut ekranu](http://channel9.msdn.com/blogs/ef/migrations-existing-databases) opisano, jak włączyć i użyć migracje z istniejącej bazy danych.
+W [tym zrzut ekranu przedstawiający](https://channel9.msdn.com/blogs/ef/migrations-existing-databases) omówiono sposób włączania i używania migracji z istniejącą bazą danych.
 
 ## <a name="step-1-create-a-model"></a>Krok 1: Tworzenie modelu
 
-Pierwszym krokiem będzie utworzenie model Code First, który jest przeznaczony dla istniejącej bazy danych. [Code First istniejącą bazę danych](~/ef6/modeling/code-first/workflows/existing-database.md) temat zawiera szczegółowe wskazówki, jak to zrobić.
+Pierwszym krokiem będzie utworzenie modelu Code First, który jest przeznaczony dla istniejącej bazy danych. [Code First do istniejącego tematu bazy danych](~/ef6/modeling/code-first/workflows/existing-database.md) zawiera szczegółowe wskazówki na temat tego, jak to zrobić.
 
 >[!NOTE]
-> Należy wykonać pozostałe kroki w tym temacie przed wprowadzeniem jakichkolwiek zmian, które wymagałyby zmiany schematu bazy danych modelu. Poniższe kroki wymagają modelu, który ma zostać zsynchronizowana ze schematem bazy danych.
+> Należy postępować zgodnie z pozostałymi krokami tego tematu przed wprowadzeniem jakichkolwiek zmian w modelu, które wymagają zmian w schemacie bazy danych. Poniższe kroki wymagają, aby model był zsynchronizowany ze schematem bazy danych.
 
-## <a name="step-2-enable-migrations"></a>Krok 2: Włączanie funkcji migracje
+## <a name="step-2-enable-migrations"></a>Krok 2: Włącz migracje
 
-Następnym krokiem jest włączanie funkcji migracje. Można to zrobić, uruchamiając **Enable-Migrations** polecenia w konsoli Menedżera pakietów.
+Następnym krokiem jest włączenie migracji. Można to zrobić, uruchamiając polecenie **enable-migrations** w konsoli Menedżera pakietów.
 
-To polecenie Utwórz folder w rozwiązaniu o nazwie migracje i umieścić jedną klasę wewnątrz niego nazywana konfiguracją. Klasa konfiguracji jest konfigurowania migracji dla aplikacji, możesz dowiedzieć się więcej na temat [migracje Code First](~/ef6/modeling/code-first/migrations/index.md) tematu.
+To polecenie spowoduje utworzenie folderu w rozwiązaniu o nazwie migrations i umieszczenie w nim pojedynczej klasy o nazwie Konfiguracja. W klasie konfiguracji można skonfigurować migracje dla aplikacji, aby uzyskać więcej informacji na jej temat w temacie [migracje Code First](~/ef6/modeling/code-first/migrations/index.md) .
 
-## <a name="step-3-add-an-initial-migration"></a>Krok 3. Dodawanie początkowej migracji
+## <a name="step-3-add-an-initial-migration"></a>Krok 3: Dodawanie początkowej migracji
 
-Po migracji zostały utworzone i zastosować do lokalnej bazy danych, można także zastosować je zmieni się z innymi bazami danych. Na przykład lokalna baza danych może być test bazy danych i ostatecznie może chcesz również zastosować zmiany do produkcyjnej bazy danych i/lub innym deweloperom testowanie bazy danych. Dostępne są dwie opcje dla tego kroku i zależy od tego, który należy wybrać, czy schematów innych baz danych jest pusta lub obecnie jest zgodny ze schematem lokalnej bazy danych.
+Po utworzeniu i zastosowaniu migracji do lokalnej bazy danych można również zastosować te zmiany do innych baz danych. Na przykład lokalna baza danych może być testową bazą danych i możesz ostatecznie chcieć zastosować zmiany do produkcyjnej bazy danych i/lub innych deweloperów testowych baz danych. Dostępne są dwie opcje tego kroku, a ten, który należy wybrać, zależy od tego, czy schemat innych baz danych jest pusty czy jest obecnie zgodny ze schematem lokalnej bazy danych.
 
--   **Opcja jeden: Użyj istniejącego schematu jako punkt początkowy.** To podejście należy używać, gdy innych baz danych, które migracje będą dotyczyć w przyszłości będzie miał ten sam schemat, jak lokalna baza danych ma obecnie. Na przykład można użyć, to gdy bazy danych lokalnego testu jest obecnie zgodna v1 produkcyjnej bazy danych, a później będą stosowane te migracji, aby zaktualizować produkcyjnej bazy danych do wersji 2.
--   **Opcja 2: Użyj pustej bazy danych jako punkt początkowy.** To podejście należy używać, gdy innych baz danych, które migracje będą dotyczyć w przyszłości są puste (lub jeszcze nie istnieją). Na przykład można użyć, to gdy Rozpocznij tworzenie aplikacji swoją aplikację przy użyciu bazy danych testu, ale bez użycia migracje i można będzie później chcesz utworzyć produkcyjnej bazy danych od podstaw.
+-   **Option jeden: Użyj istniejącego schematu jako punktu początkowego.** Należy użyć tej metody, gdy w przyszłości zostaną zastosowane inne bazy danych, do których migracja zostanie zastosowana, będzie mieć taki sam schemat jak lokalna baza danych. Na przykład możesz użyć tego ustawienia, jeśli lokalna baza danych testowa jest obecnie zgodna z wersją 1 w produkcyjnej bazie danych i później zostaną zastosowane te migracje w celu zaktualizowania produkcyjnej bazy danych do wersji 2.
+-   **Option dwa: Użyj pustej bazy danych jako punktu początkowego.** Należy użyć tej metody, gdy inne bazy danych, do których zostaną zastosowane migracje, są puste (lub jeszcze nie istnieją). Można to na przykład użyć, jeśli rozpoczęto tworzenie aplikacji przy użyciu testowej bazy danych, ale bez użycia migracji, a później utworzysz produkcyjną bazę danych od podstaw.
 
-### <a name="option-one-use-existing-schema-as-a-starting-point"></a>Opcja jeden: Użyj istniejącego schematu jako punktu wyjścia
+### <a name="option-one-use-existing-schema-as-a-starting-point"></a>Opcja jedna: Użyj istniejącego schematu jako punktu początkowego
 
-Migracje Code First używa migawkę modelu przechowywane w najnowszych migracji do wykrywania zmian do modelu (można znaleźć szczegółowe informacje o tym w [migracje Code First na środowiska zespołowe](~/ef6/modeling/code-first/migrations/teams.md)). Ponieważ firma Microsoft zamierza przyjęto założenie, że bazy danych istnieje już schemat bieżącego modelu, wygenerujemy pusty migracji (pusta), które jest bieżący model jako migawka.
+Migracje Code First używa migawki modelu przechowywanego w najnowszej migracji w celu wykrywania zmian w modelu (szczegółowe informacje na ten temat można znaleźć w [migracje Code First w środowiskach zespołu](~/ef6/modeling/code-first/migrations/teams.md)). Ponieważ chcemy założyć, że bazy danych mają już schemat bieżącego modelu, firma Microsoft wygeneruje pustą migrację (No-op), która ma bieżący model jako migawkę.
 
-1.  Uruchom **InitialCreate migracji Dodaj — IgnoreChanges** polecenia w konsoli Menedżera pakietów. Spowoduje to utworzenie pustego migracji w obecnym modelu jako migawka.
-2.  Uruchom **Update-Database** polecenia w konsoli Menedżera pakietów. Migracja InitialCreate zostaną zastosowane do bazy danych. Ponieważ rzeczywistą migrację nie zawiera żadnych zmian, po prostu spowoduje dodanie wiersza do \_ \_MigrationsHistory tabeli wskazujący, że migracja została już zainstalowana.
+1.  Uruchom polecenie **Add-Migration InitialCreate – IgnoreChanges** w konsoli Menedżera pakietów. Spowoduje to utworzenie pustej migracji z bieżącym modelem jako migawką.
+2.  Uruchom polecenie **Update-Database** w konsoli Menedżera pakietów. Spowoduje to zastosowanie migracji InitialCreate do bazy danych programu. Ponieważ rzeczywista migracja nie zawiera żadnych zmian, po prostu dodaje wiersz do tabeli \_ @ no__t-1MigrationsHistory, wskazując, że ta migracja została już zastosowana.
 
-### <a name="option-two-use-empty-database-as-a-starting-point"></a>Opcja 2: Użyj pustej bazy danych jako punktu wyjścia
+### <a name="option-two-use-empty-database-as-a-starting-point"></a>Opcja dwie: Użyj pustej bazy danych jako punktu początkowego
 
-W tym scenariuszu należy migracji, aby można było utworzyć całą bazę danych od podstaw — łącznie z tabelami, które już znajdują się w naszym lokalnej bazy danych. Zamierzamy Wygeneruj migrację InitialCreate, który zawiera logikę w celu utworzenia istniejącego schematu. Udoskonalimy naszej istniejącej bazy danych, wyglądają tak, ta migracja została już zainstalowana.
+W tym scenariuszu potrzebujemy migracji, aby można było utworzyć całą bazę danych od podstaw — w tym tabele, które znajdują się już w lokalnej bazie danych. Będziemy generować migrację InitialCreate, która obejmuje logikę do utworzenia istniejącego schematu. Następnie wprowadzimy istniejącą bazę danych, która będzie wyglądać tak, jak ta migracja została już zastosowana.
 
-1.  Uruchom **InitialCreate migracji Dodaj** polecenia w konsoli Menedżera pakietów. Spowoduje to utworzenie migracji, aby utworzyć istniejącego schematu.
-2.  Komentarz cały kod w metodzie w górę nowo utworzony migracji. Pozwoli to nam na element "apply" migracji w lokalnej bazie danych bez próby odtworzyć wszystkie tabele itp., które już istnieją.
-3.  Uruchom **Update-Database** polecenia w konsoli Menedżera pakietów. Migracja InitialCreate zostaną zastosowane do bazy danych. Ponieważ nie zawiera rzeczywistą migrację zmiany (ponieważ możemy tymczasowo komentarzem nalepek), po prostu spowoduje dodanie wiersza do \_ \_MigrationsHistory tabeli wskazujący, że migracja została już zainstalowana.
-4.  ONZ komentarz kod w metodzie w górę. Oznacza to, że podczas tej migracji jest stosowany do przyszłych baz danych, schemat, który istniał już w lokalnej bazie danych zostanie utworzona przez migracje.
+1.  Uruchom polecenie **Add-Migration InitialCreate** w konsoli Menedżera pakietów. Spowoduje to utworzenie migracji, aby utworzyć istniejący schemat.
+2.  Skomentuj cały kod w metodzie nowo utworzonej migracji. Umożliwi to "zastosowanie" migracji do lokalnej bazy danych bez konieczności ponownego tworzenia wszystkich tabel itd.
+3.  Uruchom polecenie **Update-Database** w konsoli Menedżera pakietów. Spowoduje to zastosowanie migracji InitialCreate do bazy danych programu. Ponieważ rzeczywista migracja nie zawiera żadnych zmian (ponieważ tymczasowo Komentarze zostały uwzględnione), po prostu doda wiersz do tabeli \_ @ no__t-1MigrationsHistory, wskazując, że ta migracja została już zastosowana.
+4.  Odskomentuj kod w metodzie up. Oznacza to, że w przypadku zastosowania tej migracji do przyszłych baz danych schemat, który już istniał w lokalnej bazie danych, zostanie utworzony przez migracje.
 
-## <a name="things-to-be-aware-of"></a>Co należy wiedzieć o
+## <a name="things-to-be-aware-of"></a>Zagadnienia, z którymi należy się zapoznać
 
-Istnieje kilka rzeczy, które musisz wiedzieć, korzystając z migracji z istniejącej bazy danych.
+Należy pamiętać o kilku kwestiach dotyczących migracji do istniejącej bazy danych.
 
-### <a name="defaultcalculated-names-may-not-match-existing-schema"></a>Domyślne/obliczane nazwy nie może odpowiadać istniejącego schematu
+### <a name="defaultcalculated-names-may-not-match-existing-schema"></a>Nazwy domyślne/obliczeniowe mogą być niezgodne z istniejącym schematem
 
-Migracje jawnie określa nazwy kolumn i tabel, gdy jej scaffolds migracji. Istnieją jednak inne migracje oblicza domyślnej nazwy dla podczas stosowania migracje obiekty bazy danych. Obejmuje to indeksy i ograniczenia klucza obcego. Podczas określania wartości schematu, te nazwy obliczeniowe może nie odpowiadać, co faktycznie istnieje w bazie danych.
+Migracje jawnie określają nazwy kolumn i tabel podczas tworzenia szkieletu migracji. Istnieją jednak inne obiekty bazy danych, dla których migracja jest obliczana jako domyślna nazwa w przypadku stosowania migracji. Obejmuje to ograniczenia dotyczące indeksów i kluczy obcych. W przypadku określania wartości docelowej istniejący schemat te obliczone nazwy mogą nie odpowiadać tym, co rzeczywiście istnieje w bazie danych.
 
-Gdy muszą być tego świadomym, poniżej przedstawiono kilka przykładów:
+Poniżej przedstawiono kilka przykładów, które należy wziąć pod uwagę:
 
-**Jeśli użyto "jedną z opcji: Użyj istniejącego schematu jako punktu wyjścia" uzyskaną w kroku 3:**
+**If użyto opcji one: Użyj istniejącego schematu jako punktu początkowego od kroku 3:**
 
--   Przyszłe zmiany w modelu wymagają, zmienianie lub porzucanie jeden z obiektów bazy danych, które są nazwane w różny sposób, należy zmodyfikować szkieletu migracji, aby określić poprawną nazwę. Interfejsy API migracji ma opcjonalny parametr nazwę, która pozwala na to.
-    Na przykład istniejącego schematu może zawierać tabelę wpis z BlogId kolumny klucza obcego, która ma indeks o nazwie IndexFk\_BlogId. Jednak domyślnie migracje oczekiwać tego indeksu, aby mieć nazwę IX\_BlogId. Jeśli wprowadzisz zmiany w modelu, które powoduje usunięcie tego indeksu będzie konieczne zmodyfikowanie szkieletu wywołana DropIndex w celu określenia IndexFk\_BlogId nazwy.
+-   Jeśli przyszłe zmiany w modelu wymagają zmiany lub porzucenie jednego z obiektów bazy danych o nazwie inaczej, należy zmodyfikować migrację szkieletową, aby określić poprawną nazwę. Interfejsy API migracji mają opcjonalny parametr nazwy, który umożliwia wykonanie tej czynności.
+    Na przykład istniejący schemat może mieć tabelę ogłoszeń z kolumną klucza obcego BlogId, która ma indeks o nazwie IndexFk @ no__t-0BlogId. Jednak domyślnie migracje oczekują, że ten indeks ma nazwę IX @ no__t-0BlogId. Jeśli wprowadzisz zmiany w modelu, który spowoduje porzucenie tego indeksu, musisz zmodyfikować wywołanie DropIndex szkieletowej, aby określić nazwę IndexFk @ no__t-0BlogId.
 
-**Jeśli użyto "dwóch opcji: Użyj pustej bazy danych jako punktu wyjścia" uzyskaną w kroku 3:**
+**If użyto opcji dwóch: Użyj pustej bazy danych jako punktu początkowego od kroku 3:**
 
--   Próby uruchomienia metody szczegółów początkowej migracji (które powracanie do pustej bazy danych) względem lokalnej bazy danych może zakończyć się niepowodzeniem, ponieważ migracje podejmie próbę Porzuć indeksy i ograniczenia klucza obcego przy użyciu niepoprawnymi nazwami. Wpłynie to tylko lokalna baza danych od innych baz danych zostanie utworzona od podstaw przy użyciu metody w górę początkowej migracji.
-    Jeśli chcesz użyć istniejącej lokalnej bazy danych do stanu pustego najłatwiej można to zrobić ręcznie, poprzez usunięcie bazy danych lub usunięcie wszystkich tabel. Po tej początkowej obniżenia poziomu których wszystkie obiekty bazy danych zostaną odtworzone z domyślnymi nazwami więc ten problem nie przedstawi się ponownie.
--   Jeśli przyszłe zmiany w modelu wymagają, zmienianie lub porzucanie jeden z obiektów bazy danych, które są nazwane w różny sposób, to nie będzie działać względem istniejącej lokalnej bazy danych — od nazwy nie pasują do wartości domyślnych. Jednak będą działać względem bazy danych, które zostały utworzone "od zera", ponieważ te będą używane domyślne nazwy wybranego przez migracje.
-    Można ręcznie wprowadzić te zmiany w istniejącej lokalnej bazy danych lub należy rozważyć utworzenie migracje ponownie utworzyć od podstaw — bazy danych, jak wpłynie to na innych komputerach.
--   Bazy danych utworzone przy użyciu metody w górę początkowej migracji mogą się nieznacznie różnić z lokalnej bazy danych od czasu obliczeniowego domyślne nazwy dla indeksów i ograniczeń klucza obcego, który będzie używany. Użytkownik może też pozostać przy użyciu dodatkowych indeksów jak migracji utworzy indeksy na kolumny klucza obcego domyślnie — to nie mogły być w przypadku oryginalnej bazy danych lokalnych.
+-   Próba uruchomienia metody w dół migracji początkowej (czyli przywrócenie pustej bazy danych) do lokalnej bazy danych może się nie powieść, ponieważ migracja podejmie próbę porzucenia indeksów i ograniczeń klucza obcego przy użyciu niepoprawnych nazw. Będzie to miało wpływ tylko na lokalną bazę danych, ponieważ inne bazy danych zostaną utworzone od początku przy użyciu metody początkowej migracji.
+    Jeśli chcesz obniżyć poziom istniejącej lokalnej bazy danych do pustego stanu, najłatwiej wykonać tę czynność ręcznie, usuwając bazę danych lub upuszczając wszystkie tabele. Po rozpoczęciu wstępnego obniżenia poziomu wszystkie obiekty bazy danych zostaną ponownie utworzone przy użyciu nazw domyślnych, więc ten problem nie będzie już występować.
+-   Jeśli przyszłe zmiany w modelu wymagają zmiany lub porzucenie jednego z obiektów bazy danych o nazwie inaczej, nie będzie to możliwe w przypadku istniejącej lokalnej bazy danych — ponieważ nazwy nie będą zgodne z ustawieniami domyślnymi. Jednak będzie ona działała względem baz danych, które zostały utworzone "od podstaw", ponieważ będą używały domyślnych nazw wybranych przez migracje.
+    Można wprowadzić te zmiany ręcznie w lokalnej istniejącej bazie danych lub rozważyć przeprowadzenie migracji od podstaw, tak jak w przypadku innych maszyn.
+-   Bazy danych utworzone przy użyciu metody up migracji początkowej mogą się nieco różnić od lokalnej bazy danych, ponieważ obliczone domyślne nazwy indeksów i ograniczeń klucza obcego zostaną użyte. Możesz również zakończyć z dodatkowymi indeksami, ponieważ migracja domyślnie utworzy indeksy w kolumnach klucza obcego — może to nie być przypadek w pierwotnej lokalnej bazie danych.
 
 ### <a name="not-all-database-objects-are-represented-in-the-model"></a>Nie wszystkie obiekty bazy danych są reprezentowane w modelu
 
-Obiekty bazy danych, które nie są częścią modelu nie będzie obsługiwany przez migracje. Może to obejmować widoki, procedury składowane, uprawnienia, tabel, które nie są częścią Twojego modelu, dodatkowe indeksy itp.
+Obiekty bazy danych, które nie są częścią modelu, nie będą obsługiwane przez migracje. Może to obejmować widoki, procedury składowane, uprawnienia, tabele, które nie są częścią modelu, dodatkowe indeksy itd.
 
-Gdy muszą być tego świadomym, poniżej przedstawiono kilka przykładów:
+Poniżej przedstawiono kilka przykładów, które należy wziąć pod uwagę:
 
--   Niezależnie od opcji wybranej w kroku 3, jeśli wymagają przyszłe zmiany w modelu, zmienianie lub porzucanie tych obiektów dodatkowych migracji nie będzie wiedzieć, aby wprowadzić te zmiany. Na przykład jeśli usuniesz kolumny, która ma inny indeks, migracje będą nie wiedzieć, aby usunąć indeksu. Należy ręcznie dodać to do szkieletu migracji.
--   Jeśli użyto "dwóch opcji: Użyj pustej bazy danych jako punkt początkowy", te dodatkowe obiekty nie zostaną utworzone przez metodę w górę początkowej migracji.
-    Można zmodyfikować górę i w dół do metody, aby zadbać o tych obiektów dodatkowych, jeśli chcesz. Dla obiektów, które nie są obsługiwane natywnie w interfejsie API migracje — takich jak widoki — możesz użyć [Sql](https://msdn.microsoft.com/library/system.data.entity.migrations.dbmigration.sql.aspx) metodę, aby uruchomić pierwotne SQL do tworzenia i upuść je.
+-   Bez względu na opcję wybraną w kroku 3, jeśli przyszłe zmiany w modelu wymagają zmiany lub porzucania tych dodatkowych obiektów migracja nie będzie wiadomo, że te zmiany zostaną wprowadzone. Na przykład jeśli porzucasz kolumnę z dodatkowym indeksem, migracja nie będzie wiadomo, aby usunąć indeks. Należy ręcznie dodać to do migracji szkieletowej.
+-   Jeśli użyto opcji dwa: Użyj pustej bazy danych jako punktu początkowego, te dodatkowe obiekty nie zostaną utworzone przy użyciu metody tworzenia początkowej migracji.
+    Możesz zmodyfikować metody w górę i w dół, aby zadbać o te dodatkowe obiekty. W przypadku obiektów, które nie są natywnie obsługiwane w interfejsie API migracji — takich jak widoki — można użyć metody [SQL](https://msdn.microsoft.com/library/system.data.entity.migrations.dbmigration.sql.aspx) do uruchomienia nieprzetworzonego SQL w celu utworzenia/porzucenia.

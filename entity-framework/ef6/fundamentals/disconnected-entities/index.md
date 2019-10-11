@@ -1,33 +1,33 @@
 ---
-title: Praca z jednostkami odłączonego - EF6
+title: Praca z odłączonymi jednostkami — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
-ms.openlocfilehash: 11ca2a9a4161e02d32d98bf03dd4cf28545334b7
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: f1ce44e7b00ec4c60a81ed850ce5c9d866495e1b
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022174"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181767"
 ---
-# <a name="working-with-disconnected-entities"></a>Praca z odłączone jednostki
-W aplikacji Entity Framework, na podstawie klasy kontekstu jest odpowiedzialny za wykrywanie zmian zastosowanych do śledzonych jednostek. Wywołanie metody SaveChanges utrzymuje zmian śledzonych przez kontekst do bazy danych. Podczas pracy z aplikacjami n warstwowej, obiekty jednostki są zazwyczaj modyfikowane przy braku połączenia z kontekstu i należy zdecydować, jak śledzić zmiany i raportu te zmiany do kontekstu. W tym temacie omówiono różne opcje, które są dostępne, gdy używający narzędzia Entity Framework o odłączony jednostek.   
+# <a name="working-with-disconnected-entities"></a>Praca z odłączonymi jednostkami
+W aplikacji opartej na Entity Framework Klasa kontekstowa jest odpowiedzialna za wykrywanie zmian zastosowanych do śledzonych jednostek. Wywołanie metody metody SaveChanges zachowuje zmiany śledzone przez kontekst do bazy danych. Podczas pracy z aplikacjami n-warstwowymi obiekty jednostek są zwykle modyfikowane podczas odłączania od kontekstu i należy zdecydować, jak śledzić zmiany i raportować te zmiany z powrotem do kontekstu. W tym temacie omówiono różne opcje, które są dostępne w przypadku korzystania z Entity Framework z odłączonymi jednostkami.   
 
-## <a name="web-service-frameworks"></a>Struktury usługi sieci Web
+## <a name="web-service-frameworks"></a>Struktury usług sieci Web
 
-Technologie usług sieci Web zwykle obsługują wzorce, które mogą służyć do utrwalenia zmian na poszczególne obiekty odłączonych. Na przykład ASP.NET Web API umożliwia akcji kontrolera kodu, które może obejmować wywołania do EF, aby zachować zmiany wprowadzone do obiektu w bazie danych. W rzeczywistości internetowy interfejs API, narzędzi w programie Visual Studio ułatwia tworzenia szkieletu kontrolera interfejsu API sieci Web z modelu Entity Framework 6. Aby uzyskać więcej informacji, zobacz [przy użyciu interfejsu API sieci Web za pomocą platformy Entity Framework 6](https://docs.microsoft.com/aspnet/web-api/overview/data/using-web-api-with-entity-framework/).   
+Technologie usług sieci Web zwykle obsługują wzorce, które mogą być używane do utrwalania zmian w pojedynczych odłączonych obiektach. Na przykład interfejs API sieci Web ASP.NET umożliwia kod akcji kontrolera, które mogą obejmować wywołania EF, aby zachować zmiany wprowadzone do obiektu w bazie danych. W rzeczywistości narzędzia internetowego interfejsu API w programie Visual Studio ułatwiają tworzenie szkieletu kontrolera interfejsu API sieci Web z modelu Entity Framework 6. Aby uzyskać więcej informacji, zobacz [Korzystanie z interfejsu API sieci Web w Entity Framework 6](https://docs.microsoft.com/aspnet/web-api/overview/data/using-web-api-with-entity-framework/).   
 
-W przeszłości były kilka innych technologii sieci Web usługi, które oferowane integracji z programem Entity Framework, takie jak [usług danych WCF](https://docs.microsoft.com/dotnet/framework/data/wcf/create-a-data-service-using-an-adonet-ef-data-wcf) i [RIA Services](https://docs.microsoft.com/previous-versions/dotnet/wcf-ria/ee707344(v=vs.91)).
+W przeszłości istniały kilka innych technologii usług sieci Web, które oferują integrację z Entity Framework, takie jak [usługi danych programu WCF](https://docs.microsoft.com/dotnet/framework/data/wcf/create-a-data-service-using-an-adonet-ef-data-wcf) i [usługi RIA](https://docs.microsoft.com/previous-versions/dotnet/wcf-ria/ee707344(v=vs.91)).
 
-## <a name="low-level-ef-apis"></a>Interfejsy API niskiego poziomu EF
+## <a name="low-level-ef-apis"></a>Interfejsy API EF niskiego poziomu
 
-Jeśli nie chcesz użyć istniejącego rozwiązania n warstwowa lub jeśli chcesz dostosować, co się dzieje w akcji kontrolera, w usługach interfejsu API sieci Web, platformy Entity Framework udostępnia interfejsy API, które umożliwiają zastosowanie zmian wprowadzonych w warstwie odłączonych. Aby uzyskać więcej informacji, zobacz [stanu Dodaj, Dołącz i jednostki](~/ef6/saving/change-tracking/entity-state.md).  
+Jeśli nie chcesz korzystać z istniejącego rozwiązania n-warstwowego lub chcesz dostosować działanie w ramach akcji kontrolera w usługach interfejsu API sieci Web, Entity Framework udostępnia interfejsy API, które umożliwiają zastosowanie zmian wprowadzonych w odłączonej warstwie. Aby uzyskać więcej informacji, zobacz [Dodawanie, dołączanie i stan jednostki](~/ef6/saving/change-tracking/entity-state.md).  
 
-## <a name="self-tracking-entities"></a>Samodzielnie śledzenie jednostek  
+## <a name="self-tracking-entities"></a>Jednostki samośledzenia  
 
-Śledzenie zmian na wykresach dowolnego jednostek przy braku połączenia z kontekstu EF jest twardych problem. Jeden z próbuje rozwiązać problem był szablonu generacji kodu Self-Tracking jednostek. Ten szablon generuje klasy jednostek, które zawierają logikę do śledzenia zmian wprowadzanych w warstwie odłączonego jako stan w samych jednostkach. Zestaw metod rozszerzenia zostanie również wygenerowany tak, aby zastosować te zmiany do kontekstu.
+Śledzenie zmian na dowolnych wykresach jednostek niepołączonych z kontekstem EF jest problemem. Jedną z prób rozwiązania tego problemu jest szablon generowania kodu samośledzących jednostek. Ten szablon generuje klasy jednostek, które zawierają logikę do śledzenia zmian wprowadzonych w odłączonej warstwie jako stan w samych jednostkach. Zestaw metod rozszerzających jest również generowany, aby zastosować te zmiany do kontekstu.
 
-Ten szablon może być używany z modeli utworzonych za pomocą projektanta EF, ale nie można używać w modelach Code First. Aby uzyskać więcej informacji, zobacz [jednostek Self-Tracking](self-tracking-entities/index.md).  
+Tego szablonu można używać z modelami utworzonymi przy użyciu programu EF Designer, ale nie można ich używać z modelami Code First. Aby uzyskać więcej informacji, zobacz [samośledzące jednostki](self-tracking-entities/index.md).  
 
 > [!IMPORTANT]
-> Nie zaleca się przy użyciu szablonu samoobsługowego tracking jednostek. Tylko będą dostępne do obsługi istniejących aplikacji. Jeśli aplikacja wymaga pracy z wykresami odłączonych jednostek, należy wziąć pod uwagę inne alternatywy dla takich jak [słupkowych jednostek](http://trackableentities.github.io/), która jest podobna do samoobsługowego-Tracking-jednostek, które jest bardziej aktywnie rozwijany przez technologię Społeczność lub pisanie kodu niestandardowego za pomocą śledzenia interfejsów API zmian niskiego poziomu.
+> Nie zalecamy już korzystania z szablonu samośledzenia jednostek. Będzie ona nadal dostępna tylko do obsługi istniejących aplikacji. Jeśli aplikacja wymaga pracy z odłączonymi wykresami jednostek, należy wziąć pod uwagę inne alternatywy, takie jak [śledzone jednostki](https://trackableentities.github.io/), które są technologią podobną do samodzielnego śledzenia jednostek, które są opracowywane przez społeczność lub piszą kod niestandardowy korzystający z interfejsów API śledzenia zmian niskiego poziomu.

@@ -1,37 +1,37 @@
 ---
-title: Pobieranie programu Entity Framework - EF6
+title: Pobierz Entity Framework-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 122c38a2-f9e8-4ecc-9c72-a83bc9af7814
-ms.openlocfilehash: 7f840a4f9e437ec12f699184339e386976e1528b
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 2bdec6a9be228fbe934d0f46aa1bfafdfb2c971c
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490660"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181739"
 ---
-# <a name="get-entity-framework"></a>Pobieranie programu Entity Framework
-Entity Framework składa się z narzędziami EF dla programu Visual Studio i środowiska uruchomieniowego EF.
+# <a name="get-entity-framework"></a>Pobieranie platformy Entity Framework
+Entity Framework składa się z narzędzi EF dla programu Visual Studio i środowiska uruchomieniowego EF.
 
-## <a name="ef-tools-for-visual-studio"></a>EF Tools for Visual Studio
+## <a name="ef-tools-for-visual-studio"></a>Narzędzia EF Tools for Visual Studio
 
-Narzędzi Entity Framework Tools for Visual Studio obejmują w kreatorze modelu platformy EF i projektancie platformy EF są wymagane dla bazy danych po raz pierwszy i modelowanie pierwszy przepływów pracy. Narzędzia platformy EF znajdują się w najnowszych wersjach programu Visual Studio. Jeśli wykonać niestandardową instalację programu Visual Studio, musisz upewnić się, że element "Entity Framework 6 Tools" jest zaznaczone, wybierając obciążenia zawierający go lub wybierając go jako poszczególnych składników.
+Entity Framework Tools dla programu Visual Studio zawiera kreatora Dr Designer i dr Model Wizard i są wymagane dla pierwszej bazy danych i modeluje pierwsze przepływy pracy. Narzędzia Dr są dołączone do wszystkich najnowszych wersji programu Visual Studio. Jeśli wykonujesz niestandardową instalację programu Visual Studio, musisz upewnić się, że element "Entity Framework 6 Tools" jest wybierany przez wybranie obciążenia, które je zawiera, lub wybranie go jako pojedynczego składnika.
 
-W przypadku niektórych poprzednich wersji programu Visual Studio zaktualizowanych narzędzi EF są dostępne do pobrania. Zobacz [wersje serwera Visual Studio](~/ef6/what-is-new/visual-studio.md) wskazówki dotyczące sposobu uzyskania najnowszej wersji programu EF narzędzi dostępnych dla używanej wersji programu Visual Studio.
+W przypadku niektórych wcześniejszych wersji programu Visual Studio zaktualizowane narzędzia EF są dostępne jako pobrane. Zobacz [wersje programu Visual Studio](~/ef6/what-is-new/visual-studio.md) , aby uzyskać wskazówki dotyczące uzyskiwania najnowszej wersji narzędzi EF dostępnych dla używanej wersji programu Visual Studio.
 
-## <a name="ef-runtime"></a>Środowiska uruchomieniowego EF
+## <a name="ef-runtime"></a>Środowisko uruchomieniowe EF
 
-Najnowszą wersję programu Entity Framework jest dostępna jako [pakiet NuGet platformy EntityFramework](http://nuget.org/packages/EntityFramework/). Jeśli użytkownik nie jest zaznajomiony z Menedżera pakietów NuGet, zachęcamy do odczytania [Przegląd NuGet](https://docs.microsoft.com/nuget/consume-packages/overview-and-workflow).
+Najnowsza wersja Entity Framework jest dostępna jako [pakiet NuGet EntityFramework](https://nuget.org/packages/EntityFramework/). Jeśli nie znasz Menedżera pakietów NuGet, zachęcamy do przeczytania [omówienia narzędzia NuGet](https://docs.microsoft.com/nuget/consume-packages/overview-and-workflow).
 
-### <a name="installing-the-ef-nuget-package"></a>Instalowanie pakietu NuGet programu EF
+### <a name="installing-the-ef-nuget-package"></a>Instalowanie pakietu NuGet EF
 
-Można zainstalować pakiet platformy EntityFramework, klikając prawym przyciskiem myszy **odwołania** folderu projektu i wybierając polecenie **Zarządzaj pakietami NuGet...**
+Aby zainstalować pakiet EntityFramework, kliknij prawym przyciskiem myszy folder **odwołania** projektu i wybierz polecenie **Zarządzaj pakietami NuGet...**
 
-![Zarządzaj pakietami NuGet](~/ef6/media/managenugetpackages.png)
+![Zarządzanie pakietami NuGet](~/ef6/media/managenugetpackages.png)
 
-### <a name="installing-from-package-manager-console"></a>Instalowanie za pomocą konsoli Menedżera pakietów
+### <a name="installing-from-package-manager-console"></a>Instalowanie z konsoli Menedżera pakietów
 
-Alternatywnie, można zainstalować platformy EntityFramework, uruchamiając następujące polecenie w [Konsola Menedżera pakietów](http://docs.nuget.org/docs/start-here/using-the-package-manager-console).
+Alternatywnie możesz zainstalować EntityFramework, uruchamiając następujące polecenie w [konsoli Menedżera pakietów](https://docs.nuget.org/docs/start-here/using-the-package-manager-console).
 
 ``` powershell
 Install-Package EntityFramework
@@ -39,25 +39,25 @@ Install-Package EntityFramework
 
 ## <a name="installing-a-specific-version-of-ef"></a>Instalowanie określonej wersji programu EF
 
-Od wersji 4.1 EF wydano nowe wersje środowiska uruchomieniowego EF jako [pakiet NuGet platformy EntityFramework](https://www.nuget.org/packages/EntityFramework/). Dowolne z tych wersji można dodać do projektu na podstawie .NET Framework, uruchamiając następujące polecenie w programie Visual Studio [Konsola Menedżera pakietów](http://docs.nuget.org/docs/start-here/using-the-package-manager-console):
+Z EF 4,1, nowe wersje środowiska uruchomieniowego EF zostały wydane jako [pakiet NuGet EntityFramework](https://www.nuget.org/packages/EntityFramework/). Dowolną z tych wersji można dodać do projektu opartego na .NET Framework, uruchamiając następujące polecenie w [konsoli Menedżera pakietów](https://docs.nuget.org/docs/start-here/using-the-package-manager-console)programu Visual Studio:
 
 ``` powershell
 Install-Package EntityFramework -Version <number>
 ```
 
-Należy pamiętać, że `<number>` reprezentuje określoną wersję platformy EF do zainstalowania. Na przykład 6.2.0 stanowi wersję numer EF 6.2.   
+Należy pamiętać, że `<number>` reprezentuje określoną wersję EF do zainstalowania. Na przykład 6.2.0 jest wersją numeru dla EF 6,2.   
 
-EF środowisk wykonawczych, zanim 4.1 były częścią środowiska .NET Framework i nie można zainstalować oddzielnie.
+Środowiska uruchomieniowe EF przed 4,1 były częścią .NET Framework i nie można ich instalować oddzielnie.
 
 ### <a name="installing-the-latest-preview"></a>Instalowanie najnowszej wersji zapoznawczej
 
-Powyższych metod prześle Ci najnowsze wydania Entity Framework w pełni obsługiwane. Często są wersje wstępne programu Entity Framework jest dostępna, że chętnie można wypróbować, a następnie Prześlij nam opinię na temat.
+Powyższe metody zapewniają najnowszą w pełni obsługiwaną wersję Entity Framework. Dostępne są często wstępne wersje Entity Framework dostępnych, które można wypróbować i przekazać nam swoją opinię.
 
-Do zainstalowania najnowszej wersji zapoznawczej platformy EntityFramework, możesz wybrać **Uwzględnij wydania wstępne** w oknie Zarządzanie pakietami NuGet. Jeśli nie wstępnej wersji są dostępne najnowsze zostanie automatycznie pobrana w pełni obsługiwana wersja programu Entity Framework.
+Aby zainstalować najnowszą wersję zapoznawczą EntityFramework, możesz wybrać opcję **Uwzględnij wersję wstępną** w oknie Zarządzaj pakietami NuGet. Jeśli wersje wstępne nie są dostępne, automatycznie otrzymasz najnowszą w pełni obsługiwaną wersję programu Entity Framework.
 
 ![Uwzględnij wersję wstępną](~/ef6/media/includeprerelease.png)
 
-Alternatywnie, możesz uruchomić następujące polecenie w [Konsola Menedżera pakietów](http://docs.nuget.org/docs/start-here/using-the-package-manager-console).
+Alternatywnie możesz uruchomić następujące polecenie w [konsoli Menedżera pakietów](https://docs.nuget.org/docs/start-here/using-the-package-manager-console).
 
 ``` powershell
 Install-Package EntityFramework -Pre

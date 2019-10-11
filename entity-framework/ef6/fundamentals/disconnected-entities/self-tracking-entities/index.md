@@ -1,55 +1,55 @@
 ---
-title: Samodzielnie śledzenia jednostek - EF6
+title: Jednostki samośledzenia — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 5e60f5be-7bbb-4bf8-835e-0ac808d6c84a
-ms.openlocfilehash: b098736ef47e79c916f4bf054716022d5032eee5
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: 3bb9759d89fbd0c10b911625aa7d0afd7747de14
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283813"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181727"
 ---
-# <a name="self-tracking-entities"></a>Samodzielnie śledzenia jednostek
+# <a name="self-tracking-entities"></a>Jednostki samośledzenia
 
 > [!IMPORTANT]
-> Nie zaleca się przy użyciu szablonu samoobsługowego tracking jednostek. Tylko będą dostępne do obsługi istniejących aplikacji. Jeśli aplikacja wymaga pracy z wykresami odłączonych jednostek, należy wziąć pod uwagę inne alternatywy dla takich jak [słupkowych jednostek](http://trackableentities.github.io/), która jest podobna do samoobsługowego-Tracking-jednostek, które jest bardziej aktywnie rozwijany przez technologię Społeczność lub pisanie kodu niestandardowego za pomocą śledzenia interfejsów API zmian niskiego poziomu.
+> Nie zalecamy już korzystania z szablonu samośledzenia jednostek. Będzie ona nadal dostępna tylko do obsługi istniejących aplikacji. Jeśli aplikacja wymaga pracy z odłączonymi wykresami jednostek, należy wziąć pod uwagę inne alternatywy, takie jak [śledzone jednostki](https://trackableentities.github.io/), które są technologią podobną do samodzielnego śledzenia jednostek, które są opracowywane przez społeczność lub piszą kod niestandardowy korzystający z interfejsów API śledzenia zmian niskiego poziomu.
 
-W aplikacji Entity Framework, na podstawie kontekstu jest odpowiedzialny za śledzenie zmian w obiekty. Możesz następnie użyć metody SaveChanges aby utrwalić zmiany w bazie danych. Podczas pracy z aplikacjami N-warstwowej, obiekty jednostki zwykle jest odłączony od kontekstu i należy zdecydować, jak śledzić zmiany i raportu te zmiany do kontekstu. Samodzielnie śledzenia jednostek (ste) może pomóc śledzić zmiany w dowolnej warstwy, a następnie odtworzenia te zmiany do kontekstu do zapisania.  
+W aplikacji opartej na Entity Framework kontekście jest odpowiedzialny za śledzenie zmian w obiektach. Następnie należy użyć metody metody SaveChanges, aby zachować zmiany w bazie danych. W przypadku korzystania z aplikacji N-warstwowych obiekty jednostek są zazwyczaj odłączane od kontekstu i należy zdecydować, jak śledzić zmiany i raportować te zmiany z powrotem do kontekstu. Jednostki samodzielnego śledzenia (inżynierów Ste) mogą pomóc w śledzeniu zmian w dowolnej warstwie, a następnie powtórzeniu tych zmian w kontekście, który ma zostać zapisany.  
 
-Użyj ste tylko wtedy, gdy kontekst nie jest dostępna w ramach warstwy gdzie zostały wprowadzone zmiany do obiektu wykresu. Jeśli kontekst jest dostępny, nie ma potrzeby używania ste, ponieważ zajmie się kontekst śledzenia zmian.  
+Używaj inżynierów Ste tylko wtedy, gdy kontekst nie jest dostępny w warstwie, w której są wykonywane zmiany grafu obiektów. Jeśli kontekst jest dostępny, nie ma potrzeby używania inżynierów Ste, ponieważ kontekst zajmie się śledzeniem zmian.  
 
-Ten element szablon generuje dwa .TT — pliki (szablon tekstowy):  
+Ten element szablonu generuje dwa pliki TT (szablon tekstowy):  
 
-- **\<Nazwę modelu\>.tt** generuje plik typów jednostek i klasa pomocnika, która zawiera logikę śledzenia zmian, która jest używana przez własny śledzenia jednostek i metody rozszerzenia, które umożliwiają ustawianie stanu na własnym śledzenie jednostki.  
-- **\<Nazwę modelu\>. Context.TT** generuje plik pochodnej kontekstu i klasa rozszerzenia, która zawiera **applychanges —** metody **ObjectContext** i **obiektu ObjectSet** klasy. Te metody zbadania informacji śledzenia zmian, które znajduje się na wykresie własnym śledzenia jednostek wywnioskowania zestaw operacji, które należy wykonać, aby zapisać zmiany w bazie danych.  
+- Plik **\<model Name\>.tt** generuje typy jednostek i klasę pomocnika, która zawiera logikę śledzenia zmian, która jest używana przez jednostki samośledzenia i metody rozszerzające, które zezwalają na Ustawianie stanu dla jednostek samodzielnego śledzenia.  
+- **@No__t-1model nazwa @ no__t-2. Plik Context.tt** generuje kontekst pochodny i klasę rozszerzenia, która zawiera **metody ApplyChanges —** dla klas **ObjectContext** i **ObjectSet** . Te metody sprawdzają informacje o śledzeniu zmian, które są zawarte na grafie jednostek samodzielnego śledzenia, aby wywnioskować zestaw operacji, które należy wykonać w celu zapisania zmian w bazie danych.  
 
 ## <a name="get-started"></a>Rozpocznij  
 
-Aby rozpocząć pracę, odwiedź stronę [Self-Tracking jednostek wskazówki](walkthrough.md) strony.  
+Aby rozpocząć, odwiedź stronę [przewodnika Samośledzenia jednostek](walkthrough.md) .  
 
-## <a name="functional-considerations-when-working-with-self-tracking-entities"></a>Uwagi dotyczące funkcjonalności podczas pracy z własnym śledzenia jednostek  
+## <a name="functional-considerations-when-working-with-self-tracking-entities"></a>Zagadnienia funkcjonalne podczas pracy z jednostkami samośledzenia  
 > [!IMPORTANT]
-> Nie zaleca się przy użyciu szablonu samoobsługowego tracking jednostek. Tylko będą dostępne do obsługi istniejących aplikacji. Jeśli aplikacja wymaga pracy z wykresami odłączonych jednostek, należy wziąć pod uwagę inne alternatywy dla takich jak [słupkowych jednostek](http://trackableentities.github.io/), która jest podobna do samoobsługowego-Tracking-jednostek, które jest bardziej aktywnie rozwijany przez technologię Społeczność lub pisanie kodu niestandardowego za pomocą śledzenia interfejsów API zmian niskiego poziomu.
+> Nie zalecamy już korzystania z szablonu samośledzenia jednostek. Będzie ona nadal dostępna tylko do obsługi istniejących aplikacji. Jeśli aplikacja wymaga pracy z odłączonymi wykresami jednostek, należy wziąć pod uwagę inne alternatywy, takie jak [śledzone jednostki](https://trackableentities.github.io/), które są technologią podobną do samodzielnego śledzenia jednostek, które są opracowywane przez społeczność lub piszą kod niestandardowy korzystający z interfejsów API śledzenia zmian niskiego poziomu.
 
-Podczas pracy z własnym śledzenie jednostek, należy wziąć pod uwagę następujące czynności:  
+Podczas pracy z jednostkami samośledzenia należy wziąć pod uwagę następujące kwestie:  
 
-- Upewnij się, że projekt klienta ma odwołanie do zestawu zawierającego typów jednostek. Jeśli dodasz tylko odwołanie do usługi do projektu klienta, projekt klienta użyje typy serwerów proxy usługi WCF i nie rzeczywiste własnym śledzenie typów jednostek. Oznacza to, że nie będzie można uzyskać funkcji automatyczne powiadomienie o zarządzających śledzenia jednostki na kliencie. Jeśli nie chcesz jej celowo i obejmuje dodatkowe typy jednostek, należy ręcznie ustawić informacji śledzenia zmian na klienta, aby zmiany wysyłane z powrotem do usługi.  
-- Wywołania operacji usługi powinny być bezstanowe i Utwórz nowe wystąpienie obiektu kontekstu. Zalecamy również utworzenie obiektu kontekstu w **przy użyciu** bloku.  
-- Kiedy wykres, który został zmodyfikowany na kliencie z usługą i wysyła następnie zamierzasz kontynuować pracę z tym samym wykresie na komputerze klienckim, należy ręcznie wykonać iterację wykresu i wywołania **AcceptChanges** metody dla każdego obiektu do Zresetuj śledzenie zmian.  
+- Upewnij się, że projekt klienta zawiera odwołanie do zestawu zawierającego typy jednostek. W przypadku dodania do projektu klienta tylko odwołania do usługi, projekt klienta będzie używać typów serwera proxy WCF, a nie rzeczywistych typów jednostek samośledzenia. Oznacza to, że nie zostaną wyświetlone funkcje powiadomień automatycznych, które zarządzają śledzeniem jednostek na kliencie. Jeśli celowo nie chcesz uwzględniać typów jednostek, musisz ręcznie ustawić informacje o śledzeniu zmian na kliencie, aby zmiany zostały wysłane z powrotem do usługi.  
+- Wywołania operacji usługi powinny być bezstanowe i utworzyć nowe wystąpienie kontekstu obiektu. Zalecamy również utworzenie kontekstu obiektu w bloku **using** .  
+- Po wysłaniu grafu, który został zmodyfikowany na kliencie do usługi, a następnie chcesz kontynuować pracę z tym samym wykresem na kliencie, musisz ręcznie wykonać iterację w grafie i wywołać metodę **AcceptChanges** dla każdego obiektu, aby zresetować zmianę. śledzenia.  
 
-    > Jeśli obiekty w grafie zawierają właściwości wartościami wygenerowanych w bazie danych (na przykład wartości tożsamości lub współbieżności), platformy Entity Framework spowoduje zastąpienie wartości tych właściwości z wartościami bazy danych, wygenerowane po **SaveChanges** metoda jest wywoływana. Możesz zaimplementować operację usługi do zwrócenia zapisanych obiektów lub Podaj listę wartości wygenerowanej właściwości dla obiektów do klienta. Klient musiałby Zamień wystąpień obiektów lub wartości właściwości obiektu do obiektów lub wartości właściwości zwrócony przez operację usługi.  
-- Scalanie wykresów z wielu żądań usługi może stanowić obiekty ze zduplikowanymi wartościami klucza w wynikowym wykresie. Entity Framework nie powoduje usunięcia obiektów z zduplikowane klucze po wywołaniu **applychanges —** metody, ale zamiast tego zgłasza wyjątek. Aby uniknąć wykresy ze zduplikowanymi wartościami klucza, postępuj zgodnie z jednym z wzorców opisanego w następujący wpis w blogu: [jednostek Self-Tracking: applychanges — i zduplikowanych podmiotów](https://go.microsoft.com/fwlink/?LinkID=205119&clcid=0x409).  
-- Po zmianie relacji między obiektami, ustawiając właściwość klucza obcego referencyjna właściwość nawigacji jest ustawiona na wartość null i nie są zsynchronizowane do odpowiedniej jednostki podmiotu zabezpieczeń na komputerze klienckim. Po dołączeniu do kontekstu obiektów programu graph (na przykład, po wywołaniu metody **applychanges —** metoda), właściwości klucza obcego i właściwości nawigacji są synchronizowane.  
+    > Jeśli obiekty w grafie zawierają właściwości z wartościami generowanymi przez bazę danych (na przykład tożsamości lub wartości współbieżności), Entity Framework zastąpią wartości tych właściwości wartościami generowanymi przez bazę danych po metodzie **metody SaveChanges** wywołan. Możesz zaimplementować operację usługi w celu zwrócenia zapisywanych obiektów lub listy wygenerowanych wartości właściwości dla obiektów z powrotem do klienta. Następnie klient musi zamienić wystąpienia obiektu lub wartości właściwości obiektu na wartości obiektów lub właściwości zwróconych z operacji usługi.  
+- Scalanie wykresów z wielu żądań obsługi może spowodować, że obiekty mające zduplikowane wartości klucza na wykresie wyników. Entity Framework nie usuwa obiektów ze zduplikowanymi kluczami podczas wywoływania metody **ApplyChanges —** , ale zamiast tego zgłasza wyjątek. Aby uniknąć występowania wykresów zawierających zduplikowane wartości klucza, należy przestrzegać jednego z wzorców opisanych w następującym blogu: Jednostki śledzenia @no__t 0Self: ApplyChanges — i zduplikowane jednostki @ no__t-0.  
+- W przypadku zmiany relacji między obiektami przez ustawienie właściwości klucza obcego właściwość nawigacji odwołania ma wartość null i nie jest zsynchronizowana z odpowiednią jednostką główną na komputerze klienckim. Po dołączeniu grafu do kontekstu obiektu (na przykład po wywołaniu metody **ApplyChanges —** ) właściwości klucza obcego i właściwości nawigacji są synchronizowane.  
 
-    > Nie ma właściwości nawigacji odwołania synchronizowane z odpowiedniego obiektu podmiotu zabezpieczeń może być problem, jeśli określono usuwanie kaskadowe w relacji klucza obcego. Jeśli usuniesz główny, Usuń nie będą przekazywane do obiektów zależnych. Jeśli masz kaskadowo określony, należy użyć właściwości nawigacji, aby zmienić relacji zamiast ustawiać właściwości klucza obcego.  
-- Samodzielnie śledzenie jednostek nie są włączone do wykonywania ładowania z opóźnieniem.  
-- Serializacja binarna i serializacji obiektów zarządzania stan programu ASP.NET nie jest obsługiwane przez własny śledzenie jednostek. Można jednak dostosować szablon, aby dodać obsługę serializacji binarnej. Aby uzyskać więcej informacji, zobacz [za pomocą serializacji binarnej i ViewState z jednostkami Self-Tracking](https://go.microsoft.com/fwlink/?LinkId=199208).  
+    > Nie ma właściwości nawigacji referencyjnej synchronizowanej z odpowiednim obiektem Principal może być problemem, jeśli określono kaskadowe usuwanie w relacji klucza obcego. Usunięcie podmiotu zabezpieczeń spowoduje, że usunięcie nie zostanie propagowane do obiektów zależnych. Jeśli określono kaskadowe usuwanie, użyj właściwości nawigacji, aby zmienić relacje zamiast ustawiania właściwości klucza obcego.  
+- Jednostki samośledzące nie są włączone, aby wykonać ładowanie z opóźnieniem.  
+- Serializacja binarna i Serializacja do obiektów ASP.NET State Management nie są obsługiwane przez jednostki samośledzenia. Można jednak dostosować szablon, aby dodać obsługę serializacji binarnej. Aby uzyskać więcej informacji, zobacz [Używanie serializacji binarnej i elementu ViewState z jednostkami samośledzenia](https://go.microsoft.com/fwlink/?LinkId=199208).  
 
 ## <a name="security-considerations"></a>Zagadnienia dotyczące zabezpieczeń  
 
-Następujące zagadnienia dotyczące zabezpieczeń powinny brane pod uwagę podczas pracy z własnym śledzenie jednostki:  
+Podczas pracy z jednostkami samodzielnego śledzenia należy wziąć pod uwagę następujące zagadnienia dotyczące zabezpieczeń:  
 
-- Usługa nie należy ufać żądań kierowanych do pobrania lub aktualizowanie danych w kliencie niezaufanej lub za pośrednictwem niezaufanej kanału. Klient musi zostać uwierzytelniony: bezpieczne koperty kanału lub komunikat powinien być używany. Aby upewnić się, że są one zgodne z oczekiwaniami i jest uzasadnione zmiany dla danego scenariusza, można sprawdzić poprawności żądania klientów do aktualizacji lub odbierać dane.  
-- Należy unikać poufnych informacji jako klucze jednostek (na przykład numery ubezpieczenia społecznego). Zmniejsza to możliwość przypadkowo szeregowania informacje poufne na własnym śledzenie wykresy jednostki do klienta, który nie jest w pełni zaufany. Za pomocą skojarzeń niezależnie od oryginalnego klucza podmiotu, który jest powiązany z tą, która jest deserializowana mogą zostać wysłane do klienta, jak również.  
-- Aby uniknąć propagowanie komunikaty o wyjątkach, zawierających poufne dane w warstwie klienta wywołania **applychanges —** i **SaveChanges** na serwerze warstwy musi być ujęte w kodzie obsługi wyjątków.  
+- Usługa nie powinna ufać żądaniami pobierania lub aktualizowania danych z niezaufanego klienta lub niezaufanego kanału. Klient musi zostać uwierzytelniony: należy użyć bezpiecznego kanału lub koperty komunikatów. Żądania klientów dotyczące aktualizowania lub pobierania danych muszą zostać sprawdzone, aby upewnić się, że są one zgodne z oczekiwanymi i uzasadnionymi zmianami w danym scenariuszu.  
+- Unikaj używania poufnych informacji jako kluczy jednostek (na przykład numerów ubezpieczenia społecznego). Pozwala to ograniczyć możliwość przypadkowego serializacji informacji poufnych na wykresach jednostek, które nie są w pełni zaufane. Z niezależnymi skojarzeniami oryginalny klucz jednostki powiązanej z tym, który jest serializowany, może być również wysyłany do klienta.  
+- Aby uniknąć propagowania komunikatów o wyjątkach zawierających dane poufne do warstwy klienta, wywołania do **ApplyChanges —** i **metody SaveChanges** w warstwie serwera powinny być opakowane w kod obsługi wyjątków.  

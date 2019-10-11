@@ -1,30 +1,30 @@
 ---
-title: What's new in EF Core 2.2 — EF Core
+title: Co nowego w EF Core 2,2 — EF Core
 author: divega
 ms.date: 11/14/2018
 ms.assetid: 998C04F3-676A-4FCF-8450-CFB0457B4198
 uid: core/what-is-new/ef-core-2.2
-ms.openlocfilehash: 79b4efc3aee23e19a9ea1deb6373b9984b77f886
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: 5fcf7c6dfb4d8cb7928ef974af6deb52df7c63eb
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688808"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181377"
 ---
-# <a name="new-features-in-ef-core-22"></a>Nowe funkcje programu EF Core 2.2
+# <a name="new-features-in-ef-core-22"></a>Nowe funkcje w EF Core 2,2
 
 ## <a name="spatial-data-support"></a>Obsługa danych przestrzennych
 
-Dane przestrzenne może służyć do reprezentowania fizycznej lokalizacji i kształt obiektów.
-Wiele baz danych natywnie można przechowywać, indeksu i wykonywanie zapytań o dane przestrzenne. Typowe scenariusze obejmują tworzenie zapytań dotyczących obiektów w określonej odległości i testowania, jeśli wielokąta zawiera danej lokalizacji.
-Obsługuje teraz EF Core 2.2 z Praca z danymi przestrzennymi z różnymi bazami danych przy użyciu typów z [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite) biblioteki (NTS).
+Dane przestrzenne mogą służyć do reprezentowania fizycznej lokalizacji i kształtu obiektów.
+Wiele baz danych może natywnie przechowywać, indeksować i wykonywać zapytania dotyczące danych przestrzennych. Typowe scenariusze obejmują zapytania dotyczące obiektów w ramach danej odległości i testowania, jeśli Wielokąt zawiera daną lokalizację.
+EF Core 2,2 obsługuje teraz pracę z danymi przestrzennymi z różnych baz danych przy użyciu typów z biblioteki [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite) (nkty przerwania).
 
-Obsługa danych przestrzennych jest zaimplementowana jako szereg pakietów rozszerzeń właściwe dla dostawcy.
-Każda z tych pakietów wspiera mapowania dla typów nkty przerwania i metod oraz odpowiadające typy przestrzenne i funkcji w bazie danych.
-Takie rozszerzenia dostawcy są teraz dostępne dla [programu SQL Server](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite/), [SQLite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite/), i [PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite/) (z [projektu Npgsql](http://www.npgsql.org/)).
-Typów przestrzennych mogą być używane bezpośrednio z [dostawcy w pamięci programu EF Core](https://docs.microsoft.com/en-us/ef/core/providers/in-memory/) bez dodatkowych rozszerzeń.
+Obsługa danych przestrzennych jest implementowana jako seria pakietów rozszerzeń specyficznych dla dostawcy.
+Każdy z tych pakietów tworzy mapowania dla typów i metod NKTY przerwania oraz odpowiednie typy i funkcje przestrzenne w bazie danych.
+Takie rozszerzenia dostawcy są teraz dostępne dla [SQL Server](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite/), [SQLite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite/)i [PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite/) (z [projektu Npgsql](https://www.npgsql.org/)).
+Typów przestrzennych można używać bezpośrednio z [EF Core dostawcy w pamięci](https://docs.microsoft.com/en-us/ef/core/providers/in-memory/) bez dodatkowych rozszerzeń.
 
-Po zainstalowaniu rozszerzenia dostawcy można dodać właściwości obsługiwane typy do jednostek. Na przykład:
+Po zainstalowaniu rozszerzenia dostawcy można dodać do jednostek właściwości obsługiwanych typów. Na przykład:
 
 ``` csharp
 using NetTopologySuite.Geometries;
@@ -42,7 +42,7 @@ namespace MyApp
 }
 ``` 
 
-Można następnie zachować jednostek o dane przestrzenne:
+Następnie można utrwalać jednostki z danymi przestrzennymi:
 
 ``` csharp
 using (var context = new MyDbContext())
@@ -56,7 +56,7 @@ using (var context = new MyDbContext())
     context.SaveChanges();
 }
 ```
-I można wykonywać zapytania bazy danych na podstawie danych przestrzennych i operacje:
+Można wykonywać zapytania bazy danych na podstawie danych przestrzennych i operacji:
 
 ``` csharp
   var nearestFriends =
@@ -65,35 +65,35 @@ I można wykonywać zapytania bazy danych na podstawie danych przestrzennych i o
       select f).Take(5).ToList();
 ```
 
-Aby uzyskać więcej informacji na temat tej funkcji, zobacz [dokumentacji typów przestrzennych](xref:core/modeling/spatial). 
+Aby uzyskać więcej informacji na temat tej funkcji, zobacz [dokumentację typów przestrzennych](xref:core/modeling/spatial). 
 
-## <a name="collections-of-owned-entities"></a>Kolekcje jednostki należące do firmy
+## <a name="collections-of-owned-entities"></a>Kolekcje jednostek będących własnością
 
-EF Core 2.0 dodanie do użytkowania model w jeden do jednego skojarzenia.
-EF Core 2.2 rozszerza możliwości express własność skojarzenia jeden do wielu.
-Własność pomaga ograniczyć, jak jednostki są używane.
+EF Core 2,0 dodaliśmy możliwość modelowania własności w skojarzeniach jeden-do-jednego.
+EF Core 2,2 rozszerza możliwość wyrażania własności na skojarzenia jeden-do-wielu.
+Własność pomaga ograniczyć sposób używania jednostek.
 
-Na przykład należących do jednostki:
-- Może się pojawić tylko dla właściwości nawigacji innych typów jednostek. 
-- Są ładowane automatycznie i może być śledzone tylko przez DbContext wraz z ich właścicielem.
+Na przykład posiadane jednostki:
+- Mogą być wyświetlane tylko na właściwościach nawigacji innych typów jednostek. 
+- Są ładowane automatycznie i mogą być śledzone tylko przez DbContext wraz z ich właścicielem.
 
-Relacyjne bazy danych kolekcji należące do firmy są mapowane do oddzielnych tabel z jego właściciela, podobnie jak regularne skojarzenia jeden do wielu.
-Jednak w bazach danych korzystający z dokumentów, planujemy zagnieździć należących do podmiotów (w kolekcji należące do firmy lub odwołania) w obrębie tego samego dokumentu jako właściciel.
+W relacyjnych bazach danych kolekcje będące własnością są mapowane na oddzielne tabele od właściciela, podobnie jak regularne skojarzenia jeden-do-wielu.
+Ale w bazach danych opartych na dokumentach planujemy zagnieżdżać jednostki posiadane (w kolekcjach będących własnością lub odwołania) w tym samym dokumencie co właściciel.
 
-Można użyć tej funkcji przez wywołanie metody nowy interfejs API OwnsMany():
+Możesz użyć tej funkcji, wywołując Nowy interfejs API OwnsMany ():
 
 ``` csharp
 modelBuilder.Entity<Customer>().OwnsMany(c => c.Addresses);
 ```
 
-Aby uzyskać więcej informacji, zobacz [zaktualizowane należących do jednostek dokumentacja](xref:core/modeling/owned-entities#collections-of-owned-types).
+Aby uzyskać więcej informacji, zobacz [dokumentację informacji o zaktualizowanych jednostkach](xref:core/modeling/owned-entities#collections-of-owned-types).
 
-## <a name="query-tags"></a>Tagi kwerendy
+## <a name="query-tags"></a>Tagi zapytań
 
-Ta funkcja ułatwia korelacja zapytania LINQ w kodzie za pomocą wygenerowanego zapytań SQL przechwycone w dziennikach.
+Ta funkcja upraszcza korelację zapytań LINQ w kodzie z wygenerowanymi zapytaniami SQL przechwytywanymi w dziennikach.
 
-Aby móc korzystać z kwerendy, tagi, dodawać adnotacje zapytania LINQ za pomocą nowej metody TagWith().
-Przy użyciu zapytań przestrzennych z poprzedniego przykładu:
+Aby skorzystać z tagów zapytania, można dodać adnotacje do zapytania LINQ przy użyciu nowej metody TagWith ().
+Użycie zapytania przestrzennego z poprzedniego przykładu:
 
 ``` csharp
   var nearestFriends =
@@ -102,7 +102,7 @@ Przy użyciu zapytań przestrzennych z poprzedniego przykładu:
       select f).Take(5).ToList();
 ```
 
-To zapytanie LINQ generuje następujące dane wyjściowe SQL:
+To zapytanie LINQ zwróci następujące dane wyjściowe SQL:
 
 ``` sql
 -- This is my spatial query!
@@ -112,4 +112,4 @@ FROM [Friends] AS [f]
 ORDER BY [f].[Location].STDistance(@__myLocation_0) DESC
 ```
 
-Aby uzyskać więcej informacji, zobacz [zapytania tagów dokumentacji](xref:core/querying/tags). 
+Aby uzyskać więcej informacji, zobacz [dokumentację tagów zapytań](xref:core/querying/tags). 

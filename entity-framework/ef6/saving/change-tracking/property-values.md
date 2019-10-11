@@ -1,30 +1,30 @@
 ---
-title: Praca z wartości właściwości - EF6
+title: Praca z wartościami właściwości — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e3278b4b-9378-4fdb-923d-f64d80aaae70
-ms.openlocfilehash: afde503bb4ed15fcf83a57053541cd5da8c89835
-ms.sourcegitcommit: 50521b4a2f71139e6a7210a69ac73da582ef46cf
+ms.openlocfilehash: d8a18182754980d79b71df3f227b30c4ce40366f
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 06/27/2019
-ms.locfileid: "67416674"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182140"
 ---
 # <a name="working-with-property-values"></a>Praca z wartościami właściwości
-W większości przypadków zajmie się Entity Framework śledzenia stanu, oryginalne wartości oraz bieżące wartości właściwości wystąpienia jednostki. Jednak może być pewnych przypadkach — takich jak rozłączonych scenariuszy —, w której chcesz wyświetlić i modyfikować EF ma informacje o właściwościach. Techniki przedstawione w tym temacie stosuje się jednakowo do modeli utworzonych za pomocą Code First i projektancie platformy EF.  
+W przypadku większości Entity Framework należy zachować ostrożność śledzenia stanu, oryginalnych wartości i bieżących wartości właściwości wystąpień jednostek. Mogą jednak wystąpić sytuacje — takie jak scenariusze rozłączenia — w przypadku, gdy chcesz wyświetlić informacje o właściwościach i manipulować nimi. Techniki przedstawione w tym temacie dotyczą również modeli utworzonych przy użyciu Code First i programu Dr Designer.  
 
-Entity Framework śledzi informacje o dwóch wartości dla każdej właściwości śledzone jednostki. Bieżąca wartość to, jak wskazuje nazwa, bieżąca wartość właściwości w obiekcie. Oryginalną wartość jest wartością, której właściwość jednostki pobieranych z bazy danych lub został dołączony do kontekstu.  
+Entity Framework śledzi dwie wartości dla każdej właściwości śledzonej jednostki. Bieżąca wartość to, jak nazwa wskazuje bieżącą wartość właściwości w jednostce. Oryginalna wartość jest wartością, którą Właściwość miała w czasie, gdy zapytanie o jednostkę z bazy danych lub dołączono do kontekstu.  
 
-Istnieją dwa mechanizmy ogólne dotyczące pracy z wartości właściwości:  
+Istnieją dwa ogólne mechanizmy pracy z wartościami właściwości:  
 
-- Wartość jednej właściwości mogą być uzyskane w silnie typizowany sposób przy użyciu metody właściwości.  
-- Do obiektu DbPropertyValues można odczytać wartości dla wszystkich właściwości jednostki. DbPropertyValues następnie działa jako obiekt słownika przypominającej umożliwiające odczyt i ustawianie wartości właściwości. Można ustawić wartości w obiekcie DbPropertyValues z wartości w innym obiekcie DbPropertyValues lub wartości w innym obiekcie, takich jak kopiowanie innej jednostki lub obiektu transferu prostych danych (DTO).  
+- Wartość pojedynczej właściwości można uzyskać w jednoznacznie określonym sposobie przy użyciu metody właściwości.  
+- Wartości wszystkich właściwości jednostki można odczytać w obiekcie dbpropertyvalues. Dbpropertyvalues następnie działa jako obiekt podobny do słownika, aby umożliwić odczytywanie i ustawianie wartości właściwości. Wartości w obiekcie dbpropertyvalue można ustawić na podstawie wartości w innych obiektach dbpropertyvalue lub z wartości w innym obiekcie, takich jak inna kopia jednostki lub obiekt prostego transferu danych (DTO).  
 
-Poniższe sekcje pokazują przykłady przy użyciu zarówno mechanizmów powyżej.  
+W poniższych sekcjach przedstawiono przykłady użycia powyższych mechanizmów.  
 
-## <a name="getting-and-setting-the-current-or-original-value-of-an-individual-property"></a>Pobieranie i ustawianie bieżącej lub oryginalna wartość wybranej właściwości  
+## <a name="getting-and-setting-the-current-or-original-value-of-an-individual-property"></a>Pobieranie i Ustawianie bieżącej lub oryginalnej wartości pojedynczej właściwości  
 
-W poniższym przykładzie pokazano, jak można odczytywać i następnie ustawić nową wartość bieżącą wartość właściwości:  
+W poniższym przykładzie pokazano, jak można odczytać bieżącą wartość właściwości, a następnie ustawić nową wartość:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -45,17 +45,17 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Użyj właściwości OriginalValue zamiast właściwości CurrentValue odczytać lub ustawić oryginalnej wartości.  
+Użyj właściwości OriginalValue zamiast właściwości CurrentValue, aby odczytać lub ustawić oryginalną wartość.  
 
-Należy pamiętać, że zwracana wartość jest wpisana jako "object", gdy ciąg jest używany do określenia nazwy właściwości. Z drugiej strony zwrócona wartość zdecydowanie jest wpisane, jeśli wyrażenie lambda jest używany.  
+Zwróć uwagę, że zwracana wartość jest wpisana jako "Object", gdy do określenia nazwy właściwości zostanie użyty ciąg. Z drugiej strony zwracana wartość jest silnie wpisana, jeśli jest używane wyrażenie lambda.  
 
-Ustawienie wartości właściwości, takie jak to tylko spowoduje oznaczenie właściwości, jak modyfikacji, jeśli nowa wartość jest inna niż poprzednia wartość.  
+Ustawienie wartości właściwości w taki sposób spowoduje oznaczenie właściwości jako modyfikowanej, jeśli nowa wartość różni się od starej wartości.  
 
-Gdy wartość właściwości jest ustawiana w ten sposób zmiany jest wykrywane automatycznie, nawet wtedy, gdy AutoDetectChanges jest wyłączona.  
+Gdy wartość właściwości jest ustawiona w ten sposób, zmiana jest wykrywana automatycznie, nawet jeśli AutoDetectChanges jest wyłączona.  
 
-## <a name="getting-and-setting-the-current-value-of-an-unmapped-property"></a>Pobieranie i ustawianie bieżącej wartości właściwości niezamapowane  
+## <a name="getting-and-setting-the-current-value-of-an-unmapped-property"></a>Pobieranie i Ustawianie bieżącej wartości niezamapowanej właściwości  
 
-Bieżąca wartość właściwości, która nie została zamapowana do bazy danych, również mogą być odczytywane. Przykład niezamapowane właściwości może być właściwością RssLink na blogu. Ta wartość może być obliczona w oparciu o BlogId i w związku z tym nie mają być przechowywane w bazie danych. Na przykład:  
+Nie można również odczytać bieżącej wartości właściwości, która nie jest zamapowana do bazy danych. Przykładem niezamapowanej właściwości może być Właściwość RssLink w blogu. Ta wartość może być obliczana w oparciu o BlogId i dlatego nie musi być przechowywana w bazie danych. Na przykład:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -69,9 +69,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Bieżąca wartość można również ustawić, jeśli właściwość udostępnia metody ustawiającej.  
+Bieżącą wartość można również ustawić, jeśli właściwość uwidacznia metodę ustawiającą.  
 
-Odczytywanie wartości właściwości niezamapowane jest przydatne w przypadku, gdy wykonywanie weryfikacji platformy Entity Framework niezamapowane właściwości. Z tego samego powodu bieżących wartości może odczytywać i ustawić dla właściwości jednostki, które nie są obecnie są śledzone przez kontekst. Na przykład:  
+Odczytywanie wartości niezamapowanych właściwości jest przydatne podczas przeprowadzania Entity Framework weryfikacji niezamapowanych właściwości. Z tego samego powodu bieżące wartości można odczytać i ustawić dla właściwości jednostek, które nie są aktualnie śledzone przez kontekst. Na przykład:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -87,11 +87,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Pamiętaj, że oryginalne wartości nie są dostępne dla właściwości niezamapowane właściwości jednostki, które nie są śledzone przez kontekst.  
+Należy zauważyć, że oryginalne wartości nie są dostępne dla niezamapowanych właściwości lub dla właściwości jednostek, które nie są śledzone przez kontekst.  
 
 ## <a name="checking-whether-a-property-is-marked-as-modified"></a>Sprawdzanie, czy właściwość jest oznaczona jako zmodyfikowana  
 
-W poniższym przykładzie pokazano, jak sprawdzić, czy poszczególne właściwość jest oznaczona jako zmodyfikowana:  
+W poniższym przykładzie pokazano, jak sprawdzić, czy dana właściwość jest oznaczona jako zmodyfikowano:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -105,11 +105,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Wartości zmodyfikowane właściwości są wysyłane jako aktualizacje w bazie danych po wywołaniu funkcji SaveChanges.  
+Wartości zmodyfikowanych właściwości są wysyłane jako aktualizacje bazy danych po wywołaniu metody SaveChanges.  
 
-##  <a name="marking-a-property-as-modified"></a>Oznaczanie jako zmodyfikowana właściwość  
+##  <a name="marking-a-property-as-modified"></a>Oznaczanie właściwości jako zmodyfikowane  
 
-W poniższym przykładzie pokazano, jak wymusić pojedynczej właściwości, aby być oznaczona jako zmodyfikowana:  
+W poniższym przykładzie pokazano, jak wymusić oznaczenie pojedynczej właściwości jako zmodyfikowanej:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -123,13 +123,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Oznaczanie właściwość jako zmodyfikowane wymusza aktualizację można wysyłać do bazy danych dla właściwości po wywołaniu funkcji SaveChanges nawet, jeśli bieżąca wartość właściwości jest taka sama jak oryginalną wartość.  
+Oznaczenie właściwości jako zmodyfikowanej powoduje, że aktualizacja ma być wysyłana do bazy danych dla właściwości, gdy metody SaveChanges jest wywoływana, nawet jeśli bieżąca wartość właściwości jest taka sama jak oryginalna wartość.  
 
-Nie jest obecnie możliwe zresetować pojedynczej właściwości nie można zmodyfikować po została oznaczona jako zmodyfikowana. Jest to coś, co firma Microsoft planuje się obsługiwać w przyszłej wersji.  
+Obecnie nie można zresetować pojedynczej właściwości, aby nie była modyfikowana po oznaczeniu jej jako zmodyfikowana. Jest to coś, co planujemy obsłużyć w przyszłej wersji.  
 
-## <a name="reading-current-original-and-database-values-for-all-properties-of-an-entity"></a>Odczytywanie bieżącego, oryginalne i wartości z bazy danych dla wszystkich właściwości jednostki  
+## <a name="reading-current-original-and-database-values-for-all-properties-of-an-entity"></a>Odczytywanie bieżących, oryginalnych i wartości bazy danych dla wszystkich właściwości jednostki  
 
-W poniższym przykładzie pokazano, jak odczytać bieżące wartości, oryginalne wartości i wartości, które faktycznie w bazie danych dla wszystkich zamapowanych właściwości jednostki.  
+W poniższym przykładzie pokazano, jak odczytać bieżące wartości, oryginalne wartości i wartości w rzeczywistości w bazie danych dla wszystkich zamapowanych właściwości jednostki.  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -163,11 +163,11 @@ public static void PrintValues(DbPropertyValues values)
 }
 ```  
 
-Bieżące wartości są wartościami, które obecnie zawiera właściwości jednostki. Oryginalne wartości są wartościami, które zostały odczytane z bazy danych, gdy badano jednostki. Wartości bazy danych są wartości, ponieważ są one przechowywane w bazie danych. Pobieranie wartości z bazy danych jest przydatne w przypadku, gdy mógł ulec zmianie wartości w bazie danych, ponieważ badano jednostki, takie jak podczas edytowania równoczesne bazy danych zostały dokonane przez innych użytkowników.  
+Bieżące wartości to wartości, które obecnie zawierają właściwości jednostki. Pierwotne wartości to wartości, które zostały odczytane z bazy danych podczas wykonywania zapytania dotyczącego jednostki. Wartości bazy danych są wartościami, które są obecnie przechowywane w bazie danych. Pobieranie wartości bazy danych jest przydatne, gdy wartości w bazie danych mogły ulec zmianie od momentu, w którym dana kwerenda została utworzona przez innego użytkownika.  
 
-## <a name="setting-current-or-original-values-from-another-object"></a>Ustawianie bieżącej lub oryginalnej wartości z innego obiektu  
+## <a name="setting-current-or-original-values-from-another-object"></a>Ustawianie bieżących lub oryginalnych wartości z innego obiektu  
 
-Bieżące i oryginalne wartości śledzonych jednostki mogą być aktualizowane przez skopiowanie wartości z innego obiektu. Na przykład:  
+Bieżące lub oryginalne wartości śledzonej jednostki można aktualizować przez kopiowanie wartości z innego obiektu. Na przykład:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -196,9 +196,9 @@ public class BlogDto
 }
 ```  
 
-Uruchamianie kodu powyżej zostanie wydrukowana:  
+Uruchomienie kodu powyżej spowoduje wydrukowanie:  
 
-```  
+```console
 Current values:
 Property Id has value 1
 Property Name has value My Cool Blog
@@ -208,13 +208,13 @@ Property Id has value 1
 Property Name has value My Boring Blog
 ```  
 
-Ta technika jest czasami używana podczas aktualizowania jednostki przy użyciu wartości z wywołania usługi lub klienta w aplikacji n-warstwowej. Pamiętaj, że obiekt używany nie musi być tego samego typu co podmiot, tak długo, jak długo ma właściwości, których nazwy odpowiadają jednostki. W powyższym przykładzie wystąpienie BlogDTO służy do aktualizacji oryginalnych wartości.  
+Ta technika jest czasami stosowana podczas aktualizowania jednostki przy użyciu wartości uzyskanych z wywołania usługi lub klienta w aplikacji n-warstwowej. Należy zauważyć, że użyty obiekt nie musi być tego samego typu co jednostka, tak długo, jak ma właściwości, których nazwy są zgodne z tymi, które są takie same. W powyższym przykładzie wystąpienie elementu BlogDTO jest używane do aktualizowania oryginalnych wartości.  
 
-Należy zauważyć, że tylko te właściwości, które są ustawione na różnych wartości podczas kopiowania z innego obiektu zostanie oznaczona jako zmodyfikowana.  
+Należy pamiętać, że tylko właściwości, które są ustawione na różne wartości, gdy skopiowane z innego obiektu zostaną oznaczone jako zmodyfikowane.  
 
-## <a name="setting-current-or-original-values-from-a-dictionary"></a>Ustawianie bieżącej lub oryginalnej wartości ze słownika  
+## <a name="setting-current-or-original-values-from-a-dictionary"></a>Ustawianie bieżących lub oryginalnych wartości ze słownika  
 
-Bieżące i oryginalne wartości śledzonych jednostki mogą być aktualizowane przez skopiowanie wartości ze słownika lub inne struktury danych. Na przykład:  
+Bieżące lub oryginalne wartości śledzonej jednostki można aktualizować przez kopiowanie wartości ze słownika lub innej struktury danych. Na przykład:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -238,11 +238,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Użyj właściwości OriginalValues zamiast właściwości CurrentValues można ustawić oryginalnej wartości.  
+Użyj właściwości OriginalValues zamiast właściwości CurrentValues, aby ustawić oryginalne wartości.  
 
-## <a name="setting-current-or-original-values-from-a-dictionary-using-property"></a>Ustawianie bieżącej lub oryginalnej wartości ze słownika przy użyciu właściwości  
+## <a name="setting-current-or-original-values-from-a-dictionary-using-property"></a>Ustawianie bieżących lub oryginalnych wartości ze słownika przy użyciu właściwości  
 
-Alternatywa dla użycia CurrentValues lub OriginalValues, jak pokazano powyżej jest użycie metody właściwości można ustawić wartość każdej właściwości. Może to być pożądane, gdy należy ustawić wartości właściwości złożonych. Na przykład:  
+Alternatywą dla korzystania z CurrentValues lub OriginalValues, jak pokazano powyżej, jest użycie metody właściwości w celu ustawienia wartości każdej właściwości. Może to być preferowany, gdy trzeba ustawić wartości właściwości złożonych. Na przykład:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -266,11 +266,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-W przykładzie powyżej złożonych właściwości są dostępne przy użyciu notacji nazw. Inne sposoby dostępu do właściwości złożonych zobacz dwie sekcje w dalszej części tego tematu sobie konkretnie o złożonych właściwości.  
+W powyższym przykładzie można uzyskać dostęp do właściwości złożonych przy użyciu kropkowanych nazw. Aby uzyskać informacje o innych sposobach uzyskiwania dostępu do właściwości złożonych, zobacz dwie sekcje w dalszej części tego tematu w odniesieniu do właściwości złożonych.  
 
-## <a name="creating-a-cloned-object-containing-current-original-or-database-values"></a>Tworzenie Sklonowany obiekt zawierający bieżące, oryginalny lub wartościami bazy danych  
+## <a name="creating-a-cloned-object-containing-current-original-or-database-values"></a>Tworzenie sklonowanego obiektu zawierającego bieżące, oryginalne lub wartości bazy danych  
 
-Zwróciła obiekt DbPropertyValues CurrentValues, OriginalValues, lub GetDatabaseValues może służyć do tworzenia klonu jednostki. Klonuj ten będzie zawierać wartości właściwości z obiektu DbPropertyValues użyty do jego utworzenia. Na przykład:  
+Obiekt dbpropertyvalue zwrócony z CurrentValues, OriginalValues lub GetDatabaseValues może służyć do tworzenia klonu jednostki. Ten klon będzie zawierać wartości właściwości z obiektu dbpropertyvalue użytego do jego utworzenia. Na przykład:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -281,13 +281,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Należy pamiętać, że zwrócony obiekt nie jest obiektem i nie jest śledzony przez kontekst. Zwrócony obiekt nie ma również wszystkie relacje z zestawu do innych obiektów.  
+Zwróć uwagę, że zwrócony obiekt nie jest jednostką i nie jest śledzony przez kontekst. Zwrócony obiekt nie ma również żadnych relacji ustawionych na inne obiekty.  
 
-Sklonowany obiekt może być przydatna podczas rozwiązywania problemów związanych z równoczesnych aktualizacji w bazie danych, szczególnie gdy interfejs użytkownika, który obejmuje powiązywanie danych do obiektów określonego typu jest używany.  
+Sklonowany obiekt może być przydatny do rozwiązywania problemów dotyczących współbieżnych aktualizacji bazy danych, szczególnie w przypadku używania interfejsu użytkownika, który obejmuje powiązanie danych z obiektami określonego typu.  
 
-## <a name="getting-and-setting-the-current-or-original-values-of-complex-properties"></a>Pobieranie i ustawianie bieżącej lub oryginalnej wartości właściwości złożonych  
+## <a name="getting-and-setting-the-current-or-original-values-of-complex-properties"></a>Pobieranie i Ustawianie bieżących lub oryginalnych wartości właściwości złożonych  
 
-Wartość cały obiekt złożony można odczytu i zestawu przy użyciu metody właściwości tak, jak można uzyskać właściwość typu pierwotnego. Ponadto możesz przejść do szczegółów obiektu złożonego i odczytu lub ustaw właściwości tego obiektu lub zagnieżdżony obiekt. Oto kilka przykładów:  
+Wartość całego obiektu złożonego można odczytać i ustawić przy użyciu metody właściwości tak samo, jak może być właściwością pierwotną. Ponadto możesz przejść do szczegółów obiektu złożonego i odczytać lub ustawić właściwości tego obiektu, a nawet zagnieżdżony obiekt. Oto kilka przykładów:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -334,13 +334,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Użyj właściwości OriginalValue zamiast właściwości CurrentValue, aby pobrać lub ustawić oryginalnej wartości.  
+Użyj właściwości OriginalValue zamiast właściwości CurrentValue, aby pobrać lub ustawić oryginalną wartość.  
 
-Należy pamiętać, że właściwość lub metoda ComplexProperty może służyć do dostępu do właściwości złożonej. Jednak metoda ComplexProperty należy użyć, jeśli chcesz przejść do obiektu złożonego za pomocą dodatkowych właściwości lub ComplexProperty wywołuje.  
+Należy zauważyć, że właściwość lub metoda ComplexProperty może być używana w celu uzyskania dostępu do właściwości złożonej. Jednak Metoda ComplexProperty musi zostać użyta, jeśli chcesz przejść do obiektu złożonego z dodatkowymi wywołaniami właściwości lub ComplexProperty.  
 
-## <a name="using-dbpropertyvalues-to-access-complex-properties"></a>Za pomocą DbPropertyValues uzyskiwania dostępu do właściwości złożonych  
+## <a name="using-dbpropertyvalues-to-access-complex-properties"></a>Korzystanie z funkcji dbpropertyvalues w celu uzyskania dostępu do właściwości złożonych  
 
-Jeśli używasz CurrentValues, OriginalValues lub GetDatabaseValues można pobrać wszystkie bieżące, oryginalnym lub wartości bazy danych dla jednostki, wartości wszystkich właściwości złożone są zwracane jako obiekty zagnieżdżone DbPropertyValues. Te zagnieżdżone obiekty mogą następnie służyć do uzyskiwania wartości obiektu złożonego. Na przykład poniższa metoda zostanie wydrukowana wartości wszystkich właściwości, w tym wartości wszelkich złożone i zagnieżdżonych właściwości złożonych.  
+W przypadku korzystania z CurrentValues, OriginalValues lub GetDatabaseValues w celu uzyskania wszystkich bieżących, oryginalnych lub wartości bazy danych dla jednostki, wartości wszelkich właściwości złożonych są zwracane jako zagnieżdżone obiekty dbpropertyvalues. Te obiekty zagnieżdżone można następnie użyć do uzyskania wartości obiektu złożonego. Na przykład następująca metoda spowoduje wydrukowanie wartości wszystkich właściwości, w tym wartości wszelkich złożonych właściwości i zagnieżdżonych właściwości złożonych.  
 
 ``` csharp
 public static void WritePropertyValues(string parentPropertyName, DbPropertyValues propertyValues)
@@ -362,7 +362,7 @@ public static void WritePropertyValues(string parentPropertyName, DbPropertyValu
 }
 ```  
 
-Aby wydrukować wszystkie bieżące wartości właściwości metoda będzie wywołana następująco:  
+Aby wydrukować wszystkie bieżące wartości właściwości, Metoda zostałaby wywołana w następujący sposób:  
 
 ``` csharp
 using (var context = new BloggingContext())

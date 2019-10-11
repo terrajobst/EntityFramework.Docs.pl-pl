@@ -1,147 +1,147 @@
 ---
-title: Testowalność i Entity Framework 4.0
+title: Testowanie i Entity Framework 4,0 — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9430e2ab-261c-4e8e-8545-2ebc52d7a247
-ms.openlocfilehash: aec177438004fd255bef85a5e5047cf6b5a6f782
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: 28ec5446ce9faf98fb8fff141832236d70b29daf
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46284047"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181577"
 ---
-# <a name="testability-and-entity-framework-40"></a>Testowalność i Entity Framework 4.0
-Scott Allen
+# <a name="testability-and-entity-framework-40"></a>Testowanie i Entity Framework 4,0
+Scott
 
-Data publikacji: Maja 2010
+Publikacj Maj 2010
 
 ## <a name="introduction"></a>Wprowadzenie
 
-Ten dokument zawiera opis i pokazuje, jak pisać kodu sprawdzalnego działa zgodnie z ADO.NET Entity Framework 4.0 i Visual Studio 2010. W tym dokumencie nie podejmuje próby skupić się na określonych metodologia testowania, takich jak projektowanie oparte na testach (TDD) lub projektowania opartego na zachowanie (BDD). Zamiast tego ten dokument koncentruje się na temat sposobu pisania kodu, który używa programu ADO.NET Entity Framework, ale pozostaje ułatwia odizolować i przetestować w zautomatyzowany sposób. Zapoznamy się często używane wzorce projektowe, które ułatwiają dostęp do scenariuszy testowania w danych i zobacz, jak te wzorce są stosowane, gdy przy użyciu platformy. Również przyjrzymy określonych funkcji framework, aby zobaczyć, jak te funkcje mogą współdziałać w kodu sprawdzalnego działa zgodnie.
+W tym dokumencie opisano i pokazano, jak napisać kod weryfikowalne z ADO.NET Entity Framework 4,0 i Visual Studio 2010. Ten dokument nie próbuje skupić się na określonej metodologii testowania, na przykład w przypadku projektowania opartego na testach (TDD) lub projektu opartego na zachowaniach (BDD). Zamiast tego ten dokument koncentruje się na sposobach pisania kodu, który korzysta z ADO.NET Entity Framework jeszcze łatwo izolować i przetestować w zautomatyzowany sposób. Zapoznajmy się z typowymi wzorcami projektowymi, które ułatwiają testowanie scenariuszy dostępu do danych, i zobacz, jak zastosować te wzorce podczas korzystania z platformy. Poszukajmy również określonych funkcji platformy, aby zobaczyć, jak te funkcje mogą funkcjonować w kodzie weryfikowalne.
 
-## <a name="what-is-testable-code"></a>Co to jest kodu sprawdzalnego działa zgodnie?
+## <a name="what-is-testable-code"></a>Co to jest kod weryfikowalne?
 
-Możliwość sprawdzenia oprogramowanie przy użyciu zautomatyzowanych testów jednostek oferuje wiele korzyści pożądane. Wszyscy wie, że dobry test zmniejsza liczbę usterek oprogramowania w aplikacji i zwiększa jakość aplikacji — ale przebiega testów jednostkowych w miejscu wykraczają daleko poza po prostu znajdowaniu usterek.
+Możliwość weryfikowania oprogramowania przy użyciu zautomatyzowanych testów jednostkowych oferuje wiele pożądanych korzyści. Każdy wie, że dobre testy zmniejszają liczbę wad oprogramowania w aplikacji i zwiększają jakość aplikacji, ale ich testy jednostkowe nie przechodzą znacznie poza znalezieniem błędów.
 
-Zestaw testów jednostkowych dobre umożliwia zespół deweloperów zaoszczędzić czas i zachowuje kontrolę nad tworzone przez nich oprogramowanie. Zespół wprowadzić zmiany w istniejącym kodzie, Refaktoryzacja, ich przeprojektowywania i restrukturyzacji oprogramowania do nowych wymagań i dodawania nowych składników do aplikacji, korzystając z możliwości, wiedząc, zestawu testów, można sprawdzić działanie aplikacji. Testy jednostkowe są częścią cyklu szybkiej opinii w ułatwienia zmian i zachować łatwość oprogramowania w miarę wzrostu złożoności.
+Dobry zestaw testów jednostkowych pozwala zespołowi programistycznemu zaoszczędzić czas i zachować kontrolę nad tworzonym przez nie oprogramowaniem. Zespół może wprowadzać zmiany w istniejącym kodzie, refaktoryzacji, przeprojektowaniu i restrukturyzacji oprogramowania w celu spełnienia nowych wymagań oraz dodawać nowe składniki do aplikacji, jednocześnie wiedząc, że zestaw testów może zweryfikować zachowanie aplikacji. Testy jednostkowe są częścią szybkiego cyklu opinii, aby ułatwić zmianę i zachować łatwość utrzymania oprogramowania w miarę wzrostu złożoności.
 
-Testy jednostkowe jest dostarczany z ceną, jednak. Zespół będzie musiał poświęcić czas na tworzenie i obsługa testów jednostkowych. Nakład pracy wymagany do utworzenia tych testów jest bezpośrednio związana **testowalności** podstawowego oprogramowania. Jak łatwo jest oprogramowanie do testowania? Zespół projektowania oprogramowania za pomocą testowania należy pamiętać, utworzy szybciej niż zespół, Praca z oprogramowania bez sprawdzalnego działa zgodnie skuteczne testy.
+Jednak testy jednostkowe są dostarczane z ceną. Zespół musi zainwestować czas, aby utworzyć i zachować testy jednostkowe. Wielkość nakładu pracy wymaganego do utworzenia tych testów jest bezpośrednio związana z **testowaniem** podstawowego oprogramowania. Jak łatwe jest przetestowanie oprogramowania? Zespół, który opracowuje oprogramowanie z myślą o testowaniu, będzie tworzyć skuteczne testy szybciej niż zespół pracujący z oprogramowaniem weryfikowalne.
 
-Firma Microsoft zaprojektowała ADO.NET Entity Framework 4.0 (EF4) za pomocą testowania na uwadze. Nie oznacza to, że deweloperzy będzie zapisywać testów jednostkowych dla framework sam kod. Zamiast tego cele testowania EF4 ułatwiają tworzenie kodu sprawdzalnego działa zgodnie opartą na strukturze. Zanim przyjrzymy się konkretne przykłady, warto zrozumieć jakość kodu sprawdzalnego działa zgodnie.
+Firma Microsoft zaprojektowała ADO.NET Entity Framework 4,0 (EF4) z myślą o testowaniu. Nie oznacza to, że deweloperzy będą pisać testy jednostkowe względem samego kodu struktury. Zamiast tego cele testowania dla EF4 ułatwiają tworzenie kodu weryfikowalne, który kompiluje się na podstawie struktury. Przed przystąpieniem do określonych przykładów wartościowa się zrozumienie jakości kodu weryfikowalne.
 
-### <a name="the-qualities-of-testable-code"></a>Jakość kodu sprawdzalnego działa zgodnie
+### <a name="the-qualities-of-testable-code"></a>Jakość kodu weryfikowalne
 
-Kod, który jest łatwy do testów zawsze będzie mieć co najmniej dwóch cech. Łatwo jest pierwszym kodu sprawdzalnego działa zgodnie **obserwować**. Biorąc pod uwagę pewne zestaw danych wejściowych, powinno być łatwe do sprawdzanie danych wyjściowych kodu. Na przykład następujące metody badania jest łatwe, ponieważ metoda bezpośrednio zwraca wynik obliczeń.
+Kod, który jest łatwy do przetestowania, zawsze wykazuje co najmniej dwie cechy. Najpierw kod weryfikowalne jest łatwy do **obserwowania**. W przypadku niektórych zestawów danych wejściowych powinno być łatwe przestrzeganie danych wyjściowych kodu. Na przykład testowanie następującej metody jest proste, ponieważ metoda bezpośrednio zwraca wynik obliczenia.
 
 ``` csharp
     public int Add(int x, int y) {
-        return x + y;
+        return x + y;
     }
 ```
 
-Testowanie metody jest trudne, jeśli metoda zapisuje obliczona wartość do gniazda sieciowego, tabeli bazy danych lub plików, podobnie do poniższego kodu. Test musi być wykonania dodatkowej pracy do pobrania wartości.
+Testowanie metody jest trudne, jeśli metoda zapisuje obliczoną wartość w gnieździe sieciowym, tabeli bazy danych lub pliku, takim jak poniższy kod. Test musi wykonać dodatkową prace, aby pobrać wartość.
 
 ``` csharp
     public void AddAndSaveToFile(int x, int y) {
-         var results = string.Format("The answer is {0}", x + y);
-         File.WriteAllText("results.txt", results);
+         var results = string.Format("The answer is {0}", x + y);
+         File.WriteAllText("results.txt", results);
     }
 ```
 
-Po drugie, jest łatwa do kodu sprawdzalnego działa zgodnie **izolowania**. Użyjmy następujący pseudo-kod złe przykład kodu sprawdzalnego działa zgodnie.
+Po drugie, kod weryfikowalne jest łatwo **odizolowany**. Użyjmy poniższego pseudo kodu jako nieprawidłowego przykładu kodu weryfikowalne.
 
 ``` csharp
     public int ComputePolicyValue(InsurancePolicy policy) {
-        using (var connection = new SqlConnection("dbConnection"))
-        using (var command = new SqlCommand(query, connection)) {
+        using (var connection = new SqlConnection("dbConnection"))
+        using (var command = new SqlCommand(query, connection)) {
 
-            // business calculations omitted ...               
+            // business calculations omitted ...               
 
-            if (totalValue > notificationThreshold) {
-                var message = new MailMessage();
-                message.Subject = "Warning!";
-                var client = new SmtpClient();
-                client.Send(message);
-            }
-        }
-        return totalValue;
+            if (totalValue > notificationThreshold) {
+                var message = new MailMessage();
+                message.Subject = "Warning!";
+                var client = new SmtpClient();
+                client.Send(message);
+            }
+        }
+        return totalValue;
     }
 ```
 
-Metoda ta jest łatwy do obserwowania — firma Microsoft może przekazać ubezpieczeniowej i sprawdź, czy oczekiwany wynik pasuje do wartości zwracanej. Jednak do metody testowej musimy mieć zainstalowane przy użyciu poprawnego schematu bazy danych i konfigurowanie serwera SMTP, w przypadku, gdy metoda próbuje wysłać wiadomość e-mail.
+Metoda jest łatwa do obserwowania — możemy przekazać zasady ubezpieczenia i sprawdzić, czy wartość zwracana jest zgodna z oczekiwanym wynikiem. Jednak w celu przetestowania metody należy zainstalować bazę danych z odpowiednim schematem i skonfigurować serwer SMTP na wypadek próby wysłania wiadomości e-mail przez metodę.
 
-Test jednostkowy tylko chciał sprawdzić, czy logiki obliczeń wewnątrz metody, ale test może zakończyć się niepowodzeniem, ponieważ serwer poczty e-mail jest w trybie offline lub przenieść serwer bazy danych. Oba te błędy są związane z zachowaniem testu będzie chciał sprawdzić, czy. Zachowanie jest trudne do izolowania.
+Test jednostkowy chce jedynie sprawdzić logikę obliczeń wewnątrz metody, ale test może się nie powieść, ponieważ serwer poczty e-mail jest w trybie offline lub serwer bazy danych został przeniesiony. Obie te błędy nie są związane z zachowaniem, które test chce zweryfikować. Zachowanie jest trudne do odizolowania.
 
-Programistów, którzy Dokładamy wszelkich starań, aby zapisać często kodu sprawdzalnego działa zgodnie Dokładamy wszelkich starań zachować separacji w kodzie są zapisu. Powyższej metody należy skoncentrować się na obliczeń biznesowych i delegować szczegółów implementacji bazy danych i poczty e-mail do innych składników. Robert C. Martin wywołuje to pojedynczy zasady odpowiedzialności. Obiekt powinna hermetyzować pojedynczy, wąskie odpowiedzialność, takich jak obliczenia wartości zasady. Wszystkie inne zadania bazy danych i powiadomień należy odpowiedzialność innego obiektu. Kod napisany w ten sposób jest łatwiejsze do izolowania ponieważ koncentruje się na pojedynczym zadaniem.
+Deweloperzy oprogramowania, którzy dążą do pisania kodu weryfikowalne często dążą do utrzymania rozdzielenia problemów w kodzie, który pisze. Powyższa metoda powinna skupić się na obliczeniach firmy i delegować szczegóły implementacji bazy danych i wiadomości e-mail do innych składników. Robert C. Martin wywołuje tę samą regułę odpowiedzialności. Obiekt powinien hermetyzować jedną z wąskich obowiązków, takich jak obliczanie wartości zasad. Wszystkie inne bazy danych i służbowe powiadomienia powinny być odpowiedzialne za inne obiekty. Kod zapisany w ten sposób jest łatwiejszy do odizolowania, ponieważ koncentruje się na pojedynczym zadaniu.
 
-Na platformie .NET mamy abstrakcji, potrzebne do działania w przekonaniu pojedynczej odpowiedzialności i uzyskania izolacji. Możemy użyć definicji interfejsu i wymusić kod, aby użyć abstrakcji interfejsu, a nie do konkretnego typu. W dalszej części tego dokumentu zobaczymy, jak metoda, takich jak zły przykład przedstawiony powyżej może współpracować z interfejsów *Szukaj* jak rozmawiamy w bazie danych. W czasie testu jednak możemy użyć zamiast fikcyjnego implementację, która nie skontaktuj się z bazą danych, ale zamiast tego przechowuje dane w pamięci. Ta implementacja fikcyjnego izoluje kodu z niepowiązanych problemów w kod dostępu do danych lub baza danych konfiguracji.
+W programie .NET mamy streszczenia, które muszą przestrzegać jednej zasady odpowiedzialności i uzyskać izolację. Możemy użyć definicji interfejsu i wymusić użycie przez kod abstrakcji interfejsu zamiast konkretnego typu. W dalszej części tego dokumentu zobaczymy, jak metoda, taka jak niewłaściwy przykład przedstawiony powyżej, może współdziałać z interfejsami, które *wyglądają* podobnie do bazy danych. W czasie testu można jednak zastąpić implementację fikcyjną, która nie komunikuje się z bazą danych, ale zamiast tego przechowuje dane w pamięci. Ta implementacja fikcyjna izoluje kod z niepowiązanych problemów w kodzie dostępu do danych lub w konfiguracji bazy danych.
 
-Istnieją dodatkowe korzyści z izolacji. Obliczenia biznesowego w ostatnim metody powinna trwać tylko kilka milisekund, które można wykonać, ale same testy mogą działać przez kilka sekund jako przeskoków kodu wokół sieci i rozmowy na różnych serwerach. Testy jednostkowe, należy uruchomić szybki w celu ułatwienia niewielkich zmian. Testy jednostkowe powinny także powtarzalne oraz wystąpi niepowodzenie, ponieważ składnik niezwiązanych ze sobą na test ma problem. Pisanie kodu, który jest łatwy do obserwowania i do izolowania oznacza, że deweloperzy będzie teraz łatwiejsze pisania testów dla kodu, mogą spędzać mniej czasu oczekiwania na testami do wykonania, a więcej co ważniejsze, mogą spędzać mniej czasu, śledzenie błędów, które nie istnieją.
+Istnieje dodatkowe korzyści związane z izolacją. Obliczenia biznesowe w ostatniej metodzie powinny trwać tylko kilka milisekund, ale test może być wykonywany przez kilka sekund w miarę przeskoków kodu między siecią i rozmowy z różnymi serwerami. Testy jednostkowe powinny działać szybko, aby ułatwić małym zmianom. Testy jednostkowe powinny również być powtarzane i kończyć się niepowodzeniem, ponieważ wystąpił problem ze składnikiem niezwiązanym z testem. Pisanie kodu, który jest łatwy do obserwowania i wyodrębnienia oznacza, że deweloperzy będą mieli łatwiejszy czas na zapisanie testów dla kodu, poświęcasz mniej czasu na przeprowadzenie testów i co ważniejsze, Poświęcaj mniej czasu na błędy śledzenia błędów, które nie istnieją.
 
-Miejmy nadzieję można docenić zalety testowania i zrozumieć cechy, które wykazuje kodu sprawdzalnego działa zgodnie. Jesteśmy rozwiązać jak napisać kod, który współdziała z EF4, aby zapisać dane w bazie danych pozostając dostrzegalnych i łatwe izolowanie, ale najpierw będzie zawęzić naszym głównym celem w celu omówienia sprawdzalnego działa zgodnie projektów, aby uzyskać dostęp do danych.
+Miejmy nadzieję można dowiedzieć się, jakie są korzyści z testowania i poznać jakości, które weryfikowalne kod. Zamierzamy się dowiedzieć, jak napisać kod, który współpracuje z usługą EF4, aby zapisać dane w bazie danych, a pozostało zauważalne i łatwe do odizolowania, ale najpierw zawężamy nasz skup, aby omówić projekty weryfikowalne na potrzeby dostępu do danych.
 
-## <a name="design-patterns-for-data-persistence"></a>Wzorce projektowe zapewniające trwałość danych
+## <a name="design-patterns-for-data-persistence"></a>Wzorce projektowe dla trwałości danych
 
-Obu przykładach zły przedstawiony wcześniej było zbyt wiele obowiązki. Pierwszy przykład zły musiał wykonać obliczenia *i* zapisu do pliku. Drugi przykład zły musiały odczytywać dane z bazy danych *i* wykonywanie obliczeń biznesowych *i* wysyłanie wiadomości e-mail. Projektowanie mniejszych metody, które Rozdziel problemy i delegować odpowiedzialność za inne składniki wprowadzisz dotykowego do pisania kodu sprawdzalnego działa zgodnie. Celem jest tworzyć funkcje za pośrednictwem akcji abstrakcje niewielkiego i skupionego projektu.
+Oba z nieprawidłowych przykładów przedstawionych wcześniej miały zbyt wiele obowiązków. Pierwszy zły przykład wymagał wykonania obliczeń *i* zapisu w pliku. Drugi zły przykład wymagał odczytania danych z bazy danych *i* wykonania obliczeń w firmie *oraz* wysłania wiadomości e-mail. Przez projektowanie mniejszych metod, które dzielą się problemami i delegowanie odpowiedzialności za inne składniki, będziesz mieć wspaniałe podejścia do pisania kodu weryfikowalne. Celem jest tworzenie funkcji przez redagowanie akcji z małych i ukierunkowanych abstrakcji.
 
-Gdy chodzi o trwałości danych mały abstrakcje ukierunkowanych, których firma Microsoft szuka są więc wspólne został zostały opisane jako wzorców projektowych. Książki Martina Fowlera wzorców Enterprise architektury aplikacji była pierwszym pracy do opisania tych wzorców w drukowania. Firma Microsoft udostępni krótki opis tych wzorców w poniższych sekcjach, zanim pokazujemy, jak te ADO.NET Entity Framework implementuje i współdziała z tych wzorców.
+Gdy chodzi o trwałość danych, są to popularne i uporządkowane abstrakcje, więc są one takie same, jak w przypadku wzorców projektowych. Wzorce książek Fowleraowych z rozliczeniami w przedsiębiorstwie były pierwszym działaniem opisującym te wzorce na wydruku. Udostępnimy krótkie opisy tych wzorców w poniższych sekcjach, zanim pokażemy, jak te ADO.NET Entity Framework implementują i współdziałają z tymi wzorcami.
 
 ### <a name="the-repository-pattern"></a>Wzorzec repozytorium
 
-Fowlera wynika z repozytorium "pośredniczy między domeną i dane warstw mapowania za pomocą interfejsu przypominającego kolekcji do uzyskiwania dostępu do obiektów domeny". Celem wzorca repozytorium jest do izolowania kodu z minutiae dostępu do danych i jak widzieliśmy wcześniej izolacji jest cechę wymaganych do testowania.
+Fowlera mówi repozytorium "koryguje między warstwami mapowania domeny i danych przy użyciu interfejsu przypominającego gromadzenie do uzyskiwania dostępu do obiektów domeny". Celem wzorca repozytorium jest odizolowanie kodu od minutiae dostępu do danych, a w przypadku wcześniejszej izolacji jest wymagana cecha do testowania.
 
-Kluczem do izolacji jest, jak repozytorium przedstawia obiektów za pomocą interfejsu przypominającego kolekcji. Logika zapisu do użycia w repozytorium ma nie wiadomo, jak repozytorium zmaterializowania obiektów, których w przypadku żądania. Repozytorium może komunikować się z bazą danych lub po prostu może zwracać obiekty z kolekcji w pamięci. Wszystko, czego Twój kod musi wiedzieć, jest repozytorium pojawia się do zachowania kolekcji i pobierania, dodawanie i usuwanie obiektów z kolekcji.
+Klucz odizolowany polega na tym, jak repozytorium uwidacznia obiekty przy użyciu interfejsu podobnej do kolekcji. Logika, którą zapisujesz do korzystania z repozytorium, nie ma znaczenia, w jaki sposób repozytorium będzie zmaterializowania żądane obiekty. Repozytorium może komunikować się z bazą danych lub po prostu zwraca obiekty z kolekcji w pamięci. Każdy kod musi wiedzieć, że repozytorium jest utrzymywane do obsługi kolekcji i można pobrać, dodać i usunąć obiekty z kolekcji.
 
-W istniejących aplikacjach .NET konkretnych repozytorium często dziedziczy interfejs ogólny, jak pokazano poniżej:
+W istniejących aplikacjach .NET konkretne repozytorium często dziedziczy z interfejsu generycznego, takiego jak następujące:
 
 ``` csharp
-    public interface IRepository<T> {       
-        IEnumerable<T> FindAll();
-        IEnumerable<T> FindBy(Expression<Func\<T, bool>> predicate);
-        T FindById(int id);
-        void Add(T newEntity);
-        void Remove(T entity);
+    public interface IRepository<T> {       
+        IEnumerable<T> FindAll();
+        IEnumerable<T> FindBy(Expression<Func\<T, bool>> predicate);
+        T FindById(int id);
+        void Add(T newEntity);
+        void Remove(T entity);
     }
 ```
 
-Wybierzemy kilka zmian do definicji interfejsu gdy firma Microsoft zapewnia implementację dla EF4, ale podstawowe pojęcia pozostają bez zmian. Kod można użyć konkretnego repozytorium implementacji interfejsu można pobrać jednostki, jego wartość klucza podstawowego, można pobrać kolekcję jednostek na podstawie oceny predykat, lub po prostu pobrać wszystkie dostępne jednostki. Kod można również dodawać i usuwać jednostki za pośrednictwem interfejsu repozytorium.
+Wprowadzimy kilka zmian w definicji interfejsu, gdy udostępnimy implementację EF4, ale podstawowa koncepcja pozostaje taka sama. Kod może użyć konkretnego repozytorium implementującego ten interfejs, aby pobrać jednostkę według wartości klucza podstawowego, pobrać kolekcję jednostek na podstawie oceny predykatu lub po prostu pobrać wszystkie dostępne jednostki. Kod może również dodawać i usuwać jednostki za pomocą interfejsu repozytorium.
 
-Biorąc pod uwagę obiektów IRepository pracowników, kod może wykonać następujące czynności.
+Mając IRepository obiektów pracowników, kod może wykonać następujące operacje.
 
 ``` csharp
     var employeesNamedScott =
-        repository
-            .FindBy(e => e.Name == "Scott")
-            .OrderBy(e => e.HireDate);
+        repository
+            .FindBy(e => e.Name == "Scott")
+            .OrderBy(e => e.HireDate);
     var firstEmployee = repository.FindById(1);
     var newEmployee = new Employee() {/*... */};
     repository.Add(newEmployee);
 ```
 
-Ponieważ kod wykorzystuje interfejs (IRepository pracowników), firma Microsoft może dostarczyć kod różne implementacje interfejsu. Jedna implementacja może być implementację wspierane przez EF4 i trwałość obiektów w bazie danych programu Microsoft SQL Server. Inną implementację (po jednym używanych przez firmę Microsoft podczas testowania) może być objęta obiektów listy pracowników w pamięci. Interfejs może pomóc w celu uzyskania izolacji w kodzie.
+Ponieważ kod używa interfejsu (IRepository pracownika), możemy udostępnić kod z różnymi implementacjami interfejsu. Jedną z implementacji może być implementacja EF4 i utrwalanie obiektów w bazie danych Microsoft SQL Server. Inna implementacja (używana podczas testowania) może być obsługiwana przez listę obiektów pracowników w pamięci. Interfejs pomoże uzyskać izolację w kodzie.
 
-Zwróć uwagę, IRepository&lt;T&gt; interfejsu nie ujawnia operacja zapisu. Jak zaktualizować istniejące obiekty? Mogą pochodzić między definicje IRepository, które obejmują operacja zapisu i implementacji tych repozytoriów, należy od razu utrwalić obiektu do bazy danych. Jednak w wielu aplikacjach nie chcemy zachować obiekty indywidualnie. Zamiast tego chcemy Ożyw obiektów, być może z różnych repozytoriów, zmodyfikować te obiekty jako część operacji biznesowych i następnie zachować wszystkie obiekty w ramach jednej operacji niepodzielnych. Na szczęście jest wzorzec tego typu zachowania.
+Zwróć uwagę, że interfejs IRepository @ no__t-0T @ no__t-1 nie ujawnia operacji zapisywania. Jak aktualizować istniejące obiekty? Mogą występować w definicjach IRepository, które obejmują operację zapisywania, a implementacje tych repozytoriów będą musiały natychmiast utrzymać obiekt w bazie danych. Jednak w wielu aplikacjach nie chcemy, aby obiekty były utrwalane pojedynczo. Zamiast tego chcemy przenieść obiekty do życia, prawdopodobnie z różnych repozytoriów, zmodyfikować te obiekty jako część działania biznesowego, a następnie utrwalać wszystkie obiekty w ramach jednej, niepodzielnej operacji. Na szczęście istnieje wzorzec zezwalający na zachowanie tego typu.
 
-### <a name="the-unit-of-work-pattern"></a>Jednostka wzorzec pracy
+### <a name="the-unit-of-work-pattern"></a>Wzorzec jednostki pracy
 
-Fowlera mówi, jednostka pracy będzie "Obsługa listy obiektów wpływ transakcji biznesowych i służy do koordynowania zapisu poza zmiany i rozwiązywanie problemów współbieżności". Jest odpowiedzialny za jednostkę pracy do śledzenia zmian do obiektów, firma Microsoft Ożyw z repozytorium i utrwala wszelkie zmiany, które wprowadziliśmy do obiektów, gdy o jednostce pracy, aby potwierdzić zmiany. Jest również odpowiedzialność za jednostkę pracy do wykonania nowe obiekty, firma Microsoft zostały dodane do wszystkich repozytoriów i wstawianie obiektów bazy danych, a także usunięcie Zarządzaj witryną.
+Fowlera oznacza, że jednostka pracy będzie obsługiwać listę obiektów, na które ma wpływ transakcja biznesowa, i koordynuje wpisywanie zmian i rozwiązywanie problemów współbieżności. Jest odpowiedzialna za jednostkę pracy, która śledzi zmiany w obiektach, które doprowadzamy do życia z repozytorium, i utrzymuje wszelkie zmiany wprowadzone w obiektach, gdy poinformujemy o jednostce pracy, aby zatwierdzić zmiany. Jest również odpowiedzialna za jednostkę pracy, która zajmie się nowymi obiektami, które zostały dodane do wszystkich repozytoriów i wstawia obiekty do bazy danych, a także do zarządzania usuwaniem.
 
-Jeśli nigdy nie wykonano żadnej pracy z zestawami danych ADO.NET następnie będzie już można zapoznać się z jednostką wzorzec pracy. Zestawy danych ADO.NET wcześniej mieli możliwość Śledź nasze aktualizacje, usuwanie i wstawianie elementu DataRow obiektów i może (za pomocą adaptera TableAdapter) uzgadniają wszystkich zmian do bazy danych. Jednak obiektów DataSet modelu podzestaw odłączonej bazy danych. Jednostka wzorzec pracy wykazuje takie samo zachowanie, ale działa z obiektami biznesowych i obiektów domeny, które są odizolowane od kod dostępu do danych i rozpoznaje bazy danych.
+Jeśli kiedykolwiek dojdziesz do pracy z zestawami danych ADO.NET, zobaczysz, że masz już doświadczenie ze wzorca jednostki pracy. Zestawy danych ADO.NET umożliwiają śledzenie naszych aktualizacji, usunięć i wstawiania obiektów DataRow i mogą być (za pomocą TableAdapter) uzgadniają wszystkie nasze zmiany w bazie danych. Jednak model obiektów DataSet ma odłączony podzestaw źródłowej bazy danych. Wzorzec jednostki pracy ma takie samo zachowanie, ale współpracuje z obiektami biznesowymi i obiektami domen, które są izolowane od kodu dostępu do danych i nie wiedząc bazy danych.
 
-Abstrakcja do modelowania jednostek pracy w kodzie .NET może wyglądać następująco:
+Streszczenie modelu jednostki pracy w kodzie .NET może wyglądać następująco:
 
 ``` csharp
     public interface IUnitOfWork {
-        IRepository<Employee> Employees { get; }
-        IRepository<Order> Orders { get; }
-        IRepository<Customer> Customers { get; }
-        void Commit();
+        IRepository<Employee> Employees { get; }
+        IRepository<Order> Orders { get; }
+        IRepository<Customer> Customers { get; }
+        void Commit();
     }
 ```
 
-Dzięki uwidocznieniu działania odwołania repozytorium przy użyciu jednostki pracy, którą firma Microsoft zapewnia pojedynczą jednostkę pracy obiekt ma możliwość śledzenia wszystkich jednostek zmaterializowanego podczas transakcji biznesowych. Implementacja metody zatwierdzania dla rzeczywistego jednostki pracy jest do uzgadniają zmiany w pamięci z bazą danych, gdzie się Magia. 
+Przez ujawnienie odwołań do repozytorium z jednostki pracy możemy zapewnić, że pojedynczy obiekt jednostki pracy ma możliwość śledzenia wszystkich jednostek w ramach transakcji biznesowej. Implementacja metody zatwierdzania dla rzeczywistej jednostki pracy polega na tym, że wszystko jest wykonywane w celu uzgodnienia zmian w pamięci z bazą danych. 
 
-Biorąc pod uwagę odwołaniem IUnitOfWork, kod można wprowadzać zmiany w obiektach firm pobierane z jednego lub więcej repozytoriów i Zapisz wszystkie zmiany, przy użyciu niepodzielnych operacji zatwierdzania.
+Mając odwołanie IUnitOfWork, kod może wprowadzać zmiany w obiektach biznesowych pobieranych z jednego lub większej liczby repozytoriów i zapisywać wszystkie zmiany przy użyciu niepodzielnej operacji zatwierdzania.
 
 ``` csharp
     var firstEmployee = unitofWork.Employees.FindById(1);
@@ -153,395 +153,395 @@ Biorąc pod uwagę odwołaniem IUnitOfWork, kod można wprowadzać zmiany w obie
 
 ### <a name="the-lazy-load-pattern"></a>Wzorzec obciążenia z opóźnieniem
 
-Fowlera używa nazwy obciążenia z opóźnieniem do opisania "obiekt, który nie zawiera wszystkich danych potrzebujesz, ale wie, jak przygotować". Przezroczysty powolne ładowanie to ważna cecha ma podczas pisania kodu sprawdzalnego działa zgodnie biznesowych i Praca z relacyjnej bazy danych. Na przykład rozważmy poniższy kod.
+Fowlera używa załadowania nazwy z opóźnieniem do opisywania "obiektu, który nie zawiera wszystkich potrzebnych danych, ale wie, jak to zrobić". Przezroczyste ładowanie z opóźnieniem jest ważną funkcją do tworzenia kodu biznesowego weryfikowalne i pracy z relacyjną bazą danych. Na przykład rozważmy poniższy kod.
 
 ``` csharp
     var employee = repository.FindById(id);
     // ... and later ...
     foreach(var timeCard in employee.TimeCards) {
-        // .. manipulate the timeCard
+        // .. manipulate the timeCard
     }
 ```
 
-Jak jest wypełniana kolekcji kart Istnieją dwa możliwe odpowiedzi. Jedną odpowiedź jest, że repozytorium pracowników, po wyświetleniu monitu o pobranie pracownika, wysyła zapytanie do pobrania pracownika wraz z informacjami skojarzone karta godzin pracownika. Relacyjne bazy danych to zwykle wymaga zapytanie z klauzulą JOIN i może skutkować podczas pobierania informacji niż aplikacja potrzebuje. Co zrobić, jeśli aplikacja nigdy nie musi dotykać właściwości kart?
+Jak jest wypełniona kolekcja TimeCards? Istnieją dwie możliwe odpowiedzi. Jedną z odpowiedzi jest to, że repozytorium pracowników, gdy zostanie wyświetlony monit o pobranie pracownika, generuje zapytanie w celu pobrania pracownika wraz z informacjami o karcie czasowej skojarzonym z pracownikami. W relacyjnych bazach danych zwykle wymaga zapytania z klauzulą JOIN i może spowodować pobranie większej ilości informacji niż wymaga aplikacji. Co zrobić, jeśli aplikacja nigdy nie musi dotykać właściwości TimeCards?
 
-Druga odpowiedź jest można załadować właściwości kart "na żądanie". To powolne ładowanie jest niewidoczne dla logiki biznesowej i niejawne, ponieważ kod nie jest wywoływany specjalne interfejsów API można pobrać informacji o karcie czasu. Kod zakłada, że informacje dotyczące karty czasu jest obecna, gdy są potrzebne. Ładowanie z opóźnieniem, które zazwyczaj polega na przechwytywaniu środowiska uruchomieniowego wywołań metody opisywanego zaangażowanych jest kilka magic. Przechwytujący kodu jest odpowiedzialny za komunikować się z bazą danych i pobierania informacji o karcie czasu przy równoczesnym zachowaniu logika biznesowa może być logiki biznesowej. Ta magic obciążenia z opóźnieniem umożliwia kod firm, aby izolować sam z operacjami pobierania danych i skutkuje więcej kodu sprawdzalnego działa zgodnie.
+Drugą odpowiedzią jest załadowanie właściwości TimeCards "na żądanie". To ładowanie z opóźnieniem jest niejawne i niewidoczne dla logiki biznesowej, ponieważ kod nie wywołuje specjalnych interfejsów API w celu pobrania informacji o karcie czasowej. Kod przyjmuje, że informacje o karcie czasowej są obecne, gdy jest to zajdzie taka potrzeba. Istnieje pewna magiczna Metoda ładowania z opóźnieniem, która zwykle obejmuje przechwycenie wywołania metody przez środowisko uruchomieniowe. Kod przechwytywania jest odpowiedzialny za rozmowę z bazą danych i pobieranie informacji o karcie czasu, pozostawiając logikę biznesową bezpłatnie do logiki biznesowej. Ten opóźniony magiczny ciąż umożliwia kod firmy odizolowanie od operacji pobierania danych i daje większy kod weryfikowalne.
 
-Wadą ładowane z opóźnieniem jest fakt, że aplikacja *jest* potrzebne informacje karty godz., kod będzie wykonywał żadnych dodatkowych kwerend. To nie jest istotna dla wielu aplikacji, ale dla aplikacji zawierających poufne dane wydajności lub aplikacji liczba obiektów pracowników w pętli i wykonywanie zapytania do pobierania czasu kart podczas każdej iteracji pętli (problem często określane jako N + 1 problem z zapytania), powolne ładowanie jest przeciągania. W tych scenariuszach aplikacji może być eagerly załadować informacji o czasie karty w najbardziej efektywny sposób.
+Wadą do obciążenia z opóźnieniem jest to, że gdy *aplikacja wymaga* informacji o karcie czasowej, kod wykona dodatkowe zapytanie. Nie jest to istotne w przypadku wielu aplikacji, ale w przypadku aplikacji i aplikacji wrażliwych na wydajność przez wiele obiektów pracowników i wykonywania zapytania w celu pobrania kart czasu podczas każdej iteracji pętli (problem często określa się jako N + 1) problem z kwerendą), ładowanie z opóźnieniem jest przeciągane. W tych scenariuszach aplikacja może chcieć eagerly dane karty czasu ładowania w najbardziej efektywny sposób.
 
-Na szczęście zobaczymy, jak EF4 obsługuje zarówno niejawne obciążeń z opóźnieniem i wydajne eager ładuje możemy przenosić do następnej sekcji i implementacji tych wzorców.
+Na szczęście zobaczymy, jak EF4 obsługuje zarówno niejawne obciążenia z opóźnieniem, jak i wydajne obciążenia eager podczas przechodzenia do następnej sekcji i implementują te wzorce.
 
-## <a name="implementing-patterns-with-the-entity-framework"></a>Implementowanie wzorców z programu Entity Framework
+## <a name="implementing-patterns-with-the-entity-framework"></a>Implementowanie wzorców przy użyciu Entity Framework
 
-Dobra wiadomość jest wszystkich wzorców projektowych, które firma Microsoft opisanego w ostatniej sekcji są proste do wdrożenia przy użyciu EF4. Aby zademonstrować są użyjemy prostej aplikacji ASP.NET MVC do edytowania i wyświetlania pracowników i ich skojarzone karta godzin. Rozpoczniemy pracę przy użyciu następujących "zwykłe stare CLR obiektów" (POCOs). 
+Dobra wiadomość polega na tym, że wszystkie wzorce projektowe opisane w ostatniej sekcji są proste do wdrożenia z EF4. Aby udowodnić, że będziemy używać prostej aplikacji ASP.NET MVC do edytowania i wyświetlania pracowników i skojarzonych z nimi informacji o karcie czasowej. Zaczniemy od następującej "zwykłych starych obiektów CLR" (POCOs). 
 
 ``` csharp
     public class Employee {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime HireDate { get; set; }
-        public ICollection<TimeCard> TimeCards { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public DateTime HireDate { get; set; }
+        public ICollection<TimeCard> TimeCards { get; set; }
     }
 
     public class TimeCard {
-        public int Id { get; set; }
-        public int Hours { get; set; }
-        public DateTime EffectiveDate { get; set; }
+        public int Id { get; set; }
+        public int Hours { get; set; }
+        public DateTime EffectiveDate { get; set; }
     }
 ```
 
-Te definicje klas będzie się nieznacznie zmieniać omówimy różne podejścia i funkcje EF4, ale celem jest zapewnienie tych klas jako trwałości zakresu (PI) jak to możliwe. Obiekt PI nie wie, *jak*, lub nawet *Jeśli*, stan przechowuje, są przechowywane w bazie danych. PI i POCOs idą ręka w rękę z oprogramowaniem sprawdzalnego działa zgodnie. Obiekty przy użyciu podejścia POCO są mniej ograniczone, bardziej elastyczne i łatwiejsze do testu, ponieważ mogą one działać bez bazy danych istnieje.
+Te definicje klas zmienią się nieco w miarę eksplorowania różnych metod i funkcji EF4, ale celem jest zachowanie tych klas jako trwałości ignorujących (PI), jak to możliwe. Obiekt PI nie wie, *jak*, a nawet *czy*stan, w którym znajduje się w bazie danych. PI i POCOs są dostępne z oprogramowaniem weryfikowalne. Obiekty korzystające z podejścia POCO są mniej ograniczone, bardziej elastyczne i łatwiejsze do testowania, ponieważ mogą działać bez bazy danych.
 
-Za pomocą POCOs w miejscu możemy utworzyć Entity Data Model (EDM) w programie Visual Studio (patrz rysunek 1). Firma Microsoft nie będzie używać EDM do generowania kodu dla naszych jednostek. Zamiast tego chcemy użyć jednostki, które firma Microsoft lovingly pracowali ręcznie. Firma Microsoft będzie używała tylko EDM Generowanie naszych schemat bazy danych, a następnie podaj metadane EF4 potrzebuje do mapowania obiektów do bazy danych.
+Korzystając z POCOs w miejscu, możemy utworzyć Entity Data Model (EDM) w programie Visual Studio (patrz rysunek 1). Nie będziemy używać modelu EDM do generowania kodu dla naszych jednostek. Zamiast tego chcemy używać jednostek, które Lovingly łodzi. Będziemy używać modelu EDM tylko do generowania schematu bazy danych i dostarczania metadanych EF4 potrzebnych do mapowania obiektów na bazę danych.
 
-![EF test_01](~/ef6/media/eftest-01.jpg)
+![Dr test_01](~/ef6/media/eftest-01.jpg)
 
-**Rysunek 1.**
+**Rysunek 1**
 
-Uwaga: Jeśli chcesz najpierw opracowanie modelu EDM jest możliwe czyszczenie, generowanie kodu POCO z EDM. Można to zrobić za pomocą rozszerzenia programu Visual Studio 2010, dostarczane przez zespół Data programowania. Aby pobrać rozszerzenie, uruchom Menedżera rozszerzeń z menu Narzędzia w programie Visual Studio i znajdowania galerii szablonów w trybie online "POCO" (zobacz rysunek 2). Istnieje kilka szablonów POCO są dostępne na platformie EF. Aby uzyskać więcej informacji na temat korzystania z tego szablonu, zobacz " [Instruktaż: obiektów POCO szablonu programu Entity Framework](https://blogs.msdn.com/adonet/pages/walkthrough-poco-template-for-the-entity-framework.aspx)".
+Uwaga: Jeśli chcesz najpierw opracować model modelu EDM, możliwe jest wygenerowanie czystego, POCOego kodu z modelu EDM. Można to zrobić za pomocą rozszerzenia programu Visual Studio 2010 dostarczonego przez zespół obsługujący programowanie danych. Aby pobrać rozszerzenie, uruchom Menedżera rozszerzeń z menu Narzędzia w programie Visual Studio i Przeszukaj galerię online szablonów dla "POCO" (patrz rysunek 2). Istnieje kilka szablonów POCO dostępnych dla EF. Aby uzyskać więcej informacji na temat używania szablonu, zobacz "[Walkthrough: Szablon POCO dla Entity Framework @ no__t-0 ".
 
-![EF test_02](~/ef6/media/eftest-02.png)
+![Dr test_02](~/ef6/media/eftest-02.png)
 
 **Rysunek 2**
 
-Z tego POCO punkt początkowy przeanalizujemy dwa różne podejścia do kodu sprawdzalnego działa zgodnie. Pierwszym sposobem czy mogę wywołać podejście EF, ponieważ wykorzystuje abstrakcje z Entity Framework interfejs API, aby zaimplementować jednostek pracy i repozytoriów. W drugiej metody możemy utworzyć własną abstrakcje niestandardowe repozytorium i wtedy wyświetlone zalety i wady każdej metody. Rozpoczniemy od wypróbowania podejście EF.  
+Z tego POCOego punktu początkowego będziemy eksplorować dwa różne podejścia do kodu weryfikowalne. Pierwsze podejście wywołuje podejście EF, ponieważ wykorzystuje abstrakcje z interfejsu API Entity Framework do implementowania jednostek pracy i repozytoriów. W drugim podejściu utworzymy własne abstrakcyjne streszczenie repozytorium, a następnie zobaczysz zalety i wady każdego podejścia. Zaczniemy od poznawania metody EF.  
 
-### <a name="an-ef-centric-implementation"></a>Implementacja przetwarzających EF
+### <a name="an-ef-centric-implementation"></a>Implementacja skoncentrowana na EF
 
-Należy wziąć pod uwagę następujące akcji kontrolera w projekcie ASP.NET MVC. Akcja pobiera obiekt pracowników i zwraca wynik, aby wyświetlić widok szczegółowy pracownika.
+Rozważmy następującą akcję kontrolera z projektu ASP.NET MVC. Akcja pobiera obiekt Employee i zwraca wynik, aby wyświetlić szczegółowy widok pracownika.
 
 ``` csharp
     public ViewResult Details(int id) {
-        var employee = _unitOfWork.Employees
-                                  .Single(e => e.Id == id);
-        return View(employee);
+        var employee = _unitOfWork.Employees
+                                  .Single(e => e.Id == id);
+        return View(employee);
     }
 ```
 
-Jest kodu sprawdzalnego działa zgodnie? Istnieją co najmniej dwóch testów czy musimy zweryfikować zachowanie akcji. Najpierw chcemy sprawdzić, czy akcja zwraca widok poprawne — łatwe testu. Firma Microsoft będzie również chcieć napisać test, aby sprawdzić działanie powoduje pobranie poprawne pracowników i prosimy o poświęcenie zrobienie tego bez wykonywania kodu, aby w bazie danych. Należy pamiętać, że chcemy izolowanie testowanego kodu. Izolacja będzie upewnij się, że test nie zakończy się niepowodzeniem z powodu usterki w kod dostępu do danych lub baza danych konfiguracji. Jeśli test zakończy się niepowodzeniem, wiemy, że mamy usterkę w logiką kontrolera, a nie w niektórych niższe składnika poziomu systemu.
+Czy kod jest weryfikowalne? Istnieją co najmniej dwa testy wymagające zweryfikowania zachowania działania. Najpierw chcemy sprawdzić, czy akcja zwraca poprawny widok — prosty test. Chcemy również napisać test, aby sprawdzić, czy akcja pobiera odpowiedniego pracownika, i chcemy to zrobić bez wykonywania kodu w celu wykonania zapytania względem bazy danych. Pamiętaj, że chcemy odizolować kod pod testem. Izolacja zapewni, że test nie powiedzie się z powodu błędu w kodzie dostępu do danych lub konfiguracji bazy danych. Jeśli test zakończy się niepowodzeniem, firma Microsoft wie, że mamy usterkę w logice kontrolera, a nie w pewnym składniku systemu niższego poziomu.
 
-W celu uzyskania izolacji poprosimy niektóre elementy abstrakcji takich jak interfejsy, które firma Microsoft przedstawiony wcześniej dla repozytoriów i jednostki pracy. Pamiętaj, że wzorzec repozytorium jest przeznaczona do pośredniczy między obiektów domeny i warstwy mapowanie danych. W tym scenariuszu EF4 *jest* dane mapowania warstwy i udostępnia już abstrakcji podobne do repozytorium, o nazwie IObjectSet&lt;T&gt; (z przestrzeni nazw System.Data.Objects). Definicja interfejsu wygląda podobnie do poniższego.
+Aby uzyskać izolację, będziemy potrzebować pewnych streszczeń, takich jak interfejsy przedstawione wcześniej dla repozytoriów i jednostek pracy. Należy pamiętać, że wzorzec repozytorium jest przeznaczony do korygowania między obiektami domeny a warstwą mapowania danych. W tym scenariuszu EF4 *jest* warstwa mapowania danych i zawiera już abstrakcję podobną do repozytorium o nazwie IObjectSet @ No__t-1T @ no__t-2 (z przestrzeni nazw System. Data. Objects). Definicja interfejsu wygląda następująco.
 
 ``` csharp
     public interface IObjectSet<TEntity> :
-                     IQueryable<TEntity>,
-                     IEnumerable<TEntity>,
-                     IQueryable,
-                     IEnumerable
-                     where TEntity : class
+                     IQueryable<TEntity>,
+                     IEnumerable<TEntity>,
+                     IQueryable,
+                     IEnumerable
+                     where TEntity : class
     {
-        void AddObject(TEntity entity);
-        void Attach(TEntity entity);
-        void DeleteObject(TEntity entity);
-        void Detach(TEntity entity);
+        void AddObject(TEntity entity);
+        void Attach(TEntity entity);
+        void DeleteObject(TEntity entity);
+        void Detach(TEntity entity);
     }
 ```
 
-IObjectSet&lt;T&gt; spełnia wymagania dotyczące repozytorium, ponieważ jest on podobny kolekcji obiektów (za pośrednictwem interfejsu IEnumerable&lt;T&gt;) i dostarcza metod dodawania i usuwania obiektów z kolekcji symulowane. Metod dołączania i odłączania uwidocznić dodatkowe funkcje interfejsu API EF4. Aby użyć IObjectSet&lt;T&gt; jako interfejs dla repozytoriów potrzebujemy jednostkę pracy abstrakcji można powiązać ze sobą repozytoriów.
+IObjectSet @ no__t-0T @ no__t-1 spełnia wymagania dotyczące repozytorium, ponieważ przypomina kolekcję obiektów (za pośrednictwem interfejsu IEnumerable @ no__t-2T @ no__t-3) i udostępnia metody dodawania i usuwania obiektów z symulowanej kolekcji. Metody dołączania i odłączania uwidaczniają dodatkowe możliwości interfejsu API EF4. Aby użyć IObjectSet @ no__t-0T @ no__t-1 jako interfejsu dla repozytoriów, potrzebujemy abstrakcji jednostek pracy, aby powiązać repozytoria ze sobą.
 
 ``` csharp
     public interface IUnitOfWork {
-        IObjectSet<Employee> Employees { get; }
-        IObjectSet<TimeCard> TimeCards { get; }
-        void Commit();
+        IObjectSet<Employee> Employees { get; }
+        IObjectSet<TimeCard> TimeCards { get; }
+        void Commit();
     }
 ```
 
-Jedną konkretną implementację tego interfejsu będzie się komunikował z programu SQL Server i łatwo utworzyć za pomocą klasy obiektu ObjectContext z EF4. Klasa obiektu ObjectContext jest prawdziwe jednostka pracy w interfejsie API EF4.
+Jedna konkretna implementacja tego interfejsu będzie komunikować się z SQL Server i będzie łatwa do tworzenia przy użyciu klasy ObjectContext z EF4. Klasa ObjectContext jest rzeczywistą jednostką pracy w interfejsie API EF4.
 
 ``` csharp
     public class SqlUnitOfWork : IUnitOfWork {
-        public SqlUnitOfWork() {
-            var connectionString =
-                ConfigurationManager
-                    .ConnectionStrings[ConnectionStringName]
-                    .ConnectionString;
-            _context = new ObjectContext(connectionString);
-        }
+        public SqlUnitOfWork() {
+            var connectionString =
+                ConfigurationManager
+                    .ConnectionStrings[ConnectionStringName]
+                    .ConnectionString;
+            _context = new ObjectContext(connectionString);
+        }
 
-        public IObjectSet<Employee> Employees {
-            get { return _context.CreateObjectSet<Employee>(); }
-        }
+        public IObjectSet<Employee> Employees {
+            get { return _context.CreateObjectSet<Employee>(); }
+        }
 
-        public IObjectSet<TimeCard> TimeCards {
-            get { return _context.CreateObjectSet<TimeCard>(); }
-        }
+        public IObjectSet<TimeCard> TimeCards {
+            get { return _context.CreateObjectSet<TimeCard>(); }
+        }
 
-        public void Commit() {
-            _context.SaveChanges();
-        }
+        public void Commit() {
+            _context.SaveChanges();
+        }
 
-        readonly ObjectContext _context;
-        const string ConnectionStringName = "EmployeeDataModelContainer";
+        readonly ObjectContext _context;
+        const string ConnectionStringName = "EmployeeDataModelContainer";
     }
 ```
 
-Dzięki temu IObjectSet&lt;T&gt; w życie jest równie proste jak wywołania metody CreateObjectSet obiektu ObjectContext. Za kulisami środowisko użyje metadanych zamieszczone w EDM, aby wygenerować konkretnego obiektu ObjectSet&lt;T&gt;. Używany będzie ze zwracaniem IObjectSet&lt;T&gt; interfejsu, ponieważ ułatwi to zachować testowania w kodzie klienta.
+IObjectSet @ no__t-0T @ no__t-1 do życia jest tak proste jak wywołanie metody metody CreateObjectSet obiektu ObjectContext. W tle środowisko Framework będzie używać metadanych dostarczonych w modelu EDM, aby utworzyć konkretny obiekt ObjectSet @ no__t-0T @ no__t-1. Nastąpi powrót do IObjectSet @ no__t-0T @ no__t-1 interfejsu, ponieważ pomoże to w zachowaniu testów w kodzie klienta.
 
-Ta implementacja konkretnych przydaje się w środowisku produkcyjnym, ale musimy skupić się na sposób użyjemy naszego abstrakcji IUnitOfWork aby ułatwić testowanie.
+Ta konkretna implementacja jest przydatna w środowisku produkcyjnym, ale musimy skupić się na tym, jak będziemy korzystać z naszego abstrakcji IUnitOfWork w celu ułatwienia testowania.
 
-### <a name="the-test-doubles"></a>Badanie wartości podwójnej precyzji
+### <a name="the-test-doubles"></a>Test podwaja się
 
-Aby wyizolować akcji kontrolera będziemy potrzebować możliwości przełączania się między rzeczywistych jednostkę pracy (wspierana przez obiekt ObjectContext) i testowej jednostki typu double lub "fałszywych" pracy (wykonywania operacji w pamięci). Typowym podejściem do wykonania tego rodzaju przełączanie jest zezwala kontroler MVC wystąpienia jednostki pracy, ale zamiast tego przebiegu jednostkę pracy do kontrolera jako parametr konstruktora.
+Aby wyizolować akcję kontrolera, potrzebna jest możliwość przełączenia między rzeczywistą jednostką pracy (za pomocą obiektu ObjectContext) i testu podwójnego lub "fałszywego" jednostki pracy (operacje wykonywane w pamięci). Typowym podejściem do przeprowadzenia tego typu przełączenia jest to, że kontroler MVC nie pozwala na utworzenie wystąpienia jednostki pracy, ale zamiast tego przekazać jednostkę pracy do kontrolera jako parametr konstruktora.
 
 ``` csharp
     class EmployeeController : Controller {
-      publicEmployeeController(IUnitOfWork unitOfWork)  {
-          _unitOfWork = unitOfWork;
-      }
-      ...
+      publicEmployeeController(IUnitOfWork unitOfWork)  {
+          _unitOfWork = unitOfWork;
+      }
+      ...
     }
 ```
 
-Powyższy kod jest przykładem iniekcji zależności. Nie umożliwiamy kontrolera utworzyć jego zależności (jednostka pracy), ale wstrzykiwanie zależności do kontrolera. W projekcie MVC jest często używa się fabryki kontrolerów niestandardowych w połączeniu z odwrócenie kontenera kontrolek (IoC) do automatyzowania iniekcji zależności. Te tematy wykraczają poza zakres tego artykułu, ale możesz przeczytać więcej przez następujące odwołania na końcu tego artykułu.
+Powyższy kod jest przykładem iniekcji zależności. Nie zezwolimy, aby kontroler utworzył zależność (jednostkę pracy), ale wstrzyknąć zależność do kontrolera. W projekcie MVC wspólne użycie fabryki kontrolerów niestandardowych w połączeniu z kontenerem Inversion of Control (IoC) w celu zautomatyzowania iniekcji zależności. Te tematy wykraczają poza zakres tego artykułu, ale więcej informacji można znaleźć, postępując zgodnie z odwołaniami na końcu tego artykułu.
 
-Jednostka fałszywych wprowadzania pracy, które firma Microsoft można używać do testowania może wyglądać następująco.
+Fałszywa implementacja pracy, której można użyć do testowania, może wyglądać następująco.
 
 ``` csharp
     public class InMemoryUnitOfWork : IUnitOfWork {
-        public InMemoryUnitOfWork() {
-            Committed = false;
-        }
-        public IObjectSet<Employee> Employees {
-            get;
-            set;
-        }
+        public InMemoryUnitOfWork() {
+            Committed = false;
+        }
+        public IObjectSet<Employee> Employees {
+            get;
+            set;
+        }
 
-        public IObjectSet<TimeCard> TimeCards {
-            get;
-            set;
-        }
+        public IObjectSet<TimeCard> TimeCards {
+            get;
+            set;
+        }
 
-        public bool Committed { get; set; }
-        public void Commit() {
-            Committed = true;
-        }
+        public bool Committed { get; set; }
+        public void Commit() {
+            Committed = true;
+        }
     }
 ```
 
-Zwróć uwagę, że fałszywych jednostkę pracy ujawnia właściwość zatwierdzone. Czasami jest to przydatne dodać funkcje do fałszywych klasę, która ułatwić testowanie. W tym przypadku jest łatwo obserwować, jeśli kod zatwierdzenia jednostkę pracy, zaznaczając właściwość zatwierdzone.
+Zwróć uwagę na to, że sfałszowana jednostka pracy uwidacznia Właściwość zatwierdzona. Czasami warto dodać do fałszywej klasy funkcje, które ułatwiają testowanie. W takim przypadku można łatwo sprawdzić, czy kod zatwierdza jednostkę pracy, sprawdzając Właściwość zatwierdzona.
 
-Będziemy również potrzebować fałszywych IObjectSet&lt;T&gt; do przechowywania obiektów, pracowników i karty czasowej w pamięci. Oferujemy pojedynczą implementacją za pomocą typów ogólnych.
+Potrzebujemy również fałszywych IObjectSet @ no__t-0T @ no__t-1 do przechowywania obiektów pracowników i godzin w pamięci. Możemy udostępnić jedną implementację przy użyciu typów ogólnych.
 
 ``` csharp
     public class InMemoryObjectSet<T> : IObjectSet<T> where T : class
-        public InMemoryObjectSet()
-            : this(Enumerable.Empty<T>()) {
-        }
-        public InMemoryObjectSet(IEnumerable<T> entities) {
-            _set = new HashSet<T>();
-            foreach (var entity in entities) {
-                _set.Add(entity);
-            }
-            _queryableSet = _set.AsQueryable();
-        }
-        public void AddObject(T entity) {
-            _set.Add(entity);
-        }
-        public void Attach(T entity) {
-            _set.Add(entity);
-        }
-        public void DeleteObject(T entity) {
-            _set.Remove(entity);
-        }
-        public void Detach(T entity) {
-            _set.Remove(entity);
-        }
-        public Type ElementType {
-            get { return _queryableSet.ElementType; }
-        }
-        public Expression Expression {
-            get { return _queryableSet.Expression; }
-        }
-        public IQueryProvider Provider {
-            get { return _queryableSet.Provider; }
-        }
-        public IEnumerator<T> GetEnumerator() {
-            return _set.GetEnumerator();
-        }
-        IEnumerator IEnumerable.GetEnumerator() {
-            return GetEnumerator();
-        }
+        public InMemoryObjectSet()
+            : this(Enumerable.Empty<T>()) {
+        }
+        public InMemoryObjectSet(IEnumerable<T> entities) {
+            _set = new HashSet<T>();
+            foreach (var entity in entities) {
+                _set.Add(entity);
+            }
+            _queryableSet = _set.AsQueryable();
+        }
+        public void AddObject(T entity) {
+            _set.Add(entity);
+        }
+        public void Attach(T entity) {
+            _set.Add(entity);
+        }
+        public void DeleteObject(T entity) {
+            _set.Remove(entity);
+        }
+        public void Detach(T entity) {
+            _set.Remove(entity);
+        }
+        public Type ElementType {
+            get { return _queryableSet.ElementType; }
+        }
+        public Expression Expression {
+            get { return _queryableSet.Expression; }
+        }
+        public IQueryProvider Provider {
+            get { return _queryableSet.Provider; }
+        }
+        public IEnumerator<T> GetEnumerator() {
+            return _set.GetEnumerator();
+        }
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
 
-        readonly HashSet<T> _set;
-        readonly IQueryable<T> _queryableSet;
+        readonly HashSet<T> _set;
+        readonly IQueryable<T> _queryableSet;
     }
 ```
 
-Ten test podwójnego deleguje większość swojej pracy, aby podstawowy zestaw HashSet&lt;T&gt; obiektu. Uwaga tego IObjectSet&lt;T&gt; wymaga ograniczenie generyczne wymuszanie T jako klasę (typ odwołania) i wymusza także NAS, aby zaimplementować interfejs IQueryable&lt;T&gt;. Ułatwia tworzenie kolekcji w pamięci, są traktowane jako element IQueryable&lt;T&gt; przy użyciu standardowego operatora zapytań LINQ AsQueryable.
+Ten test powoduje dwukrotne delegowanie większości zadań do bazowego obiektu HashSet — @ no__t-0T @ no__t-1. Należy zauważyć, że IObjectSet @ no__t-0T @ no__t-1 wymaga ograniczenia generycznego wymuszania T jako klasy (typ referencyjny), a także wymusza implementację interfejsu IQueryable @ no__t-2T @ no__t-3. Można łatwo utworzyć kolekcję w pamięci jako interfejs IQueryable @ no__t-0T @ no__t-1 przy użyciu standardowego operatora LINQ AsQueryable.
 
 ### <a name="the-tests"></a>Testy
 
-Testy jednostkowe tradycyjnych użyje klasy jeden test do przechowywania wszystkich testów dla wszystkich akcji w pojedynczy kontroler MVC. Firma Microsoft można pisać testy lub dowolnego typu testu jednostkowego przy użyciu pamięci elementów sztucznych utworzyliśmy. Jednak w tym artykule, w których firma Microsoft zapobiegnie monolityczne testu klasy i zamiast tego pogrupować Nasze testy, aby skoncentrować się na konkretne funkcje.  Na przykład, "Tworzenie nowego pracownika" może być funkcje, które chcemy sprawdzić, więc zostanie użyta klasa jeden test Aby zweryfikować akcji pojedynczy kontroler odpowiedzialnych za tworzenie nowego pracownika.
+Tradycyjne testy jednostkowe będą używały pojedynczej klasy testowej do przechowywania wszystkich testów dla wszystkich akcji w jednym kontrolerze MVC. Możemy napisać te testy lub dowolnego typu testu jednostkowego, używając w pamięci sztucznie wbudowanej klasy. Jednakże w tym artykule będziemy unikać podejścia do klasy testów monolitycznych, a zamiast tego grupować testy, aby skoncentrować się na określonej funkcji.  Na przykład "Utwórz nowego pracownika" może być funkcją, którą chcemy przetestować, więc użyjemy pojedynczej klasy testowej, aby zweryfikować akcję pojedynczego kontrolera odpowiedzialną za utworzenie nowego pracownika.
 
-Brak wspólnego kodu ustawień potrzebnych dla wszystkich tych klas testowych szczegółowe. Na przykład zawsze należy utworzyć naszych repozytoriów w pamięci i fałszywych jednostki pracy. Należy również wystąpienie kontrolera pracowników z fałszywych jednostek pracy, które są wstrzykiwane. Ten typowy kod instalacji zostaną udostępnione różnych klas testowych za pomocą klasy bazowej.
+Istnieje kilka typowych kodów konfiguracji potrzebnych dla wszystkich tych precyzyjnych klas testowych. Na przykład zawsze musimy utworzyć repozytoria w pamięci i fałszywą jednostkę pracy. Potrzebujemy również wystąpienia kontrolera pracownika z pustą jednostką pracy wstrzykiwaną. Udostępnimy ten wspólny kod instalatora między klasami testów przy użyciu klasy bazowej.
 
 ``` csharp
     public class EmployeeControllerTestBase {
-        public EmployeeControllerTestBase() {
-            _employeeData = EmployeeObjectMother.CreateEmployees()
-                                                .ToList();
-            _repository = new InMemoryObjectSet<Employee>(_employeeData);
-            _unitOfWork = new InMemoryUnitOfWork();
-            _unitOfWork.Employees = _repository;
-            _controller = new EmployeeController(_unitOfWork);
-        }
+        public EmployeeControllerTestBase() {
+            _employeeData = EmployeeObjectMother.CreateEmployees()
+                                                .ToList();
+            _repository = new InMemoryObjectSet<Employee>(_employeeData);
+            _unitOfWork = new InMemoryUnitOfWork();
+            _unitOfWork.Employees = _repository;
+            _controller = new EmployeeController(_unitOfWork);
+        }
 
-        protected IList<Employee> _employeeData;
-        protected EmployeeController _controller;
-        protected InMemoryObjectSet<Employee> _repository;
-        protected InMemoryUnitOfWork _unitOfWork;
+        protected IList<Employee> _employeeData;
+        protected EmployeeController _controller;
+        protected InMemoryObjectSet<Employee> _repository;
+        protected InMemoryUnitOfWork _unitOfWork;
     }
 ```
 
-"Matka obiektu" używamy w klasie bazowej jest jeden wspólny wzorzec do tworzenia danych testowych. Matkę obiektów zawiera metodami factory do tworzenia wystąpienia testów jednostek do użycia w wielu świetlnymi testu.
+"Matki" obiektu używanej w klasie bazowej jest jednym wspólnym wzorcem do tworzenia danych testowych. Obiekt matki zawiera metody fabryki do tworzenia wystąpień jednostek testowych do użycia w wielu zastosowaniach testów.
 
 ``` csharp
     public static class EmployeeObjectMother {
-        public static IEnumerable<Employee> CreateEmployees() {
-            yield return new Employee() {
-                Id = 1, Name = "Scott", HireDate=new DateTime(2002, 1, 1)
-            };
-            yield return new Employee() {
-                Id = 2, Name = "Poonam", HireDate=new DateTime(2001, 1, 1)
-            };
-            yield return new Employee() {
-                Id = 3, Name = "Simon", HireDate=new DateTime(2008, 1, 1)
-            };
-        }
-        // ... more fake data for different scenarios
+        public static IEnumerable<Employee> CreateEmployees() {
+            yield return new Employee() {
+                Id = 1, Name = "Scott", HireDate=new DateTime(2002, 1, 1)
+            };
+            yield return new Employee() {
+                Id = 2, Name = "Poonam", HireDate=new DateTime(2001, 1, 1)
+            };
+            yield return new Employee() {
+                Id = 3, Name = "Simon", HireDate=new DateTime(2008, 1, 1)
+            };
+        }
+        // ... more fake data for different scenarios
     }
 ```
 
-Możemy użyć EmployeeControllerTestBase jako klasa bazowa dla liczby świetlnymi testu (patrz rysunek 3). Każdy warunki początkowe testu przetestuje akcji określonego kontrolera. Na przykład jeden warunki początkowe testu koncentruje się na testowanie Akcja Utwórz używane podczas żądania HTTP GET (Aby wyświetlić widok na potrzeby tworzenia pracownika) i różnych warunków początkowych koncentruje się na Akcja Utwórz używana w żądaniu POST protokołu HTTP (do uwzględnienia informacji przesyłanych przez użytkownikowi utworzenie pracownika). Każdej klasy pochodnej odpowiada tylko ustawienia wymagane w tym kontekście określonego oraz w celu zapewnienia potwierdzenia potrzebne, aby zweryfikować wyniki dla kontekst określonego testu.
+Możemy użyć EmployeeControllerTestBase jako klasy bazowej dla wielu armatur testowych (patrz rysunek 3). Każda Armatura testowa testuje określoną akcję kontrolera. Na przykład jedna Armatura testowa koncentruje się na testowaniu akcji tworzenia używanej podczas żądania HTTP GET (aby wyświetlić widok służący do tworzenia pracownika), a inna Armatura koncentruje się na akcji tworzenia używanej w żądaniu POST protokołu HTTP (Aby uzyskać informacje przesłane przez Użytkownik, aby utworzyć pracownika). Każda klasa pochodna jest odpowiedzialna za konfigurację wymaganą w określonym kontekście i aby zapewnić potwierdzenia, które są konieczne do zweryfikowania wyników dla danego kontekstu testu.
 
-![EF test_03](~/ef6/media/eftest-03.png)
+![Dr test_03](~/ef6/media/eftest-03.png)
 
-**Rysunek 3.**
+**Rysunek 3**
 
-Styl nazewnictwa Konwencji i testowania przedstawionych w tym miejscu nie jest wymagana dla kodu sprawdzalnego działa zgodnie — wystarczy jedno z podejść. Rysunek 4 przedstawia testów przeprowadzanych codziennie w Resharper mózgów Jet test runner wtyczki dla programu Visual Studio 2010.
+Konwencja nazewnictwa i styl testu przedstawiony w tym miejscu nie są wymagane dla kodu weryfikowalne — jest to tylko jedno podejście. Na rysunku 4 przedstawiono testy działające w ramach wtyczki programu Test Runner dla programu Visual Studio 2010.
 
-![EF test_04](~/ef6/media/eftest-04.png)
+![Dr test_04](~/ef6/media/eftest-04.png)
 
 **Rysunek 4**
 
-Za pomocą klasy bazowej do obsługi kodu udostępnionego Instalatora testów jednostkowych dla każdej akcji kontrolera są małe i łatwe do zapisu. Testy będą wykonywane szybko (ponieważ będziemy działają w pamięci operacji) i nie powinna zakończyć się niepowodzeniem ze względu na niepowiązanych infrastruktury lub środowiskiem naturalnym (ponieważ mamy już izolowany jednostki w ramach testu).
+Przy użyciu klasy bazowej do obsługi kodu konfiguracji udostępnionej testy jednostkowe dla każdej akcji kontrolera są małe i łatwe do zapisu. Testy będą wykonywane szybko (ponieważ wykonujemy operacje w pamięci) i nie powinny być przyczyną niepowodzenia ze względu na niepowiązaną infrastrukturę lub obawy dotyczące środowiska (ponieważ wyizolowano jednostkę testową).
 
 ``` csharp
     [TestClass]
     public class EmployeeControllerCreateActionPostTests
-               : EmployeeControllerTestBase {
-        [TestMethod]
-        public void ShouldAddNewEmployeeToRepository() {
-            _controller.Create(_newEmployee);
-            Assert.IsTrue(_repository.Contains(_newEmployee));
-        }
-        [TestMethod]
-        public void ShouldCommitUnitOfWork() {
-            _controller.Create(_newEmployee);
-            Assert.IsTrue(_unitOfWork.Committed);
-        }
-        // ... more tests
+               : EmployeeControllerTestBase {
+        [TestMethod]
+        public void ShouldAddNewEmployeeToRepository() {
+            _controller.Create(_newEmployee);
+            Assert.IsTrue(_repository.Contains(_newEmployee));
+        }
+        [TestMethod]
+        public void ShouldCommitUnitOfWork() {
+            _controller.Create(_newEmployee);
+            Assert.IsTrue(_unitOfWork.Committed);
+        }
+        // ... more tests
 
-        Employee _newEmployee = new Employee() {
-            Name = "NEW EMPLOYEE",
-            HireDate = new System.DateTime(2010, 1, 1)
-        };
+        Employee _newEmployee = new Employee() {
+            Name = "NEW EMPLOYEE",
+            HireDate = new System.DateTime(2010, 1, 1)
+        };
     }
 ```
 
-W tych testach klasa bazowa wykonuje większość pracy Instalatora. Należy pamiętać, że tworzy konstruktora klasy bazowej, repozytorium w pamięci, fałszywych jednostkę pracy i wystąpienia klasy EmployeeController. Klasa testowa pochodzi z tej klasy bazowej i koncentruje się na szczegółowe informacje na temat testowania metody Create. W tym przypadku szczegółowe informacje na temat gotować "rozmieścić, działanie i asercja" czynności, pokazywany w jakiejkolwiek jednostce z badania procedury:
+W tych testach Klasa bazowa wykonuje większość czynności konfiguracyjnych. Należy pamiętać, że Konstruktor klasy bazowej tworzy repozytorium w pamięci, fałszywą jednostkę pracy i wystąpienie klasy EmployeeController. Klasa testowa pochodzi z tej klasy bazowej i koncentruje się na charakterystyce testów metody Create. W takim przypadku określone czynności są przetestowane w dół do kroków "Rozmieść, Act i Assert", które będą widoczne w dowolnej procedurze testowania jednostkowego:
 
--   Utwórz obiekt Nowy_pracownik symulowanie danych przychodzących.
--   Wywołaj akcję Utwórz EmployeeController i przekazać Nowy_pracownik.
--   Sprawdź, czy akcja Utwórz tworzy oczekiwanych wyników (pracownika pojawia się w repozytorium).
+-   Utwórz obiekt newEmployee, aby symulować przychodzące dane.
+-   Wywołaj akcję tworzenia EmployeeController i przekaż ją do newEmployee.
+-   Upewnij się, że akcja Utwórz powoduje uzyskanie oczekiwanych wyników (pracownik zostanie wyświetlony w repozytorium).
 
-Co utworzyliśmy pozwala nam na wszystkie akcje EmployeeController testu. Na przykład podczas pisania testów dla akcji indeksu kontrolera pracowników firma Microsoft może dziedziczyć z klasy bazowej testu do ustanowienia tej samej podstawowej instalacji na potrzeby testów. Klasa bazowa utworzy ponownie repozytorium w pamięci, fałszywych jednostkę pracy i wystąpienia EmployeeController. Testy dla akcji indeksu wystarczy skupić się na wywoływaniu akcji indeksu i testowanie jakość modelu akcji zwraca.
+Utworzone przez nas elementy umożliwiają przetestowanie dowolnych akcji EmployeeController. Na przykład podczas pisania testów dla akcji indeksu kontrolera pracownika możemy dziedziczyć z klasy bazowej testu, aby określić tę samą konfigurację podstawową dla naszych testów. Ponownie Klasa bazowa spowoduje utworzenie repozytorium w pamięci, fałszywej jednostki pracy i wystąpienia EmployeeController. Testy akcji index muszą jedynie skupić się na wywoływaniu akcji index i przetestowaniu jakości modelu, który zwraca akcja.
 
 ``` csharp
     [TestClass]
     public class EmployeeControllerIndexActionTests
-               : EmployeeControllerTestBase {
-        [TestMethod]
-        public void ShouldBuildModelWithAllEmployees() {
-            var result = _controller.Index();
-            var model = result.ViewData.Model
-                          as IEnumerable<Employee>;
-            Assert.IsTrue(model.Count() == _employeeData.Count);
-        }
-        [TestMethod]
-        public void ShouldOrderModelByHiredateAscending() {
-            var result = _controller.Index();
-            var model = result.ViewData.Model
-                         as IEnumerable<Employee>;
-            Assert.IsTrue(model.SequenceEqual(
-                           _employeeData.OrderBy(e => e.HireDate)));
-        }
-        // ...
+               : EmployeeControllerTestBase {
+        [TestMethod]
+        public void ShouldBuildModelWithAllEmployees() {
+            var result = _controller.Index();
+            var model = result.ViewData.Model
+                          as IEnumerable<Employee>;
+            Assert.IsTrue(model.Count() == _employeeData.Count);
+        }
+        [TestMethod]
+        public void ShouldOrderModelByHiredateAscending() {
+            var result = _controller.Index();
+            var model = result.ViewData.Model
+                         as IEnumerable<Employee>;
+            Assert.IsTrue(model.SequenceEqual(
+                           _employeeData.OrderBy(e => e.HireDate)));
+        }
+        // ...
     }
 ```
 
-Tworzymy z substytutami w pamięci nie jest rozróżniana ukierunkowane na testowanie *stanu* oprogramowania. Na przykład podczas testowania Akcja Utwórz, chcemy, aby sprawdzić stan repozytorium, po wykonaniu akcji tworzenia — repozytorium przechowywania nowych pracownika?
+Testy tworzone za pomocą elementów sztucznych w pamięci są ukierunkowane na testowanie *stanu* oprogramowania. Na przykład podczas testowania akcji tworzenia chcemy sprawdzić stan repozytorium po wykonaniu akcji tworzenia — czy repozytorium zawiera nowego pracownika?
 
 ``` csharp
     [TestMethod]
     public void ShouldAddNewEmployeeToRepository() {
-        _controller.Create(_newEmployee);
-        Assert.IsTrue(_repository.Contains(_newEmployee));
+        _controller.Create(_newEmployee);
+        Assert.IsTrue(_repository.Contains(_newEmployee));
     }
 ```
 
-Później przyjrzymy interakcji na podstawie badania. Testowanie interakcji na podstawie zostanie wyświetlone pytanie, jeśli testowany kod wywoływany właściwe metody na naszych obiektów i przekazywane poprawnych parametrów. Teraz przejdziemy okładki innego wzorzec projektowy — obciążenia z opóźnieniem.
+Później przejdziemy do testowania opartego na interakcji. Testowanie oparte na interakcji będzie pytać, czy testowany kod wywołał odpowiednie metody dla naszych obiektów i przeszedł poprawne parametry. Na razie przejdziemy do drugiego wzorca projektowego — z opóźnieniem.
 
-## <a name="eager-loading-and-lazy-loading"></a>Wczesne ładowanie i powolne ładowanie
+## <a name="eager-loading-and-lazy-loading"></a>Ładowanie eager i ładowanie z opóźnieniem
 
-W pewnym momencie w sieci web platformy ASP.NET MVC aplikacji, którą firma Microsoft może chcieć wyświetlić informacje dotyczące pracowników i obejmują pracownika skojarzone karty godzin. Na przykład możemy mieć karty czas wyświetlania podsumowania, zawierający nazwisko pracownika oraz łącznej liczbie kart czasu systemu. Istnieje kilka rozwiązań, które możemy wykonać, aby zaimplementować tę funkcję.
+W pewnym momencie w aplikacji sieci Web ASP.NET MVC firma Microsoft może chcieć wyświetlić informacje pracownika i dołączyć karty czasu powiązane z pracownikami. Na przykład może być wyświetlany ekran podsumowania karty czasu, który pokazuje nazwisko pracownika i łączną liczbę kart czasu w systemie. Istnieje kilka metod zaimplementowania tej funkcji.
 
 ### <a name="projection"></a>Rzut
 
-Jedno z podejść łatwy do utworzenia podsumowania jest do konstruowania modelu dedykowanych informacje, które ma być wyświetlany w widoku. W tym scenariuszu modelu może wyglądać następująco.
+Jednym z prostych metod tworzenia podsumowania jest konstruowanie modelu przeznaczonego dla informacji, które chcemy wyświetlić w widoku. W tym scenariuszu model może wyglądać podobnie do poniższego.
 
 ``` csharp
     public class EmployeeSummaryViewModel {
-        public string Name { get; set; }
-        public int TotalTimeCards { get; set; }
+        public string Name { get; set; }
+        public int TotalTimeCards { get; set; }
     }
 ```
 
-Należy pamiętać, że EmployeeSummaryViewModel nie jest jednostką — innymi słowy nie jest coś, co jest potrzebne do utrwalenia w bazie danych. Tylko będziemy używać tej klasy do mieszania danych w widoku w silnie typizowany sposób. Model widoku przypomina danych przenieść obiekt (DTO), ponieważ zawiera ona nie zachowanie (nie metody) — tylko właściwości. Właściwości będą przechowywane dane, które trzeba przenieść. Jest łatwy do utworzenia wystąpienia tego modelu widoku za pomocą operatora rzutowania standard firmy LINQ — wybierz operator.
+Zwróć uwagę, że EmployeeSummaryViewModel nie jest jednostką, innymi słowy, nie ma czegoś do utrwalenia w bazie danych. Będziemy używać tej klasy tylko do losowego przechodzenia danych do widoku. Model widoku jest podobny do obiektu transferu danych (DTO), ponieważ nie zawiera żadnego zachowania (brak metod) — tylko właściwości. Właściwości będą zawierać dane, które muszą zostać przeniesione. Można łatwo utworzyć wystąpienie tego modelu widoku przy użyciu standardowego operatora rzutowania LINQ — operator SELECT.
 
 ``` csharp
     public ViewResult Summary(int id) {
-        var model = _unitOfWork.Employees
-                               .Where(e => e.Id == id)
-                               .Select(e => new EmployeeSummaryViewModel
-                                  {
-                                    Name = e.Name,
-                                    TotalTimeCards = e.TimeCards.Count()
-                                  })
-                               .Single();
-        return View(model);
+        var model = _unitOfWork.Employees
+                               .Where(e => e.Id == id)
+                               .Select(e => new EmployeeSummaryViewModel
+                                  {
+                                    Name = e.Name,
+                                    TotalTimeCards = e.TimeCards.Count()
+                                  })
+                               .Single();
+        return View(model);
     }
 ```
 
-Istnieją dwa istotne funkcje do powyższego kodu. Najpierw — kod jest łatwy do testowania, ponieważ jest wciąż łatwe do obserwowania i izolować. Wybierz operator działa równie dobrze względem naszych elementów sztucznych w pamięci, co względem rzeczywistych jednostkę pracy.
+Istnieją dwie istotne funkcje w powyższym kodzie. Pierwszy — kod jest łatwy do przetestowania, ponieważ jest nadal łatwo obserwować i izolować. Operator SELECT działa tak samo jak w przypadku elementów sztucznych w pamięci, tak jak w przypadku rzeczywistej jednostki pracy.
 
 ``` csharp
     [TestClass]
     public class EmployeeControllerSummaryActionTests
-               : EmployeeControllerTestBase {
-        [TestMethod]
-        public void ShouldBuildModelWithCorrectEmployeeSummary() {
-            var id = 1;
-            var result = _controller.Summary(id);
-            var model = result.ViewData.Model as EmployeeSummaryViewModel;
-            Assert.IsTrue(model.TotalTimeCards == 3);
-        }
-        // ...
+               : EmployeeControllerTestBase {
+        [TestMethod]
+        public void ShouldBuildModelWithCorrectEmployeeSummary() {
+            var id = 1;
+            var result = _controller.Summary(id);
+            var model = result.ViewData.Model as EmployeeSummaryViewModel;
+            Assert.IsTrue(model.TotalTimeCards == 3);
+        }
+        // ...
     }
 ```
 
-Druga funkcja istotne jest, jak kod umożliwia EF4 do wygenerowania pojedynczego, wydajny kwerendy można złożyć pracowników i karty z czasu informacji ze sobą. Firma Microsoft załadowane informacje dotyczące pracowników i informacje dotyczące karty czasu do tego samego obiektu bez korzystania z żadnych specjalnych interfejsów API. Kod wyrażone jedynie informacje, których wymaga przy użyciu standardowych operatorów LINQ, które działają względem źródła danych w pamięci, a także zdalnych źródeł danych. EF4 był w stanie dokonać translacji drzew wyrażeń, generowane przez zapytanie LINQ i C\# kompilatora do pojedynczych i wydajne zapytania T-SQL.
+Druga istotna funkcja to sposób, w jaki kod umożliwia EF4om generowanie pojedynczego, wydajnego zapytania w celu zebrania informacji o pracownikach i kartach czasowych. Informacje o pracownikach i karcie czasu zostały załadowane do tego samego obiektu bez użycia żadnych specjalnych interfejsów API. Kod jedynie wyraził informacje wymagane przy użyciu standardowych operatorów LINQ, które pracują z źródłami danych w pamięci, a także ze zdalnymi źródłami danych. EF4 mógł przetłumaczyć drzewa wyrażeń wygenerowane przez zapytanie LINQ i kompilator C @ no__t-0 do jednego i wydajnego zapytania T-SQL.
 
 ``` SQL
     SELECT
@@ -549,63 +549,63 @@ Druga funkcja istotne jest, jak kod umożliwia EF4 do wygenerowania pojedynczego
     [Limit1].[Name] AS [Name],
     [Limit1].[C1] AS [C1]
     FROM (SELECT TOP (2)
-      [Project1].[Id] AS [Id],
-      [Project1].[Name] AS [Name],
-      [Project1].[C1] AS [C1]
-      FROM (SELECT
-        [Extent1].[Id] AS [Id],
-        [Extent1].[Name] AS [Name],
-        (SELECT COUNT(1) AS [A1]
-         FROM [dbo].[TimeCards] AS [Extent2]
-         WHERE [Extent1].[Id] =
-               [Extent2].[EmployeeTimeCard_TimeCard_Id]) AS [C1]
-              FROM [dbo].[Employees] AS [Extent1]
-               WHERE [Extent1].[Id] = @p__linq__0
-         )  AS [Project1]
-    )  AS [Limit1]
+      [Project1].[Id] AS [Id],
+      [Project1].[Name] AS [Name],
+      [Project1].[C1] AS [C1]
+      FROM (SELECT
+        [Extent1].[Id] AS [Id],
+        [Extent1].[Name] AS [Name],
+        (SELECT COUNT(1) AS [A1]
+         FROM [dbo].[TimeCards] AS [Extent2]
+         WHERE [Extent1].[Id] =
+               [Extent2].[EmployeeTimeCard_TimeCard_Id]) AS [C1]
+              FROM [dbo].[Employees] AS [Extent1]
+               WHERE [Extent1].[Id] = @p__linq__0
+         )  AS [Project1]
+    )  AS [Limit1]
 ```
 
-Brak innym razem, gdy firma Microsoft nie chcesz pracować z modelu widoku lub obiekt DTO, ale z rzeczywistych jednostek. Gdy wiemy, że potrzebujemy pracownika *i* karty godzin pracownika, firma Microsoft eagerly ładowanie powiązanych danych w sposób dyskretny kod i wydajne.
+Istnieją inne sytuacje, w których nie chcemy współdziałać z modelem widoku ani obiektem DTO, ale z rzeczywistymi obiektami. Gdy wiemy, że potrzebujemy pracownika *i* kart czasu pracownika, możemy eagerly załadować powiązane dane w sposób niezależny i wydajny.
 
-### <a name="explicit-eager-loading"></a>Jawne wczesne ładowanie
+### <a name="explicit-eager-loading"></a>Jawne ładowanie eager
 
-Jeśli chcemy eagerly załadować informacji o powiązanych jednostek potrzebujemy mechanizmu logiki biznesowej (lub w tym scenariuszu kontroler akcji logiki) aby wyrazić chęć repozytorium. Obiekt ObjectQuery EF4&lt;T&gt; klasa definiuje metodę Include w taki sposób, aby określić pokrewnych obiektów do pobrania podczas wykonywania kwerendy. Należy pamiętać, EF4 ObjectContext udostępnia jednostek za pomocą konkretnego obiektu ObjectSet&lt;T&gt; klasy, która dziedziczy z ObjectQuery&lt;T&gt;.  Jeśli firma Microsoft była używana w obiekcie ObjectSet&lt;T&gt; odwołań w naszej akcji kontrolera, napiszemy następujący kod, aby określić eager obciążenia informacje dotyczące karty czas dla każdego pracownika.
+Jeśli chcemy eagerly informacje dotyczące jednostki związanej z ładowaniem, potrzebujemy pewnego mechanizmu logiki biznesowej (lub w tym scenariuszu, logiki akcji kontrolera) do wyrażania chęci do repozytorium. Klasa EF4 ObjectQuery @ no__t-0T @ no__t-1 definiuje metodę include, aby określić powiązane obiekty do pobrania podczas zapytania. Należy pamiętać, że EF4 ObjectContext ujawnia jednostki za pośrednictwem konkretnej klasy ObjectSet @ no__t-0T @ no__t-1, która dziedziczy z ObjectQuery @ no__t-2T @ no__t-3.  Jeśli w naszym działaniu kontrolera użyto obiektu ObjectSet @ no__t-0T @ no__t-1, możemy napisać następujący kod, aby określić eager obciążenie informacjami o karcie czasu dla każdego pracownika.
 
 ``` csharp
     _employees.Include("TimeCards")
-              .Where(e => e.HireDate.Year > 2009);
+              .Where(e => e.HireDate.Year > 2009);
 ```
 
-Jednak ponieważ próbujemy zapewnienie naszego kodu sprawdzalnego działa zgodnie możemy są nie udostępnianie obiektu ObjectSet&lt;T&gt; z poza rzeczywistych jednostką pracy klasy. Zamiast tego Polegamy IObjectSet&lt;T&gt; interfejs, który ułatwia fałszywe, ale IObjectSet&lt;T&gt; nie definiuje metodę Include. Zaletą korzystania z LINQ jest, możemy utworzyć własną operator Include.
+Jednak ze względu na to, że próbujemy zachować nasz kod weryfikowalne, nie ujawniamy obiektu ObjectSet @ no__t-0T @ no__t-1 spoza rzeczywistej jednostki pracy. Zamiast tego korzystamy z interfejsu IObjectSet @ no__t-0T @ no__t-1, który jest łatwiejszy do sfałszowania, ale IObjectSet @ no__t-2T @ no__t-3 nie definiuje metody include. Estetyki LINQ polega na tym, że możemy utworzyć własny operator include.
 
 ``` csharp
     public static class QueryableExtensions {
-        public static IQueryable<T> Include<T>
-                (this IQueryable<T> sequence, string path) {
-            var objectQuery = sequence as ObjectQuery<T>;
-            if(objectQuery != null)
-            {
-                return objectQuery.Include(path);
-            }
-            return sequence;
-        }
+        public static IQueryable<T> Include<T>
+                (this IQueryable<T> sequence, string path) {
+            var objectQuery = sequence as ObjectQuery<T>;
+            if(objectQuery != null)
+            {
+                return objectQuery.Include(path);
+            }
+            return sequence;
+        }
     }
 ```
 
-Zwróć uwagę, ten operator Include jest zdefiniowany jako metody rozszerzenia dla elementu IQueryable&lt;T&gt; zamiast IObjectSet&lt;T&gt;. To daje możliwość korzystania z metody z szerszego zakresu możliwych typów, w tym IQueryable&lt;T&gt;, IObjectSet&lt;T&gt;, ObjectQuery&lt;T&gt;, a obiekt ObjectSet&lt;T&gt;. W przypadku sekwencji źródłowej nie jest oryginalnym ObjectQuery EF4&lt;T&gt;, to nie ma żadnych szkód, wykonywane, i Include operator jest pusta. Jeśli podstawowe sekwencji *jest* ObjectQuery&lt;T&gt; (lub pochodzić od ObjectQuery&lt;T&gt;), EF4 będą Zobacz nasze wymagania w zakresie dodatkowych danych i formułowanie odpowiednie SQL Zapytanie.
+Zwróć uwagę, że ten operator include został zdefiniowany jako metoda rozszerzająca interfejs IQueryable @ no__t-0T @ no__t-1 zamiast IObjectSet @ no__t-2T @ no__t-3. Dzięki temu możemy korzystać z metody z szerszym zakresem możliwych typów, w tym IQueryable @ no__t-0T @ no__t-1, IObjectSet @ no__t-2T @ no__t-3, ObjectQuery @ no__t-4T @ no__t-5 i ObjectSet @ no__t-6T @ no__t-7. W przypadku, gdy podstawową sekwencją nie jest oryginalny EF4 ObjectQuery @ no__t-0T @ no__t-1, wówczas nie ma żadnej szkody i operator include to no-op. Jeśli podstawową sekwencją *jest* ObjectQuery @ No__t-1T @ no__t-2 (lub pochodna z ObjectQuery @ No__t-3T @ no__t-4), wówczas EF4 zobaczy nasze wymaganie dotyczące dodatkowych danych i formułuje odpowiednie zapytanie SQL.
 
-Za pomocą tego nowego operatora w miejscu możemy jawne żądanie eager obciążenia informacje dotyczące karty czasu z repozytorium.
+Przy użyciu tego nowego operatora można jawnie zażądać eager ładowania informacji o karcie czasowej z repozytorium.
 
 ``` csharp
     public ViewResult Index() {
-        var model = _unitOfWork.Employees
-                               .Include("TimeCards")
-                               .OrderBy(e => e.HireDate);
-        return View(model);
+        var model = _unitOfWork.Employees
+                               .Include("TimeCards")
+                               .OrderBy(e => e.HireDate);
+        return View(model);
     }
 ```
 
-Po uruchomieniu testów rzeczywistego obiektu ObjectContext, ten kod tworzy następujące pojedynczego zapytania. Zapytanie zbiera wystarczającą ilość informacji z bazy danych w jednym podróży do zmaterializowania obiektów pracowników i całkowicie wypełnić ich właściwości kart.
+W przypadku uruchomienia względem rzeczywistego obiektu ObjectContext kod generuje następujące pojedyncze zapytanie. Zapytanie zbiera wystarczające informacje z bazy danych w jednej podróży, aby zmaterializowania obiekty pracowników i w pełni wypełnić swoją właściwość TimeCards.
 
 ``` SQL
     SELECT
@@ -618,363 +618,361 @@ Po uruchomieniu testów rzeczywistego obiektu ObjectContext, ten kod tworzy nast
     [Project1].[EffectiveDate] AS [EffectiveDate],
     [Project1].[EmployeeTimeCard_TimeCard_Id] AS [EmployeeTimeCard_TimeCard_Id]
     FROM ( SELECT
-         [Extent1].[Id] AS [Id],
-         [Extent1].[Name] AS [Name],
-         [Extent1].[HireDate] AS [HireDate],
-         [Extent2].[Id] AS [Id1],
-         [Extent2].[Hours] AS [Hours],
-         [Extent2].[EffectiveDate] AS [EffectiveDate],
-         [Extent2].[EmployeeTimeCard_TimeCard_Id] AS
-                    [EmployeeTimeCard_TimeCard_Id],
-         CASE WHEN ([Extent2].[Id] IS NULL) THEN CAST(NULL AS int)
-         ELSE 1 END AS [C1]
-         FROM  [dbo].[Employees] AS [Extent1]
-         LEFT OUTER JOIN [dbo].[TimeCards] AS [Extent2] ON [Extent1].[Id] = [Extent2].[EmployeeTimeCard_TimeCard_Id]
-    )  AS [Project1]
+         [Extent1].[Id] AS [Id],
+         [Extent1].[Name] AS [Name],
+         [Extent1].[HireDate] AS [HireDate],
+         [Extent2].[Id] AS [Id1],
+         [Extent2].[Hours] AS [Hours],
+         [Extent2].[EffectiveDate] AS [EffectiveDate],
+         [Extent2].[EmployeeTimeCard_TimeCard_Id] AS
+                    [EmployeeTimeCard_TimeCard_Id],
+         CASE WHEN ([Extent2].[Id] IS NULL) THEN CAST(NULL AS int)
+         ELSE 1 END AS [C1]
+         FROM  [dbo].[Employees] AS [Extent1]
+         LEFT OUTER JOIN [dbo].[TimeCards] AS [Extent2] ON [Extent1].[Id] = [Extent2].[EmployeeTimeCard_TimeCard_Id]
+    )  AS [Project1]
     ORDER BY [Project1].[HireDate] ASC,
-             [Project1].[Id] ASC, [Project1].[C1] ASC
+             [Project1].[Id] ASC, [Project1].[C1] ASC
 ```
 
-Mamy znakomitą wiadomość jest całkowicie sprawdzalnego działa zgodnie pozostaje kod wewnątrz metody akcji. Nie potrzebujemy Podaj wszelkie dodatkowe funkcje dla naszych elementów sztucznych na obsługuje operatora Include. Złe wiadomości jest boss Said WE had użycie operatora Include wewnątrz kodu, Chcieliśmy, aby zapewnić trwałość zakresu. Jest to podstawowy przykład typu skutków ubocznych, które będą potrzebne do wzięcia pod uwagę podczas kompilowania kodu sprawdzalnego działa zgodnie. Istnieją terminy, niezbędne, aby umożliwić przeciek wątpliwości trwałości poza abstrakcji repozytorium, aby spełnić cele dotyczące wydajności.
+Doskonałe wiadomości to kod wewnątrz metody akcji, który pozostaje w pełni weryfikowalne. Nie musimy udostępniać żadnych dodatkowych funkcji dla naszych fałszywych, aby obsługiwać operator include. W przypadku nieprawidłowych wiadomości musimy użyć operatora include wewnątrz kodu, który chciał zachować trwałość ignorujących. Jest to podstawowy przykład typu kompromisów, które należy oszacować podczas kompilowania kodu weryfikowalne. Istnieją przypadki, w których konieczne jest poinformowanie o wycieku, poza abstrakcją repozytorium, aby osiągnąć cele wydajności.
 
-Alternatywa dla wczesne ładowanie jest powolne ładowanie. Powolne ładowanie oznacza, że robimy *nie* naszych firm kod potrzebny do jawnie poinformować o konieczności powiązane dane. Zamiast tego stosujemy nasze jednostek w aplikacji, a jeśli dodatkowe dane potrzebne Entity Framework załaduje dane na żądanie.
+Alternatywą dla ładowania eager jest ładowanie z opóźnieniem. Ładowanie z opóźnieniem oznacza, że nasz kod firmy *nie* jest potrzebny do jawnego ogłaszania wymagania dotyczącego skojarzonych danych. Zamiast tego używamy naszych jednostek w aplikacji, a jeśli potrzebujesz dodatkowych danych Entity Framework załadują dane na żądanie.
 
 ### <a name="lazy-loading"></a>Ładowanie z opóźnieniem
 
-To ułatwia Wyobraź sobie scenariusz, w których nie można określić, co będzie potrzebne dane dany fragment logiki biznesowej. Firma Microsoft znać logiki wymaga obiektu pracowników, ale firma Microsoft może gałąź do wykonywania różnych ścieżek, gdzie niektóre z tych ścieżek wymagają informacji o karcie czas od pracownika, a niektóre nie. Scenariusze, takie jak to są idealne dla niejawnego powolne ładowanie ponieważ magiczny sposób wyświetlania danych na zgodnie z potrzebami.
+Można łatwo przystąpić do scenariusza, w którym nie wiemy, jakie dane będą potrzebne. Firma Microsoft może wiedzieć, że logika wymaga obiektu Employee, ale może odgałęziać się do różnych ścieżek wykonywania, w których niektóre z tych ścieżek wymagają informacji o karcie czasowej od pracownika, a niektóre nie. Takie scenariusze są idealnym rozwiązaniem dla niejawnego ładowania z opóźnieniem, ponieważ dane są wyświetlane w sposób niezbędny.
 
-Powolne ładowanie, znany także jako odroczone ładowanie, umieść pewne wymagania na naszych obiekty jednostki. POCOs z nieznajomości trwałości wartość true, nie będzie twarzy wszelkie wymagania z warstwy trwałości, ale nieznajomości trwałości wartość true, jest praktycznie niemożliwe do osiągnięcia.  Zamiast tego mierzymy nieznajomości trwałości w stopniach względnych. Byłoby niefortunne potrzebowaliśmy dziedziczą z klasy bazowej zorientowanej na trwałości lub użyć wyspecjalizowane kolekcji, aby osiągnąć powolne ładowanie w POCOs. Na szczęście EF4 ma płynniejsza rozwiązania.
+Ładowanie z opóźnieniem, znane także jako odroczone ładowanie, nakłada pewne wymagania dotyczące obiektów Entity. POCOs z prawdziwym ignorujących trwałości nie wpłynie na żadne wymagania z warstwy trwałości, ale prawdziwe ignorujących trwałości jest praktycznie niemożliwe.  Zamiast tego mierzę trwałość ignorujących w względnych stopniach. Jeśli konieczne jest dziedziczenie z klasy podstawowej zorientowanej na trwałość lub użycie wyspecjalizowanej kolekcji w celu osiągnięcia ładowania z opóźnieniem w POCOs, może to potrwać. Na szczęście EF4 ma mniej niepożądane rozwiązanie.
 
-### <a name="virtually-undetectable"></a>Praktycznie wykryć
+### <a name="virtually-undetectable"></a>Praktycznie niewykrywalny
 
-Używanie obiektów POCO, EF4 można dynamicznie generować proxy środowiska uruchomieniowego dla jednostki. Te serwery proxy niewidocznie opakować POCOs zmaterializowany i zapewnić Uzyskaj dodatkowe usługi przechwycenie każdej właściwości i ustaw operację do wykonania dodatkowej pracy. Takie usługi jest funkcja ładowania z opóźnieniem, którą firma Microsoft szuka. Inna usługa jest wydajny mechanizm, który może zapisać zmianie wartości właściwości jednostki, program śledzenia zmian. Lista zmian jest używana przez obiekt ObjectContext podczas metodę SaveChanges, aby utrwalić wszystkie jednostki modyfikacji, przy użyciu polecenia aktualizacji.
+W przypadku korzystania z obiektów POCO EF4 może dynamicznie generować serwery proxy środowiska uruchomieniowego dla jednostek. Te serwery proxy w niewidoczny sposób zawijają POCOs z materiałami i oferują dodatkowe usługi, przechwytuje każdą właściwość pobieranie i ustawianie w celu wykonywania dodatkowych czynności. Jedną z tych usług jest funkcja ładowania z opóźnieniem, którą szukamy. Inna usługa to wydajny mechanizm śledzenia zmian, który można rejestrować, gdy program zmienia wartości właściwości jednostki. Lista zmian jest używana przez obiekt ObjectContext w metodzie metody SaveChanges, aby zachować wszelkie zmodyfikowane jednostki za pomocą poleceń UPDATE.
 
-Dla tych serwerów proxy do pracy jednak potrzebują sposób do podłączenia do właściwości get i ustawiania wykonywanych względem jednostki a serwerami proxy osiągnięcie tego celu przez zastąpienie wirtualnych elementów członkowskich. W związku z tym jeśli chcemy masz niejawnej powolne ładowanie i wydajny śledzenia zmian należy przejść z powrotem do naszych POCO definicje klas i oznacz właściwości jako wirtualny.
+Jednak aby te serwery proxy działały, muszą one mieć możliwość podłączania do właściwości operacji get i Set w jednostce, a serwery proxy osiągają ten cel przez zastępowanie wirtualnych elementów członkowskich. Z tego względu, jeśli chcemy niejawnie załadować z opóźnieniem i wydajnym śledzeniem zmian, musimy wrócić do naszych definicji klas POCO i oznaczyć właściwości jako wirtualne.
 
 ``` csharp
     public class Employee {
-        public virtual int Id { get; set; }
-        public virtual string Name { get; set; }
-        public virtual DateTime HireDate { get; set; }
-        public virtual ICollection<TimeCard> TimeCards { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string Name { get; set; }
+        public virtual DateTime HireDate { get; set; }
+        public virtual ICollection<TimeCard> TimeCards { get; set; }
     }
 ```
 
-Firma Microsoft może nadal wskazuje, że jednostki pracowników jest przede wszystkim trwałości zakresu. Jedynym wymaganiem jest, aby użyć wirtualnych elementów członkowskich i nie ma to wpływu na testowanie kodu. Firma Microsoft nie muszą pochodzić z żadnych specjalnych klasy bazowej lub nawet za pomocą specjalnych kolekcji przeznaczone do ładowania z opóźnieniem. Tak jak pokazano kod, każda klasa implementacji ICollection&lt;T&gt; jest dostępna na potrzeby przechowywania powiązanych jednostek.
+Nadal możemy powiedzieć, że jednostka Employee jest w większości ignorujących trwałość. Jedynym wymaganiem jest użycie wirtualnych elementów członkowskich. nie ma to wpływu na testowanie kodu. Nie musimy dziedziczyć z żadnej specjalnej klasy bazowej, a nawet użyć specjalnej kolekcji przeznaczonej do ładowania z opóźnieniem. Jak ilustruje kod, każda klasa implementująca interfejs ICollection @ no__t-0T @ no__t-1 jest dostępna do przechowywania powiązanych jednostek.
 
-Istnieje również jeden drobnej zmiany, które należy wprowadzić w naszych jednostki pracy. Powolne ładowanie jest *poza* domyślnie, pracując bezpośrednio z obiektem ObjectContext. Jest właściwością, możemy ustawić właściwości ContextOptions umożliwia odroczone ładowanie i możemy ustawić tę właściwość w naszym rzeczywistych jednostkę pracy, jeśli chcemy Włącz powolne ładowanie wszędzie.
+Istnieje również jedna niewielka zmiana, którą trzeba wprowadzić w naszej jednostce pracy. Ładowanie z opóźnieniem jest domyślnie *wyłączone* podczas pracy bezpośrednio z obiektem ObjectContext. Istnieje właściwość, którą można ustawić we właściwości ContextOptions, aby umożliwić ładowanie odroczone i można ustawić tę właściwość wewnątrz rzeczywistej jednostki pracy, jeśli chcemy włączyć ładowanie z opóźnieniem wszędzie.
 
 ``` csharp
     public class SqlUnitOfWork : IUnitOfWork {
-         public SqlUnitOfWork() {
-             // ...
-             _context = new ObjectContext(connectionString);
-             _context.ContextOptions.LazyLoadingEnabled = true;
-         }    
-         // ...
-     }
+         public SqlUnitOfWork() {
+             // ...
+             _context = new ObjectContext(connectionString);
+             _context.ContextOptions.LazyLoadingEnabled = true;
+         }    
+         // ...
+     }
 ```
 
-Przy użyciu niejawnego ładowania z opóźnieniem, włączone, kod aplikacji może użyć pracownika pracownika związanych oraz kart czas pozostając błogiej świadomości ilości pracy wymaganej dla platformy EF załadować dodatkowe dane.
+Po włączeniu niejawnego ładowania z opóźnieniem kod aplikacji może korzystać z pracownika i kart czasu skojarzonych z pracownikami, a pozostałe blissfullyą wiedzą o pracy wymaganej do załadowania dodatkowych danych przez program Dr.
 
 ``` csharp
     var employee = _unitOfWork.Employees
-                              .Single(e => e.Id == id);
+                              .Single(e => e.Id == id);
     foreach (var card in employee.TimeCards) {
-        // ...
+        // ...
     }
 ```
 
-Powolne ładowanie sprawia, że kod aplikacji jest łatwiejsze do zapisu, a proxy magic kod nie będzie całkowicie sprawdzalnego działa zgodnie. Substytuty w pamięci jednostki pracy po prostu wstępnego ładowania fałszywych jednostki z powiązane dane, gdy potrzebne podczas testu.
+Ładowanie z opóźnieniem sprawia, że kod aplikacji jest łatwiejszy do zapisu, a przy użyciu Magic proxy kod pozostanie całkowicie weryfikowalne. W pamięci podręcznej jednostki pracy można po prostu wstępnie załadować fałszywe jednostki ze skojarzonymi danymi, jeśli są one odpowiednie podczas testu.
 
-W tym momencie będziesz Włącz naszej uwagi od tworzenia repozytoriów za pomocą IObjectSet&lt;T&gt; i przyjrzyj się elementy abstrakcji, aby ukryć wszystkie znaki Framework trwałości.
+W tym momencie będziemy zachęcać do kompilowania repozytoriów przy użyciu IObjectSet @ no__t-0T @ no__t-1 i przyjrzeć się abstrakcjom w celu ukrycia wszystkich oznak struktury trwałości.
 
-## <a name="custom-repositories"></a>Niestandardowe repozytoria
+## <a name="custom-repositories"></a>Repozytoria niestandardowe
 
-Umieszczeniem możemy najpierw jednostki pracy wzorcu projektowym w tym artykule zamieszczone przykładowy kod dla jak może wyglądać jednostkę pracy. Umożliwia ponowne przedstawia tę koncepcję oryginalny, używając pracowników i pracowników karta godzin scenariusza, który możemy masz doświadczenie w pracy z.
+Po pierwszej prezentowaniu wzorca projektowego jednostki pracy w tym artykule podano przykładowy kod, który może wyglądać jak jednostka pracy. Zacznijmy od tego oryginalnego pomysłu przy użyciu scenariusza pracownika i karty czasu pracownika, z którym pracujemy.
 
 ``` csharp
     public interface IUnitOfWork {
-        IRepository<Employee> Employees { get; }
-        IRepository<TimeCard> TimeCards { get;  }
-        void Commit();
+        IRepository<Employee> Employees { get; }
+        IRepository<TimeCard> TimeCards { get;  }
+        void Commit();
     }
 ```
 
-Główną różnicą między tej jednostki pracy i jednostki pracy utworzonych w ostatniej sekcji jest jak tej jednostki pracy nie używa żadnych abstrakcje platformy EF4 (nie ma żadnych IObjectSet&lt;T&gt;). IObjectSet&lt;T&gt; działa również jako interfejs repozytorium, ale interfejs API udostępnia ona doskonale mogą być niewyrównane naszej aplikacji potrzebom. W tym podejściu nadchodzących firma Microsoft będzie reprezentować repozytoriów przy użyciu niestandardowych IRepository&lt;T&gt; abstrakcji.
+Podstawowa różnica między tą jednostką pracy i jednostką pracy utworzoną w ostatniej sekcji polega na tym, jak ta jednostka pracy nie korzysta z żadnych streszczeń z EF4 Framework (nie ma IObjectSet @ no__t-0T @ no__t-1). IObjectSet @ no__t-0T @ no__t-1 działa dobrze jako interfejs repozytorium, ale interfejs API, który uwidacznia, może nie być idealnie wyrównany do potrzeb aplikacji. W tym nadchodzącym podejściu będziemy reprezentować repozytoria przy użyciu niestandardowego IRepository @ no__t-0T @ no__t-1.
 
-Wielu programistów, którzy postępuj zgodnie z projektowania opartego na testach, projektowania opartego na zachowanie i projektowanie metodologii opartego na domenach Preferuj IRepository&lt;T&gt; podejścia z kilku powodów. Najpierw IRepository&lt;T&gt; interfejs reprezentuje "" warstwa przeciwdegradacyjna. Zgodnie z opisem w Eric Evans w książce projektowania opartego na domenie warstwy przeciwdegradacyjnej przechowuje kod domeny od infrastruktury interfejsów API, np. trwałość interfejsu API. Po drugie deweloperzy mogą tworzyć metody do repozytorium, które potrzeb dokładnie aplikacji (jak wykryte podczas pisania testów). Na przykład może być często potrzebujemy zlokalizować pojedynczą jednostkę przy użyciu wartości Identyfikatora, abyśmy mogli dodać metodę FindById interfejsu repozytorium.  Nasze IRepository&lt;T&gt; definicja będzie wyglądać podobnie do poniższego.
+Wielu deweloperów, którzy przestrzegają projektu opartego na testach, projektu opartego na zadziałach i metodologii opartej na warunkach domeny, preferują podejście IRepository @ no__t-0T @ no__t-1 z kilku powodów. Najpierw interfejs IRepository @ no__t-0T @ no__t-1 reprezentuje warstwę "Ochrona przed uszkodzeniem". Zgodnie z opisem przez Eric Evans w swojej organizacji projektowej opartej na domenie, warstwa antywirusowa utrzymuje kod domeny z interfejsów API infrastruktury, takich jak trwałość interfejsu API. Na koniec deweloperzy mogą tworzyć metody w repozytorium, które spełniają dokładne potrzeby aplikacji (jak zostało to wykryte podczas pisania testów). Przykładowo może być często konieczne znalezienie pojedynczej jednostki przy użyciu wartości identyfikatora, aby można było dodać metodę FindById do interfejsu repozytorium.  Nasze IRepository @ no__t-0T @ no__t-1 będą wyglądać następująco.
 
 ``` csharp
     public interface IRepository<T>
-                    where T : class, IEntity {
-        IQueryable<T> FindAll();
-        IQueryable<T> FindWhere(Expression<Func\<T, bool>> predicate);
-        T FindById(int id);       
-        void Add(T newEntity);
-        void Remove(T entity);
+                    where T : class, IEntity {
+        IQueryable<T> FindAll();
+        IQueryable<T> FindWhere(Expression<Func\<T, bool>> predicate);
+        T FindById(int id);       
+        void Add(T newEntity);
+        void Remove(T entity);
     }
 ```
 
-Zwróć uwagę, firma Microsoft będzie ponownie upuść, aby za pomocą element IQueryable&lt;T&gt; interfejsu do udostępnienia kolekcji jednostek. Element IQueryable&lt;T&gt; umożliwia drzew wyrażeń LINQ przepływać do dostawcy EF4 i dostawcy holistycznego widoku zapytania. Drugą opcją będzie zwracać IEnumerable&lt;T&gt;, co oznacza, że dostawcy EF4 LINQ będą widzieć tylko wyrażenia utworzone wewnątrz repozytorium. Wszelkie grupowania, kolejność i projekcji wykonywane poza repozytorium nie będzie składa do polecenia SQL wysyłane do bazy danych, która może obniżyć wydajność. Z drugiej strony, repozytorium, zwracając tylko IEnumerable&lt;T&gt; wyniki będą nigdy nie Cię zaskoczyć, za pomocą nowego polecenia SQL. W obu przypadkach efekt będzie działać, a oba podejścia nadal sprawdzalnego działa zgodnie.
+Zwróć uwagę, że będziemy wrócić do korzystania z interfejsu IQueryable @ no__t-0T @ no__t-1 w celu udostępnienia kolekcji jednostek. Interfejs IQueryable @ no__t-0T @ no__t-1 zezwala na przepływowanie drzew wyrażeń LINQ do dostawcy EF4 i nadawanie dostawcy całościowego widoku zapytania. Druga opcja zwróci wartość IEnumerable @ no__t-0T @ no__t-1, co oznacza, że dostawca EF4 LINQ zobaczy tylko wyrażenia wbudowane w repozytorium. Wszystkie grupowanie, porządkowanie i projekcje wykonywane poza repozytorium nie zostaną złożone do polecenia SQL wysłanego do bazy danych, co może obniżyć wydajność. Z drugiej strony repozytorium zwracające tylko wartość IEnumerable @ no__t-0T @ no__t-1 spowoduje, że nowe polecenie SQL nie zostanie nigdy zaskakujące. Obie metody będą działać, a oba podejścia pozostaną weryfikowalne.
 
-Jest prosta zapewnić pojedynczą implementacją IRepository&lt;T&gt; interfejs, za pomocą typów ogólnych i EF4 API obiektu ObjectContext.
+Jest to proste, aby zapewnić jedną implementację interfejsu IRepository @ no__t-0T @ no__t-1 przy użyciu typów ogólnych i interfejsu API programu EF4 ObjectContext.
 
 ``` csharp
     public class SqlRepository<T> : IRepository<T>
-                                    where T : class, IEntity {
-        public SqlRepository(ObjectContext context) {
-            _objectSet = context.CreateObjectSet<T>();
-        }
-        public IQueryable<T> FindAll() {
-            return _objectSet;
-        }
-        public IQueryable<T> FindWhere(
-                               Expression<Func\<T, bool>> predicate) {
-            return _objectSet.Where(predicate);
-        }
-        public T FindById(int id) {
-            return _objectSet.Single(o => o.Id == id);
-        }
-        public void Add(T newEntity) {
-            _objectSet.AddObject(newEntity);
-        }
-        public void Remove(T entity) {
-            _objectSet.DeleteObject(entity);
-        }
-        protected ObjectSet<T> _objectSet;
+                                    where T : class, IEntity {
+        public SqlRepository(ObjectContext context) {
+            _objectSet = context.CreateObjectSet<T>();
+        }
+        public IQueryable<T> FindAll() {
+            return _objectSet;
+        }
+        public IQueryable<T> FindWhere(
+                               Expression<Func\<T, bool>> predicate) {
+            return _objectSet.Where(predicate);
+        }
+        public T FindById(int id) {
+            return _objectSet.Single(o => o.Id == id);
+        }
+        public void Add(T newEntity) {
+            _objectSet.AddObject(newEntity);
+        }
+        public void Remove(T entity) {
+            _objectSet.DeleteObject(entity);
+        }
+        protected ObjectSet<T> _objectSet;
     }
 ```
 
-IRepository&lt;T&gt; podejście zapewnia nam niektóre dodatkową kontrolę nad naszego zapytania, ponieważ klient musi wywołać metodę, aby uzyskać dostęp do jednostki. Wewnątrz metody możemy to zapewnić dodatkowe czynności kontrolne i operatorów LINQ do wymuszania ograniczeń aplikacji. Zwróć uwagę, że interfejs ma dwa ograniczenia dla parametru typu ogólnego. Pierwszy ograniczeniem jest to klasa zmiany barwy wad, wymagane przez obiekt ObjectSet&lt;T&gt;, i drugi ograniczenie wymusza naszych jednostek do zaimplementowania IEntity — abstrakcję utworzony dla aplikacji. Interfejs IEntity wymusza podmiotów odczytywalną Właściwość Id, a następnie możemy użyć tej właściwości w metodzie FindById. IEntity jest zdefiniowana z następującym kodem.
+IRepository @ no__t-0T @ no__t-1 zapewnia nam dodatkową kontrolę nad naszymi zapytaniami, ponieważ klient musi wywołać metodę, aby uzyskać dostęp do jednostki. Wewnątrz metody możemy udostępnić dodatkowe sprawdzenia i operatory LINQ w celu wymuszenia ograniczeń aplikacji. Zauważ, że interfejs ma dwa ograniczenia dla parametru typu ogólnego. Pierwsze ograniczenie to wady klas wymagane przez obiekt ObjectSet @ no__t-0T @ no__t-1, a drugie ograniczenie wymusza, aby nasze jednostki implementują IEntity — abstrakcję utworzoną dla aplikacji. Interfejs IEntity wymusza, aby jednostki miały Właściwość identyfikatora z możliwością odczytu, a następnie można użyć tej właściwości w metodzie FindById. IEntity jest zdefiniowany przy użyciu następującego kodu.
 
 ``` csharp
     public interface IEntity {
-        int Id { get; }
+        int Id { get; }
     }
 ```
 
-IEntity może zostać uznana za mały naruszenie nieznajomości trwałości, ponieważ naszych jednostki są wymagane do zaimplementowania interfejsu. Należy pamiętać nieznajomości trwałości dotyczy wady i zalety i dla wielu funkcji FindById będzie przeważają ograniczenia nałożone przez interfejs. Interfejs nie ma wpływu na testowania.
+IEntity może być traktowany jako niewielkie naruszenie trwałości ignorujących, ponieważ nasze jednostki są wymagane do zaimplementowania tego interfejsu. Pamiętaj, że trwałość ignorujących ma wpływ na kompromisy, a w przypadku wielu funkcji FindById będzie przewyższał ograniczenie narzucone przez interfejs. Interfejs nie ma wpływu na testowanie.
 
-Utworzenie wystąpienia na żywo IRepository&lt;T&gt; wymaga obiektu ObjectContext EF4, dlatego konkretnej jednostki pracy wdrożenia należy zarządzać procesu tworzenia wystąpienia.
+Utworzenie wystąpienia elementu Live IRepository @ no__t-0T @ no__t-1 wymaga elementu EF4 ObjectContext, więc konkretną jednostką implementacji pracy powinna zarządzać Tworzenie wystąpienia.
 
 ``` csharp
     public class SqlUnitOfWork : IUnitOfWork {
-        public SqlUnitOfWork() {
-            var connectionString =
-                ConfigurationManager
-                    .ConnectionStrings[ConnectionStringName]
-                    .ConnectionString;
+        public SqlUnitOfWork() {
+            var connectionString =
+                ConfigurationManager
+                    .ConnectionStrings[ConnectionStringName]
+                    .ConnectionString;
 
-            _context = new ObjectContext(connectionString);
-            _context.ContextOptions.LazyLoadingEnabled = true;
-        }
+            _context = new ObjectContext(connectionString);
+            _context.ContextOptions.LazyLoadingEnabled = true;
+        }
 
-        public IRepository<Employee> Employees {
-            get {
-                if (_employees == null) {
-                    _employees = new SqlRepository<Employee>(_context);
-                }
-                return _employees;
-            }
-        }
+        public IRepository<Employee> Employees {
+            get {
+                if (_employees == null) {
+                    _employees = new SqlRepository<Employee>(_context);
+                }
+                return _employees;
+            }
+        }
 
-        public IRepository<TimeCard> TimeCards {
-            get {
-                if (_timeCards == null) {
-                    _timeCards = new SqlRepository<TimeCard>(_context);
-                }
-                return _timeCards;
-            }
-        }
+        public IRepository<TimeCard> TimeCards {
+            get {
+                if (_timeCards == null) {
+                    _timeCards = new SqlRepository<TimeCard>(_context);
+                }
+                return _timeCards;
+            }
+        }
 
-        public void Commit() {
-            _context.SaveChanges();
-        }
+        public void Commit() {
+            _context.SaveChanges();
+        }
 
-        SqlRepository<Employee> _employees = null;
-        SqlRepository<TimeCard> _timeCards = null;
-        readonly ObjectContext _context;
-        const string ConnectionStringName = "EmployeeDataModelContainer";
+        SqlRepository<Employee> _employees = null;
+        SqlRepository<TimeCard> _timeCards = null;
+        readonly ObjectContext _context;
+        const string ConnectionStringName = "EmployeeDataModelContainer";
     }
 ```
 
-### <a name="using-the-custom-repository"></a>Przy użyciu niestandardowych repozytorium
+### <a name="using-the-custom-repository"></a>Korzystanie z repozytorium niestandardowego
 
-Za pomocą naszych niestandardowe repozytorium nie jest znacznie różnią się od przy użyciu repozytorium, w oparciu o IObjectSet&lt;T&gt;. Zamiast bezpośrednio do właściwości z zastosowaniem operatorów LINQ, najpierw musisz wywołać za pomocą jednego z repozytorium metod do pobrania element IQueryable&lt;T&gt; odwołania.
+Korzystanie z naszego niestandardowego repozytorium nie różni się znacznie od użycia repozytorium w oparciu o IObjectSet @ no__t-0T @ no__t-1. Zamiast stosować operatory LINQ bezpośrednio do właściwości, najpierw musimy wywoływać metody tego repozytorium, aby uzyskać informacje o interfejsie IQueryable @ no__t-0T @ no__t-1.
 
 ``` csharp
     public ViewResult Index() {
-        var model = _repository.FindAll()
-                               .Include("TimeCards")
-                               .OrderBy(e => e.HireDate);
-        return View(model);
+        var model = _repository.FindAll()
+                               .Include("TimeCards")
+                               .OrderBy(e => e.HireDate);
+        return View(model);
     }
 ```
 
-Zwróć uwagę, że niestandardowy operator Include, wcześniej zaimplementowane będzie działać bez zmian. Metoda FindById z repozytorium usuwa zduplikowane logiki z akcji próby pobrania pojedynczej jednostki.
+Zwróć uwagę, że niestandardowy operator dołączania będzie działał bez zmian. Metoda FindById repozytorium usuwa zduplikowaną logikę z akcji próbujących pobrać pojedynczą jednostkę.
 
 ``` csharp
     public ViewResult Details(int id) {
-        var model = _repository.FindById(id);
-        return View(model);
+        var model = _repository.FindById(id);
+        return View(model);
     }
 ```
 
-Nie ma znaczące różnic w testowania dwa podejścia, w których firma Microsoft zostały zbadane. Zapewniamy fałszywych implementacje IRepository&lt;T&gt; przez utworzenie klas konkretnych wspierana przez zestaw HashSet&lt;pracowników&gt; — podobnie jak zrobiliśmy w ostatniej sekcji. Jednak niektórzy deweloperzy wolą używać makiety obiektów i testowanie struktur obiektu zamiast tworzenia elementów sztucznych. Zapoznamy się przy użyciu mocks do testowania naszej implementacji i omówiono różnice między mocks i sztucznych elementów w następnej sekcji.
+Nie ma znaczącej różnicy w zakresie testowania dwóch rozważanych metod. Możemy zapewnić fałszywe implementacje IRepository @ no__t-0T @ no__t-1 przez utworzenie konkretnych klas, których kopie zapasowe są wykonywane przez HashSet — @ no__t-2Employee @ no__t-3 — podobnie jak w ostatniej sekcji. Jednak niektórzy deweloperzy wolą używać obiektów tworzenia i makietowania struktur obiektów zamiast tworzyć sztuczne. Zobaczmy, jak używać makietów do testowania implementacji i omówienia różnic między fragmentami i elementami sztucznymi w następnej sekcji.
 
-### <a name="testing-with-mocks"></a>Testowanie za pomocą Mocks
+### <a name="testing-with-mocks"></a>Testowanie za pomocą makiet
 
-Istnieją różne metody do tworzenia wywołań jakie Martina Fowlera "test podwójnego". Test podwójnego (na przykład stunt filmu double) jest obiektem tworzonych "występować w" rzeczywiste, obiekty w środowisku produkcyjnym podczas testów. Repozytoriów w pamięci, którą utworzyliśmy są testu wartości podwójnej precyzji dla repozytoriów, komunikujące się z programu SQL Server. Pokazaliśmy już, jak za pomocą tych podwaja testów podczas testów jednostkowych izolowania kodu i zachować testów przeprowadzanych codziennie przez szybkie.
+Istnieją różne podejścia do kompilowania, które Fowlera dzwoni "test Double". Test Double (taki jak stunt Movie Double) jest obiektem, który kompiluje się do "w rzeczywistości" dla rzeczywistych obiektów produkcyjnych podczas testów. Utworzone repozytoria w pamięci są testami podwójne dla repozytoriów, które komunikują się SQL Server. Dowiesz się, jak używać tych testów podczas testów jednostkowych w celu odizolowania kodu i zapewnienia szybkiego uruchamiania testów.
 
-Badanie wartości podwójnej precyzji, którą utworzyliśmy ma implementacje rzeczywistych, praca. W tle każdego z nich przechowuje kolekcję konkretnych obiektów i będą oni dodawać i Usuń obiekty z tej kolekcji, jak możemy manipulować repozytorium podczas testu. Niektórzy deweloperzy, takich jak tworzenie ich podwaja się test temu — przy użyciu rzeczywistego kodu i implementacje pracy.  Te testu wartości podwójnej precyzji są tak zwany *elementów sztucznych*. Mają one implementacje pracy, ale nie są prawdziwe, do użytku produkcyjnego. Repozytorium fałszywych faktycznie nie zapisu w bazie danych. Serwer SMTP fałszywych faktycznie nie Wyślij wiadomość e-mail za pośrednictwem sieci.
+Testy zostały skompilowane z rzeczywistymi, działającymi implementacjami. W tle każdy z nich przechowuje konkretną kolekcję obiektów i dodaje i usuwa obiekty z tej kolekcji podczas manipulowania repozytorium podczas testu. Niektórzy deweloperzy, którzy lubią kompilację testu, w ten sposób podwajają się w ten sposób, korzystając z prawdziwych i wydajnych implementacji  Ten test podwaja te elementy, które wywołujemy *fałszywe*. Mają one pracę z implementacjami, ale nie są one wystarczające do użycia w środowisku produkcyjnym. Fałszywe repozytorium nie zapisuje w bazie danych. Fałszywy serwer SMTP nie wysyła w rzeczywistości wiadomości e-mail za pośrednictwem sieci.
 
-### <a name="mocks-versus-fakes"></a>Mocks w porównaniu z elementów sztucznych
+### <a name="mocks-versus-fakes"></a>Elementy w przeciwieństwie do elementów sztucznych
 
-Istnieje inny typ testu double nazywane *testowanie*. Chociaż elementów sztucznych implementacje pracy, mocks są dostarczane z implementacji. Za pomocą framework makiety obiektu możemy konstruowania tych makiety obiektów w czasie wykonywania i używać ich jako wartości podwójnej precyzji testu. W tej sekcji będziemy używać "open source" pozorowanie framework Moq. Poniżej przedstawiono prosty przykład użycia Moq umożliwia dynamiczne tworzenie test podwójnego repozytorium pracownika.
+Istnieje inny typ testu podwójnie znany jako *makieta*. Podczas gdy elementy sztuczne mają działające implementacje, makiety nie są implementowane. Dzięki pomocy dotyczącej struktury obiektów makiety tworzymy te obiekty w czasie wykonywania i używają ich jako podwójnego przetestowania. W tej sekcji będziemy korzystać z struktury "Moqing" "open source". Oto prosty przykład użycia MOQ do dynamicznego tworzenia testów dla repozytorium pracowników.
 
 ``` csharp
     Mock<IRepository<Employee>> mock =
-        new Mock<IRepository<Employee>>();
+        new Mock<IRepository<Employee>>();
     IRepository<Employee> repository = mock.Object;
     repository.Add(new Employee());
     var employee = repository.FindById(1);
 ```
 
-Poprosimy Moq dla IRepository&lt;pracowników&gt; implementacji i tworzy jeden dynamicznie. Firma Microsoft może uzyskać dostęp do obiekt implementujący IRepository&lt;pracowników&gt; , uzyskując dostęp do właściwości obiektu pozorny&lt;T&gt; obiektu. Jest ten obiekt wewnętrzny, które możemy przekazać do naszych kontrolerów, a nie będą wiedzieli, jeśli jest to test podwójnego lub rzeczywistego repozytorium. Firma Microsoft wywoływać metody na obiekt, tak samo, jak firma Microsoft będzie wywoływać metody na obiekt z rzeczywistej implementacji.
+Zaproponujemy MOQ dla implementacji IRepository @ no__t-0Employee @ no__t-1 i tworzy ją dynamicznie. Możemy uzyskać do obiektu implementującego IRepository @ no__t-0Employee @ no__t-1, uzyskując dostęp do właściwości Object obiektu DB@ no__t-2T @ no__t-3. Jest to ten obiekt wewnętrzny, który można przekazać do naszych kontrolerów i nie będzie wiadomo, czy jest to test podwójny, czy rzeczywiste repozytorium. Możemy wywoływać metody na obiekcie tak samo, jak możemy wywołać metody dla obiektu z rzeczywistą implementacją.
 
-Możesz się zastanawiać, co makiety repozytorium zrobić po możemy wywołać metody Add. Ponieważ nie ma żadnej implementacji za makiety obiektu, Dodaj nic nie robi. Brak konkretnego kolekcji w tle, takie jak mieliśmy z substytutami, którą napisaliśmy, więc jest odrzucana pracownika. Jak wygląda wartość zwracaną FindById? W tym przypadku makiety obiektu jest jedyną czynnością, którą wykonania, która jest zwracana wartość domyślną. Ponieważ firma Microsoft jest zwracany typ odwołania (pracownika), wartość zwracana jest wartość null.
+Należy zastanawiać się, co będzie miało repozytorium makiety po wywołaniu metody Add. Ponieważ nie istnieje implementacja za obiektem makiety, nic nie robi. Nie ma żadnej konkretnej kolekcji w tle, podobnie jak w przypadku zapisana przez nas sfałszowanych, więc pracownik jest odrzucany. Co z wartością zwracaną z FindById? W takim przypadku obiekt makiety robi tylko to, co może zrobić, co spowoduje zwrócenie wartości domyślnej. Ponieważ zwracamy typ referencyjny (pracownika), wartość zwracana jest wartością null.
 
-Mocks może dźwiękowych bezwartościowe; Istnieją jednak dwa więcej funkcji mocks, które jeszcze nie Omówiliśmy. Po pierwsze Moq framework rejestruje wszystkie wywołania makiety obiektu. W dalszej części kodu możemy zadawać Moq, czy każdy użytkownik wywołał metodę Add, czy każdy użytkownik wywołał metodę FindById. Zobaczymy, pokażemy, jak możemy użyć tej funkcji "czarne pole" Rejestrowanie w testach.
+Makiety mogą dźwiękować bezwartościowe; Istnieją jednak dwie inne funkcje makiet, o których nie podano informacji. Najpierw platforma MOQ rejestruje wszystkie wywołania wykonane na obiekcie makiety. Później można polecić MOQ, jeśli ktoś wywołał metodę Add, lub jeśli ktoś wywołał metodę FindById. Zobaczymy później, w jaki sposób możemy użyć tej funkcji nagrywania "czarnego pola" w testach.
 
-Druga funkcja doskonałe jest, jak możemy użyć Moq program makiety obiektu z *oczekiwania*. Oczekiwanie informuje makiety obiektu, jak reagować na interakcji z danym. Na przykład możemy zaprogramować Oczekiwanie w naszym pozorny i stwierdzenie, aby zwrócić obiekt pracowników, gdy ktoś wywołuje FindById. Środowisko Moq wykorzystuje interfejs API konfiguracji i wyrażeń lambda z programem tego oczekiwania.
+Druga świetna funkcja polega na tym, jak możemy używać MOQ do programowania obiektu makiety z *oczekiwaniami*. Oczekiwanie nakazuje obiektowi makiety, jak odpowiedzieć na daną interakcję. Na przykład możemy zaprogramować oczekiwanie w naszym makietie i poinstruować go, aby zwracał obiekt Employee, gdy ktoś wywoła FindById. Struktura MOQ używa interfejsu API Instalatora i wyrażeń lambda do zaprogramowania tych oczekiwań.
 
 ``` csharp
     [TestMethod]
     public void MockSample() {
-        Mock<IRepository<Employee>> mock =
-            new Mock<IRepository<Employee>>();
-        mock.Setup(m => m.FindById(5))
-            .Returns(new Employee {Id = 5});
-        IRepository<Employee> repository = mock.Object;
-        var employee = repository.FindById(5);
-        Assert.IsTrue(employee.Id == 5);
+        Mock<IRepository<Employee>> mock =
+            new Mock<IRepository<Employee>>();
+        mock.Setup(m => m.FindById(5))
+            .Returns(new Employee {Id = 5});
+        IRepository<Employee> repository = mock.Object;
+        var employee = repository.FindById(5);
+        Assert.IsTrue(employee.Id == 5);
     }
 ```
 
-W tym przykładzie prosimy Moq dynamicznie Tworzenie repozytorium, a następnie będziemy programować repozytorium z oczekiwaniami. Oczekuje informuje makiety obiekt do zwrotu nowy obiekt pracowników z wartością identyfikatora 5, gdy ktoś wywołuje metodę FindById, przekazując wartość 5. Ten test zakończy się pomyślnie, a firma Microsoft nie trzeba tworzyć pełną implementację do IRepository fałszywych&lt;T&gt;.
+W tym przykładzie poprosił MOQ o dynamiczne skompilowanie repozytorium, a następnie programuje repozytorium z oczekiwaniami. Oczekiwanie nakazuje obiektowi imitacji zwrócenie nowego obiektu pracownika z wartością identyfikatora 5, gdy ktoś wywoła metodę FindById, przekazując wartość 5. Ten test kończy się niepowodzeniem i nie musimy kompilować pełnej implementacji dla fałszywych IRepository @ no__t-0T @ no__t-1.
 
-Spróbujmy ponownie testy, którą napisaliśmy wcześniej i poprawkami, a ich do używania mocks zamiast elementów sztucznych. Podobnie jak wcześniej, użyjemy klasę bazową można skonfigurować wspólne elementy infrastruktury potrzebnych dla wszystkich kontrolera testów.
+Ponownie odwiedzamy wcześniej wykonane testy i przeprowadzimy je do korzystania z form zamiast fałszywych. Podobnie jak wcześniej, użyjemy klasy bazowej do skonfigurowania wspólnych części infrastruktury potrzebnej dla wszystkich testów kontrolera.
 
 ``` csharp
     public class EmployeeControllerTestBase {
-        public EmployeeControllerTestBase() {
-            _employeeData = EmployeeObjectMother.CreateEmployees()
-                                                .AsQueryable();
-            _repository = new Mock<IRepository<Employee>>();
-            _unitOfWork = new Mock<IUnitOfWork>();
-            _unitOfWork.Setup(u => u.Employees)
-                       .Returns(_repository.Object);
-            _controller = new EmployeeController(_unitOfWork.Object);
-        }
+        public EmployeeControllerTestBase() {
+            _employeeData = EmployeeObjectMother.CreateEmployees()
+                                                .AsQueryable();
+            _repository = new Mock<IRepository<Employee>>();
+            _unitOfWork = new Mock<IUnitOfWork>();
+            _unitOfWork.Setup(u => u.Employees)
+                       .Returns(_repository.Object);
+            _controller = new EmployeeController(_unitOfWork.Object);
+        }
 
-        protected IQueryable<Employee> _employeeData;
-        protected Mock<IUnitOfWork> _unitOfWork;
-        protected EmployeeController _controller;
-        protected Mock<IRepository<Employee>> _repository;
+        protected IQueryable<Employee> _employeeData;
+        protected Mock<IUnitOfWork> _unitOfWork;
+        protected EmployeeController _controller;
+        protected Mock<IRepository<Employee>> _repository;
     }
 ```
 
-Kod ustawienia pozostają takie same. Zamiast korzystać z elementów sztucznych, użyjemy Moq do konstruowania obiektów makiety. Klasa bazowa organizuje makiety jednostka pracy do zwrócenia makiety repozytorium, gdy kod wywołuje właściwość pracowników. Pozostała konfiguracja makiety odbędzie się wewnątrz świetlnymi testów przeznaczonych dla każdego konkretnego scenariusza. Na przykład warunki początkowe testu dla akcji indeksu skonfiguruje makiety repozytorium, aby zwrócić listę pracowników, gdy akcja wywołuje metodę FindAll makiety repozytorium.
+Kod instalatora pozostaje w większości tego samego. Zamiast używać fałszywych, będziemy używać MOQ do konstruowania obiektów makiety. Klasa bazowa jest rozmieszczenia dla jednostki, która będzie zwracać repozytorium, gdy kod wywołuje właściwość Employees. Pozostała część konfiguracji makiety będzie odbywać się w ramach armatury testowej przeznaczonych dla każdego konkretnego scenariusza. Na przykład, armatura testowa dla akcji indeks spowoduje skonfigurowanie repozytorium makiety, aby zwracało listę pracowników, gdy akcja wywoła metodę FindAll repozytorium.
 
 ``` csharp
     [TestClass]
     public class EmployeeControllerIndexActionTests
-               : EmployeeControllerTestBase {
-        public EmployeeControllerIndexActionTests() {
-            _repository.Setup(r => r.FindAll())
-                        .Returns(_employeeData);
-        }
-        // .. tests
-        [TestMethod]
-        public void ShouldBuildModelWithAllEmployees() {
-            var result = _controller.Index();
-            var model = result.ViewData.Model
-                          as IEnumerable<Employee>;
-            Assert.IsTrue(model.Count() == _employeeData.Count());
-        }
-        // .. and more tests
+               : EmployeeControllerTestBase {
+        public EmployeeControllerIndexActionTests() {
+            _repository.Setup(r => r.FindAll())
+                        .Returns(_employeeData);
+        }
+        // .. tests
+        [TestMethod]
+        public void ShouldBuildModelWithAllEmployees() {
+            var result = _controller.Index();
+            var model = result.ViewData.Model
+                          as IEnumerable<Employee>;
+            Assert.IsTrue(model.Count() == _employeeData.Count());
+        }
+        // .. and more tests
     }
 ```
 
-Z wyjątkiem oczekiwania Nasze testy wyglądać podobnie do testów, które Musieliśmy przed. Jednak dzięki możliwości rejestrowania makiety Framework możemy podejście, testowanie pod kątem różnych. Omówimy to Nowa perspektywa w następnej sekcji.
+Z wyjątkiem oczekiwań, nasze testy wyglądają podobnie jak testy, które wcześniej istniały. Jednak dzięki możliwości rejestrowania struktury makiety możemy dochodzić do testowania z innego kąta. Ta nowa perspektywa zostanie wyświetlona w następnej sekcji.
 
-### <a name="state-versus-interaction-testing"></a>Stan i testowanie interakcji
+### <a name="state-versus-interaction-testing"></a>Stan a testowanie interakcji
 
-Istnieją różne techniki, które można użyć do testowania oprogramowania za pomocą makiety obiektów. Jednym z podejść jest stanu na podstawie badań, czyli co możemy zostały wykonane w tym dokumencie do tej pory. Stan oparty testowania potwierdzenia sprawia, że o stanie tego oprogramowania. W ostatni test firma Microsoft wywoływane metody akcji kontrolera, a wprowadzone potwierdzenie o modelu, należy go tworzyć. Poniżej przedstawiono kilka przykładów stanu testów:
+Istnieją różne techniki, których można użyć do testowania oprogramowania z obiektami makiety. Jednym z metod jest użycie testowania opartego na stanie, co jest gotowe do wykonania w tym dokumencie. Testowanie na podstawie stanu pozwala na potwierdzenie stanu oprogramowania. W ostatnim teście wywołana została metoda działania na kontrolerze i złożyła potwierdzenie dotyczące modelu, który powinien zostać skompilowany. Oto kilka innych przykładów stanu testowania:
 
--   Sprawdź, czy repozytorium zawiera nowy obiekt pracownika po wykonaniu Utwórz.
--   Sprawdź, czy model zawiera listę wszystkich pracowników, po wykonaniu indeksu.
--   Sprawdź, czy po wykonaniu Usuwanie repozytorium nie zawiera danego pracownika.
+-   Sprawdź, czy repozytorium zawiera nowy obiekt Employee po wykonaniu.
+-   Sprawdź, czy model zawiera listę wszystkich pracowników po wykonaniu indeksu.
+-   Upewnij się, że repozytorium nie zawiera danego pracownika po wykonaniu usuwania.
 
-Innym podejściem zostanie wyświetlony z makiety obiektów jest sprawdzenie *interakcje*. Gdy stan na podstawie testowania potwierdzenia sprawia, że o stanie obiektów, interakcji na podstawie testowania potwierdzenia sprawia, że dotyczące sposobu interakcji obiektów. Na przykład:
+Inne podejście, które zobaczysz, jest widoczne z obiektami makiety, aby zweryfikować *interakcje*. Podczas testowania opartego na stanie są sprawdzane informacje o stanie obiektów, testowanie na podstawie interakcji sprawia, że obiekty są w interakcji z interakcją. Na przykład:
 
--   Sprawdź, czy kontroler wywołuje metody Add z repozytorium, gdy wykonuje Utwórz.
--   Sprawdź, czy kontroler wywołuje metodę FindAll z repozytorium, gdy indeks.
--   Sprawdź, czy kontroler wywołuje jednostki szkoły wywołano metody Commit można zapisać zmian, gdy wykonuje edycji.
+-   Upewnij się, że kontroler wywołuje metodę Add repozytorium podczas wykonywania tworzenia.
+-   Sprawdź, czy kontroler wywołuje metodę FindAll repozytorium, gdy jest wykonywane indeksowanie.
+-   Sprawdź, czy kontroler wywołuje metodę zatwierdzania jednostki pracy, aby zapisać zmiany po wykonaniu edycji.
 
-Często testowania interakcji wymaga mniejszej ilości danych testu, ponieważ firma Microsoft nie są wywiercenie wewnątrz kolekcji i weryfikowanie liczby. Na przykład gdy wiemy, że akcja szczegóły wywołuje metodę FindById repozytorium przy użyciu poprawnej wartości - następnie akcji jest prawdopodobnie działa prawidłowo. Bez konfigurowania żadnych danych testowych do zwrócenia z FindById, możemy sprawdzić to zachowanie.
+Testowanie interakcji często wymaga mniej danych testowych, ponieważ nie są one poking wewnątrz kolekcji i nie sprawdzają liczby. Na przykład, jeśli wiemy, że akcja Details wywołuje metodę FindById repozytorium z poprawną wartością, to działanie prawdopodobnie działa poprawnie. Możemy sprawdzić to zachowanie bez konfigurowania jakichkolwiek danych testowych do zwrócenia z FindById.
 
 ``` csharp
     [TestClass]
     public class EmployeeControllerDetailsActionTests
-               : EmployeeControllerTestBase {
-         // ...
-        [TestMethod]
-        public void ShouldInvokeRepositoryToFindEmployee() {
-            var result = _controller.Details(_detailsId);
-            _repository.Verify(r => r.FindById(_detailsId));
-        }
-        int _detailsId = 1;
+               : EmployeeControllerTestBase {
+         // ...
+        [TestMethod]
+        public void ShouldInvokeRepositoryToFindEmployee() {
+            var result = _controller.Details(_detailsId);
+            _repository.Verify(r => r.FindById(_detailsId));
+        }
+        int _detailsId = 1;
     }
 ```
 
-Tylko ustawienia wymagane w powyższe warunki początkowe testu jest Instalator dostarczonych przez klasę bazową. Gdy firma Microsoft wywołanie akcji kontrolera, Moq zarejestruje interakcje makiety repozytorium. Za pomocą interfejsu API Sprawdź Moq, możemy zadawać Moq Jeśli kontroler wywołana FindById przy użyciu prawidłowego wartość Identyfikatora. Jeśli kontrolera nie wywołała metodę lub wywołano metodę z wartością parametru nieoczekiwany, sprawdź, czy metoda zgłosi wyjątek, a test zakończy się niepowodzeniem.
+Jedyną konfiguracją wymaganą w powyższym zasobie testowym jest instalacja dostarczana przez klasę bazową. Gdy wywołamy akcję kontrolera, MOQ będzie rejestrować interakcje z repozytorium makiety. Za pomocą weryfikowania interfejsu API MOQ można polecić MOQ, Jeśli kontroler wywołał FindById z prawidłową wartością identyfikatora. Jeśli kontroler nie wywołał metody lub wywołaniu metody z nieoczekiwaną wartością parametru, Metoda verify zgłosi wyjątek, a test zakończy się niepowodzeniem.
 
-Oto inny przykład, aby sprawdzić, czy akcja Utwórz wywołuje zatwierdzenia dla bieżącej jednostki pracy.
+Oto inny przykład, aby sprawdzić, czy akcja tworzenia wywołuje zatwierdzenie w bieżącej jednostce pracy.
 
 ``` csharp
     [TestMethod]
     public void ShouldCommitUnitOfWork() {
-        _controller.Create(_newEmployee);
-        _unitOfWork.Verify(u => u.Commit());
+        _controller.Create(_newEmployee);
+        _unitOfWork.Verify(u => u.Commit());
     }
 ```
 
-Jeden zagrożenia z testowaniem interakcji jest tendencja za pośrednictwem Określ interakcje. Możliwość makiety obiektu do rejestrowania i sprawdź, czy każdy interakcja z makiety obiektu nie oznacza testu starać się zweryfikować każdej interakcji. Niektóre interakcje są szczegóły dotyczące implementacji i interakcji należy zweryfikować tylko *wymagane* do zaspokojenia bieżącego testu.
+Jedno zagrożenie z testowaniem interakcji to tendencja do określania interakcji. Możliwość rejestrowania i weryfikowania każdej interakcji z obiektem makiety nie oznacza, że test powinien weryfikować każdą interakcję. Niektóre interakcje są szczegółami implementacji i weryfikują interakcje *wymagane* do spełnienia bieżącego testu.
 
-Wybór między mocks lub elementów sztucznych dużym stopniu zależy od systemu, które testujesz i osobistej (lub zespole kart) Preferencje. Obiekty makiety może znacznie zmniejszyć ilość kodu, musisz wdrożyć test wartości podwójnej precyzji, ale nie wszyscy jest komfortowo, jednocześnie programowania oczekiwań i weryfikowanie interakcje.
+Wybór między makietami lub sztucznymi jest w dużym stopniu zależny od testowanego systemu i preferencji osobistych (lub zespołów). Obiekty makiety mogą znacząco zmniejszyć ilość kodu wymaganego do wdrożenia testów, ale nie każdy z nich jest wygodny dla oczekiwań programistycznych i sprawdza interakcje.
 
 ## <a name="conclusions"></a>Wnioski
 
-W tym dokumencie firma Microsoft została przedstawiona różne podejścia do tworzenia kodu sprawdzalnego działa zgodnie z podczas korzystania z programu Entity Framework ADO.NET dla funkcji trwałości danych. Firma Microsoft mogą korzystać z wbudowanymi abstrakcji takich jak IObjectSet&lt;T&gt;, lub utworzyć własne elementy abstrakcji takich jak IRepository&lt;T&gt;.  W obu przypadkach te elementy abstrakcji konsumentom stale trwały dzięki obsłudze POCO w ADO.NET Entity Framework 4.0, zakresu i wysoce testowalna. Dodatkowe funkcje EF4, takich jak niejawna powolne ładowanie umożliwia usłudze biznesowych kodu do pracy bez konieczności martwienia się o szczegółowe informacje o relacyjnego magazynu danych. Na koniec abstrakcji, tworzonej przez nas są łatwe do makiety lub fałszywe wewnątrz testów jednostkowych i możemy użyć tych testów wartości podwójnej precyzji do osiągnięcia szybkiego uruchamiania, wysoce izolowane i niezawodne testy.
+W tym dokumencie przedstawiono kilka metod tworzenia kodu weryfikowalne przy użyciu Entity Framework ADO.NET w celu zapewnienia trwałości danych. Możemy wykorzystać skompilowane streszczenia, takie jak IObjectSet @ no__t-0T @ no__t-1 lub utworzyć własne streszczenia, takie jak IRepository @ no__t-2T @ no__t-3.  W obu przypadkach wsparcie POCO w ADO.NET Entity Framework 4,0 umożliwia konsumentom tych streszczeń pozostawanie trwałych ignorujących i wysoce weryfikowalne. Dodatkowe funkcje EF4, takie jak niejawne ładowanie z opóźnieniem, umożliwiają działanie kodu usługi biznesowej i aplikacji bez konieczności pojmowania się szczegółami relacyjnego magazynu danych. Na koniec, tworzone streszczenia są łatwe do zawinięcia lub fałszywe wewnątrz testów jednostkowych, a firma Microsoft może używać tych testów w celu szybkiego uruchamiania, wysoce odizolowanych i niezawodnych testów.
 
 ### <a name="additional-resources"></a>Dodatkowe zasoby
 
--   Robert C. Martin, " [zasady pojedynczej odpowiedzialności](http://www.objectmentor.com/resources/articles/srp.pdf)"
--   Martina Fowlera [katalog wzorców](http://www.martinfowler.com/eaaCatalog/index.html) z *wzorców architektury aplikacji przedsiębiorstwa*
--   Griffin Caprio " [wstrzykiwanie zależności](https://msdn.microsoft.com/magazine/cc163739.aspx)"
--   Grupa dyskusyjna danych, " [Instruktaż: testów opartych na tworzenie aplikacji przy użyciu programu Entity Framework 4.0](https://blogs.msdn.com/adonet/pages/walkthrough-test-driven-development-with-the-entity-framework-4-0.aspx)".
--   Grupa dyskusyjna danych, " [wzorców przy użyciu repozytorium i jednostki pracy za pomocą programu Entity Framework 4.0](https://blogs.msdn.com/adonet/archive/2009/06/16/using-repository-and-unit-of-work-patterns-with-entity-framework-4-0.aspx)"
--   Dave Astels " [wprowadzenie BDD](http://blog.daveastels.com/files/BDD_Intro.pdf)"
--   Aaron Jensen " [wprowadzenie do specyfikacji maszyny](http://codebetter.com/blogs/aaron.jensen/archive/2008/05/08/introducing-machine-specifications-or-mspec-for-short.aspx)"
--   Eric Lee " [BDD narzędziu MSTest](https://blogs.msdn.com/elee/archive/2009/01/20/bdd-with-mstest.aspx)"
--   Eric Evans, " [projektowania opartego na domenach](http://books.google.com/books?id=7dlaMs0SECsC&printsec=frontcover&dq=evans%20domain%20driven%20design&hl=en&ei=cHztS6C8KIaglAfA_dS1CA&sa=X&oi=book_result&ct=result&resnum=1&ved=0CCoQ6AEwAA)"
--   Martina Fowlera " [Mocks nie są wycinków](http://martinfowler.com/articles/mocksArentStubs.html)"
--   Martina Fowlera " [Test podwójnego](http://martinfowler.com/bliki/TestDouble.html)"
--   Jeremy Miller, Dyrektor ds " [stanu i testowanie interakcji](http://codebetter.com/blogs/jeremy.miller/articles/129544.aspx)"
--   [Moq](http://code.google.com/p/moq/)
+-   Robert C. Martin, " [Pojedyncza zasada odpowiedzialności](https://www.objectmentor.com/resources/articles/srp.pdf)"
+-   Fowlera Martin, [Katalog wzorców](https://www.martinfowler.com/eaaCatalog/index.html) ze *wzorców architektury aplikacji dla przedsiębiorstw*
+-   Griffin Caprio, " [iniekcja zależności](https://msdn.microsoft.com/magazine/cc163739.aspx)"
+-   Blog dotyczący programowania danych "@no__t 0Walkthrough: Programowanie sterowane testami za pomocą Entity Framework 4.0 @ no__t-0 ".
+-   Blog dotyczący programowania danych, " [używanie wzorców repozytorium i jednostki pracy z Entity Framework 4,0](https://blogs.msdn.com/adonet/archive/2009/06/16/using-repository-and-unit-of-work-patterns-with-entity-framework-4-0.aspx)"
+-   Aaron Jensen, " [Wprowadzenie specyfikacji maszyn](http://codebetter.com/blogs/aaron.jensen/archive/2008/05/08/introducing-machine-specifications-or-mspec-for-short.aspx)"
+-   Eric Lewandowski, " [BDD with MSTest](https://blogs.msdn.com/elee/archive/2009/01/20/bdd-with-mstest.aspx)"
+-   Eric Evans, " [Projektowanie oparte na domenie](https://books.google.com/books?id=7dlaMs0SECsC&printsec=frontcover&dq=evans%20domain%20driven%20design&hl=en&ei=cHztS6C8KIaglAfA_dS1CA&sa=X&oi=book_result&ct=result&resnum=1&ved=0CCoQ6AEwAA)"
+-   Fowlera Martin, " [imitacje nie są fragmentami](https://martinfowler.com/articles/mocksArentStubs.html)"
+-   Fowlera Martin, " [test Double](https://martinfowler.com/bliki/TestDouble.html)"
+-   [Moq](https://code.google.com/p/moq/)
 
-### <a name="biography"></a>Biografia
+### <a name="biography"></a>Biografii
 
-Scott Allen jest członek personelu technicznego w firmie Pluralsight i założycielem OdeToCode.com. 15 lat Wytwarzanie oprogramowania komercyjnego Scott pracował nad rozwiązania związane z 8-bitową urządzeń osadzonych do wysoce skalowalnych aplikacji sieci web platformy ASP.NET. Możesz docierać do Scotta na swoim blogu w OdeToCode lub Matta na Twitterze [ http://twitter.com/OdeToCode ](http://twitter.com/OdeToCode).
+Scott, który jest członkiem działu technicznego w Pluralsight i założyciel OdeToCode.com. W trakcie komercyjnego programowania oprogramowania Scott pracował nad rozwiązaniami dla wszystkich urządzeń z 8-bitowymi urządzeniami osadzonymi w wysoce skalowalnych aplikacjach sieci Web ASP.NET. Możesz skontaktować się z Scott w swoim blogu w witrynie OdeToCode lub w serwisie Twitter w [https://twitter.com/OdeToCode](https://twitter.com/OdeToCode).

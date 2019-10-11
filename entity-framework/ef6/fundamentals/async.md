@@ -3,12 +3,12 @@ title: Zapytanie asynchroniczne i Save-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: ae578976ffc88b407ef0aaa0017935005bedd093
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 0642dc13e7aa3906fa1495031c62701fc16f0192
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921631"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181846"
 ---
 # <a name="async-query-and-save"></a>Zapytanie asynchroniczne i zapisywanie
 > [!NOTE]
@@ -30,7 +30,7 @@ Poniżej przedstawiono kilka zasobów, aby poznać informacje o komunikacji asyn
 
 -   [Brandon Bray — Omówienie Async/await w programie .NET 4,5](https://blogs.msdn.com/b/dotnet/archive/2012/04/03/async-in-4-5-worth-the-await.aspx)
 -   [Asynchroniczne programowanie](https://msdn.microsoft.com/library/hh191443.aspx) stron w bibliotece MSDN
--   [Jak kompilować ASP.NET aplikacje sieci Web przy użyciu](http://channel9.msdn.com/events/teched/northamerica/2013/dev-b337) usługi asynchronicznej (obejmuje demonstrację zwiększonej przepływności serwera)
+-   [Jak kompilować ASP.NET aplikacje sieci Web przy użyciu usługi Async](https://channel9.msdn.com/events/teched/northamerica/2013/dev-b337) (obejmuje demonstrację zwiększonej przepływności serwera)
 
 ## <a name="create-the-model"></a>Tworzenie modelu
 
@@ -222,12 +222,12 @@ Aby uzyskać pełną listę dostępnych metod rozszerzenia w przestrzeni nazw Sy
 Teraz, gdy kod jest asynchroniczny, można obserwować inny przepływ wykonywania podczas uruchamiania programu:
 
 1. **Metody SaveChanges** rozpoczyna wypychanie nowego **bloga** do bazy danych  
-    *Po wysłaniu polecenia do bazy danych nie jest wymagany czas obliczeniowy w bieżącym wątku zarządzanym. Metoda **PerformDatabaseOperations** zwraca (nawet jeśli nie została ukończona), a przepływ programu w metodzie Main jest kontynuowany.*
+    *Once polecenie jest wysyłane do bazy danych, w bieżącym wątku zarządzanym nie jest wymagany czas obliczeniowy. Metoda **PerformDatabaseOperations** zwraca (nawet jeśli nie została ukończona), a przepływ programu w metodzie Main jest kontynuowany.*
 2. **Cytat dnia jest zapisywana w konsoli**  
-    *Ponieważ nie ma więcej pracy do wykonania w metodzie Main, zarządzany wątek jest blokowany na wywołanie oczekiwania do momentu zakończenia operacji bazy danych. Po zakończeniu zostanie wykonane pozostała część naszych **PerformDatabaseOperations** .*
+    *Since nie ma więcej pracy do wykonania w metodzie Main, zarządzany wątek jest blokowany na wywołanie oczekiwania do momentu zakończenia operacji bazy danych. Po zakończeniu zostanie wykonane pozostała część naszych **PerformDatabaseOperations** .*
 3.  **Metody SaveChanges**  
 4.  Zapytanie dotyczące wszystkich **blogów** jest wysyłane do bazy danych  
-    *Ponownie zarządzany wątek jest bezpłatny do wykonywania innych czynności w czasie przetwarzania zapytania w bazie danych. Ponieważ wszystkie inne wykonania zostały ukończone, wątek zostanie po prostu zatrzymany na wywołaniu oczekiwania.*
+    *Again, zarządzany wątek jest bezpłatny do wykonywania innych czynności w czasie przetwarzania zapytania w bazie danych. Ponieważ wszystkie inne wykonania zostały ukończone, wątek zostanie po prostu zatrzymany na wywołaniu oczekiwania.*
 5.  Zapytania zwracane i wyniki są zapisywane w **konsoli**  
 
 ![Asynchroniczne dane wyjściowe](~/ef6/media/asyncoutput.png) 

@@ -1,59 +1,59 @@
 ---
-title: Obsługa dostawców dla typów przestrzennych - EF6
+title: Obsługa dostawcy dla typów przestrzennych — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 1097cb00-15f5-453d-90ed-bff9403d23e3
-ms.openlocfilehash: 9c00e82c663daec219fe649a8d889afcc81564f7
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 863f1b4551bd62160915eba90fee7ba6c49c169c
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022278"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181597"
 ---
-# <a name="provider-support-for-spatial-types"></a>Obsługa dostawców dla typów przestrzennych
-Entity Framework obsługuje pracę z danymi przestrzennymi za pośrednictwem DbGeography lub DbGeometry klasy. W ramach tych zajęć, zależą od funkcji specyficznych dla bazy danych udostępnianymi przez dostawcę programu Entity Framework. Nie wszyscy dostawcy obsługuje dane przestrzenne i tych, które wykonują może mieć dodatkowe wymagania wstępne, takich jak instalacja zestawów typów przestrzennych. Więcej informacji na temat Obsługa dostawców dla typów przestrzennych znajduje się poniżej.  
+# <a name="provider-support-for-spatial-types"></a>Obsługa dostawcy dla typów przestrzennych
+Entity Framework obsługuje pracę z danymi przestrzennymi za pomocą klas DbGeography lub DbGeometry. Te klasy są oparte na funkcjach specyficznych dla bazy danych oferowanych przez dostawcę Entity Framework. Nie wszyscy dostawcy obsługują dane przestrzenne, a te, które mogą mieć dodatkowe wymagania wstępne, takie jak instalacja zestawów typów przestrzennych. Więcej informacji o obsłudze dostawcy dla typów przestrzennych znajduje się poniżej.  
 
-Dodatkowe informacje dotyczące sposobu używania typów przestrzennych w aplikacji znajdują się w dwóch wskazówki, jeden dla Code First, drugie dla pierwszej bazy danych lub pierwszego modelu:  
+Dodatkowe informacje na temat korzystania z typów przestrzennych w aplikacji można znaleźć w dwóch przewodnikach, jeden dla Code First, drugi dla Database First lub Model First:  
 
-- [Typy w kodzie najpierw danych przestrzennych](~/ef6/modeling/code-first/data-types/spatial.md)  
-- [Typy danych przestrzennych w Projektancie platformy EF](~/ef6/modeling/designer/data-types/spatial.md)  
+- [Typy danych przestrzennych w Code First](~/ef6/modeling/code-first/data-types/spatial.md)  
+- [Typy danych przestrzennych w projektancie EF](~/ef6/modeling/designer/data-types/spatial.md)  
 
-## <a name="ef-releases-that-support-spatial-types"></a>Wersje programu EF, które obsługują typów przestrzennych  
+## <a name="ef-releases-that-support-spatial-types"></a>Wersje EF obsługujące typy przestrzenne  
 
-Obsługa typów przestrzennych została wprowadzona w EF5. Jednak w EF5 typów przestrzennych są obsługiwane tylko w przypadku aplikacji jest przeznaczony dla i działa w .NET 4.5.  
+Obsługa typów przestrzennych została wprowadzona w EF5. Jednak w przypadku typów przestrzennych EF5 są obsługiwane tylko wtedy, gdy aplikacja jest uruchamiana i działa na platformie .NET 4,5.  
 
-Począwszy od platformy EF6 typów przestrzennych są obsługiwane w przypadku aplikacji przeznaczonych dla platformy .NET 4.5 i .NET 4.  
+Począwszy od typów przestrzennych EF6 są obsługiwane w przypadku aplikacji przeznaczonych dla programów .NET 4 i .NET 4,5.  
 
-## <a name="ef-providers-that-support-spatial-types"></a>EF dostawcy, obsługujące typów przestrzennych  
+## <a name="ef-providers-that-support-spatial-types"></a>Dostawcy EF, którzy obsługują typy przestrzenne  
 
 ### <a name="ef5"></a>EF5  
 
-Dostawcy programu Entity Framework do EF5, które sobie sprawę z czy typów przestrzennych pomocy technicznej:  
+Entity Framework dostawców dla EF5, że mamy świadomość, że typy przestrzenne są następujące:  
 
-- Dostawca programu Microsoft SQL Server  
+- Dostawca Microsoft SQL Server  
     - Ten dostawca jest dostarczany jako część EF5.  
-    - Ten dostawca jest zależna od niektórych dodatkowych bibliotek niskiego poziomu, które muszą zostać zainstalowane — Zobacz szczegóły poniżej.  
-- [Devart dotConnect na oprogramowanie Oracle](http://www.devart.com/dotconnect/oracle/)  
-    - Jest to dostawca innych firm z Devart.  
+    - Ten dostawca zależy od pewnych dodatkowych bibliotek niskiego poziomu, które mogą wymagać zainstalowania — Zobacz poniżej, aby uzyskać szczegółowe informacje.  
+- [Devart dotConnect dla programu Oracle](https://www.devart.com/dotconnect/oracle/)  
+    - Jest to dostawca innych firm od Devart.  
 
-Jeśli znasz EF5 dostawcy obsługująca typów przestrzennych następnie można uzyskać w kontakcie i będziemy wszystkiego dodać go do tej listy.  
+Jeśli znasz dostawcę EF5, który obsługuje typy przestrzenne, skontaktuj się z nami i będziemy mogli dodać go do tej listy.  
 
 ### <a name="ef6"></a>EF6  
 
-Dostawcy programu Entity Framework, dla platformy EF6, które sobie sprawę z czy typów przestrzennych pomocy technicznej:  
+Entity Framework dostawców dla EF6, że mamy świadomość, że typy przestrzenne są następujące:  
 
-- Dostawca programu Microsoft SQL Server  
-    - Ten dostawca jest dostarczany jako część platformy EF6.  
-    - Ten dostawca jest zależna od niektórych dodatkowych bibliotek niskiego poziomu, które muszą zostać zainstalowane — Zobacz szczegóły poniżej.  
-- [Devart dotConnect na oprogramowanie Oracle](http://www.devart.com/dotconnect/oracle/)  
-    - Jest to dostawca innych firm z Devart.  
+- Dostawca Microsoft SQL Server  
+    - Ten dostawca jest dostarczany jako część EF6.  
+    - Ten dostawca zależy od pewnych dodatkowych bibliotek niskiego poziomu, które mogą wymagać zainstalowania — Zobacz poniżej, aby uzyskać szczegółowe informacje.  
+- [Devart dotConnect dla programu Oracle](https://www.devart.com/dotconnect/oracle/)  
+    - Jest to dostawca innych firm od Devart.  
 
-Jeśli znasz EF6 dostawcy obsługująca typów przestrzennych następnie można uzyskać w kontakcie i będziemy wszystkiego dodać go do tej listy.  
+Jeśli znasz dostawcę EF6, który obsługuje typy przestrzenne, skontaktuj się z nami i będziemy mogli dodać go do tej listy.  
 
-## <a name="prerequisites-for-spatial-types-with-microsoft-sql-server"></a>Wymagania wstępne dotyczące typów przestrzennych z programem Microsoft SQL Server  
+## <a name="prerequisites-for-spatial-types-with-microsoft-sql-server"></a>Wymagania wstępne dotyczące typów przestrzennych z Microsoft SQL Server  
 
-Obsługa przestrzenne programu SQL Server jest zależna od niskiego poziomu, specyficzne dla programu SQL Server typu SqlGeography i SqlGeometry. Te typy na żywo w zestawie Microsoft.SqlServer.Types.dll i ten zestaw nie jest dostarczany jako część EF lub w ramach programu .NET Framework.  
+Obsługa SQL Server przestrzennej zależy od typów SqlGeography i SqlGeometry o niskim poziomie SQL Server. Te typy na żywo w zestawie Microsoft. SqlServer. Types. dll i ten zestaw nie jest dostarczany jako część EF lub jako część .NET Framework.  
 
-Po zainstalowaniu programu Visual Studio zostanie często również zainstalowana wersja programu SQL Server i będzie to obejmowało instalacji Microsoft.SqlServer.Types.dll.  
+Gdy program Visual Studio jest zainstalowany, często instaluje również wersję SQL Server i obejmuje instalację Microsoft. SqlServer. Types. dll.  
 
-Jeśli program SQL Server nie jest zainstalowany na komputerze, na których chcesz użyć typów przestrzennych lub typów przestrzennych zostały wykluczone z instalacji programu SQL Server, należy je zainstalować ręcznie. Typy można zainstalować przy użyciu `SQLSysClrTypes.msi`, który jest częścią programu Microsoft SQL Server Feature Pack. Typów przestrzennych programu SQL Server specyficzny dla wersji są, tak więc zaleca się [Wyszukaj "SQL Server Feature Pack"](https://www.microsoft.com/search/result.aspx?q=sql+server+feature+pack) w programie Microsoft Download Center, a następnie wybierz i Pobierz opcji, która odnosi się do wersji programu SQL Server, które będą używane.
+Jeśli SQL Server nie jest zainstalowana na komputerze, na którym mają być używane typy przestrzenne, lub jeśli typy przestrzenne zostały wykluczone z instalacji SQL Server, należy zainstalować je ręcznie. Typy można instalować przy użyciu `SQLSysClrTypes.msi`, który jest częścią Microsoft SQL Server Feature Pack. Typy przestrzenne są SQL Server specyficzne dla wersji, dlatego zalecamy [przeszukanie "SQL Server pakiet Feature Pack"](https://www.microsoft.com/search/result.aspx?q=sql+server+feature+pack) w centrum pobierania Microsoft, a następnie wybranie i pobranie opcji odpowiadającej używanej wersji SQL Server.

@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: 026df735473e31f1c1463c1fbc6f46c4fd6dfd4f
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: cced53edadb890e4e86753ec2628218ffc4d1d5b
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921736"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181392"
 ---
 # <a name="spatial-data"></a>Dane przestrzenne
 
@@ -46,7 +46,7 @@ optionsBuilder.UseSqlServer(
     x => x.UseNetTopologySuite());
 ```
 
-Istnieje kilka typów danych przestrzennych. Używany typ zależy od typów kształtów, które mają być dozwolone. Poniżej znajduje się hierarchia typów NKTY przerwania, których można użyć do właściwości w modelu. Znajdują się one w `NetTopologySuite.Geometries` przestrzeni nazw.
+Istnieje kilka typów danych przestrzennych. Używany typ zależy od typów kształtów, które mają być dozwolone. Poniżej znajduje się hierarchia typów NKTY przerwania, których można użyć do właściwości w modelu. Znajdują się one w przestrzeni nazw `NetTopologySuite.Geometries`.
 
 * Geometrii
   * Moment
@@ -62,7 +62,7 @@ Istnieje kilka typów danych przestrzennych. Używany typ zależy od typów kszt
 
 Użycie podstawowego typu geometrii umożliwia określenie dowolnego typu kształtu przez właściwość.
 
-Poniższe klasy jednostek mogą służyć do mapowania tabel w [przykładowej bazie danych](http://go.microsoft.com/fwlink/?LinkID=800630)na całym świecie.
+Poniższe klasy jednostek mogą służyć do mapowania tabel w [przykładowej bazie danych](https://go.microsoft.com/fwlink/?LinkID=800630)na całym świecie.
 
 ``` csharp
 [Table("Cities", Schema = "Application"))]
@@ -101,7 +101,7 @@ var currentLocation = geometryFactory.CreatePoint(-122.121512, 47.6739882);
 
 ### <a name="longitude-and-latitude"></a>Długości i szerokości geograficznej
 
-Współrzędne w NKTY przerwania są pod względem wartości X i Y. Aby przedstawić długość i szerokość geograficzną, użyj X dla długości geograficznej i Y dla szerokości geograficznej. Należy zauważyć, że jest to **Wstecz** od `latitude, longitude` formatu, w którym są zwykle wyświetlane te wartości.
+Współrzędne w NKTY przerwania są pod względem wartości X i Y. Aby przedstawić długość i szerokość geograficzną, użyj X dla długości geograficznej i Y dla szerokości geograficznej. Należy pamiętać, że jest to **wsteczne** w formacie `latitude, longitude`, w którym są zwykle wyświetlane te wartości.
 
 ### <a name="srid-ignored-during-client-operations"></a>SRID zignorowane podczas operacji klienta
 
@@ -213,15 +213,15 @@ Jeśli używasz SQL Server, musisz wiedzieć o kilku dodatkowych kwestiach.
 
 ### <a name="geography-or-geometry"></a>Geografia lub geometria
 
-Domyślnie właściwości przestrzenne są mapowane na `geography` kolumny w SQL Server. Aby użyć `geometry`, należy [skonfigurować typ kolumny](xref:core/modeling/relational/data-types) w modelu.
+Domyślnie właściwości przestrzenne są mapowane na kolumny `geography` w SQL Server. Aby użyć `geometry`, [skonfiguruj Typ kolumny](xref:core/modeling/relational/data-types) w modelu.
 
 ### <a name="geography-polygon-rings"></a>Pierścienie wielokątów geograficznych
 
-W przypadku używania `geography` typu kolumny SQL Server nakładają dodatkowe wymagania dotyczące pierścienia zewnętrznego (lub powłoki) i wewnętrznych pierścieni (lub dziur). Pierścień zewnętrzny musi być zorientowany w lewo i w prawo. NKTY przerwania sprawdza to przed wysłaniem wartości do bazy danych.
+W przypadku używania typu kolumny `geography` SQL Server nakładają dodatkowe wymagania dotyczące pierścienia zewnętrznego (lub powłoki) i wewnętrznych pierścieni (lub dziur). Pierścień zewnętrzny musi być zorientowany w lewo i w prawo. NKTY przerwania sprawdza to przed wysłaniem wartości do bazy danych.
 
 ### <a name="fullglobe"></a>FullGlobe
 
-SQL Server ma niestandardowy typ geometrii reprezentujący pełny Globus przy użyciu `geography` typu kolumny. Ma również sposób reprezentowania wielokątów w oparciu o pełny Globus (bez pierścienia zewnętrznego). Żadna z tych elementów nie jest obsługiwana przez NKTY przerwania.
+SQL Server ma niestandardowy typ geometrii reprezentujący pełny Globus przy użyciu typu kolumny `geography`. Ma również sposób reprezentowania wielokątów w oparciu o pełny Globus (bez pierścienia zewnętrznego). Żadna z tych elementów nie jest obsługiwana przez NKTY przerwania.
 
 > [!WARNING]
 > FullGlobe i wielokąty oparte na nim nie są obsługiwane przez NKTY przerwania.
@@ -244,7 +244,7 @@ brew install libspatialite
 
 ### <a name="configuring-srid"></a>Konfigurowanie SRID
 
-W SpatiaLite, kolumny muszą określać SRID na kolumnę. Wartość domyślna to `0`SRID. Określ inny SRID przy użyciu metody ForSqliteHasSrid.
+W SpatiaLite, kolumny muszą określać SRID na kolumnę. Wartość domyślna SRID to `0`. Określ inny SRID przy użyciu metody ForSqliteHasSrid.
 
 ``` csharp
 modelBuilder.Entity<City>().Property(c => c.Location)
@@ -331,5 +331,5 @@ Wielokąt. NumInteriorRings | ✔ | ✔ | ✔ | ✔
 
 * [Dane przestrzenne w SQL Server](https://docs.microsoft.com/sql/relational-databases/spatial/spatial-data-sql-server)
 * [Strona główna SpatiaLite](https://www.gaia-gis.it/fossil/libspatialite)
-* [Dokumentacja przestrzenna Npgsql](http://www.npgsql.org/efcore/mapping/nts.html)
-* [Dokumentacja PostGIS](http://postgis.net/documentation/)
+* [Dokumentacja przestrzenna Npgsql](https://www.npgsql.org/efcore/mapping/nts.html)
+* [Dokumentacja PostGIS](https://postgis.net/documentation/)

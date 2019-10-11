@@ -1,111 +1,111 @@
 ---
-title: Obsługa Enum - projektancie platformy EF - EF6
+title: Enum support-Dr Designer-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: c6ae6d8f-1ace-47db-ad47-b1718f1ba082
-ms.openlocfilehash: 331182c4311565c94cf072eb9b9ad372ac76180a
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: 92a763b84a04d3ce7ec0853ef2a4852356cf7997
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283943"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182517"
 ---
-# <a name="enum-support---ef-designer"></a>Pomoc techniczna dla wyliczenia — projektancie platformy EF
+# <a name="enum-support---ef-designer"></a>Obsługa Wyliczenie-Dr Designer
 > [!NOTE]
-> **EF5 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 5. Jeśli używasz starszej wersji, niektóre lub wszystkie informacje, nie ma zastosowania.
+> **EF5 tylko** — funkcje, interfejsy API itp. omówione na tej stronie zostały wprowadzone w Entity Framework 5. Jeśli używasz wcześniejszej wersji, niektóre lub wszystkie informacje nie są stosowane.
 
-W tym przewodniku krok po kroku i wideo pokazuje, jak w typach wyliczeniowych za pomocą programu Entity Framework Designer. Ilustruje też sposób używania typów wyliczeniowych w zapytaniu programu LINQ.
+Ten film wideo i przewodnik krok po kroku pokazują, jak używać typów wyliczeniowych z Entity Framework Designer. Pokazano również, jak używać wyliczeń w zapytaniu LINQ.
 
-W tym przewodniku użyje pierwszego modelu do utworzenia nowej bazy danych, ale może również służyć projektancie platformy EF z [Database First](~/ef6/modeling/designer/workflows/database-first.md) przepływu pracy do mapowania istniejącej bazy danych.
+Ten Instruktaż będzie używać Model First do tworzenia nowej bazy danych, ale można również użyć programu Dr Designer z przepływem pracy [Database First](~/ef6/modeling/designer/workflows/database-first.md) , aby mapować do istniejącej bazy danych.
 
-Obsługa typu wyliczeniowego została wprowadzona w Entity Framework 5. Aby korzystać z nowych funkcji, takich jak typy wyliczeniowe, typy danych przestrzennych i funkcji z wartościami przechowywanymi w tabeli, należy wskazać .NET Framework 4.5. Program Visual Studio 2012 jest przeznaczony dla platformy .NET 4.5 domyślnie.
+Obsługa wyliczenia została wprowadzona w Entity Framework 5. Aby korzystać z nowych funkcji, takich jak wyliczenia, typy danych przestrzennych i funkcje zwracające tabelę, należy określić wartość docelową .NET Framework 4,5. Program Visual Studio 2012 Domyślnie kieruje .NET 4,5.
 
-W programie Entity Framework, wyliczenie może mieć następujące typy bazowe: **bajtów**, **Int16**, **Int32**, **Int64** , lub **SByte**.
+W Entity Framework Wyliczenie może mieć następujące typy podstawowe: **Byte**, **Int16**, **Int32**, **Int64** **lub**parzystość.
 
 ## <a name="watch-the-video"></a>Obejrzyj wideo
-To wideo pokazuje, jak w typach wyliczeniowych za pomocą programu Entity Framework Designer. Ilustruje też sposób używania typów wyliczeniowych w zapytaniu programu LINQ.
+W tym filmie wideo pokazano, jak używać typów wyliczeniowych z Entity Framework Designer. Pokazano również, jak używać wyliczeń w zapytaniu LINQ.
 
-**Osoba prezentująca**: Julia Kornich
+**Przedstawione przez**: Julia Kornich
 
 **Film wideo**: [WMV](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-winvideo-enumwithdesiger.wmv) | [MP4](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-mp4video-enumwithdesiger.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-winvideo-enumwithdesiger.zip)
 
 ## <a name="pre-requisites"></a>Wymagania wstępne
 
-Musisz być w wersji programu Visual Studio 2012 Ultimate, Premium, Professional i Web Express zainstalowany w celu przeprowadzenia tego instruktażu.
+Aby ukończyć ten przewodnik, musisz mieć zainstalowaną wersję Visual Studio 2012, Ultimate, Premium, Professional lub Web Express Edition.
 
 ## <a name="set-up-the-project"></a>Konfigurowanie projektu
 
 1.  Otwórz program Visual Studio 2012
-2.  Na **pliku** menu wskaż **New**, a następnie kliknij przycisk **projektu**
-3.  W okienku po lewej stronie kliknij **Visual C\#**, a następnie wybierz pozycję **konsoli** szablonu
-4.  Wprowadź **EnumEFDesigner** jako nazwę projektu i kliknij przycisk **OK**
+2.  W menu **plik** wskaż polecenie **Nowy**, a następnie kliknij pozycję **projekt** .
+3.  W lewym okienku kliknij pozycję **Visual C @ no__t-1**, a następnie wybierz szablon **konsoli**
+4.  Wprowadź **EnumEFDesigner** jako nazwę projektu, a następnie kliknij przycisk **OK** .
 
-## <a name="create-a-new-model-using-the-ef-designer"></a>Utwórz nowy Model przy użyciu projektanta EF
+## <a name="create-a-new-model-using-the-ef-designer"></a>Tworzenie nowego modelu przy użyciu narzędzia Dr Designer
 
-1.  Kliknij prawym przyciskiem myszy nazwę projektu w Eksploratorze rozwiązań, wskaż opcję **Dodaj**, a następnie kliknij przycisk **nowy element**
-2.  Wybierz **danych** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablonów
-3.  Wprowadź **EnumTestModel.edmx** nazwę pliku, a następnie kliknij przycisk **Dodaj**
-4.  Na stronie Kreator modelu Entity Data Model wybierz **pusty Model** w oknie dialogowym Wybierz zawartość modelu
-5.  Kliknij przycisk **Zakończ**
+1.  Kliknij prawym przyciskiem myszy nazwę projektu w Eksplorator rozwiązań, wskaż polecenie **Dodaj**, a następnie kliknij pozycję **nowy element** .
+2.  Wybierz pozycję **dane** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablony.
+3.  W polu Nazwa pliku wprowadź **EnumTestModel. edmx** , a następnie kliknij przycisk **Dodaj** .
+4.  Na stronie kreatora Entity Data Model wybierz pozycję **pusty model** w oknie dialogowym Wybierz zawartość modelu
+5.  Kliknij przycisk **Zakończ** .
 
-Zostanie wyświetlona Projektancie jednostki, zapewniającą powierzchnię projektową do edycji modelu.
+Zostanie wyświetlona Entity Designer, która zapewnia powierzchnię projektową do edycji modelu.
 
 Kreator wykonuje następujące czynności:
 
--   Generuje plik EnumTestModel.edmx, który definiuje modelu koncepcyjnego, model magazynu i mapowanie między nimi. Ustawia właściwość metadanych artefaktów przetwarzania pliku edmx osadzania w zestawie danych wyjściowych, więc pliki metadanych wygenerowanych Pobierz osadzone w zestawie.
--   Dodanie odwołania do następujących zestawów: platformy EntityFramework, System.ComponentModel.DataAnnotations i System.Data.Entity.
--   Tworzy pliki EnumTestModel.tt i EnumTestModel.Context.tt i dodaje je w pliku edmx. Te pliki szablonów T4 wygenerować kod, który definiuje typu DbContext pochodnych i POCO typów, które mapują jednostek w modelu edmx.
+-   Generuje plik EnumTestModel. edmx, który definiuje model koncepcyjny, model magazynu i mapowanie między nimi. Ustawia właściwość przetwarzania artefaktu metadanych pliku. edmx na osadzony w zestawie danych wyjściowych, aby wygenerowane pliki metadanych zostały osadzone w zestawie.
+-   Dodaje odwołanie do następujących zestawów: EntityFramework, system. ComponentModel. DataAnnotations i system. Data. Entity.
+-   Tworzy pliki EnumTestModel.tt i EnumTestModel.Context.tt i dodaje je do pliku. edmx. Te pliki szablonów T4 generują kod, który definiuje typ pochodny DbContext i typy POCO, które są mapowane na jednostki w modelu. edmx.
 
 ## <a name="add-a-new-entity-type"></a>Dodaj nowy typ jednostki
 
-1.  Kliknij prawym przyciskiem myszy pusty obszar powierzchni projektu, wybierz opcję **Add -&gt; jednostki**, pojawi się okno dialogowe nowej jednostki
-2.  Określ **działu** dla typu nazwy i określ **DepartmentID** dla danej nazwy właściwości klucza, pozostaw typ jako **Int32**
+1.  Kliknij prawym przyciskiem myszy pusty obszar na powierzchni projektowej, a następnie wybierz polecenie **Dodaj-&gt; jednostki**, pojawi się okno dialogowe Nowa jednostka
+2.  Określ **dział** dla nazwy typu i określ **DepartmentID** dla nazwy właściwości klucza, pozostaw typ jako **Int32**
 3.  Kliknij przycisk **OK**
-4.  Kliknij prawym przyciskiem myszy jednostkę, a następnie wybierz pozycję **Dodaj nowy -&gt; właściwość skalarną**
-5.  Zmień nazwę nowej właściwości **nazwy**
-6.  Zmień typ nowej właściwości **Int32** (domyślnie przez nową właściwość jest typu String) Aby zmienić typ, Otwórz okno właściwości, a następnie zmień typ właściwości **Int32**
-7.  Dodawanie innej skalarne właściwości i zmień jej nazwę na **budżetu**, Zmień typ na **dziesiętna**
+4.  Kliknij prawym przyciskiem myszy jednostkę i wybierz polecenie **Dodaj nową-&gt; Właściwość skalarna**
+5.  Zmień nazwę nowej właściwości na **nazwę**
+6.  Zmień typ nowej właściwości na **Int32** (domyślnie Nowa właściwość jest typu String) Aby zmienić typ, Otwórz okno właściwości i Zmień Właściwość Type na **Int32**
+7.  Dodaj kolejną Właściwość skalarną i zmień jej nazwę na **budżet**, Zmień typ na **dziesiętny**
 
-## <a name="add-an-enum-type"></a>Dodaj typ wyliczeniowy
+## <a name="add-an-enum-type"></a>Dodawanie typu wyliczeniowego
 
-1.  W Entity Framework Designer kliknij prawym przyciskiem myszy nazwę właściwości, wybierz **przekonwertować wyliczenia**
+1.  W Entity Framework Designer kliknij prawym przyciskiem myszy Właściwość Name, wybierz pozycję **Konwertuj na Wyliczenie** .
 
-    ![Konwertuj na wyliczenie](~/ef6/media/converttoenum.png)
+    ![Konwertuj na Wyliczenie](~/ef6/media/converttoenum.png)
 
-2.  W **Dodaj wyliczenie** okna dialogowego wpisz **DepartmentNames** dla nazwy typu wyliczenia, Zmień typ podstawowy do **Int32**, a następnie dodaj następujące elementy członkowskie do typu: angielski, Matematyczne i oszczędnościami, jakie daje
+2.  W oknie dialogowym **Dodawanie wyliczenia** wpisz **DepartmentNames** dla nazwy typu wyliczenia, Zmień typ podstawowy na **Int32**, a następnie Dodaj do typu następujące elementy członkowskie: Angielski, Math i ekonomia
 
-    ![Dodaj typ wyliczeniowy](~/ef6/media/addenumtype.png)
+    ![Dodaj typ wyliczenia](~/ef6/media/addenumtype.png)
 
-3.  Naciśnij klawisz **OK**
+3.  Naciśnij przycisk **OK**
 4.  Zapisz model i skompiluj projekt
     > [!NOTE]
-    > W przypadku tworzenia, ostrzeżenia dotyczące podmiotów niezmapowanych i skojarzenia może pojawić się na liście błędów. Można zignorować te ostrzeżenia, ponieważ po Wybierzmy wygenerować bazę danych z modelu, błędy znikną.
+    > Podczas kompilowania w Lista błędów mogą pojawić się ostrzeżenia dotyczące niezamapowanych jednostek i skojarzeń. Te ostrzeżenia można zignorować, ponieważ po wybraniu opcji wygenerowania bazy danych z modelu te błędy zostaną odrzucone.
 
-Jeśli przyjrzymy się w oknie właściwości, zauważysz, że typ właściwości Nazwa została zmieniona na **DepartmentNames** i typ wyliczeniowy nowo dodanych została dodana do listy typów.
+Jeśli zobaczysz okno Właściwości, zobaczysz, że typ właściwości Nazwa została zmieniona na **DepartmentNames** , a nowo dodany typ wyliczeniowy został dodany do listy typów.
 
-Po przełączeniu do okna przeglądarki modelu pojawi się, czy typ został również dodany do węzła typach wyliczeniowych.
+Po przełączeniu do okna przeglądarki modelu zobaczysz, że typ został również dodany do węzła typy wyliczeniowe.
 
 ![Przeglądarka modeli](~/ef6/media/modelbrowser.png)
 
 >[!NOTE]
-> Można również dodać nowe typy wyliczenia z tego okna, klikając prawym przyciskiem myszy i wybierając **Dodaj typ wyliczeniowy**. Po utworzeniu typu pojawi się na liście typów i będzie można skojarzyć z właściwością
+> Możesz również dodać nowe typy wyliczeniowe z tego okna, klikając prawym przyciskiem myszy i wybierając pozycję **Dodaj typ wyliczeniowy**. Po utworzeniu typu zostanie on wyświetlony na liście typów i będzie można skojarzyć z właściwością
 
-## <a name="generate-database-from-model"></a>Generuj bazę danych z modelu
+## <a name="generate-database-from-model"></a>Generuj bazę danych na podstawie modelu
 
-Teraz możemy wygenerować bazę danych, która jest oparta na modelu.
+Teraz możemy wygenerować bazę danych opartą na modelu.
 
-1.  Kliknij prawym przyciskiem myszy pusty obszar w Projektancie jednostki powierzchni i wybierz **Generuj z bazy danych z modelu**
-2.  Wybierz połączenie danych dialogowym Generuj Kreatora bazy danych jest wyświetlany, kliknij przycisk **nowe połączenie** przycisk Określ **(localdb)\\mssqllocaldb** dla nazwy serwera i  **EnumTest** bazy danych, a następnie kliknij przycisk **OK**
-3.  Okno z pytaniem, jeśli chcesz utworzyć nową bazę danych będą się pojawiać, kliknij przycisk **tak**.
-4.  Kliknij przycisk **dalej** i Kreatora tworzenia bazy danych generuje języka definicji danych (DDL) dla tworzenia bazy danych wygenerowanej języka DDL są wyświetlane w Podsumowanie i okna dialogowego pole Uwaga dotycząca ustawień, który DDL nie zawiera definicji dla tabelę, która mapuje do typu wyliczenia
-5.  Kliknij przycisk **Zakończ** kliknięcie przycisku Zakończ nie wykonuje skrypt języka DDL.
-6.  Kreator tworzenia bazy danych wykonuje następujące czynności: Otwiera **EnumTest.edmx.sql** w Edytor T-SQL generuje sekcje schematu i mapowania magazynu EDMX pliku informacji o parametrach połączenia usług AD DS do pliku App.config
-7.  Kliknij prawym przyciskiem myszy w edytorze języka T-SQL i wybierz pozycję **Execute** nawiązać połączenie z serwerem w oknie dialogowym wyświetlony, podaj informacje o połączeniu z kroku 2, a następnie kliknij polecenie **Connect**
-8.  Aby wyświetlić wygenerowany schemat, kliknij prawym przyciskiem myszy nazwę bazy danych w Eksploratorze obiektów SQL Server, a następnie wybierz **odświeżania**
+1.  Kliknij prawym przyciskiem myszy puste miejsce na Entity Designer powierzchni i wybierz polecenie **Generuj bazę danych na podstawie modelu**
+2.  Zostanie wyświetlone okno dialogowe Wybieranie połączenia danych w Kreatorze generowania bazy danych. kliknij przycisk **nowe połączenie** , określ **(LocalDB) \\mssqllocaldb** jako nazwę serwera i **EnumTest** dla bazy danych, a następnie kliknij przycisk **OK** .
+3.  Zostanie wyświetlone okno dialogowe z pytaniem, czy chcesz utworzyć nową bazę danych, kliknij przycisk **tak**.
+4.  Kliknij przycisk **dalej** , aby Kreator tworzenia bazy danych wygenerował język definicji danych (DDL) służący do tworzenia bazy danych, wygenerowany kod DDL jest wyświetlany w oknie dialogowym Podsumowanie i ustawienia Zanotuj, że kod DDL nie zawiera definicji tabeli mapowanej na typ wyliczenia
+5.  Kliknij przycisk **Zakończ** kliknięcie przycisku Zakończ nie powoduje wykonania skryptu DDL.
+6.  Kreator tworzenia bazy danych wykonuje następujące czynności: Otwiera plik **EnumTest. edmx. SQL** w edytorze T-SQL generuje schemat magazynu i sekcje mapowania pliku edmx dodaje informacje o parametrach połączenia do pliku App. config
+7.  Kliknij prawym przyciskiem myszy w edytorze T-SQL i wybierz polecenie **Wykonaj** okno dialogowe łączenie z serwerem, wprowadź informacje o połączeniu z kroku 2 i kliknij pozycję **Połącz** .
+8.  Aby wyświetlić wygenerowany schemat, kliknij prawym przyciskiem myszy nazwę bazy danych w Eksplorator obiektów SQL Server i wybierz polecenie **Odśwież** .
 
 ## <a name="persist-and-retrieve-data"></a>Utrwalanie i pobieranie danych
 
-Otwórz plik Program.cs, w którym jest zdefiniowana metoda Main. Dodaj następujący kod do funkcji Main. Ten kod dodaje nowy obiekt działu do kontekstu. Następnie zapisuje dane. Kod wykonuje też zapytanie LINQ, które zwraca działu, gdzie nazwa jest DepartmentNames.English.
+Otwórz plik Program.cs, w którym jest zdefiniowana Metoda Main. Dodaj następujący kod do funkcji main. Kod dodaje nowy obiekt działu do kontekstu. Następnie zapisuje dane. Kod wykonuje również zapytanie LINQ, które zwraca dział, w którym nazwa jest DepartmentNames. English.
 
 ``` csharp
 using (var context = new EnumTestModelContainer())
@@ -125,14 +125,14 @@ using (var context = new EnumTestModelContainer())
 }
 ```
 
-Skompilować i uruchomić aplikację. Program generuje następujące wyniki:
+Skompiluj i uruchom aplikację. Program tworzy następujące dane wyjściowe:
 
-```
+```console
 DepartmentID: 1 Name: English
 ```
 
-Aby wyświetlić dane w bazie danych, kliknij prawym przyciskiem myszy nazwę bazy danych w Eksploratorze obiektów SQL Server, a następnie wybierz **Odśwież**. Kliknięcie prawym przyciskiem myszy tabelę i wybierz pozycję **dane widoku**.
+Aby wyświetlić dane w bazie danych, kliknij prawym przyciskiem myszy nazwę bazy danych w Eksplorator obiektów SQL Server i wybierz polecenie **Odśwież**. Następnie kliknij prawym przyciskiem myszy w tabeli i wybierz polecenie **Wyświetl dane**.
 
 ## <a name="summary"></a>Podsumowanie
 
-W tym przewodniku zobaczyliśmy, jak do mapowania typów wyliczenia przy użyciu programu Entity Framework Designer oraz jak używać wyliczenia w kodzie. 
+W tym instruktażu przedstawiono sposób mapowania typów wyliczeniowych przy użyciu Entity Framework Designer i sposobu używania wyliczeń w kodzie. 

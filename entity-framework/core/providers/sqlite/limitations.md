@@ -1,40 +1,40 @@
 ---
-title: Bazy danych SQLite dostawcy - ograniczenia — EF Core
+title: Dostawca bazy danych programu SQLite — ograniczenia — EF Core
 author: rowanmiller
 ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: eaa7d5b1496172e4f3821433a1cd098ee7e8b737
-ms.sourcegitcommit: 9bd64a1a71b7f7aeb044aeecc7c4785b57db1ec9
+ms.openlocfilehash: 2f80dc195265787318ac4925dd937da45ffad011
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394805"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72179770"
 ---
-# <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core Database Provider Limitations
+# <a name="sqlite-ef-core-database-provider-limitations"></a>Ograniczenia dostawcy bazy danych EF Core SQLite
 
-Dostawca bazy danych SQLite ma kilka ograniczeń migracji. Większość z tych ograniczeń są wynikiem ograniczenia podstawowego aparatu bazy danych SQLite i nie są specyficzne dla platformy EF.
+Dostawca oprogramowania SQLite ma wiele ograniczeń migracji. Większość z tych ograniczeń jest wynikiem ograniczeń w źródłowym aparacie bazy danych programu SQLite i nie są specyficzne dla EF.
 
 ## <a name="modeling-limitations"></a>Ograniczenia modelowania
 
-Wspólne biblioteki relacyjnych (udostępnione przez dostawców relacyjnej bazy danych programu Entity Framework) definiuje interfejsów API do modelowania pojęcia, które są wspólne dla większości relacyjnych baz danych. Kilka z tych koncepcji nie są obsługiwane przez dostawcę bazy danych SQLite.
+Wspólna Biblioteka relacyjna (współdzielona przez Entity Framework dostawcy relacyjnej bazy danych) definiuje interfejsy API dla koncepcji modelowania wspólnych dla większości aparatów relacyjnej bazy danych. Niektóre z tych pojęć nie są obsługiwane przez dostawcę oprogramowania SQLite.
 
-* Schematy
+* Punktu
 * Sekwencje
 * Kolumny obliczane
 
-## <a name="query-limitations"></a>Ograniczenia dotyczące zapytań
+## <a name="query-limitations"></a>Ograniczenia zapytania
 
-Bazy danych SQLite natywnie nie obsługuje następujących typów danych. EF Core mogą odczytywać i zapisywać wartości tych typów i wykonuje zapytania dotyczące równości (`where e.Property == value`) jest również obsługiwane. Inne operacje, takie jak porównywania i porządkowania będzie wymagać oceny na komputerze klienckim.
+SQLite nie obsługuje natywnie następujących typów danych. EF Core mogą odczytywać i zapisywać wartości tych typów, a także wykonywać zapytania o równość (`where e.Property == value`). Inne operacje, takie jak porównywanie i porządkowanie, będą wymagały oceny klienta.
 
 * DateTimeOffset
-* Wartość dziesiętna
+* Decimal
 * TimeSpan
 * UInt64
 
-Zamiast `DateTimeOffset`, firma Microsoft zaleca używanie wartości daty/godziny. Obsługa wielu strefach czasowych, zalecamy podczas konwertowania wartości na czas UTC przed zapisaniem, a następnie konwertując do odpowiedniej strefy czasowej.
+Zamiast `DateTimeOffset` zalecamy użycie wartości typu DateTime. W przypadku obsługi wielu stref czasowych zaleca się przekonwertowanie wartości na czas UTC przed zapisaniem, a następnie przekonwertowanie z powrotem do odpowiedniej strefy czasowej.
 
-`Decimal` Typu zapewnia wysoki poziom dokładności. Jeśli nie potrzebujesz tego poziomu dokładności, jednak firma Microsoft zaleca użycie zamiast niego double. Możesz użyć [konwertera wartości](../../modeling/value-conversions.md) aby kontynuować korzystanie z dziesiętnych w Twoich zajęciach.
+Typ `Decimal` zapewnia wysoki poziom precyzji. Jeśli nie potrzebujesz tego poziomu dokładności, zalecamy użycie funkcji Double. Możesz użyć [konwertera wartości](../../modeling/value-conversions.md) , aby dalej używać miejsc dziesiętnych w klasach.
 
 ``` csharp
 modelBuilder.Entity<MyEntity>()
@@ -44,17 +44,17 @@ modelBuilder.Entity<MyEntity>()
 
 ## <a name="migrations-limitations"></a>Ograniczenia migracji
 
-Aparat bazy danych SQLite nie obsługuje szereg operacji schematu, które są obsługiwane przez większość innych relacyjnych baz danych. Jeśli spróbujesz zastosować jedną nieobsługiwane operacje do bazy danych SQLite, a następnie `NotSupportedException` zostanie zgłoszony.
+Aparat bazy danych programu SQLite nie obsługuje wielu operacji schematu, które są obsługiwane przez większość innych relacyjnych baz danych. Jeśli podjęto próbę zastosowania jednej z nieobsługiwanych operacji do bazy danych programu SQLite, zostanie zgłoszony `NotSupportedException`.
 
-| Operacja            | Obsługiwane? | Wymaga wersji |
+| Operacja            | Obsługiwał? | Wymaga wersji |
 |:---------------------|:-----------|:-----------------|
 | AddColumn            | ✔          | 1.0              |
 | AddForeignKey        | ✗          |                  |
 | AddPrimaryKey        | ✗          |                  |
 | AddUniqueConstraint  | ✗          |                  |
 | AlterColumn          | ✗          |                  |
-| CreateIndex          | ✔          | 1.0              |
-| CreateTable          | ✔          | 1.0              |
+| Indeksowanie          | ✔          | 1.0              |
+| Utwórz          | ✔          | 1.0              |
 | DropColumn           | ✗          |                  |
 | DropForeignKey       | ✗          |                  |
 | DropIndex            | ✔          | 1.0              |
@@ -63,17 +63,17 @@ Aparat bazy danych SQLite nie obsługuje szereg operacji schematu, które są ob
 | DropUniqueConstraint | ✗          |                  |
 | RenameColumn         | ✔          | 2.2.2            |
 | RenameIndex          | ✔          | 2.1              |
-| RenameTable          | ✔          | 1.0              |
-| EnsureSchema         | ✔ (pusta)  | 2.0              |
-| DropSchema           | ✔ (pusta)  | 2.0              |
+| Nazwa Rename          | ✔          | 1.0              |
+| EnsureSchema         | ✔ (No-op)  | 2.0              |
+| DropSchema           | ✔ (No-op)  | 2.0              |
 | Insert               | ✔          | 2.0              |
-| Aktualizowanie               | ✔          | 2.0              |
+| Aktualizacja               | ✔          | 2.0              |
 | Usuwanie               | ✔          | 2.0              |
 
-## <a name="migrations-limitations-workaround"></a>Obejście ograniczenia dotyczące migracji
+## <a name="migrations-limitations-workaround"></a>Obejście ograniczeń dla migracji
 
-Można obejść niektóre z tych ograniczeń, ręcznie wpisując kod w migracji do wykonania tabeli ponownie skompilować. Odbuduj tabelę obejmuje zmianę nazwy istniejącej tabeli, tworzenie nowej tabeli, kopiowanie danych do nowej tabeli i usunięcie starych tabeli. Należy użyć `Sql(string)` metodę, aby wykonać niektóre z tych kroków.
+Niektóre z tych ograniczeń można obejść, ręcznie pisząc kod w migracjach, aby wykonać ponowną kompilację tabeli. Odbudowanie tabeli obejmuje zmianę nazwy istniejącej tabeli, utworzenie nowej tabeli, skopiowanie danych do nowej tabeli i usunięcie starej tabeli. Aby wykonać niektóre z tych kroków, należy użyć metody `Sql(string)`.
 
-Zobacz [co inne rodzaje z zmiany schematu tabeli](http://sqlite.org/lang_altertable.html#otheralter) w dokumentacji oprogramowania SQLite, aby uzyskać więcej informacji.
+Aby uzyskać więcej informacji, zobacz artykuł [Tworzenie innych rodzajów zmian schematu tabeli](https://sqlite.org/lang_altertable.html#otheralter) w dokumentacji oprogramowania SQLite.
 
-W przyszłości EF mogą obsługiwać kilku z tych operacji przy użyciu podejścia Odbuduj tabelę w sposób niewidoczny. Możesz [śledzenie tej funkcji w projekcie usługi GitHub](https://github.com/aspnet/EntityFrameworkCore/issues/329).
+W przyszłości, EF może obsługiwać niektóre z tych operacji przy użyciu metody odbudowywania tabeli w obszarze okładki. [Tę funkcję można śledzić w naszym projekcie usługi GitHub](https://github.com/aspnet/EntityFrameworkCore/issues/329).

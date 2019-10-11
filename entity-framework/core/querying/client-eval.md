@@ -1,75 +1,68 @@
 ---
 title: Klient a Ocena serwera — EF Core
-author: rowanmiller
-ms.date: 10/27/2016
+author: smitpatel
+ms.date: 10/03/2019
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
-ms.openlocfilehash: cb207d9e1b1004a4084dd6fc66712183b5bdd5dc
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 3d70324f0b57a0ea9b165b5140a2154001c326f4
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921699"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181901"
 ---
-# <a name="client-vs-server-evaluation"></a>Klient a Ocena serwera
+# <a name="client-vs-server-evaluation"></a>Klient a wyznaczenie wartości na serwerze
 
-Entity Framework Core obsługuje części kwerendy ocenianej na kliencie i części, które są przekazywane do bazy danych. Aby określić, które części zapytania będą oceniane w bazie danych, należy do dostawcy bazy danych.
+Zgodnie z ogólną zasadą Entity Framework Core próbuje w miarę możliwości oszacować zapytanie na serwerze. EF Core konwertuje części zapytania na parametry, które mogą być oceniane po stronie klienta. Pozostała część zapytania (wraz z wygenerowanymi parametrami) jest podawana dostawcy bazy danych w celu ustalenia równoważnej kwerendy bazy danych, która ma zostać obliczona na serwerze. EF Core obsługuje częściową ocenę klienta w projekcji najwyższego poziomu (zasadniczo jest to ostatnie wywołanie `Select()`). Jeśli projekcja najwyższego poziomu w zapytaniu nie może zostać przetłumaczona na serwer, EF Core pobierze wymagane dane z serwera i Oceń pozostałe części zapytania na kliencie. Jeśli EF Core wykryje wyrażenie w innym miejscu niż projekcja najwyższego poziomu, którego nie można przetłumaczyć na serwer, wówczas zgłasza wyjątek czasu wykonania. Zobacz, [jak działa zapytanie](xref:core/querying/how-query-works) , aby zrozumieć, jak EF Core określa, czego nie można przetłumaczyć na serwer.
 
-> [!TIP]  
+> [!NOTE]
+> Przed wersjami 3,0 Entity Framework Core obsługiwaną ocenę klienta w dowolnym miejscu zapytania. Aby uzyskać więcej informacji, zobacz [sekcję poprzednie wersje](#previous-versions).
+
+## <a name="client-evaluation-in-the-top-level-projection"></a>Ocena klienta w projekcji najwyższego poziomu
+
+> [!TIP]
 > [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.
 
-## <a name="client-evaluation"></a>Ocena klienta
+W poniższym przykładzie metoda pomocnika służy do standaryzacji adresów URL blogów, które są zwracane z bazy danych SQL Server. Ponieważ dostawca SQL Server nie ma wglądu w sposób implementacji tej metody, nie można go przetłumaczyć na SQL. Wszystkie inne aspekty zapytania są oceniane w bazie danych, ale przekazywanie zwracanych `URL` za pomocą tej metody jest wykonywane na kliencie.
 
-W poniższym przykładzie metoda pomocnicza służy do standaryzacji adresów URL dla blogów, które są zwracane z bazy danych SQL Server. Ponieważ dostawca SQL Server nie ma wglądu w sposób implementacji tej metody, nie można go przetłumaczyć na SQL. Wszystkie inne aspekty zapytania są oceniane w bazie danych, ale przekazywanie zwracanych `URL` przez tę metodę jest wykonywane na kliencie.
+[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ClientProjection)]
 
-<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/Sample.cs?highlight=6)] -->
-``` csharp
-var blogs = context.Blogs
-    .OrderByDescending(blog => blog.Rating)
-    .Select(blog => new
-    {
-        Id = blog.BlogId,
-        Url = StandardizeUrl(blog.Url)
-    })
-    .ToList();
-```
+[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ClientMethod)]
 
-<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/Sample.cs)] -->
-``` csharp
-public static string StandardizeUrl(string url)
-{
-    url = url.ToLower();
+## <a name="unsupported-client-evaluation"></a>Nieobsługiwana Ocena klienta
 
-    if (!url.StartsWith("http://"))
-    {
-        url = string.Concat("http://", url);
-    }
+Gdy Ocena klienta jest użyteczna, może to spowodować niską wydajność. Rozważmy następujące zapytanie, w którym metoda pomocnika jest teraz używana w filtrze WHERE. Ponieważ w bazie danych nie można zastosować filtru, wszystkie dane muszą zostać pobrane do pamięci, aby zastosować filtr na kliencie. Na podstawie filtru i ilości danych na serwerze Ocena klienta może spowodować spadek wydajności. Dlatego Entity Framework Core blokuje takie oceny klienta i zgłasza wyjątek czasu wykonywania.
 
-    return url;
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ClientWhere)]
 
-## <a name="client-evaluation-performance-issues"></a>Problemy z wydajnością oceny klienta
+## <a name="explicit-client-evaluation"></a>Jawne oszacowanie klienta
 
-Podczas gdy Ocena klienta może być bardzo przydatna, w niektórych przypadkach może to skutkować niską wydajnością. Rozważmy następujące zapytanie, gdzie metoda pomocnika jest teraz używana w filtrze. Ponieważ nie można wykonać tej operacji w bazie danych, wszystkie dane są pobierane do pamięci, a następnie na kliencie jest stosowany filtr. W zależności od ilości danych i ilości danych, które są odfiltrowane, może to spowodować spadek wydajności.
+Może być konieczne jawne wymuszenie oceny klienta w niektórych przypadkach, takich jak następujące
 
-<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/Sample.cs)] -->
-``` csharp
-var blogs = context.Blogs
-    .Where(blog => StandardizeUrl(blog.Url).Contains("dotnet"))
-    .ToList();
-```
+- Ilość danych jest mała, co oznacza, że Ocena na kliencie nie wiąże się z ogromnymi karami za wydajność.
+- Używany operator LINQ nie ma żadnego tłumaczenia po stronie serwera.
 
-## <a name="client-evaluation-logging"></a>Rejestrowanie oceny klienta
+W takich przypadkach można jawnie zadecydować o ocenie klienta, wywołując metody, takie jak `AsEnumerable` lub `ToList` (`AsAsyncEnumerable` lub `ToListAsync` dla Async). Za pomocą `AsEnumerable` można przesyłać strumieniowo wyniki, ale użycie `ToList` spowodowałoby buforowanie przez utworzenie listy, która również pobiera dodatkową pamięć. Jeśli jednak wyliczasz wiele razy, przechowywanie wyników na liście pomoże więcej, ponieważ istnieje tylko jedno zapytanie do bazy danych. W zależności od określonego użycia należy oszacować, która metoda jest bardziej przydatna w przypadku.
 
-Domyślnie EF Core będzie rejestrował ostrzeżenie podczas przeprowadzania oceny klienta. Zobacz [Rejestrowanie](../miscellaneous/logging.md) , aby uzyskać więcej informacji na temat wyświetlania danych wyjściowych rejestrowania. 
+[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ExplicitClientEval)]
 
-## <a name="optional-behavior-throw-an-exception-for-client-evaluation"></a>Zachowanie opcjonalne: Zgłoś wyjątek do oceny klienta
+## <a name="potential-memory-leak-in-client-evaluation"></a>Potencjalny przeciek pamięci w ocenie klienta
 
-Można zmienić zachowanie podczas oceny klienta, aby zgłosić lub nic się nie dzieje. Jest to wykonywane podczas konfigurowania opcji dla kontekstu — zwykle w programie `DbContext.OnConfiguring`, lub w `Startup.cs` przypadku korzystania z ASP.NET Core.
+Ponieważ translacja zapytań i kompilacja są kosztowne, EF Core buforowania skompilowanego planu zapytania. Obiekt delegowany pamięci podręcznej może używać kodu klienta podczas przeprowadzania oceny klienta projekcji najwyższego poziomu. EF Core generuje parametry dla części drzewa, które są oceniane przez klienta, i ponownie używa planu zapytania przez zastąpienie wartości parametrów. Ale niektóre stałe w drzewie wyrażenia nie mogą być konwertowane do parametrów. Jeśli delegowany pamięci podręcznej zawiera takie stałe, wówczas te obiekty nie mogą być zbierane jako elementy bezużyteczne, ponieważ nadal występują odwołania. Jeśli taki obiekt zawiera DbContext lub inne usługi, może to spowodować zwiększenie użycia pamięci przez aplikację w czasie. To zachowanie zwykle jest znakiem przecieku pamięci. EF Core zgłasza wyjątek za każdym razem, gdy zawiera on stałe typu, którego nie można mapować przy użyciu bieżącego dostawcy bazy danych. Typowe przyczyny i ich rozwiązania są następujące:
 
-<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/ThrowOnClientEval/BloggingContext.cs?highlight=5)] -->
-``` csharp
+- **Przy użyciu metody wystąpienia**: W przypadku używania metod wystąpienia w projekcji klienta drzewo wyrażenia zawiera stałą wystąpienia. Jeśli metoda nie używa żadnych danych z wystąpienia, należy rozważyć uczynienie metody statyczną. Jeśli potrzebujesz danych wystąpienia w treści metody, Przekaż określone dane jako argument do metody.
+- **Przekazywanie stałych argumentów do metody**: Ten przypadek występuje ogólnie przy użyciu `this` w argumencie metody klienta. Rozważ podzielenie argumentu w do wielu argumentów skalarnych, które mogą być mapowane przez dostawcę bazy danych.
+- **Inne stałe**: Jeśli stała jest w każdym innym przypadku, można sprawdzić, czy stała jest wymagana podczas przetwarzania. Jeśli jest to konieczne, aby stała się dostępna, lub jeśli nie możesz użyć rozwiązania z powyższych przypadków, Utwórz zmienną lokalną do przechowywania wartości i Użyj zmiennej lokalnej w zapytaniu. EF Core przekonwertuje zmienną lokalną do parametru.
+
+## <a name="previous-versions"></a>Poprzednie wersje
+
+Poniższa sekcja ma zastosowanie do wersji EF Core przed 3,0.
+
+Starsze wersje EF Core obsługują ocenę klienta w dowolnej części zapytania — a nie tylko projekcję najwyższego poziomu. Dlatego, że zapytania podobne do jednego ogłoszono w sekcji [nieobsługiwana wersja ewaluacyjna klienta](#unsupported-client-evaluation) działały prawidłowo. Ponieważ takie zachowanie może spowodować problemy z wydajnością, EF Core rejestrować ostrzeżenia oceny klienta. Aby uzyskać więcej informacji o wyświetlaniu danych wyjściowych rejestrowania, zobacz [Rejestrowanie](xref:core/miscellaneous/logging).
+
+Opcjonalnie EF Core można zmienić zachowanie domyślne, aby zgłosić wyjątek lub nic nie robić podczas oceny klienta (z wyjątkiem w projekcji). Wyjątek zgłaszający zachowanie mógłby być podobny do zachowania w 3,0. Aby zmienić zachowanie, należy skonfigurować ostrzeżenia podczas konfigurowania opcji dla kontekstu — zwykle w `DbContext.OnConfiguring` lub w `Startup.cs`, jeśli używasz ASP.NET Core.
+
+```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 {
     optionsBuilder

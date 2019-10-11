@@ -3,12 +3,12 @@ title: Rejestrowanie i przechwytywanie operacji bazy danych — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
-ms.openlocfilehash: be32ed114269543ac36b256a202e0494d466e4f7
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 35b0284a5ad8b2b732f074589bd458d243312575
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306534"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181657"
 ---
 # <a name="logging-and-intercepting-database-operations"></a>Rejestrowanie i przechwytywanie operacji bazy danych
 > [!NOTE]
@@ -100,7 +100,7 @@ WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
 
 Po ustawieniu właściwości log zostaną zarejestrowane wszystkie następujące elementy:  
 
-- SQL dla wszystkich różnych rodzajów poleceń. Przykład:  
+- SQL dla wszystkich różnych rodzajów poleceń. Na przykład:  
     - Zapytania, w tym normalne zapytania LINQ, zapytania eSQL i nieprzetworzone zapytania z metod takich jak sqlQuery  
     - Wstawia, aktualizuje i usuwa wygenerowane w ramach metody SaveChanges  
     - Relacja ładowania zapytań, takich jak te wygenerowane przez ładowanie z opóźnieniem  
@@ -171,7 +171,7 @@ SELECT * from ThisTableIsMissing
 
 W przypadku poleceń asynchronicznych, gdy zadanie zostało anulowane, wynik może być spowodowany błędem, ponieważ jest to podstawowy dostawca ADO.NET często, gdy podejmowana jest próba anulowania. Jeśli to się nie stanie, a zadanie zostanie anulowane, dane wyjściowe będą wyglądać następująco:  
 
-```  
+```console
 update Blogs set Title = 'No' where Id = -1
 -- Executing asynchronously at 5/13/2013 10:21:10 AM
 -- Canceled in 1 ms
@@ -244,7 +244,7 @@ public class MyDbConfiguration : DbConfiguration
 
 Ta nowa DatabaseLogFormatter zostanie teraz użyta w dowolnym momencie. log jest ustawiony. Dlatego uruchomienie kodu z części 1 spowoduje teraz następujące wyniki:  
 
-```  
+```console
 Context 'BlogContext' is executing command 'SELECT TOP (1) [Extent1].[Id] AS [Id], [Extent1].[Title] AS [Title]FROM [dbo].[Blogs] AS [Extent1]WHERE (N'One Unicorn' = [Extent1].[Title]) AND ([Extent1].[Title] IS NOT NULL)'
 Context 'BlogContext' is executing command 'SELECT [Extent1].[Id] AS [Id], [Extent1].[Title] AS [Title], [Extent1].[BlogId] AS [BlogId]FROM [dbo].[Posts] AS [Extent1]WHERE [Extent1].[BlogId] = @EntityKeyValue1'
 Context 'BlogContext' is executing command 'update [dbo].[Posts]set [Title] = @0where ([Id] = @1)'
@@ -261,11 +261,11 @@ Kod przechwycenia jest zbudowany wokół koncepcji interfejsów przechwycenia. T
 
 ### <a name="the-interception-context"></a>Kontekst przechwycenia  
 
-Przeglądając metody zdefiniowane w dowolnym interfejsie interceptorów, jest oczywiste, że każde wywołanie ma przyznany obiekt typu DbInterceptionContext lub jakiś typ pochodzący z tego, taki jak DbCommandInterceptionContext\<.\> Ten obiekt zawiera informacje kontekstowe dotyczące akcji, którą pobiera Dr. Na przykład, jeśli akcja jest wykonywana w imieniu DbContext, element DbContext zostanie uwzględniony w DbInterceptionContext. Podobnie w przypadku poleceń wykonywanych asynchronicznie flaga IsAsync jest ustawiana na DbCommandInterceptionContext.  
+Przeglądając metody zdefiniowane w dowolnym interfejsie interceptorów, jest oczywiste, że każde wywołanie otrzymuje obiekt typu DbInterceptionContext lub niektórych typów pochodnych takich jak DbCommandInterceptionContext @ no__t-0 @ no__t-1. Ten obiekt zawiera informacje kontekstowe dotyczące akcji, którą pobiera Dr. Na przykład, jeśli akcja jest wykonywana w imieniu DbContext, element DbContext zostanie uwzględniony w DbInterceptionContext. Podobnie w przypadku poleceń wykonywanych asynchronicznie flaga IsAsync jest ustawiana na DbCommandInterceptionContext.  
 
 ### <a name="result-handling"></a>Obsługa wyników  
 
-Klasa DbCommandInterceptionContext\< \> zawiera właściwości o nazwie Result, OriginalResult, Exception i OriginalException. Te właściwości są ustawione na wartość null/zero dla wywołań metod przechwycenia, które są wywoływane przed wykonaniem operacji — to znaczy, dla... Wykonywanie metod. Jeśli operacja zostanie wykonana i powiedzie się, a następnie wynik i OriginalResult są ustawione na wynik operacji. Te wartości można następnie zaobserwować w metodach przechwycenia, które są wywoływane po wykonaniu operacji — to znaczy, w... Wykonane metody. Podobnie, jeśli operacja zgłasza, zostanie ustawiona właściwość wyjątku i Oryginalnaexception.  
+Klasa DbCommandInterceptionContext @ no__t-0 @ no__t-1 zawiera właściwości o nazwie Result, OriginalResult, Exception i OriginalException. Te właściwości są ustawione na wartość null/zero dla wywołań metod przechwycenia, które są wywoływane przed wykonaniem operacji — to znaczy, dla... Wykonywanie metod. Jeśli operacja zostanie wykonana i powiedzie się, a następnie wynik i OriginalResult są ustawione na wynik operacji. Te wartości można następnie zaobserwować w metodach przechwycenia, które są wywoływane po wykonaniu operacji — to znaczy, w... Wykonane metody. Podobnie, jeśli operacja zgłasza, zostanie ustawiona właściwość wyjątku i Oryginalnaexception.  
 
 #### <a name="suppressing-execution"></a>Pomijanie wykonywania  
 
@@ -299,7 +299,7 @@ Interceptory mogą być również zarejestrowane na poziomie domeny aplikacji pr
 
 ### <a name="example-logging-to-nlog"></a>Przykład: Rejestrowanie w usłudze NLog  
 
-Przekażmy wszystko do przykładu korzystającego z IDbCommandInterceptor i [nLOG](http://nlog-project.org/) do:  
+Przekażmy wszystko do przykładu korzystającego z IDbCommandInterceptor i [nLOG](https://nlog-project.org/) do:  
 
 - Rejestruj Ostrzeżenie dla każdego polecenia, które jest wykonywane nieasynchronicznie  
 - Rejestruj błąd dla każdego polecenia, które zgłasza po wykonaniu  
