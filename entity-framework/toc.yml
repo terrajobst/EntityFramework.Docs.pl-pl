@@ -155,7 +155,7 @@
               href: core/managing-schemas/index.md
             - name: Migracje
               items:
-                - name: Przegląd
+                - name: Omówienie
                   href: core/managing-schemas/migrations/index.md
                 - name: Środowiska zespołowe
                   href: core/managing-schemas/migrations/teams.md
@@ -175,8 +175,6 @@
           items:
             - name: Omówienie
               href: core/querying/index.md
-            - name: Zapytanie podstawowe
-              href: core/querying/basic.md
             - name: Ładowanie powiązanych danych
               href: core/querying/related-data.md
             - name: Klient a wyznaczenie wartości na serwerze
@@ -188,7 +186,7 @@
             - name: Zapytania asynchroniczne
               href: core/querying/async.md
             - name: Jak działa zapytanie
-              href: core/querying/overview.md
+              href: core/querying/how-query-works.md
             - name: Filtry zapytań globalnych
               href: core/querying/filters.md
             - name: Tagi zapytań
