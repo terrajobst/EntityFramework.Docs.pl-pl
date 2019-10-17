@@ -3,12 +3,12 @@ title: Testowanie przy użyciu własnych testów podwaja się — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 16a8b7c0-2d23-47f4-9cc0-e2eb2e738ca3
-ms.openlocfilehash: 4631206ae26d364e92c932857fa1970804a7a335
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 3d8933fb5e17f8c01f3971495a1fcdb5b8cfab57
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181415"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72446027"
 ---
 # <a name="testing-with-your-own-test-doubles"></a>Testowanie przy użyciu własnych testów zostanie podwojone
 > [!NOTE]
@@ -157,9 +157,9 @@ namespace TestingDemo
         }
     }
 }
-```  
+```
 
-<a name="creating-the-in-memory-test-doubles"/> # # Tworzenie testu w pamięci podwaja się  
+## <a name="creating-the-in-memory-test-doubles"></a>Tworzenie testu w pamięci podwaja się  
 
 Teraz, gdy mamy już rzeczywisty model EF i usługę, która może z niego korzystać, należy utworzyć test w pamięci, który można wykorzystać do testowania. Dla naszego kontekstu utworzyliśmy test TestContext. W teście podwajamy się, aby wybrać zachowanie, które chcemy w celu obsługi testów, które zamierzamy uruchomić. W tym przykładzie właśnie przechwytuje liczbę metody SaveChanges jest wywoływana, ale można dołączyć dowolną logikę, aby zweryfikować testowany scenariusz.  
 

@@ -4,18 +4,18 @@ author: roji
 ms.date: 09/09/2019
 ms.assetid: bde4e0ee-fba3-4813-a849-27049323d301
 uid: core/miscellaneous/nullable-reference-types
-ms.openlocfilehash: ab35e63a6eeb2f02ed07a715fd65855b4d30eaf5
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: 055f492214596506ce2c28485ade359d175c4ac2
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813458"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72445899"
 ---
 # <a name="working-with-nullable-reference-types"></a>Praca z typami odwołań dopuszczających wartości null
 
 C#8 wprowadzono nową funkcję o nazwie [dopuszczającej wartość null](/dotnet/csharp/tutorials/nullable-reference-types), co pozwala na dodawanie adnotacji do typów odwołań wskazujących, czy są one prawidłowe dla nich, aby zawierały wartość null. Jeśli dopiero zaczynasz tę funkcję, zalecamy zapoznanie się z nią, czytając C# dokumenty.
 
-Ta strona EF Core zawiera wprowadzenie do pomocy technicznej dotyczącej typów referencyjnych dopuszczających wartość null i opisuje najlepsze rozwiązania dotyczące pracy z nimi.
+Na tej stronie EF Core wprowadzono pomoc techniczną dla typów referencyjnych dopuszczających wartości null oraz opisano najlepsze rozwiązania dotyczące pracy z nimi.
 
 ## <a name="required-and-optional-properties"></a>Właściwości wymagane i opcjonalne
 
@@ -26,7 +26,7 @@ Główna dokumentacja dotycząca wymaganych i opcjonalnych właściwości oraz i
 
 ## <a name="dbcontext-and-dbset"></a>DbContext i Nieogólnymi
 
-Gdy włączone są typy odwołań dopuszczających wartość C# null, kompilator emituje ostrzeżenia dla każdej niezainicjowanej właściwości, która nie dopuszcza wartości null. W związku z tym powszechną metodą definiowania niedopuszczających wartości null `DbSet` w kontekście będzie teraz wygenerowanie ostrzeżenia. Jednak EF Core zawsze inicjuje wszystkie `DbSet` właściwości dla typów pochodnych DbContext, więc są one gwarantowane, że nigdy nie będzie mieć wartości null, nawet jeśli kompilator nie będzie mógł tego wiedzieć. W związku z tym zaleca się zachowanie `DbSet` właściwości niedopuszczających wartości null — pozwala to na dostęp do nich bez sprawdzania wartości null — i wyciszenie ostrzeżeń kompilatora przez jawne ustawienie wartości null przy użyciu operatora łagodniejszej o wartości null (!):
+Gdy włączone są typy odwołań dopuszczających wartość C# null, kompilator emituje ostrzeżenia dla każdej niezainicjowanej właściwości, która nie dopuszcza wartości null. W związku z tym powszechną metodą definiowania niedopuszczających wartości null `DbSet` w kontekście spowoduje teraz wygenerowanie ostrzeżenia. Jednak EF Core zawsze inicjuje wszystkie właściwości `DbSet` w typach pochodnych DbContext, dzięki czemu nie będą one mieć wartości null, nawet jeśli kompilator nie będzie mógł tego wiedzieć. W związku z tym zaleca się pozostawienie właściwości `DbSet`, które nie dopuszczają wartości null, umożliwiając dostęp do nich bez sprawdzania wartości null — i wyciszenie ostrzeżeń kompilatora przez jawne ustawienie ich jako null za pomocą operatora łagodniejszej o wartości null (!):
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/NullableReferenceTypesContext.cs?name=Context&highlight=3-4)]
 
@@ -65,4 +65,4 @@ Jeśli znajdziesz się w tej partii, a typy jednostek, których dotyczy, są gł
 
 ## <a name="scaffolding"></a>Tworzenie szkieletów
 
-[Funkcja C# typu referencyjnego 8 dopuszczających wartość null](/dotnet/csharp/tutorials/nullable-reference-types) nie jest obecnie obsługiwana w przypadku odtwarzania: EF Core zawsze generuje C# kod, który zakłada, że funkcja jest wyłączona. Na przykład kolumny tekstu dopuszczające wartość null będą szkieletem jako właściwość typu `string` , a nie `string?`z interfejsem API Fluent lub adnotacjami danych używanymi do konfigurowania, czy właściwość jest wymagana. Można edytować kod szkieletowy i zastąpić je adnotacjami o C# wartości null. Obsługa tworzenia szkieletów dla typów odwołań do wartości null jest śledzona przez [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)problemu.
+[Funkcja C# typu referencyjnego 8 dopuszczających wartość null](/dotnet/csharp/tutorials/nullable-reference-types) nie jest obecnie obsługiwana w przypadku odtwarzania C# : EF Core zawsze generuje kod, który zakłada, że ta funkcja jest wyłączona. Na przykład kolumny tekstu dopuszczające wartość null będą szkieletem jako właściwość o typie `string`, nie `string?`, z interfejsem API Fluent lub adnotacjami danych używanymi do konfigurowania, czy właściwość jest wymagana. Można edytować kod szkieletowy i zastąpić je adnotacjami o C# wartości null. Obsługa tworzenia szkieletów dla typów odwołań do wartości null jest śledzona przez [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)problemu.

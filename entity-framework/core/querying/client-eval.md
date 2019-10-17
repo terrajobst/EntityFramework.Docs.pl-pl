@@ -1,27 +1,27 @@
 ---
-title: Klient a Ocena serwera — EF Core
+title: Ocena klienta a serwer — EF Core
 author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
-ms.openlocfilehash: 3d70324f0b57a0ea9b165b5140a2154001c326f4
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 5cfb05041f04246712fb699f58b407f70a75ce92
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181901"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72445967"
 ---
-# <a name="client-vs-server-evaluation"></a>Klient a wyznaczenie wartości na serwerze
+# <a name="client-vs-server-evaluation"></a>Klient a wersja ewaluacyjna serwera
 
 Zgodnie z ogólną zasadą Entity Framework Core próbuje w miarę możliwości oszacować zapytanie na serwerze. EF Core konwertuje części zapytania na parametry, które mogą być oceniane po stronie klienta. Pozostała część zapytania (wraz z wygenerowanymi parametrami) jest podawana dostawcy bazy danych w celu ustalenia równoważnej kwerendy bazy danych, która ma zostać obliczona na serwerze. EF Core obsługuje częściową ocenę klienta w projekcji najwyższego poziomu (zasadniczo jest to ostatnie wywołanie `Select()`). Jeśli projekcja najwyższego poziomu w zapytaniu nie może zostać przetłumaczona na serwer, EF Core pobierze wymagane dane z serwera i Oceń pozostałe części zapytania na kliencie. Jeśli EF Core wykryje wyrażenie w innym miejscu niż projekcja najwyższego poziomu, którego nie można przetłumaczyć na serwer, wówczas zgłasza wyjątek czasu wykonania. Zobacz, [jak działa zapytanie](xref:core/querying/how-query-works) , aby zrozumieć, jak EF Core określa, czego nie można przetłumaczyć na serwer.
 
 > [!NOTE]
 > Przed wersjami 3,0 Entity Framework Core obsługiwaną ocenę klienta w dowolnym miejscu zapytania. Aby uzyskać więcej informacji, zobacz [sekcję poprzednie wersje](#previous-versions).
 
-## <a name="client-evaluation-in-the-top-level-projection"></a>Ocena klienta w projekcji najwyższego poziomu
-
 > [!TIP]
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.
+> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) tego artykułu można wyświetlić w witrynie GitHub.
+
+## <a name="client-evaluation-in-the-top-level-projection"></a>Ocena klienta w projekcji najwyższego poziomu
 
 W poniższym przykładzie metoda pomocnika służy do standaryzacji adresów URL blogów, które są zwracane z bazy danych SQL Server. Ponieważ dostawca SQL Server nie ma wglądu w sposób implementacji tej metody, nie można go przetłumaczyć na SQL. Wszystkie inne aspekty zapytania są oceniane w bazie danych, ale przekazywanie zwracanych `URL` za pomocą tej metody jest wykonywane na kliencie.
 
@@ -50,8 +50,8 @@ W takich przypadkach można jawnie zadecydować o ocenie klienta, wywołując me
 
 Ponieważ translacja zapytań i kompilacja są kosztowne, EF Core buforowania skompilowanego planu zapytania. Obiekt delegowany pamięci podręcznej może używać kodu klienta podczas przeprowadzania oceny klienta projekcji najwyższego poziomu. EF Core generuje parametry dla części drzewa, które są oceniane przez klienta, i ponownie używa planu zapytania przez zastąpienie wartości parametrów. Ale niektóre stałe w drzewie wyrażenia nie mogą być konwertowane do parametrów. Jeśli delegowany pamięci podręcznej zawiera takie stałe, wówczas te obiekty nie mogą być zbierane jako elementy bezużyteczne, ponieważ nadal występują odwołania. Jeśli taki obiekt zawiera DbContext lub inne usługi, może to spowodować zwiększenie użycia pamięci przez aplikację w czasie. To zachowanie zwykle jest znakiem przecieku pamięci. EF Core zgłasza wyjątek za każdym razem, gdy zawiera on stałe typu, którego nie można mapować przy użyciu bieżącego dostawcy bazy danych. Typowe przyczyny i ich rozwiązania są następujące:
 
-- **Przy użyciu metody wystąpienia**: W przypadku używania metod wystąpienia w projekcji klienta drzewo wyrażenia zawiera stałą wystąpienia. Jeśli metoda nie używa żadnych danych z wystąpienia, należy rozważyć uczynienie metody statyczną. Jeśli potrzebujesz danych wystąpienia w treści metody, Przekaż określone dane jako argument do metody.
-- **Przekazywanie stałych argumentów do metody**: Ten przypadek występuje ogólnie przy użyciu `this` w argumencie metody klienta. Rozważ podzielenie argumentu w do wielu argumentów skalarnych, które mogą być mapowane przez dostawcę bazy danych.
+- **Przy użyciu metody wystąpienia**: w przypadku używania metod wystąpienia w projekcji klienta drzewo wyrażenia zawiera stałą wystąpienia. Jeśli metoda nie używa żadnych danych z wystąpienia, należy rozważyć uczynienie metody statyczną. Jeśli potrzebujesz danych wystąpienia w treści metody, Przekaż określone dane jako argument do metody.
+- **Przekazywanie stałych argumentów do metody**: ten przypadek występuje ogólnie przy użyciu `this` w argumencie metody klienta. Rozważ podzielenie argumentu w do wielu argumentów skalarnych, które mogą być mapowane przez dostawcę bazy danych.
 - **Inne stałe**: Jeśli stała jest w każdym innym przypadku, można sprawdzić, czy stała jest wymagana podczas przetwarzania. Jeśli jest to konieczne, aby stała się dostępna, lub jeśli nie możesz użyć rozwiązania z powyższych przypadków, Utwórz zmienną lokalną do przechowywania wartości i Użyj zmiennej lokalnej w zapytaniu. EF Core przekonwertuje zmienną lokalną do parametru.
 
 ## <a name="previous-versions"></a>Poprzednie wersje

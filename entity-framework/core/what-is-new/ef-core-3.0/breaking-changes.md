@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: f7f04efa8fb8ebc1eb06f256b8ccbd3110af47ab
-ms.sourcegitcommit: 705e898b4684e639a57c787fb45c932a27650c2d
+ms.openlocfilehash: 690c7828cfe5019f4e7ae904c92430fab4726cb9
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71934880"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72446017"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Istotne zmiany zawarte w EF Core 3,0
 Poniższe zmiany dotyczące interfejsu API i zachowania mogą powodować przerwanie istniejących aplikacji podczas uaktualniania ich do 3.0.0.
@@ -17,65 +17,64 @@ Zmiany, których oczekujemy tylko dostawcy bazy danych, są udokumentowane w obs
 
 ## <a name="summary"></a>Podsumowanie
 
-| **Zmiana powodująca niezgodność**                                                                                               | **Wpływ** |
+| **Zmiana podziału**                                                                                               | **Notebook** |
 |:------------------------------------------------------------------------------------------------------------------|------------|
-| [Zapytania LINQ nie są już oceniane na kliencie](#linq-queries-are-no-longer-evaluated-on-the-client)         | Wysoka       |
-| [EF Core 3,0 cele .NET Standard 2,1, a nie .NET Standard 2,0](#netstandard21) | Wysoka      |
-| [Narzędzie wiersza polecenia EF Core, dotnet EF, nie jest już częścią zestaw .NET Core SDK](#dotnet-ef) | Wysoka      |
-| [DetectChanges uznaje wartości klucza generowane przez magazyn](#dc) | Wysoka      |
-| [Nazwy Z tabel, ExecuteSql by i ExecuteSqlAsync](#fromsql) | Wysoka      |
-| [Typy zapytań są konsolidowane z typami jednostek](#qt) | Wysoka      |
-| [Entity Framework Core nie jest już częścią ASP.NET Core współdzielonej struktury](#no-longer) | Średni      |
-| [Usuwanie kaskadowe jest teraz wykonywane natychmiast domyślnie](#cascade) | Średni      |
-| [Eager ładowanie pokrewnych jednostek odbywa się teraz w pojedynczym zapytaniu](#eager-loading-single-query) | Średni      |
-| [DeleteBehavior. ograniczanie ma semantykę oczyszczarki](#deletebehavior) | Średni      |
-| [Interfejs API konfiguracji dla relacji typu posiadanego został zmieniony](#config) | Średni      |
-| [Każda właściwość używa niezależnej generacji klucza w pamięci](#each) | Średni      |
-| [Zapytania nie śledzące już nie wykonują rozpoznawania tożsamości](#notrackingresolution) | Średni      |
-| [Zmiany interfejsu API metadanych](#metadata-api-changes) | Średni      |
-| [Zmiany w interfejsie API metadanych specyficzne dla dostawcy](#provider) | Średni      |
-| [UseRowNumberForPaging został usunięty](#urn) | Średni      |
-| [Nie można składować metody Z tabel, gdy jest używana z procedurą składowaną](#fromsqlsproc) | Średni      |
-| [Metody Z tabel można określić tylko dla katalogów głównych zapytań](#fromsql) | Małe      |
-| [~~Wykonywanie zapytania jest rejestrowane na poziomie debugowania~~ Przywrócono](#qe) | Małe      |
-| [Wartości klucza tymczasowego nie są już ustawione na wystąpienia jednostek](#tkv) | Małe      |
-| [Jednostki zależne współużytkujące tabelę z podmiotem zabezpieczeń są teraz opcjonalne](#de) | Małe      |
-| [Wszystkie jednostki współużytkujące tabelę z kolumną Token współbieżności muszą mapować ją na Właściwość](#aes) | Małe      |
-| [Dziedziczone właściwości z niemapowanych typów są teraz mapowane na pojedynczą kolumnę dla wszystkich typów pochodnych](#ip) | Małe      |
-| [Konwencja właściwości klucza obcego nie jest już zgodna z tą samą nazwą co właściwość podmiotu zabezpieczeń](#fkp) | Małe      |
-| [Połączenie z bazą danych jest teraz zamknięte, jeśli nie jest używane już przed ukończeniem elementu TransactionScope](#dbc) | Małe      |
-| [Pola zapasowe są używane domyślnie](#backing-fields-are-used-by-default) | Małe      |
-| [Zgłoś, czy znaleziono wiele zgodnych pól zapasowych](#throw-if-multiple-compatible-backing-fields-are-found) | Małe      |
-| [Nazwy właściwości tylko dla pól powinny być zgodne z nazwą pola](#field-only-property-names-should-match-the-field-name) | Małe      |
-| [AddDbContext/AddDbContextPool nie wywołuje już metody addlogging i AddMemoryCache](#adddbc) | Małe      |
-| [DbContext. entry wykonuje teraz lokalną DetectChanges](#dbe) | Małe      |
-| [Klucze tablic ciągów i bajtów nie są generowane domyślnie przez klienta](#string-and-byte-array-keys-are-not-client-generated-by-default) | Małe      |
-| [ILoggerFactory jest teraz usługą objętą zakresem](#ilf) | Małe      |
-| [Pobieranie z opóźnieniem — nie zakłada się już, że właściwości nawigacji są w pełni załadowane](#lazy-loading-proxies-no-longer-assume-navigation-properties-are-fully-loaded) | Małe      |
-| [Nadmierne Tworzenie wewnętrznych dostawców usług jest teraz domyślnie błędem](#excessive-creation-of-internal-service-providers-is-now-an-error-by-default) | Małe      |
-| [Nowe zachowanie dla HasOne/HasMany wywoływane z pojedynczym ciągiem](#nbh) | Małe      |
-| [Typ zwracany dla kilku metod asynchronicznych został zmieniony z zadania na ValueTask](#rtnt) | Małe      |
-| [Adnotacja relacyjna: TypeMapping ma teraz tylko Właściwość TypeMapping](#rtt) | Małe      |
-| [ToTable dla typu pochodnego zgłasza wyjątek](#totable-on-a-derived-type-throws-an-exception) | Małe      |
-| [Nie EF Core już wysyłać dyrektywy pragma dla wymuszania programu SQLite FK](#pragma) | Małe      |
-| [Microsoft. EntityFrameworkCore. sqlite teraz zależy od SQLitePCLRaw. bundle_e_sqlite3](#sqlite3) | Małe      |
-| [Wartości identyfikatorów GUID są teraz przechowywane jako tekst na komputerze SQLite](#guid) | Małe      |
-| [Wartości char są teraz przechowywane jako tekst na komputerze SQLite](#char) | Małe      |
-| [Identyfikatory migracji są teraz generowane przy użyciu kalendarza niezmiennej kultury](#migid) | Małe      |
-| [Informacje o rozszerzeniu/metadane zostały usunięte z IDbContextOptionsExtension](#xinfo) | Małe      |
-| [Zmieniono nazwę LogQueryPossibleExceptionWithAggregateOperator](#lqpe) | Małe      |
-| [Wyjaśnienie interfejsu API nazw ograniczeń klucza obcego](#clarify) | Małe      |
-| [IRelationalDatabaseCreator. HasTables/HasTablesAsync zostały udostępnione publicznie](#irdc2) | Małe      |
-| [Microsoft. EntityFrameworkCore. Design jest teraz pakietem DevelopmentDependency](#dip) | Małe      |
-| [SQLitePCL. Raw Zaktualizowano do wersji 2.0.0](#SQLitePCL) | Małe      |
-| [NetTopologySuite Zaktualizowano do wersji 2.0.0](#NetTopologySuite) | Małe      |
-| [Należy skonfigurować wiele niejednoznacznych relacji odwołujących się do siebie.](#mersa) | Małe      |
-| [Dbfunction. schemat mający wartość null lub pusty ciąg konfiguruje go jako domyślny schemat modelu](#udf-empty-string) | Małe      |
+| [Zapytania LINQ nie są już oceniane na kliencie](#linq-queries-are-no-longer-evaluated-on-the-client)         | Wysokowydajn       |
+| [EF Core 3,0 cele .NET Standard 2,1, a nie .NET Standard 2,0](#netstandard21) | Wysokowydajn      |
+| [Narzędzie wiersza polecenia EF Core, dotnet EF, nie jest już częścią zestaw .NET Core SDK](#dotnet-ef) | Wysokowydajn      |
+| [DetectChanges uznaje wartości klucza generowane przez magazyn](#dc) | Wysokowydajn      |
+| [Nazwy Z tabel, ExecuteSql by i ExecuteSqlAsync](#fromsql) | Wysokowydajn      |
+| [Typy zapytań są konsolidowane z typami jednostek](#qt) | Wysokowydajn      |
+| [Entity Framework Core nie jest już częścią ASP.NET Core współdzielonej struktury](#no-longer) | Średniookresow      |
+| [Usuwanie kaskadowe jest teraz wykonywane natychmiast domyślnie](#cascade) | Średniookresow      |
+| [Eager ładowanie pokrewnych jednostek odbywa się teraz w pojedynczym zapytaniu](#eager-loading-single-query) | Średniookresow      |
+| [DeleteBehavior. ograniczanie ma semantykę oczyszczarki](#deletebehavior) | Średniookresow      |
+| [Interfejs API konfiguracji dla relacji typu posiadanego został zmieniony](#config) | Średniookresow      |
+| [Każda właściwość używa niezależnej generacji klucza w pamięci](#each) | Średniookresow      |
+| [Zapytania nie śledzące już nie wykonują rozpoznawania tożsamości](#notrackingresolution) | Średniookresow      |
+| [Zmiany interfejsu API metadanych](#metadata-api-changes) | Średniookresow      |
+| [Zmiany w interfejsie API metadanych specyficzne dla dostawcy](#provider) | Średniookresow      |
+| [UseRowNumberForPaging został usunięty](#urn) | Średniookresow      |
+| [Nie można składować metody Z tabel, gdy jest używana z procedurą składowaną](#fromsqlsproc) | Średniookresow      |
+| [Metody Z tabel można określić tylko dla katalogów głównych zapytań](#fromsql) | Małą      |
+| [~~Wykonywanie zapytania jest rejestrowane na poziomie debugowania~~ Przywrócono](#qe) | Małą      |
+| [Wartości klucza tymczasowego nie są już ustawione na wystąpienia jednostek](#tkv) | Małą      |
+| [Jednostki zależne współużytkujące tabelę z podmiotem zabezpieczeń są teraz opcjonalne](#de) | Małą      |
+| [Wszystkie jednostki współużytkujące tabelę z kolumną Token współbieżności muszą mapować ją na Właściwość](#aes) | Małą      |
+| [Dziedziczone właściwości z niemapowanych typów są teraz mapowane na pojedynczą kolumnę dla wszystkich typów pochodnych](#ip) | Małą      |
+| [Konwencja właściwości klucza obcego nie jest już zgodna z tą samą nazwą co właściwość podmiotu zabezpieczeń](#fkp) | Małą      |
+| [Połączenie z bazą danych jest teraz zamknięte, jeśli nie jest używane już przed ukończeniem elementu TransactionScope](#dbc) | Małą      |
+| [Pola zapasowe są używane domyślnie](#backing-fields-are-used-by-default) | Małą      |
+| [Zgłoś, czy znaleziono wiele zgodnych pól zapasowych](#throw-if-multiple-compatible-backing-fields-are-found) | Małą      |
+| [Nazwy właściwości tylko dla pól powinny być zgodne z nazwą pola](#field-only-property-names-should-match-the-field-name) | Małą      |
+| [AddDbContext/AddDbContextPool nie wywołuje już metody addlogging i AddMemoryCache](#adddbc) | Małą      |
+| [DbContext. entry wykonuje teraz lokalną DetectChanges](#dbe) | Małą      |
+| [Klucze tablic ciągów i bajtów nie są generowane domyślnie przez klienta](#string-and-byte-array-keys-are-not-client-generated-by-default) | Małą      |
+| [ILoggerFactory jest teraz usługą objętą zakresem](#ilf) | Małą      |
+| [Pobieranie z opóźnieniem — nie zakłada się już, że właściwości nawigacji są w pełni załadowane](#lazy-loading-proxies-no-longer-assume-navigation-properties-are-fully-loaded) | Małą      |
+| [Nadmierne Tworzenie wewnętrznych dostawców usług jest teraz domyślnie błędem](#excessive-creation-of-internal-service-providers-is-now-an-error-by-default) | Małą      |
+| [Nowe zachowanie dla HasOne/HasMany wywoływane z pojedynczym ciągiem](#nbh) | Małą      |
+| [Typ zwracany dla kilku metod asynchronicznych został zmieniony z zadania na ValueTask](#rtnt) | Małą      |
+| [Adnotacja relacyjna: TypeMapping ma teraz tylko Właściwość TypeMapping](#rtt) | Małą      |
+| [ToTable dla typu pochodnego zgłasza wyjątek](#totable-on-a-derived-type-throws-an-exception) | Małą      |
+| [Nie EF Core już wysyłać dyrektywy pragma dla wymuszania programu SQLite FK](#pragma) | Małą      |
+| [Microsoft. EntityFrameworkCore. sqlite teraz zależy od SQLitePCLRaw. bundle_e_sqlite3](#sqlite3) | Małą      |
+| [Wartości identyfikatorów GUID są teraz przechowywane jako tekst na komputerze SQLite](#guid) | Małą      |
+| [Wartości char są teraz przechowywane jako tekst na komputerze SQLite](#char) | Małą      |
+| [Identyfikatory migracji są teraz generowane przy użyciu kalendarza niezmiennej kultury](#migid) | Małą      |
+| [Informacje o rozszerzeniu/metadane zostały usunięte z IDbContextOptionsExtension](#xinfo) | Małą      |
+| [Zmieniono nazwę LogQueryPossibleExceptionWithAggregateOperator](#lqpe) | Małą      |
+| [Wyjaśnienie interfejsu API nazw ograniczeń klucza obcego](#clarify) | Małą      |
+| [IRelationalDatabaseCreator. HasTables/HasTablesAsync zostały udostępnione publicznie](#irdc2) | Małą      |
+| [Microsoft. EntityFrameworkCore. Design jest teraz pakietem DevelopmentDependency](#dip) | Małą      |
+| [SQLitePCL. Raw Zaktualizowano do wersji 2.0.0](#SQLitePCL) | Małą      |
+| [NetTopologySuite Zaktualizowano do wersji 2.0.0](#NetTopologySuite) | Małą      |
+| [Należy skonfigurować wiele niejednoznacznych relacji odwołujących się do siebie.](#mersa) | Małą      |
+| [Dbfunction. schemat mający wartość null lub pusty ciąg konfiguruje go jako domyślny schemat modelu](#udf-empty-string) | Małą      |
 
 ### <a name="linq-queries-are-no-longer-evaluated-on-the-client"></a>Zapytania LINQ nie są już oceniane na kliencie
 
-[Problemy ze śledzeniem #14935](https://github.com/aspnet/EntityFrameworkCore/issues/14935)
-[Zobacz też problem #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
+[Problem ze śledzeniem #14935](https://github.com/aspnet/EntityFrameworkCore/issues/14935)@no__t — 1[zobacz także problem #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
 
 **Stare zachowanie**
 
@@ -84,14 +83,14 @@ Domyślnie Ocena klienta potencjalnie kosztownych wyrażeń wyzwala jedynie ostr
 
 **Nowe zachowanie**
 
-Począwszy od 3,0, EF Core zezwala tylko na wyrażenia w projekcji najwyższego poziomu ( `Select()` ostatnie wywołanie zapytania) do oceny na kliencie.
+Począwszy od 3,0, EF Core zezwala tylko na wyrażenia w projekcji najwyższego poziomu (ostatnie `Select()` wywołania w zapytaniu) do oceny na kliencie.
 Jeśli wyrażenia w dowolnej innej części zapytania nie mogą być konwertowane na SQL lub parametr, zostanie zgłoszony wyjątek.
 
 **Zalet**
 
 Automatyczna Ocena klienta umożliwia wykonywanie wielu zapytań, nawet jeśli nie można przetłumaczyć ważnych części tych zapytań.
 Takie zachowanie może spowodować nieoczekiwane i potencjalnie szkodliwe zachowanie, które może stać się widoczne tylko w środowisku produkcyjnym.
-Na przykład warunek w `Where()` wywołaniu, którego nie można przetłumaczyć, może spowodować, że wszystkie wiersze z tabeli mają być transferowane z serwera bazy danych, oraz filtr, który ma zostać zastosowany na kliencie.
+Na przykład warunek w wywołaniu `Where()`, którego nie można przetłumaczyć, może spowodować, że wszystkie wiersze z tabeli mają być transferowane z serwera bazy danych oraz filtr, który ma zostać zastosowany na kliencie.
 Ta sytuacja może być łatwo niewykrywalna, jeśli tabela zawiera tylko kilka wierszy do opracowania, ale gdy aplikacja zostanie przeniesiona do produkcji, a tabela może zawierać miliony wierszy.
 Ostrzeżenia dotyczące oceny klienta okazały się także łatwe do ignorowania podczas opracowywania.
 
@@ -99,7 +98,7 @@ W związku z tym automatyczne szacowanie klienta może prowadzić do problemów,
 
 **Środki zaradcze**
 
-Jeśli nie można w pełni przetłumaczyć zapytania, należy ponownie napisać zapytanie w formularzu, który można przetłumaczyć lub użyć `AsEnumerable()`, `ToList()`lub podobnie jak jawnie przenieść dane z powrotem do klienta, na którym można następnie przetworzyć je za pomocą LINQ-to-Objects.
+Jeśli nie można w pełni przetłumaczyć zapytania, należy ponownie napisać zapytanie w formularzu, który można przetłumaczyć, lub użyć `AsEnumerable()`, `ToList()` lub podobnego do jawnego przywrócenia danych z powrotem do klienta, na którym będzie można go następnie przetworzyć przy użyciu LINQ-to-Objects.
 
 <a name="netstandard21"></a>
 ### <a name="ef-core-30-targets-net-standard-21-rather-than-net-standard-20"></a>EF Core 3,0 cele .NET Standard 2,1, a nie .NET Standard 2,0
@@ -129,7 +128,7 @@ Rozważ przeniesienie do nowoczesnej platformy .NET. Jeśli nie jest to możliwe
 
 **Stare zachowanie**
 
-Przed ASP.NET Core 3,0, po dodaniu odwołania do pakietu do `Microsoft.AspNetCore.App` lub `Microsoft.AspNetCore.All`, będzie ona obejmować EF Core i niektórych dostawców danych EF Core, takich jak Dostawca SQL Server.
+Przed ASP.NET Core 3,0, po dodaniu odwołania do pakietu do `Microsoft.AspNetCore.App` lub `Microsoft.AspNetCore.All` będzie obejmował EF Core i niektórych spośród EF Core dostawców danych, takich jak Dostawca SQL Server.
 
 **Nowe zachowanie**
 
@@ -153,11 +152,11 @@ Aby użyć EF Core w aplikacji ASP.NET Core 3,0 lub innej obsługiwanej aplikacj
 
 **Stare zachowanie**
 
-Przed 3,0 `dotnet ef` narzędzie zostało dołączone do zestaw .NET Core SDK i było łatwo dostępne do użycia z wiersza polecenia z dowolnego projektu bez konieczności wykonywania dodatkowych czynności. 
+Przed 3,0 Narzędzie `dotnet ef` zostało dołączone do zestaw .NET Core SDK i było łatwo dostępne do użycia z wiersza polecenia z dowolnego projektu bez konieczności wykonywania dodatkowych czynności. 
 
 **Nowe zachowanie**
 
-Począwszy od 3,0, zestaw SDK platformy .NET nie zawiera `dotnet ef` narzędzia, więc zanim będzie można go użyć, należy jawnie zainstalować go jako narzędzie lokalne lub globalne. 
+Począwszy od 3,0, zestaw SDK platformy .NET nie zawiera narzędzia `dotnet ef`, więc zanim będzie można go użyć, należy jawnie zainstalować go jako narzędzie lokalne lub globalne. 
 
 **Zalet**
 
@@ -165,7 +164,7 @@ Ta zmiana umożliwia dystrybuowanie i aktualizowanie `dotnet ef` jako zwykłego 
 
 **Środki zaradcze**
 
-Aby móc zarządzać migracjami lub szkieletem a `DbContext`, zainstaluj `dotnet-ef` program jako narzędzie globalne:
+Aby móc zarządzać migracjami lub szkieletem `DbContext`, zainstaluj `dotnet-ef` jako narzędzie globalne:
 
   ``` console
     $ dotnet tool install --global dotnet-ef
@@ -184,7 +183,7 @@ Przed EF Core 3,0 te nazwy metod były przeciążone w celu pracy z zwykłym ci�
 
 **Nowe zachowanie**
 
-Począwszy od EF Core 3,0, użyj `FromSqlRaw`, `ExecuteSqlRaw`, i `ExecuteSqlRawAsync` , aby utworzyć zapytanie parametryczne, gdzie parametry są przesyłane niezależnie od ciągu zapytania.
+Począwszy od EF Core 3,0, użyj `FromSqlRaw`, `ExecuteSqlRaw` i `ExecuteSqlRawAsync`, aby utworzyć zapytanie parametryczne, gdzie parametry są przesyłane niezależnie od ciągu zapytania.
 Na przykład:
 
 ```C#
@@ -193,7 +192,7 @@ context.Products.FromSqlRaw(
     product.Name);
 ```
 
-Użyj `FromSqlInterpolated`, `ExecuteSqlInterpolated`, i`ExecuteSqlInterpolatedAsync` , aby utworzyć zapytanie parametryczne, gdzie parametry są przenoszone w ramach interpolowanego ciągu zapytania.
+Użyj `FromSqlInterpolated`, `ExecuteSqlInterpolated` i `ExecuteSqlInterpolatedAsync`, aby utworzyć zapytanie parametryczne, gdzie parametry są przesyłane w ramach interpolowanego ciągu zapytania.
 Na przykład:
 
 ```C#
@@ -249,19 +248,19 @@ context.Products.FromSqlRaw("[dbo].[Ten Most Expensive Products]").AsEnumerable(
 
 **Stare zachowanie**
 
-Przed EF Core 3,0, `FromSql` Metoda może być określona w dowolnym miejscu zapytania.
+Przed EF Core 3,0 można określić metodę `FromSql` w dowolnym miejscu zapytania.
 
 **Nowe zachowanie**
 
-Począwszy od EF Core 3,0, `FromSqlRaw` nowe i `FromSqlInterpolated` metody (zastępujące `FromSql`) można określić tylko dla katalogów głównych `DbSet<>`zapytań, tj. bezpośrednio na. Próba określenia ich w innym miejscu spowoduje błąd kompilacji.
+Począwszy od EF Core 3,0, nowe metody `FromSqlRaw` i `FromSqlInterpolated` (zastępujące `FromSql`) można określić tylko dla katalogów głównych zapytań, tj. bezpośrednio na `DbSet<>`. Próba określenia ich w innym miejscu spowoduje błąd kompilacji.
 
 **Zalet**
 
-Określenie `FromSql` dowolnego miejsca, w którym `DbSet` nie ma żadnego dodanego znaczenia ani dodanej wartości, może spowodować niejednoznaczność w niektórych scenariuszach.
+Określenie wartości `FromSql` w innym miejscu niż na `DbSet` nie miało znaczenia lub dodano wartość i może spowodować niejednoznaczność w niektórych scenariuszach.
 
 **Środki zaradcze**
 
-`FromSql`wywołania należy przenieść, aby znajdowały się bezpośrednio w, `DbSet` do których mają zastosowanie.
+wywołania `FromSql` powinny być przenoszone bezpośrednio do `DbSet`, do którego mają zastosowanie.
 
 <a name="notrackingresolution"></a>
 ### <a name="no-tracking-queries-no-longer-perform-identity-resolution"></a>Zapytania nie śledzące już nie wykonują rozpoznawania tożsamości
@@ -275,11 +274,11 @@ Przed EF Core 3,0, to to samo wystąpienie jednostki będzie używane dla każde
 ```C#
 var results = context.Products.Include(e => e.Category).AsNoTracking().ToList();
 ```
-zwróci to samo `Category` wystąpienie dla każdego `Product` , które jest skojarzone z daną kategorią.
+zwróci to samo wystąpienie `Category` dla każdej `Product`, która jest skojarzona z daną kategorią.
 
 **Nowe zachowanie**
 
-Począwszy od EF Core 3,0, zostaną utworzone inne wystąpienia jednostek, gdy jednostka o danym typie i IDENTYFIKATORze zostanie napotkana w różnych miejscach na zwracanym wykresie. Na przykład zapytanie powyżej zwróci teraz nowe `Category` wystąpienie dla każdego z nich `Product` , nawet jeśli dwa produkty są skojarzone z tą samą kategorią.
+Począwszy od EF Core 3,0, zostaną utworzone inne wystąpienia jednostek, gdy jednostka o danym typie i IDENTYFIKATORze zostanie napotkana w różnych miejscach na zwracanym wykresie. Na przykład zapytanie powyżej zwróci nowe wystąpienie `Category` dla każdej `Product`, nawet jeśli dwa produkty są skojarzone z tą samą kategorią.
 
 **Zalet**
 
@@ -295,7 +294,7 @@ Użyj zapytania śledzenia, jeśli jest wymagane rozpoznawanie tożsamości.
 
 [Śledzenie problemu #14523](https://github.com/aspnet/EntityFrameworkCore/issues/14523)
 
-Ta zmiana została przywrócona, ponieważ nowa konfiguracja w EF Core 3,0 umożliwia określenie poziomu dziennika dla każdego zdarzenia, które ma zostać określone przez aplikację. Na przykład, aby przełączyć rejestrowanie danych SQL do `Debug`, należy jawnie skonfigurować poziom w `OnConfiguring` lub `AddDbContext`:
+Ta zmiana została przywrócona, ponieważ nowa konfiguracja w EF Core 3,0 umożliwia określenie poziomu dziennika dla każdego zdarzenia, które ma zostać określone przez aplikację. Aby na przykład przełączyć rejestrowanie danych SQL do `Debug`, należy jawnie skonfigurować poziom w `OnConfiguring` lub `AddDbContext`:
 ```C#
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
@@ -320,16 +319,16 @@ Począwszy od 3,0, EF Core przechowuje wartość klucza tymczasowego jako częś
 
 **Zalet**
 
-Ta zmiana została wprowadzona w celu zapobieżenia błędnemu utracie wartości kluczy tymczasowych, gdy jednostka, która została wcześniej prześledzona przez niektóre `DbContext` wystąpienie, jest przenoszona do innego `DbContext` wystąpienia. 
+Ta zmiana została wprowadzona w celu zapobiegania błędnemu utracie wartości kluczy tymczasowych, gdy jednostka, która została wcześniej prześledzona przez niektóre wystąpienie `DbContext` jest przenoszona do innego wystąpienia `DbContext`. 
 
 **Środki zaradcze**
 
-Aplikacje, które przypisują wartości kluczy podstawowych do kluczy obcych, aby utworzyć skojarzenia między jednostkami, mogą zależeć od starego zachowania, jeśli klucze podstawowe są generowane przez magazyn i `Added` należą do jednostek w stanie.
+Aplikacje, które przypisują wartości kluczy podstawowych do kluczy obcych, aby utworzyć skojarzenia między jednostkami, mogą zależeć od starego zachowania, jeśli klucze podstawowe są generowane przez magazyn i należą do jednostek w stanie `Added`.
 Można to uniknąć przez:
 * Nie używa kluczy generowanych przez magazyn.
 * Ustawianie właściwości nawigacji na relacje formularzy zamiast ustawiania wartości kluczy obcych.
 * Uzyskaj rzeczywiste wartości klucza tymczasowego z informacji śledzenia jednostki.
-Na przykład zwróci `context.Entry(blog).Property(e => e.Id).CurrentValue` wartość tymczasową nawet wtedy, gdy `blog.Id` sama nie została ustawiona.
+Na przykład, `context.Entry(blog).Property(e => e.Id).CurrentValue` zwróci wartość tymczasową nawet wtedy, gdy nie ustawiono elementu `blog.Id`.
 
 <a name="dc"></a>
 
@@ -339,13 +338,13 @@ Na przykład zwróci `context.Entry(blog).Property(e => e.Id).CurrentValue` wart
 
 **Stare zachowanie**
 
-Przed EF Core 3,0, Nieśledzona jednostka znaleziona przez `DetectChanges` zostałaby śledzona `Added` w stanie i wstawiona jako nowy wiersz, gdy `SaveChanges` zostanie wywołana.
+Przed EF Core 3,0, Nieśledzona jednostka znaleziona przez `DetectChanges` będzie śledzona w stanie `Added` i wstawiona jako nowy wiersz w przypadku wywołania `SaveChanges`.
 
 **Nowe zachowanie**
 
-Począwszy od EF Core 3,0, jeśli jednostka używa wygenerowanych wartości klucza i ustawiono wartość klucza, jednostka będzie śledzona w `Modified` stanie.
-Oznacza to, że wiersz dla jednostki jest założono i zostanie zaktualizowany po `SaveChanges` wywołaniu.
-Jeśli wartość klucza nie jest ustawiona lub jeśli typ jednostki nie korzysta z wygenerowanych kluczy, Nowa jednostka będzie nadal śledzona tak `Added` jak w poprzednich wersjach.
+Począwszy od EF Core 3,0, jeśli jednostka używa wygenerowanych wartości klucza i jest ustawiona określona wartość klucza, jednostka będzie śledzona w stanie `Modified`.
+Oznacza to, że wiersz dla jednostki jest założono i zostanie zaktualizowany, gdy zostanie wywołane `SaveChanges`.
+Jeśli wartość klucza nie jest ustawiona lub jeśli typ jednostki nie korzysta z wygenerowanych kluczy, Nowa jednostka będzie nadal śledzona jako `Added` jak w poprzednich wersjach.
 
 **Zalet**
 
@@ -382,15 +381,15 @@ Przed 3,0 EF Core zastosowane akcje kaskadowe (usunięcie jednostek zależnych w
 **Nowe zachowanie**
 
 Począwszy od 3,0, EF Core stosuje akcje kaskadowe zaraz po wykryciu warunku wyzwalania.
-Na przykład wywołanie `context.Remove()` usunięcia podmiotu zabezpieczeń spowoduje, że wszystkie śledzone powiązane zależności są również ustawione na `Deleted` natychmiast.
+Na przykład wywołanie `context.Remove()` w celu usunięcia podmiotu zabezpieczeń spowoduje, że wszystkie śledzone powiązane elementy zależne są również domyślnie ustawione na `Deleted`.
 
 **Zalet**
 
-Ta zmiana została wprowadzona w celu poprawy środowiska związanego z scenariuszami powiązań danych i inspekcji, gdzie ważne jest, aby zrozumieć, które jednostki zostaną usunięte _przed_ `SaveChanges` wywołaniem.
+Ta zmiana została wprowadzona w celu poprawy środowiska związanego z scenariuszami powiązań danych i inspekcji, gdzie ważne jest, aby zrozumieć, które jednostki zostaną usunięte _przed_ wywołaniem `SaveChanges`.
 
 **Środki zaradcze**
 
-Poprzednie zachowanie można przywrócić za pomocą ustawień na stronie `context.ChangedTracker`.
+Poprzednie zachowanie można przywrócić za pomocą ustawień na `context.ChangedTracker`.
 Na przykład:
 
 ```C#
@@ -416,7 +415,7 @@ Wygenerowanie wielu zapytań w celu zaimplementowania pojedynczej kwerendy LINQ 
 
 **Środki zaradcze**
 
-Chociaż technicznie nie jest to zmiana, może ona mieć znaczny wpływ na wydajność aplikacji, gdy pojedyncze zapytanie zawiera dużą liczbę operatora `Include` na nawigowaniu po kolekcji. [Zobacz ten komentarz](https://github.com/aspnet/EntityFrameworkCore/issues/18022#issuecomment-537219137) , aby uzyskać więcej informacji i przepisać zapytania w bardziej wydajny sposób.
+Chociaż technicznie nie jest to zmiana, może ona mieć znaczny wpływ na wydajność aplikacji, gdy pojedyncze zapytanie zawiera dużą liczbę operatora `Include` na nawigowaniu po kolekcji. [Zobacz ten komentarz](https://github.com/aspnet/EntityFrameworkCore/issues/18022#issuecomment-542397085) , aby uzyskać więcej informacji i przepisać zapytania w bardziej wydajny sposób.
 
 **
 
@@ -427,19 +426,19 @@ Chociaż technicznie nie jest to zmiana, może ona mieć znaczny wpływ na wydaj
 
 **Stare zachowanie**
 
-Przed 3,0, `DeleteBehavior.Restrict` utworzono klucze obce w bazie danych z `Restrict` semantyką, ale również zmieniono wewnętrzną korektę w nieoczywisty sposób.
+Przed 3,0 `DeleteBehavior.Restrict` utworzono klucze obce w bazie danych z semantyką `Restrict`, ale również zmieniono wewnętrzną korektę w nieoczywisty sposób.
 
 **Nowe zachowanie**
 
-Począwszy od 3,0, `DeleteBehavior.Restrict` zapewnia, że klucze obce są tworzone `Restrict` z semantyką--to nie, bez kaskad; throw przy naruszeniu ograniczenia — bez również wpływu na wewnętrzną naprawę EF.
+Począwszy od 3,0, `DeleteBehavior.Restrict` zapewnia, że klucze obce są tworzone z semantyką `Restrict` — to oznacza, że nie ma żadnych kaskadowych; Zgłoś naruszenie ograniczenia — bez również wpływu na wewnętrzną korektę EF.
 
 **Zalet**
 
-Ta zmiana została wprowadzona w celu usprawnienia korzystania `DeleteBehavior` z programu w intuicyjny sposób, bez nieoczekiwanych efektów ubocznych.
+Ta zmiana została wprowadzona w celu poprawy środowiska korzystania z `DeleteBehavior` w intuicyjny sposób, bez nieoczekiwanych efektów ubocznych.
 
 **Środki zaradcze**
 
-Poprzednie zachowanie można przywrócić za pomocą polecenia `DeleteBehavior.ClientNoAction`.
+Poprzednie zachowanie można przywrócić przy użyciu `DeleteBehavior.ClientNoAction`.
 
 <a name="qt"></a>
 ### <a name="query-types-are-consolidated-with-entity-types"></a>Typy zapytań są konsolidowane z typami jednostek
@@ -465,21 +464,20 @@ Podobnie często są one zamapowane na widoki, ale jest to tylko dlatego, że wi
 **Środki zaradcze**
 
 Następujące części interfejsu API są obecnie przestarzałe:
-* **`ModelBuilder.Query<>()`** — Zamiast `ModelBuilder.Entity<>().HasNoKey()` tego należy wywołać, aby oznaczyć typ jednostki jako bez kluczy.
+* **`ModelBuilder.Query<>()`** — zamiast tego należy wywołać `ModelBuilder.Entity<>().HasNoKey()`, aby oznaczyć typ jednostki jako bez kluczy.
 Ta sytuacja nadal nie zostanie skonfigurowana zgodnie z Konwencją, aby uniknąć Niepoważnej konfiguracji, gdy jest oczekiwany klucz podstawowy, ale nie jest zgodna z Konwencją.
-* **`DbQuery<>`** — Zamiast `DbSet<>` tego należy używać.
-* **`DbContext.Query<>()`** — Zamiast `DbContext.Set<>()` tego należy używać.
+* należy używać **`DbQuery<>`** — zamiast tego należy użyć `DbSet<>`.
+* należy używać **`DbContext.Query<>()`** — zamiast tego należy użyć `DbContext.Set<>()`.
 
 <a name="config"></a>
 ### <a name="configuration-api-for-owned-type-relationships-has-changed"></a>Interfejs API konfiguracji dla relacji typu posiadanego został zmieniony
 
-[Śledzenie](https://github.com/aspnet/EntityFrameworkCore/issues/12444)
-problemów ze śledzeniem #12444[#9148](https://github.com/aspnet/EntityFrameworkCore/issues/9148)
-śledzenia problemów[#14153](https://github.com/aspnet/EntityFrameworkCore/issues/14153)
+Problem ze śledzeniem [#12444](https://github.com/aspnet/EntityFrameworkCore/issues/12444)@no__t śledzenia problemów[#9148](https://github.com/aspnet/EntityFrameworkCore/issues/9148)
+[problem ze śledzeniem #14153](https://github.com/aspnet/EntityFrameworkCore/issues/14153)
 
 **Stare zachowanie**
 
-Przed EF Core 3,0 konfiguracja powiązanej relacji została wykonana bezpośrednio po `OwnsOne` wywołaniu lub. `OwnsMany` 
+Przed EF Core 3,0 konfiguracja powiązanej relacji została wykonana bezpośrednio po wywołaniu `OwnsOne` lub `OwnsMany`. 
 
 **Nowe zachowanie**
 
@@ -490,8 +488,8 @@ Na przykład:
 modelBuilder.Entity<Order>.OwnsOne(e => e.Details).WithOwner(e => e.Order);
 ```
 
-Konfiguracja odnosząca się do relacji między właścicielem i właścicielem powinna teraz być łańcuchem `WithOwner()` po podobnym sposobie, jak inne relacje są skonfigurowane.
-Mimo że konfiguracja dla samego samego typu jest nadal łańcuchem `OwnsOne()/OwnsMany()`.
+Konfiguracja odnosząca się do relacji między właścicielem i właścicielem powinna teraz być łańcuchem po `WithOwner()` podobnie jak inne relacje są skonfigurowane.
+Mimo że konfiguracja dla samego typu, nadal będzie łańcucha po `OwnsOne()/OwnsMany()`.
 Na przykład:
 
 ```C#
@@ -516,12 +514,12 @@ modelBuilder.Entity<Order>.OwnsOne(e => e.Details, eb =>
     });
 ```
 
-Dodatkowo wywoływanie `Entity()`,, `Set()` lub z obiektem docelowym typu, `HasOne()`spowoduje teraz zgłoszenie wyjątku.
+Dodatkowo wywołanie `Entity()`, `HasOne()` lub `Set()` z elementem docelowym typu będącego właścicielem spowoduje teraz zgłoszenie wyjątku.
 
 **Zalet**
 
 Ta zmiana została wprowadzona w celu utworzenia oddzielenia oczyszczarki między konfiguracją samego typu i _relacją z_ typem będącym własnością.
-To z kolei eliminuje niejednoznaczność i pomyłek wokół metod, `HasForeignKey`takich jak.
+To z kolei eliminuje niejednoznaczność i pomyłek wokół metod, takich jak `HasForeignKey`.
 
 **Środki zaradcze**
 
@@ -550,17 +548,17 @@ public class OrderDetails
     public string ShippingAddress { get; set; }
 }
 ```
-Przed EF Core 3,0, jeśli `OrderDetails` jest `Order` własnością lub jawnie zmapowana do tej samej tabeli `OrderDetails` , wystąpienie jest zawsze wymagane podczas dodawania nowego `Order`elementu.
+Przed EF Core 3,0, jeśli `OrderDetails` należy do `Order` lub jawnie zamapowane do tej samej tabeli, wystąpienie `OrderDetails` było zawsze wymagane podczas dodawania nowego `Order`.
 
 
 **Nowe zachowanie**
 
-Począwszy od 3,0, EF Core umożliwia dodanie `Order` , `OrderDetails` bez `OrderDetails` i mapuje wszystkie właściwości, z wyjątkiem klucza podstawowego do wartości null.
-Podczas wykonywania zapytania o zestawy `OrderDetails` EF Core `null` do, jeśli którekolwiek z jego wymaganych właściwości nie ma wartości lub jeśli nie ma żadnych wymaganych właściwości poza kluczem podstawowym i wszystkie właściwości są `null`.
+Począwszy od 3,0, EF Core umożliwia dodanie `Order` bez `OrderDetails` i mapuje wszystkie właściwości `OrderDetails` z wyjątkiem klucza podstawowego na kolumny dopuszczające wartość null.
+Podczas wykonywania zapytania o EF Core ustawia `OrderDetails`, aby `null`, Jeśli którakolwiek z wymaganych właściwości nie ma wartości lub jeśli nie ma żadnych wymaganych właściwości poza kluczem podstawowym, a wszystkie właściwości są `null`.
 
 **Środki zaradcze**
 
-Jeśli model ma zależeć do udostępniania tabeli dla wszystkich opcjonalnych kolumn, ale Nawigacja wskazująca, że nie jest oczekiwana `null` , aplikacja powinna zostać zmodyfikowana, aby obsługiwać przypadki, gdy Nawigacja `null`jest. Jeśli nie jest to możliwe, należy dodać wymaganą właściwość do typu jednostki lub co najmniej jedna właściwość powinna mieć`null` przypisaną do niej inną wartość.
+Jeśli Twój model ma zależne od siebie wszystkie opcjonalne kolumny, ale nawigacja nie powinna być `null`, należy zmodyfikować aplikację tak, aby obsługiwała przypadki, gdy nawigacja jest `null`. Jeśli nie jest to możliwe, należy dodać wymaganą właściwość do typu jednostki lub co najmniej jedna właściwość powinna mieć przypisaną wartość inną niż `null`.
 
 <a name="aes"></a>
 
@@ -592,12 +590,12 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
         .Property(o => o.Version).IsRowVersion().HasColumnName("Version");
 }
 ```
-Przed EF Core 3,0, jeśli `OrderDetails` jest `Order` własnością lub jawnie zmapowana do tej samej tabeli, aktualizacja tylko `OrderDetails` nie spowoduje aktualizacji `Version` wartości na kliencie, a kolejna aktualizacja zakończy się niepowodzeniem.
+Przed EF Core 3,0, jeśli `OrderDetails` należy do `Order` lub jawnie zamapowanych do tej samej tabeli, aktualizacja tylko `OrderDetails` nie będzie aktualizować `Version` wartości na kliencie, a kolejna aktualizacja zakończy się niepowodzeniem.
 
 
 **Nowe zachowanie**
 
-Począwszy od 3,0, EF Core propaguje nową `Version` wartość do `Order` , jeśli jest właścicielem `OrderDetails`. W przeciwnym razie wyjątek jest zgłaszany podczas walidacji modelu.
+Począwszy od 3,0, EF Core propaguje nową wartość `Version` do `Order`, jeśli jest ona własnością `OrderDetails`. W przeciwnym razie wyjątek jest zgłaszany podczas walidacji modelu.
 
 **Zalet**
 
@@ -651,7 +649,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 
-Przed EF Core 3,0 `ShippingAddress` Właściwość zostałaby zamapowana do oddzielnych kolumn dla `BulkOrder` i `Order` domyślnie.
+Przed EF Core 3,0 Właściwość `ShippingAddress` będzie domyślnie mapowana na oddzielne kolumny dla `BulkOrder` i `Order`.
 
 **Nowe zachowanie**
 
@@ -699,8 +697,8 @@ public class Order
     public int CustomerId { get; set; }
 }
 ```
-Przed EF Core 3,0, `CustomerId` właściwość będzie używana dla klucza obcego według Konwencji.
-Jeśli `Order` jednak jest typem będącym własnością, to `CustomerId` również klucz podstawowy i zwykle nie jest to oczekiwane.
+Przed EF Core 3,0 Właściwość `CustomerId` byłaby użyta dla klucza obcego według Konwencji.
+Jeśli jednak wartość `Order` jest typem będącym własnością, spowoduje to również, że `CustomerId` klucz podstawowy i zwykle nie jest to oczekiwane.
 
 **Nowe zachowanie**
 
@@ -753,7 +751,7 @@ Jeśli właściwość była zamierzona jako klucz obcy i w związku z tym jest c
 
 **Stare zachowanie**
 
-Przed EF Core 3,0, jeśli kontekst otwiera połączenie wewnątrz `TransactionScope`, połączenie pozostaje otwarte, gdy bieżące `TransactionScope` jest aktywne.
+Przed EF Core 3,0, jeśli kontekst otwiera połączenie wewnątrz `TransactionScope`, połączenie pozostaje otwarte, podczas gdy bieżący `TransactionScope` jest aktywny.
 
 ```C#
 using (new TransactionScope())
@@ -776,11 +774,11 @@ Począwszy od 3,0, EF Core zamyka połączenie zaraz po jego zakończeniu.
 
 **Zalet**
 
-Ta zmiana umożliwia używanie wielu kontekstów w tym samym `TransactionScope`. Nowe zachowanie jest również zgodne z EF6.
+Ta zmiana umożliwia użycie wielu kontekstów w tym samym `TransactionScope`. Nowe zachowanie jest również zgodne z EF6.
 
 **Środki zaradcze**
 
-Jeśli połączenie musi pozostać otwarte jawne wywołanie w celu `OpenConnection()` upewnienia się, że EF Core nie zamyka go przedwcześnie:
+Jeśli połączenie musi pozostać otwarte jawne wywołanie do `OpenConnection()`, zapewni, że EF Core nie zamyka go przedwcześnie:
 
 ```C#
 using (new TransactionScope())
@@ -841,7 +839,7 @@ Ta zmiana została wprowadzona w celu uniemożliwienia EF Core błędnego wyzwal
 
 **Środki zaradcze**
 
-Zachowanie przed 3,0 może zostać przywrócone przez konfigurację trybu `ModelBuilder`dostępu do właściwości.
+Zachowanie przed 3,0 może zostać przywrócone przez konfigurację trybu dostępu do właściwości w `ModelBuilder`.
 Na przykład:
 
 ```C#
@@ -929,15 +927,15 @@ modelBuilder
 
 **Stare zachowanie**
 
-Przed `AddDbContext` EF Core 3,0, wywoływanie `AddDbContextPool` lub zarejestrowanie usługi rejestrowania i pamięci podręcznej w usłudze D. I przez wywołania funkcji [addlogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) i [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
+Przed EF Core 3,0 wywoływanie `AddDbContext` lub `AddDbContextPool` spowoduje również zarejestrowanie usługi rejestrowania i buforowania pamięci z D. I przez wywołania funkcji [addlogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) i [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
 
 **Nowe zachowanie**
 
-Począwszy od EF Core 3,0 `AddDbContext` i `AddDbContextPool` nie będą już rejestrować tych usług przy użyciu iniekcji zależności (di).
+Począwszy od EF Core 3,0, `AddDbContext` i `AddDbContextPool` nie będą już rejestrować tych usług przy użyciu iniekcji zależności (DI).
 
 **Zalet**
 
-EF Core 3,0 nie wymaga, aby te usługi były w zakresie DI kontenera aplikacji. Jeśli `ILoggerFactory` jednak program jest zarejestrowany w kontenerze di aplikacji, będzie nadal używany przez EF Core.
+EF Core 3,0 nie wymaga, aby te usługi były w zakresie DI kontenera aplikacji. Jeśli jednak `ILoggerFactory` jest zarejestrowany w kontenerze DI aplikacji, będzie nadal używany przez EF Core.
 
 **Środki zaradcze**
 
@@ -951,25 +949,25 @@ Jeśli aplikacja wymaga tych usług, należy zarejestrować je jawnie przy użyc
 
 **Stare zachowanie**
 
-Przed EF Core 3,0 wywołanie `DbContext.Entry` mogłoby spowodować wykrycie zmian dla wszystkich śledzonych jednostek.
-W ten sposób zapewniono, że stan ujawniony na `EntityEntry` bieżąco.
+Przed EF Core 3,0 wywołania `DbContext.Entry` spowodują wykrycie zmian dla wszystkich śledzonych jednostek.
+Zapewnia to aktualność stanu ujawnionego w `EntityEntry`.
 
 **Nowe zachowanie**
 
-Począwszy od EF Core 3,0, wywołanie `DbContext.Entry` będzie teraz podejmować próbę wykrycia zmian w danej jednostce i wszystkich śledzonych podmiotach głównych.
+Począwszy od EF Core 3,0, wywoływanie `DbContext.Entry` podejmie teraz próbę wykrycia zmian w danej jednostce i wszystkich śledzonych podmiotach głównych.
 Oznacza to, że zmiany w innym miejscu mogą nie zostać wykryte przez wywołanie tej metody, która może mieć wpływ na stan aplikacji.
 
-Należy pamiętać, `ChangeTracker.AutoDetectChangesEnabled` że jeśli jest `false` ustawiona na, nawet to lokalne wykrywanie zmian zostanie wyłączone.
+Należy pamiętać, że jeśli `ChangeTracker.AutoDetectChangesEnabled` jest ustawiona na `false`, nawet to lokalne wykrywanie zmian zostanie wyłączone.
 
-Inne metody, które powodują wykrycie zmiany — na `ChangeTracker.Entries` przykład `SaveChanges`i--nadal powodują pełne `DetectChanges` wszystkie śledzone jednostki.
+Inne metody, które powodują wykrycie zmiany — na przykład `ChangeTracker.Entries` i `SaveChanges`--nadal powodują pełne `DetectChanges` wszystkich śledzonych jednostek.
 
 **Zalet**
 
-Ta zmiana została wprowadzona w celu poprawy domyślnej wydajności korzystania `context.Entry`z programu.
+Ta zmiana została wprowadzona w celu poprawy domyślnej wydajności korzystania z `context.Entry`.
 
 **Środki zaradcze**
 
-Wywołaj `ChgangeTracker.DetectChanges()` jawnie przed `Entry` wywołaniem, aby upewnić się, że zachowanie poprzedzające 3,0.
+Wywołaj `ChgangeTracker.DetectChanges()` jawnie przed wywołaniem `Entry`, aby upewnić się, że zachowanie poprzedzające 3,0.
 
 ### <a name="string-and-byte-array-keys-are-not-client-generated-by-default"></a>Klucze tablic ciągów i bajtów nie są generowane domyślnie przez klienta
 
@@ -977,8 +975,8 @@ Wywołaj `ChgangeTracker.DetectChanges()` jawnie przed `Entry` wywołaniem, aby 
 
 **Stare zachowanie**
 
-Przed EF Core 3,0 `string` i `byte[]` właściwości klucza mogą być używane bez jawnego ustawienia wartości innej niż null.
-W takim przypadku wartość klucza jest generowana na kliencie jako identyfikator GUID, Zserializowany do bajtów dla `byte[]`.
+Przed EF Core 3,0, `string` i właściwości klucza `byte[]` mogą być używane bez jawnego ustawienia wartości innej niż null.
+W takim przypadku wartość klucza jest generowana na kliencie jako identyfikator GUID, serializowany do bajtów dla `byte[]`.
 
 **Nowe zachowanie**
 
@@ -986,7 +984,7 @@ Począwszy od EF Core 3,0 zostanie zgłoszony wyjątek wskazujący, że nie usta
 
 **Zalet**
 
-Ta zmiana została wprowadzona, ponieważ zazwyczaj wartości `string` generowane / `byte[]` przez klienta nie są przydatne, a domyślne zachowanie spowodowało trudne powody dotyczące wygenerowanych wartości kluczy w typowy sposób.
+Ta zmiana została wprowadzona, ponieważ wartości wygenerowane przez klienta `string` @ no__t-1 @ no__t-2 zazwyczaj nie są przydatne, a zachowanie domyślne spowodowało trudne przyczyny dotyczące wygenerowanych wartości kluczy w typowy sposób.
 
 **Środki zaradcze**
 
@@ -1015,23 +1013,23 @@ public string Id { get; set; }
 
 **Stare zachowanie**
 
-Przed EF Core 3,0 `ILoggerFactory` został zarejestrowany jako usługa singleton.
+Przed EF Core 3,0, `ILoggerFactory` został zarejestrowany jako usługa singleton.
 
 **Nowe zachowanie**
 
-Począwszy od EF Core 3,0, `ILoggerFactory` jest teraz zarejestrowany jako zakres.
+Począwszy od EF Core 3,0, `ILoggerFactory` jest teraz zarejestrowane jako zakres.
 
 **Zalet**
 
-Ta zmiana została wprowadzona w celu zezwalania na skojarzenie rejestratora z `DbContext` wystąpieniem, które umożliwia inne funkcje i usuwa niektóre przypadki zachowań patologicznych, takich jak rozłożenie wewnętrznych dostawców usług.
+Ta zmiana została wprowadzona w celu zezwalania na skojarzenie rejestratora z wystąpieniem `DbContext`, które umożliwia inne funkcje i usuwa niektóre przypadki zachowań patologicznych, takich jak wybuch wewnętrznych dostawców usług.
 
 **Środki zaradcze**
 
 Ta zmiana nie powinna mieć wpływu na kod aplikacji, chyba że rejestruje i korzysta z usług niestandardowych na EF Core wewnętrznym dostawcy usług.
 To nie jest typowe.
-W takich przypadkach większość elementów będzie nadal działać, ale wszystkie pojedyncze usługi, w `ILoggerFactory` zależności od tego, muszą zostać zmienione w celu `ILoggerFactory` uzyskania w inny sposób.
+W takich przypadkach większość elementów będzie nadal działać, ale każda usługa singleton, która była zależna od `ILoggerFactory`, będzie musiała zostać zmieniona w celu uzyskania `ILoggerFactory` w inny sposób.
 
-Jeśli używasz `ILoggerFactory` takich sytuacji, Zapisz problem w [EF Core module śledzącym problemy](https://github.com/aspnet/EntityFrameworkCore/issues) w witrynie GitHub, aby poinformować nas, jak można lepiej zrozumieć, jak nie należy ponownie rozbić w przyszłości.
+Jeśli używasz takich sytuacji, Zapisz problem w [EF Core module śledzącym problemy](https://github.com/aspnet/EntityFrameworkCore/issues) w witrynie GitHub, aby poinformować nas, jak korzystasz z `ILoggerFactory`, aby lepiej zrozumieć, jak nie należy ponownie rozbić tego w przyszłości.
 
 ### <a name="lazy-loading-proxies-no-longer-assume-navigation-properties-are-fully-loaded"></a>Pobieranie z opóźnieniem — nie zakłada się już, że właściwości nawigacji są w pełni załadowane
 
@@ -1039,7 +1037,7 @@ Jeśli używasz `ILoggerFactory` takich sytuacji, Zapisz problem w [EF Core modu
 
 **Stare zachowanie**
 
-Przed EF Core 3,0, gdy zostanie `DbContext` usunięty, nie było możliwości znajomości, czy dana właściwość nawigacji w jednostce uzyskanej z tego kontekstu została w pełni załadowana.
+Przed EF Core 3,0, po usunięciu `DbContext` nie było możliwości znajomości, czy dana właściwość nawigacji w jednostce uzyskanej z tego kontekstu została w pełni załadowana.
 Zamiast tego przyjmuje się, że jest załadowana Nawigacja referencyjna, jeśli ma ona wartość różną od null i że zostanie załadowana Nawigacja kolekcji, jeśli nie jest pusta.
 W takich przypadkach próba załadowania z opóźnieniem będzie równa No-op.
 
@@ -1052,7 +1050,7 @@ Jeśli taka sytuacja występuje, oznacza to, że kod aplikacji próbuje użyć �
 
 **Zalet**
 
-Ta zmiana została wprowadzona, aby zachować spójność i poprawić zachowanie przy próbie załadowania `DbContext` opóźnionego wystąpienia.
+Ta zmiana została wprowadzona, aby zachować spójność i poprawić zachowanie podczas próby załadowania opóźnionego na usunięte wystąpienie `DbContext`.
 
 **Środki zaradcze**
 
@@ -1077,7 +1075,7 @@ Ta zmiana została wprowadzona w celu zapewnienia lepszej jakości kodu aplikacj
 **Środki zaradcze**
 
 Najbardziej odpowiednią przyczyną działania w przypadku wystąpienia tego błędu jest zrozumienie głównej przyczyny problemu i zatrzymanie tworzenia tak wielu wewnętrznych dostawców usług.
-Błąd można jednak przekonwertować z powrotem na ostrzeżenie (lub zignorować) przez konfigurację w `DbContextOptionsBuilder`.
+Błąd można jednak przekonwertować z powrotem na ostrzeżenie (lub zignorować) przez konfigurację na `DbContextOptionsBuilder`.
 Na przykład:
 
 ```C#
@@ -1102,9 +1100,9 @@ Na przykład:
 modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
 ```
 
-Kod wygląda tak `Samurai` , jakby odnosił się do innego typu jednostki `Entrance` przy użyciu właściwości nawigacji, która może być prywatna.
+Kod wygląda podobnie do `Samurai` do innego typu jednostki przy użyciu właściwości nawigacji `Entrance`, która może być prywatna.
 
-W rzeczywistości ten kod próbuje utworzyć relację z typem obiektu o nazwie `Entrance` bez właściwości nawigacji.
+W rzeczywistości ten kod próbuje utworzyć relację z typem jednostki o nazwie `Entrance` bez właściwości nawigacji.
 
 **Nowe zachowanie**
 
@@ -1118,7 +1116,7 @@ Stare zachowanie było bardzo mylące, szczególnie podczas odczytywania kodu ko
 
 Spowoduje to przerwanie aplikacji, które jawnie konfigurują relacje przy użyciu ciągów nazw typów i bez określania jawnie właściwości nawigacji.
 Nie jest to typowy sposób.
-Poprzednie zachowanie można uzyskać poprzez jawne przekazanie `null` nazwy właściwości nawigacji.
+Poprzednie zachowanie można uzyskać poprzez jawne przekazanie `null` dla nazwy właściwości nawigacji.
 Na przykład:
 
 ```C#
@@ -1133,17 +1131,17 @@ modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 
 **Stare zachowanie**
 
-Następujące metody asynchroniczne zwróciły `Task<T>`wcześniej:
+Następujące metody asynchroniczne wcześniej zwracały `Task<T>`:
 
 * `DbContext.FindAsync()`
 * `DbSet.FindAsync()`
 * `DbContext.AddAsync()`
 * `DbSet.AddAsync()`
-* `ValueGenerator.NextValueAsync()`(i pochodne klasy)
+* `ValueGenerator.NextValueAsync()` (i pochodne klasy)
 
 **Nowe zachowanie**
 
-Powyższe metody teraz zwracają wartość `ValueTask<T>` powyżej `T` , tak jak wcześniej.
+Powyższe metody zwracają teraz `ValueTask<T>` w tym samym `T` tak jak wcześniej.
 
 **Zalet**
 
@@ -1152,7 +1150,7 @@ Ta zmiana zmniejsza liczbę przydziałów sterty wynikających z wywołania tych
 **Środki zaradcze**
 
 Aplikacje, które po prostu oczekują na powyższe interfejsy API, muszą zostać ponownie skompilowane — nie są wymagane żadne zmiany ze źródła.
-Bardziej złożone użycie (np. przekazanie zwróconej `Task` do `Task.WhenAny()`) zwykle wymaga, aby zwrócone `ValueTask<T>` przekonwertowanie na a `Task<T>` przez wywołanie `AsTask()` .
+Bardziej złożone użycie (np. przekazywanie zwróconych `Task` do `Task.WhenAny()`) zwykle wymaga, aby zwracane `ValueTask<T>` były konwertowane na `Task<T>` przez wywołanie `AsTask()` na nim.
 Należy zauważyć, że ta zmiana powoduje spadek przydziału alokacji.
 
 <a name="rtt"></a>
@@ -1184,11 +1182,11 @@ Najbardziej odpowiednią akcją do naprawienia jest użycie funkcji powierzchni 
 
 **Stare zachowanie**
 
-Przed EF Core 3,0, `ToTable()` wywołana dla typu pochodnego zostałaby zignorowana, ponieważ strategia mapowania dziedziczenia była TPH, gdy jest to nieprawidłowe. 
+Przed EF Core 3,0, `ToTable()` wywołane dla typu pochodnego zostałyby zignorowane, ponieważ strategia mapowania dziedziczenia była TPH, gdy jest to nieprawidłowe. 
 
 **Nowe zachowanie**
 
-Począwszy od EF Core 3,0 i przygotowania do dodawania obsługi TPT i TPC w późniejszej wersji, wywołana `ToTable()` dla typu pochodnego będzie teraz zgłosić wyjątek, aby uniknąć nieoczekiwanej zmiany mapowania w przyszłości.
+Począwszy od EF Core 3,0 i przygotowania do dodawania obsługi TPT i TPC w późniejszej wersji, `ToTable()` wywołana dla typu pochodnego będzie teraz zgłaszać wyjątek, aby uniknąć nieoczekiwanej zmiany mapowania w przyszłości.
 
 **Zalet**
 
@@ -1205,7 +1203,7 @@ Usuń wszystkie próby mapowania typów pochodnych do innych tabel.
 
 **Stare zachowanie**
 
-Przed EF Core 3,0, `ForSqlServerHasIndex().ForSqlServerInclude()` zapewnia sposób konfigurowania kolumn używanych w programie. `INCLUDE`
+Przed EF Core 3,0, `ForSqlServerHasIndex().ForSqlServerInclude()` udostępnia sposób konfigurowania kolumn używanych z `INCLUDE`.
 
 **Nowe zachowanie**
 
@@ -1214,7 +1212,7 @@ Użyj `HasIndex().ForSqlServerInclude()`.
 
 **Zalet**
 
-Ta zmiana została wprowadzona w celu konsolidacji interfejsu API dla indeksów `Include` w jednym miejscu dla wszystkich dostawców baz danych.
+Ta zmiana została wprowadzona w celu konsolidacji interfejsu API dla indeksów z `Include` w jednym miejscu dla wszystkich dostawców baz danych.
 
 **Środki zaradcze**
 
@@ -1272,15 +1270,15 @@ Użyj nowych metod rozszerzenia.
 
 **Stare zachowanie**
 
-Przed EF Core 3,0, EF Core wysyłać `PRAGMA foreign_keys = 1` , gdy zostanie otwarte połączenie z systemem SQLite.
+Przed EF Core 3,0, EF Core wyśle `PRAGMA foreign_keys = 1` w przypadku otwarcia połączenia z SQLite.
 
 **Nowe zachowanie**
 
-Począwszy od EF Core 3,0, EF Core przestać wysyłać `PRAGMA foreign_keys = 1` , gdy zostanie otwarte połączenie z programem SQLite.
+Począwszy od EF Core 3,0, EF Core nie będzie już wysyłać `PRAGMA foreign_keys = 1` w przypadku otwarcia połączenia z programem SQLite.
 
 **Zalet**
 
-Ta zmiana została wprowadzona, ponieważ domyślnie `SQLitePCLRaw.bundle_e_sqlite3` używa EF Core, co z kolei oznacza, że wymuszanie klucza obcego jest domyślnie włączone i nie trzeba go jawnie włączać przy każdym otwarciu połączenia.
+Ta zmiana została wprowadzona, ponieważ EF Core domyślnie używa `SQLitePCLRaw.bundle_e_sqlite3`, co z kolei oznacza, że wymuszanie klucza obcego jest domyślnie włączone i nie trzeba go jawnie włączać przy każdym otwarciu połączenia.
 
 **Środki zaradcze**
 
@@ -1305,7 +1303,7 @@ Ta zmiana została wprowadzona w taki sposób, aby wersja oprogramowania SQLite 
 
 **Środki zaradcze**
 
-Aby korzystać z natywnej wersji programu SQLite w systemie `Microsoft.Data.Sqlite` iOS, należy skonfigurować `SQLitePCLRaw` do korzystania z innego pakietu.
+Aby użyć natywnej wersji programu SQLite w systemie iOS, skonfiguruj `Microsoft.Data.Sqlite`, aby użyć innego pakietu `SQLitePCLRaw`.
 
 <a name="guid"></a>
 
@@ -1445,7 +1443,7 @@ SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 
 
 **Stare zachowanie**
 
-Przed EF Core 3,0 `UseRowNumberForPaging` może zostać użyty do wygenerowania bazy danych SQL na potrzeby stronicowania zgodnego z SQL Server 2008.
+Przed EF Core 3,0, `UseRowNumberForPaging` może zostać użyty do wygenerowania bazy danych SQL na potrzeby stronicowania zgodnego z SQL Server 2008.
 
 **Nowe zachowanie**
 
@@ -1467,11 +1465,11 @@ Zalecamy zaktualizowanie do nowszej wersji SQL Server lub przy użyciu wyższego
 
 **Stare zachowanie**
 
-`IDbContextOptionsExtension`zawiera metody przekazywania metadanych o rozszerzeniu.
+`IDbContextOptionsExtension` zawiera metody przesyłania metadanych o rozszerzeniu.
 
 **Nowe zachowanie**
 
-Te metody zostały przeniesione na nową `DbContextOptionsExtensionInfo` abstrakcyjną klasę bazową, która jest zwracana z nowej `IDbContextOptionsExtension.Info` właściwości.
+Te metody zostały przeniesione na nową abstrakcyjną klasę bazową `DbContextOptionsExtensionInfo`, która jest zwracana z nowej właściwości `IDbContextOptionsExtension.Info`.
 
 **Zalet**
 
@@ -1491,7 +1489,7 @@ Przykłady można znaleźć w wielu implementacjach `IDbContextOptionsExtension`
 
 **Stąp**
 
-`RelationalEventId.LogQueryPossibleExceptionWithAggregateOperator`została zmieniona na `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperatorWarning`.
+Zmieniono nazwę `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperator` na `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperatorWarning`.
 
 **Zalet**
 
@@ -1679,7 +1677,7 @@ modelBuilder
 
 **Stare zachowanie**
 
-Funkcja dbzostała skonfigurowana ze schematem jako pusty ciąg był traktowany jak wbudowana funkcja bez schematu. Na przykład poniższy kod mapuje `DatePart` funkcję CLR na `DATEPART` wbudowaną funkcję na serwerze SqlServer.
+Funkcja dbzostała skonfigurowana ze schematem jako pusty ciąg był traktowany jak wbudowana funkcja bez schematu. Na przykład poniższy kod mapuje funkcję CLR `DatePart` na funkcję wbudowaną `DATEPART` na serwerze SqlServer.
 
 ```C#
 [DbFunction("DATEPART", Schema = "")]
@@ -1689,7 +1687,7 @@ public static int? DatePart(string datePartArg, DateTime? date) => throw new Exc
 
 **Nowe zachowanie**
 
-Wszystkie mapowania funkcji dbfunction są uznawane za mapowane do funkcji zdefiniowanych przez użytkownika. W związku z tym wartość pustego ciągu spowodowałaby umieszczenie funkcji wewnątrz domyślnego schematu modelu. Może to być schemat skonfigurowany jawnie za pośrednictwem interfejsu `modelBuilder.HasDefaultSchema()` API `dbo` Fluent lub w inny sposób.
+Wszystkie mapowania funkcji dbfunction są uznawane za mapowane do funkcji zdefiniowanych przez użytkownika. W związku z tym wartość pustego ciągu spowodowałaby umieszczenie funkcji wewnątrz domyślnego schematu modelu. Może to być schemat skonfigurowany jawnie za pośrednictwem interfejsu API Fluent `modelBuilder.HasDefaultSchema()` lub `dbo` w przeciwnym razie.
 
 **Zalet**
 

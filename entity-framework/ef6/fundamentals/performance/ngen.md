@@ -3,12 +3,12 @@ title: Poprawianie wydajności uruchamiania za pomocą narzędzia NGen-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: dc6110a0-80a0-4370-8190-cea942841cee
-ms.openlocfilehash: c9b5f8a06add9133d30955e3cc97a92e9b189bdf
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 841aec645abdb2a56076d0b70bfb2614b0acafb4
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182682"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72446005"
 ---
 # <a name="improving-startup-performance-with-ngen"></a>Poprawianie wydajności uruchamiania za pomocą narzędzia NGen
 > [!NOTE]
@@ -24,22 +24,26 @@ Obserwacje eksperymentalne pokazują, że obrazy natywne zestawów środowiska u
 
 Najbardziej podstawową funkcją narzędzia NGen. exe jest "Install" (czyli do tworzenia i utrwalania na dysku) obrazów natywnych dla zestawu i wszystkich jego bezpośrednich zależności. Poniżej przedstawiono sposób, w jaki można to osiągnąć:  
 
-1. Otwórz okno wiersza polecenia jako administrator  
-2. Zmień bieżący katalog roboczy na lokalizację zestawów, dla których mają zostać wygenerowane obrazy natywne:  
+1. Otwórz okno wiersza polecenia jako administrator.
+2. Zmień bieżący katalog roboczy na lokalizację zestawów, dla których mają zostać wygenerowane obrazy natywne:
 
-  ``` console
-    cd <*Assemblies location*>  
-  ```
-3. W zależności od używanego systemu operacyjnego i konfiguracji aplikacji może być konieczne wygenerowanie obrazów natywnych dla architektury 32-bitowej o wartości 64 lub obu.  
+   ``` console
+   cd <*Assemblies location*>  
+   ```
 
-    W przypadku uruchomienia 32 bitowego:  
-  ``` console
-    %WINDIR%\Microsoft.NET\Framework\v4.0.30319\ngen install <Assembly name>  
-  ```
-    W przypadku uruchomienia 64 bitowego:
-  ``` console
-    %WINDIR%\Microsoft.NET\Framework64\v4.0.30319\ngen install <Assembly name>  
-  ```
+3. W zależności od używanego systemu operacyjnego i konfiguracji aplikacji może być konieczne wygenerowanie obrazów natywnych dla architektury 32-bitowej o wartości 64 lub obu.
+
+   W przypadku uruchomienia 32 bitowego:
+
+   ``` console
+   %WINDIR%\Microsoft.NET\Framework\v4.0.30319\ngen install <Assembly name>  
+   ```
+
+   W przypadku uruchomienia 64 bitowego:
+  
+   ``` console
+   %WINDIR%\Microsoft.NET\Framework64\v4.0.30319\ngen install <Assembly name>  
+   ```
 
 > [!TIP]
 > Generowanie obrazów natywnych dla niewłaściwej architektury jest bardzo powszechnym błędem. W razie wątpliwości można po prostu wygenerować obrazy natywne dla wszystkich architektur, które mają zastosowanie do systemu operacyjnego zainstalowanego na komputerze.  
@@ -50,9 +54,9 @@ Program NGen. exe obsługuje również inne funkcje, takie jak Odinstalowywanie 
 
 Gdy chodzi o wybór zestawów do generowania obrazów natywnych dla aplikacji w oparciu o Dr w wersji 6 lub nowszej, należy wziąć pod uwagę następujące opcje:  
 
-- **Główny zestaw środowiska uruchomieniowego EF, EntityFramework. dll**: Typowa aplikacja oparta na EF wykonuje znaczną ilość kodu z tego zestawu podczas uruchamiania lub pierwszego dostępu do bazy danych. W związku z tym tworzenie obrazów natywnych tego zestawu da największe zyski w zakresie wydajności uruchamiania.  
-- **Dowolny zestaw dostawcy EF używany przez aplikację**: Czas uruchamiania może również nieco wzczerpać korzyści z generowania obrazów natywnych. Na przykład jeśli aplikacja używa dostawcy EF do SQL Server należy wygenerować obraz natywny dla EntityFramework. SqlServer. dll.  
-- **Zestawy aplikacji i inne zależności**: [Dokumentacja programu Ngen. exe](https://msdn.microsoft.com/library/6t9t5wcf.aspx) obejmuje ogólne kryteria wyboru zestawów do generowania obrazów natywnych oraz wpływ obrazów natywnych na zabezpieczenia, zaawansowane opcje, takie jak "twarde wiązanie", takie jak używanie obrazów natywnych w debugowaniu i scenariusze profilowania itp.  
+- **Główny zestaw środowiska uruchomieniowego EF, EntityFramework. dll**: typowa aplikacja oparta na EF wykonuje znaczną ilość kodu z tego zestawu podczas uruchamiania lub pierwszego dostępu do bazy danych. W związku z tym tworzenie obrazów natywnych tego zestawu da największe zyski w zakresie wydajności uruchamiania.  
+- **Dowolny zestaw dostawcy EF używany przez aplikację**: czas uruchamiania może również nieco wzczerpać korzyści z generowania obrazów natywnych tych elementów. Na przykład jeśli aplikacja używa dostawcy EF do SQL Server należy wygenerować obraz natywny dla EntityFramework. SqlServer. dll.  
+- **Zestawy aplikacji i inne zależności**: [Dokumentacja programu Ngen. exe](https://msdn.microsoft.com/library/6t9t5wcf.aspx) obejmuje ogólne kryteria wyboru zestawów do generowania obrazów natywnych oraz wpływ obrazów natywnych na zabezpieczenia, zaawansowane opcje, takie jak "twarde" Wiązanie ", scenariusze takie jak używanie obrazów natywnych w scenariuszach debugowania i profilowania itp.  
 
 > [!TIP]
 > Upewnij się, że dokładnie mierzy wpływ używania obrazów natywnych na wydajność uruchamiania i ogólną wydajność aplikacji oraz porównanie ich z rzeczywistymi wymaganiami. Chociaż obrazy natywne zwykle pomogą ulepszyć wydajność, a w niektórych przypadkach zmniejszają użycie pamięci, a nie wszystkie scenariusze byłyby równie korzystne. Na przykład w przypadku stałego wykonywania stanu (czyli, gdy wszystkie metody używane przez aplikację zostały wywołane co najmniej raz) kod wygenerowany przez kompilator JIT może w rzeczywistości spowodować nieco lepszą wydajność niż obrazy natywne.  
