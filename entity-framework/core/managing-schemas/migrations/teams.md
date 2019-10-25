@@ -1,22 +1,23 @@
 ---
-title: Migracja w środowiskach zespołu — EF Core
+title: Migracje w środowiskach zespołów — EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
-ms.openlocfilehash: e8ff7f468d5ab6dbd6285f1abf9199e413288d10
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+uid: core/managing-schemas/migrations/teams
+ms.openlocfilehash: e6a1b86761a201cbcae34cced7e64f11df37a420
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997698"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72811981"
 ---
-<a name="migrations-in-team-environments"></a><span data-ttu-id="fd205-102">Migracja w środowiskach zespołu</span><span class="sxs-lookup"><span data-stu-id="fd205-102">Migrations in Team Environments</span></span>
-===============================
-<span data-ttu-id="fd205-103">Podczas pracy z migracji w środowiskach zespołu, należy zwracać szczególną uwagę na migawki pliku modelu.</span><span class="sxs-lookup"><span data-stu-id="fd205-103">When working with Migrations in team environments, pay extra attention to the model snapshot file.</span></span> <span data-ttu-id="fd205-104">Ten plik może określić, czy migracja z partnerem nie pozostawia żadnych śladów scala z Twoimi czy trzeba rozwiązać konflikt, ponownie tworząc migracji przed ich udostępnieniem.</span><span class="sxs-lookup"><span data-stu-id="fd205-104">This file can tell you if your teammate's migration merges cleanly with yours or if you need to resolve a conflict by re-creating your migration before sharing it.</span></span>
+# <a name="migrations-in-team-environments"></a><span data-ttu-id="ad004-102">Migracje w środowiskach zespołów</span><span class="sxs-lookup"><span data-stu-id="ad004-102">Migrations in Team Environments</span></span>
 
-<a name="merging"></a><span data-ttu-id="fd205-105">Scalanie</span><span class="sxs-lookup"><span data-stu-id="fd205-105">Merging</span></span>
--------
-<span data-ttu-id="fd205-106">Podczas migracji scalania z członkami zespołu, może wystąpić konflikty w modelu migawki pliku.</span><span class="sxs-lookup"><span data-stu-id="fd205-106">When you merge migrations from your teammates, you may get conflicts in your model snapshot file.</span></span> <span data-ttu-id="fd205-107">W przypadku niepowiązanych obie zmiany scalanie jest proste i dwie migracje mogą współistnieć.</span><span class="sxs-lookup"><span data-stu-id="fd205-107">If both changes are unrelated, the merge is trivial and the two migrations can coexist.</span></span> <span data-ttu-id="fd205-108">Na przykład może wystąpić konflikt scalania w konfiguracji typu jednostki Klient, który wygląda tak:</span><span class="sxs-lookup"><span data-stu-id="fd205-108">For example, you may get a merge conflict in the customer entity type configuration that looks like this:</span></span>
+<span data-ttu-id="ad004-103">Podczas pracy z migracjami w środowiskach zespołu należy zwrócić szczególną uwagę na plik migawek modelu.</span><span class="sxs-lookup"><span data-stu-id="ad004-103">When working with Migrations in team environments, pay extra attention to the model snapshot file.</span></span> <span data-ttu-id="ad004-104">Ten plik może poinformować użytkownika, jeśli migracja Twojego zespołu nie zostanie prawidłowo scalona z Twoimi lub jeśli trzeba rozwiązać konflikt przez ponowne utworzenie migracji przed udostępnieniem jej.</span><span class="sxs-lookup"><span data-stu-id="ad004-104">This file can tell you if your teammate's migration merges cleanly with yours or if you need to resolve a conflict by re-creating your migration before sharing it.</span></span>
+
+## <a name="merging"></a><span data-ttu-id="ad004-105">Scalanie</span><span class="sxs-lookup"><span data-stu-id="ad004-105">Merging</span></span>
+
+<span data-ttu-id="ad004-106">Po scaleniu migracji od członków zespołu mogą wystąpić konflikty w pliku migawek modelu.</span><span class="sxs-lookup"><span data-stu-id="ad004-106">When you merge migrations from your teammates, you may get conflicts in your model snapshot file.</span></span> <span data-ttu-id="ad004-107">Jeśli obie zmiany są niepowiązane, scalanie jest proste, a dwie migracje mogą współistnieć.</span><span class="sxs-lookup"><span data-stu-id="ad004-107">If both changes are unrelated, the merge is trivial and the two migrations can coexist.</span></span> <span data-ttu-id="ad004-108">Na przykład w konfiguracji typu jednostki klienta może wystąpić konflikt scalania, który wygląda następująco:</span><span class="sxs-lookup"><span data-stu-id="ad004-108">For example, you may get a merge conflict in the customer entity type configuration that looks like this:</span></span>
 
     <<<<<<< Mine
     b.Property<bool>("Deactivated");
@@ -24,18 +25,18 @@ ms.locfileid: "42997698"
     b.Property<int>("LoyaltyPoints");
     >>>>>>> Theirs
 
-<span data-ttu-id="fd205-109">Ponieważ obu tych właściwości muszą istnieć w ostatnim modelu Ukończ scalanie, dodając obie te właściwości.</span><span class="sxs-lookup"><span data-stu-id="fd205-109">Since both of these properties need to exist in the final model, complete the merge by adding both properties.</span></span> <span data-ttu-id="fd205-110">W wielu przypadkach system kontroli wersji może automatycznie scalić takich zmian.</span><span class="sxs-lookup"><span data-stu-id="fd205-110">In many cases, your version control system may automatically merge such changes for you.</span></span>
+<span data-ttu-id="ad004-109">Ponieważ obie te właściwości muszą istnieć w modelu końcowym, Ukończ scalanie przez dodanie obu właściwości.</span><span class="sxs-lookup"><span data-stu-id="ad004-109">Since both of these properties need to exist in the final model, complete the merge by adding both properties.</span></span> <span data-ttu-id="ad004-110">W wielu przypadkach system kontroli wersji może automatycznie scalić takie zmiany.</span><span class="sxs-lookup"><span data-stu-id="ad004-110">In many cases, your version control system may automatically merge such changes for you.</span></span>
 
 ``` csharp
 b.Property<bool>("Deactivated");
 b.Property<int>("LoyaltyPoints");
 ```
 
-<span data-ttu-id="fd205-111">W takich przypadkach migracji i migrację z partnerem są niezależne od siebie nawzajem.</span><span class="sxs-lookup"><span data-stu-id="fd205-111">In these cases, your migration and your teammate's migration are independent of each other.</span></span> <span data-ttu-id="fd205-112">Ponieważ którąś z tych funkcji można najpierw zastosować, nie potrzebujesz dodatkowych zmian przed ich udostępnieniem ze swoim zespołem migracji.</span><span class="sxs-lookup"><span data-stu-id="fd205-112">Since either of them could be applied first, you don't need to make any additional changes to your migration before sharing it with your team.</span></span>
+<span data-ttu-id="ad004-111">W takich przypadkach migracja i migracja Twojego zespołu są niezależne od siebie.</span><span class="sxs-lookup"><span data-stu-id="ad004-111">In these cases, your migration and your teammate's migration are independent of each other.</span></span> <span data-ttu-id="ad004-112">Ponieważ jedna z nich może zostać zastosowana jako pierwsza, nie musisz wprowadzać żadnych dodatkowych zmian do migracji przed udostępnieniem jej zespołowi.</span><span class="sxs-lookup"><span data-stu-id="ad004-112">Since either of them could be applied first, you don't need to make any additional changes to your migration before sharing it with your team.</span></span>
 
-<a name="resolving-conflicts"></a><span data-ttu-id="fd205-113">Rozwiązywanie konfliktów</span><span class="sxs-lookup"><span data-stu-id="fd205-113">Resolving conflicts</span></span>
--------------------
-<span data-ttu-id="fd205-114">Czasami wystąpią true konflikt podczas scalania model modelu migawki.</span><span class="sxs-lookup"><span data-stu-id="fd205-114">Sometimes you encounter a true conflict when merging the model snapshot model.</span></span> <span data-ttu-id="fd205-115">Na przykład możesz i z partnerem każdego zmieniona tej samej właściwości.</span><span class="sxs-lookup"><span data-stu-id="fd205-115">For example, you and your teammate may each have renamed the same property.</span></span>
+## <a name="resolving-conflicts"></a><span data-ttu-id="ad004-113">Rozwiązywanie konfliktów</span><span class="sxs-lookup"><span data-stu-id="ad004-113">Resolving conflicts</span></span>
+
+<span data-ttu-id="ad004-114">Czasami występuje konflikt w czasie scalania modelu migawek modelu.</span><span class="sxs-lookup"><span data-stu-id="ad004-114">Sometimes you encounter a true conflict when merging the model snapshot model.</span></span> <span data-ttu-id="ad004-115">Na przykład ty i Twojemu członkowi zespołu można zmienić nazwę tej samej właściwości.</span><span class="sxs-lookup"><span data-stu-id="ad004-115">For example, you and your teammate may each have renamed the same property.</span></span>
 
     <<<<<<< Mine
     b.Property<string>("Username");
@@ -43,13 +44,13 @@ b.Property<int>("LoyaltyPoints");
     b.Property<string>("Alias");
     >>>>>>> Theirs
 
-<span data-ttu-id="fd205-116">Jeśli wystąpi tego rodzaju konflikt rozwiązać ten problem, ponownie utworzyć plan migracji.</span><span class="sxs-lookup"><span data-stu-id="fd205-116">If you encounter this kind of conflict, resolve it by re-creating your migration.</span></span> <span data-ttu-id="fd205-117">Wykonaj następujące kroki:</span><span class="sxs-lookup"><span data-stu-id="fd205-117">Follow these steps:</span></span>
+<span data-ttu-id="ad004-116">Jeśli wystąpi ten rodzaj konfliktu, rozwiąż go przez ponowne utworzenie migracji.</span><span class="sxs-lookup"><span data-stu-id="ad004-116">If you encounter this kind of conflict, resolve it by re-creating your migration.</span></span> <span data-ttu-id="ad004-117">Wykonaj następujące kroki:</span><span class="sxs-lookup"><span data-stu-id="ad004-117">Follow these steps:</span></span>
 
-1. <span data-ttu-id="fd205-118">Przerwij, scalania i wycofania do katalogu roboczego przed scaleniem</span><span class="sxs-lookup"><span data-stu-id="fd205-118">Abort the merge and rollback to your working directory before the merge</span></span>
-2. <span data-ttu-id="fd205-119">Usuń plan migracji (ale zachować zmiany modelu)</span><span class="sxs-lookup"><span data-stu-id="fd205-119">Remove your migration (but keep your model changes)</span></span>
-3. <span data-ttu-id="fd205-120">Scal zmiany z partnerem w katalogu roboczym</span><span class="sxs-lookup"><span data-stu-id="fd205-120">Merge your teammate's changes into your working directory</span></span>
-4. <span data-ttu-id="fd205-121">Ponowne dodanie migracji</span><span class="sxs-lookup"><span data-stu-id="fd205-121">Re-add your migration</span></span>
+1. <span data-ttu-id="ad004-118">Przerwij scalanie i wycofywanie do katalogu roboczego przed scaleniem</span><span class="sxs-lookup"><span data-stu-id="ad004-118">Abort the merge and rollback to your working directory before the merge</span></span>
+2. <span data-ttu-id="ad004-119">Usuń migrację (ale Zachowaj zmiany modelu)</span><span class="sxs-lookup"><span data-stu-id="ad004-119">Remove your migration (but keep your model changes)</span></span>
+3. <span data-ttu-id="ad004-120">Scalanie zmian Twojego zespołu w katalogu roboczym</span><span class="sxs-lookup"><span data-stu-id="ad004-120">Merge your teammate's changes into your working directory</span></span>
+4. <span data-ttu-id="ad004-121">Ponowne Dodawanie migracji</span><span class="sxs-lookup"><span data-stu-id="ad004-121">Re-add your migration</span></span>
 
-<span data-ttu-id="fd205-122">Po wykonaniu tego, dwie migracje mogą być stosowane w odpowiedniej kolejności.</span><span class="sxs-lookup"><span data-stu-id="fd205-122">After doing this, the two migrations can be applied in the correct order.</span></span> <span data-ttu-id="fd205-123">Ich migracji zostanie zastosowana jako pierwsza, zmiana nazwy kolumny, która ma *Alias*, po tej dacie migracji zmienia jego nazwę, aby *Username*.</span><span class="sxs-lookup"><span data-stu-id="fd205-123">Their migration is applied first, renaming the column to *Alias*, thereafter your migration renames it to *Username*.</span></span>
+<span data-ttu-id="ad004-122">Po wykonaniu tej czynności te dwie migracje mogą być stosowane w odpowiedniej kolejności.</span><span class="sxs-lookup"><span data-stu-id="ad004-122">After doing this, the two migrations can be applied in the correct order.</span></span> <span data-ttu-id="ad004-123">Najpierw zostanie zastosowana migracja, zmiana nazwy kolumny na *alias*, a następnie migracja zmienia nazwę na *nazwa_użytkownika*.</span><span class="sxs-lookup"><span data-stu-id="ad004-123">Their migration is applied first, renaming the column to *Alias*, thereafter your migration renames it to *Username*.</span></span>
 
-<span data-ttu-id="fd205-124">Migracja może być bezpiecznie udostępniane reszta zespołu.</span><span class="sxs-lookup"><span data-stu-id="fd205-124">Your migration can safely be shared with the rest of the team.</span></span>
+<span data-ttu-id="ad004-124">Migracja może być bezpiecznie udostępniona w pozostałej części zespołu.</span><span class="sxs-lookup"><span data-stu-id="ad004-124">Your migration can safely be shared with the rest of the team.</span></span>
