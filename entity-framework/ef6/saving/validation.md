@@ -3,24 +3,24 @@ title: Walidacja — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
-ms.openlocfilehash: 4162c2eb60109459c799da7cf4c1a9c8e84548b6
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 2c5e6f1b3f60862124bafcac42e8859a7591f8e6
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182130"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812153"
 ---
 # <a name="data-validation"></a>Walidacja danych
 > [!NOTE]
 > **Dr 4.1 tylko** — funkcje, interfejsy API itp. omówione na tej stronie zostały wprowadzone w Entity Framework 4,1. Jeśli używasz wcześniejszej wersji, niektóre lub wszystkie informacje nie mają zastosowania
 
-Zawartość na tej stronie jest dostosowana z artykułu utworzonego pierwotnie przez Julie Lerman ([https://thedatafarm.com](http://thedatafarm.com)).
+Zawartość na tej stronie jest dostosowana z artykułu utworzonego pierwotnie przez Julie Lerman ([https://thedatafarm.com](https://thedatafarm.com)).
 
 Entity Framework zapewnia szeroką gamę funkcji walidacji, które mogą przechodzić do interfejsu użytkownika w celu weryfikacji po stronie klienta lub służy do sprawdzania poprawności po stronie serwera. Używając najpierw kodu, można określić walidacji przy użyciu adnotacji lub konfiguracji interfejsu API Fluent. Dodatkowe walidacje i bardziej skomplikowane, można określić w kodzie i będzie działać niezależnie od tego, czy model przyniesie najpierw od kodu, najpierw modelu czy bazy danych.
 
 ## <a name="the-model"></a>Model
 
-Zaprezentowanie walidacji przy użyciu prostej pary klas: Blog i wpis.
+Zaprezentowanie walidacji przy użyciu prostej pary klas: blog i post.
 
 ``` csharp
 public class Blog
@@ -58,7 +58,7 @@ W przypadku braku dodatkowych zmian kodu lub znaczników w aplikacji istniejąca
 
 W metodzie post tego widoku Utwórz Entity Framework służy do zapisywania nowego bloga w bazie danych, ale Walidacja po stronie klienta MVC jest wyzwalana, zanim aplikacja osiągnie ten kod.
 
-Sprawdzanie poprawności po stronie klienta nie jest jednak niezgodne z punktorem. Użytkownicy mogą mieć wpływ na funkcje przeglądarki lub jeszcze gorszy, haker może użyć pewnych lew, aby uniknąć walidacji interfejsu użytkownika. Ale Entity Framework również rozpozna adnotację `Required` i zweryfikuje ją.
+Sprawdzanie poprawności po stronie klienta nie jest jednak niezgodne z punktorem. Użytkownicy mogą mieć wpływ na funkcje przeglądarki lub jeszcze gorszy, haker może użyć pewnych lew, aby uniknąć walidacji interfejsu użytkownika. Ale Entity Framework również rozpoznaje `Required` adnotację i sprawdza poprawność.
 
 Prostym sposobem na przetestowanie jest wyłączenie funkcji walidacji po stronie klienta. Można to zrobić w pliku Web. config aplikacji MVC. Sekcja appSettings ma klucz dla ClientValidationEnabled. Ustawienie tego klucza na wartość false uniemożliwi interfejsowi użytkownika wykonywanie walidacji.
 
@@ -69,7 +69,7 @@ Prostym sposobem na przetestowanie jest wyłączenie funkcji walidacji po stroni
 </appSettings>
 ```
 
-Nawet po wyłączeniu weryfikacji po stronie klienta otrzymasz taką samą odpowiedź w aplikacji. Komunikat o błędzie "pole Tytuł jest wymagane" będzie wyświetlany jako poprzednio. Z tego powodu będzie można sprawdzić poprawność po stronie serwera. Entity Framework przeprowadzi weryfikację w adnotacji `Required` (przed tym, aby było możliwe utworzenie polecenia `INSERT` w celu wysłania do bazy danych) i zwrócenie błędu do MVC, w którym zostanie wyświetlony komunikat.
+Nawet po wyłączeniu weryfikacji po stronie klienta otrzymasz taką samą odpowiedź w aplikacji. Komunikat o błędzie "pole Tytuł jest wymagane" będzie wyświetlany jako poprzednio. Z tego powodu będzie można sprawdzić poprawność po stronie serwera. Entity Framework przeprowadzi weryfikację w adnotacji `Required` (przed tym, że będzie ona mogła utworzyć polecenie `INSERT` do wysłania do bazy danych) i zwrócić błąd do MVC, który wyświetli komunikat.
 
 ## <a name="fluent-api"></a>Interfejs API Fluent
 
@@ -114,7 +114,7 @@ public ActionResult Edit(int id, Blog blog)
 }
 ```
 
-Sprawdzanie poprawności nie jest automatycznie przenoszone do widoku, co oznacza, że jest używany dodatkowy kod, który używa `ModelState.AddModelError`. Dzięki temu szczegóły błędu zostaną wprowadzone do widoku, który następnie użyje `ValidationMessageFor` Htmlhelper do wyświetlenia błędu.
+Sprawdzanie poprawności nie jest automatycznie przenoszone do widoku, dlatego jest używany dodatkowy kod, który używa `ModelState.AddModelError`. Dzięki temu szczegóły błędu zostaną wprowadzone do widoku, który następnie użyje `ValidationMessageFor` Htmlhelper do wyświetlenia błędu.
 
 ``` csharp
 @Html.ValidationMessageFor(model => model.BloggerName)
@@ -124,9 +124,9 @@ Sprawdzanie poprawności nie jest automatycznie przenoszone do widoku, co oznacz
 
 `IValidatableObject` to interfejs, który znajduje się w `System.ComponentModel.DataAnnotations`. Chociaż nie jest on częścią interfejsu API Entity Framework, można nadal korzystać z niego do walidacji po stronie serwera w klasach Entity Framework. `IValidatableObject` udostępnia metodę `Validate`, która Entity Framework będzie wywoływana podczas metody savechangesu lub można wywołać siebie w dowolnym momencie, aby sprawdzić poprawność klas.
 
-Konfiguracje takie jak `Required` i `MaxLength` sprawdzają poprawność dla pojedynczego pola. W metodzie `Validate` można mieć jeszcze większą złożoną logikę, na przykład porównując dwa pola.
+Konfiguracje, takie jak `Required` i `MaxLength`, sprawdzają poprawność jednego pola. W metodzie `Validate` można mieć jeszcze bardziej złożoną logikę, na przykład porównując dwa pola.
 
-W poniższym przykładzie Klasa `Blog` została rozszerzona w celu zaimplementowania `IValidatableObject`, a następnie podaj regułę, którą nie mogą dopasować `Title` i `BloggerName`.
+W poniższym przykładzie Klasa `Blog` została rozszerzona w celu zaimplementowania `IValidatableObject`, a następnie podaj regułę, której `Title` i `BloggerName` nie będą zgodne.
 
 ``` csharp
 public class Blog : IValidatableObject
@@ -152,7 +152,7 @@ public class Blog : IValidatableObject
 }
 ```
 
-Konstruktor `ValidationResult` przyjmuje `string`, który reprezentuje komunikat o błędzie i tablicę `string`S reprezentującą nazwy elementów członkowskich, które są skojarzone z walidacją. Ponieważ ta Walidacja sprawdza zarówno `Title`, jak i `BloggerName`, zwracane są nazwy właściwości.
+Konstruktor `ValidationResult` przyjmuje `string`, który reprezentuje komunikat o błędzie i tablicę `string`s reprezentującą nazwy elementów członkowskich, które są skojarzone z walidacją. Ponieważ ta Walidacja sprawdza zarówno `Title`, jak i `BloggerName`, zwracane są obie nazwy właściwości.
 
 W przeciwieństwie do walidacji dostarczonej przez interfejs API Fluent, ten wynik sprawdzania poprawności zostanie rozpoznany przez widok i program obsługi wyjątków, który został wcześniej użyty do dodania błędu do `ModelState` jest zbędny. Ponieważ ustawiam obie nazwy właściwości w `ValidationResult`, MVC HtmlHelpers wyświetla komunikat o błędzie dla obu tych właściwości.
 
@@ -162,9 +162,9 @@ W przeciwieństwie do walidacji dostarczonej przez interfejs API Fluent, ten wyn
 
 `DbContext` ma metodę z możliwością zastąpienia o nazwie `ValidateEntity`. Gdy wywołasz `SaveChanges`, Entity Framework wywoła tę metodę dla każdej jednostki w pamięci podręcznej, której stan nie jest `Unchanged`. Logikę walidacji można umieścić bezpośrednio w tym miejscu, a nawet użyć tej metody do wywołania, na przykład, metody `Blog.Validate` dodanej w poprzedniej sekcji.
 
-Oto przykład przesłonięcia `ValidateEntity`, który weryfikuje nowe `Post`S, aby upewnić się, że tytuł wpisu nie został już użyty. Najpierw sprawdza, czy jednostka jest wpisem i czy jego stan jest dodawany. W takim przypadku szuka w bazie danych, czy istnieje już wpis o takim samym tytule. Jeśli istnieje już istniejący wpis, zostanie utworzony nowy `DbEntityValidationResult`.
+Oto przykład przesłonięcia `ValidateEntity`, który sprawdza poprawność nowych `Post`s, aby upewnić się, że tytuł wpisu nie został już użyty. Najpierw sprawdza, czy jednostka jest wpisem i czy jego stan jest dodawany. W takim przypadku szuka w bazie danych, czy istnieje już wpis o takim samym tytule. Jeśli istnieje już istniejący wpis, zostanie utworzony nowy `DbEntityValidationResult`.
 
-`DbEntityValidationResult` zadomy `DbEntityEntry` i `ICollection<DbValidationErrors>` dla pojedynczej jednostki. Na początku tej metody tworzone jest wystąpienie `DbEntityValidationResult`, a następnie wszystkie wykryte błędy zostaną dodane do kolekcji `ValidationErrors`.
+`DbEntityValidationResult` `DbEntityEntry` i `ICollection<DbValidationErrors>` dla jednej jednostki. Na początku tej metody zostanie utworzone wystąpienie `DbEntityValidationResult`, a następnie wszystkie wykryte błędy zostaną dodane do `ValidationErrors` kolekcji.
 
 ``` csharp
 protected override DbEntityValidationResult ValidateEntity (
@@ -200,9 +200,9 @@ protected override DbEntityValidationResult ValidateEntity (
 
 Wywołanie `SaveChanges` wyzwala wszystkie walidacje omówione w tym artykule. Nie trzeba jednak polegać na `SaveChanges`. Możesz chcieć sprawdzić poprawność w innym miejscu aplikacji.
 
-`DbContext.GetValidationErrors` wyzwoli wszystkie walidacje, zdefiniowane przez adnotacje lub interfejs API Fluent, weryfikację utworzoną w `IValidatableObject` (na przykład `Blog.Validate`) i walidacje wykonywane w metodzie `DbContext.ValidateEntity`.
+`DbContext.GetValidationErrors` wyzwoli wszystkie walidacje, te zdefiniowane przez adnotacje lub interfejs API Fluent, weryfikację utworzoną w `IValidatableObject` (na przykład `Blog.Validate`) i walidacje wykonywane w metodzie `DbContext.ValidateEntity`.
 
-Poniższy kod wywoła `GetValidationErrors` w bieżącym wystąpieniu `DbContext`. `ValidationErrors` są pogrupowane według typu jednostki w `DbEntityValidationResult`. Kod wykonuje najpierw iterację `DbEntityValidationResult`s zwrócone przez metodę, a następnie za pomocą poszczególnych `DbValidationError` wewnątrz.
+Poniższy kod wywoła `GetValidationErrors` na bieżącym wystąpieniu `DbContext`. `ValidationErrors` są pogrupowane według typu jednostki w `DbEntityValidationResult`. Kod iteruje najpierw za pomocą `DbEntityValidationResult`s zwróconym przez metodę, a następnie za pomocą poszczególnych `DbValidationError` wewnątrz.
 
 ``` csharp
 foreach (var validationResult in db.GetValidationErrors())
@@ -233,10 +233,10 @@ Oto kilka innych punktów, które należy wziąć pod uwagę podczas korzystania
   - Walidacja typu występuje tylko wtedy, gdy Walidacja właściwości zostanie zakończona pomyślnie
 - Jeśli właściwość jest złożona, jego Walidacja również będzie obejmować:
   - Walidacja na poziomie właściwości we właściwościach typu złożonego
-  - Walidacja poziomu typu dla typu złożonego, w tym `IValidatableObject` Walidacja typu złożonego
+  - Walidacja poziomu typu dla typu złożonego, w tym `IValidatableObject` walidacji typu złożonego
 
 ## <a name="summary"></a>Podsumowanie
 
 Interfejs API sprawdzania poprawności w Entity Framework odgrywa dobrze z walidacją po stronie klienta w MVC, ale nie musisz polegać na weryfikacji po stronie klienta. Entity Framework będzie obsłużyć walidację po stronie serwera dla adnotacji lub konfiguracji zastosowanej przy użyciu kodu interfejsu API pierwszego Fluent.
 
-Przedstawiono także szereg punktów rozszerzalności służących do dostosowywania zachowania, niezależnie od tego, czy jest używany interfejs `IValidatableObject`, czy naciśnięcia do metody `DbContext.ValidateEntity`. Te ostatnie dwa sposoby weryfikacji są dostępne za pośrednictwem `DbContext`, niezależnie od tego, czy używasz Code First, Model First czy Database First przepływu pracy do opisywania modelu koncepcyjnego.
+Przedstawiono również szereg punktów rozszerzalności służących do dostosowywania zachowania, niezależnie od tego, czy używasz interfejsu `IValidatableObject`, czy też naciśniesz do metody `DbContext.ValidateEntity`. Te ostatnie dwa sposoby weryfikacji są dostępne za pośrednictwem `DbContext`, niezależnie od tego, czy do opisania modelu koncepcyjnego jest używany przepływ pracy Code First, Model First czy Database First.

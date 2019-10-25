@@ -4,12 +4,12 @@ author: divega
 ms.date: 09/12/2019
 ms.assetid: 41d1f86b-ce66-4bf2-8963-48514406fb4c
 uid: ef6/what-is-new/index
-ms.openlocfilehash: c49f4cba0066d1e218f11c3959d96f9cafa913f4
-ms.sourcegitcommit: 7bc43f21e7bdd64926314ea949aae689f1911956
+ms.openlocfilehash: 9daae787d0cec0ca536413e6263bb363ba76ff2c
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71266780"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812135"
 ---
 # <a name="whats-new-in-ef6"></a>Co nowego w programie EF6
 
@@ -25,9 +25,9 @@ Aby zainstalować określone wersje EF, zobacz [Get Entity Framework](~/ef6/fund
   - Pakiet EntityFramework teraz jest przeznaczony dla .NET Standard 2,1 oprócz .NET Framework 4. x.
   - Oznacza to, że EF 6,3 jest dla wielu platform i jest obsługiwany przez inne systemy operacyjne niż Windows, takie jak Linux i macOS.
   - Polecenia migracji zostały wprowadzone ponownie w celu wykonania poza procesem i pracują z projektami w stylu zestawu SDK.
-- Obsługa SQL Server HierarchyId
-- Ulepszona zgodność z Roslyn i NuGet PackageReference
-- Dodano `ef6.exe` narzędzie do włączania, dodawania, tworzenia skryptów i stosowania migracji z zestawów. Spowoduje to zastąpienie`migrate.exe`
+- Obsługa SQL Server HierarchyId.
+- Ulepszona zgodność z Roslyn i NuGet PackageReference.
+- Dodano narzędzie `ef6.exe` do włączania, dodawania, tworzenia skryptów i stosowania migracji z zestawów. Spowoduje to zastąpienie `migrate.exe`.
 
 ### <a name="ef-designer-support"></a>Obsługa projektanta EF
 

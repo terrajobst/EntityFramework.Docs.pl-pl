@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 690c7828cfe5019f4e7ae904c92430fab4726cb9
-ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
+ms.openlocfilehash: b2e3881e3454377dab7851cba999ed6b891def4e
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72446017"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812124"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Istotne zmiany zawarte w EF Core 3,0
 Poniższe zmiany dotyczące interfejsu API i zachowania mogą powodować przerwanie istniejących aplikacji podczas uaktualniania ich do 3.0.0.
@@ -69,12 +69,14 @@ Zmiany, których oczekujemy tylko dostawcy bazy danych, są udokumentowane w obs
 | [Microsoft. EntityFrameworkCore. Design jest teraz pakietem DevelopmentDependency](#dip) | Małą      |
 | [SQLitePCL. Raw Zaktualizowano do wersji 2.0.0](#SQLitePCL) | Małą      |
 | [NetTopologySuite Zaktualizowano do wersji 2.0.0](#NetTopologySuite) | Małą      |
+| [Firma Microsoft. Data. SqlClient jest używana zamiast elementu System. Data. SqlClient](#SqlClient) | Małą      |
 | [Należy skonfigurować wiele niejednoznacznych relacji odwołujących się do siebie.](#mersa) | Małą      |
 | [Dbfunction. schemat mający wartość null lub pusty ciąg konfiguruje go jako domyślny schemat modelu](#udf-empty-string) | Małą      |
 
 ### <a name="linq-queries-are-no-longer-evaluated-on-the-client"></a>Zapytania LINQ nie są już oceniane na kliencie
 
-[Problem ze śledzeniem #14935](https://github.com/aspnet/EntityFrameworkCore/issues/14935)@no__t — 1[zobacz także problem #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
+[Problemy ze śledzeniem #14935](https://github.com/aspnet/EntityFrameworkCore/issues/14935)
+[zobacz również problem #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
 
 **Stare zachowanie**
 
@@ -472,8 +474,9 @@ Ta sytuacja nadal nie zostanie skonfigurowana zgodnie z Konwencją, aby unikną�
 <a name="config"></a>
 ### <a name="configuration-api-for-owned-type-relationships-has-changed"></a>Interfejs API konfiguracji dla relacji typu posiadanego został zmieniony
 
-Problem ze śledzeniem [#12444](https://github.com/aspnet/EntityFrameworkCore/issues/12444)@no__t śledzenia problemów[#9148](https://github.com/aspnet/EntityFrameworkCore/issues/9148)
-[problem ze śledzeniem #14153](https://github.com/aspnet/EntityFrameworkCore/issues/14153)
+Problem ze śledzeniem [#12444](https://github.com/aspnet/EntityFrameworkCore/issues/12444)
+śledzenia [#9148](https://github.com/aspnet/EntityFrameworkCore/issues/9148) problem ze [śledzeniem
+#14153](https://github.com/aspnet/EntityFrameworkCore/issues/14153)
 
 **Stare zachowanie**
 
@@ -975,7 +978,7 @@ Wywołaj `ChgangeTracker.DetectChanges()` jawnie przed wywołaniem `Entry`, aby 
 
 **Stare zachowanie**
 
-Przed EF Core 3,0, `string` i właściwości klucza `byte[]` mogą być używane bez jawnego ustawienia wartości innej niż null.
+Przed EF Core 3,0 można użyć właściwości klucza `string` i `byte[]` bez jawnego ustawienia wartości innej niż null.
 W takim przypadku wartość klucza jest generowana na kliencie jako identyfikator GUID, serializowany do bajtów dla `byte[]`.
 
 **Nowe zachowanie**
@@ -984,7 +987,7 @@ Począwszy od EF Core 3,0 zostanie zgłoszony wyjątek wskazujący, że nie usta
 
 **Zalet**
 
-Ta zmiana została wprowadzona, ponieważ wartości wygenerowane przez klienta `string` @ no__t-1 @ no__t-2 zazwyczaj nie są przydatne, a zachowanie domyślne spowodowało trudne przyczyny dotyczące wygenerowanych wartości kluczy w typowy sposób.
+Ta zmiana została wprowadzona, ponieważ wygenerowane przez klienta `string`/wartości`byte[]` zwykle nie są przydatne, a zachowanie domyślne spowodowało trudne przyczyny dotyczące wygenerowanych wartości kluczy w typowy sposób.
 
 **Środki zaradcze**
 
@@ -1274,7 +1277,7 @@ Przed EF Core 3,0, EF Core wyśle `PRAGMA foreign_keys = 1` w przypadku otwarcia
 
 **Nowe zachowanie**
 
-Począwszy od EF Core 3,0, EF Core nie będzie już wysyłać `PRAGMA foreign_keys = 1` w przypadku otwarcia połączenia z programem SQLite.
+Począwszy od EF Core 3,0, EF Core przestać wysyłać `PRAGMA foreign_keys = 1` po otwarciu połączenia z programem SQLite.
 
 **Zalet**
 
@@ -1593,7 +1596,7 @@ Microsoft. EntityFrameworkCore. sqlite poprzednio zależała od wersji 1.1.12 SQ
 
 **Nowe zachowanie**
 
-Zaktualizowaliśmy pakiet, aby zależał od wersji 2.0.0.
+Zaktualizowaliśmy pakiet, który jest zależny od wersji 2.0.0.
 
 **Zalet**
 
@@ -1624,6 +1627,29 @@ Wersja 2.0.0 programu NetTopologySuite ma na celu rozwiązanie kilku problemów 
 **Środki zaradcze**
 
 NetTopologySuite wersja 2.0.0 zawiera pewne istotne zmiany. Szczegółowe informacje można znaleźć w [informacjach o wersji](https://www.nuget.org/packages/NetTopologySuite/2.0.0-pre001) .
+
+<a name="SqlClient"></a>
+
+### <a name="microsoftdatasqlclient-is-used-instead-of-systemdatasqlclient"></a>Firma Microsoft. Data. SqlClient jest używana zamiast elementu System. Data. SqlClient
+
+[Śledzenie problemu #15636](https://github.com/aspnet/EntityFrameworkCore/issues/15636)
+
+**Stare zachowanie**
+
+Microsoft. EntityFrameworkCore. SqlServer poprzednio zależała od typu System. Data. SqlClient.
+
+**Nowe zachowanie**
+
+Zaktualizowaliśmy pakiet, który jest zależny od firmy Microsoft. Data. SqlClient.
+
+**Zalet**
+
+Microsoft. Data. SqlClient to sterownik dostępu do danych sztandarowe, który umożliwia SQL Server przechodzenie do przodu, a system. Data. SqlClient nie jest już fokusem rozwoju.
+Niektóre ważne funkcje, takie jak Always Encrypted, są dostępne tylko w firmie Microsoft. Data. SqlClient.
+
+**Środki zaradcze**
+
+Jeśli kod przyjmuje bezpośrednią zależność od elementu System. Data. SqlClient, należy zmienić go na odwołanie Microsoft. Data. SqlClient zamiast tego. ponieważ dwa pakiety obsługują bardzo wysoki poziom zgodności interfejsów API, powinno to być tylko proste zmiany pakietów i przestrzeni nazw.
 
 <a name="mersa"></a>
 
