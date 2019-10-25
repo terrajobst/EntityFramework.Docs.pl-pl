@@ -175,22 +175,24 @@
           items:
             - name: Omówienie
               href: core/querying/index.md
-            - name: Ładowanie powiązanych danych
-              href: core/querying/related-data.md
             - name: Klient a wyznaczenie wartości na serwerze
               href: core/querying/client-eval.md
             - name: Śledzenie a brak śledzenia
               href: core/querying/tracking.md
-            - name: Pierwotne zapytania SQL
-              href: core/querying/raw-sql.md
+            - name: Złożone operatory zapytań
+              href: core/querying/complex-query-operators.md
+            - name: Ładowanie powiązanych danych
+              href: core/querying/related-data.md
             - name: Zapytania asynchroniczne
               href: core/querying/async.md
-            - name: Jak działa zapytanie
-              href: core/querying/how-query-works.md
+            - name: Pierwotne zapytania SQL
+              href: core/querying/raw-sql.md
             - name: Filtry zapytań globalnych
               href: core/querying/filters.md
             - name: Tagi zapytań
               href: core/querying/tags.md
+            - name: Jak działa zapytanie
+              href: core/querying/how-query-works.md
         - name: Zapisywanie danych
           items:
             - name: Omówienie
