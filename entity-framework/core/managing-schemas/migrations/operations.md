@@ -1,30 +1,29 @@
 ---
-title: Operacje migracji niestandardowe — EF Core
+title: Operacje migracji niestandardowych — EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/07/2017
 uid: core/managing-schemas/migrations/operations
-ms.openlocfilehash: 93de6ee1b2eda1875188ace6eda299260fbcc1fe
-ms.sourcegitcommit: 082946dcaa1ee5174e692dbfe53adeed40609c6a
+ms.openlocfilehash: bd2bfdc24977a47eaf7a6756a88b758b563d818a
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2018
-ms.locfileid: "51028086"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812043"
 ---
-<a name="custom-migrations-operations"></a>Operacje migracji niestandardowe
-============================
-Interfejs API MigrationBuilder umożliwia wykonywać wiele różnych operacji podczas migracji, ale go nie jest wyczerpująca. Interfejs API jest jednak również rozszerzalny, co pozwala zdefiniować własne operacje. Istnieją dwa sposoby, aby rozszerzyć interfejs API: przy użyciu `Sql()` metody lub przez zdefiniowanie niestandardowego `MigrationOperation` obiektów.
+# <a name="custom-migrations-operations"></a>Operacje migracji niestandardowych
 
-Aby zilustrować, Przyjrzyjmy się wykonania operacji, która tworzy użytkownika bazy danych za pomocą danej metody. W naszym migracje chcemy włączenia zapisywania następujący kod:
+Interfejs API MigrationBuilder umożliwia wykonywanie wielu różnych rodzajów operacji podczas migracji, ale nie jest to wyczerpujące. Jednak interfejs API jest również rozszerzalny, co pozwala na Definiowanie własnych operacji. Istnieją dwa sposoby rozszerzeń interfejsu API: przy użyciu metody `Sql()` lub definiowania niestandardowych obiektów `MigrationOperation`.
+
+Aby to zilustrować, przyjrzyjmy się implementacji operacji, która tworzy użytkownika bazy danych przy użyciu poszczególnych metod. W naszych migracjach chcemy włączyć pisanie następującego kodu:
 
 ``` csharp
 migrationBuilder.CreateUser("SQLUser1", "Password");
 ```
 
-<a name="using-migrationbuildersql"></a>Za pomocą MigrationBuilder.Sql()
-----------------------------
-Najłatwiejszym sposobem realizowania operacji niestandardowej jest zdefiniowanie metodę rozszerzającą wywołująca `MigrationBuilder.Sql()`.
-Oto przykład, który generuje odpowiednie języka Transact-SQL.
+## <a name="using-migrationbuildersql"></a>Korzystanie z MigrationBuilder. SQL ()
+
+Najprostszym sposobem implementacji niestandardowej operacji jest zdefiniowanie metody rozszerzenia, która wywołuje `MigrationBuilder.Sql()`. Oto przykład, który generuje odpowiednie instrukcje Transact-SQL.
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -34,7 +33,7 @@ static MigrationBuilder CreateUser(
     => migrationBuilder.Sql($"CREATE USER {name} WITH PASSWORD '{password}';");
 ```
 
-Jeśli migracji potrzebne do obsługi wielu dostawców bazy danych, można użyć `MigrationBuilder.ActiveProvider` właściwości. Oto przykład obsługi zarówno programu Microsoft SQL Server, jak i bazy danych PostgreSQL.
+Jeśli migracje muszą obsługiwać wielu dostawców baz danych, można użyć właściwości `MigrationBuilder.ActiveProvider`. Oto przykład obsługujący zarówno Microsoft SQL Server, jak i PostgreSQL.
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -57,11 +56,11 @@ static MigrationBuilder CreateUser(
 }
 ```
 
-To podejście tylko wtedy, gdy wiesz, co dostawcy której zostaną zastosowane niestandardowych operacji.
+To podejście działa tylko wtedy, gdy wiadomo, że każdy dostawca, w którym zostanie zastosowana operacja niestandardowa.
 
-<a name="using-a-migrationoperation"></a>Za pomocą MigrationOperation
----------------------------
-Aby oddzielić niestandardowych operacji z bazy danych SQL, można zdefiniować własne `MigrationOperation` go reprezentuje. Operacja są następnie przekazywane do dostawcy, dzięki czemu można określić, odpowiednie SQL w celu generowania.
+## <a name="using-a-migrationoperation"></a>Korzystanie z MigrationOperation
+
+Aby rozdzielić operację niestandardową z SQL, można zdefiniować własne `MigrationOperation` do reprezentowania. Operacja jest następnie przenoszona do dostawcy, aby mogła określić odpowiedni kod SQL do wygenerowania.
 
 ``` csharp
 class CreateUserOperation : MigrationOperation
@@ -71,7 +70,7 @@ class CreateUserOperation : MigrationOperation
 }
 ```
 
-W przypadku tej metody, metoda rozszerzenia musi jedynie jedną z tych operacji, aby dodać `MigrationBuilder.Operations`.
+W tym podejściu Metoda rozszerzająca musi tylko dodać jedną z tych operacji do `MigrationBuilder.Operations`.
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -90,7 +89,7 @@ static MigrationBuilder CreateUser(
 }
 ```
 
-Takie podejście wymaga każdego dostawcy wiedzieć, jak wygenerować kodu SQL do wykonania tej operacji w ich `IMigrationsSqlGenerator` usługi. Oto przykład zastępowanie generator programu SQL Server do obsługi nowej operacji.
+Takie podejście wymaga, aby każdy dostawca wiedział, jak wygenerować SQL dla tej operacji w usłudze `IMigrationsSqlGenerator`. Oto przykład przesłaniania generatora SQL Server w celu obsługi nowej operacji.
 
 ``` csharp
 class MyMigrationsSqlGenerator : SqlServerMigrationsSqlGenerator
@@ -135,7 +134,7 @@ class MyMigrationsSqlGenerator : SqlServerMigrationsSqlGenerator
 }
 ```
 
-Zaktualizowano zastąpić domyślnej migracji sql generator usługi.
+Zastąp domyślną usługę generatora SQL dla migracji z aktualizacją.
 
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder options)

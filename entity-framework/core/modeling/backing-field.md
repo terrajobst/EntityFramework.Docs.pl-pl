@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a628795e-64df-4f24-a5e8-76bc261e7ed8
 uid: core/modeling/backing-field
-ms.openlocfilehash: c3ca8bb97992c192672e8c2f2040b0de029df68d
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 288440a4494117fe59d27187e24424c4d2fd44ab
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197481"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72811879"
 ---
 # <a name="backing-fields"></a>Pola zapasowe
 
@@ -51,16 +51,12 @@ Można skonfigurować, kiedy dr używa pola lub właściwości. Zobacz [Wyliczen
 
 Można również utworzyć w modelu Właściwość koncepcyjną, która nie ma odpowiedniej właściwości CLR w klasie Entity, ale zamiast tego używa pola do przechowywania danych w jednostce. Różni się to od [Właściwości cienia](shadow-properties.md), gdzie dane są przechowywane w monitorze zmian. Zwykle jest to używane, jeśli Klasa jednostki używa metod do pobierania/ustawiania wartości.
 
-Można nadać EF nazwę pola w `Property(...)` interfejsie API. Jeśli nie ma żadnej właściwości o podaną nazwę, EF będzie szukać pola.
+Można nadać EF nazwę pola w interfejsie API `Property(...)`. Jeśli nie ma żadnej właściwości o podaną nazwę, EF będzie szukać pola.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldNoProperty.cs#Sample)]
 
-Można również określić, aby nadać właściwości nazwę inną niż nazwa pola. Ta nazwa jest następnie używana podczas tworzenia modelu, w szczególności zostanie użyta jako nazwa kolumny, która jest mapowana na bazę danych.
-
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldConceptualProperty.cs#Sample)]
-
-Jeśli w klasie Entity nie ma właściwości, można użyć `EF.Property(...)` metody w zapytaniu LINQ, aby odwołać się do właściwości, która jest koncepcyjnie częścią modelu.
+Jeśli w klasie Entity nie ma właściwości, można użyć metody `EF.Property(...)` w zapytaniu LINQ, aby odwołać się do właściwości, która jest koncepcyjnie częścią modelu.
 
 ``` csharp
-var blogs = db.blogs.OrderBy(b => EF.Property<string>(b, "Url"));
+var blogs = db.blogs.OrderBy(b => EF.Property<string>(b, "_validatedUrl"));
 ```

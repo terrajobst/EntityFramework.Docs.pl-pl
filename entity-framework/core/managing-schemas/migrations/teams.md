@@ -1,22 +1,23 @@
 ---
-title: Migracja w środowiskach zespołu — EF Core
+title: Migracje w środowiskach zespołów — EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
-ms.openlocfilehash: e8ff7f468d5ab6dbd6285f1abf9199e413288d10
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+uid: core/managing-schemas/migrations/teams
+ms.openlocfilehash: e6a1b86761a201cbcae34cced7e64f11df37a420
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997698"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72811981"
 ---
-<a name="migrations-in-team-environments"></a>Migracja w środowiskach zespołu
-===============================
-Podczas pracy z migracji w środowiskach zespołu, należy zwracać szczególną uwagę na migawki pliku modelu. Ten plik może określić, czy migracja z partnerem nie pozostawia żadnych śladów scala z Twoimi czy trzeba rozwiązać konflikt, ponownie tworząc migracji przed ich udostępnieniem.
+# <a name="migrations-in-team-environments"></a>Migracje w środowiskach zespołów
 
-<a name="merging"></a>Scalanie
--------
-Podczas migracji scalania z członkami zespołu, może wystąpić konflikty w modelu migawki pliku. W przypadku niepowiązanych obie zmiany scalanie jest proste i dwie migracje mogą współistnieć. Na przykład może wystąpić konflikt scalania w konfiguracji typu jednostki Klient, który wygląda tak:
+Podczas pracy z migracjami w środowiskach zespołu należy zwrócić szczególną uwagę na plik migawek modelu. Ten plik może poinformować użytkownika, jeśli migracja Twojego zespołu nie zostanie prawidłowo scalona z Twoimi lub jeśli trzeba rozwiązać konflikt przez ponowne utworzenie migracji przed udostępnieniem jej.
+
+## <a name="merging"></a>Scalanie
+
+Po scaleniu migracji od członków zespołu mogą wystąpić konflikty w pliku migawek modelu. Jeśli obie zmiany są niepowiązane, scalanie jest proste, a dwie migracje mogą współistnieć. Na przykład w konfiguracji typu jednostki klienta może wystąpić konflikt scalania, który wygląda następująco:
 
     <<<<<<< Mine
     b.Property<bool>("Deactivated");
@@ -24,18 +25,18 @@ Podczas migracji scalania z członkami zespołu, może wystąpić konflikty w mo
     b.Property<int>("LoyaltyPoints");
     >>>>>>> Theirs
 
-Ponieważ obu tych właściwości muszą istnieć w ostatnim modelu Ukończ scalanie, dodając obie te właściwości. W wielu przypadkach system kontroli wersji może automatycznie scalić takich zmian.
+Ponieważ obie te właściwości muszą istnieć w modelu końcowym, Ukończ scalanie przez dodanie obu właściwości. W wielu przypadkach system kontroli wersji może automatycznie scalić takie zmiany.
 
 ``` csharp
 b.Property<bool>("Deactivated");
 b.Property<int>("LoyaltyPoints");
 ```
 
-W takich przypadkach migracji i migrację z partnerem są niezależne od siebie nawzajem. Ponieważ którąś z tych funkcji można najpierw zastosować, nie potrzebujesz dodatkowych zmian przed ich udostępnieniem ze swoim zespołem migracji.
+W takich przypadkach migracja i migracja Twojego zespołu są niezależne od siebie. Ponieważ jedna z nich może zostać zastosowana jako pierwsza, nie musisz wprowadzać żadnych dodatkowych zmian do migracji przed udostępnieniem jej zespołowi.
 
-<a name="resolving-conflicts"></a>Rozwiązywanie konfliktów
--------------------
-Czasami wystąpią true konflikt podczas scalania model modelu migawki. Na przykład możesz i z partnerem każdego zmieniona tej samej właściwości.
+## <a name="resolving-conflicts"></a>Rozwiązywanie konfliktów
+
+Czasami występuje konflikt w czasie scalania modelu migawek modelu. Na przykład ty i Twojemu członkowi zespołu można zmienić nazwę tej samej właściwości.
 
     <<<<<<< Mine
     b.Property<string>("Username");
@@ -43,13 +44,13 @@ Czasami wystąpią true konflikt podczas scalania model modelu migawki. Na przyk
     b.Property<string>("Alias");
     >>>>>>> Theirs
 
-Jeśli wystąpi tego rodzaju konflikt rozwiązać ten problem, ponownie utworzyć plan migracji. Wykonaj następujące kroki:
+Jeśli wystąpi ten rodzaj konfliktu, rozwiąż go przez ponowne utworzenie migracji. Wykonaj następujące kroki:
 
-1. Przerwij, scalania i wycofania do katalogu roboczego przed scaleniem
-2. Usuń plan migracji (ale zachować zmiany modelu)
-3. Scal zmiany z partnerem w katalogu roboczym
-4. Ponowne dodanie migracji
+1. Przerwij scalanie i wycofywanie do katalogu roboczego przed scaleniem
+2. Usuń migrację (ale Zachowaj zmiany modelu)
+3. Scalanie zmian Twojego zespołu w katalogu roboczym
+4. Ponowne Dodawanie migracji
 
-Po wykonaniu tego, dwie migracje mogą być stosowane w odpowiedniej kolejności. Ich migracji zostanie zastosowana jako pierwsza, zmiana nazwy kolumny, która ma *Alias*, po tej dacie migracji zmienia jego nazwę, aby *Username*.
+Po wykonaniu tej czynności te dwie migracje mogą być stosowane w odpowiedniej kolejności. Najpierw zostanie zastosowana migracja, zmiana nazwy kolumny na *alias*, a następnie migracja zmienia nazwę na *nazwa_użytkownika*.
 
-Migracja może być bezpiecznie udostępniane reszta zespołu.
+Migracja może być bezpiecznie udostępniona w pozostałej części zespołu.

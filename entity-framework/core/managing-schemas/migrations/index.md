@@ -4,15 +4,14 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: ffa9a34f13ab29f0ba93f9fd1f469398630604ce
-ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
+ms.openlocfilehash: e9c4013d17a2d41772822f77b3ceba15702ffc48
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005458"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812063"
 ---
-<a name="migrations"></a>Migracje
-==========
+# <a name="migrations"></a>Migracje
 
 Model danych zmienia się podczas opracowywania i nie jest synchronizowany z bazą danych. Możesz porzucić bazę danych i pozwolić, aby EF utworzyły nową, zgodną z modelem, ale ta procedura powoduje utratę danych. Funkcja migracji w EF Core zapewnia sposób stopniowego aktualizowania schematu bazy danych, aby zachować synchronizację z modelem danych aplikacji przy zachowaniu istniejących danych w bazie danych.
 
@@ -24,33 +23,33 @@ Migracje obejmują narzędzia wiersza polecenia i interfejsy API, które ułatwi
 * [Usuń migrację](#remove-a-migration). Usuń wygenerowany kod.
 * [Przywrócenie migracji](#revert-a-migration). Cofnij zmiany w bazie danych.
 * [Generuj skrypty SQL](#generate-sql-scripts). Może być potrzebny skrypt do zaktualizowania produkcyjnej bazy danych lub rozwiązywania problemów z kodem migracji.
-* [Zastosuj migracje w czasie wykonywania](#apply-migrations-at-runtime). W przypadku aktualizacji i uruchamiania skryptów w czasie projektowania nie są najlepszym rozwiązaniem, należy `Migrate()` wywołać metodę.
+* [Zastosuj migracje w czasie wykonywania](#apply-migrations-at-runtime). W przypadku aktualizacji i uruchamiania skryptów w czasie projektowania nie są najlepszym rozwiązaniem, należy wywołać metodę `Migrate()`.
 
 > [!TIP]
-> Jeśli znajduje się w innym zestawie niż projekt startowy, można jawnie określić projekty docelowe i uruchomieniowe w [narzędziu Konsola Menedżera pakietów](xref:core/miscellaneous/cli/powershell#target-and-startup-project) lub [Narzędzia interfejs wiersza polecenia platformy .NET Core.](xref:core/miscellaneous/cli/dotnet#target-project-and-startup-project) `DbContext`
+> Jeśli `DbContext` znajduje się w innym zestawie niż projekt startowy, można jawnie określić projekty docelowe i uruchomieniowe w [narzędziu Konsola Menedżera pakietów](xref:core/miscellaneous/cli/powershell#target-and-startup-project) lub [narzędziach interfejs wiersza polecenia platformy .NET Core](xref:core/miscellaneous/cli/dotnet#target-project-and-startup-project).
 
-<a name="install-the-tools"></a>Instalowanie narzędzi
------------------
+## <a name="install-the-tools"></a>Instalowanie narzędzi
 
 Zainstaluj [narzędzia wiersza polecenia](xref:core/miscellaneous/cli/index):
+
 * W przypadku programu Visual Studio zalecamy korzystanie z [narzędzi konsoli Menedżera pakietów](xref:core/miscellaneous/cli/powershell).
 * W przypadku innych środowisk programistycznych wybierz [narzędzia interfejs wiersza polecenia platformy .NET Core](xref:core/miscellaneous/cli/dotnet).
 
-<a name="create-a-migration"></a>Tworzenie migracji
-------------------
+## <a name="create-a-migration"></a>Tworzenie migracji
 
 Po [zdefiniowaniu modelu początkowego](xref:core/modeling/index)należy utworzyć bazę danych. Aby dodać początkową migrację, uruchom następujące polecenie.
 
 ``` powershell
 Add-Migration InitialCreate
 ```
+
 ``` Console
 dotnet ef migrations add InitialCreate
 ```
 
 Do projektu są dodawane trzy pliki w katalogu **migracji** :
 
-* **XXXXXXXXXXXXXX_InitialCreate. cs**— główny plik migracji. Zawiera operacje niezbędne do zastosowania migracji (w programie `Up()`) i przywrócenia jej (w programie `Down()`).
+* **XXXXXXXXXXXXXX_InitialCreate. cs**— główny plik migracji. Zawiera operacje niezbędne do zastosowania migracji (w `Up()`) i przywrócenia jej (w `Down()`).
 * **XXXXXXXXXXXXXX_InitialCreate. Designer. cs**— plik metadanych migracji. Zawiera informacje używane przez EF.
 * **MyContextModelSnapshot.cs**— migawka bieżącego modelu. Służy do określania, co zmieniło się podczas dodawania następnej migracji.
 
@@ -59,26 +58,26 @@ Sygnatura czasowa w nazwie pliku pomaga zachować ich uporządkowane chronologic
 > [!TIP]
 > Możesz przenieść pliki migracji i zmienić ich przestrzeń nazw. Nowe migracje są tworzone jako elementy równorzędne ostatniej migracji.
 
-<a name="update-the-database"></a>Aktualizowanie bazy danych
--------------------
+## <a name="update-the-database"></a>Aktualizowanie bazy danych
 
 Następnie Zastosuj migrację do bazy danych, aby utworzyć schemat.
 
 ``` powershell
 Update-Database
 ```
+
 ``` Console
 dotnet ef database update
 ```
 
-<a name="customize-migration-code"></a>Dostosowywanie kodu migracji
-------------------------
+## <a name="customize-migration-code"></a>Dostosowywanie kodu migracji
 
 Po wprowadzeniu zmian w modelu EF Core schemat bazy danych może nie być zsynchronizowany. Aby zapewnić aktualność, Dodaj kolejną migrację. Nazwa migracji może być używana jak komunikat zatwierdzenia w systemie kontroli wersji. Na przykład można wybrać nazwę, np. *AddProductReviews* , jeśli zmiana jest nową klasą jednostek do przeglądu.
 
 ``` powershell
 Add-Migration AddProductReviews
 ```
+
 ``` Console
 dotnet ef migrations add AddProductReviews
 ```
@@ -133,6 +132,7 @@ Zastosuj migrację do bazy danych przy użyciu odpowiedniego polecenia.
 ``` powershell
 Update-Database
 ```
+
 ``` Console
 dotnet ef database update
 ```
@@ -147,64 +147,67 @@ Czasami warto dodać migrację bez wprowadzania żadnych zmian modelu. W takim p
 * Wyzwalacze
 * Widoki
 
-<a name="remove-a-migration"></a>Usuń migrację
-------------------
+## <a name="remove-a-migration"></a>Usuń migrację
+
 Czasami należy dodać migrację i zdawać sobie sprawę, że należy wprowadzić dodatkowe zmiany w modelu EF Core przed ich zastosowaniem. Aby usunąć ostatnią migrację, użyj tego polecenia.
 
 ``` powershell
 Remove-Migration
 ```
+
 ``` Console
 dotnet ef migrations remove
 ```
 
 Po usunięciu migracji możesz wprowadzić dodatkowe zmiany modelu i dodać je ponownie.
 
-<a name="revert-a-migration"></a>Przywracanie migracji
-------------------
+## <a name="revert-a-migration"></a>Przywracanie migracji
+
 Jeśli migracja (lub kilka migracji) została już zastosowana do bazy danych, ale konieczne jest jej przywrócenie, można użyć tego samego polecenia do zastosowania migracji, ale określić nazwę migracji, do której chcesz przeprowadzić przywracanie.
 
 ``` powershell
 Update-Database LastGoodMigration
 ```
+
 ``` Console
 dotnet ef database update LastGoodMigration
 ```
 
-<a name="generate-sql-scripts"></a>Generuj skrypty SQL
---------------------
+## <a name="generate-sql-scripts"></a>Generuj skrypty SQL
+
 Podczas debugowania migracji lub wdrażania ich w produkcyjnej bazie danych warto wygenerować skrypt SQL. Skrypt może następnie być ponownie przeglądany pod kątem dokładności i dostrojony, aby dopasować potrzeby produkcyjnej bazy danych. Skrypt może być również używany w połączeniu z technologią wdrażania. Podstawowe polecenie jest następujące.
 
 ``` powershell
 Script-Migration
 ```
+
 ``` Console
 dotnet ef migrations script
 ```
 
 Istnieje kilka opcji tego polecenia.
 
-Migracja **z** migracji powinna być ostatnią zastosowana do bazy danych przed uruchomieniem skryptu. Jeśli nie zastosowano żadnych migracji, określ `0` (jest to ustawienie domyślne).
+Migracja **z** migracji powinna być ostatnią zastosowana do bazy danych przed uruchomieniem skryptu. Jeśli nie zastosowano żadnych migracji, określ `0` (jest to wartość domyślna).
 
 Migracja **do** migracji to Ostatnia migracja, która zostanie zastosowana do bazy danych po uruchomieniu skryptu. Ta wartość domyślna to Ostatnia migracja w projekcie.
 
 Opcjonalnie można wygenerować skrypt **idempotentne** . Ten skrypt stosuje tylko migracje, jeśli nie zostały one jeszcze zastosowane do bazy danych. Jest to przydatne, jeśli nie masz dokładnej znajomości ostatniej migracji zastosowanej do bazy danych lub Jeśli wdrażasz ją w wielu bazach danych, które mogą znajdować się w innej migracji.
 
-<a name="apply-migrations-at-runtime"></a>Zastosuj migracje w czasie wykonywania
----------------------------
-Niektóre aplikacje mogą chcieć zastosować migracje w czasie wykonywania podczas uruchamiania lub pierwszego uruchomienia. Zrób to przy użyciu `Migrate()` metody.
+## <a name="apply-migrations-at-runtime"></a>Zastosuj migracje w czasie wykonywania
 
-Ta metoda jest oparta na `IMigrator` usłudze, która może być używana w bardziej zaawansowanych scenariuszach. Użyj `myDbContext.GetInfrastructure().GetService<IMigrator>()` , aby uzyskać do niej dostęp.
+Niektóre aplikacje mogą chcieć zastosować migracje w czasie wykonywania podczas uruchamiania lub pierwszego uruchomienia. Zrób to przy użyciu metody `Migrate()`.
+
+Ta metoda jest oparta na usłudze `IMigrator`, która może być używana w bardziej zaawansowanych scenariuszach. Użyj `myDbContext.GetInfrastructure().GetService<IMigrator>()`, aby uzyskać do niego dostęp.
 
 ``` csharp
 myDbContext.Database.Migrate();
 ```
 
 > [!WARNING]
+>
 > * Takie podejście nie jest przeznaczone dla wszystkich użytkowników. Chociaż jest to doskonałe rozwiązanie w przypadku aplikacji z lokalną bazą danych, większość aplikacji będzie wymagała bardziej niezawodnej strategii wdrażania, takiej jak generowanie skryptów SQL.
-> * Nie wywołuj `EnsureCreated()` przed `Migrate()`. `EnsureCreated()`pomija migracje, aby utworzyć schemat, co powoduje `Migrate()` niepowodzenie.
+> * Nie wywołuj `EnsureCreated()` przed `Migrate()`. `EnsureCreated()` pomija migracje, aby utworzyć schemat, co powoduje niepowodzenie `Migrate()`.
 
-<a name="next-steps"></a>Następne kroki
-----------
+## <a name="next-steps"></a>Następne kroki
 
 Aby uzyskać więcej informacji, zobacz <xref:core/miscellaneous/cli/index>.

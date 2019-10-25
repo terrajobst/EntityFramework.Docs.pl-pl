@@ -4,18 +4,19 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: e5b42275aa575d711e1dcdf3d2ba3cb29a036727
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 29434c26a503fabb16b43ee8f0c36136a0b5b745
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181254"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72811971"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Dokumentacja narzędzi Entity Framework Core Tools — interfejs wiersza polecenia platformy .NET
 
 Narzędzia interfejsu wiersza polecenia (CLI) dla Entity Framework Core wykonują zadania deweloperskie czasu projektowania. Na przykład tworzą [migracje](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0), stosują migracje i generują kod dla modelu na podstawie istniejącej bazy danych. Polecenia są rozszerzeniem dla międzyplatformowego polecenia [dotnet](/dotnet/core/tools) , które jest częścią [zestaw .NET Core SDK](https://www.microsoft.com/net/core). Te narzędzia współpracują z projektami .NET Core.
 
 Jeśli używasz programu Visual Studio, zalecamy użycie [narzędzi konsoli Menedżera pakietów](powershell.md) :
+
 * Automatycznie pracują z bieżącym projektem wybranym w **konsoli Menedżera pakietów** bez konieczności ręcznego przełączania katalogów.
 * Automatycznie otwierają pliki wygenerowane przez polecenie po zakończeniu polecenia.
 
@@ -70,7 +71,7 @@ Polecenia `dotnet ef` są zawarte w zestaw .NET Core SDK, ale w celu włączenia
 
 * Skonfiguruj aplikację tak, aby korzystała z wersji zestawu SDK 2.1.200, modyfikując jej plik [Global. JSON](/dotnet/core/tools/global-json) . Ten plik jest zwykle zawarty w katalogu rozwiązania (jeden powyżej projektu).
 
-* Edytuj plik projektu i Dodaj `Microsoft.EntityFrameworkCore.Tools.DotNet` jako element `DotNetCliToolReference`. Określ najnowszą wersję 1. x, na przykład: 1.1.6. Zobacz przykład pliku projektu na końcu tej sekcji.
+* Edytuj plik projektu i Dodaj `Microsoft.EntityFrameworkCore.Tools.DotNet` jako element `DotNetCliToolReference`. Określ wersję najnowszej wersji 1. x, na przykład: 1.1.6. Zobacz przykład pliku projektu na końcu tej sekcji.
 
 * Zainstaluj najnowszą wersję 1. x pakietu `Microsoft.EntityFrameworkCore.Design`, na przykład:
 
@@ -98,7 +99,7 @@ Polecenia `dotnet ef` są zawarte w zestaw .NET Core SDK, ale w celu włączenia
   </Project>
   ```
 
-  Odwołanie do pakietu z `PrivateAssets="All"` nie jest uwidocznione dla projektów, które odwołują się do tego projektu. To ograniczenie jest szczególnie przydatne w przypadku pakietów, które są zwykle używane tylko podczas projektowania.
+  Odwołanie do pakietu z `PrivateAssets="All"` nie jest ujawnione dla projektów, które odwołują się do tego projektu. To ograniczenie jest szczególnie przydatne w przypadku pakietów, które są zwykle używane tylko podczas projektowania.
 
 ### <a name="verify-installation"></a>Weryfikuj instalację
 
@@ -146,7 +147,7 @@ Możliwe jest również [umieszczenie kodu migracji w bibliotece klas odrębnie 
 
 ### <a name="other-target-frameworks"></a>Inne platformy docelowe
 
-Narzędzia interfejsu wiersza polecenia współpracują z projektami .NET Core i projektami .NET Framework. Aplikacje, które mają model EF Core w bibliotece klas .NET Standard mogą nie mieć projektu .NET Core lub .NET Framework. Na przykład jest to prawdziwe w aplikacjach Xamarin i platforma uniwersalna systemu Windows. W takich przypadkach można utworzyć projekt aplikacji konsolowej .NET Core, którego jedynym celem jest działanie jako projekt startowy dla narzędzi. Projekt może być fikcyjnym projektem bez kodu rzeczywistego &mdash; jest to konieczne tylko w celu udostępnienia obiektu docelowego dla narzędzi.
+Narzędzia interfejsu wiersza polecenia współpracują z projektami .NET Core i projektami .NET Framework. Aplikacje, które mają model EF Core w bibliotece klas .NET Standard mogą nie mieć projektu .NET Core lub .NET Framework. Na przykład jest to prawdziwe w aplikacjach Xamarin i platforma uniwersalna systemu Windows. W takich przypadkach można utworzyć projekt aplikacji konsolowej .NET Core, którego jedynym celem jest działanie jako projekt startowy dla narzędzi. Projekt może być fikcyjnym projektem bez kodu rzeczywistego &mdash; jest to konieczne tylko udostępnienie elementu docelowego dla narzędzi.
 
 Dlaczego jest wymagany projekt fikcyjny? Jak wspomniano wcześniej, narzędzia muszą wykonać kod aplikacji w czasie projektowania. W tym celu należy użyć środowiska uruchomieniowego platformy .NET Core. Gdy model EF Core znajduje się w projekcie, który jest przeznaczony dla programu .NET Core lub .NET Framework, narzędzia EF Core zażyczą sobie środowisko uruchomieniowe z projektu. Nie można tego zrobić, jeśli model EF Core znajduje się w .NET Standardej bibliotece klas. .NET Standard nie jest rzeczywistą implementacją platformy .NET; jest to specyfikacja zestawu interfejsów API, które muszą być obsługiwane przez implementacje platformy .NET. W związku z tym .NET Standard nie są wystarczające dla narzędzi EF Core do wykonywania kodu aplikacji. Projekt fikcyjny tworzony do użycia jako projekt startowy zapewnia konkretną platformę docelową, do której narzędzia mogą ładować .NET Standard biblioteki klas.
 
@@ -214,7 +215,7 @@ Argumentu
 
 | Argument       | Opis                                                                                                                                                                                                             |
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<CONNECTION>` | Parametry połączenia z bazą danych. W przypadku projektów ASP.NET Core 2. x wartością może być *Nazwa = \<name parametrów połączenia >* . W takim przypadku nazwa pochodzi ze źródeł konfiguracji skonfigurowanych dla projektu. |
+| `<CONNECTION>` | Parametry połączenia z bazą danych. W przypadku projektów ASP.NET Core 2. x wartością może być *Nazwa =\<nazwa parametrów połączenia >* . W takim przypadku nazwa pochodzi ze źródeł konfiguracji skonfigurowanych dla projektu. |
 | `<PROVIDER>`   | Dostawca do użycia. Zazwyczaj jest to nazwa pakietu NuGet, na przykład: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
 Opcje:
