@@ -1,93 +1,97 @@
 ---
-title: Wstępne wypełnianie danych — EF Core
+title: Rozmieszczanie danych — EF Core
 author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/02/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/data-seeding
-ms.openlocfilehash: 1c450b142573368d043430f55a3144b6696a8691
-ms.sourcegitcommit: b4a5ed177b86bf7f81602106dab6b4acc18dfc18
+ms.openlocfilehash: 0b11b6b3104b74e09c60c9c455e22f164df493c7
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/15/2019
-ms.locfileid: "54316637"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655767"
 ---
 # <a name="data-seeding"></a>Wstępne wypełnianie danych
 
-Wstępne wypełnianie danych polega na wypełnianie bazy danych za pomocą początkowego zestawu danych.
+Rozmieszczanie danych to proces wypełniania bazy danych z początkowym zestawem danych.
 
-Istnieje kilka sposobów, które można to zrobić w programie EF Core:
+Można to zrobić na kilka sposobów w EF Core:
+
 * Modelowanie danych inicjatora
-* Dostosowywanie ręcznej migracji
-* Logikę niestandardową inicjalizację
+* Dostosowanie migracji ręcznej
+* Niestandardowa logika inicjalizacji
 
 ## <a name="model-seed-data"></a>Modelowanie danych inicjatora
 
 > [!NOTE]
-> Ta funkcja jest nowa na platformie EF Core 2.1.
+> Ta funkcja jest nowa w EF Core 2,1.
 
-W odróżnieniu od w EF6 w programie EF Core wstępne wypełnianie danych może być skojarzony z typem jednostki jako część konfiguracji modelu. Następnie programu EF Core [migracje](xref:core/managing-schemas/migrations/index) można automatycznie obliczyć co Wstawianie, aktualizowanie lub usuwanie potrzebę operacji mają być stosowane podczas uaktualniania bazy danych do nowej wersji modelu.
+W przeciwieństwie do EF6, w EF Core, umieszczania danych można kojarzyć z typem jednostki w ramach konfiguracji modelu. Następnie EF Core [migracji](xref:core/managing-schemas/migrations/index) mogą automatycznie obliczyć operacje wstawiania, aktualizowania lub usuwania, które należy zastosować podczas uaktualniania bazy danych do nowej wersji modelu.
 
 > [!NOTE]
-> Podczas określania, jakie operacja powinna być wykonana pobierać dane inicjatora do żądanego stanu, migracje analizuje tylko zmiany modelu. Dlatego wszelkie zmiany w danych poza migracje mogą zostać utracone lub nie powodują wystąpienie błędu.
+> Migracje uwzględniają tylko zmiany modelu podczas określania, jaka operacja powinna zostać wykonana w celu uzyskania danych inicjatora w żądanym stanie. W rezultacie wszelkie zmiany danych wykonanych poza migracją mogą zostać utracone lub przyczyną błędu.
 
-Na przykład dane zostaną skonfigurowane `Blog` w `OnModelCreating`:
+Przykładowo spowoduje to skonfigurowanie danych inicjatora dla `Blog` w `OnModelCreating`:
 
 [!code-csharp[BlogSeed](../../../samples/core/Modeling/DataSeeding/DataSeedingContext.cs?name=BlogSeed)]
 
-Aby dodać jednostki, które mają relację wartości klucza obcego muszą być określone:
+Aby dodać jednostki, które mają relację, należy określić wartości klucza obcego:
 
 [!code-csharp[PostSeed](../../../samples/core/Modeling/DataSeeding/DataSeedingContext.cs?name=PostSeed)]
 
-Jeśli typ jednostki ma wszystkie właściwości w stanie w tle klasa anonimowa może służyć do Podaj wartości:
+Jeśli typ jednostki ma wszystkie właściwości w stanie cienia, można użyć anonimowej klasy do podania wartości:
 
 [!code-csharp[AnonymousPostSeed](../../../samples/core/Modeling/DataSeeding/DataSeedingContext.cs?name=AnonymousPostSeed)]
 
-Należące do jednostki, który może zostać rozpoczęta typów w podobny sposób:
+Typy jednostek będących własnością mogą być umieszczane w podobny sposób:
 
 [!code-csharp[OwnedTypeSeed](../../../samples/core/Modeling/DataSeeding/DataSeedingContext.cs?name=OwnedTypeSeed)]
 
-Zobacz [pełny przykład projektu](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/DataSeeding) Aby uzyskać dodatkowy kontekst.
+Zobacz [pełny przykładowy projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/DataSeeding) , aby uzyskać więcej kontekstu.
 
-Po dodaniu danych do modelu, [migracje](xref:core/managing-schemas/migrations/index) powinien być używany do zastosowania zmian.
+Po dodaniu danych do modelu [migracja](xref:core/managing-schemas/migrations/index) powinna zostać użyta do zastosowania zmian.
 
 > [!TIP]
-> Jeśli konieczne jest zastosowanie migracji w ramach zautomatyzowanego wdrażania możesz [Utwórz skrypt SQL](xref:core/managing-schemas/migrations/index#generate-sql-scripts) można je przeglądać przed wykonaniem.
+> Jeśli konieczne jest zastosowanie migracji w ramach automatycznego wdrożenia, można [utworzyć skrypt SQL](xref:core/managing-schemas/migrations/index#generate-sql-scripts) , który będzie można wyświetlić przed wykonaniem.
 
-Alternatywnie, można użyć `context.Database.EnsureCreated()` do utworzenia nowej bazy danych zawierającej dane inicjatora, na przykład w przypadku bazy danych testów lub za pomocą dostawcy w pamięci lub dowolnej-relation bazy danych. Należy pamiętać, że jeśli baza danych już istnieje, `EnsureCreated()` zaktualizuje żadnego schematu ani inicjatora w bazie danych. Relacyjne bazy danych nie należy wywoływać `EnsureCreated()` Jeśli planujesz użyć migracje.
+Alternatywnie możesz użyć `context.Database.EnsureCreated()`, aby utworzyć nową bazę danych zawierającą dane inicjatora, na przykład bazę danych testowej lub użycie dostawcy w pamięci lub dowolnej niepowiązanej bazy danych. Należy pamiętać, że jeśli baza danych już istnieje, `EnsureCreated()` nie spowoduje zaktualizowania schematu ani odsadzenia danych w bazie danych. W przypadku relacyjnych baz danych nie należy wywoływać `EnsureCreated()`, jeśli planujesz używać migracji.
 
-### <a name="limitations-of-model-seed-data"></a>Ograniczenia danych inicjatora modelu
+### <a name="limitations-of-model-seed-data"></a>Ograniczenia dotyczące danych inicjatora modelu
 
-Inicjatora danych tego typu jest zarządzana przez migracje i skrypt do aktualizowania danych, który jest już w bazie danych musi zostać wygenerowane bez połączenia z bazą danych. To nakłada pewne ograniczenia:
-* Wartość klucza podstawowego nie trzeba określać, nawet jeśli zwykle jest generowany przez bazę danych. Będzie służyć do wykrywania zmian danych między migracji.
-* Uprzednio wprowadzonych danych zostanie usunięty, zmiana klucza podstawowego w dowolny sposób.
+Ten typ danych inicjatora jest zarządzany przez migracje, a skrypt, aby zaktualizować dane, które już istnieją w bazie danych, musi zostać wygenerowany bez łączenia się z bazą danych. Powoduje to nakładanie pewnych ograniczeń:
 
-W związku z tym ta funkcja jest najbardziej przydatny w przypadku danych statycznych, który nie ma powinna się zmienić poza migracje i nie zależy od niczego więcej w bazie danych, na przykład kody pocztowe.
+* Wartość klucza podstawowego należy określić nawet wtedy, gdy jest zazwyczaj generowana przez bazę danych. Będzie on używany do wykrywania zmian danych między migracjami.
+* Poprzednio umieszczone dane zostaną usunięte, jeśli klucz podstawowy zostanie zmieniony w dowolny sposób.
 
-Jeśli scenariusz zawiera następujące zalecane jest używana logika inicjowania niestandardowego opisanego w ostatniej sekcji:
-* Dane tymczasowe na potrzeby testowania
-* Dane, które jest zależny od stanu bazy danych
-* Dane, które wymaga wartości klucza, zostanie wygenerowany przez bazę danych, w tym jednostki używające klucze alternatywne jako tożsamość
-* Dane, które wymaga niestandardowej transformacji (nie jest obsługiwany przez [wartość konwersje](xref:core/modeling/value-conversions)), takie jak niektóre tworzenia skrótów haseł
-* Dane, które wymaga wywołania funkcji API zewnętrznych, takich jak tworzenie ról i użytkowników tożsamości platformy ASP.NET Core
+W związku z tym ta funkcja jest najbardziej przydatna w przypadku danych statycznych, które nie są zmieniane poza migracje i nie zależą od innych elementów w bazie danych, na przykład kodów ZIP.
 
-## <a name="manual-migration-customization"></a>Dostosowywanie ręcznej migracji
+Jeśli scenariusz zawiera dowolne z poniższych, zaleca się użycie niestandardowej logiki inicjalizacji opisanej w ostatniej sekcji:
 
-Po dodaniu zmiany w danych określony za pomocą migracji `HasData` są przekształcane do wywołania `InsertData()`, `UpdateData()`, i `DeleteData()`. Jednym ze sposobów obejścia niektóre ograniczenia `HasData` jest, aby ręcznie dodać te wywołania lub [operacje niestandardowe](xref:core/managing-schemas/migrations/operations) migracji zamiast tego.
+* Dane tymczasowe do testowania
+* Dane, które są zależne od stanu bazy danych
+* Dane wymagające generowania wartości kluczy przez bazę danych, w tym jednostki, które używają alternatywnych kluczy jako tożsamości
+* Dane wymagające przekształcenia niestandardowego (które nie są obsługiwane przez [konwersje wartości](xref:core/modeling/value-conversions)), takie jak niektóre skróty haseł
+* Dane wymagające wywołań zewnętrznego interfejsu API, takie jak ASP.NET Core role tożsamości i tworzenie użytkowników
+
+## <a name="manual-migration-customization"></a>Dostosowanie migracji ręcznej
+
+Po dodaniu migracji zmiany w danych określonych za pomocą `HasData` są przekształcane na wywołania `InsertData()`, `UpdateData()`i `DeleteData()`. Jednym ze sposobów obejścia niektórych ograniczeń `HasData` jest ręczne dodanie tych wywołań lub [operacji niestandardowych](xref:core/managing-schemas/migrations/operations) do migracji.
 
 [!code-csharp[CustomInsert](../../../samples/core/Modeling/DataSeeding/Migrations/20181102235626_Initial.cs?name=CustomInsert)]
 
-## <a name="custom-initialization-logic"></a>Logikę niestandardową inicjalizację
+## <a name="custom-initialization-logic"></a>Niestandardowa logika inicjalizacji
 
-Prosty, zaawansowany sposób wykonania wstępne wypełnianie danych jest użycie [ `DbContext.SaveChanges()` ](xref:core/saving/index) przed głównej aplikacji logiki rozpoczyna wykonywanie.
+Prostą i wydajną metodą wykonywania operacji umieszczania danych jest użycie [`DbContext.SaveChanges()`](xref:core/saving/index) przed rozpoczęciem wykonywania głównej logiki aplikacji.
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataSeeding/Program.cs?name=CustomSeeding)]
 
 > [!WARNING]
-> Rozmieszczania kod nie powinien być częścią wykonywania zwykła aplikacja, ponieważ może to spowodować problemy ze współbieżnością, gdy wiele wystąpień działają, a także wymagałoby aplikacji mających uprawnienia do modyfikowania schematu bazy danych.
+> Kod inicjujący nie powinien być częścią normalnego wykonywania aplikacji, ponieważ może to powodować problemy współbieżności, gdy działa wiele wystąpień, a także wymaga aplikacji z uprawnieniami do modyfikowania schematu bazy danych.
 
-W zależności od ograniczeń wdrożenia kod inicjujący mogą być wykonywane na różne sposoby:
-* Uruchamianie aplikacji inicjowania lokalnie
-* Wdrażanie aplikacji inicjowanie przy użyciu głównej aplikacji wywoływanie procedury inicjowania i wyłączenie lub usunięcie aplikacji inicjowania.
+W zależności od ograniczeń wdrożenia kod inicjalizacji można wykonać na różne sposoby:
 
-Zazwyczaj można to zautomatyzować za pomocą [profilów publikowania](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/visual-studio-publish-profiles).
+* Uruchamianie aplikacji inicjującej lokalnie
+* Wdrażanie aplikacji inicjującej za pomocą głównej aplikacji, wywoływanie procedury inicjowania i wyłączanie lub usuwanie aplikacji inicjującej.
+
+Zwykle może to być zautomatyzowane przy użyciu [profilów publikacji](/aspnet/core/host-and-deploy/visual-studio-publish-profiles).

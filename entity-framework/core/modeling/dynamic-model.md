@@ -1,25 +1,26 @@
 ---
-title: Przełączanie pomiędzy wiele modeli z tym samym typem DbContext — EF Core
+title: Przemienne między wieloma modelami o tym samym typie DbContext — EF Core
 author: AndriySvyryd
 ms.date: 12/10/2017
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/dynamic-model
-ms.openlocfilehash: 1d87efb668c12a2862583fba16a6c444b3cda9de
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 034076b1595894e80b98467354f6c9f139bd7426
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994989"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655725"
 ---
-# <a name="alternating-between-multiple-models-with-the-same-dbcontext-type"></a>Przełączanie pomiędzy wiele modeli za pomocą tego samego typu DbContext
+# <a name="alternating-between-multiple-models-with-the-same-dbcontext-type"></a>Przemienne między wieloma modelami o tym samym typie DbContext
 
-Wbudowany model `OnModelCreating` wystarczą właściwości dla kontekstu można zmienić, jak zbudowane jest model. Na przykład może zostać wykorzystana do wykluczenia niektórych właściwości:
+Model zbudowany w `OnModelCreating` może użyć właściwości w kontekście, aby zmienić sposób kompilowania modelu. Na przykład można użyć, aby wykluczyć określoną właściwość:
 
 [!code-csharp[Main](../../../samples/core/DynamicModel/DynamicContext.cs?name=Class)]
 
 ## <a name="imodelcachekeyfactory"></a>IModelCacheKeyFactory
-Jednak jeśli chcesz wypróbować, wykonując powyższe bez wprowadzania dodatkowych zmian otrzymamy ten sam model za każdym razem, gdy nowy kontekst jest tworzona dla dowolnej wartości `IgnoreIntProperty`. Jest to spowodowane przez model używa EF, aby zwiększyć wydajność, wywołując tylko mechanizmu buforowania `OnModelCreating` raz i buforowanie modelu.
 
-Domyślnie EF przyjęto założenie, że we wszystkich kontekstach danego typu modelu będą takie same. Aby to osiągnąć, domyślna Implementacja klasy `IModelCacheKeyFactory` zwraca klucz, zawierający tylko typ kontekstu. Aby zmienić to musisz zastąpić `IModelCacheKeyFactory` usługi. Nowa implementacja musi zwracać obiekt, który można porównać do innych kluczy modelu przy użyciu `Equals` metodę, która uwzględnia wszystkie zmienne, które wpływają na modelu:
+Jeśli jednak podjęto próbę wykonania powyższych czynności bez dodatkowych zmian, ten sam model jest tworzony za każdym razem, gdy zostanie utworzony nowy kontekst dla dowolnej wartości `IgnoreIntProperty`. Jest to spowodowane przez mechanizm buforowania modelu, który służy do poprawy wydajności przez wywoływanie `OnModelCreating` raz i buforowanie modelu.
+
+Domyślnie EF zakłada, że dla dowolnego danego typu kontekstu model będzie taki sam. Aby to osiągnąć, domyślna implementacja `IModelCacheKeyFactory` zwraca klucz, który po prostu zawiera typ kontekstu. Aby zmienić tę wartość, musisz zastąpić usługę `IModelCacheKeyFactory`. Nowa implementacja musi zwrócić obiekt, który można porównać z innymi kluczami modelu przy użyciu metody `Equals`, która uwzględnia wszystkie zmienne, które wpływają na model:
 
 [!code-csharp[Main](../../../samples/core/DynamicModel/DynamicModelCacheKeyFactory.cs?name=Class)]

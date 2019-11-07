@@ -5,12 +5,12 @@ ms.author: avickers
 ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 070f2ad396ec21858096c29413ac80bdf8547328
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 88c3fa8ea5b8246a932f5cf21e674bc7cc71c0ea
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197812"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656269"
 ---
 # <a name="disconnected-entities"></a>Rozłączone jednostki
 
@@ -18,11 +18,13 @@ Wystąpienie DbContext automatycznie śledzi jednostki zwrócone z bazy danych. 
 
 Jednak czasami do jednostek są wysyłane zapytania przy użyciu jednego wystąpienia kontekstu, a następnie zapisane przy użyciu innego wystąpienia. Często zdarza się to w scenariuszach "rozłączonych", takich jak aplikacja sieci Web, do której są wysyłane zapytania, wysyłany do klienta, modyfikowane, wysyłane z powrotem do serwera w żądaniu, a następnie zapisane. W takim przypadku drugie wystąpienie kontekstu musi wiedzieć, czy jednostki są nowe (powinny być wstawiane) czy istniejące (należy je zaktualizować).
 
-> [!TIP]  
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Disconnected/) użyty w tym artykule można zobaczyć w witrynie GitHub.
+<!-- markdownlint-disable MD028 -->
+> [!TIP]
+> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Disconnected/) tego artykułu można wyświetlić w witrynie GitHub.
 
 > [!TIP]
 > EF Core może śledzić tylko jedno wystąpienie dowolnej jednostki z daną wartością klucza podstawowego. Najlepszym sposobem na uniknięcie tego problemu jest użycie kontekstu krótkotrwałego dla każdej jednostki pracy w taki sposób, że kontekst zaczyna puste, ma dołączone jednostki, zapisuje te jednostki, a następnie kontekst zostaje usunięty i odrzucony.
+<!-- markdownlint-enable MD028 -->
 
 ## <a name="identifying-new-entities"></a>Identyfikowanie nowych jednostek
 
@@ -50,8 +52,9 @@ Jednakże EF ma wbudowaną metodę, aby to zrobić dla dowolnego typu jednostki 
 ### <a name="with-other-keys"></a>Z innymi kluczami
 
 Aby identyfikować nowe jednostki w przypadku, gdy wartości kluczy nie są generowane automatycznie, jest wymagany inny mechanizm. Istnieją dwa ogólne podejścia do tego:
- * Zapytanie dotyczące jednostki
- * Przekaż flagę z klienta
+
+* Zapytanie dotyczące jednostki
+* Przekaż flagę z klienta
 
 Aby wykonać zapytanie dotyczące jednostki, po prostu Użyj metody Find:
 
@@ -74,11 +77,12 @@ Metoda Update zwykle oznacza jednostkę do aktualizacji, nie wstawiaj. Jeśli je
 > [!TIP]  
 > To zachowanie zostało wprowadzone w EF Core 2,0. W przypadku wcześniejszych wersji zawsze konieczne jest jawne wybranie opcji Dodaj lub zaktualizuj.
 
-Jeśli jednostka nie używa automatycznie generowanych kluczy, aplikacja musi zdecydować, czy jednostka powinna zostać wstawiona lub zaktualizowana: Na przykład:
+Jeśli jednostka nie używa automatycznie generowanych kluczy, aplikacja musi zdecydować, czy jednostka powinna zostać wstawiona lub zaktualizowana: na przykład:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntityWithFind)]
 
 Poniżej przedstawiono następujące czynności:
+
 * Jeśli funkcja Znajdź zwraca wartość null, baza danych nie zawiera jeszcze blogu o tym IDENTYFIKATORze, więc wywołamy polecenie Dodaj markę do wstawienia.
 * Jeśli funkcja Znajdź zwraca jednostkę, w bazie danych istnieje wartość, a w kontekście jest teraz śledzona Istniejąca jednostka
   * Następnie użyjemy setValues, aby ustawić wartości dla wszystkich właściwości tej jednostki dla tych, które zostały dostarczone przez klienta.

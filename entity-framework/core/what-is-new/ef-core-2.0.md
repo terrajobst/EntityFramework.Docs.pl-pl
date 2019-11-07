@@ -4,16 +4,17 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 781578d9de05895cdbc777aa53c3f6d6f9777869
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 72393e96c195af1df5a169025ca2ce7a7acb16bb
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149054"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656222"
 ---
 # <a name="new-features-in-ef-core-20"></a>Nowe funkcje w EF Core 2,0
 
-## <a name="net-standard-20"></a>.NET Standard 2.0
+## <a name="net-standard-20"></a>.NET Standard 2,0
+
 EF Core teraz dotyczy .NET Standard 2,0, co oznacza, że może współdziałać z platformą .NET Core 2,0, .NET Framework 4.6.1 i innymi bibliotekami, które implementują .NET Standard 2,0.
 Zobacz [obsługiwane implementacje platformy .NET](../platforms/index.md) , aby uzyskać więcej informacji na temat tego, co jest obsługiwane.
 
@@ -32,6 +33,7 @@ modelBuilder.Entity<Product>()
 modelBuilder.Entity<Product>().ToTable("Products");
 modelBuilder.Entity<ProductDetails>().ToTable("Products");
 ```
+
 Zapoznaj się z [sekcją dotyczącą dzielenia tabeli](xref:core/modeling/table-splitting) , aby uzyskać więcej informacji na temat tej funkcji.
 
 ### <a name="owned-types"></a>Typy własności
@@ -65,11 +67,12 @@ public class StreetAddress
     public string City { get; set; }
 }
 ```
+
 Aby uzyskać więcej informacji na temat tej funkcji, zapoznaj się z [sekcją należącej do typów jednostek](xref:core/modeling/owned-entities) .
 
 ### <a name="model-level-query-filters"></a>Filtry zapytań na poziomie modelu
 
-EF Core 2,0 zawiera nową funkcję wywołującą filtry zapytań na poziomie modelu. Ta funkcja zezwala na predykaty zapytań LINQ (wyrażenie logiczne zwykle przenoszone do składnika LINQ WHERE Query operator) do zdefiniowania bezpośrednio w typach jednostek w modelu metadanych (zwykle w OnModelCreating). Takie filtry są automatycznie stosowane do żadnych zapytań LINQ, obejmujące tych typów jednostek, w tym odwołania do właściwości nawigacji odwołanie pośrednio, takie jak przy użyciu Include lub bezpośredniego typów jednostek. Niektóre typowe aplikacje tej funkcji są następujące:
+EF Core 2,0 zawiera nową funkcję wywołującą filtry zapytań na poziomie modelu. Ta funkcja zezwala na predykaty zapytań LINQ (wyrażenie logiczne zwykle przenoszone do składnika LINQ WHERE Query operator) do zdefiniowania bezpośrednio w typach jednostek w modelu metadanych (zwykle w OnModelCreating). Takie filtry są automatycznie stosowane do dowolnych zapytań LINQ obejmujących te typy jednostek, w tym typy jednostek, do których odwołuje się pośrednio, na przykład przy użyciu odwołań do właściwości dołączania lub nawigacji bezpośredniej. Niektóre typowe aplikacje tej funkcji to:
 
 - Usuwanie nietrwałe — typy jednostek definiują Właściwość IsDeleted.
 - Wielodostępność — typ jednostki definiuje Właściwość TenantId.
@@ -92,7 +95,8 @@ public class BloggingContext : DbContext
     }
 }
 ```
-Definiujemy filtr na poziomie modelu, który implementuje wiele dzierżawców i usuwanie nietrwałe dla wystąpień `Post` typu jednostki. Zwróć uwagę na użycie właściwości poziomu wystąpienia DbContext: `TenantId`. Filtry na poziomie modelu będą używać wartości z poprawnego wystąpienia kontekstu (czyli wystąpienia kontekstu, które wykonuje zapytanie).
+
+Definiujemy filtr na poziomie modelu, który implementuje wiele dzierżawców i usuwanie nietrwałe dla wystąpień typu jednostki `Post`. Zwróć uwagę na użycie właściwości poziomu wystąpienia DbContext: `TenantId`. Filtry na poziomie modelu będą używać wartości z poprawnego wystąpienia kontekstu (czyli wystąpienia kontekstu, które wykonuje zapytanie).
 
 Filtry mogą być wyłączone dla poszczególnych zapytań LINQ przy użyciu operatora IgnoreQueryFilters ().
 
@@ -107,7 +111,7 @@ EF Core 2,0 zawiera istotny udział od [Paul Middleton](https://github.com/pmidd
 
 Poniżej znajduje się krótki opis sposobu użycia funkcji:
 
-Zadeklaruj metodę statyczną w `DbContext` i Dodaj do niej adnotację przy użyciu: `DbFunctionAttribute`
+Zadeklaruj metodę statyczną na `DbContext` i Dodaj adnotację do `DbFunctionAttribute`:
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -160,7 +164,7 @@ builder.ApplyConfiguration(new CustomerConfiguration());
 
 Wzorzec podstawowy służący do używania EF Core w aplikacji ASP.NET Core zazwyczaj polega na zarejestrowaniu niestandardowego typu kontekstu DBW systemie iniekcji zależności i późniejszym uzyskaniu wystąpień tego typu przez parametry konstruktora w kontrolerach. Oznacza to, że nowe wystąpienie DbContext jest tworzone dla każdego żądania.
 
-W wersji 2,0 wprowadzamy nowy sposób rejestrowania niestandardowych typów kontekstu DbContext w iniekcji zależności, które w sposób przezroczysty wprowadzają pulę wystąpień DbContext wielokrotnego użytku. Aby użyć usługi DbContext Pool, użyj `AddDbContextPool` `AddDbContext` zamiast podczas rejestracji w usłudze:
+W wersji 2,0 wprowadzamy nowy sposób rejestrowania niestandardowych typów kontekstu DbContext w iniekcji zależności, które w sposób przezroczysty wprowadzają pulę wystąpień DbContext wielokrotnego użytku. Aby można było korzystać z puli DbContext, użyj `AddDbContextPool` zamiast `AddDbContext` podczas rejestracji usługi:
 
 ``` csharp
 services.AddDbContextPool<BloggingContext>(
@@ -173,7 +177,7 @@ Jest to koncepcyjnie podobne do sposobu, w jaki pula połączeń działa w ADO.N
 
 ### <a name="limitations"></a>Ograniczenia
 
-Nowa metoda wprowadza kilka ograniczeń dotyczących tego, co można zrobić w `OnConfiguring()` metodzie DbContext.
+Nowa metoda wprowadza kilka ograniczeń dotyczących tego, co można zrobić w metodzie `OnConfiguring()` DbContext.
 
 > [!WARNING]  
 > Unikaj korzystania z puli kontekstu DbContext, Jeśli przechowujesz własny stan (na przykład pola prywatne) w klasie pochodnej DbContext, która nie powinna być współdzielona między żądaniami. EF Core resetuje stan, który jest świadomy przed dodaniem wystąpienia DbContext do puli.
@@ -205,7 +209,7 @@ using (var db = new CustomerContext())
 
 ### <a name="attach-can-track-a-graph-of-new-and-existing-entities"></a>Attach można śledzić Graf nowych i istniejących jednostek
 
-EF Core obsługuje automatyczne generowanie wartości kluczy za pomocą różnych mechanizmów. W przypadku korzystania z tej funkcji jest generowana wartość, jeśli właściwość klucza jest wartością domyślną środowiska CLR — zazwyczaj zero lub null. Oznacza to, że wykres jednostek może być przekazanie do `DbContext.Attach` lub `DbSet.Attach` , a EF Core będzie oznaczać te jednostki, dla których klucz jest już `Unchanged` ustawiony, ponieważ te jednostki, które nie mają zestawu kluczy, będą oznaczone `Added`jako. Dzięki temu można łatwo dołączać wykres mieszanych nowych i istniejących jednostek podczas korzystania z wygenerowanych kluczy. `DbContext.Update`i `DbSet.Update` Pracuj w taki sam sposób, z tą różnicą, że jednostki z zestawem `Modified` kluczy są `Unchanged`oznaczone jako zamiast.
+EF Core obsługuje automatyczne generowanie wartości kluczy za pomocą różnych mechanizmów. W przypadku korzystania z tej funkcji jest generowana wartość, jeśli właściwość klucza jest wartością domyślną środowiska CLR — zazwyczaj zero lub null. Oznacza to, że wykres jednostek można przesłać do `DbContext.Attach` lub `DbSet.Attach`, a EF Core oznaczy te jednostki, dla których klucz jest już ustawiony jako `Unchanged`, podczas gdy te jednostki, które nie mają zestawu kluczy, zostaną oznaczone jako `Added`. Dzięki temu można łatwo dołączać wykres mieszanych nowych i istniejących jednostek podczas korzystania z wygenerowanych kluczy. `DbContext.Update` i `DbSet.Update` pracują w ten sam sposób, z tą różnicą, że jednostki z zestawem kluczy są oznaczone jako `Modified` zamiast `Unchanged`.
 
 ## <a name="query"></a>Zapytanie
 
@@ -219,7 +223,7 @@ To działanie poprawi SQL wygenerowanego dla sprzężeń grup. Sprzężenia grup
 
 ### <a name="string-interpolation-in-fromsql-and-executesqlcommand"></a>Interpolacja ciągów w Z tabel i ExecuteSqlCommand
 
-C#6 wprowadza interpolację ciągów, funkcję, która pozwala C# na bezpośrednie osadzanie wyrażeń w literałach ciągów, zapewniając całkiem sposób tworzenia ciągów w czasie wykonywania. W EF Core 2,0 dodaliśmy specjalną obsługę ciągów interpolowanych do naszych dwóch głównych interfejsów API, które akceptują surowe `FromSql` ciągi `ExecuteSqlCommand`SQL: i. Ta nowa obsługa umożliwia C# interpolację ciągów, która będzie używana w sposób bezpieczny. Oznacza to, że w sposób chroniący przed typowymi błędami iniekcji SQL, które mogą wystąpić podczas dynamicznego konstruowania bazy danych SQL w środowisku uruchomieniowym.
+C#6 wprowadza interpolację ciągów, funkcję, która pozwala C# na bezpośrednie osadzanie wyrażeń w literałach ciągów, zapewniając całkiem sposób tworzenia ciągów w czasie wykonywania. W EF Core 2,0 dodaliśmy specjalną obsługę ciągów interpolowanych do naszych dwóch głównych interfejsów API, które akceptują surowe ciągi SQL: `FromSql` i `ExecuteSqlCommand`. Ta nowa obsługa umożliwia C# interpolację ciągów, która będzie używana w sposób bezpieczny. Oznacza to, że w sposób chroniący przed typowymi błędami iniekcji SQL, które mogą wystąpić podczas dynamicznego konstruowania bazy danych SQL w środowisku uruchomieniowym.
 
 Oto przykład:
 
@@ -251,7 +255,7 @@ WHERE ""City"" = @p0
     AND ""ContactTitle"" = @p1
 ```
 
-### <a name="effunctionslike"></a>EF.Functions.Like()
+### <a name="effunctionslike"></a>Bieżąco. Functions. like ()
 
 Dodaliśmy EF. Właściwość Functions, która może być używana przez EF Core lub dostawców do definiowania metod, które mapują na funkcje bazy danych lub operatory, aby mogły być wywoływane w zapytaniach LINQ. Pierwszym przykładem takiej metody jest like ():
 
@@ -298,12 +302,14 @@ public class MyPluralizer : IPluralizer
 ## <a name="others"></a>Inne osoby
 
 ### <a name="move-adonet-sqlite-provider-to-sqlitepclraw"></a>Przenieś dostawcę oprogramowania SQLite ADO.NET do SQLitePCL. Raw
+
 Zapewnia to bardziej niezawodne rozwiązanie w firmie Microsoft. Data. sqlite do dystrybucji natywnych plików binarnych oprogramowania SQLite na różnych platformach.
 
 ### <a name="only-one-provider-per-model"></a>Tylko jeden dostawca na model
+
 Znacznie rozszerza, jak dostawcy mogą współdziałać z modelem i upraszczają konwencje, adnotacje i interfejsy API Fluent współpracują z różnymi dostawcami.
 
-EF Core 2,0 będzie teraz kompilować inne [IModel](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/Metadata/IModel.cs) dla każdego używanego dostawcy. Jest to zazwyczaj przezroczyste dla aplikacji. Ułatwia to uproszczenie interfejsów API metadanych niższego poziomu, takich jak każdy dostęp do *wspólnych koncepcji metadanych relacyjnych* jest zawsze realizowany przez wywołanie `.Relational` zamiast `.SqlServer`, `.Sqlite`itp.
+EF Core 2,0 będzie teraz kompilować inne [IModel](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/Metadata/IModel.cs) dla każdego używanego dostawcy. Jest to zazwyczaj przezroczyste dla aplikacji. Ułatwia to uproszczenie interfejsów API metadanych niższego poziomu, takich jak każdy dostęp do *wspólnych koncepcji metadanych relacyjnych* jest zawsze realizowany przez wywołanie `.Relational` zamiast `.SqlServer`, `.Sqlite`itd.
 
 ### <a name="consolidated-logging-and-diagnostics"></a>Rejestrowanie skonsolidowane i Diagnostyka
 
@@ -313,4 +319,4 @@ Identyfikatory zdarzeń dla komunikatów wysyłanych do ILogger uległy zmianie 
 
 Zmieniono także kategorie rejestratora. Istnieje teraz dobrze znany zestaw kategorii, do których można uzyskać dostęp za pomocą [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/DbLoggerCategory.cs).
 
-Zdarzenia DiagnosticSource teraz używają tych samych nazw identyfikatorów zdarzeń co odpowiadające `ILogger` im komunikaty.
+Zdarzenia DiagnosticSource teraz używają tych samych nazw identyfikatorów zdarzeń co odpowiadające im komunikaty `ILogger`.

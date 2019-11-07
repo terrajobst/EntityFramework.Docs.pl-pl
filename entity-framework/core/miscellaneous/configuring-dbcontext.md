@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: e04c1b65df96819f3493e0ed34ccf26609511f6a
-ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
+ms.openlocfilehash: 3ab90d46b7a4476044e5ea38eaf04f995708e7bf
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72445912"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655801"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurowanie klasy DbContext
 
@@ -41,7 +41,7 @@ optionsBuilder
 > [!NOTE]  
 > Metody selektora dostawcy i inne metody selektora zachowań wymienione powyżej to metody rozszerzające dla `DbContextOptions` lub klasy opcji specyficznych dla dostawcy. Aby można było uzyskać dostęp do tych metod rozszerzających, może być konieczne posiadanie przestrzeni nazw (zwykle `Microsoft.EntityFrameworkCore`) w zakresie i uwzględnienie dodatkowych zależności pakietu w projekcie.
 
-@No__t-0 można dostarczyć do `DbContext` przez zastąpienie metody `OnConfiguring` lub zewnętrznie za pośrednictwem argumentu konstruktora.
+`DbContextOptions` można dostarczyć do `DbContext` przez zastąpienie metody `OnConfiguring` lub zewnętrznie za pośrednictwem argumentu konstruktora.
 
 Jeśli oba są używane, `OnConfiguring` jest stosowany jako ostatni i mogą zastąpić opcje dostarczone do argumentu konstruktora.
 
@@ -163,11 +163,12 @@ using (var context = serviceProvider.GetService<BloggingContext>())
 
 var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
 ```
+
 ## <a name="avoiding-dbcontext-threading-issues"></a>Unikanie problemów wielowątkowości DbContext
 
 Entity Framework Core nie obsługuje wielu operacji równoległych na tym samym wystąpieniu `DbContext`. Obejmuje to zarówno równoległe wykonywanie zapytań asynchronicznych, jak i jawne jednoczesne użycie z wielu wątków. W związku z tym zawsze `await` asynchroniczne wywołania natychmiast lub używają oddzielnych wystąpień `DbContext` dla operacji wykonywanych równolegle.
 
-Gdy EF Core wykryje próbę użycia wystąpienia `DbContext` współbieżnie, zobaczysz `InvalidOperationException` z komunikatem podobnym do tego: 
+Gdy EF Core wykryje próbę użycia wystąpienia `DbContext` współbieżnie, zobaczysz `InvalidOperationException` z komunikatem podobnym do tego:
 
 > Druga operacja rozpoczęta w tym kontekście przed ukończeniem poprzedniej operacji. Jest to zazwyczaj spowodowane przez różne wątki korzystające z tego samego wystąpienia DbContext, jednak elementy członkowskie wystąpienia nie są gwarantowane bezpieczny wątkowo.
 
@@ -177,13 +178,13 @@ Istnieją typowe błędy, które mogą przypadkowo spowodować jednoczesne dost�
 
 ### <a name="forgetting-to-await-the-completion-of-an-asynchronous-operation-before-starting-any-other-operation-on-the-same-dbcontext"></a>Zapominanie do oczekiwania na ukończenie operacji asynchronicznej przed rozpoczęciem jakiejkolwiek innej operacji w tym samym kontekście DbContext
 
-Metody asynchroniczne umożliwiają EF Core inicjowania operacji, które uzyskują dostęp do bazy danych w sposób nieblokowany. Ale jeśli obiekt wywołujący nie oczekuje na zakończenie jednej z tych metod, a następnie wykonuje inne operacje na `DbContext`, stan `DbContext` może być (i bardzo prawdopodobnie będzie) uszkodzony. 
+Metody asynchroniczne umożliwiają EF Core inicjowania operacji, które uzyskują dostęp do bazy danych w sposób nieblokowany. Ale jeśli obiekt wywołujący nie oczekuje na zakończenie jednej z tych metod, a następnie wykonuje inne operacje na `DbContext`, stan `DbContext` może być (i bardzo prawdopodobnie będzie) uszkodzony.
 
 Zawsze Czekaj na EF Core metod asynchronicznych.  
 
 ### <a name="implicitly-sharing-dbcontext-instances-across-multiple-threads-via-dependency-injection"></a>Niejawnie udostępnianie wystąpień DbContext w wielu wątkach przy użyciu iniekcji zależności
 
-Metoda rozszerzenia [`AddDbContext`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) domyślnie rejestruje typy `DbContext` z [okresem istnienia w zakresie](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes) . 
+Metoda rozszerzenia [`AddDbContext`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) domyślnie rejestruje typy `DbContext` z [okresem istnienia w zakresie](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes) .
 
 Jest to bezpieczne z równoczesnych problemów z dostępem w aplikacjach ASP.NET Core, ponieważ w danym momencie istnieje tylko jeden wątek wykonujący każde żądanie klienta, a ponieważ każde żądanie pobiera oddzielny zakres iniekcji zależności (i w związku z tym jest osobnym wystąpieniem `DbContext`).
 
@@ -193,5 +194,5 @@ Przy użyciu iniekcji zależności można to osiągnąć przez zarejestrowanie k
 
 ## <a name="more-reading"></a>Więcej informacji
 
-* Przeczytaj [wstrzyknięcie zależności](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection) , aby dowiedzieć się więcej o używaniu di.
-* Przeczytaj [test](testing/index.md) , aby uzyskać więcej informacji.
+- Przeczytaj [wstrzyknięcie zależności](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection) , aby dowiedzieć się więcej o używaniu di.
+- Przeczytaj [test](testing/index.md) , aby uzyskać więcej informacji.

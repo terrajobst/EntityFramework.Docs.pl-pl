@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/07/2017
 uid: core/managing-schemas/migrations/history-table
-ms.openlocfilehash: 0db393ff3101564f8d8081d0a57b264c2c459df7
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: 0007da7ce3d78fd8f17007ac79a395bb2e6efd86
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72812072"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655708"
 ---
 # <a name="custom-migrations-history-table"></a>Tabela historii niestandardowych migracji
 
@@ -22,40 +22,15 @@ Domyślnie program EF Core śledzi, które migracje zostały zastosowane do bazy
 
 Można zmienić nazwę schematu i tabeli przy użyciu metody `MigrationsHistoryTable()` w `OnConfiguring()` (lub `ConfigureServices()` na ASP.NET Core). Oto przykład użycia dostawcy EF Core SQL Server.
 
-``` csharp
-protected override void OnConfiguring(DbContextOptionsBuilder options)
-    => options.UseSqlServer(
-        connectionString,
-        x => x.MigrationsHistoryTable("__MyMigrationsHistory", "mySchema"));
-```
+[!code-csharp[Main](../../../../samples/core/Schemas/Migrations/MigrationTableNameContext.cs#TableNameContext)]
 
 ## <a name="other-changes"></a>Inne zmiany
 
 Aby skonfigurować dodatkowe aspekty tabeli, Przesłoń i Zastąp `IHistoryRepository` usługę specyficzną dla dostawcy. Oto przykład zmiany nazwy kolumny MigrationId na *Identyfikator* na SQL Server.
 
-``` csharp
-protected override void OnConfiguring(DbContextOptionsBuilder options)
-    => options
-        .UseSqlServer(connectionString)
-        .ReplaceService<IHistoryRepository, MyHistoryRepository>();
-```
+[!code-csharp[Main](../../../../samples/core/Schemas/Migrations/MyHistoryRepository.cs#HistoryRepositoryContext)]
 
 > [!WARNING]
 > `SqlServerHistoryRepository` znajduje się wewnątrz wewnętrznej przestrzeni nazw i może ulec zmianie w przyszłych wersjach.
 
-``` csharp
-class MyHistoryRepository : SqlServerHistoryRepository
-{
-    public MyHistoryRepository(HistoryRepositoryDependencies dependencies)
-        : base(dependencies)
-    {
-    }
-
-    protected override void ConfigureTable(EntityTypeBuilder<HistoryRow> history)
-    {
-        base.ConfigureTable(history);
-
-        history.Property(h => h.MigrationId).HasColumnName("Id");
-    }
-}
-```
+[!code-csharp[Main](../../../../samples/core/Schemas/Migrations/MyHistoryRepository.cs#HistoryRepository)]

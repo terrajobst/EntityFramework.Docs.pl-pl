@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: cced53edadb890e4e86753ec2628218ffc4d1d5b
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 335d4f3a601624f7c994b7dcacefe4ef6798beb3
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181392"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655611"
 ---
 # <a name="spatial-data"></a>Dane przestrzenne
 
@@ -25,10 +25,10 @@ Aby można było używać danych przestrzennych z EF Core, należy zainstalować
 
 Dostawca EF Core                        | Przestrzenny pakiet NuGet
 --------------------------------------- | ---------------------
-Microsoft.EntityFrameworkCore.SqlServer | [Microsoft. EntityFrameworkCore. SqlServer. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite)
-Microsoft.EntityFrameworkCore.Sqlite    | [Microsoft. EntityFrameworkCore. sqlite. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite)
-Microsoft.EntityFrameworkCore.InMemory  | [NetTopologySuite](https://www.nuget.org/packages/NetTopologySuite)
-Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. EntityFrameworkCore. PostgreSQL. NetTopologySuite](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite)
+Microsoft. EntityFrameworkCore. SqlServer | [Microsoft. EntityFrameworkCore. SqlServer. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite)
+Microsoft. EntityFrameworkCore. sqlite    | [Microsoft. EntityFrameworkCore. sqlite. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite)
+Microsoft. EntityFrameworkCore. inMemory  | [NetTopologySuite](https://www.nuget.org/packages/NetTopologySuite)
+Npgsql. EntityFrameworkCore. PostgreSQL   | [Npgsql. EntityFrameworkCore. PostgreSQL. NetTopologySuite](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite)
 
 ## <a name="reverse-engineering"></a>Odwrócenie inżynierii
 
@@ -207,17 +207,17 @@ var currentCountry = db.Countries
     .FirstOrDefault(c => c.Border.Contains(currentLocation));
 ```
 
-## <a name="sql-server"></a>SQL Server
+## <a name="sql-server"></a>Serwer SQL
 
 Jeśli używasz SQL Server, musisz wiedzieć o kilku dodatkowych kwestiach.
 
 ### <a name="geography-or-geometry"></a>Geografia lub geometria
 
-Domyślnie właściwości przestrzenne są mapowane na kolumny `geography` w SQL Server. Aby użyć `geometry`, [skonfiguruj Typ kolumny](xref:core/modeling/relational/data-types) w modelu.
+Domyślnie właściwości przestrzenne są mapowane do `geography` kolumn w SQL Server. Aby użyć `geometry`, należy [skonfigurować typ kolumny](xref:core/modeling/relational/data-types) w modelu.
 
 ### <a name="geography-polygon-rings"></a>Pierścienie wielokątów geograficznych
 
-W przypadku używania typu kolumny `geography` SQL Server nakładają dodatkowe wymagania dotyczące pierścienia zewnętrznego (lub powłoki) i wewnętrznych pierścieni (lub dziur). Pierścień zewnętrzny musi być zorientowany w lewo i w prawo. NKTY przerwania sprawdza to przed wysłaniem wartości do bazy danych.
+W przypadku używania `geography` typu kolumny SQL Server nakładają dodatkowe wymagania dotyczące pierścienia zewnętrznego (lub powłoki) i wewnętrznych pierścieni (lub dziur). Pierścień zewnętrzny musi być zorientowany w lewo i w prawo. NKTY przerwania sprawdza to przed wysłaniem wartości do bazy danych.
 
 ### <a name="fullglobe"></a>FullGlobe
 
@@ -226,7 +226,7 @@ SQL Server ma niestandardowy typ geometrii reprezentujący pełny Globus przy u�
 > [!WARNING]
 > FullGlobe i wielokąty oparte na nim nie są obsługiwane przez NKTY przerwania.
 
-## <a name="sqlite"></a>Bazy danych SQLite
+## <a name="sqlite"></a>SQLite
 
 Poniżej przedstawiono dodatkowe informacje dotyczące tych, które są używane przez program SQLite.
 
@@ -244,7 +244,7 @@ brew install libspatialite
 
 ### <a name="configuring-srid"></a>Konfigurowanie SRID
 
-W SpatiaLite, kolumny muszą określać SRID na kolumnę. Wartość domyślna SRID to `0`. Określ inny SRID przy użyciu metody ForSqliteHasSrid.
+W SpatiaLite, kolumny muszą określać SRID na kolumnę. Domyślny SRID jest `0`. Określ inny SRID przy użyciu metody ForSqliteHasSrid.
 
 ``` csharp
 modelBuilder.Entity<City>().Property(c => c.Location)
@@ -264,14 +264,14 @@ modelBuilder.Entity<City>().Property(c => c.Location)
 
 W tej tabeli przedstawiono, które elementy członkowskie NKTY przerwania są tłumaczone na SQL przez każdego dostawcę EF Core.
 
-NetTopologySuite | SQL Server (Geometria) | SQL Server (Geografia) | Bazy danych SQLite | Npgsql
+NetTopologySuite | SQL Server (Geometria) | SQL Server (Geografia) | SQLite | Npgsql
 --- |:---:|:---:|:---:|:---:
 Geometria. obszar | ✔ | ✔ | ✔ | ✔
 Geometry. AsBinary () | ✔ | ✔ | ✔ | ✔
 Geometry. AsText () | ✔ | ✔ | ✔ | ✔
 Geometria. granica | ✔ | | ✔ | ✔
 Geometry. Buffer (Double) | ✔ | ✔ | ✔ | ✔
-Geometry. Buffer (Double, int) | | | ✔
+Geometry. Buffer (Double, int) | | | ✔ | ✔
 Geometria. centroida | ✔ | | ✔ | ✔
 Geometry. Contains (Geometria) | ✔ | ✔ | ✔ | ✔
 Geometry. ConvexHull () | ✔ | ✔ | ✔ | ✔
@@ -287,17 +287,17 @@ Geometry. EqualsExact (Geometria) | | | | ✔
 Geometry. EqualsTopologically (Geometria) | ✔ | ✔ | ✔ | ✔
 Geometry. Geometrytype | ✔ | ✔ | ✔ | ✔
 Geometry. GetGeometryN (int) | ✔ | | ✔ | ✔
-Geometria. InteriorPoint | ✔ | | ✔
+Geometria. InteriorPoint | ✔ | | ✔ | ✔
 Geometria. część wspólna (Geometria) | ✔ | ✔ | ✔ | ✔
 Geometria. Intersects (Geometria) | ✔ | ✔ | ✔ | ✔
 Geometria. IsEmpty | ✔ | ✔ | ✔ | ✔
 Geometria. IsSimple | ✔ | | ✔ | ✔
 Geometria. IsValid | ✔ | ✔ | ✔ | ✔
-Geometry. IsWithinDistance (Geometria, Double) | ✔ | | ✔
+Geometry. IsWithinDistance (Geometria, Double) | ✔ | | ✔ | ✔
 Geometria. Długość | ✔ | ✔ | ✔ | ✔
 Geometria. NumGeometries | ✔ | ✔ | ✔ | ✔
 Geometria. NumPoints | ✔ | ✔ | ✔ | ✔
-Geometria. OgcGeometryType | ✔ | ✔ | ✔
+Geometria. OgcGeometryType | ✔ | ✔ | ✔ | ✔
 Geometria. nakładanie się (Geometria) | ✔ | ✔ | ✔ | ✔
 Geometria. PointOnSurface | ✔ | | ✔ | ✔
 Geometry. rerelacja (Geometria, ciąg) | ✔ | | ✔ | ✔
@@ -307,7 +307,7 @@ Geometry. SymmetricDifference (Geometria) | ✔ | ✔ | ✔ | ✔
 Geometry. ToBinary () | ✔ | ✔ | ✔ | ✔
 Geometry. ToText () | ✔ | ✔ | ✔ | ✔
 Geometria. touch (Geometria) | ✔ | | ✔ | ✔
-Geometry. Union () | | | ✔
+Geometry. Union () | | | ✔ | ✔
 Geometry. Union (Geometria) | ✔ | ✔ | ✔ | ✔
 Geometria. w elemencie (Geometria) | ✔ | ✔ | ✔ | ✔
 GeometryCollection. Count | ✔ | ✔ | ✔ | ✔

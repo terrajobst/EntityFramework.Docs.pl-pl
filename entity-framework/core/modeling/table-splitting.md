@@ -5,14 +5,14 @@ ms.author: ansvyryd
 ms.date: 04/10/2019
 ms.assetid: 0EC2CCE1-BD55-45D8-9EA9-20634987F094
 uid: core/modeling/table-splitting
-ms.openlocfilehash: 684fcfbb66debfd1b89e23c8aaf0a32909378c6b
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: a3a2e5842a6c6b4b490084d205a0d44bb46c17ee
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149188"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656037"
 ---
-# <a name="table-splitting"></a>Podział tabeli
+# <a name="table-splitting"></a>Dzielenie tabeli
 
 >[!NOTE]
 > Ta funkcja jest nowa w EF Core 2,0.
@@ -25,13 +25,13 @@ Aby używać dzielenia tabel, należy zamapować typy jednostek na tę samą tab
 
 Typowy scenariusz dzielenia tabeli polega na użyciu tylko podzbioru kolumn w tabeli w celu uzyskania większej wydajności lub hermetyzacji.
 
-W tym przykładzie `Order` reprezentuje `DetailedOrder`podzestaw.
+W tym przykładzie `Order` reprezentuje podzestaw `DetailedOrder`.
 
 [!code-csharp[Order](../../../samples/core/Modeling/TableSplitting/Order.cs?name=Order)]
 
 [!code-csharp[DetailedOrder](../../../samples/core/Modeling/TableSplitting/DetailedOrder.cs?name=DetailedOrder)]
 
-Poza wymaganą konfiguracją, która jest `Property(o => o.Status).HasColumnName("Status")` wywoływana w `DetailedOrder.Status` celu mapowania do tej samej `Order.Status`kolumny co.
+Poza wymaganą konfiguracją, która wywołuje `Property(o => o.Status).HasColumnName("Status")`, aby zmapować `DetailedOrder.Status` do tej samej kolumny co `Order.Status`.
 
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=TableSplitting&highlight=3)]
 
@@ -40,7 +40,7 @@ Poza wymaganą konfiguracją, która jest `Property(o => o.Status).HasColumnName
 
 ## <a name="usage"></a>Użycie
 
-Zapisywanie i wykonywanie zapytań względem jednostek przy użyciu dzielenia tabeli odbywa się tak samo jak w przypadku innych jednostek. I począwszy od EF Core 3,0 odwołanie do jednostki zależnej może `null`być. Jeśli wszystkie kolumny używane przez jednostkę zależną są `NULL` bazami danych, żadne wystąpienie dla niego nie zostanie utworzone podczas wykonywania zapytania. W takim przypadku wszystkie właściwości są opcjonalne i są ustawiane na `null`, co może nie być oczekiwane.
+Zapisywanie i wykonywanie zapytań względem jednostek przy użyciu dzielenia tabeli odbywa się tak samo jak w przypadku innych jednostek. I począwszy od EF Core 3,0 można `null`odwołanie do jednostki zależnej. Jeśli wszystkie kolumny używane przez jednostkę zależną są `NULL` są bazami danych, żadne wystąpienie dla niego nie zostanie utworzone podczas wykonywania zapytania. Ponadto wszystkie właściwości są opcjonalne i mają ustawioną wartość `null`, co może być nieoczekiwane.
 
 [!code-csharp[Usage](../../../samples/core/Modeling/TableSplitting/Program.cs?name=Usage)]
 

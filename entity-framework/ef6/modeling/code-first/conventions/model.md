@@ -1,32 +1,32 @@
 ---
-title: Na podstawie modelu Konwencji - EF6
+title: Konwencje oparte na modelu — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0fc4eef8-29b8-4192-9c77-08fd33d3db3a
-ms.openlocfilehash: 80b722730b4ca6c9d00a8611b6c9027e8bc9fe61
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: c873e9a216bd9bd1934f2149ae6af602072f3608
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283710"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656167"
 ---
-# <a name="model-based-conventions"></a>Konwencje opartych na modelu
+# <a name="model-based-conventions"></a>Konwencje oparte na modelu
 > [!NOTE]
-> **EF6 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 6. Jeśli używasz starszej wersji, niektóre lub wszystkie informacje, nie ma zastosowania.  
+> **Ef6 tylko** — funkcje, interfejsy API itp. omówione na tej stronie zostały wprowadzone w Entity Framework 6. Jeśli używasz wcześniejszej wersji, niektóre lub wszystkie informacje nie są stosowane.  
 
-Model oparty konwencje są zaawansowane metody oparte na Konwencji model konfiguracji. W przypadku większości scenariuszy [niestandardowego kodu pierwszego Konwencji interfejsu API na DbModelBuilder](~/ef6/modeling/code-first/conventions/custom.md) powinny być używane. Opis interfejsu API DbModelBuilder konwencje zaleca się przed rozpoczęciem korzystania z modelu na podstawie Konwencji.  
+Konwencje oparte na modelu są zaawansowaną metodą konfiguracji modelu opartej na Konwencji. W przypadku większości scenariuszy należy użyć [interfejsu API niestandardowego Code First Konwencji na DbModelBuilder](~/ef6/modeling/code-first/conventions/custom.md) . Przed zastosowaniem Konwencji opartych na modelu zaleca się zrozumienie interfejsu API DbModelBuilder dla Konwencji.  
 
-Konwencje na podstawie modelu pozwala na tworzenie konwencje, które wpływają na właściwości i tabel, które nie są konfigurowane za pomocą standardowych konwencji. Przykładem tego są dyskryminatora kolumn w tabeli na hierarchii modeli i skojarzenia niezależnie od kolumny.  
+Konwencje oparte na modelu umożliwiają tworzenie konwencji mających wpływ na właściwości i tabele, których nie można konfigurować za pośrednictwem standardowych konwencji. Przykłady tych są kolumnami rozróżniacza w tabelach dla modeli hierarchii i niezależnych skojarzeniach.  
 
-## <a name="creating-a-convention"></a>Tworzenie z Konwencją   
+## <a name="creating-a-convention"></a>Tworzenie Konwencji   
 
-Pierwszym krokiem w tworzeniu Konwencji model oparty jest wybór, gdy w potoku Konwencji musi zostać zastosowana do modelu. Istnieją dwa typy modelu Konwencji, Store (S-Space) i dotycząca pojęć (C-Space). Konwencja C + spacja jest stosowany do modelu, który aplikacja zostanie skompilowana Konwencji S miejsca jest stosowane do wersji modelu, który reprezentuje bazy danych i elementy kontrolki, takie jak jak automatycznie generowanych kolumny mają nazwy.  
+Pierwszym krokiem w tworzeniu konwencji opartej na modelu jest wybór, kiedy w potoku należy zastosować Konwencję do modelu. Istnieją dwa typy Konwencji modelu, koncepcyjne (C-Space) i magazyn (przestrzenie S). Konwencja C-Space jest stosowana do modelu, który kompiluje aplikacja, natomiast Konwencja S-Space jest stosowana do wersji modelu, która reprezentuje bazę danych i kontroluje elementy, takie jak automatyczne generowanie kolumn.  
 
-Konwencja modelu to klasa, która rozszerza IConceptualModelConvention lub IStoreModelConvention.  Te interfejsy, oba akceptują typ ogólny, który może być typu MetadataItem, która jest używana do filtrowania typu danych, który dotyczy Konwencji.  
+Konwencja modelu jest klasą, która rozciąga się od IConceptualModelConvention lub IStoreModelConvention.  Te interfejsy akceptują typ ogólny, który może być typu Data, który jest używany do filtrowania typu danych, którego dotyczy dana Konwencja.  
 
-## <a name="adding-a-convention"></a>Dodawanie Konwencję   
+## <a name="adding-a-convention"></a>Dodawanie Konwencji   
 
-Konwencje modelu zostaną dodane w taki sam sposób, jak regularne konwencje klasy. W **OnModelCreating** metody, Dodaj Konwencji do listy konwencje dla modelu.  
+Konwencje modelu są dodawane w taki sam sposób jak w przypadku zwykłych Konwencji klas. W metodzie **OnModelCreating** Dodaj Konwencję do listy Konwencji dla modelu.  
 
 ``` csharp
 using System.Data.Entity;
@@ -46,7 +46,7 @@ public class BlogContext : DbContext
 }
 ```  
 
-Można również dodać Konwencję względem innego Konwencja, za pomocą Conventions.AddBefore\< \> lub Conventions.AddAfter\< \> metody. Aby uzyskać więcej informacji dotyczących Konwencji, których dotyczy platformy Entity Framework, zobacz sekcję Uwagi.  
+Konwencja można również dodać w odniesieniu do innej konwencji przy użyciu konwencji. addprzed\<\> lub Konwencji. addpo\<\> metod. Aby uzyskać więcej informacji na temat Konwencji, które Entity Framework mają zastosowanie, zobacz sekcję Uwagi.  
 
 ``` csharp
 protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -55,11 +55,11 @@ protected override void OnModelCreating(DbModelBuilder modelBuilder)
 }
 ```  
 
-## <a name="example-discriminator-model-convention"></a>Przykład: Dyskryminatora modelu Konwencji  
+## <a name="example-discriminator-model-convention"></a>Przykład: Konwencja modelu rozróżniacza  
 
-Zmienianie nazw kolumn, generowane przez EF jest przykładem coś, co nie można zrobić z innymi konwencjami interfejsów API.  Jest to sytuacja w przypadku, gdy za pomocą modelu Konwencji jest jedynym rozwiązaniem.  
+Zmiana nazw kolumn generowanych przez EF jest przykładem, że nie można wykonać operacji z innymi interfejsami API Konwencji.  Jest to sytuacja, w której korzystanie z Konwencji modelu jest jedyną opcją.  
 
-Przykładowy sposób konfigurowania wygenerowanych kolumn przy użyciu konwencji model oparty jest dostosowanie sposobu, w kolumny dyskryminatora.  Poniżej znajduje się przykład Konwencji prosty model na podstawie zmienia nazwę każdej kolumny w modelu o nazwie "Dyskryminatora" na "Obiektu EntityType".  W tym kolumny, że deweloper po prostu o nazwie "Dyskryminatora". Ponieważ kolumna "Dyskryminatora" jest kolumną wygenerowanego musi on zostać uruchomiony w obszarze S.  
+Przykład użycia konwencji opartej na modelu do konfigurowania wygenerowanych kolumn jest dostosowywany do sposobu nazywania kolumn rozróżniacza.  Poniżej znajduje się przykład prostej konwencji opartej na modelu, która zmienia nazwę każdej kolumny w modelu o nazwie "rozróżniacz" na "EntityType".  Obejmuje to kolumny, które deweloper po prostu nazywa "rozróżniaczem". Ponieważ kolumna "rozróżniacz" jest wygenerowaną kolumną, należy ją uruchomić w przestrzeni S.  
 
 ``` csharp
 using System.Data.Entity;
@@ -79,11 +79,11 @@ class DiscriminatorRenamingConvention : IStoreModelConvention<EdmProperty>
 }
 ```  
 
-## <a name="example-general-ia-renaming-convention"></a>Przykład: IA ogólne, zmiana nazwy Konwencji   
+## <a name="example-general-ia-renaming-convention"></a>Przykład: ogólna Konwencja zmiany nazwy   
 
-Inny przykład bardziej złożonego modelu na podstawie Konwencji w akcji jest skonfigurować sposób noszą niezależnych skojarzenia (IAs).  Jest to sytuacja, w którym Model konwencje są stosowane, ponieważ usługi IAs są generowane przez EF i nie są dostępne w modelu, które mogą uzyskiwać dostęp do interfejsu API DbModelBuilder.  
+Innym bardziej skomplikowanym przykładem Konwencji opartych na modelu w akcji jest skonfigurowanie sposobu nazywania niezależnych skojarzeń (IAs).  Jest to sytuacja, w której stosowane są konwencje modelu, ponieważ usługa IAs jest generowana przez EF i nie jest obecna w modelu, do którego interfejs API DbModelBuilder może uzyskać dostęp.  
 
-Gdy EF generuje IA, tworzy kolumnę o nazwie EntityType_KeyName. Na przykład skojarzenie o nazwie klienta z kolumną klucza o nazwie CustomerId ta aplikacja wygeneruje kolumnę o nazwie Customer_CustomerId. Następujące paski Konwencji "\_" znak poza nazwa kolumny, która jest generowana dla IA.  
+Gdy Dr generuje IA, tworzy kolumnę o nazwie EntityType_KeyName. Na przykład dla skojarzenia o nazwie klient z kolumną klucza o nazwie CustomerId generowanie kolumny o nazwie Customer_CustomerId. Poniższa Konwencja przykreśla znak "\_" z nazwy kolumny, która jest generowana dla IA.  
 
 ``` csharp
 using System.Data.Entity;
@@ -132,7 +132,7 @@ public class ForeignKeyNamingConvention : IStoreModelConvention<AssociationType>
 
     private void NormalizeForeignKeyProperties(ReadOnlyMetadataCollection<EdmProperty> properties)
     {
-        for (int i = 0; i \< properties.Count; ++i)
+        for (int i = 0; i < properties.Count; ++i)
         {
             int underscoreIndex = properties[i].Name.IndexOf('_');
             if (underscoreIndex > 0)
@@ -146,7 +146,7 @@ public class ForeignKeyNamingConvention : IStoreModelConvention<AssociationType>
 
 ## <a name="extending-existing-conventions"></a>Rozszerzanie istniejących konwencji   
 
-Jeśli należy napisać Konwencji, która jest podobna do jednego Konwencji, które platformy Entity Framework już ma zastosowanie do modelu zawsze można rozszerzyć tej Konwencji, aby uniknąć konieczności ponownego pisania jej od podstaw.  Jest na przykład aby zamienić istniejący identyfikator dopasowania Konwencja, za pomocą niestandardowego.   Dodatkowa korzyść do przesłonięcia klucza Konwencji jest, że przeciążonej ma zostać wywołana tylko wtedy, gdy żaden klucz już wykrycia lub jawnie skonfigurowane. Lista konwencje używanym przez program Entity Framework jest dostępny tutaj: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  
+Jeśli zachodzi konieczność zapisania Konwencji podobnej do jednej z Konwencji, która Entity Framework już dotyczy modelu, zawsze można ją rozłożyć, aby uniknąć konieczności ponownego zapisywania go od podstaw.  Przykładem jest zastępowanie istniejącej Konwencji dopasowywania identyfikatorów z niestandardowym.   Dodatkową korzyścią zastąpienia Konwencji klucza jest to, że zastąpiona metoda zostanie wywołana tylko wtedy, gdy nie wykryto już klucza lub jest on jawnie skonfigurowany. Lista Konwencji, które są używane przez Entity Framework, jest dostępna tutaj: [http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  
 
 ``` csharp
 using System.Data.Entity;
@@ -191,7 +191,7 @@ public class CustomKeyDiscoveryConvention : KeyDiscoveryConvention
 }
 ```  
 
-Następnie należy dodać naszej nowej Konwencji przed istniejącej Konwencji klucza. Po dodamy CustomKeyDiscoveryConvention, możemy usunąć IdKeyDiscoveryConvention.  Jeśli nie możemy usunąć istniejące IdKeyDiscoveryConvention, ta Konwencja będzie nadal pierwszeństwo Konwencji odnajdywania identyfikator, ponieważ jest uruchamiane, najpierw, ale w przypadku, gdy nie ma właściwości "key" zostanie znaleziony, zostanie uruchomiony Konwencji "id".  Zobaczymy to zachowanie, ponieważ każda Konwencja widzi modelu jako zaktualizowany zgodnie z Konwencją poprzedniego (a nie na obsługiwaniu na nim niezależnie i wszystkie połączone ze sobą) powoduje, że jeśli na przykład poprzedniego Konwencji zaktualizowany nazwę kolumny, aby dopasować stanie się coś odsetek swoje niestandardowe Konwencji (jeśli wcześniej nazwę nie zainteresowania), a następnie go będą stosowane do tej kolumny.  
+Następnie musimy dodać naszą nową Konwencję przed istniejącą Konwencją klucza. Po dodaniu CustomKeyDiscoveryConvention można usunąć IdKeyDiscoveryConvention.  Jeśli nie usuniesz istniejącej IdKeyDiscoveryConvention, ta konwencja nadal ma pierwszeństwo przed Konwencją odnajdowania identyfikatorów od momentu jego uruchomienia, ale w przypadku braku właściwości "Key" zostanie uruchomiona Konwencja "ID".  Widzimy takie zachowanie, ponieważ każda Konwencja widzi model zaktualizowany przez poprzednią Konwencję (a nie działa niezależnie, a wszystkie łączą się ze sobą), tak aby Jeśli na przykład w poprzedniej Konwencji Zaktualizowano nazwę kolumny w celu dopasowania do elementu interesuje Cię niestandardową Konwencję (Jeśli przed tą nazwą nie jest interesująca), zostanie ona zastosowana do tej kolumny.  
 
 ``` csharp
 public class BlogContext : DbContext
@@ -209,4 +209,4 @@ public class BlogContext : DbContext
 
 ## <a name="notes"></a>Uwagi  
 
-Lista konwencje, które obecnie są stosowane przez program Entity Framework jest dostępna w tej dokumentacji MSDN: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  Ta lista jest pobierane bezpośrednio z naszego kodu źródłowego.  Kod źródłowy platformy Entity Framework 6 jest dostępna w [GitHub](https://github.com/aspnet/entityframework6/) wiele z Konwencji używanych przez program Entity Framework jest dobrym punktami startowymi dla modelu niestandardowego na podstawie Konwencji.  
+Lista Konwencji, które są obecnie stosowane przez Entity Framework, jest dostępna w dokumentacji MSDN tutaj: [http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  Ta lista jest pobierana bezpośrednio z naszego kodu źródłowego.  Kod źródłowy dla Entity Framework 6 jest dostępny w witrynie [GitHub](https://github.com/aspnet/entityframework6/) i wiele konwencji używanych przez Entity Framework to dobre punkty wyjścia dla niestandardowych Konwencji opartych na modelu.  

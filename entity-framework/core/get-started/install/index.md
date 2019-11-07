@@ -4,18 +4,18 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: b4ae13ae1b22bb78c2c0407c0b3da64ee12ff2c1
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: aeb3ed1af8725ed6f92e0c0ba022a89b651bff80
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181202"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655593"
 ---
 # <a name="installing-entity-framework-core"></a>Instalowanie Entity Framework Core
 
 ## <a name="prerequisites"></a>Wymagania wstępne
 
-* EF Core jest biblioteką [.NET Standard 2,1](/dotnet/standard/net-standard) . Dlatego EF Core wymaga implementacji platformy .NET obsługującej .NET Standard 2,1 do uruchomienia. EF Core można także odwoływać się do innych bibliotek .NET Standard 2,1. 
+* EF Core jest biblioteką [.NET Standard 2,1](/dotnet/standard/net-standard) . Dlatego EF Core wymaga implementacji platformy .NET obsługującej .NET Standard 2,1 do uruchomienia. EF Core można także odwoływać się do innych bibliotek .NET Standard 2,1.
 
 * Na przykład można użyć EF Core do tworzenia aplikacji przeznaczonych dla platformy .NET Core. Tworzenie aplikacji .NET Core wymaga [zestaw .NET Core SDK](https://dotnet.microsoft.com/download). Opcjonalnie możesz również użyć środowiska programistycznego, takiego jak [Visual Studio](https://visualstudio.microsoft.com/vs), [Visual Studio dla komputerów Mac](https://visualstudio.microsoft.com/vs/mac)lub [Visual Studio Code](https://code.visualstudio.com). Aby uzyskać więcej informacji, sprawdź [wprowadzenie z platformą .NET Core](/dotnet/core/get-started).
 
@@ -64,6 +64,7 @@ Aby uzyskać więcej informacji, zobacz [okno dialogowe Menedżera pakietów NuG
   ``` PowerShell  
   Install-Package Microsoft.EntityFrameworkCore.SqlServer
   ```
+
 * Aby zaktualizować dostawcę, użyj polecenia `Update-Package`.
 
 * Aby określić określoną wersję, użyj modyfikatora `-Version`. Na przykład aby zainstalować EF Core pakiety 2.2.0, Dołącz `-Version 2.2.0` do poleceń
@@ -76,11 +77,11 @@ Możesz zainstalować narzędzia do wykonywania zadań związanych z EF Core w p
 
 Dostępne są dwa zestawy narzędzi:
 
-* [Narzędzia interfejsu wiersza polecenia platformy .NET Core (CLI)](xref:core/miscellaneous/cli/dotnet) mogą być używane w systemie Windows, Linux lub macOS. Te polecenia zaczynają się od `dotnet ef`. 
+* [Narzędzia interfejsu wiersza polecenia platformy .NET Core (CLI)](xref:core/miscellaneous/cli/dotnet) mogą być używane w systemie Windows, Linux lub macOS. Te polecenia zaczynają się od `dotnet ef`.
 
 * [Narzędzia konsoli Menedżera pakietów (PMC)](xref:core/miscellaneous/cli/powershell) działają w programie Visual Studio w systemie Windows. Te polecenia zaczynają się od zlecenia, na przykład `Add-Migration`, `Update-Database`.
 
-Mimo że można także użyć poleceń `dotnet ef` z konsoli Menedżera pakietów, zaleca się korzystanie z narzędzi konsoli Menedżera pakietów w przypadku korzystania z programu Visual Studio:
+Mimo że można również użyć poleceń `dotnet ef` z konsoli Menedżera pakietów, zaleca się korzystanie z narzędzi konsoli Menedżera pakietów w przypadku korzystania z programu Visual Studio:
 
 * Automatycznie pracują z bieżącym projektem wybranym w ramach dyrektywy PMC w programie Visual Studio, bez konieczności ręcznego przełączania katalogów.  
 
@@ -94,28 +95,28 @@ Narzędzia interfejs wiersza polecenia platformy .NET Core wymagają zestaw .NET
 
 Polecenia `dotnet ef` są zawarte w bieżących wersjach zestaw .NET Core SDK, ale aby włączyć polecenia w określonym projekcie, należy zainstalować pakiet `Microsoft.EntityFrameworkCore.Design`:
 
-``` Console 
-dotnet add package Microsoft.EntityFrameworkCore.Design 
-``` 
+``` Console
+dotnet add package Microsoft.EntityFrameworkCore.Design
+```
 
 W przypadku aplikacji ASP.NET Core ten pakiet jest uwzględniany automatycznie.
 
-> [!IMPORTANT]      
+> [!IMPORTANT]
 > Zawsze używaj wersji pakietu narzędzi, która jest zgodna z wersją główną pakietów środowiska uruchomieniowego.
 
 ### <a name="get-the-package-manager-console-tools"></a>Pobierz narzędzia konsoli Menedżera pakietów
 
 Aby uzyskać narzędzia konsoli Menedżera pakietów dla EF Core, zainstaluj pakiet `Microsoft.EntityFrameworkCore.Tools`. Na przykład w programie Visual Studio:
 
-``` PowerShell  
+``` PowerShell
 Install-Package Microsoft.EntityFrameworkCore.Tools
-``` 
+```
 
 W przypadku aplikacji ASP.NET Core ten pakiet jest uwzględniany automatycznie.
 
 ## <a name="upgrading-to-the-latest-ef-core"></a>Uaktualnianie do najnowszej EF Core
 
-* Za każdym razem, gdy udostępnimy nową wersję EF Core, wybraliśmy również nową wersję dostawców, którzy są częścią projektu EF Core, takich jak Microsoft. EntityFrameworkCore. SqlServer, Microsoft. EntityFrameworkCore. SQLite, i Microsoft. EntityFrameworkCore. inMemory. Po prostu możesz przeprowadzić uaktualnienie do nowej wersji dostawcy, aby uzyskać wszystkie ulepszenia. 
+* Za każdym razem, gdy udostępnimy nową wersję EF Core, wybraliśmy również nową wersję dostawców, którzy są częścią projektu EF Core, takich jak Microsoft. EntityFrameworkCore. SqlServer, Microsoft. EntityFrameworkCore. SQLite, i Microsoft. EntityFrameworkCore. inMemory. Po prostu możesz przeprowadzić uaktualnienie do nowej wersji dostawcy, aby uzyskać wszystkie ulepszenia.
 
 * EF Core, wraz z SQL Server i dostawcami znajdującymi się w pamięci, są dołączane do bieżących wersji ASP.NET Core. Aby uaktualnić istniejącą aplikację ASP.NET Core do nowszej wersji EF Core, należy zawsze uaktualnić wersję programu ASP.NET Core.
 
@@ -128,7 +129,7 @@ W przypadku aplikacji ASP.NET Core ten pakiet jest uwzględniany automatycznie.
   * Pakiety czasu projektowania dostawcy bazy danych, takie jak `Microsoft.EntityFrameworkCore.SqlServer.Design`, nie są już wymagane ani obsługiwane przez program EF Core 2,0 i nowsze, ale nie są automatycznie usuwane podczas uaktualniania innych pakietów.
 
   * Narzędzia interfejsu wiersza polecenia platformy .NET są dołączone do zestawu .NET SDK od wersji 2,1, więc odwołanie do tego pakietu można usunąć z pliku projektu:
-    ```xml
+
+    ``` xml
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
     ```
-

@@ -1,16 +1,16 @@
 ---
 title: Dostawca Azure Cosmos DB — ograniczenia — EF Core
+description: Ograniczenia dostawcy Azure Cosmos DB Entity Framework Core
 author: AndriySvyryd
 ms.author: ansvyryd
-ms.date: 09/12/2019
-ms.assetid: 9d02a2cd-484e-4687-b8a8-3748ba46dbc9
+ms.date: 11/05/2019
 uid: core/providers/cosmos/limitations
-ms.openlocfilehash: 8dcc82a68c89e21ad1902a0bbbce8ebbc3535801
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 2631526b152d6ddcacf25173c8d51e4e3cb24500
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71150810"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655987"
 ---
 # <a name="ef-core-azure-cosmos-db-provider-limitations"></a>Ograniczenia dostawcy Azure Cosmos DB EF Core
 
@@ -20,19 +20,19 @@ Dostawca Cosmos ma pewne ograniczenia. Wiele z tych ograniczeń jest wynikiem og
 
 - Nawet jeśli istnieje tylko jeden typ jednostki bez dziedziczenia zamapowanego do kontenera, nadal ma właściwość rozróżniacza.
 - Typy jednostek z kluczami partycji nie działają prawidłowo w niektórych scenariuszach
-- `Include`wywołania nie są obsługiwane
-- `Join`wywołania nie są obsługiwane
+- wywołania `Include` nie są obsługiwane
+- wywołania `Join` nie są obsługiwane
 
 ## <a name="azure-cosmos-db-sdk-limitations"></a>Ograniczenia dotyczące Azure Cosmos DB SDK
 
 - Podano tylko metody asynchroniczne
 
 > [!WARNING]
-> Ponieważ nie istnieją żadne wersje synchronizacji metod niskiego poziomu, EF Core opierają się na tym, że odpowiednie funkcje są obecnie implementowane przez `.Wait()` wywołanie `Task`zwróconych wartości. Oznacza to, że użycie metod `SaveChanges`takich jak `ToList` , lub zamiast ich odpowiedników asynchronicznych może prowadzić do zakleszczenia w aplikacji
+> Ponieważ nie istnieją żadne wersje synchronizacji metod niskiego poziomu EF Core opierają się na tym, że odpowiednie funkcje są obecnie implementowane przez wywoływanie `.Wait()` na zwracanym `Task`. Oznacza to, że użycie metod, takich jak `SaveChanges`, lub `ToList` zamiast ich odpowiedników asynchronicznych może prowadzić do zakleszczenia w aplikacji
 
 ## <a name="azure-cosmos-db-limitations"></a>Ograniczenia Azure Cosmos DB
 
-Aby zapoznać się z pełnym omówieniem [Azure Cosmos DB obsługiwanych funkcji](https://docs.microsoft.com/en-us/azure/cosmos-db/modeling-data), są to najbardziej znaczące różnice w porównaniu do relacyjnej bazy danych:
+Aby zapoznać się z pełnym omówieniem [Azure Cosmos DB obsługiwanych funkcji](/azure/cosmos-db/modeling-data), są to najbardziej znaczące różnice w porównaniu do relacyjnej bazy danych:
 
 - Transakcje inicjowane przez klienta nie są obsługiwane
 - Niektóre zapytania między partycjami nie są obsługiwane lub są znacznie wolniejsze w zależności od operatorów

@@ -1,32 +1,33 @@
 ---
-title: Konwersje wartości - programu EF Core
+title: Konwersje wartości — EF Core
 author: ajcvickers
 ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/value-conversions
-ms.openlocfilehash: 2a1956221ecc920feba796e4d95cc97259e89c53
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 93774bc1bc3887f982faeac151825a6643c1107c
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152513"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73654782"
 ---
 # <a name="value-conversions"></a>Konwersje wartości
 
 > [!NOTE]  
-> Ta funkcja jest nowa na platformie EF Core 2.1.
+> Ta funkcja jest nowa w EF Core 2,1.
 
-Konwertery wartości Zezwalaj na wartości właściwości, które ma zostać przekonwertowany, podczas odczytu / zapisu do bazy danych. Ta konwersja może być z jedną wartość na inny tego samego typu (na przykład ciągi, szyfrowanie) lub wartość jednego typu z wartością innego typu (na przykład konwertowania wartości wyliczenia do i z ciągów w bazie danych.)
+Konwertery wartości umożliwiają konwersję wartości właściwości podczas odczytywania z lub zapisywania do bazy danych. Ta konwersja może być z jednej wartości na inną tego samego typu (na przykład szyfrowanie ciągów) lub z wartości jednego typu do wartości innego typu (na przykład konwertowanie wartości wyliczenia na i z ciągów w bazie danych).
 
 ## <a name="fundamentals"></a>Podstawy
 
-Konwertery wartości są określane na podstawie `ModelClrType` i `ProviderClrType`. Typ modelu jest typ architektury .NET właściwości typu jednostki. Typ dostawcy jest typ architektury .NET zrozumiała dla dostawcy bazy danych. Na przykład, aby zapisać wyliczenia jako ciągi w bazie danych, typ modelu jest typem wyliczenia, a typ dostawcy jest `String`. Te dwa typy może być taki sam.
+Konwertery wartości są określone w zakresie `ModelClrType` i `ProviderClrType`. Typ modelu jest typem .NET właściwości w typie jednostki. Typ dostawcy to typ .NET zrozumiały dla dostawcy bazy danych. Na przykład, aby zapisać wyliczenia jako ciągi w bazie danych, typ modelu jest typem wyliczenia, a typ dostawcy to `String`. Te dwa typy mogą być takie same.
 
-Konwersje są definiowane za pomocą dwóch `Func` drzew wyrażeń: jeden z `ModelClrType` do `ProviderClrType` , a druga z `ProviderClrType` do `ModelClrType`. Drzewa wyrażeń są używane i może być kompilowane do kodu dostępu do bazy danych podczas konwersji wydajne. W przypadku złożonych konwersji drzewa wyrażeń może być proste wywołanie metody, która wykonuje konwersję.
+Konwersje są definiowane przy użyciu dwóch `Func` drzew wyrażeń: jeden z `ModelClrType` do `ProviderClrType`, a drugi z `ProviderClrType` do `ModelClrType`. Drzewa wyrażeń są używane, aby mogły być kompilowane do kodu dostępu do bazy danych w celu wydajnej konwersji. W przypadku złożonych konwersji drzewo wyrażenia może być prostym wywołaniem metody, która wykonuje konwersję.
 
 ## <a name="configuring-a-value-converter"></a>Konfigurowanie konwertera wartości
 
-Konwersje wartości są zdefiniowane na właściwości w `OnModelCreating` z Twojego `DbContext`. Na przykład należy wziąć pod uwagę typem wyliczenia i jednostek zdefiniowany jako:
+Konwersje wartości są definiowane we właściwościach w `OnModelCreating` `DbContext`. Rozważmy na przykład Wyliczenie i typ jednostki zdefiniowane jako:
+
 ``` csharp
 public class Rider
 {
@@ -42,7 +43,9 @@ public enum EquineBeast
     Unicorn
 }
 ```
-Następnie konwersje można zdefiniować w `OnModelCreating` do przechowywania wartości wyliczenia jako ciągi (na przykład "Osłów", "Muł",...) w bazie danych:
+
+Następnie konwersje można definiować w `OnModelCreating`, aby przechowywać wartości wyliczenia jako ciągi (na przykład "Donkey", "Mule",...) w bazie danych:
+
 ``` csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
@@ -54,12 +57,14 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
             v => (EquineBeast)Enum.Parse(typeof(EquineBeast), v));
 }
 ```
+
 > [!NOTE]  
-> A `null` wartość nigdy nie zostaną przekazane do konwertera wartości. To ułatwia wykonanie konwersji i umożliwia im być współużytkowany przez właściwości dopuszcza wartości null i nie dopuszcza wartości null.
+> Wartość `null` nigdy nie będzie przenoszona do konwertera wartości. Dzięki temu implementacja konwersji jest łatwiejsza i umożliwia udostępnienie jej przez właściwości dopuszczające wartości null i niedopuszczające wartości null.
 
-## <a name="the-valueconverter-class"></a>Klasa elementu ValueConverter
+## <a name="the-valueconverter-class"></a>Klasa ValueConverter
 
-Wywoływanie `HasConversion` jak wspomniano powyżej, spowoduje to utworzenie `ValueConverter` wystąpienia i ustaw jego właściwości. `ValueConverter` Zamiast tego mogą być tworzone w sposób jawny. Na przykład:
+Wywołanie `HasConversion`, jak pokazano powyżej, utworzy wystąpienie `ValueConverter` i ustawi je we właściwości. Zamiast tego można jawnie utworzyć `ValueConverter`. Na przykład:
+
 ``` csharp
 var converter = new ValueConverter<EquineBeast, string>(
     v => v.ToString(),
@@ -70,37 +75,40 @@ modelBuilder
     .Property(e => e.Mount)
     .HasConversion(converter);
 ```
-Może to być przydatne, gdy wiele właściwości, użyj tej samej konwersji.
+
+Może to być przydatne, gdy wiele właściwości używa tej samej konwersji.
 
 > [!NOTE]  
-> Obecnie nie ma możliwości można określić w jednym miejscu, że dla każdej właściwości danego typu musi używać tego samego konwertera wartości. Ta funkcja zostanie uwzględniony w przyszłej wersji.
+> Obecnie nie ma możliwości określenia w jednym miejscu, że każda Właściwość danego typu musi używać tego samego konwertera wartości. Ta funkcja zostanie uwzględniona w przyszłej wersji.
 
 ## <a name="built-in-converters"></a>Wbudowane konwertery
 
-EF Core dostarczany z zestawem wstępnie zdefiniowane `ValueConverter` znalezione w klasy `Microsoft.EntityFrameworkCore.Storage.ValueConversion` przestrzeni nazw. Są to:
-* `BoolToZeroOneConverter` — Bool na zero i jeden
-* `BoolToStringConverter` — Bool do ciągów, takich jak "Y" i "N"
-* `BoolToTwoValuesConverter` — Bool do dowolnych dwóch wartości.
-* `BytesToStringConverter` -Tablica bajtów na ciąg kodowany w formacie Base64
-* `CastingConverter` -Konwersje, które wymagają rzutowanie typu
-* `CharToStringConverter` -Char ciąg pojedynczy znak
-* `DateTimeOffsetToBinaryConverter` — DateTimeOffset na wartość 64-bitowych zakodowane w formacie pliku binarnego
-* `DateTimeOffsetToBytesConverter` — DateTimeOffset do tablicy typu byte
-* `DateTimeOffsetToStringConverter` — DateTimeOffset ciąg
-* `DateTimeToBinaryConverter` — Data i godzina wartości 64-bitowe, w tym DateTimeKind
-* `DateTimeToStringConverter` — Data i godzina ciąg
-* `DateTimeToTicksConverter` -Data i godzina impulsów
-* `EnumToNumberConverter` -Wyliczenie numer podstawowy
-* `EnumToStringConverter` — Enum ciąg
-* `GuidToBytesConverter` — Identyfikator Guid do tablicy typu byte
-* `GuidToStringConverter` — Identyfikator Guid ciąg
-* `NumberToBytesConverter` -Dowolna wartość liczbowa do tablicy typu byte
-* `NumberToStringConverter` -Dowolna wartość liczbową, ciąg
-* `StringToBytesConverter` -Ciągu UTF8 bajtów
-* `TimeSpanToStringConverter` — TimeSpan ciąg
-* `TimeSpanToTicksConverter` -TimeSpan impulsów
+EF Core dostarcza z zestawem wstępnie zdefiniowanych klas `ValueConverter`, które znajdują się w przestrzeni nazw `Microsoft.EntityFrameworkCore.Storage.ValueConversion`. Są to:
 
-Należy zauważyć, że `EnumToStringConverter` znajduje się na tej liście. Oznacza to, że nie ma potrzeby określić konwersji jawnie, jak pokazano powyżej. Zamiast tego można użyć konwertera wbudowane:
+* `BoolToZeroOneConverter`-bool do zero i jeden
+* `BoolToStringConverter`-bool do ciągów, takich jak "Y" i "N"
+* `BoolToTwoValuesConverter`-bool do dowolnych dwóch wartości
+* `BytesToStringConverter`-bajtowa tablica do ciągu zakodowanego algorytmem Base64
+* Konwersje `CastingConverter`, które wymagają tylko rzutowania typu
+* ciąg znaków `CharToStringConverter`-char do pojedynczego znaku
+* `DateTimeOffsetToBinaryConverter`-DateTimeOffset do zakodowanej binarnie wartości 64-bitowej
+* `DateTimeOffsetToBytesConverter`-DateTimeOffset do tablicy typu Byte
+* `DateTimeOffsetToStringConverter`-DateTimeOffset do ciągu
+* wartość `DateTimeToBinaryConverter`-DateTime do 64-bitowej, w tym DateTimeKind
+* `DateTimeToStringConverter`-DateTime do String
+* `DateTimeToTicksConverter`-DateTime do taktów
+* `EnumToNumberConverter`-Wyliczenie do numeru bazowego
+* `EnumToStringConverter` — Wyliczenie na ciąg
+* `GuidToBytesConverter`-GUID do tablicy typu Byte
+* `GuidToStringConverter`-GUID do ciągu
+* `NumberToBytesConverter` — dowolna wartość liczbowa do tablicy typu Byte
+* `NumberToStringConverter` — dowolna wartość liczbowa do ciągu
+* `StringToBytesConverter`-String do bajtów UTF8
+* `TimeSpanToStringConverter`-TimeSpan do ciągu
+* `TimeSpanToTicksConverter`-TimeSpan do taktów
+
+Zwróć uwagę, że `EnumToStringConverter` znajduje się na liście. Oznacza to, że nie ma potrzeby jawnego określania konwersji, jak pokazano powyżej. Zamiast tego wystarczy użyć wbudowanego konwertera:
+
 ``` csharp
 var converter = new EnumToStringConverter<EquineBeast>();
 
@@ -109,18 +117,22 @@ modelBuilder
     .Property(e => e.Mount)
     .HasConversion(converter);
 ```
-Należy pamiętać, że wbudowane konwertery są bezstanowe, a więc pojedyncze wystąpienie może być bezpiecznie współużytkowane przez wiele właściwości.
+
+Należy zauważyć, że wszystkie wbudowane konwertery są bezstanowe i dlatego pojedyncze wystąpienie może być bezpiecznie udostępnione przez wiele właściwości.
 
 ## <a name="pre-defined-conversions"></a>Wstępnie zdefiniowane konwersje
 
-W przypadku typowych konwersji dla których istnieje wbudowany konwerter nie ma potrzeby jawnie określić konwertera. Zamiast tego po prostu skonfigurować należy używać typu dostawcy i platforma EF automatycznie użyje odpowiedni konwerter wbudowanych. Wyliczenie w celu konwersji ciągów są używane jako przykład powyżej, ale EF faktycznie wykona to automatycznie, jeśli skonfigurowano typ dostawcy:
+W przypadku typowych konwersji, dla których istnieje wbudowany konwerter, nie ma potrzeby jawnego określania konwertera. Zamiast tego wystarczy skonfigurować typ dostawcy, który ma być używany, a EF będzie automatycznie używać odpowiedniego konwertera wbudowanego. Wyliczenia do konwersji ciągów są używane w powyższym przykładzie, ale Dr w rzeczywistości automatycznie, jeśli typ dostawcy jest skonfigurowany:
+
 ``` csharp
 modelBuilder
     .Entity<Rider>()
     .Property(e => e.Mount)
     .HasConversion<string>();
 ```
-Ten sam efekt można osiągnąć przez jawne określenie typu kolumny. Na przykład, jeśli nie zdefiniowano typu jednostki, takie jak tak:
+
+Tę samą wartość można osiągnąć przez jawne określenie typu kolumny. Na przykład, jeśli typ jednostki jest zdefiniowany w następujący sposób:
+
 ``` csharp
 public class Rider
 {
@@ -130,12 +142,14 @@ public class Rider
     public EquineBeast Mount { get; set; }
 }
 ```
-Następnie wartości wyliczenia, które zostaną zapisane jako ciągi w bazie danych bez dalszej konfiguracji w `OnModelCreating`.
+
+Wartości wyliczeniowe zostaną zapisane jako ciągi w bazie danych bez żadnej dalszej konfiguracji w `OnModelCreating`.
 
 ## <a name="limitations"></a>Ograniczenia
 
 Istnieje kilka znanych bieżących ograniczeń systemu konwersji wartości:
-* Jak wspomniano powyżej, `null` nie może zostać przekonwertowany.
-* Obecnie nie ma możliwości się konwersję z jedną właściwość wiele kolumn lub na odwrót.
-* Korzystanie z konwersji wartości mogą mieć wpływ na możliwość translacji wyrażeń do bazy danych SQL platformy EF Core. W takich przypadkach zostanie zarejestrowane ostrzeżenie.
-Usunięcie tych ograniczeń jest rozważane w przyszłej wersji.
+
+* Jak wspomniano powyżej, nie można przekonwertować `null`.
+* Obecnie nie ma możliwości rozłożenia konwersji jednej właściwości na wiele kolumn lub na odwrót.
+* Użycie konwersji wartości może mieć wpływ na możliwość EF Core przetłumaczania wyrażeń na SQL. W takich przypadkach zostanie zarejestrowane ostrzeżenie.
+Usunięcie tych ograniczeń jest brane pod uwagę w przyszłej wersji.

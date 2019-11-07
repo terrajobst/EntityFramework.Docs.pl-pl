@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 uid: core/saving/cascade-delete
-ms.openlocfilehash: af86383bad52c87d2874fa4f8eb247a656601312
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 51c8b6f4517a3f87821ed1e4e2d60549e06ed39d
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182014"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656061"
 ---
 # <a name="cascade-delete"></a>Usuwanie kaskadowe
 
@@ -18,9 +18,11 @@ Funkcja usuwania kaskadowego jest często używana w terminologii bazy danych do
 EF Core implementuje kilka różnych zachowań usuwania i umożliwia konfigurację zachowań poszczególnych relacji. EF Core również implementuje konwencje, które automatycznie skonfigurują domyślne zachowania usuwania dla każdej relacji w zależności od [wymaganej relacji](../modeling/relationships.md#required-and-optional-relationships).
 
 ## <a name="delete-behaviors"></a>Usuwanie zachowań
+
 Zachowania usuwania są zdefiniowane w typie modułu wyliczającego *DeleteBehavior* i mogą być przenoszone do interfejsu API Fluent przy użyciu metody *onDelete* , aby określić, czy usunięcie podmiotu zabezpieczeń/jednostki nadrzędnej lub nawiązanie relacji z jednostkami zależnymi/podrzędnymi powinno mieć efekt uboczny dla jednostek zależnych/podrzędnych.
 
 Istnieją trzy akcje, które można wykonać, gdy jednostka główna/nadrzędna jest usuwana lub relacja do elementu podrzędnego jest poważna:
+
 * Można usunąć element podrzędny/zależny
 * Wartości klucza obcego dziecka można ustawić na wartość null.
 * Element podrzędny pozostaje niezmieniony
@@ -33,6 +35,7 @@ Dla drugiej czynności powyżej ustawienie wartości klucza obcego na null jest 
 Istnieją cztery zachowania dotyczące usuwania, jak pokazano w poniższej tabeli.
 
 ### <a name="optional-relationships"></a>Opcjonalne relacje
+
 W przypadku opcjonalnej relacji (klucz obcy dopuszczający wartość null _) można zapisać_ wartość null klucza obcego, co spowoduje następujące skutki:
 
 | Nazwa zachowania               | Efekt zależny/podrzędny w pamięci    | Efekt zależny/podrzędny w bazie danych  |
@@ -43,6 +46,7 @@ W przypadku opcjonalnej relacji (klucz obcy dopuszczający wartość null _) mo�
 | **Ograniczone**                | Brak                                   | Brak                                   |
 
 ### <a name="required-relationships"></a>Wymagane relacje
+
 W przypadku wymaganych relacji (klucz obcy niedopuszczający wartości null) _nie_ można zapisać wartości null klucza obcego, co spowoduje następujące skutki:
 
 | Nazwa zachowania         | Efekt zależny/podrzędny w pamięci | Efekt zależny/podrzędny w bazie danych |
@@ -55,6 +59,7 @@ W przypadku wymaganych relacji (klucz obcy niedopuszczający wartości null) _ni
 W podanych powyżej tabelach *żaden* z nich może spowodować naruszenie ograniczenia. Na przykład, jeśli jednostka główna/podrzędna jest usuwana, ale nie jest podejmowana żadna akcja w celu zmiany klucza obcego elementu zależnego/podrzędnego, baza danych prawdopodobnie zgłosi się na metody SaveChanges z powodu naruszenia ograniczenia obcego.
 
 Na wysokim poziomie:
+
 * Jeśli masz jednostki, które nie mogą istnieć bez elementu nadrzędnego, i chcesz, aby program Dr zadbać o automatyczne usunięcie elementów podrzędnych, a następnie użyj opcji *kaskadowych*.
   * Jednostki, które nie mogą istnieć bez elementu nadrzędnego zwykle korzystają z wymaganych relacji, dla których *Kaskada* jest wartością domyślną.
 * Jeśli masz jednostki, które mogą lub nie mają elementu nadrzędnego, i chcesz, aby EF zadbać o wyzerowanie klucza obcego, a następnie użyj *ClientSetNull*
@@ -107,7 +112,7 @@ Zapoznaj się z informacjami o tym, co się dzieje.
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior. ClientSetNull lub DeleteBehavior. SetNull z wymaganą relacją
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -130,7 +135,7 @@ Zapoznaj się z informacjami o tym, co się dzieje.
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior. ClientSetNull lub DeleteBehavior. SetNull z opcjonalną relacją
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -160,7 +165,7 @@ Zapoznaj się z informacjami o tym, co się dzieje.
 
 ### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior. Ogranicz z wymaganą lub opcjonalną relacją
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -189,7 +194,7 @@ Zapoznaj się z informacjami o tym, co się dzieje.
 
 ### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior. Kaskada z wymaganą lub opcjonalną relacją
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -217,7 +222,7 @@ Zapoznaj się z informacjami o tym, co się dzieje.
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior. ClientSetNull lub DeleteBehavior. SetNull z wymaganą relacją
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -240,7 +245,7 @@ Zapoznaj się z informacjami o tym, co się dzieje.
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior. ClientSetNull lub DeleteBehavior. SetNull z opcjonalną relacją
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -268,7 +273,7 @@ Zapoznaj się z informacjami o tym, co się dzieje.
 
 ### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior. Ogranicz z wymaganą lub opcjonalną relacją
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -297,7 +302,7 @@ Po wywołaniu *metody SaveChanges*reguły usuwania kaskadowego będą stosowane 
     DELETE FROM [Blogs] WHERE [BlogId] = 1
 ```
 
-W przypadku załadowania tylko podmiotu zabezpieczeń — na przykład gdy kwerenda zostanie wykonana dla blogu bez `Include(b => b.Posts)`, aby również zawierała wpisy, a następnie metody SaveChanges wygeneruje tylko kod SQL, aby usunąć obiekt Principal/Parent:
+W przypadku załadowania tylko podmiotu zabezpieczeń — na przykład gdy kwerenda zostanie wykonana dla blogu bez `Include(b => b.Posts)` do dołączenia wpisów, a następnie metody SaveChanges będzie generować tylko SQL w celu usunięcia podmiotu zabezpieczeń/elementu nadrzędnego:
 
 ```sql
     DELETE FROM [Blogs] WHERE [BlogId] = 1

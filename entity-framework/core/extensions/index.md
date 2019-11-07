@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 01/07/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 0c9671eb77181d85cd493341cd1abf842d13fb0e
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: e70011b42818e4df1ec5b9b88d7adb9d36bb26f1
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181274"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73654799"
 ---
 # <a name="ef-core-tools--extensions"></a>Rozszerzenia narzędzi EF Core &
 
@@ -24,13 +24,13 @@ Te narzędzia i rozszerzenia zapewniają dodatkową funkcjonalność dla Entity 
 
 LLBLGen Pro to rozwiązanie do modelowania jednostek z obsługą Entity Framework i Entity Framework Core. Umożliwia ona łatwe definiowanie modelu jednostki i mapowanie go do bazy danych przy użyciu najpierw pierwszej lub modelu bazy danych, dzięki czemu możesz od razu zacząć pisać zapytania.
 
-[Witryny sieci Web](https://www.llblgen.com/)
+[Producenta](https://www.llblgen.com/)
 
 ### <a name="devart-entity-developer"></a>Deweloper jednostki Devart
 
-Deweloper jednostki jest zaawansowanym projektantem ORM dla ADO.NET Entity Framework, NHibernate, LinqConnect, Telerik Data Access i LINQ to SQL. Obsługuje ona projektowanie EF Core modeli wizualnie, przy użyciu pierwszej metody modelu lub pierwszej podejścia do C# bazy danych i lub Visual Basic generowania kodu. 
+Deweloper jednostki jest zaawansowanym projektantem ORM dla ADO.NET Entity Framework, NHibernate, LinqConnect, Telerik Data Access i LINQ to SQL. Obsługuje ona projektowanie EF Core modeli wizualnie, przy użyciu pierwszej metody modelu lub pierwszej podejścia do C# bazy danych i lub Visual Basic generowania kodu.
 
-[Witryny sieci Web](https://www.devart.com/entitydeveloper/)
+[Producenta](https://www.devart.com/entitydeveloper/)
 
 ### <a name="ef-core-power-tools"></a>EF Core narzędzia do zarządzania
 
@@ -42,7 +42,7 @@ EF Core PowerShell to rozszerzenie programu Visual Studio 2017, które uwidaczni
 
 Entity Framework edytorem wizualnym jest rozszerzenie programu Visual Studio, które dodaje projektanta ORM do projektowania wizualizacji Dr 6 i klasy EF Core. Kod jest generowany przy użyciu szablonów T4, więc można go dostosować do własnych potrzeb. Obsługuje dziedziczenie, dwukierunkowe i dwukierunkowe skojarzenia, wyliczenia oraz możliwość kolorowania kodu klas i Dodawanie bloków tekstowych, aby wyjaśnić potencjalnie specjalne części projektu.
 
-[Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
+[Transakcji](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
 
 ### <a name="catfactory"></a>CatFactory
 
@@ -52,33 +52,33 @@ CatFactory to aparat tworzenia szkieletów dla platformy .NET Core, który umoż
 
 ### <a name="loresofts-entity-framework-core-generator"></a>Generator Entity Framework Core LoreSoft
 
-Generator Entity Framework Core (EFG) to narzędzie interfejs wiersza polecenia platformy .NET Core, które może generować modele EF Core z istniejącej bazy danych, podobnie jak `dotnet ef dbcontext scaffold`, ale również zapewnia bezpieczną [regenerację](https://efg.loresoft.com/en/latest/regeneration/) kodu przez zastąpienie regionu lub przeanalizowanie plików mapowania. To narzędzie obsługuje generowanie modeli widoku, walidacji i kodu mapowania obiektów. 
+Generator Entity Framework Core (EFG) to narzędzie interfejs wiersza polecenia platformy .NET Core, które może generować modele EF Core z istniejącej bazy danych, podobnie jak `dotnet ef dbcontext scaffold`, ale również zapewnia bezpieczną [regenerację](https://efg.loresoft.com/en/latest/regeneration/) kodu przez zastąpienie regionu lub analizowanie plików mapowania. To narzędzie obsługuje generowanie modeli widoku, walidacji i kodu mapowania obiektów.
 
 [Samouczek](https://www.loresoft.com/Generate-ASP-NET-Web-API)
- —[Dokumentacja](https://efg.loresoft.com/en/latest/)
+[Dokumentacja](https://efg.loresoft.com/en/latest/)
 
-## <a name="extensions"></a>Rozszerzenia
+## <a name="extensions"></a>rozszerzenia
 
-### <a name="microsoftentityframeworkcoreautohistory"></a>Microsoft.EntityFrameworkCore.AutoHistory
+### <a name="microsoftentityframeworkcoreautohistory"></a>Microsoft. EntityFrameworkCore. AutoHistory
 
 Biblioteka wtyczek, która umożliwia automatyczne rejestrowanie zmian danych wykonywanych przez EF Core w tabeli historii.
 
 [Repozytorium GitHub](https://github.com/Arch/AutoHistory/)
 
-### <a name="microsoftentityframeworkcoredynamiclinq"></a>Microsoft.EntityFrameworkCore.DynamicLinq
+### <a name="microsoftentityframeworkcoredynamiclinq"></a>Microsoft. EntityFrameworkCore. DynamicLinq
 
 Port .NET Core/.NET Standard typu System. LINQ. Dynamic, który obejmuje obsługę asynchroniczną z EF Core.
 System. LINQ. Dynamic pochodzi z przykładu firmy Microsoft, który pokazuje, jak tworzyć zapytania LINQ w sposób dynamiczny z wyrażeń ciągów zamiast kodu.
 
 [Repozytorium GitHub](https://github.com/StefH/System.Linq.Dynamic.Core/)
 
-### <a name="efsecondlevelcachecore"></a>EFSecondLevelCache.Core
+### <a name="efsecondlevelcachecore"></a>EFSecondLevelCache. Core
 
 Rozszerzenie, które umożliwia przechowywanie wyników zapytań EF Core w pamięci podręcznej drugiego poziomu, tak aby kolejne wykonania tych samych zapytań mogły uniknąć dostępu do bazy danych i pobierać dane bezpośrednio z pamięci podręcznej.
 
 [Repozytorium GitHub](https://github.com/VahidN/EFSecondLevelCache.Core/)
 
-### <a name="entityframeworkcoreprimarykey"></a>EntityFrameworkCore.PrimaryKey
+### <a name="entityframeworkcoreprimarykey"></a>EntityFrameworkCore. PrimaryKey
 
 Ta biblioteka umożliwia pobieranie wartości klucza podstawowego (w tym kluczy złożonych) z dowolnej jednostki jako słownika.
 
@@ -86,7 +86,7 @@ Ta biblioteka umożliwia pobieranie wartości klucza podstawowego (w tym kluczy 
 
 ### <a name="entityframeworkcoretypedoriginalvalues"></a>EntityFrameworkCore.TypedOriginalValues
 
-Ta biblioteka umożliwia dostęp do oryginalnych wartości właściwości jednostki przy użyciu jednoznacznie określonego typu. 
+Ta biblioteka umożliwia dostęp do oryginalnych wartości właściwości jednostki przy użyciu jednoznacznie określonego typu.
 
 [Repozytorium GitHub](https://github.com/NickStrupat/EntityFramework.TypedOriginalValues/)
 
@@ -96,7 +96,7 @@ Geco (konsola generatora) to prosty generator kodu oparty na projekcie konsoli, 
 
 [Repozytorium GitHub](https://github.com/iQuarc/Geco)
 
-### <a name="linqkitmicrosoftentityframeworkcore"></a>LinqKit.Microsoft.EntityFrameworkCore
+### <a name="linqkitmicrosoftentityframeworkcore"></a>LinqKit. Microsoft. EntityFrameworkCore
 
 LinqKit. Microsoft. EntityFrameworkCore to zgodna z EF Core wersja biblioteki LINQKit. LINQKit to bezpłatny zestaw rozszerzeń dla LINQ to SQL i Entity Framework użytkowników zaawansowanych. Umożliwia zaawansowane funkcje, takie jak dynamiczne Kompilowanie wyrażeń predykatu i Używanie zmiennych wyrażeń w podzapytaniach.  
 
@@ -108,7 +108,7 @@ NeinLinq rozszerza dostawców LINQ, takich jak Entity Framework, aby włączyć 
 
 [Repozytorium GitHub](https://github.com/axelheer/nein-linq/)
 
-### <a name="microsoftentityframeworkcoreunitofwork"></a>Microsoft.EntityFrameworkCore.UnitOfWork
+### <a name="microsoftentityframeworkcoreunitofwork"></a>Microsoft. EntityFrameworkCore. UnitOfWork
 
 Wtyczka dla elementu Microsoft. EntityFrameworkCore do obsługi repozytorium, wzorców jednostek roboczych i wielu baz danych z obsługiwaną transakcją rozproszoną.
 
@@ -126,13 +126,13 @@ Dodaje pluralizacja czasu projektowania do EF Core.
 
 [Repozytorium GitHub](https://github.com/bricelam/EFCore.Pluralizer)
 
-### <a name="pomelofoundationpomeloentityframeworkcoreextensionstosql"></a>PomeloFoundation/Pomelo.EntityFrameworkCore.Extensions.ToSql
+### <a name="pomelofoundationpomeloentityframeworkcoreextensionstosql"></a>PomeloFoundation/pomelo. EntityFrameworkCore. Extensions. ToSql
 
 Prosta metoda rozszerzająca, która uzyskuje instrukcję SQL EF Core wygenerowaną dla danego zapytania LINQ w prostych scenariuszach. Metoda ToSql jest ograniczona do prostych scenariuszy, ponieważ EF Core może generować więcej niż jedną instrukcję SQL dla jednej kwerendy LINQ i różne instrukcje SQL w zależności od wartości parametrów.
 
 [Repozytorium GitHub](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.Extensions.ToSql)
 
-### <a name="toolbeltentityframeworkcoreindexattribute"></a>Toolbelt.EntityFrameworkCore.IndexAttribute
+### <a name="toolbeltentityframeworkcoreindexattribute"></a>Toolbelt. EntityFrameworkCore. Indexattribute
 
 Revival [index] atrybutu dla EF Core (z rozszerzeniem dla kompilowania modelu).
 
@@ -150,7 +150,7 @@ Implementacja obsługi danych czasowych dla EF Core.
 
 [Repozytorium GitHub](https://github.com/cpoDesign/EFCore.TemporalSupport)
 
-### <a name="entityframeworkcorecacheable"></a>EntityFrameworkCore.Cacheable
+### <a name="entityframeworkcorecacheable"></a>EntityFrameworkCore. buforowanie
 
 Pamięć podręczna zapytań o wysokiej wydajności dla EF Core.
 
@@ -158,15 +158,16 @@ Pamięć podręczna zapytań o wysokiej wydajności dla EF Core.
 
 ### <a name="entity-framework-plus"></a>Entity Framework Plus
 
-Rozszerza DbContext z funkcjami, takimi jak: Dołącz filtr, inspekcję, buforowanie, przyszłe zapytania, usuwanie wsadowe, aktualizowanie wsadowe i inne.
+Rozszerza kontekst DbContext z funkcjami takimi jak: Filter include, Audit, buforowanie, Future Query, Batch Delete, Batch Update i innych.
 
-[Witryna internetowa](https://entityframework-plus.net/)@no__t — 1[repozytorium GitHub](https://github.com/zzzprojects/EntityFramework-Plus)
+[Witryna internetowa](https://entityframework-plus.net/)
+[repozytorium GitHub](https://github.com/zzzprojects/EntityFramework-Plus)
 
 ### <a name="entity-framework-extensions"></a>Rozszerzenia Entity Framework
 
 Rozszerza swój kontekst dbwith operacji zbiorczych o wysokiej wydajności: BulkSaveChanges, BulkInsert, BulkUpdate, BulkDelete, BulkMerge i inne.
 
-[Witryny sieci Web](https://entityframework-extensions.net/)
+[Producenta](https://entityframework-extensions.net/)
 
 ### <a name="reconciler"></a>Uzgadnianie
 
