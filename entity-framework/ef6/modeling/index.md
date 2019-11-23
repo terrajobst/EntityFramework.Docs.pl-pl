@@ -14,9 +14,9 @@ ms.locfileid: "72182462"
 
 Model EF przechowuje szczegóły dotyczące sposobu mapowania klas aplikacji i właściwości do tabel i kolumn bazy danych. Istnieją dwa podstawowe sposoby tworzenia modelu EF:
 
-- **Używanie Code First**: Deweloper zapisuje kod w celu określenia modelu. EF generuje modele i mapowania w czasie wykonywania na podstawie klas jednostek i dodatkowej konfiguracji modelu udostępnionej przez dewelopera.
+- **Przy użyciu Code First**: deweloper zapisuje kod w celu określenia modelu. EF generuje modele i mapowania w czasie wykonywania na podstawie klas jednostek i dodatkowej konfiguracji modelu udostępnionej przez dewelopera.
 
-- **Korzystanie z programu Dr Designer**: Deweloper rysuje pola i linie, aby określić model przy użyciu narzędzia Dr Designer. Model otrzymany jest przechowywany jako plik XML w pliku z rozszerzeniem EDMX. Obiekty domeny aplikacji są zwykle generowane automatycznie z modelu koncepcyjnego.
+- **Korzystanie z programu Dr Designer**: deweloper rysuje pola i linie, aby określić model przy użyciu narzędzia Dr Designer. Model otrzymany jest przechowywany jako plik XML w pliku z rozszerzeniem EDMX. Obiekty domeny aplikacji są zwykle generowane automatycznie z modelu koncepcyjnego.
 
 ## <a name="ef-workflows"></a>Przepływy pracy EF
 
@@ -28,13 +28,13 @@ Dowiedz się o tym, który z nich jest najlepszy:
 | **Chcę utworzyć nową bazę danych**          | [Użyj **Code First** , aby zdefiniować model w kodzie, a następnie wygenerować bazę danych.](~/ef6/modeling/code-first/workflows/new-database.md)           | [Użyj **model First** , aby zdefiniować model przy użyciu pól i wierszy, a następnie wygenerować bazę danych.](~/ef6/modeling/designer/workflows/model-first.md)   |
 | **Potrzebuję dostępu do istniejącej bazy danych** | [Użyj **Code First** , aby utworzyć model oparty na kodzie, który jest mapowany do istniejącej bazy danych.](~/ef6/modeling/code-first/workflows/existing-database.md) | [Użyj **Database First** , aby utworzyć model pól i linii, który jest mapowany do istniejącej bazy danych.](~/ef6/modeling/designer/workflows/database-first.md) |
 
-### <a name="watch-the-video-what-ef-workflow-should-i-use"></a>Obejrzyj wideo: Jakiego przepływu pracy dr należy używać?
+### <a name="watch-the-video-what-ef-workflow-should-i-use"></a>Obejrzyj wideo: jakiego przepływu pracy dr należy używać?
 
 Ten krótki film wyjaśnia różnice i sposób znajdowania tego, który jest odpowiedni dla Ciebie.
 
 **Przedstawione przez**: [Rowan Miller](https://romiller.com/)
 
-![Which przepływ pracy kciuk @ no__t-1 [WMV](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.wmv) | [MP4](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_mp4video_ChoseYourWorkflow.m4v) | [WMV (zip)](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.zip)
+![, który przepływ pracy](../media/whichworkflow-thumb.png) [wmv](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.wmv) | [MP4](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_mp4video_ChoseYourWorkflow.m4v) | [WMV (zip)](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.zip)
 
 Jeśli po obejrzeniu filmu wideo nadal nie uważasz, że chcesz użyć narzędzia Dr Designer lub Code First, zapoznaj się z nim.
 

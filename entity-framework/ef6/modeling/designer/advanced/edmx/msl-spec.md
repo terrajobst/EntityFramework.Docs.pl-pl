@@ -37,14 +37,14 @@ Element **aliasu** nie może mieć elementów podrzędnych.
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **alias** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                     |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                     |
 |:---------------|:------------|:--------------------------------------------------------------------------|
 | **Klucz**        | Tak         | Alias dla przestrzeni nazw, który jest określony przez atrybut **Value** . |
 | **Wartość**      | Tak         | Przestrzeń nazw, dla której wartość elementu **Key** jest aliasem.     |
 
 ### <a name="example"></a>Przykład
 
-W poniższym przykładzie pokazano element **aliasu** , który definiuje alias, `c`, dla typów, które są zdefiniowane w modelu koncepcyjnym.
+W poniższym przykładzie pokazano element **aliasu** , który definiuje alias, `c`dla typów, które są zdefiniowane w modelu koncepcyjnym.
 
 ``` xml
  <Mapping Space="C-S"
@@ -81,7 +81,7 @@ W poniższym przykładzie pokazano element **aliasu** , który definiuje alias, 
 
 Element **AssociationEnd** w języku specyfikacji mapowania (MSL) jest używany, gdy funkcje modyfikacji typu jednostki w modelu koncepcyjnym są mapowane na procedury składowane w źródłowej bazie danych. Jeśli procedura składowana modyfikacji przyjmuje parametr, którego wartość jest przechowywana we właściwości skojarzenia, element **AssociationEnd** mapuje wartość właściwości na parametr. Aby uzyskać więcej informacji, zobacz Poniższy przykład.
 
-Aby uzyskać więcej informacji na temat mapowania funkcji modyfikacji typów jednostek do procedur składowanych, zobacz ModificationFunctionMapping element (MSL) i przewodnik: Mapowanie jednostki na procedury składowane.
+Aby uzyskać więcej informacji na temat mapowania funkcji modyfikacji typów jednostek do procedur składowanych, zobacz ModificationFunctionMapping element (MSL) i przewodnik: mapowanie jednostki na procedury składowane.
 
 Element **AssociationEnd** może mieć następujące elementy podrzędne:
 
@@ -91,7 +91,7 @@ Element **AssociationEnd** może mieć następujące elementy podrzędne:
 
 W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **AssociationEnd** .
 
-| Nazwa atrybutu     | Jest wymagana | Value                                                                                                                                                                             |
+| Nazwa atrybutu     | Jest wymagana | Wartość                                                                                                                                                                             |
 |:-------------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **AssociationSet** | Tak         | Nazwa mapowanego skojarzenia.                                                                                                                                 |
 | **From**           | Tak         | Wartość atrybutu **FromRole** właściwości nawigacji, która odnosi się do mapowanego skojarzenia. Aby uzyskać więcej informacji, zobacz element NavigationProperty (CSDL). |
@@ -131,7 +131,7 @@ Należy również wziąć pod uwagę następujące procedury składowane:
                                 WHERE CourseID=@CourseID;
 ```
 
-Aby zmapować funkcję aktualizacji jednostki `Course` na tę procedurę składowaną, należy podać wartość parametru **DepartmentID** . Wartość `DepartmentID` nie odpowiada właściwości typu jednostki; jest on zawarty w niezależnym skojarzeniu, którego mapowanie jest pokazane tutaj:
+Aby zmapować funkcję Update jednostki `Course` na tę procedurę składowaną, należy podać wartość parametru **DepartmentID** . Wartość `DepartmentID` nie odpowiada właściwości typu jednostki; jest on zawarty w niezależnym skojarzeniu, którego mapowanie jest pokazane tutaj:
 
 ``` xml
  <AssociationSetMapping Name="FK_Course_Department"
@@ -146,7 +146,7 @@ Aby zmapować funkcję aktualizacji jednostki `Course` na tę procedurę składo
  </AssociationSetMapping>
 ```
 
-Poniższy kod przedstawia element **AssociationEnd** używany do mapowania właściwości **DepartmentID** **klucza obcego @ no__t-3Course @ no__t-4Department** do procedury składowanej **UpdateCourse** (do której funkcja aktualizacji Typ jednostki **kursu** jest mapowany):
+Poniższy kod przedstawia element **AssociationEnd** , który służy do mapowania właściwości **DepartmentID** **klucza obcego\_go skojarzenia działu\_go** w ramach procedury składowanej **UpdateCourse** (do której jest zamapowana funkcja Update typu jednostki **kursu** ):
 
 ``` xml
  <EntitySetMapping Name="Courses">
@@ -198,7 +198,7 @@ Element **AssociationSetMapping** może mieć następujące elementy podrzędne
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **AssociationSetMapping** .
 
-| Nazwa atrybutu     | Jest wymagana | Value                                                                                       |
+| Nazwa atrybutu     | Jest wymagana | Wartość                                                                                       |
 |:-------------------|:------------|:--------------------------------------------------------------------------------------------|
 | **Nazwa**           | Tak         | Nazwa mapowanego zestawu skojarzeń modelu koncepcyjnego.                      |
 | **TypeName**       | Nie          | Kwalifikowana nazwa przestrzeni nazw typu powiązania modelu koncepcyjnego, który jest mapowany. |
@@ -206,7 +206,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **As
 
 ### <a name="example"></a>Przykład
 
-W poniższym przykładzie przedstawiono element **AssociationSetMapping** , w którym w modelu koncepcyjnym jest mapowany obiekt **FK @ no__t-2Course @ no__t-3Department** . Mapowania między właściwościami typu skojarzenia i kolumnami tabeli są określone w podrzędnych elementach **EndProperty** .
+W poniższym przykładzie pokazano element **AssociationSetMapping** , w którym w modelu koncepcyjnym zostanie zamapowany skojarzenie " **\_y działu\_kursu** , który jest mapowany do tabeli **kursów** w bazie danych. Mapowania między właściwościami typu skojarzenia i kolumnami tabeli są określone w podrzędnych elementach **EndProperty** .
 
 ``` xml
  <AssociationSetMapping Name="FK_Course_Department"
@@ -236,7 +236,7 @@ Element właściwości **complexType** może mieć następujące elementy podrz�
 
 W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **ComplexProperty** :
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                            |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                            |
 |:---------------|:------------|:-------------------------------------------------------------------------------------------------|
 | **Nazwa**       | Tak         | Nazwa właściwości złożonej typu jednostki w modelu koncepcyjnym, który jest mapowany. |
 | **TypeName**   | Nie          | Kwalifikowana nazwa obszaru nazw typu właściwości modelu koncepcyjnego.                              |
@@ -291,7 +291,7 @@ W poniższym pliku MSL przedstawiono element **ComplexProperty** używany do map
 
 ## <a name="complextypemapping-element-msl"></a>ComplexTypeMapping — element (MSL)
 
-Element **ComplexTypeMapping** w języku specyfikacji mapowania (MSL) jest elementem podrzędnym elementu ResultMapping i definiuje mapowanie między importem funkcji w modelu koncepcyjnym i procedurą przechowywaną w źródłowej bazie danych, gdy następujące są spełnione:
+Element **ComplexTypeMapping** w języku specyfikacji mapowania (MSL) jest elementem podrzędnym elementu ResultMapping i definiuje mapowanie między importem funkcji w modelu koncepcyjnym i procedurą przechowywaną w źródłowej bazie danych, gdy są spełnione następujące warunki:
 
 -   Import funkcji zwraca typ złożony koncepcyjnie.
 -   Nazwy kolumn zwracanych przez procedurę składowaną nie są dokładnie zgodne z nazwami właściwości typu złożonego.
@@ -306,7 +306,7 @@ Element **ComplexTypeMapping** może mieć następujące elementy podrzędne:
 
 W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **ComplexTypeMapping** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                  |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------|
 | **TypeName**   | Tak         | Kwalifikowana nazwa przestrzeni nazw typu złożonego, który jest zamapowany. |
 
@@ -377,7 +377,7 @@ Element **Condition** nie może mieć elementów podrzędnych.
 
 W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **Condition** :
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                                                                                                                                                                                         |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                                                                                                                                         |
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **ColumnName** | Nie          | Nazwa kolumny tabeli, której wartość jest używana do obliczania warunku.                                                                                                                                                                                                                   |
 | **IsNull**     | Nie          | **Wartość true** lub **false**. Jeśli wartość jest **równa true** , a wartość kolumny ma wartość **null**lub jeśli wartość jest równa **false** , a wartość kolumny nie jest **równa null**, warunek ma wartość true. W przeciwnym razie warunek ma wartość false. <br/> Nie można jednocześnie używać atrybutów **IsNull** i **Value** . |
@@ -438,7 +438,7 @@ Element **DeleteFunction** może mieć następujące elementy podrzędne w przyp
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **DeleteFunction** , gdy jest on stosowany do elementu **EntityTypeMapping** .
 
-| Nazwa atrybutu            | Jest wymagana | Value                                                                                                                                                    |
+| Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **FunctionName**          | Tak         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest mapowana funkcja Delete. Procedura składowana musi być zadeklarowana w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru wyjściowego, który zwraca liczbę wierszy, których to dotyczy.                                                                               |
@@ -502,7 +502,7 @@ Element **DeleteFunction** może mieć następujące elementy podrzędne w przyp
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **DeleteFunction** , gdy jest on stosowany do elementu **AssociationSetMapping** .
 
-| Nazwa atrybutu            | Jest wymagana | Value                                                                                                                                                    |
+| Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **FunctionName**          | Tak         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest mapowana funkcja Delete. Procedura składowana musi być zadeklarowana w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru wyjściowego, który zwraca liczbę wierszy, których to dotyczy.                                                                               |
@@ -556,13 +556,13 @@ Element **EndProperty** może mieć następujące elementy podrzędne:
 
 W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **EndProperty** :
 
-| Nazwa atrybutu | Jest wymagana | Value                                                 |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                 |
 |:---------------|:------------|:------------------------------------------------------|
-| Name           | Tak         | Nazwa elementu end skojarzenia, który jest mapowany. |
+| Nazwa           | Tak         | Nazwa elementu end skojarzenia, który jest mapowany. |
 
 ### <a name="example"></a>Przykład
 
-Poniższy przykład pokazuje element **AssociationSetMapping** , w którym skojarzenie **klucza obcego @ no__t-2Course @ no__t-3Department** w modelu koncepcyjnym jest zamapowane na tabelę **kursów** w bazie danych. Mapowania między właściwościami typu skojarzenia i kolumnami tabeli są określone w podrzędnych elementach **EndProperty** .
+W poniższym przykładzie przedstawiono element **AssociationSetMapping** , w\_którym skojarzenie " **\_** " w modelu koncepcyjnym jest zamapowane na tabelę **kursów** w bazie danych. Mapowania między właściwościami typu skojarzenia i kolumnami tabeli są określone w podrzędnych elementach **EndProperty** .
 
 ``` xml
  <AssociationSetMapping Name="FK_Course_Department"
@@ -626,15 +626,15 @@ Element **EntityContainerMapping** może mieć następujące elementy podrzędne
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **EntityContainerMapping** .
 
-| Nazwa atrybutu            | Jest wymagana | Value                                                                                                                                                                                                                                                    |
+| Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **StorageModelContainer** | Tak         | Nazwa mapowanego kontenera jednostek modelu magazynu.                                                                                                                                                                                     |
 | **CdmEntityContainer**    | Tak         | Nazwa mapowanego kontenera jednostek modelu koncepcyjnego.                                                                                                                                                                                  |
-| **GenerateUpdateViews**   | Nie          | **Wartość true** lub **false**. W przypadku **wartości false**nie są generowane żadne widoki aktualizacji. Ten atrybut powinien mieć ustawioną **wartość false** , jeśli masz mapowanie tylko do odczytu, które byłoby nieprawidłowe, ponieważ dane mogły się nie przewidzieć pomyślnie. <br/> Wartość domyślna to **true**. |
+| **GenerateUpdateViews**   | Nie          | **Wartość true** lub **false**. W przypadku **wartości false**nie są generowane żadne widoki aktualizacji. Ten atrybut powinien mieć ustawioną **wartość false** , jeśli masz mapowanie tylko do odczytu, które byłoby nieprawidłowe, ponieważ dane mogły się nie przewidzieć pomyślnie. <br/> Wartość domyślna to **True**. |
 
 ### <a name="example"></a>Przykład
 
-W poniższym przykładzie pokazano element **EntityContainerMapping** , który mapuje kontener **SchoolModelEntities** (model jednostki modelu koncepcyjnego) do kontenera **SchoolModelStoreContainer** (jednostka modelu magazynu kontener):
+W poniższym przykładzie pokazano element **EntityContainerMapping** , który mapuje kontener **SchoolModelEntities** (kontener jednostki modelu koncepcyjnego) do kontenera **SchoolModelStoreContainer** (kontener jednostek modelu magazynu):
 
 ``` xml
  <EntityContainerMapping StorageEntityContainer="SchoolModelStoreContainer"
@@ -677,7 +677,7 @@ Element **elementu EntitySetMapping** może mieć następujące elementy podrzę
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **elementu EntitySetMapping** .
 
-| Nazwa atrybutu           | Jest wymagana | Value                                                                                                                                                                                                                         |
+| Nazwa atrybutu           | Jest wymagana | Wartość                                                                                                                                                                                                                         |
 |:-------------------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Nazwa**                 | Tak         | Nazwa mapowanego zestawu jednostek modelu koncepcyjnego.                                                                                                                                                             |
 | **Nazwa elementu TypeName** **1**       | Nie          | Nazwa mapowanego typu jednostki modelu koncepcyjnego.                                                                                                                                                            |
@@ -743,7 +743,7 @@ Element **EntityTypeMapping** może mieć następujące elementy podrzędne:
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **EntityTypeMapping** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                                                                                                |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                                                |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **TypeName**   | Tak         | Kwalifikowana nazwa przestrzeni nazw typu jednostki modelu koncepcyjnego, który jest mapowany. <br/> Jeśli typ jest abstrakcyjny lub typem pochodnym, wartość musi być `IsOfType(Namespace-qualified_type_name)`. |
 
@@ -783,7 +783,7 @@ Poniższy przykład pokazuje element elementu EntitySetMapping z dwoma podrzędn
 
 ### <a name="example"></a>Przykład
 
-W następnym przykładzie pokazano mapowanie hierarchii typów, w której typ główny jest abstrakcyjny. Zwróć uwagę na użycie składni `IsOfType` atrybutów **TypeName** .
+W następnym przykładzie pokazano mapowanie hierarchii typów, w której typ główny jest abstrakcyjny. Zwróć uwagę na użycie składni `IsOfType` dla atrybutów **TypeName** .
 
 ``` xml
  <EntitySetMapping Name="People">
@@ -829,7 +829,7 @@ Element **FunctionImportMapping** może mieć następujące elementy podrzędne:
 
 W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **FunctionImportMapping** :
 
-| Nazwa atrybutu         | Jest wymagana | Value                                                                                   |
+| Nazwa atrybutu         | Jest wymagana | Wartość                                                                                   |
 |:-----------------------|:------------|:----------------------------------------------------------------------------------------|
 | **FunctionImportName** | Tak         | Nazwa importowanej funkcji w modelu koncepcyjnym, który jest mapowany.           |
 | **FunctionName**       | Tak         | Kwalifikowana nazwa przestrzeni nazw funkcji w modelu magazynu, który jest zamapowany. |
@@ -887,7 +887,7 @@ Element **InsertFunction** może mieć następujące elementy podrzędne w przyp
 
 W poniższej tabeli opisano atrybuty, które mogą być stosowane do elementu **InsertFunction** w przypadku zastosowania do elementu **EntityTypeMapping** .
 
-| Nazwa atrybutu            | Jest wymagana | Value                                                                                                                                                    |
+| Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **FunctionName**          | Tak         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest mapowana funkcja INSERT. Procedura składowana musi być zadeklarowana w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru wyjściowego zwracająca liczbę odnośnych wierszy.                                                                               |
@@ -938,7 +938,7 @@ Element **InsertFunction** może mieć następujące elementy podrzędne w przyp
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **InsertFunction** , gdy jest on stosowany do elementu **AssociationSetMapping** .
 
-| Nazwa atrybutu            | Jest wymagana | Value                                                                                                                                                    |
+| Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **FunctionName**          | Tak         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest mapowana funkcja INSERT. Procedura składowana musi być zadeklarowana w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru wyjściowego, który zwraca liczbę wierszy, których to dotyczy.                                                                               |
@@ -995,7 +995,7 @@ Nazwy typów modelu koncepcyjnego i magazynu, do których odwołuje się w pliku
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **mapowania** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                 |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                 |
 |:---------------|:------------|:------------------------------------------------------|
 | **Odstęp**      | Tak         | **C-S**. Jest to stała wartość i nie można jej zmienić. |
 
@@ -1048,7 +1048,7 @@ Element **element mappingfragment** może mieć następujące elementy podrzędn
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **element mappingfragment** .
 
-| Nazwa atrybutu          | Jest wymagana | Value                                                                                                                                                                                                                         |
+| Nazwa atrybutu          | Jest wymagana | Wartość                                                                                                                                                                                                                         |
 |:------------------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **StoreEntitySet**      | Tak         | Nazwa mapowanej tabeli lub widoku.                                                                                                                                                                           |
 | **Atrybutem makecolumnsdistinct** | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy zwracane są tylko unikatowe wiersze. <br/> Jeśli ten atrybut ma **wartość true**, atrybut **GenerateUpdateViews** elementu EntityContainerMapping musi być ustawiony na **wartość false**. |
@@ -1193,7 +1193,7 @@ Poniższy przykład przedstawia mapowanie zestawu skojarzeń dla zestawu skojarz
 
 ## <a name="queryview-element-msl"></a>QueryView — element (MSL)
 
-Element **QueryView** w języku specyfikacji mapowania (MSL) definiuje mapowanie tylko do odczytu między typem jednostki lub skojarzeniem w modelu koncepcyjnym i tabelą w źródłowej bazie danych. Mapowanie jest zdefiniowane za pomocą zapytania Entity SQL, które jest oceniane względem modelu magazynu, i można wyrazić zestaw wyników jako jednostkę lub skojarzenie w modelu koncepcyjnym. Ponieważ widoki zapytań są tylko do odczytu, nie można używać standardowych poleceń aktualizacji do aktualizowania typów, które są zdefiniowane przez widoki zapytań. Można wprowadzać aktualizacje tych typów przy użyciu funkcji modyfikacji. Aby uzyskać więcej informacji, zobacz How to: Mapowanie funkcji modyfikacji na procedury składowane.
+Element **QueryView** w języku specyfikacji mapowania (MSL) definiuje mapowanie tylko do odczytu między typem jednostki lub skojarzeniem w modelu koncepcyjnym i tabelą w źródłowej bazie danych. Mapowanie jest zdefiniowane za pomocą zapytania Entity SQL, które jest oceniane względem modelu magazynu, i można wyrazić zestaw wyników jako jednostkę lub skojarzenie w modelu koncepcyjnym. Ponieważ widoki zapytań są tylko do odczytu, nie można używać standardowych poleceń aktualizacji do aktualizowania typów, które są zdefiniowane przez widoki zapytań. Można wprowadzać aktualizacje tych typów przy użyciu funkcji modyfikacji. Aby uzyskać więcej informacji, zobacz How to: map modyfikujących Functions to procedur składowanych.
 
 > [!NOTE]
 > W elemencie **QueryView** wyrażenia Entity SQL, które zawierają właściwości **GroupBy**, Group Aggregates lub nawigacji, nie są obsługiwane.
@@ -1211,7 +1211,7 @@ Element **QueryView** nie może mieć żadnych elementów podrzędnych.
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **QueryView** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                         |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                         |
 |:---------------|:------------|:------------------------------------------------------------------------------|
 | **TypeName**   | Nie          | Nazwa typu modelu koncepcyjnego, który jest mapowany przez widok zapytania. |
 
@@ -1253,7 +1253,7 @@ Ponieważ zapytanie zwraca tylko podzestaw elementów członkowskich typu **dzia
 
 ### <a name="example"></a>Przykład
 
-W następnym przykładzie pokazano element **QueryView** jako elementu podrzędnego elementu **AssociationSetMapping** i definiuje mapowanie tylko do odczytu dla powiązania `FK_Course_Department` w modelu szkoły.
+W następnym przykładzie pokazano element **QueryView** jako elementu podrzędnego elementu **AssociationSetMapping** i definiuje mapowanie tylko do odczytu dla skojarzenia `FK_Course_Department` w modelu szkoły.
 
 ``` xml
  <EntityContainerMapping StorageEntityContainer="SchoolModelStoreContainer"
@@ -1315,7 +1315,7 @@ Podczas definiowania widoków zapytania dla jednostek należy wziąć pod uwagę
 
 ## <a name="resultbinding-element-msl"></a>Resultbinding — element (MSL)
 
-Element **resultbinding** w mapowaniu języka specyfikacji (MSL) mapuje wartości kolumn, które są zwracane przez procedury składowane do właściwości jednostki w modelu koncepcyjnym, gdy funkcje modyfikacji typu jednostki są mapowane na procedury składowane w źródłowa baza danych. **Na przykład** , gdy wartość kolumny tożsamości jest zwracana przez procedurę składowaną INSERT, elementbinding mapuje zwracaną wartość na właściwość typu jednostki w modelu koncepcyjnym.
+Element **resultbinding** w mapowaniu języka specyfikacji (MSL) mapuje wartości kolumn, które są zwracane przez procedury składowane do właściwości jednostki w modelu koncepcyjnym, gdy funkcje modyfikacji typu jednostki są mapowane na procedury składowane w źródłowej bazie danych. **Na przykład** , gdy wartość kolumny tożsamości jest zwracana przez procedurę składowaną INSERT, elementbinding mapuje zwracaną wartość na właściwość typu jednostki w modelu koncepcyjnym.
 
 Element **resultbinding** może być elementem podrzędnym elementu InsertFunction lub UpdateFunction.
 
@@ -1325,7 +1325,7 @@ Element **resultbinding** nie może mieć żadnych elementów podrzędnych.
 
 W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **resultbinding** :
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                         |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                         |
 |:---------------|:------------|:------------------------------------------------------------------------------|
 | **Nazwa**       | Tak         | Nazwa właściwości Entity w modelu koncepcyjnym, który jest mapowany. |
 | **ColumnName** | Tak         | Nazwa mapowanej kolumny.                                          |
@@ -1477,14 +1477,14 @@ Atrybuty, które mają zastosowanie do elementu **element scalarproperty** , ró
 
 W poniższej tabeli opisano atrybuty, które są stosowane, gdy element **element scalarproperty** jest używany do mapowania właściwości modelu koncepcyjnego na kolumnę w bazie danych:
 
-| Nazwa atrybutu | Jest wymagana | Value                                                           |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                           |
 |:---------------|:------------|:----------------------------------------------------------------|
 | **Nazwa**       | Tak         | Nazwa mapowanej właściwości modelu koncepcyjnego. |
 | **ColumnName** | Tak         | Nazwa mapowanej kolumny tabeli.              |
 
 W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **element scalarproperty** , gdy jest on używany do mapowania właściwości modelu koncepcyjnego na parametr procedury składowanej:
 
-| Nazwa atrybutu    | Jest wymagana | Value                                                                                                                                           |
+| Nazwa atrybutu    | Jest wymagana | Wartość                                                                                                                                           |
 |:------------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Nazwa**          | Tak         | Nazwa mapowanej właściwości modelu koncepcyjnego.                                                                                 |
 | **ParameterName** | Tak         | Nazwa mapowanego parametru.                                                                                                 |
@@ -1595,7 +1595,7 @@ Element **UpdateFunction** może mieć następujące elementy podrzędne:
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **UpdateFunction** .
 
-| Nazwa atrybutu            | Jest wymagana | Value                                                                                                                                                    |
+| Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **FunctionName**          | Tak         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest zamapowana funkcja aktualizacji. Procedura składowana musi być zadeklarowana w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru wyjściowego, który zwraca liczbę wierszy, których to dotyczy.                                                                               |

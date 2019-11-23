@@ -40,7 +40,7 @@ Element **Association** może mieć następujące elementy podrzędne (w podanej
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Association** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                            |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                            |
 |:---------------|:------------|:---------------------------------------------------------------------------------|
 | **Nazwa**       | Tak         | Nazwa odpowiedniego ograniczenia klucza obcego w źródłowej bazie danych. |
 
@@ -49,7 +49,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **As
 
 ### <a name="example"></a>Przykład
 
-Poniższy przykład pokazuje element **skojarzenia** , który używa elementu **ReferentialConstraint** , aby określić kolumny, które uczestniczą w ograniczeniu klucza obcego **@ no__t-3CustomerOrders** :
+Poniższy przykład pokazuje element **skojarzenia** , który używa elementu **ReferentialConstraint** , aby określić kolumny, które uczestniczą w ograniczeniu klucza obcego **\_CustomerOrders** :
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -86,7 +86,7 @@ Element **AssociationSet** może mieć następujące elementy podrzędne (w poda
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **AssociationSet** .
 
-| Nazwa atrybutu  | Jest wymagana | Value                                                                                                |
+| Nazwa atrybutu  | Jest wymagana | Wartość                                                                                                |
 |:----------------|:------------|:-----------------------------------------------------------------------------------------------------|
 | **Nazwa**        | Tak         | Nazwa ograniczenia klucza obcego, które reprezentuje zestaw skojarzeń.                          |
 | **Skojarzenie** | Tak         | Nazwa skojarzenia, która definiuje kolumny, które uczestniczą w ograniczeniu klucza obcego. |
@@ -96,7 +96,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **As
 
 ### <a name="example"></a>Przykład
 
-Poniższy przykład przedstawia element **AssociationSet** , który reprezentuje ograniczenie klucza obcego `FK_CustomerOrders` w źródłowej bazie danych:
+Poniższy przykład przedstawia element **AssociationSet** , który reprezentuje `FK_CustomerOrders` ograniczenie klucza obcego w źródłowej bazie danych:
 
 ``` xml
  <AssociationSet Name="FK_CustomerOrders"
@@ -197,7 +197,7 @@ Element **zależny** może mieć następujące elementy podrzędne (w podanej ko
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **zależnego** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                                                       |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                       |
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Rola**       | Tak         | Taka sama wartość jak atrybut **roli** (jeśli jest używany) odpowiadającego elementu końcowego; w przeciwnym razie nazwa tabeli zawierającej kolumnę odwołania. |
 
@@ -206,7 +206,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **za
 
 ### <a name="example"></a>Przykład
 
-Poniższy przykład pokazuje element skojarzenia, który używa elementu **ReferentialConstraint** , aby określić kolumny, które uczestniczą w ograniczeniu klucza obcego **@ no__t-2CustomerOrders** . Element **zależny** określa kolumnę **CustomerID** tabeli **Order** jako zależne zakończenie ograniczenia.
+Poniższy przykład pokazuje element skojarzenia, który używa elementu **ReferentialConstraint** , aby określić kolumny, które uczestniczą w ograniczeniu klucza obcego **\_CustomerOrders** . Element **zależny** określa kolumnę **CustomerID** tabeli **Order** jako zależne zakończenie ograniczenia.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -234,7 +234,7 @@ Element **dokumentacji** w języku definicji schematu magazynu (SSDL) może słu
 Element **dokumentacji** może zawierać następujące elementy podrzędne (w podanej kolejności):
 
 -   **Podsumowanie**: Krótki opis elementu nadrzędnego. (zero lub jeden element)
--   **LongDescription**: Obszerny opis elementu nadrzędnego. (zero lub jeden element)
+-   **LongDescription**: obszerny opis elementu nadrzędnego. (zero lub jeden element)
 
 ### <a name="applicable-attributes"></a>Odpowiednie atrybuty
 
@@ -276,18 +276,18 @@ Element **końcowy** może mieć następujące elementy podrzędne (w podanej ko
 
 W poniższej tabeli opisano atrybuty, które mogą być stosowane do elementu **końcowego** , gdy jest elementem podrzędnym elementu **skojarzenia** .
 
-| Nazwa atrybutu   | Jest wymagana | Value                                                                                                                                                                                                                                                                                                                                                                                      |
+| Nazwa atrybutu   | Jest wymagana | Wartość                                                                                                                                                                                                                                                                                                                                                                                      |
 |:-----------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Typ**         | Tak         | W pełni kwalifikowana nazwa zestawu jednostek SSDL, który znajduje się na końcu ograniczenia klucza obcego.                                                                                                                                                                                                                                                                                          |
 | **Rola**         | Nie          | Wartość atrybutu **roli** w głównym lub zależnym elemencie odpowiedniego elementu ReferentialConstraint (jeśli jest używany).                                                                                                                                                                                                                                             |
-| **Liczebność** | Tak         | **1**, **0.. 1**lub **\*** w zależności od liczby wierszy, które mogą znajdować się na końcu ograniczenia klucza obcego. <br/> **1** wskazuje, że dokładnie jeden wiersz istnieje na końcu ograniczenia klucza obcego. <br/> **0.. 1** oznacza, że na końcu ograniczenia klucza obcego istnieje zero lub jeden wiersz. <br/> **\*** oznacza, że na końcu ograniczenia klucza obcego istnieje zero, jeden lub więcej wierszy. |
+| **Liczebność** | Tak         | **1**, **0.. 1**lub **\*** w zależności od liczby wierszy, które mogą znajdować się na końcu ograniczenia klucza obcego. <br/> **1** wskazuje, że dokładnie jeden wiersz istnieje na końcu ograniczenia klucza obcego. <br/> **0.. 1** oznacza, że na końcu ograniczenia klucza obcego istnieje zero lub jeden wiersz. <br/> **\*** wskazuje, że na końcu ograniczenia klucza obcego istnieje zero, jeden lub więcej wierszy. |
 
 > [!NOTE]
 > Do elementu **End** można zastosować dowolną liczbę atrybutów adnotacji (niestandardowych atrybutów XML). Jednak atrybuty niestandardowe nie mogą należeć do żadnej przestrzeni nazw XML zarezerwowanej dla CSDL. W pełni kwalifikowane nazwy dla wszystkich dwóch atrybutów niestandardowych nie mogą być takie same.
 
 #### <a name="example"></a>Przykład
 
-W poniższym przykładzie przedstawiono element **skojarzenia** , który definiuje ograniczenie FOREIGN KEY **no__t-2CustomerOrders** . Wartości **liczebności** określone dla każdego elementu **końcowego** wskazują, że wiele wierszy w tabeli **Orders** może być skojarzonych z wierszem w tabeli **Customers** , ale tylko jeden wiersz w tabeli **Customers** może być skojarzony z wierszem w tabeli **Orders** . Ponadto element **onDelete** wskazuje, że wszystkie wiersze w tabeli **Orders** , które odwołują się do określonego wiersza w tabeli **Customers** , zostaną usunięte, jeśli wiersz w tabeli **Customers** zostanie usunięty.
+Poniższy przykład pokazuje element **skojarzenia** , który definiuje klucz obcy **\_CustomerOrders** ograniczenie klucza obcego. Wartości **liczebności** określone dla każdego elementu **końcowego** wskazują, że wiele wierszy w tabeli **Orders** może być skojarzonych z wierszem w tabeli **Customers** , ale tylko jeden wiersz w tabeli **Customers** może być skojarzony z wierszem w tabeli **Orders** . Ponadto element **onDelete** wskazuje, że wszystkie wiersze w tabeli **Orders** , które odwołują się do określonego wiersza w tabeli **Customers** , zostaną usunięte, jeśli wiersz w tabeli **Customers** zostanie usunięty.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -321,7 +321,7 @@ Element **końcowy** może mieć następujące elementy podrzędne (w podanej ko
 
 W poniższej tabeli opisano atrybuty, które mogą być stosowane do elementu **końcowego** , gdy jest elementem podrzędnym elementu **AssociationSet** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                  |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------|
 | **Elementy**  | Tak         | Nazwa zestawu jednostek SSDL znajdującego się na końcu ograniczenia klucza obcego.                                      |
 | **Rola**       | Nie          | Wartość jednego z atrybutów **roli** określonych dla jednego elementu **końcowego** odpowiedniego elementu skojarzenia. |
@@ -351,7 +351,7 @@ Poniższy przykład pokazuje element **EntityContainer** z elementem **Associati
 
 ## <a name="entitycontainer-element-ssdl"></a>EntityContainer — element (SSDL)
 
-Element **EntityContainer** w języku definicji schematu magazynu (SSDL) opisuje strukturę bazowego źródła danych w aplikacji Entity Framework: Zestawy jednostek SSDL (zdefiniowane w elementach EntitySet) reprezentują tabele w bazie danych, typy jednostek SSDL (zdefiniowane w elementach EntityType) reprezentują wiersze w tabeli, a zestawy skojarzeń (zdefiniowane w elementach AssociationSet) reprezentują ograniczenia klucza obcego w Database. Kontener jednostek modelu magazynu mapuje do kontenera jednostek modelu koncepcyjnego za pomocą elementu EntityContainerMapping.
+Element **EntityContainer** w języku definicji schematu magazynu (SSDL) opisuje strukturę bazowego źródła danych w aplikacji Entity Framework: zestawy jednostek SSDL (zdefiniowane w elementach EntitySet) reprezentują tabele w bazie danych, typy jednostek SSDL (zdefiniowane w elementach EntityType) reprezentują wiersze w tabeli, a zestawy skojarzeń (zdefiniowane w elementach AssociationSet) reprezentują ograniczenia klucza obcego w bazie danych. Kontener jednostek modelu magazynu mapuje do kontenera jednostek modelu koncepcyjnego za pomocą elementu EntityContainerMapping.
 
 Element **EntityContainer** może mieć zero lub jeden element dokumentacji. Jeśli element **dokumentacji** jest obecny, musi poprzedzać wszystkie inne elementy podrzędne.
 
@@ -365,7 +365,7 @@ Element **EntityContainer** może mieć zero lub więcej następujących element
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **EntityContainer** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                   |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                   |
 |:---------------|:------------|:------------------------------------------------------------------------|
 | **Nazwa**       | Tak         | Nazwa kontenera jednostek. Ta nazwa nie może zawierać kropek (.). |
 
@@ -409,7 +409,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **En
 > [!NOTE]
 > Niektóre atrybuty (niewymienione w tym miejscu) mogą być kwalifikowane aliasem **magazynu** . Te atrybuty są używane przez kreatora aktualizacji modelu podczas aktualizowania modelu.
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                    |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
 | **Nazwa**       | Tak         | Nazwa zestawu jednostek.                                                              |
 | **Elementy** | Tak         | W pełni kwalifikowana nazwa typu jednostki, dla którego zestaw jednostek zawiera wystąpienia. |
@@ -453,7 +453,7 @@ Element **EntityType** może mieć następujące elementy podrzędne (w podanej 
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **EntityType** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                                                                  |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Nazwa**       | Tak         | Nazwa typu jednostki. Ta wartość jest zwykle taka sama jak nazwa tabeli, w której typ jednostki reprezentuje wiersz. Ta wartość nie może zawierać kropek (.). |
 
@@ -501,7 +501,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Fu
 > [!NOTE]
 > Niektóre atrybuty (niewymienione w tym miejscu) mogą być kwalifikowane aliasem **magazynu** . Te atrybuty są używane przez kreatora aktualizacji modelu podczas aktualizowania modelu.
 
-| Nazwa atrybutu             | Jest wymagana | Value                                                                                                                                                                                                              |
+| Nazwa atrybutu             | Jest wymagana | Wartość                                                                                                                                                                                                              |
 |:---------------------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Nazwa**                   | Tak         | Nazwa procedury składowanej.                                                                                                                                                                                  |
 | **Atrybuty**             | Nie          | Zwracany typ procedury składowanej.                                                                                                                                                                           |
@@ -581,7 +581,7 @@ Element **onDelete** może mieć następujące elementy podrzędne (w podanej ko
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **onDelete** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                               |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                               |
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------|
 | **Akcja**     | Tak         | **Kaskada** lub **none**. ( **Ograniczona** wartość jest prawidłowa, ale ma takie samo zachowanie jak **none**). |
 
@@ -590,7 +590,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **on
 
 ### <a name="example"></a>Przykład
 
-W poniższym przykładzie przedstawiono element **skojarzenia** , który definiuje ograniczenie FOREIGN KEY **no__t-2CustomerOrders** . Element **onDelete** wskazuje, że wszystkie wiersze w tabeli **Orders** , które odwołują się do określonego wiersza w tabeli **Customers** , zostaną usunięte, jeśli wiersz w tabeli **Customers** zostanie usunięty.
+Poniższy przykład pokazuje element **skojarzenia** , który definiuje klucz obcy **\_CustomerOrders** ograniczenie klucza obcego. Element **onDelete** wskazuje, że wszystkie wiersze w tabeli **Orders** , które odwołują się do określonego wiersza w tabeli **Customers** , zostaną usunięte, jeśli wiersz w tabeli **Customers** zostanie usunięty.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -624,7 +624,7 @@ Element **Parameter** może mieć następujące elementy podrzędne (w podanej k
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **parametru** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                                                                                                                           |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                                                                           |
 |:---------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Nazwa**       | Tak         | Nazwa parametru.                                                                                                                                                                                                      |
 | **Typ**       | Tak         | Typ parametru.                                                                                                                                                                                                             |
@@ -667,7 +667,7 @@ Element **Principal** może mieć następujące elementy podrzędne (w podanej k
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **głównego** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                                                      |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                      |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Rola**       | Tak         | Taka sama wartość jak atrybut **roli** (jeśli jest używany) odpowiadającego elementu końcowego; w przeciwnym razie nazwa tabeli, która zawiera kolumnę, do której się odwołuje. |
 
@@ -676,7 +676,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **g�
 
 ### <a name="example"></a>Przykład
 
-Poniższy przykład pokazuje element skojarzenia, który używa elementu **ReferentialConstraint** , aby określić kolumny, które uczestniczą w ograniczeniu klucza obcego **@ no__t-2CustomerOrders** . Element **Principal** określa kolumnę **IDKlienta** tabeli **Customer** jako główny koniec ograniczenia.
+Poniższy przykład pokazuje element skojarzenia, który używa elementu **ReferentialConstraint** , aby określić kolumny, które uczestniczą w ograniczeniu klucza obcego **\_CustomerOrders** . Element **Principal** określa kolumnę **IDKlienta** tabeli **Customer** jako główny koniec ograniczenia.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -707,7 +707,7 @@ Element **Właściwości** nie może mieć żadnych elementów podrzędnych.
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Właściwości** .
 
-| Nazwa atrybutu            | Jest wymagana | Value                                                                                                                                                                                                                           |
+| Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                                                                                           |
 |:--------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Nazwa**                  | Tak         | Nazwa odpowiedniej kolumny.                                                                                                                                                                                           |
 | **Typ**                  | Tak         | Typ odpowiadającej kolumny.                                                                                                                                                                                           |
@@ -759,7 +759,7 @@ Element **PropertyRef** może mieć tylko następujące elementy podrzędne:
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **PropertyRef** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                |
+| Nazwa atrybutu | Jest wymagana | Wartość                                |
 |:---------------|:------------|:-------------------------------------|
 | **Nazwa**       | Tak         | Nazwa właściwości, której dotyczy odwołanie. |
 
@@ -803,7 +803,7 @@ Do elementu **ReferentialConstraint** można zastosować dowolną liczbę atrybu
 
 ### <a name="example"></a>Przykład
 
-Poniższy przykład pokazuje element **skojarzenia** , który używa elementu **ReferentialConstraint** , aby określić kolumny, które uczestniczą w ograniczeniu klucza obcego **@ no__t-3CustomerOrders** :
+Poniższy przykład pokazuje element **skojarzenia** , który używa elementu **ReferentialConstraint** , aby określić kolumny, które uczestniczą w ograniczeniu klucza obcego **\_CustomerOrders** :
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -902,16 +902,16 @@ Element **schematu** może zawierać zero lub więcej z następujących element�
 
 Element **schematu** używa atrybutu **przestrzeni nazw** w celu zdefiniowania przestrzeni nazw dla obiektów typ jednostki i skojarzenie w modelu magazynu. W przestrzeni nazw żadne dwa obiekty nie mogą mieć takiej samej nazwy.
 
-Przestrzeń nazw modelu magazynu różni się od przestrzeni nazw XML elementu **Schema** . Przestrzeń nazw modelu magazynu (zgodnie z definicją atrybutu **Namespace** ) jest kontenerem logicznym dla typów jednostek i typów skojarzeń. Przestrzeń nazw XML (wskazywana przez atrybut **xmlns** ) elementu **schematu** jest domyślną przestrzenią nazw dla elementów podrzędnych i atrybutów elementu **Schema** . Przestrzenie nazw XML w formularzu https://schemas.microsoft.com/ado/YYYY/MM/edm/ssdl (gdzie RRRR i MM reprezentują odpowiednio rok i miesiąc) są zarezerwowane dla plików SSDL. Elementy niestandardowe i atrybuty nie mogą znajdować się w przestrzeniach nazw, które mają ten formularz.
+Przestrzeń nazw modelu magazynu różni się od przestrzeni nazw XML elementu **Schema** . Przestrzeń nazw modelu magazynu (zgodnie z definicją atrybutu **Namespace** ) jest kontenerem logicznym dla typów jednostek i typów skojarzeń. Przestrzeń nazw XML (wskazywana przez atrybut **xmlns** ) elementu **schematu** jest domyślną przestrzenią nazw dla elementów podrzędnych i atrybutów elementu **Schema** . Przestrzenie nazw XML w formularzu https://schemas.microsoft.com/ado/YYYY/MM/edm/ssdl (gdzie RRRR i MM reprezentują odpowiednio rok i miesiąc) są zarezerwowane dla SSDL. Elementy niestandardowe i atrybuty nie mogą znajdować się w przestrzeniach nazw, które mają ten formularz.
 
 ### <a name="applicable-attributes"></a>Odpowiednie atrybuty
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Schema** .
 
-| Nazwa atrybutu            | Jest wymagana | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 |:--------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Namespace**             | Tak         | Przestrzeń nazw modelu magazynu. Wartość atrybutu **Namespace** służy do tworzenia w pełni kwalifikowanej nazwy typu. Na przykład jeśli obiekt **EntityType** o nazwie *Customer* znajduje się w przestrzeni nazw ExampleModel. Store, a następnie w pełni kwalifikowana nazwa **obiektu EntityType** to ExampleModel. Store. Customer. <br/> Następujące ciągi nie mogą być używane jako wartość atrybutu **Namespace** : **System**, **przejściowy**lub **EDM**. Wartość atrybutu **przestrzeni nazw** nie może być taka sama jak wartość atrybutu **Namespace** w elemencie schematu CSDL. |
-| **Alias**                 | Nie          | Identyfikator używany zamiast nazwy przestrzeni nazw. Na przykład jeśli obiekt **EntityType** o nazwie *Customer* znajduje się w przestrzeni nazw ExampleModel. Store, a wartość atrybutu **aliasu** to *StorageModel*, można użyć StorageModel. Customer jako w pełni kwalifikowanej nazwy  **Obiekt EntityType.**                                                                                                                                                                                                                                                                                    |
+| **Namespace**             | Tak         | Przestrzeń nazw modelu magazynu. Wartość atrybutu **Namespace** służy do tworzenia w pełni kwalifikowanej nazwy typu. Na przykład jeśli obiekt **EntityType** o nazwie *Customer* znajduje się w przestrzeni nazw ExampleModel. Store, a następnie w pełni kwalifikowana nazwa **obiektu EntityType** to ExampleModel. Store. Customer. <br/> Następujące ciągi nie mogą być używane jako wartość atrybutu **Namespace** : **system**, **przejściowy**lub **EDM**. Wartość atrybutu **przestrzeni nazw** nie może być taka sama jak wartość atrybutu **Namespace** w elemencie schematu CSDL. |
+| **Alias**                 | Nie          | Identyfikator używany zamiast nazwy przestrzeni nazw. Na przykład jeśli obiekt **EntityType** o nazwie *Customer* znajduje się w przestrzeni nazw ExampleModel. Store, a wartość atrybutu **aliasu** to *StorageModel*, można użyć StorageModel. Customer jako w pełni kwalifikowanej nazwy elementu **EntityType.**                                                                                                                                                                                                                                                                                    |
 | **Dostawca**              | Tak         | Dostawca danych.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | **ProviderManifestToken** | Tak         | Token wskazujący dostawcy, który manifest dostawcy ma zwrócić. Nie zdefiniowano żadnego formatu dla tokenu. Wartości dla tokenu są definiowane przez dostawcę. Aby uzyskać informacje na temat tokenów manifestu dostawcy SQL Server, zobacz SqlClient dla Entity Framework.                                                                                                                                                                                                                                                                                                                        |
 

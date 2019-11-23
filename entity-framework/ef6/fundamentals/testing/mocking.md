@@ -84,7 +84,7 @@ namespace TestingDemo
 
 Należy zauważyć, że właściwości Nieogólnymi w kontekście są oznaczone jako wirtualne. Dzięki temu platforma służąca do imitacji będzie mogła pochodzić od naszego kontekstu i przesłaniać te właściwości za pomocą zaimplementowanej implementacji.  
 
-Jeśli używasz Code First, możesz edytować klasy bezpośrednio. W przypadku korzystania z projektanta EF należy edytować szablon T4, który generuje kontekst. Otwórz \<model_name @ no__t-1. Plik Context.tt, który jest zagnieżdżony w pliku edmx, Znajdź Poniższy fragment kodu i dodaj go do słowa kluczowego Virtual, jak pokazano.  
+Jeśli używasz Code First, możesz edytować klasy bezpośrednio. W przypadku korzystania z projektanta EF należy edytować szablon T4, który generuje kontekst. Otwórz model_name \<\>. Plik Context.tt, który jest zagnieżdżony w pliku edmx, Znajdź Poniższy fragment kodu i dodaj go do słowa kluczowego Virtual, jak pokazano.  
 
 ``` csharp
 public string DbSet(EntitySet entitySet)
@@ -150,7 +150,7 @@ namespace TestingDemo
 
 ## <a name="testing-non-query-scenarios"></a>Testowanie scenariuszy innych niż zapytania  
 
-To wszystko, czego potrzebujemy do rozpoczęcia testowania metod niezwiązanych z badaniem. Poniższy test używa MOQ do utworzenia kontekstu. Następnie tworzy Nieogólnymi @ no__t-0Blog @ no__t-1 i drutuje, aby można było zwrócić z właściwości bloga kontekstu. Następnie kontekst służy do tworzenia nowego BlogService, który jest następnie używany do tworzenia nowego bloga — za pomocą metody addblog. Na koniec test weryfikuje, czy usługa dodała nowy blog o nazwie metody SaveChanges w kontekście.  
+To wszystko, czego potrzebujemy do rozpoczęcia testowania metod niezwiązanych z badaniem. Poniższy test używa MOQ do utworzenia kontekstu. Następnie tworzy blog Nieogólnymi\<\> i nadaje mu przewody do zwrócenia z właściwości bloga kontekstu. Następnie kontekst służy do tworzenia nowego BlogService, który jest następnie używany do tworzenia nowego bloga — za pomocą metody addblog. Na koniec test weryfikuje, czy usługa dodała nowy blog o nazwie metody SaveChanges w kontekście.  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -182,7 +182,7 @@ namespace TestingDemo
 
 ## <a name="testing-query-scenarios"></a>Testowanie scenariuszy zapytań  
 
-Aby móc wykonywać zapytania na naszym teście Nieogólnymi, musimy skonfigurować implementację IQueryable. Pierwszym krokiem jest utworzenie niektórych danych znajdujących się w pamięci — używamy listy @ no__t-0Blog @ no__t-1. Następnie utworzymy kontekst i Nieogólnymi @ no__t-0Blog @ no__t-1, a następnie nastąpi przełączenie implementacji IQueryable dla Nieogólnymi — są one tylko delegowane do dostawcy LINQ to Objects, który współpracuje z listą @ no__t-2T @ no__t-3.  
+Aby móc wykonywać zapytania na naszym teście Nieogólnymi, musimy skonfigurować implementację IQueryable. Pierwszym krokiem jest utworzenie niektórych danych znajdujących się w pamięci — używamy listy\<\>blogu. Następnie utworzymy blog kontekstu i Nieogólnymi\<\> następnie przeniesiemy implementację w interfejsie IQueryable dla Nieogólnymi — po prostu delegowanie do dostawcy LINQ to Objects, który współpracuje z\<listą T\>.  
 
 Możemy następnie utworzyć BlogService na podstawie naszych testów, aby upewnić się, że dane, które powrócimy z GetAllBlogs, są uporządkowane według nazwy.  
 
@@ -235,7 +235,7 @@ Entity Framework 6 wprowadził zestaw metod rozszerzających, które mogą być 
 
 Ponieważ zapytania Entity Framework używają LINQ, metody rozszerzające są zdefiniowane w interfejsie IQueryable i IEnumerable. Jednak ponieważ są one przeznaczone wyłącznie dla Entity Framework, w przypadku próby użycia ich w zapytaniu LINQ, które nie jest kwerendą Entity Framework, może zostać wyświetlony następujący błąd:
 
-> Źródło IQueryable nie implementuje IDbAsyncEnumerable @ no__t-0. Do Entity Framework operacji asynchronicznych można używać tylko źródeł, które implementują IDbAsyncEnumerable. Aby uzyskać więcej informacji, zobacz [http://go.microsoft.com/fwlink/?LinkId=287068](https://go.microsoft.com/fwlink/?LinkId=287068).  
+> Źródło IQueryable nie implementuje IDbAsyncEnumerable{0}. Do Entity Framework operacji asynchronicznych można używać tylko źródeł, które implementują IDbAsyncEnumerable. Aby uzyskać więcej informacji, zobacz [http://go.microsoft.com/fwlink/?LinkId=287068](https://go.microsoft.com/fwlink/?LinkId=287068).  
 
 Chociaż metody asynchroniczne są obsługiwane tylko w przypadku uruchamiania zapytania EF, można użyć ich w teście jednostkowym, gdy działa w teście w pamięci o podwójnej części Nieogólnymi.  
 

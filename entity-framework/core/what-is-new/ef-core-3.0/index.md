@@ -91,7 +91,7 @@ Aby uzyskać więcej informacji, zobacz [strumienie asynchroniczne C# w dokument
 
 ### <a name="nullable-reference-types"></a>Typy referencyjne dopuszczające wartość null
 
-Gdy ta nowa funkcja jest włączona w kodzie, EF Core bada wartości null właściwości typu odwołania i stosuje je do odpowiednich kolumn i relacji w bazie danych: właściwości typów odwołań niedopuszczających wartości null są traktowane tak, jakby były @no__t_ atrybut adnotacji danych 0_.
+Gdy ta nowa funkcja jest włączona w kodzie, EF Core sprawdzi wartość null właściwości typu odwołania i zastosuje ją do odpowiednich kolumn i relacji w bazie danych: właściwości typów odwołań niedopuszczających wartości null są traktowane tak, jakby miały atrybut `[Required]` adnotacji danych.
 
 Na przykład w poniższej klasie właściwości oznaczone jako typu `string?` zostaną skonfigurowane jako opcjonalne, a `string` zostanie skonfigurowany zgodnie z wymaganiami:
 

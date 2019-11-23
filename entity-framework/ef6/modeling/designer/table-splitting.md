@@ -41,12 +41,12 @@ W tym instruktażu jest używany program Visual Studio 2012.
 -   Wybierz pozycję **dane** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablony.
 -   W polu Nazwa pliku wprowadź **TableSplittingModel. edmx** , a następnie kliknij przycisk **Dodaj**.
 -   W oknie dialogowym Wybierz zawartość modelu wybierz pozycję **Generuj z bazy danych**, a następnie kliknij przycisk **Dalej.**
--   Kliknij pozycję nowe połączenie. W oknie dialogowym właściwości połączenia wprowadź nazwę serwera (na przykład **(LocalDB)\\mssqllocaldb**), wybierz metodę uwierzytelniania, wpisz **szkołę** dla nazwy bazy danych, a następnie kliknij przycisk **OK**.
+-   Kliknij pozycję nowe połączenie. W oknie dialogowym właściwości połączenia wprowadź nazwę serwera (na przykład **(LocalDB)\\mssqllocaldb**), wybierz metodę uwierzytelniania, wpisz  **szkoły** dla nazwy bazy danych, a następnie kliknij przycisk **OK**.
     Okno dialogowe Wybieranie połączenia danych zostanie zaktualizowane przy użyciu ustawienia połączenia z bazą danych.
--   W oknie dialogowym Wybierz obiekty bazy danych unfold węzeł **tabele** i sprawdź tabelę **Person** . Spowoduje to dodanie określonej tabeli do modelu **szkoły** .
+-   W oknie dialogowym Wybierz obiekty bazy danych unfold **tabele** węzła i sprawdź tabelę **Person** . Spowoduje to dodanie określonej tabeli do modelu **szkoły** .
 -   Kliknij przycisk **Zakończ**.
 
-Zostanie wyświetlona Entity Designer, która zapewnia powierzchnię projektową do edycji modelu. Wszystkie obiekty wybrane w oknie dialogowym  **Wybierz obiekty bazy danych**zostaną dodane do modelu.
+Zostanie wyświetlona Entity Designer, która zapewnia powierzchnię projektową do edycji modelu. Wszystkie obiekty wybrane w oknie dialogowym **Wybierz obiekty bazy danych** są dodawane do modelu.
 
 ## <a name="map-two-entities-to-a-single-table"></a>Mapuj dwie jednostki na jedną tabelę
 
@@ -60,17 +60,17 @@ W tej sekcji podzielę jednostkę **osoby** na dwie jednostki, a następnie mapu
 -   Wpisz **HireInfo** dla **nazwy obiektu** i **PersonID** dla nazwy **właściwości klucza** .
 -   Kliknij przycisk **OK**.
 -   Nowy typ jednostki jest tworzony i wyświetlany na powierzchni projektowej.
--   Wybierz właściwość **HireDate** typu jednostki **osoba** i naciśnij klawisze **Ctrl + X** .
+-   Wybierz właściwość **HireDate**  **osoby** typ jednostki i naciśnij **kombinację klawiszy Ctrl + X** .
 -   Wybierz jednostkę **HireInfo** i naciśnij klawisze **Ctrl + V** .
 -   Utwórz skojarzenie między **osobą** i **HireInfo**. W tym celu kliknij prawym przyciskiem myszy pusty obszar na powierzchni projektowej, wskaż polecenie **Dodaj nowe**, a następnie kliknij pozycję **skojarzenie**.
 -   Zostanie wyświetlone okno dialogowe **Dodawanie skojarzenia** . Nazwa **PersonHireInfo** jest domyślnie określona.
 -   Określ liczebność **1 (jeden)** na obu końcach relacji.
 -   Naciśnij klawisz **OK**.
 
-Następny krok wymaga okna **szczegóły** mapowania. Jeśli nie widzisz tego okna, kliknij prawym przyciskiem myszy powierzchnię projektu i wybierz polecenie **szczegóły mapowania**.
+Następny krok wymaga okna **szczegóły mapowania** . Jeśli nie widzisz tego okna, kliknij prawym przyciskiem myszy powierzchnię projektu i wybierz polecenie **szczegóły mapowania**.
 
--   Wybierz typ jednostki **HireInfo** , a następnie kliknij pozycję **&lt;Dodaj tabelę lub&gt;widok** w oknie **szczegóły** mapowania.
--   Wybierz **osobę** z   **&lt;listy rozwijanej Dodaj tabelę lub&gt;widok**. Lista zawiera tabele lub widoki, do których można zamapować wybraną jednostkę.
+-   Wybierz typ jednostki  **HireInfo** , a następnie kliknij pozycję **&lt;Dodaj tabelę lub widok&gt;**  w oknie **szczegóły mapowania** .
+-   Wybierz **z** listy rozwijanej pole **&lt;Dodaj tabelę lub widok&gt;**  . Lista zawiera tabele lub widoki, do których można zamapować wybraną jednostkę.
     Odpowiednie właściwości powinny być domyślnie mapowane.
 
     ![Mapowanie](~/ef6/media/mapping.png)
@@ -126,7 +126,7 @@ Następujące instrukcje języka T-SQL zostały wykonane względem bazy danych *
 
 -   Następujący element **INSERT** został wykonany w wyniku wykonywania kontekstu. Metody SaveChanges () i łączy dane od **osoby** i jednostek **HireInfo**
 
-    ![Insert](~/ef6/media/insert.png)
+    ![Wstaw](~/ef6/media/insert.png)
 
 -   Następujący **wybór** został wykonany w wyniku wykonywania kontekstu. **Persons** . FirstOrDefault () i wybiera tylko kolumny mapowane do osoby
 

@@ -18,7 +18,7 @@ Ten film wideo i przewodnik krok po kroku zawierają wprowadzenie do Model First
 
 **Przedstawione przez**: [Rowan Miller](https://romiller.com/)
 
-**Film wideo**: [WMV](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.wmv) | [MP4](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-mp4video-modelfirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.zip)
+**Wideo**: [wmv](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.wmv) | [MP4](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-mp4video-modelfirst.m4v) | [WMV (zip)](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.zip)
 
 ## <a name="pre-requisites"></a>Wymagania wstępne
 
@@ -26,12 +26,12 @@ Aby ukończyć ten przewodnik, musisz mieć zainstalowany program Visual Studio 
 
 W przypadku korzystania z programu Visual Studio 2010 należy również zainstalować pakiet [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .
 
-## <a name="1-create-the-application"></a>1. Tworzenie aplikacji
+## <a name="1-create-the-application"></a>1. Utwórz aplikację
 
 Aby zachować prostotę, możemy utworzyć podstawową aplikację konsolową, która używa Model First do uzyskiwania dostępu do danych:
 
 -   Otwórz program Visual Studio
--   **Plik-&gt; nowy-&gt; projektu...**
+-   **Plik —&gt; nowy&gt; projekt...**
 -   Wybierz pozycję **Windows** z menu po lewej stronie i **aplikacji konsolowej**
 -   Wprowadź **ModelFirstSample** jako nazwę
 -   Wybierz **przycisk OK**
@@ -40,7 +40,7 @@ Aby zachować prostotę, możemy utworzyć podstawową aplikację konsolową, kt
 
 Będziemy używać Entity Framework Designer, które są dołączone jako część programu Visual Studio, aby utworzyć nasz model.
 
--   **Projekt-&gt; Dodaj nowy element...**
+-   **Projekt —&gt; Dodaj nowy element...**
 -   Wybierz pozycję **dane** z menu po lewej stronie, a następnie **ADO.NET Entity Data Model**
 -   Wprowadź **BloggingModel** jako nazwę, a następnie kliknij przycisk **OK**. spowoduje to uruchomienie Kreatora Entity Data Model
 -   Wybierz pozycję **pusty model** i kliknij przycisk **Zakończ** .
@@ -51,23 +51,23 @@ Entity Framework Designer jest otwarty z pustym modelem. Teraz możemy rozpoczą
 
 -   Kliknij prawym przyciskiem myszy powierzchnię projektu i wybierz polecenie **Właściwości**
 -   W okno Właściwości zmienić **nazwę kontenera jednostki** na **BloggingContext**
-    *jest to nazwa kontekstu pochodnego, który zostanie wygenerowany dla Ciebie, kontekst reprezentuje sesję z bazą danych, umożliwiając nam wykonywanie zapytań i zapisywanie dane*
--   Kliknij prawym przyciskiem myszy powierzchnię projektu i wybierz polecenie **Dodaj nową-&gt; jednostki...**
+    *jest to nazwa kontekstu pochodnego, który zostanie wygenerowany dla Ciebie, kontekst reprezentuje sesję z bazą danych, umożliwiając nam wykonywanie zapytań i zapisywanie danych*
+-   Kliknij prawym przyciskiem myszy powierzchnię projektu i wybierz polecenie **Dodaj nową&gt; jednostki...**
 -   Wprowadź **blog** jako nazwę jednostki i **BlogId** jako nazwę klucza, a następnie kliknij przycisk **OK** .
 
     ![Dodaj jednostkę blogu](~/ef6/media/addblogentity.png)
 
--   Kliknij prawym przyciskiem myszy nową jednostkę na powierzchni projektowej i wybierz polecenie **Dodaj nową-&gt; Właściwość skalarna**, wprowadź **nazwę** jako nazwę właściwości.
+-   Kliknij prawym przyciskiem myszy nową jednostkę na powierzchni projektowej i wybierz polecenie **Dodaj nową&gt; Właściwość skalarna**, wprowadź **nazwę** jako nazwę właściwości.
 -   Powtórz ten proces, aby dodać właściwość **adresu URL** .
--   Kliknij prawym przyciskiem myszy Właściwość **adres URL** na powierzchni projektowej i wybierz polecenie **właściwości**, w okno właściwości zmienić ustawienie **dopuszczające wartość null** na **true**
-    *to umożliwia zapisanie blogu w bazie danych bez przypisywania go do adresu URL *
+-   Kliknij prawym przyciskiem myszy Właściwość **adres URL** na powierzchni projektowej i wybierz polecenie **właściwości**, w okno właściwości zmienić ustawienie **wartości null** na **true** ,
+    *to umożliwia zapisanie blogu w bazie danych bez przypisywania go do adresu URL*
 -   Korzystając z technik, które właśnie uczysz, Dodaj jednostkę **post** z właściwością klucza **PostId**
 -   Dodawanie właściwości skalarnych **tytułu** i **zawartości** do jednostki **post**
 
 Teraz, gdy mamy kilka jednostek, czas na dodanie skojarzenia (lub relacji) między nimi.
 
--   Kliknij prawym przyciskiem myszy powierzchnię projektu i wybierz polecenie **Dodaj nowe-&gt; skojarzenie...**
--   Wprowadź jeden koniec punktu relacji do **blogu** z liczebność **jednego** , a drugi punkt końcowy do **ogłaszania** z liczebność **wielu**
+-   Kliknij prawym przyciskiem myszy powierzchnię projektu i wybierz polecenie **Dodaj nowe&gt; skojarzenie...**
+-   Utwórz jeden koniec punktu relacji do **blogu** z liczebność **jednego** i drugiego punktu końcowego, aby **ogłosić** z liczebność **wielu**
     *oznacza to, że blog zawiera wiele ogłoszeń i wpis należy do jednego bloga*
 -   Upewnij się, że pole **Dodaj właściwości klucza obcego do elementu "post"** jest zaznaczone, a następnie kliknij przycisk **OK** .
 
@@ -83,8 +83,8 @@ Jeśli pracujesz w programie Visual Studio 2010, należy wykonać kilka dodatkow
 
 Najpierw należy uzyskać najnowszą wersję Entity Framework z narzędzia NuGet.
 
--   **Projekt — &gt; Zarządzaj pakietami NuGet...** 
-    *Jeśli nie masz opcji **Zarządzaj pakietami NuGet...** należy zainstalować [najnowszą wersję programu NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) *
+-   **Projekt —&gt; zarządzać pakietami NuGet...** 
+    , *Jeśli nie masz opcji **Zarządzaj pakietami NuGet...** należy zainstalować [najnowszą wersję programu NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) *
 -   Wybierz kartę **online**
 -   Wybierz pakiet **EntityFramework**
 -   Kliknij przycisk **Instaluj**
@@ -93,7 +93,7 @@ Następnie musimy wymienić nasz model, aby wygenerować kod, który korzysta z 
 
 -   Kliknij prawym przyciskiem myszy pusty punkt w modelu w programie Dr Designer i wybierz polecenie **Dodaj element generowania kodu...**
 -   Wybierz pozycję **Szablony online** z menu po lewej stronie i Wyszukaj w usłudze **DbContext**
--   Wybierz pozycję Dr **5. x DbContext generator dla języka C @ no__t-1**, wprowadź **BloggingModel** jako nazwę i kliknij przycisk **Dodaj** .
+-   Wybierz pozycję Dr **5. x DbContext generator dla C\#** , wprowadź **BloggingModel** jako nazwę, a następnie kliknij przycisk **Dodaj** .
 
     ![Szablon DbContext](~/ef6/media/dbcontexttemplate.png)
 
@@ -120,7 +120,7 @@ Przyjrzyjmy się i wygenerujemy bazę danych.
 -   Po wyświetleniu skryptu kliknij przycisk **Zakończ** , a skrypt zostanie dodany do projektu i otwarty
 -   Kliknij prawym przyciskiem myszy skrypt i wybierz polecenie **Wykonaj**, zostanie wyświetlony monit o określenie bazy danych, z którą chcesz nawiązać połączenie, określ LocalDB lub SQL Server Express, w zależności od używanej wersji programu Visual Studio
 
-## <a name="4-reading--writing-data"></a>4. Odczytywanie & zapisywania danych
+## <a name="4-reading--writing-data"></a>4. odczytywanie & zapisywania danych
 
 Teraz, gdy mamy już model, który jest używany do uzyskiwania dostępu do niektórych danych. Klasy, które będą używane do uzyskiwania dostępu do danych są automatycznie generowane na podstawie pliku EDMX.
 
@@ -172,7 +172,7 @@ ADO.NET Blog
 Press any key to exit...
 ```
 
-## <a name="5-dealing-with-model-changes"></a>5. Postępowanie z zmianami modelu
+## <a name="5-dealing-with-model-changes"></a>5. postępowanie z zmianami modelu
 
 Teraz można wprowadzić pewne zmiany w modelu, gdy wprowadzimy te zmiany, należy również zaktualizować schemat bazy danych.
 
@@ -183,7 +183,7 @@ Zaczniemy od dodania nowej jednostki użytkownika do naszego modelu.
     ![Dodaj jednostkę użytkownika](~/ef6/media/adduserentity.png)
 
 -   Kliknij prawym przyciskiem myszy Właściwość **username** na powierzchni projektowej i wybierz polecenie **właściwości**, w okno właściwości zmienić ustawienie **MaxLength** na **50**
-    *ogranicza dane, które mogą być przechowywane w nazwie użytkownika do 50 znaki*
+    *to ogranicza dane, które mogą być przechowywane w nazwie użytkownika do 50 znaków*
 -   Dodawanie właściwości skalarnej **DisplayName** do jednostki **użytkownika**
 
 Mamy już zaktualizowany model i jesteśmy gotowi do zaktualizowania bazy danych, aby pomieścić nasz nowy typ jednostki użytkownika.
@@ -192,7 +192,7 @@ Mamy już zaktualizowany model i jesteśmy gotowi do zaktualizowania bazy danych
 -   Kliknij przycisk **Zakończ** .
 -   Można otrzymywać ostrzeżenia o zastępowaniu istniejącego skryptu DDL oraz o mapowaniu i magazynowaniu elementów modelu, a następnie kliknąć przycisk **tak** dla obu tych ostrzeżeń
 -   Zaktualizowany skrypt SQL służący do tworzenia bazy danych jest otwarty dla Ciebie  
-    wygenerowany skrypt *The spowoduje porzucenie wszystkich istniejących tabel, a następnie ponowne utworzenie schematu od podstaw. Może to współdziałać z programowaniem lokalnym, ale nie jest zdolny do wypychania zmian w bazie danych, która została już wdrożona. Jeśli musisz opublikować zmiany w bazie danych, która została już wdrożona, musisz edytować skrypt lub użyć narzędzia do porównywania schematów, aby obliczyć skrypt migracji.*
+    *Wygenerowany skrypt spowoduje porzucenie wszystkich istniejących tabel, a następnie ponowne utworzenie schematu od podstaw. Może to współdziałać z programowaniem lokalnym, ale nie jest zdolny do wypychania zmian w bazie danych, która została już wdrożona. Jeśli musisz opublikować zmiany w bazie danych, która została już wdrożona, musisz edytować skrypt lub użyć narzędzia do porównywania schematów, aby obliczyć skrypt migracji.*
 -   Kliknij prawym przyciskiem myszy skrypt i wybierz polecenie **Wykonaj**, zostanie wyświetlony monit o określenie bazy danych, z którą chcesz nawiązać połączenie, określ LocalDB lub SQL Server Express, w zależności od używanej wersji programu Visual Studio
 
 ## <a name="summary"></a>Podsumowanie

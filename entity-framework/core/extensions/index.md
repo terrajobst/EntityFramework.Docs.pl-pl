@@ -24,13 +24,13 @@ Te narzędzia i rozszerzenia zapewniają dodatkową funkcjonalność dla Entity 
 
 LLBLGen Pro to rozwiązanie do modelowania jednostek z obsługą Entity Framework i Entity Framework Core. Umożliwia ona łatwe definiowanie modelu jednostki i mapowanie go do bazy danych przy użyciu najpierw pierwszej lub modelu bazy danych, dzięki czemu możesz od razu zacząć pisać zapytania.
 
-[Producenta](https://www.llblgen.com/)
+[Witryny sieci Web](https://www.llblgen.com/)
 
 ### <a name="devart-entity-developer"></a>Deweloper jednostki Devart
 
 Deweloper jednostki jest zaawansowanym projektantem ORM dla ADO.NET Entity Framework, NHibernate, LinqConnect, Telerik Data Access i LINQ to SQL. Obsługuje ona projektowanie EF Core modeli wizualnie, przy użyciu pierwszej metody modelu lub pierwszej podejścia do C# bazy danych i lub Visual Basic generowania kodu.
 
-[Producenta](https://www.devart.com/entitydeveloper/)
+[Witryny sieci Web](https://www.devart.com/entitydeveloper/)
 
 ### <a name="ef-core-power-tools"></a>EF Core narzędzia do zarządzania
 
@@ -42,7 +42,7 @@ EF Core PowerShell to rozszerzenie programu Visual Studio 2017, które uwidaczni
 
 Entity Framework edytorem wizualnym jest rozszerzenie programu Visual Studio, które dodaje projektanta ORM do projektowania wizualizacji Dr 6 i klasy EF Core. Kod jest generowany przy użyciu szablonów T4, więc można go dostosować do własnych potrzeb. Obsługuje dziedziczenie, dwukierunkowe i dwukierunkowe skojarzenia, wyliczenia oraz możliwość kolorowania kodu klas i Dodawanie bloków tekstowych, aby wyjaśnić potencjalnie specjalne części projektu.
 
-[Transakcji](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
+[Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
 
 ### <a name="catfactory"></a>CatFactory
 
@@ -57,28 +57,28 @@ Generator Entity Framework Core (EFG) to narzędzie interfejs wiersza polecenia 
 [Samouczek](https://www.loresoft.com/Generate-ASP-NET-Web-API)
 [Dokumentacja](https://efg.loresoft.com/en/latest/)
 
-## <a name="extensions"></a>rozszerzenia
+## <a name="extensions"></a>Rozszerzenia
 
-### <a name="microsoftentityframeworkcoreautohistory"></a>Microsoft. EntityFrameworkCore. AutoHistory
+### <a name="microsoftentityframeworkcoreautohistory"></a>Microsoft.EntityFrameworkCore.AutoHistory
 
 Biblioteka wtyczek, która umożliwia automatyczne rejestrowanie zmian danych wykonywanych przez EF Core w tabeli historii.
 
 [Repozytorium GitHub](https://github.com/Arch/AutoHistory/)
 
-### <a name="microsoftentityframeworkcoredynamiclinq"></a>Microsoft. EntityFrameworkCore. DynamicLinq
+### <a name="microsoftentityframeworkcoredynamiclinq"></a>Microsoft.EntityFrameworkCore.DynamicLinq
 
 Port .NET Core/.NET Standard typu System. LINQ. Dynamic, który obejmuje obsługę asynchroniczną z EF Core.
 System. LINQ. Dynamic pochodzi z przykładu firmy Microsoft, który pokazuje, jak tworzyć zapytania LINQ w sposób dynamiczny z wyrażeń ciągów zamiast kodu.
 
 [Repozytorium GitHub](https://github.com/StefH/System.Linq.Dynamic.Core/)
 
-### <a name="efsecondlevelcachecore"></a>EFSecondLevelCache. Core
+### <a name="efsecondlevelcachecore"></a>EFSecondLevelCache.Core
 
 Rozszerzenie, które umożliwia przechowywanie wyników zapytań EF Core w pamięci podręcznej drugiego poziomu, tak aby kolejne wykonania tych samych zapytań mogły uniknąć dostępu do bazy danych i pobierać dane bezpośrednio z pamięci podręcznej.
 
 [Repozytorium GitHub](https://github.com/VahidN/EFSecondLevelCache.Core/)
 
-### <a name="entityframeworkcoreprimarykey"></a>EntityFrameworkCore. PrimaryKey
+### <a name="entityframeworkcoreprimarykey"></a>EntityFrameworkCore.PrimaryKey
 
 Ta biblioteka umożliwia pobieranie wartości klucza podstawowego (w tym kluczy złożonych) z dowolnej jednostki jako słownika.
 
@@ -96,7 +96,7 @@ Geco (konsola generatora) to prosty generator kodu oparty na projekcie konsoli, 
 
 [Repozytorium GitHub](https://github.com/iQuarc/Geco)
 
-### <a name="linqkitmicrosoftentityframeworkcore"></a>LinqKit. Microsoft. EntityFrameworkCore
+### <a name="linqkitmicrosoftentityframeworkcore"></a>LinqKit.Microsoft.EntityFrameworkCore
 
 LinqKit. Microsoft. EntityFrameworkCore to zgodna z EF Core wersja biblioteki LINQKit. LINQKit to bezpłatny zestaw rozszerzeń dla LINQ to SQL i Entity Framework użytkowników zaawansowanych. Umożliwia zaawansowane funkcje, takie jak dynamiczne Kompilowanie wyrażeń predykatu i Używanie zmiennych wyrażeń w podzapytaniach.  
 
@@ -108,7 +108,7 @@ NeinLinq rozszerza dostawców LINQ, takich jak Entity Framework, aby włączyć 
 
 [Repozytorium GitHub](https://github.com/axelheer/nein-linq/)
 
-### <a name="microsoftentityframeworkcoreunitofwork"></a>Microsoft. EntityFrameworkCore. UnitOfWork
+### <a name="microsoftentityframeworkcoreunitofwork"></a>Microsoft.EntityFrameworkCore.UnitOfWork
 
 Wtyczka dla elementu Microsoft. EntityFrameworkCore do obsługi repozytorium, wzorców jednostek roboczych i wielu baz danych z obsługiwaną transakcją rozproszoną.
 
@@ -126,13 +126,13 @@ Dodaje pluralizacja czasu projektowania do EF Core.
 
 [Repozytorium GitHub](https://github.com/bricelam/EFCore.Pluralizer)
 
-### <a name="pomelofoundationpomeloentityframeworkcoreextensionstosql"></a>PomeloFoundation/pomelo. EntityFrameworkCore. Extensions. ToSql
+### <a name="pomelofoundationpomeloentityframeworkcoreextensionstosql"></a>PomeloFoundation/Pomelo.EntityFrameworkCore.Extensions.ToSql
 
 Prosta metoda rozszerzająca, która uzyskuje instrukcję SQL EF Core wygenerowaną dla danego zapytania LINQ w prostych scenariuszach. Metoda ToSql jest ograniczona do prostych scenariuszy, ponieważ EF Core może generować więcej niż jedną instrukcję SQL dla jednej kwerendy LINQ i różne instrukcje SQL w zależności od wartości parametrów.
 
 [Repozytorium GitHub](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.Extensions.ToSql)
 
-### <a name="toolbeltentityframeworkcoreindexattribute"></a>Toolbelt. EntityFrameworkCore. Indexattribute
+### <a name="toolbeltentityframeworkcoreindexattribute"></a>Toolbelt.EntityFrameworkCore.IndexAttribute
 
 Revival [index] atrybutu dla EF Core (z rozszerzeniem dla kompilowania modelu).
 
@@ -150,7 +150,7 @@ Implementacja obsługi danych czasowych dla EF Core.
 
 [Repozytorium GitHub](https://github.com/cpoDesign/EFCore.TemporalSupport)
 
-### <a name="entityframeworkcorecacheable"></a>EntityFrameworkCore. buforowanie
+### <a name="entityframeworkcorecacheable"></a>EntityFrameworkCore.Cacheable
 
 Pamięć podręczna zapytań o wysokiej wydajności dla EF Core.
 
@@ -167,7 +167,7 @@ Rozszerza kontekst DbContext z funkcjami takimi jak: Filter include, Audit, bufo
 
 Rozszerza swój kontekst dbwith operacji zbiorczych o wysokiej wydajności: BulkSaveChanges, BulkInsert, BulkUpdate, BulkDelete, BulkMerge i inne.
 
-[Producenta](https://entityframework-extensions.net/)
+[Witryny sieci Web](https://entityframework-extensions.net/)
 
 ### <a name="reconciler"></a>Uzgadnianie
 

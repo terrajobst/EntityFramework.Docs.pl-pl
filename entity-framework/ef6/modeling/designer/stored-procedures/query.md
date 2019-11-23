@@ -28,26 +28,26 @@ W celu wykonania instrukcji w tym przewodniku potrzebne są następujące elemen
 ## <a name="set-up-the-project"></a>Konfigurowanie projektu
 
 -   Open Visual Studio 2012.
--   Wybierz **plik-&gt; nowy-&gt; projektu**
--   W lewym okienku kliknij pozycję **Visual C @ no__t-1**, a następnie wybierz szablon **konsoli** .
--   Wprowadź **EFwithSProcsSample** AS nazwę.
+-   Wybierz pozycję **plik —&gt; nowy&gt; projekt**
+-   W lewym okienku kliknij pozycję **Visual C\#** , a następnie wybierz szablon **konsoli** .
+-   Wprowadź **EFwithSProcsSample** jako nazwę.
 -   Wybierz **przycisk OK**.
 
 ## <a name="create-a-model"></a>Tworzenie modelu
 
--   Kliknij prawym przyciskiem myszy projekt w Eksplorator rozwiązań i wybierz polecenie **Dodaj-&gt; nowy element**.
+-   Kliknij prawym przyciskiem myszy projekt w Eksplorator rozwiązań i wybierz polecenie **dodaj&gt; nowy element**.
 -   Wybierz pozycję **dane** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablony.
 -   W polu Nazwa pliku wprowadź **EFwithSProcsModel. edmx** , a następnie kliknij przycisk **Dodaj**.
 -   W oknie dialogowym Wybierz zawartość modelu wybierz pozycję **Generuj z bazy danych**, a następnie kliknij przycisk **dalej**.
 -   Kliknij pozycję **nowe połączenie**.  
-    W oknie dialogowym właściwości połączenia wprowadź nazwę serwera (na przykład **(LocalDB) \\mssqllocaldb**), wybierz metodę uwierzytelniania, typ **szkoły** for nazwę bazy danych, a następnie kliknij przycisk **OK**.  
+    W oknie dialogowym właściwości połączenia wprowadź nazwę serwera (na przykład **(LocalDB)\\mssqllocaldb**), wybierz metodę uwierzytelniania, wpisz  **szkoły** dla nazwy bazy danych, a następnie kliknij przycisk **OK**.  
     Okno dialogowe Wybieranie połączenia danych zostanie zaktualizowane przy użyciu ustawienia połączenia z bazą danych.
--   W oknie dialogowym Wybierz obiekty bazy danych sprawdź **tabele** checkbox, aby zaznaczyć wszystkie tabele.  
+-   W oknie dialogowym Wybierz obiekty bazy danych zaznacz pole wyboru **tabele** , aby zaznaczyć wszystkie tabele.  
     Należy również wybrać następujące procedury składowane w węźle **procedury składowane i funkcje** : **GetStudentGrades** i **getdepartmentname**. 
 
     ![Import](~/ef6/media/import.jpg)
 
-    @no__t 0Starting z programem Visual Studio 2012 program Dr Designer obsługuje zbiorcze Importowanie procedur składowanych. **Importowane wybrane procedury składowane i funkcje do modelu theentity** są domyślnie zaznaczone. *
+    *Począwszy od programu Visual Studio 2012, program Dr Designer obsługuje zbiorcze Importowanie procedur składowanych. **Importowane wybrane procedury składowane i funkcje do modelu theentity** są domyślnie zaznaczone.*
 -   Kliknij przycisk **Zakończ**.
 
 Domyślnie kształt wynik każdej zaimportowanej procedury składowanej, która zwraca więcej niż jedną kolumnę, automatycznie stanie się nowym typem złożonym. W tym przykładzie chcemy zmapować wyniki funkcji **GetStudentGrades** na jednostkę **StudentGrade** i wyniki elementu **getdepartmentname** na **none** (**Brak** jest wartością domyślną).
@@ -56,8 +56,8 @@ W celu zaimportowania funkcji w celu zwrócenia typu jednostki kolumny zwracane 
 
 -   Kliknij prawym przyciskiem myszy powierzchnię projektu i wybierz pozycję **przeglądarka modeli**.
 -   W oknie **przeglądarka modelu**wybierz pozycję **Importy funkcji**, a następnie kliknij dwukrotnie funkcję **GetStudentGrades** .
--   W oknie dialogowym Edytowanie importu funkcji wybierz pozycję **jednostki** and wybierz pozycję **StudentGrade**.  
-    @no__t — pole wyboru 0The **funkcji jest** możliwe do utworzenia w górnej części okna dialogowego **Importy funkcji** umożliwia zamapowanie na funkcje do redagowania. Jeśli to pole wyboru jest zaznaczone, na liście rozwijanej **procedura składowana/nazwa funkcji** będą wyświetlane tylko funkcje, które można tworzyć (funkcje z wartościami przechowywanymi w tabeli). Jeśli to pole nie zostanie zaznaczone, na liście zostaną wyświetlone tylko funkcje, których nie można utworzyć. *
+-   W oknie dialogowym Edytowanie importu funkcji wybierz pozycję **jednostki** a następnie wybierz pozycję **StudentGrade**.  
+    ***Import funkcji to** pole wyboru w górnej części okna dialogowego **Importy funkcji** umożliwia zamapowanie na funkcje do redagowania. Jeśli to pole wyboru jest zaznaczone, na liście rozwijanej **procedura składowana/nazwa funkcji** będą wyświetlane tylko funkcje, które można tworzyć (funkcje z wartościami przechowywanymi w tabeli). Jeśli to pole nie zostanie zaznaczone, na liście zostaną wyświetlone tylko funkcje, których nie można tworzyć.*
 
 ## <a name="use-the-model"></a>Korzystanie z modelu
 

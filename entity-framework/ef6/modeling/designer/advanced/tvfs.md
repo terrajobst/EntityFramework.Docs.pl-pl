@@ -26,7 +26,7 @@ TVFs są bardzo podobne do procedur składowanych z jedną różnicą kluczową:
 
 **Przedstawione przez**: Julia Kornich
 
-[WMV](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.wmv) | [MP4](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-mp4video-tvf.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.zip)
+[Wmv](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.wmv) | [MP4](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-mp4video-tvf.m4v) | [WMV (zip)](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.zip)
 
 ## <a name="pre-requisites"></a>Wymagania wstępne
 
@@ -40,13 +40,13 @@ Aby ukończyć ten przewodnik, musisz wykonać następujące czynności:
 
 1.  Otwórz program Visual Studio
 2.  W menu **plik** wskaż polecenie **Nowy**, a następnie kliknij pozycję **projekt** .
-3.  W lewym okienku kliknij pozycję **Visual C @ no__t-1**, a następnie wybierz szablon **konsoli**
+3.  W lewym okienku kliknij pozycję **Visual C\#** , a następnie wybierz szablon **konsoli**
 4.  Wprowadź **TVF** jako nazwę projektu, a następnie kliknij przycisk **OK** .
 
 ## <a name="add-a-tvf-to-the-database"></a>Dodawanie TVF do bazy danych
 
--   Wybierz pozycję **Widok-&gt; Eksplorator obiektów SQL Server**
--   Jeśli LocalDB nie znajduje się na liście serwerów: Kliknij prawym przyciskiem myszy **SQL Server** i wybierz polecenie **Dodaj SQL Server** Użyj domyślnego **uwierzytelniania systemu Windows** do nawiązania połączenia z serwerem LocalDB
+-   Wybierz pozycję **Widok —&gt; Eksplorator obiektów SQL Server**
+-   Jeśli LocalDB nie znajduje się na liście serwerów: kliknij prawym przyciskiem myszy pozycję **SQL Server** i wybierz polecenie **Dodaj SQL Server** Użyj domyślnego **uwierzytelniania systemu Windows** , aby nawiązać połączenie z serwerem LocalDB
 -   Rozwiń węzeł LocalDB
 -   W węźle bazy danych kliknij prawym przyciskiem myszy węzeł baza danych szkoły i wybierz polecenie **nowe zapytanie...**
 -   W edytorze T-SQL wklej następującą definicję TVF
@@ -78,12 +78,12 @@ RETURN
 2.  Wybierz pozycję **dane** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku **Szablony** .
 3.  W polu Nazwa pliku wprowadź **TVFModel. edmx** , a następnie kliknij przycisk **Dodaj** .
 4.  W oknie dialogowym Wybierz zawartość modelu wybierz pozycję **Generuj z bazy danych**, a następnie kliknij przycisk **dalej** .
-5.  Kliknij pozycję **nowe połączenie** wprowadź **(LocalDB) \\mssqllocaldb** w polu tekstowym nazwa serwera wprowadź **Szkoła** For Nazwa bazy danych kliknij przycisk **OK** .
-6.  W oknie dialogowym Wybierz obiekty bazy danych w obszarze **tabele** Node wybierz **osobę**, **StudentGrade**i **kurs**@no__t — 5tables
-7.  Wybierz funkcję **GetStudentGradesForCourse** znajdującą się w obszarze **procedury składowane i funkcje** node Uwaga, która rozpoczyna się od programu Visual Studio 2012, Entity Designer umożliwia zbiorcze Importowanie procedur i funkcji przechowywanych
+5.  Kliknij pozycję **nowe połączenie** wprowadź **(LocalDB)\\mssqllocaldb** w polu tekstowym Nazwa **serwera wprowadź ** dla nazwy bazy danych, a następnie kliknij przycisk **OK** .
+6.  W oknie dialogowym Wybierz obiekty bazy danych, w węźle **tabele** , wybierz tabele **osoba**, **StudentGrade**i **kurs** 
+7.  Wybierz funkcję **GetStudentGradesForCourse** , która znajduje się w obszarze **procedury składowane i funkcje** węzła, który rozpoczyna się od programu Visual Studio 2012, Entity Designer umożliwia zbiorcze Importowanie procedur i funkcji przechowywanych
 8.  Kliknij przycisk **Zakończ** .
-9.  Zostanie wyświetlona Entity Designer, która zapewnia powierzchnię projektową do edycji modelu. Wszystkie obiekty wybrane w polu **Wybierz obiekty bazy danych** dialog są dodawane do modelu.
-10. Domyślnie kształt wynik każdej zaimportowanej procedury lub funkcji składowanej automatycznie stanie się nowym typem złożonym w modelu jednostki. Jednak chcemy zmapować wyniki funkcji GetStudentGradesForCourse na jednostkę StudentGrade: Kliknij prawym przyciskiem myszy powierzchnię projektu i wybierz pozycję **przeglądarka modelu** w przeglądarce modelu, wybierz opcję **Importy funkcji**, a następnie kliknij dwukrotnie funkcję **GetStudentGradesForCourse** w oknie dialogowym Edytowanie importu funkcji, wybierz pozycję **jednostki** .  and wybierz **StudentGrade**
+9.  Zostanie wyświetlona Entity Designer, która zapewnia powierzchnię projektową do edycji modelu. Wszystkie obiekty wybrane w oknie dialogowym **Wybierz obiekty bazy danych** są dodawane do modelu.
+10. Domyślnie kształt wynik każdej zaimportowanej procedury lub funkcji składowanej automatycznie stanie się nowym typem złożonym w modelu jednostki. Jednak chcemy zmapować wyniki funkcji GetStudentGradesForCourse na jednostkę StudentGrade: kliknij prawym przyciskiem myszy powierzchnię projektu i wybierz pozycję **przeglądarka modelu** w przeglądarce modelu, wybierz pozycję **Importy funkcji**, a następnie kliknij dwukrotnie funkcję **GetStudentGradesForCourse** w oknie dialogowym Edytowanie importu funkcji, wybierz pozycję **jednostki** i wybierz pozycję **StudentGrade**
 
 ## <a name="persist-and-retrieve-data"></a>Utrwalanie i pobieranie danych
 

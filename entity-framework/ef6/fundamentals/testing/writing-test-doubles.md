@@ -102,7 +102,7 @@ namespace TestingDemo
 
 Należy pamiętać, że nasz kontekst implementuje interfejs IBloggingContext.  
 
-Jeśli używasz Code First, możesz edytować swój kontekst bezpośrednio, aby zaimplementować interfejs. W przypadku korzystania z projektanta EF należy edytować szablon T4, który generuje kontekst. Otwórz \<model_name @ no__t-1. Plik Context.tt, który jest zagnieżdżony w pliku edmx, Znajdź Poniższy fragment kodu i dodaj go do interfejsu, jak pokazano.  
+Jeśli używasz Code First, możesz edytować swój kontekst bezpośrednio, aby zaimplementować interfejs. W przypadku korzystania z projektanta EF należy edytować szablon T4, który generuje kontekst. Otwórz model_name \<\>. Plik Context.tt, który jest zagnieżdżony w pliku edmx, Znajdź Poniższy fragment kodu i dodaj go do interfejsu, jak pokazano.  
 
 ``` csharp  
 <#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext, IBloggingContext

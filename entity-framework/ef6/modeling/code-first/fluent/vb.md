@@ -11,7 +11,7 @@ ms.lasthandoff: 10/09/2019
 ms.locfileid: "72182671"
 ---
 # <a name="fluent-api-with-vbnet"></a>Interfejs API Fluent z VB.NET
-Code First umożliwia zdefiniowanie modelu przy użyciu klas C @ no__t-0 lub VB.NET. Można opcjonalnie wykonać dodatkową konfigurację przy użyciu atrybutów klas i właściwości albo za pomocą interfejsu API Fluent. W tym instruktażu pokazano, jak przeprowadzić konfigurację interfejsu API Fluent przy użyciu VB.NET.
+Code First pozwala definiować model przy użyciu klas C\# lub VB.NET. Można opcjonalnie wykonać dodatkową konfigurację przy użyciu atrybutów klas i właściwości albo za pomocą interfejsu API Fluent. W tym instruktażu pokazano, jak przeprowadzić konfigurację interfejsu API Fluent przy użyciu VB.NET.
 
 Na tej stronie założono, że masz podstawową wiedzę na temat Code First. Aby uzyskać więcej informacji na temat Code First, zapoznaj się z następującymi przewodnikami:
 
@@ -29,7 +29,7 @@ W przypadku korzystania z programu Visual Studio 2010 należy również zainstal
 Aby zachować prostotę, możemy utworzyć podstawową aplikację konsolową, która używa Code First do uzyskiwania dostępu do danych.
 
 -   Otwórz program Visual Studio
--   **Plik-&gt; nowy-&gt; projektu...**
+-   **Plik —&gt; nowy&gt; projekt...**
 -   Wybierz pozycję **Windows** z menu po lewej stronie i **aplikacji konsolowej**
 -   Wprowadź **CodeFirstVBSample** jako nazwę
 -   Wybierz **przycisk OK**
@@ -137,14 +137,14 @@ W tym kroku określisz typy jednostek VB.NET POCO, które reprezentują model ko
 
 Zamierzamy zacząć używać typów z Entity Framework, więc musimy dodać pakiet NuGet EntityFramework.
 
--   \* * Projekt — &gt; **Zarządzanie pakietami NuGet...**
+-   \* * Projekt —&gt; **Zarządzaj pakietami NuGet...**
 > [!NOTE]
 > Jeśli nie masz **zarządzania pakietami NuGet...** Opcja należy zainstalować [najnowszą wersję programu NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
 -   Wybierz kartę **online**
 -   Wybierz pakiet **EntityFramework**
 -   Kliknij przycisk **Instaluj**
 
-Teraz można zdefiniować kontekst pochodny, który reprezentuje sesję z bazą danych, umożliwiając nam wykonywanie zapytań i zapisywanie danych. Definiujemy kontekst, który pochodzi z elementu System. Data. Entity. DbContext i udostępnia typ Nieogólnymi @ no__t-0TEntity @ no__t-1 dla każdej klasy w modelu.
+Teraz można zdefiniować kontekst pochodny, który reprezentuje sesję z bazą danych, umożliwiając nam wykonywanie zapytań i zapisywanie danych. Definiujemy kontekst, który pochodzi od elementu System. Data. Entity. DbContext i uwidacznia typ Nieogólnymi&lt;&gt; dla każdej klasy w naszym modelu.
 
 -   Dodaj nową klasę do projektu, wprowadź **SchoolContext** dla nazwy klasy
 -   Zastąp zawartość nowej klasy następującym kodem
@@ -171,7 +171,7 @@ Teraz można zdefiniować kontekst pochodny, który reprezentuje sesję z bazą 
 
 ## <a name="configuring-with-the-fluent-api"></a>Konfigurowanie przy użyciu interfejsu API Fluent
 
-W tej sekcji pokazano, jak za pomocą interfejsów API Fluent skonfigurować typy do mapowania tabel, właściwości do mapowania kolumn i relacje między tabelami @ no__t-0type w modelu. Interfejs API Fluent jest udostępniany za pomocą typu **DbModelBuilder** i jest najczęściej używany przez zastąpienie metody **OnModelCreating** w **DbContext**.
+W tej sekcji pokazano, jak za pomocą interfejsów API Fluent skonfigurować typy do mapowania tabel, właściwości do mapowania kolumn i relacje między tabelami\\typu w modelu. Interfejs API Fluent jest udostępniany za pomocą typu **DbModelBuilder** i jest najczęściej używany przez zastąpienie metody **OnModelCreating** w **DbContext**.
 
 -   Skopiuj poniższy kod i dodaj go do metody **OnModelCreating** zdefiniowanej w klasie **SchoolContext** , komentarze wyjaśniają, jakie są poszczególne mapowania
 

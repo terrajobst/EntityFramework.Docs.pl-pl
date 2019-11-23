@@ -261,11 +261,11 @@ Kod przechwycenia jest zbudowany wokół koncepcji interfejsów przechwycenia. T
 
 ### <a name="the-interception-context"></a>Kontekst przechwycenia  
 
-Przeglądając metody zdefiniowane w dowolnym interfejsie interceptorów, jest oczywiste, że każde wywołanie otrzymuje obiekt typu DbInterceptionContext lub niektórych typów pochodnych takich jak DbCommandInterceptionContext @ no__t-0 @ no__t-1. Ten obiekt zawiera informacje kontekstowe dotyczące akcji, którą pobiera Dr. Na przykład, jeśli akcja jest wykonywana w imieniu DbContext, element DbContext zostanie uwzględniony w DbInterceptionContext. Podobnie w przypadku poleceń wykonywanych asynchronicznie flaga IsAsync jest ustawiana na DbCommandInterceptionContext.  
+Oglądając metody zdefiniowane w dowolnym interfejsie interceptora, jest oczywiste, że każde wywołanie ma przyznany obiekt typu DbInterceptionContext lub jakiś typ pochodzący z tego, taki jak DbCommandInterceptionContext\<\>. Ten obiekt zawiera informacje kontekstowe dotyczące akcji, którą pobiera Dr. Na przykład, jeśli akcja jest wykonywana w imieniu DbContext, element DbContext zostanie uwzględniony w DbInterceptionContext. Podobnie w przypadku poleceń wykonywanych asynchronicznie flaga IsAsync jest ustawiana na DbCommandInterceptionContext.  
 
 ### <a name="result-handling"></a>Obsługa wyników  
 
-Klasa DbCommandInterceptionContext @ no__t-0 @ no__t-1 zawiera właściwości o nazwie Result, OriginalResult, Exception i OriginalException. Te właściwości są ustawione na wartość null/zero dla wywołań metod przechwycenia, które są wywoływane przed wykonaniem operacji — to znaczy, dla... Wykonywanie metod. Jeśli operacja zostanie wykonana i powiedzie się, a następnie wynik i OriginalResult są ustawione na wynik operacji. Te wartości można następnie zaobserwować w metodach przechwycenia, które są wywoływane po wykonaniu operacji — to znaczy, w... Wykonane metody. Podobnie, jeśli operacja zgłasza, zostanie ustawiona właściwość wyjątku i Oryginalnaexception.  
+Klasa DbCommandInterceptionContext\<\> zawiera właściwości o nazwie Result, OriginalResult, Exception i Oryginalnaexception. Te właściwości są ustawione na wartość null/zero dla wywołań metod przechwycenia, które są wywoływane przed wykonaniem operacji — to znaczy, dla... Wykonywanie metod. Jeśli operacja zostanie wykonana i powiedzie się, a następnie wynik i OriginalResult są ustawione na wynik operacji. Te wartości można następnie zaobserwować w metodach przechwycenia, które są wywoływane po wykonaniu operacji — to znaczy, w... Wykonane metody. Podobnie, jeśli operacja zgłasza, zostanie ustawiona właściwość wyjątku i Oryginalnaexception.  
 
 #### <a name="suppressing-execution"></a>Pomijanie wykonywania  
 
@@ -297,7 +297,7 @@ DbInterception.Add(new NLogCommandInterceptor());
 
 Interceptory mogą być również zarejestrowane na poziomie domeny aplikacji przy użyciu mechanizmu konfiguracji opartego na kodzie dbconfiguration.  
 
-### <a name="example-logging-to-nlog"></a>Przykład: Rejestrowanie w usłudze NLog  
+### <a name="example-logging-to-nlog"></a>Przykład: rejestrowanie do NLog  
 
 Przekażmy wszystko do przykładu korzystającego z IDbCommandInterceptor i [nLOG](https://nlog-project.org/) do:  
 

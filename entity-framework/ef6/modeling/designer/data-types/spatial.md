@@ -29,7 +29,7 @@ W tym filmie wideo przedstawiono sposób mapowania typów przestrzennych przy u�
 
 **Przedstawione przez**: Julia Kornich
 
-**Film wideo**: [WMV](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.wmv) | [MP4](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-mp4video-spatialwithdesigner.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.zip)
+**Wideo**: [wmv](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.wmv) | [MP4](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-mp4video-spatialwithdesigner.m4v) | [WMV (zip)](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.zip)
 
 ## <a name="pre-requisites"></a>Wymagania wstępne
 
@@ -39,7 +39,7 @@ Aby ukończyć ten przewodnik, musisz mieć zainstalowaną wersję Visual Studio
 
 1.  Otwórz program Visual Studio 2012
 2.  W menu **plik** wskaż polecenie **Nowy**, a następnie kliknij pozycję **projekt** .
-3.  W lewym okienku kliknij pozycję **Visual C @ no__t-1**, a następnie wybierz szablon **konsoli**
+3.  W lewym okienku kliknij pozycję **Visual C\#** , a następnie wybierz szablon **konsoli**
 4.  Wprowadź **SpatialEFDesigner** jako nazwę projektu, a następnie kliknij przycisk **OK** .
 
 ## <a name="create-a-new-model-using-the-ef-designer"></a>Tworzenie nowego modelu przy użyciu narzędzia Dr Designer
@@ -60,7 +60,7 @@ Kreator wykonuje następujące czynności:
 
 ## <a name="add-a-new-entity-type"></a>Dodaj nowy typ jednostki
 
-1.  Kliknij prawym przyciskiem myszy pusty obszar na powierzchni projektowej, a następnie wybierz polecenie **Dodaj-&gt; jednostki**, pojawi się okno dialogowe Nowa jednostka
+1.  Kliknij prawym przyciskiem myszy pusty obszar na powierzchni projektowej, a następnie wybierz polecenie **dodaj&gt; jednostki**, pojawi się okno dialogowe Nowa jednostka
 2.  Określ nazwę typu dla **Uniwersytetu** i określ **UniversityID** dla nazwy właściwości klucza, pozostaw typ jako **Int32**
 3.  Kliknij przycisk **OK**
 4.  Kliknij prawym przyciskiem myszy jednostkę i wybierz polecenie **Dodaj nową-&gt; Właściwość skalarna**
@@ -75,11 +75,11 @@ Kreator wykonuje następujące czynności:
 Teraz możemy wygenerować bazę danych opartą na modelu.
 
 1.  Kliknij prawym przyciskiem myszy puste miejsce na Entity Designer powierzchni i wybierz polecenie **Generuj bazę danych na podstawie modelu**
-2.  Zostanie wyświetlone okno dialogowe Wybieranie połączenia danych w Kreatorze generowania bazy danych. kliknij przycisk **nowe połączenie** , określ **(LocalDB) \\mssqllocaldb** dla nazwy serwera i **University** dla bazy danych, a następnie kliknij przycisk **OK.**
+2.  Zostanie wyświetlone okno dialogowe Wybieranie połączenia danych w Kreatorze generowania bazy danych kliknij przycisk **nowe połączenie** , określ **(LocalDB)\\mssqllocaldb** dla nazwy serwera i **University** dla bazy danych, a następnie kliknij przycisk **OK** .
 3.  Zostanie wyświetlone okno dialogowe z pytaniem, czy chcesz utworzyć nową bazę danych, kliknij przycisk **tak**.
-4.  Kliknij przycisk **dalej** , aby Kreator tworzenia bazy danych wygenerował język definicji danych (DDL) służący do tworzenia bazy danych, wygenerowany kod DDL jest wyświetlany w oknie dialogowym Podsumowanie i ustawienia Zanotuj, że kod DDL nie zawiera definicji tabeli mapowanej na typ wyliczenia
+4.  Kliknij przycisk **dalej** , aby Kreator tworzenia bazy danych wygenerował język definicji danych (DDL) służący do tworzenia bazy danych, wygenerowany kod DDL jest wyświetlany w oknie dialogowym Podsumowanie i ustawienia Zanotuj, że kod DDL nie zawiera definicji tabeli, która jest mapowana na typ wyliczenia
 5.  Kliknij przycisk **Zakończ** kliknięcie przycisku Zakończ nie powoduje wykonania skryptu DDL.
-6.  Kreator tworzenia bazy danych wykonuje następujące czynności: Otwiera plik **UniversityModel. edmx. SQL** w edytorze T-SQL generuje schemat magazynu i sekcje mapowania pliku edmx dodaje informacje o parametrach połączenia do pliku App. config
+6.  Kreator tworzenia bazy danych wykonuje następujące czynności: otwiera plik **UniversityModel. edmx. SQL** w edytorze T-SQL generuje schemat magazynu i sekcje mapowania pliku edmx dodaje informacje o parametrach połączenia do pliku App. config
 7.  Kliknij prawym przyciskiem myszy w edytorze T-SQL i wybierz polecenie **Wykonaj** okno dialogowe łączenie z serwerem, wprowadź informacje o połączeniu z kroku 2 i kliknij pozycję **Połącz** .
 8.  Aby wyświetlić wygenerowany schemat, kliknij prawym przyciskiem myszy nazwę bazy danych w Eksplorator obiektów SQL Server i wybierz polecenie **Odśwież** .
 

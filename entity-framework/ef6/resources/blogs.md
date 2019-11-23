@@ -15,7 +15,7 @@ Oprócz dokumentacji produktu, blogi te mogą być źródłem przydatnych inform
 
 ## <a name="ef-team-blogs"></a>Blogi zespołu EF
 
-- Tag bloga @no__t 0.NET: Entity Framework @ no__t-0
+- [Tag bloga platformy .NET: Entity Framework](https://blogs.msdn.microsoft.com/dotnet/tag/entity-framework/)
 - [Blog ADO.NET (nie jest już używany)](https://blogs.msdn.microsoft.com/adonet/)
 - [Blog dotyczący projektowania EF (nie jest już używany)](https://blogs.msdn.microsoft.com/efdesign/)
 

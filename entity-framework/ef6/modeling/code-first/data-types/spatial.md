@@ -29,7 +29,7 @@ W tym filmie wideo pokazano, jak mapować typy przestrzenne za pomocą Entity Fr
 
 **Przedstawione przez**: Julia Kornich
 
-**Film wideo**: [WMV](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.wmv) | [MP4](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-mp4video-spatialwithcodefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.zip)
+**Wideo**: [wmv](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.wmv) | [MP4](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-mp4video-spatialwithcodefirst.m4v) | [WMV (zip)](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.zip)
 
 ## <a name="pre-requisites"></a>Wymagania wstępne
 
@@ -39,7 +39,7 @@ Aby ukończyć ten przewodnik, musisz mieć zainstalowaną wersję Visual Studio
 
 1.  Otwórz program Visual Studio 2012
 2.  W menu **plik** wskaż polecenie **Nowy**, a następnie kliknij pozycję **projekt** .
-3.  W lewym okienku kliknij pozycję **Visual C @ no__t-1**, a następnie wybierz szablon **konsoli**
+3.  W lewym okienku kliknij pozycję **Visual C\#** , a następnie wybierz szablon **konsoli**
 4.  Wprowadź **SpatialCodeFirst** jako nazwę projektu, a następnie kliknij przycisk **OK** .
 
 ## <a name="define-a-new-model-using-code-first"></a>Zdefiniuj nowy model przy użyciu Code First
@@ -67,7 +67,7 @@ public class University
 
 ## <a name="define-the-dbcontext-derived-type"></a>Zdefiniuj typ pochodny DbContext
 
-Oprócz definiowania jednostek należy zdefiniować klasę, która dziedziczy z DbContext i uwidacznia Nieogólnymi @ no__t-0TEntity @ no__t-1. Właściwości Nieogólnymi @ no__t-0TEntity @ no__t-1 pozwalają kontekstowi znać, które typy mają być uwzględnione w modelu.
+Oprócz definiowania jednostek należy zdefiniować klasę, która dziedziczy z DbContext i uwidacznia Nieogólnymi&lt;&gt; właściwości. Nieogólnymi&lt;&gt; właściwości umożliwiają kontekstowi znać, które typy mają być uwzględnione w modelu.
 
 Wystąpienie typu pochodnego DbContext zarządza obiektami obiektów w czasie wykonywania, co obejmuje wypełnianie obiektów danymi z bazy danych, śledzenie zmian i utrwalanie danych w bazie danych.
 
@@ -144,7 +144,7 @@ Należy pamiętać, że jeśli wprowadzisz zmiany w modelu po utworzeniu bazy da
 
 Aby wyświetlić bazę danych i dane, wykonaj następujące czynności:
 
-1.  W menu głównym programu Visual Studio 2012 wybierz pozycję **wyświetl** - @ no__t-2 **Eksplorator obiektów SQL Server**.
+1.  W menu głównym programu Visual Studio 2012 wybierz pozycję **wyświetl** -&gt; **Eksplorator obiektów SQL Server**.
 2.  Jeśli LocalDB nie znajduje się na liście serwerów, kliknij prawym przyciskiem myszy na **SQL Server** i wybierz polecenie **Dodaj SQL Server** Użyj domyślnego **uwierzytelniania systemu Windows** , aby nawiązać połączenie z wystąpieniem LocalDB
 3.  Rozwiń węzeł LocalDB
 4.  Unfold folder **baz danych** w celu wyświetlenia nowej bazy danych i przechodzenia do tabeli **uniwersytetów**

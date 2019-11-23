@@ -18,7 +18,7 @@ To wideo zawiera wprowadzenie do Database First tworzenia przy użyciu Entity Fr
 
 **Przedstawione przez**: [Rowan Miller](https://romiller.com/)
 
-**Film wideo**: [WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
+**Wideo**: [wmv](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (zip)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
 
 ## <a name="pre-requisites"></a>Wymagania wstępne
 
@@ -43,10 +43,10 @@ Przyjrzyjmy się i wygenerujemy bazę danych.
 
 -   Otwórz program Visual Studio
 -   **Widok-&gt; Eksplorator serwera**
--   Kliknij prawym przyciskiem myszy pozycję **połączenia danych-&gt; Dodaj połączenie...**
+-   Kliknij prawym przyciskiem myszy pozycję **połączenia danych —&gt; Dodaj połączenie...**
 -   Jeśli nie masz połączenia z bazą danych Eksplorator serwera przed wybraniem Microsoft SQL Server jako źródła danych
 
-    ![Wybieranie źródła danych](~/ef6/media/selectdatasource.png)
+    ![Wybierz źródło danych](~/ef6/media/selectdatasource.png)
 
 -   Połącz się z usługą LocalDB lub SQL Express, w zależności od tego, który został zainstalowany, a następnie wprowadź **DatabaseFirst. blog** jako nazwę bazy danych
 
@@ -79,23 +79,23 @@ CREATE TABLE [dbo].[Posts] (
 );
 ```
 
-## <a name="2-create-the-application"></a>2. Tworzenie aplikacji
+## <a name="2-create-the-application"></a>2. Utwórz aplikację
 
 Aby zachować prostotę, możemy utworzyć podstawową aplikację konsolową, która używa Database First do uzyskiwania dostępu do danych:
 
 -   Otwórz program Visual Studio
--   **Plik-&gt; nowy-&gt; projektu...**
+-   **Plik —&gt; nowy&gt; projekt...**
 -   Wybierz pozycję **Windows** z menu po lewej stronie i **aplikacji konsolowej**
 -   Wprowadź **DatabaseFirstSample** jako nazwę
 -   Wybierz **przycisk OK**
 
  
 
-## <a name="3-reverse-engineer-model"></a>3. Odtwórz Model
+## <a name="3-reverse-engineer-model"></a>3. Odtwarzanie modelu
 
 Będziemy używać Entity Framework Designer, które są dołączone jako część programu Visual Studio, aby utworzyć nasz model.
 
--   **Projekt-&gt; Dodaj nowy element...**
+-   **Projekt —&gt; Dodaj nowy element...**
 -   Wybierz pozycję **dane** z menu po lewej stronie, a następnie **ADO.NET Entity Data Model**
 -   Wprowadź **BloggingModel** jako nazwę, a następnie kliknij przycisk **OK** .
 -   Spowoduje to uruchomienie **kreatora Entity Data Model**
@@ -123,8 +123,8 @@ Jeśli pracujesz w programie Visual Studio 2010, należy wykonać kilka dodatkow
 
 Najpierw należy uzyskać najnowszą wersję Entity Framework z narzędzia NuGet.
 
--   **Projekt — &gt; Zarządzaj pakietami NuGet...** 
-    *Jeśli nie masz opcji **Zarządzaj pakietami NuGet...** należy zainstalować [najnowszą wersję programu NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) *
+-   **Projekt —&gt; zarządzać pakietami NuGet...** 
+    , *Jeśli nie masz opcji **Zarządzaj pakietami NuGet...** należy zainstalować [najnowszą wersję programu NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) *
 -   Wybierz kartę **online**
 -   Wybierz pakiet **EntityFramework**
 -   Kliknij przycisk **Instaluj**
@@ -133,13 +133,13 @@ Następnie musimy wymienić nasz model, aby wygenerować kod, który korzysta z 
 
 -   Kliknij prawym przyciskiem myszy pusty punkt w modelu w programie Dr Designer i wybierz polecenie **Dodaj element generowania kodu...**
 -   Wybierz pozycję **Szablony online** z menu po lewej stronie i Wyszukaj w usłudze **DbContext**
--   Wybierz pozycję Dr **5. x DbContext generator dla języka C @ no__t-1**, wprowadź **BloggingModel** jako nazwę i kliknij przycisk **Dodaj** .
+-   Wybierz pozycję Dr **5. x DbContext generator dla C\#** , wprowadź **BloggingModel** jako nazwę, a następnie kliknij przycisk **Dodaj** .
 
     ![Szablon DbContext](~/ef6/media/dbcontexttemplate.png)
 
  
 
-## <a name="4-reading--writing-data"></a>4. Odczytywanie & zapisywania danych
+## <a name="4-reading--writing-data"></a>4. odczytywanie & zapisywania danych
 
 Teraz, gdy mamy już model, który jest używany do uzyskiwania dostępu do niektórych danych. Klasy, które będą używane do uzyskiwania dostępu do danych są automatycznie generowane na podstawie pliku EDMX.
 
@@ -194,7 +194,7 @@ Press any key to exit...
 ```
  
 
-## <a name="5-dealing-with-database-changes"></a>5. Rozpatrywanie zmian w bazie danych
+## <a name="5-dealing-with-database-changes"></a>5. postępowanie z zmianami bazy danych
 
 Teraz można wprowadzić pewne zmiany w naszym schemacie bazy danych, po wprowadzeniu tych zmian należy zaktualizować nasz model, aby odzwierciedlić te zmiany.
 
@@ -215,7 +215,7 @@ Teraz, gdy schemat został zaktualizowany, należy zaktualizować model o te zmi
 
 -   Kliknij prawym przyciskiem myszy pusty punkt w modelu w programie Dr Designer i wybierz polecenie "Aktualizuj model z bazy danych...", co spowoduje uruchomienie Kreatora aktualizacji
 -   Na karcie dodawanie kreatora aktualizacji zaznacz pole wyboru obok pozycji tabele, co oznacza, że chcemy dodać nowe tabele ze schematu.
-    Karta *The Refresh zawiera wszystkie istniejące tabele w modelu, które będą sprawdzane pod kątem zmian podczas aktualizacji. Karty Usuń pokazują wszystkie tabele, które zostały usunięte ze schematu i również zostaną usunięte z modelu w ramach aktualizacji. Informacje dotyczące tych dwóch kart są wykrywane automatycznie i udostępniane wyłącznie do celów informacyjnych. nie można zmienić żadnych ustawień.*
+    *Karta Odśwież przedstawia wszystkie istniejące tabele w modelu, które będą sprawdzane pod kątem zmian podczas aktualizacji. Karty Usuń pokazują wszystkie tabele, które zostały usunięte ze schematu i również zostaną usunięte z modelu w ramach aktualizacji. Informacje dotyczące tych dwóch kart są wykrywane automatycznie i udostępniane wyłącznie do celów informacyjnych. nie można zmienić żadnych ustawień.*
 
     ![Kreator odświeżania](~/ef6/media/refreshwizard.png)
 

@@ -11,7 +11,7 @@ ms.lasthandoff: 10/09/2019
 ms.locfileid: "72182621"
 ---
 # <a name="code-first-to-an-existing-database"></a>Code First do istniejącej bazy danych
-Ten film wideo i przewodnik krok po kroku zawierają wprowadzenie do Code First projektowania dla istniejącej bazy danych. Code First umożliwia zdefiniowanie modelu przy użyciu klas C @ no__t-0 lub VB.Net. Opcjonalnie można wykonać dodatkową konfigurację przy użyciu atrybutów klas i właściwości lub przy użyciu interfejsu API Fluent.
+Ten film wideo i przewodnik krok po kroku zawierają wprowadzenie do Code First projektowania dla istniejącej bazy danych. Code First pozwala definiować model przy użyciu klas C\# lub VB.Net. Opcjonalnie można wykonać dodatkową konfigurację przy użyciu atrybutów klas i właściwości lub przy użyciu interfejsu API Fluent.
 
 ## <a name="watch-the-video"></a>Obejrzyj wideo
 Ten film wideo jest [teraz dostępny w witrynie Channel 9](https://channel9.msdn.com/blogs/ef/code-first-to-existing-database-ef6-1-onwards-).
@@ -30,10 +30,10 @@ Przyjrzyjmy się i wygenerujemy bazę danych.
 
 -   Otwórz program Visual Studio
 -   **Widok-&gt; Eksplorator serwera**
--   Kliknij prawym przyciskiem myszy pozycję **połączenia danych-&gt; Dodaj połączenie...**
+-   Kliknij prawym przyciskiem myszy pozycję **połączenia danych —&gt; Dodaj połączenie...**
 -   Jeśli nie masz połączenia z bazą danych **Eksplorator serwera** przed wybraniem **Microsoft SQL Server** jako źródła danych
 
-    ![Wybieranie źródła danych](~/ef6/media/selectdatasource.png)
+    ![Wybierz źródło danych](~/ef6/media/selectdatasource.png)
 
 -   Nawiąż połączenie z wystąpieniem programu LocalDB i wprowadź nazwę bazy danych na potrzeby prowadzenia **blogów**
 
@@ -70,23 +70,23 @@ INSERT INTO [dbo].[Blogs] ([Name],[Url])
 VALUES ('.NET Framework Blog', 'http://blogs.msdn.com/dotnet/')
 ```
 
-## <a name="2-create-the-application"></a>2. Tworzenie aplikacji
+## <a name="2-create-the-application"></a>2. Utwórz aplikację
 
 Aby zachować prostotę, możemy utworzyć podstawową aplikację konsolową, która używa Code First do uzyskiwania dostępu do danych:
 
 -   Otwórz program Visual Studio
--   **Plik-&gt; nowy-&gt; projektu...**
+-   **Plik —&gt; nowy&gt; projekt...**
 -   Wybierz pozycję **Windows** z menu po lewej stronie i **aplikacji konsolowej**
 -   Wprowadź **CodeFirstExistingDatabaseSample** jako nazwę
 -   Wybierz **przycisk OK**
 
  
 
-## <a name="3-reverse-engineer-model"></a>3. Odtwórz Model
+## <a name="3-reverse-engineer-model"></a>3. Odtwarzanie modelu
 
 Zamierzamy skorzystać z Entity Framework Tools dla programu Visual Studio, aby pomóc nam wygenerować kod początkowy do mapowania na bazę danych. Narzędzia te generują tylko kod, który można również wpisać ręcznie, jeśli wolisz.
 
--   **Projekt-&gt; Dodaj nowy element...**
+-   **Projekt —&gt; Dodaj nowy element...**
 -   Wybierz pozycję **dane** z menu po lewej stronie, a następnie **ADO.NET Entity Data Model**
 -   Wprowadź **BloggingContext** jako nazwę, a następnie kliknij przycisk **OK** .
 -   Spowoduje to uruchomienie **kreatora Entity Data Model**
@@ -117,12 +117,12 @@ Plik App. config został dodany do projektu, ten plik zawiera parametry połącz
 </connectionStrings>
 ```
 
-*You'll Zauważ, że niektóre inne ustawienia w pliku konfiguracji są również domyślne ustawienia EF, które informują Code First o tworzeniu baz danych. Ponieważ mapowanie do istniejącej bazy danych, to ustawienie zostanie zignorowane w naszej aplikacji.*
+*Zauważysz, że istnieją inne ustawienia w pliku konfiguracji, są to domyślne ustawienia EF, które informują Code First miejsca tworzenia baz danych. Ponieważ mapowanie do istniejącej bazy danych, to ustawienie zostanie zignorowane w naszej aplikacji.*
 
 ### <a name="derived-context"></a>Kontekst pochodny
 
 Do projektu Dodano klasę **BloggingContext** . Kontekst reprezentuje sesję z bazą danych, umożliwiając nam wykonywanie zapytań i zapisywanie danych.
-Kontekst ujawnia **nieogólnymi @ no__t-1TEntity @ no__t-2** dla każdego typu w naszym modelu. Zauważ również, że Konstruktor domyślny wywołuje konstruktora podstawowego przy użyciu składni **name =** . Informuje to Code First, że parametry połączenia do użycia dla tego kontekstu powinny zostać załadowane z pliku konfiguracji.
+Kontekst ujawnia **nieogólnymi&lt;&gt;** dla każdego typu w modelu. Zauważ również, że Konstruktor domyślny wywołuje konstruktora podstawowego przy użyciu składni **name =** . Informuje to Code First, że parametry połączenia do użycia dla tego kontekstu powinny zostać załadowane z pliku konfiguracji.
 
 ``` csharp
 public partial class BloggingContext : DbContext
@@ -141,11 +141,11 @@ public partial class BloggingContext : DbContext
     }
 ```
 
-*You powinna zawsze używać składni **name =** w przypadku używania parametrów połączenia w pliku konfiguracji. Gwarantuje to, że jeśli parametry połączenia nie są obecne, Entity Framework będzie zgłaszany zamiast tworzenia nowej bazy danych według Konwencji.*
+*Jeśli używasz parametrów połączenia w pliku konfiguracji, należy zawsze używać składni **name =** . Gwarantuje to, że jeśli parametry połączenia nie są obecne, Entity Framework będzie zgłaszany zamiast tworzenia nowej bazy danych według Konwencji.*
 
 ### <a name="model-classes"></a>Klasy modelu
 
-Na koniec do projektu dodano także **blog** i Klasa **post** . Są to klasy domeny, które składają się na nasz model. Zobaczysz adnotacje danych zastosowane do klas, aby określić konfigurację, w której konwencje Code First nie były wyrównane z strukturą istniejącej bazy danych. Na przykład zobaczysz adnotację **StringLength** w **blog.Name** i **blogu. URL** , ponieważ ma ona maksymalną długość **200** w bazie danych (Code First domyślnym jest użycie długości Maximun obsługiwanej przez dostawcę bazy danych — **nvarchar (max)** w SQL Server).
+Na koniec do projektu dodano także **blog** i Klasa **post** . Są to klasy domeny, które składają się na nasz model. Zobaczysz adnotacje danych zastosowane do klas, aby określić konfigurację, w której konwencje Code First nie były wyrównane z strukturą istniejącej bazy danych. Na przykład, zobaczysz adnotację **StringLength** w **blog.Name** i **blogu. URL** , ponieważ ma ona maksymalną długość **200** w bazie danych (Code First domyślnym jest użycie długości Maximun obsługiwanej przez dostawcę bazy danych — **nvarchar (max)** w SQL Server).
 
 ``` csharp
 public partial class Blog
@@ -167,7 +167,7 @@ public partial class Blog
 }
 ```
 
-## <a name="4-reading--writing-data"></a>4. Odczytywanie & zapisywania danych
+## <a name="4-reading--writing-data"></a>4. odczytywanie & zapisywania danych
 
 Teraz, gdy mamy już model, który jest używany do uzyskiwania dostępu do niektórych danych. Zaimplementuj metodę **Main** w **program.cs** , jak pokazano poniżej. Ten kod tworzy nowe wystąpienie naszego kontekstu, a następnie używa go do wstawienia nowego **bloga**. Następnie używa zapytania LINQ do pobrania wszystkich **blogów** z bazy danych uporządkowane alfabetycznie według **tytułu**.
 

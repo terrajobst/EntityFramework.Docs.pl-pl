@@ -37,14 +37,14 @@ Install-Package EntityFramework
 
 Zainstalowanie pakietu NuGet EF6 powinno automatycznie usunąć wszystkie odwołania do elementu System. Data. Entity z projektu.
 
-## <a name="3-swap-any-ef-designer-edmx-models-to-use-ef-6x-code-generation"></a>3. Zamień wszystkie modele EF Designer (EDMX), aby używać generowania kodu Dr 6. x
+## <a name="3-swap-any-ef-designer-edmx-models-to-use-ef-6x-code-generation"></a>3. Zamień wszystkie modele EF Designer (EDMX), aby użyć programu EF 6. x generowanie kodu
 
 Jeśli masz jakieś modele utworzone za pomocą narzędzia Dr Designer, musisz zaktualizować szablony generowania kodu, aby wygenerować kod zgodny z EF6.
 
 > [!NOTE]
 > Obecnie dostępne są szablony generatora DbContext w programie Dr 6. x dla programu Visual Studio 2012 i 2013.
 
-1. Usuń istniejące szablony generowania kodu. Te pliki mają zwykle nazwę **@no__t -1edmx_file_name\>.tt** i **\<edmx_file_name @ no__t-5. Context.tt** i być zagnieżdżone w pliku edmx w Eksplorator rozwiązań. Możesz wybrać Szablony w Eksplorator rozwiązań i nacisnąć klawisz **del** , aby je usunąć.  
+1. Usuń istniejące szablony generowania kodu. Te pliki mają zwykle nazwę **\<edmx_file_name\>. tt** i **\<edmx_file_name\>. Context.tt** i być zagnieżdżone w pliku edmx w Eksplorator rozwiązań. Możesz wybrać Szablony w Eksplorator rozwiązań i nacisnąć klawisz **del** , aby je usunąć.  
    > [!NOTE]
    > W projektach witryn sieci Web szablony nie będą zagnieżdżone w pliku edmx, ale wymienione obok niego w Eksplorator rozwiązań.  
 
@@ -58,7 +58,7 @@ Jeśli masz jakieś modele utworzone za pomocą narzędzia Dr Designer, musisz z
     - Jeśli używasz interfejsu API ObjectContext, musisz wybrać kartę **online** i wyszukać **generatora EntityObject programu EF 6. x**.  
 3. W przypadku zastosowania dowolnych dostosowań do szablonów generowania kodu należy je ponownie zastosować do zaktualizowanych szablonów.
 
-## <a name="4-update-namespaces-for-any-core-ef-types-being-used"></a>4. Aktualizuj przestrzenie nazw dla wszystkich używanych podstawowych typów EF
+## <a name="4-update-namespaces-for-any-core-ef-types-being-used"></a>4. Zaktualizuj obszary nazw dla wszystkich używanych podstawowych typów EF
 
 Przestrzenie nazw dla typów DbContext i Code First nie uległy zmianie. Oznacza to, że dla wielu aplikacji używających EF 4,1 lub nowszych nie trzeba zmieniać żadnych elementów.
 

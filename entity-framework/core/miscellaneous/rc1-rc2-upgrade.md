@@ -17,7 +17,7 @@ Ten artykuł zawiera wskazówki dotyczące przesuwania aplikacji skompilowanej z
 
 ## <a name="package-names-and-versions"></a>Nazwy i wersje pakietów
 
-Między RC1 a RC2 zmieniono z "Entity Framework 7" na "Entity Framework Core". Więcej informacji na temat przyczyn zmiany w [tym wpisie można znaleźć Scott Hanselman](https://www.hanselman.com/blog/ASPNET5IsDeadIntroducingASPNETCore10AndNETCore10.aspx). Ze względu na tę zmianę nazwy pakietów zmieniły się z `EntityFramework.*` na `Microsoft.EntityFrameworkCore.*` i naszych wersjach z `7.0.0-rc1-final` do `1.0.0-rc2-final` (lub `1.0.0-preview1-final` dla narzędzi).
+Między RC1 a RC2 zmieniono z "Entity Framework 7" na "Entity Framework Core". Więcej informacji na temat przyczyn zmiany w [tym wpisie można znaleźć Scott Hanselman](https://www.hanselman.com/blog/ASPNET5IsDeadIntroducingASPNETCore10AndNETCore10.aspx). Ze względu na tę zmianę nazwy pakietów zmieniły się z `EntityFramework.*` na `Microsoft.EntityFrameworkCore.*` i naszych wersji z `7.0.0-rc1-final` do `1.0.0-rc2-final` (lub `1.0.0-preview1-final` do narzędzia).
 
 **Konieczne będzie całkowite usunięcie pakietów RC1, a następnie zainstalowanie programu RC2.** Oto mapowanie niektórych typowych pakietów.
 
@@ -33,15 +33,15 @@ Między RC1 a RC2 zmieniono z "Entity Framework 7" na "Entity Framework Core". W
 | EntityFramework. Commands 7.0.0-RC1 — Final | Microsoft. EntityFrameworkCore. Tools 1.0.0-zestawu — wersja finalna |
 | EntityFramework.MicrosoftSqlServer.Design 7.0.0-rc1-final | Microsoft.EntityFrameworkCore.SqlServer.Design  1.0.0-rc2-final      |
 
-## <a name="namespaces"></a>Namespaces
+## <a name="namespaces"></a>{1&gt;Przestrzenie nazw&lt;1}
 
 Wraz z nazwami pakietów przestrzenie nazw zmieniają się z `Microsoft.Data.Entity.*` na `Microsoft.EntityFrameworkCore.*`. Tę zmianę można obsłużyć za pomocą Znajdź/Zamień `using Microsoft.Data.Entity` z `using Microsoft.EntityFrameworkCore`.
 
 ## <a name="table-naming-convention-changes"></a>Zmiany konwencji nazewnictwa tabel
 
-Istotna zmiana funkcjonalna w wersji RC2 była @no__t używana jako nazwa tabeli, która jest mapowana na, a nie tylko nazwa klasy. Więcej informacji na temat tej zmiany można znaleźć [związany z tym problem z ogłoszeniem](https://github.com/aspnet/Announcements/issues/167)
+Istotna zmiana funkcjonalna w wersji RC2 była używana jako nazwa właściwości `DbSet<TEntity>` danej jednostki jako nazwy tabeli mapowanej na, a nie tylko nazwa klasy. Więcej informacji na temat tej zmiany można znaleźć [związany z tym problem z ogłoszeniem](https://github.com/aspnet/Announcements/issues/167)
 
-W przypadku istniejących aplikacji w wersji RC1 zalecamy dodanie następującego kodu na początku metody `OnModelCreating` w celu zachowania strategii nazewnictwa RC1:
+W przypadku istniejących aplikacji w wersji RC1 zalecamy dodanie następującego kodu do początku metody `OnModelCreating`, aby zachować strategię nazewnictwa RC1:
 
 ``` csharp
 foreach (var entity in modelBuilder.Model.GetEntityTypes())
@@ -63,7 +63,7 @@ services.AddEntityFramework()
     options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 ```
 
-W wersji RC2 można usunąć wywołania do `AddEntityFramework()`, `AddSqlServer()`, itp.:
+W wersji RC2 można usunąć wywołania do `AddEntityFramework()`, `AddSqlServer()`itp.:
 
 ``` csharp
 services.AddDbContext<ApplicationDbContext>(options =>
@@ -89,7 +89,7 @@ Najbardziej typowym scenariuszem tego jest kontrolowanie zakresu bazy danych inM
 
 ### <a name="resolving-internal-services-from-application-service-provider-aspnet-core-projects-only"></a>Rozpoznawanie wewnętrznych usług z poziomu dostawcy usługi aplikacji (tylko projekty ASP.NET Core)
 
-Jeśli masz aplikację ASP.NET Core i chcesz, aby program EF rozpoznał wewnętrzne usługi od dostawcy usług aplikacji, istnieje Przeciążenie `AddDbContext`, które umożliwia skonfigurowanie:
+Jeśli masz aplikację ASP.NET Core i chcesz, aby program Dr mógł rozpoznać usługi wewnętrzne od dostawcy usług aplikacji, istnieje Przeciążenie `AddDbContext`, które umożliwia skonfigurowanie tego elementu:
 
 ``` csharp
 services.AddEntityFrameworkSqlServer()
@@ -103,7 +103,7 @@ services.AddEntityFrameworkSqlServer()
 
 ## <a name="dnx-commands--net-cli-aspnet-core-projects-only"></a>ŚRODOWISKA DNX Commands > = Interfejs wiersza polecenia platformy .NET (tylko projekty ASP.NET Core)
 
-Jeśli wcześniej użyto poleceń `dnx ef` dla projektów ASP.NET 5, zostały one przeniesione do poleceń `dotnet ef`. Nadal stosuje się tę samą składnię polecenia. Aby uzyskać informacje o składni, można użyć `dotnet ef --help`.
+Jeśli wcześniej użyto poleceń `dnx ef` dla projektów ASP.NET 5, zostały one przeniesione do `dotnet ef` poleceń. Nadal stosuje się tę samą składnię polecenia. `dotnet ef --help` można użyć do informacji o składni.
 
 Sposób rejestrowania poleceń został zmieniony w RC2, z powodu zamienienia środowiska DNX przez interfejs wiersza polecenia platformy .NET. Polecenia są teraz zarejestrowane w sekcji `tools` w `project.json`:
 
@@ -120,7 +120,7 @@ Sposób rejestrowania poleceń został zmieniony w RC2, z powodu zamienienia śr
 ```
 
 > [!TIP]  
-> W przypadku korzystania z programu Visual Studio można teraz używać konsoli Menedżera pakietów do uruchamiania poleceń EF dla projektów ASP.NET Core (nie jest to obsługiwane w wersji RC1). W tym celu należy zarejestrować polecenia w sekcji `tools` w `project.json`.
+> W przypadku korzystania z programu Visual Studio można teraz używać konsoli Menedżera pakietów do uruchamiania poleceń EF dla projektów ASP.NET Core (nie jest to obsługiwane w wersji RC1). W tym celu należy zarejestrować polecenia w sekcji `tools` `project.json`.
 
 ## <a name="package-manager-commands-require-powershell-5"></a>Polecenia Menedżera pakietów wymagają programu PowerShell 5
 

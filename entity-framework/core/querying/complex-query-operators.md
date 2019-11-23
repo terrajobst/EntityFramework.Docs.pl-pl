@@ -20,7 +20,7 @@ Program Query Integrated Language (LINQ) zawiera wiele operatorów złożonych, 
 
 ## <a name="join"></a>Join
 
-Operator sprzężenia LINQ umożliwia łączenie dwóch źródeł danych na podstawie selektora kluczy dla każdego źródła, generując spójną krotkę wartości, gdy klucz jest zgodny. W naturalny sposób tłumaczy na `INNER JOIN` w relacyjnych bazach danych. Chociaż element LINQ Join ma selektory kluczy zewnętrznych i wewnętrznych, baza danych wymaga jednego warunku sprzężenia. Dlatego EF Core generuje warunek sprzężenia poprzez porównanie selektora klucza zewnętrznego z selektorem wewnętrznego klucza dla równości. Ponadto, jeśli selektory kluczy są typami anonimowymi, EF Core generuje warunek sprzężenia, aby porównać składnik równości.
+Operator sprzężenia LINQ umożliwia łączenie dwóch źródeł danych na podstawie selektora kluczy dla każdego źródła, generując spójną krotkę wartości, gdy klucz jest zgodny. Jest to naturalnie tłumaczone na `INNER JOIN` w relacyjnych bazach danych. Chociaż element LINQ Join ma selektory kluczy zewnętrznych i wewnętrznych, baza danych wymaga jednego warunku sprzężenia. Dlatego EF Core generuje warunek sprzężenia poprzez porównanie selektora klucza zewnętrznego z selektorem wewnętrznego klucza dla równości. Ponadto, jeśli selektory kluczy są typami anonimowymi, EF Core generuje warunek sprzężenia, aby porównać składnik równości.
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#Join)]
 
@@ -32,7 +32,7 @@ INNER JOIN [Person] AS [p] ON [p0].[PersonPhotoId] = [p].[PhotoId]
 
 ## <a name="groupjoin"></a>GroupJoin —
 
-Operator LINQ GroupJoin — umożliwia łączenie dwóch źródeł danych podobnych do przyłączenia, ale tworzy grupę wartości wewnętrznych dla dopasowywania elementów zewnętrznych. Wykonanie zapytania, takiego jak Poniższy przykład generuje wynik `Blog` @ no__t-1 @ no__t-2. Ponieważ bazy danych (szczególnie relacyjne bazy danych) nie mają sposobu reprezentowania kolekcji obiektów po stronie klienta, GroupJoin — nie są tłumaczone na serwer w wielu przypadkach. Wymaga to pobrania wszystkich danych z serwera, aby wykonać GroupJoin — bez specjalnego selektora (pierwsze zapytanie poniżej). Jeśli jednak selektor ogranicza wybrane dane, pobranie wszystkich danych z serwera może spowodować problemy z wydajnością (drugie zapytanie poniżej). Dlatego EF Core nie tłumaczy GroupJoin —.
+Operator LINQ GroupJoin — umożliwia łączenie dwóch źródeł danych podobnych do przyłączenia, ale tworzy grupę wartości wewnętrznych dla dopasowywania elementów zewnętrznych. Wykonanie zapytania, takiego jak Poniższy przykład generuje wynik `Blog` & `IEnumerable<Post>`. Ponieważ bazy danych (szczególnie relacyjne bazy danych) nie mają sposobu reprezentowania kolekcji obiektów po stronie klienta, GroupJoin — nie są tłumaczone na serwer w wielu przypadkach. Wymaga to pobrania wszystkich danych z serwera, aby wykonać GroupJoin — bez specjalnego selektora (pierwsze zapytanie poniżej). Jeśli jednak selektor ogranicza wybrane dane, pobranie wszystkich danych z serwera może spowodować problemy z wydajnością (drugie zapytanie poniżej). Dlatego EF Core nie tłumaczy GroupJoin —.
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#GroupJoin)]
 
@@ -44,7 +44,7 @@ Operator LINQ SelectMany umożliwia Wyliczenie selektorów kolekcji dla każdego
 
 ### <a name="collection-selector-doesnt-reference-outer"></a>Selektor kolekcji nie odwołuje się do parametru Outer
 
-Gdy selektor kolekcji nie odwołuje się do niczego ze źródła zewnętrznego, wynik jest produktem kartezjańskiego obu źródeł danych. Tłumaczy do `CROSS JOIN` w relacyjnych bazach danych.
+Gdy selektor kolekcji nie odwołuje się do niczego ze źródła zewnętrznego, wynik jest produktem kartezjańskiego obu źródeł danych. Jest ona tłumaczona na `CROSS JOIN` w relacyjnych bazach danych.
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#SelectManyConvertedToCrossJoin)]
 
@@ -56,7 +56,7 @@ CROSS JOIN [Posts] AS [p]
 
 ### <a name="collection-selector-references-outer-in-a-where-clause"></a>Selektor kolekcji odwołuje się do elementu zewnętrznego w klauzuli WHERE
 
-Gdy selektor kolekcji ma klauzulę WHERE, która odwołuje się do elementu zewnętrznego, a następnie EF Core przetłumaczy ją na sprzężenie bazy danych i używa predykatu jako warunku sprzężenia. Zwykle jest to spowodowane użyciem nawigacji kolekcji na zewnętrznym elemencie jako selektor kolekcji. Jeśli kolekcja jest pusta dla elementu zewnętrznego, nie będą generowane żadne wyniki dla tego elementu zewnętrznego. Ale jeśli `DefaultIfEmpty` zostanie zastosowany w selektorze kolekcji, zewnętrzny element zostanie połączony z domyślną wartością elementu wewnętrznego. Z powodu tego rozróżnienia tego rodzaju zapytania są tłumaczone na `INNER JOIN` w przypadku braku `DefaultIfEmpty` i `LEFT JOIN` w przypadku zastosowania `DefaultIfEmpty`.
+Gdy selektor kolekcji ma klauzulę WHERE, która odwołuje się do elementu zewnętrznego, a następnie EF Core przetłumaczy ją na sprzężenie bazy danych i używa predykatu jako warunku sprzężenia. Zwykle jest to spowodowane użyciem nawigacji kolekcji na zewnętrznym elemencie jako selektor kolekcji. Jeśli kolekcja jest pusta dla elementu zewnętrznego, nie będą generowane żadne wyniki dla tego elementu zewnętrznego. Ale jeśli `DefaultIfEmpty` jest zastosowany w selektorze kolekcji, zewnętrzny element zostanie połączony z domyślną wartością elementu wewnętrznego. Z powodu tego rozróżnienia tego rodzaju zapytania są tłumaczone na `INNER JOIN` w przypadku braku `DefaultIfEmpty` i `LEFT JOIN` w przypadku zastosowania `DefaultIfEmpty`.
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#SelectManyConvertedToJoin)]
 
@@ -72,7 +72,7 @@ LEFT JOIN [Posts] AS [p] ON [b].[BlogId] = [p].[BlogId]
 
 ### <a name="collection-selector-references-outer-in-a-non-where-case"></a>Selektor kolekcji odwołuje się do elementu zewnętrznego w przypadku braku miejsca
 
-Gdy selektor kolekcji odwołuje się do elementu zewnętrznego, który nie znajduje się w klauzuli WHERE (jak powyżej), nie jest przekształcany na sprzężenie bazy danych. Dlatego musimy oszacować selektor kolekcji dla każdego elementu zewnętrznego. Tłumaczy do operacji `APPLY` w wielu relacyjnych bazach danych. Jeśli kolekcja jest pusta dla elementu zewnętrznego, nie będą generowane żadne wyniki dla tego elementu zewnętrznego. Ale jeśli `DefaultIfEmpty` zostanie zastosowany w selektorze kolekcji, zewnętrzny element zostanie połączony z domyślną wartością elementu wewnętrznego. Z powodu tego rozróżnienia tego rodzaju zapytania są tłumaczone na `CROSS APPLY` w przypadku braku `DefaultIfEmpty` i `OUTER APPLY` w przypadku zastosowania `DefaultIfEmpty`. Niektóre bazy danych, takie jak SQLite, nie obsługują operatorów `APPLY`, dzięki czemu tego rodzaju zapytania nie można przetłumaczyć.
+Gdy selektor kolekcji odwołuje się do elementu zewnętrznego, który nie znajduje się w klauzuli WHERE (jak powyżej), nie jest przekształcany na sprzężenie bazy danych. Dlatego musimy oszacować selektor kolekcji dla każdego elementu zewnętrznego. Tłumaczy do operacji `APPLY` w wielu relacyjnych bazach danych. Jeśli kolekcja jest pusta dla elementu zewnętrznego, nie będą generowane żadne wyniki dla tego elementu zewnętrznego. Ale jeśli `DefaultIfEmpty` jest zastosowany w selektorze kolekcji, zewnętrzny element zostanie połączony z domyślną wartością elementu wewnętrznego. Z powodu tego rozróżnienia tego rodzaju zapytania są tłumaczone na `CROSS APPLY` w przypadku braku `DefaultIfEmpty` i `OUTER APPLY` w przypadku zastosowania `DefaultIfEmpty`. Niektóre bazy danych, takie jak SQLite, nie obsługują operatorów `APPLY`, więc tego rodzaju zapytania nie można przetłumaczyć.
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#SelectManyConvertedToApply)]
 
@@ -88,7 +88,7 @@ OUTER APPLY [Posts] AS [p]
 
 ## <a name="groupby"></a>GroupBy
 
-Operatory LINQ GroupBy tworzą wynik typu `IGrouping<TKey, TElement>`, gdzie `TKey` i `TElement` może być dowolnym dowolnego typu. Ponadto `IGrouping` implementuje `IEnumerable<TElement>`, co oznacza, że można je utworzyć za pomocą dowolnego operatora LINQ po grupowaniu. Ponieważ żadna struktura bazy danych nie może reprezentować `IGrouping`, operatory GroupBy nie mają żadnego tłumaczenia w większości przypadków. Gdy operator agregacji jest stosowany do każdej grupy, która zwraca wartość skalarną, można ją przetłumaczyć na SQL `GROUP BY` w relacyjnych bazach danych. Wartość SQL `GROUP BY` jest restrykcyjna. Wymaga grupowania tylko wartości skalarnych. Projekcja może zawierać tylko kolumny klucza grupowania lub agregację zastosowana w kolumnie. EF Core identyfikuje ten wzorzec i tłumaczy go na serwer, tak jak w poniższym przykładzie:
+Operatory LINQ GroupBy tworzą wynik typu `IGrouping<TKey, TElement>`, gdzie `TKey` i `TElement` może być dowolnego dowolnego typu. Ponadto `IGrouping` implementuje `IEnumerable<TElement>`, co oznacza, że można je redagować przy użyciu dowolnego operatora LINQ po grupowaniu. Ponieważ struktura bazy danych nie może reprezentować `IGrouping`, w większości przypadków operatory GroupBy nie mają żadnego tłumaczenia. Gdy operator zagregowany jest stosowany do każdej grupy, która zwraca wartość skalarną, można ją przetłumaczyć na `GROUP BY` SQL w relacyjnych bazach danych. `GROUP BY` SQL jest restrykcyjna. Wymaga grupowania tylko wartości skalarnych. Projekcja może zawierać tylko kolumny klucza grupowania lub agregację zastosowana w kolumnie. EF Core identyfikuje ten wzorzec i tłumaczy go na serwer, tak jak w poniższym przykładzie:
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#GroupBy)]
 
@@ -98,7 +98,7 @@ FROM [Posts] AS [p]
 GROUP BY [p].[AuthorId]
 ```
 
-EF Core tłumaczy również zapytania, w których operator agregacji w grupowaniu pojawia się w operatorze "Where" lub "OrderBy" lub innej kolejności. Używa `HAVING` klauzuli w SQL dla klauzuli WHERE. Część zapytania przed zastosowaniem operatora GroupBy może być dowolną złożoną kwerendą, o ile można ją przetłumaczyć na serwer. Ponadto po zastosowaniu operatorów agregujących w zapytaniu grupowania, aby usunąć grupowanie z wyników źródła, można utworzyć je na początku, podobnie jak w przypadku innych zapytań.
+EF Core tłumaczy również zapytania, w których operator agregacji w grupowaniu pojawia się w operatorze "Where" lub "OrderBy" lub innej kolejności. Używa w języku SQL klauzul `HAVING` w przypadku klauzuli WHERE. Część zapytania przed zastosowaniem operatora GroupBy może być dowolną złożoną kwerendą, o ile można ją przetłumaczyć na serwer. Ponadto po zastosowaniu operatorów agregujących w zapytaniu grupowania, aby usunąć grupowanie z wyników źródła, można utworzyć je na początku, podobnie jak w przypadku innych zapytań.
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#GroupByFilter)]
 
@@ -112,8 +112,8 @@ ORDER BY [p].[AuthorId]
 
 Operatory agregujące EF Core obsługiwane są następujące czynności:
 
-- Average
-- Count
+- Średnia
+- Licznik
 - LongCount
 - Maks.
 - Min.
@@ -121,7 +121,7 @@ Operatory agregujące EF Core obsługiwane są następujące czynności:
 
 ## <a name="left-join"></a>Lewe sprzężenie
 
-Podczas gdy lewe sprzężenie nie jest operatorem LINQ, relacyjne bazy danych mają koncepcję lewego sprzężenia, które jest często używane w zapytaniach. Określony wzorzec zapytań LINQ daje taki sam wynik jak `LEFT JOIN` na serwerze. EF Core identyfikuje takie wzorce i generuje odpowiednik `LEFT JOIN` po stronie serwera. Wzorzec polega na utworzeniu GroupJoin — między źródłami danych a następnie spłaszczeniem grupy przy użyciu operatora SelectMany z DefaultIfEmpty w źródle grupowania, aby dopasować wartość null, gdy wewnętrzna nie ma powiązanego elementu. Poniższy przykład pokazuje, jak wygląda ten wzorzec i co generuje.
+Podczas gdy lewe sprzężenie nie jest operatorem LINQ, relacyjne bazy danych mają koncepcję lewego sprzężenia, które jest często używane w zapytaniach. Określony wzorzec zapytań LINQ daje ten sam wynik jako `LEFT JOIN` na serwerze. EF Core identyfikuje takie wzorce i generuje odpowiedni `LEFT JOIN` po stronie serwera. Wzorzec polega na utworzeniu GroupJoin — między źródłami danych a następnie spłaszczeniem grupy przy użyciu operatora SelectMany z DefaultIfEmpty w źródle grupowania, aby dopasować wartość null, gdy wewnętrzna nie ma powiązanego elementu. Poniższy przykład pokazuje, jak wygląda ten wzorzec i co generuje.
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#LeftJoin)]
 

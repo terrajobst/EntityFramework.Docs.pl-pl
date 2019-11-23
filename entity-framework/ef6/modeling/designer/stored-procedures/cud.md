@@ -12,7 +12,7 @@ ms.locfileid: "71813560"
 ---
 # <a name="designer-cud-stored-procedures"></a>Procedury składowane CUD projektanta
 
-W tym przewodniku krok po kroku pokazano, jak zmapować operacje Create @ no__t-0insert, Update i Delete (CUD) typu jednostki na procedury składowane przy użyciu Entity Framework Designer (program EF Designer).  Domyślnie Entity Framework automatycznie generuje instrukcje SQL dla operacji CUD, ale można również mapować procedury składowane na te operacje.  
+W tym przewodniku krok po kroku pokazano, jak zmapować operacje tworzenia\\INSERT, Update i Delete (CUD) typu jednostki na procedury składowane przy użyciu Entity Framework Designer (program EF Designer).  Domyślnie Entity Framework automatycznie generuje instrukcje SQL dla operacji CUD, ale można również mapować procedury składowane na te operacje.  
 
 Należy pamiętać, że Code First nie obsługuje mapowania na procedury składowane lub funkcje. Można jednak wywołać procedury składowane lub funkcje przy użyciu metody System. Data. Entity. Nieogólnymi. sqlQuery. Na przykład:
 
@@ -24,10 +24,10 @@ var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]");
 
 Podczas mapowania operacji CUD na procedury składowane są stosowane następujące zagadnienia:
 
-- W przypadku mapowania jednej z CUD operacji do procedury składowanej należy zamapować wszystkie z nich. Jeśli nie wszystkie trzy, niezamapowane operacje zakończą się niepowodzeniem, jeśli zostaną wykonane i zostanie zgłoszony wyjątek **updateexception** will.
+- W przypadku mapowania jednej z CUD operacji do procedury składowanej należy zamapować wszystkie z nich. Jeśli nie wszystkie trzy, niezamapowane operacje zakończą się niepowodzeniem, jeśli zostaną wykonane i zostanie zgłoszony wyjątek **updateexception** .
 - Należy zmapować każdy parametr procedury składowanej na właściwości obiektu.
-- Jeśli serwer generuje wartość klucza podstawowego dla wstawionego wiersza, należy zmapować tę wartość z powrotem na właściwość klucza jednostki. W poniższym przykładzie procedura **InsertPerson** stored zwróci nowo utworzony klucz podstawowy w ramach zestawu wyników procedury składowanej. Klucz podstawowy jest mapowany na klucz jednostki (**PersonID**) przy użyciu **powiązań wyników &lt;Add @ no__t-3** feature programu EF Designer.
-- Wywołania procedury składowanej są mapowane 1:1 z jednostkami w modelu koncepcyjnym. Na przykład w przypadku zaimplementowania hierarchii dziedziczenia w modelu koncepcyjnym, a następnie zamapowania procedur składowanych CUD dla jednostek **nadrzędnych** (podstawowych) i **podrzędnych** (pochodnych), zapisanie zmian **podrzędnych** spowoduje wywołanie **elementu podrzędnego**" s procedury składowane nie będą wyzwalać wywołań procedur przechowywanych **elementu nadrzędnego**.
+- Jeśli serwer generuje wartość klucza podstawowego dla wstawionego wiersza, należy zmapować tę wartość z powrotem na właściwość klucza jednostki. W poniższym przykładzie procedura składowana **InsertPerson** zwraca nowo utworzony klucz podstawowy w ramach zestawu wyników procedury składowanej. Klucz podstawowy jest mapowany na klucz jednostki (**PersonID**) przy użyciu funkcji **&lt;dodaj powiązania wyniku&gt;**  funkcja programu Dr Designer.
+- Wywołania procedury składowanej są mapowane 1:1 z jednostkami w modelu koncepcyjnym. Na przykład w przypadku zaimplementowania hierarchii dziedziczenia w modelu koncepcyjnym, a następnie zamapowania procedur składowanych CUD dla jednostek **nadrzędnych** (podstawowych) i **podrzędnych** (pochodnych), zapisanie zmian **podrzędnych** spowoduje wyzwolenie wywołań procedur przechowywanych **elementu nadrzędnego**.
 
 ## <a name="prerequisites"></a>Wymagania wstępne
 
@@ -39,20 +39,20 @@ W celu wykonania instrukcji w tym przewodniku potrzebne są następujące elemen
 ## <a name="set-up-the-project"></a>Konfigurowanie projektu
 
 - Open Visual Studio 2012.
-- Wybierz **plik-&gt; nowy-&gt; projektu**
-- W lewym okienku kliknij pozycję **Visual C @ no__t-1**, a następnie wybierz szablon **konsoli** .
-- Wprowadź **CUDSProcsSample** AS nazwę.
+- Wybierz pozycję **plik —&gt; nowy&gt; projekt**
+- W lewym okienku kliknij pozycję **Visual C\#** , a następnie wybierz szablon **konsoli** .
+- Wprowadź **CUDSProcsSample** jako nazwę.
 - Wybierz **przycisk OK**.
 
 ## <a name="create-a-model"></a>Tworzenie modelu
 
-- Kliknij prawym przyciskiem myszy nazwę projektu w Eksplorator rozwiązań i wybierz polecenie **dodaj &gt; nowy element**.
+- Kliknij prawym przyciskiem myszy nazwę projektu w Eksplorator rozwiązań i wybierz polecenie **dodaj&gt; nowy element**.
 - Wybierz pozycję **dane** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablony.
 - W polu Nazwa pliku wprowadź **CUDSProcs. edmx** , a następnie kliknij przycisk **Dodaj**.
 - W oknie dialogowym Wybierz zawartość modelu wybierz pozycję **Generuj z bazy danych**, a następnie kliknij przycisk **dalej**.
-- Kliknij pozycję **nowe połączenie**. W oknie dialogowym właściwości połączenia wprowadź nazwę serwera (na przykład **(LocalDB)\\mssqllocaldb**), wybierz metodę uwierzytelniania, wpisz **szkołę** dla nazwy bazy danych, a następnie kliknij przycisk **OK**.
+- Kliknij pozycję **nowe połączenie**. W oknie dialogowym właściwości połączenia wprowadź nazwę serwera (na przykład **(LocalDB)\\mssqllocaldb**), wybierz metodę uwierzytelniania, wpisz  **szkoły** dla nazwy bazy danych, a następnie kliknij przycisk **OK**.
     Okno dialogowe Wybieranie połączenia danych zostanie zaktualizowane przy użyciu ustawienia połączenia z bazą danych.
-- W oknie dialogowym Wybierz obiekty bazy danych w obszarze **tabele** node wybierz tabelę **osoba** .
+- W oknie dialogowym Wybierz obiekty bazy danych w węźle **tabele** wybierz tabelę **osoba** .
 - Należy również wybrać następujące procedury składowane w węźle **procedury składowane i funkcje** : **DeletePerson**, **InsertPerson**i **UpdatePerson**.
 - Począwszy od programu Visual Studio 2012, program Dr Designer obsługuje zbiorcze Importowanie procedur składowanych. **Importowane procedury składowane i funkcje do modelu jednostki** są domyślnie zaznaczone. Ponieważ w tym przykładzie mamy procedury składowane, które wstawiają, aktualizują i usuwają typy jednostek, nie chcemy ich zaimportować i usuń zaznaczenie tego pola wyboru.
 
@@ -63,30 +63,30 @@ W celu wykonania instrukcji w tym przewodniku potrzebne są następujące elemen
 
 ## <a name="map-the-person-entity-to-stored-procedures"></a>Mapuj jednostkę osoby na procedury składowane
 
-- Kliknij prawym przyciskiem myszy **osobę**@no__t 1entity typ i wybierz pozycję **mapowanie procedury składowanej**.
-- Mapowania procedury składowanej pojawiają się w **szczegółach mapowania** window.
-- Kliknij **&lt;Select Wstaw funkcję @ no__t-2**.
+- Kliknij prawym przyciskiem myszy **osobę** typ jednostki i wybierz pozycję **mapowanie procedury składowanej**.
+- Mapowania procedury składowanej pojawiają się w oknie **szczegóły mapowania** .
+- Kliknij **&lt;wybierz pozycję wstaw&gt;funkcji **.
     Pole stanie się listą rozwijaną procedur składowanych w modelu magazynu, które mogą być mapowane na typy jednostek w modelu koncepcyjnym.
-    Wybierz pozycję **InsertPerson** from listę rozwijaną.
-- Wyświetlane są domyślne mapowania między parametrami procedury składowanej a właściwościami jednostki. Należy zauważyć, że strzałki wskazują kierunek mapowania: Wartości właściwości są dostarczane do parametrów procedury składowanej.
-- Kliknij **@no__t — 1Add wyniku powiązania @ no__t-2**.
-- Wpisz **NewPersonID**, nazwę parametru zwróconego przez procedurę **InsertPerson** stored. Pamiętaj, aby nie wpisywać spacji wiodących lub końcowych.
+    Z listy rozwijanej wybierz pozycję **InsertPerson** .
+- Wyświetlane są domyślne mapowania między parametrami procedury składowanej a właściwościami jednostki. Należy zauważyć, że strzałki wskazują kierunek mapowania: wartości właściwości są dostarczane do parametrów procedury składowanej.
+- Kliknij **&lt;dodać powiązanie wyniku&gt;** .
+- Wpisz **NewPersonID**, nazwę parametru zwróconego przez procedurę składowaną **InsertPerson** . Pamiętaj, aby nie wpisywać spacji wiodących lub końcowych.
 - Naciśnij klawisz **Enter**.
-- Domyślnie **NewPersonID** Is mapowany na klucz jednostki **PersonID**. Należy zauważyć, że strzałka wskazuje kierunek mapowania: Wartość kolumny wynik jest dostarczana do właściwości.
+- Domyślnie **NewPersonID** jest mapowany na klucz jednostki **PersonID**. Należy zauważyć, że strzałka wskazuje kierunek mapowania: wartość kolumny wynik jest dostarczana do właściwości.
 
     ![Szczegóły mapowania](~/ef6/media/mappingdetails.png)
 
-- Kliknij pozycję **&lt;Select Update Function @ no__t-2** And select **UpdatePerson** from listy rozwijanej.
+- Kliknij pozycję **&lt;wybierz pozycję Aktualizuj funkcję&gt;**  a następnie wybierz pozycję **UpdatePerson** z listy rozwijanej.
 - Wyświetlane są domyślne mapowania między parametrami procedury składowanej a właściwościami jednostki.
-- Kliknij kolejno pozycje **&lt;Select Delete Function @ no__t-2** And select **DeletePerson** from listy rozwijanej.
+- Kliknij **&lt;wybierz pozycję Usuń funkcję&gt;**  i wybierz pozycję **DeletePerson** z listy rozwijanej.
 - Wyświetlane są domyślne mapowania między parametrami procedury składowanej a właściwościami jednostki.
 
-Operacje INSERT, Update i DELETE **osoby**@no__t — typ 1entity są teraz mapowane na procedury składowane.
+Operacje INSERT, Update i DELETE elementu typ jednostki są teraz **mapowane na procedury** składowane.
 
 Jeśli chcesz włączyć sprawdzanie współbieżności podczas aktualizowania lub usuwania jednostki za pomocą procedur składowanych, użyj jednej z następujących opcji:
 
-- Użyj parametru **wyjściowego** , aby zwrócić liczbę odnośnych wierszy z procedury składowanej, a następnie sprawdź **parametr dotyczący wierszy** checkbox obok nazwy parametru. Jeśli zwracana wartość jest równa zero, gdy operacja jest wywoływana, zostanie zgłoszony  [**OptimisticConcurrencyException**](https://msdn.microsoft.com/library/system.data.optimisticconcurrencyexception.aspx) will.
-- Zaznacz pole wyboru **Użyj oryginalnej wartości** obok właściwości, która ma być używana do sprawdzania współbieżności. Po próbie aktualizacji wartość właściwości, która pierwotnie odczytana z bazy danych, zostanie użyta podczas zapisywania danych z powrotem do bazy danych. Jeśli wartość nie jest zgodna z wartością w bazie danych, zostanie zgłoszony **OptimisticConcurrencyException** will.
+- Użyj parametru **wyjściowego** , aby zwrócić liczbę odnośnych wierszy z procedury składowanej, a następnie zaznacz pole wyboru **parametr, którego dotyczy wiersz** obok nazwy parametru. Jeśli zwracana wartość jest równa zero, gdy operacja jest wywoływana, zostanie zgłoszony  [**OptimisticConcurrencyException**](https://msdn.microsoft.com/library/system.data.optimisticconcurrencyexception.aspx) .
+- Zaznacz pole wyboru **Użyj oryginalnej wartości** obok właściwości, która ma być używana do sprawdzania współbieżności. Po próbie aktualizacji wartość właściwości, która pierwotnie odczytana z bazy danych, zostanie użyta podczas zapisywania danych z powrotem do bazy danych. Jeśli wartość nie jest zgodna z wartością w bazie danych, zostanie zgłoszony **OptimisticConcurrencyException** .
 
 ## <a name="use-the-model"></a>Korzystanie z modelu
 
