@@ -1,16 +1,16 @@
 ---
 title: Typy jednostek posiadanych — EF Core
+description: Jak skonfigurować własne typy jednostek lub agregacje podczas korzystania z Entity Framework Core
 author: AndriySvyryd
 ms.author: ansvyryd
-ms.date: 02/26/2018
-ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
+ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: a0665bfa27134b8dc3eba854ff3f7b1af4b69217
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 7b6d1b3bccbfceb85f03a580ba03a45984d29c74
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655932"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824597"
 ---
 # <a name="owned-entity-types"></a>Posiadane typy jednostek
 
@@ -19,7 +19,7 @@ ms.locfileid: "73655932"
 
 EF Core umożliwia modelowanie typów jednostek, które mogą być wyświetlane tylko w przypadku właściwości nawigacji innych typów jednostek. Są one nazywane _własnością typów jednostek_. Jednostką zawierającą typ jednostki będącej właścicielem jest jej _właścicielem_.
 
-Posiadane jednostki są zasadniczo częścią właściciela i nie mogą istnieć bez niej, są koncepcyjnie podobne do [agregacji](https://martinfowler.com/bliki/DDD_Aggregate.html).
+Posiadane jednostki są zasadniczo częścią właściciela i nie mogą istnieć bez niej, są koncepcyjnie podobne do [agregacji](https://martinfowler.com/bliki/DDD_Aggregate.html). Oznacza to, że typ własnością jest z definicji po stronie zależnej relacji z właścicielem.
 
 ## <a name="explicit-configuration"></a>Konfiguracja jawna
 
@@ -74,7 +74,7 @@ Aby skonfigurować inne `HasKey`wywołań PK:
 [!code-csharp[OwnsMany](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsMany)]
 
 > [!NOTE]
-> Przed EF Core 3,0 `WithOwner()` Metoda nie istnieje, dlatego należy usunąć to wywołanie.
+> Przed EF Core 3,0 `WithOwner()` Metoda nie istnieje, dlatego należy usunąć to wywołanie. Ponadto klucz podstawowy nie został odnaleziony automatycznie, więc zawsze został określony.
 
 ## <a name="mapping-owned-types-with-table-splitting"></a>Mapowanie typów posiadanych przy użyciu dzielenia tabeli
 
@@ -85,6 +85,9 @@ Domyślnie EF Core nazwy kolumn bazy danych dla właściwości typu jednostki b�
 Za pomocą metody `HasColumnName` można zmienić nazwy tych kolumn:
 
 [!code-csharp[ColumnNames](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=ColumnNames)]
+
+> [!NOTE]
+> Większość normalnych metod konfiguracji typu jednostki, takich jak [Ignore](/dotnet/api/microsoft.entityframeworkcore.metadata.builders.ownednavigationbuilder.ignore) , można wywołać w taki sam sposób.
 
 ## <a name="sharing-the-same-net-type-among-multiple-owned-types"></a>Współużytkowanie tego samego typu .NET w wielu typach posiadanych
 
@@ -106,6 +109,8 @@ W tym przykładzie `OrderDetails` należące do `BillingAddress` i `ShippingAddr
 
 [!code-csharp[OrderStatus](../../../samples/core/Modeling/OwnedEntities/OrderStatus.cs?name=OrderStatus)]
 
+Każda Nawigacja do typu posiadanego definiuje osobny typ jednostki z całkowicie niezależną konfiguracją.
+
 Oprócz zagnieżdżonych typów będących własnością, typ własnością może odwoływać się do zwykłej jednostki, może być właścicielem lub inną jednostką, o ile posiadana jednostka znajduje się na stronie zależnej. Ta funkcja umożliwia określenie typów jednostek posiadanych poza typami złożonymi w EF6.
 
 [!code-csharp[OrderDetails](../../../samples/core/Modeling/OwnedEntities/OrderDetails.cs?name=OrderDetails)]
@@ -114,15 +119,17 @@ Istnieje możliwość łańcucha metody `OwnsOne` w wywołaniu Fluent, aby skonf
 
 [!code-csharp[OwnsOneNested](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneNested)]
 
-Zwróć uwagę na wywołanie `WithOwner` użyte do skonfigurowania właściwości nawigacji wskazującej na właściciela.
+Zwróć uwagę na wywołanie `WithOwner` użyte do skonfigurowania właściwości nawigacji wskazującej na właściciela. Aby skonfigurować nawigację do typu jednostki właściciela, który nie jest częścią relacji własności `WithOwner()` należy wywołać bez żadnych argumentów.
 
-Można osiągnąć wynik przy użyciu `OwnedAttribute` na obu `OrderDetails` i `StreetAdress`.
+Można osiągnąć wynik przy użyciu `OwnedAttribute` na obu `OrderDetails` i `StreetAddress`.
 
 ## <a name="storing-owned-types-in-separate-tables"></a>Przechowywanie typów posiadanych w oddzielnych tabelach
 
 Również w przeciwieństwie do EF6 typów złożonych, typy własnością mogą być przechowywane w oddzielnej tabeli od właściciela. W celu przesłonięcia Konwencji, która mapuje typ należący do tej samej tabeli co właściciel, można po prostu wywołać `ToTable` i podać inną nazwę tabeli. Poniższy przykład mapuje `OrderDetails` i jego dwa adresy w oddzielną tabelę od `DetailedOrder`:
 
 [!code-csharp[OwnsOneTable](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneTable)]
+
+W tym celu można również użyć `TableAttribute`, ale należy zauważyć, że może to się nie powieść, jeśli istnieje wiele nawigacji do tego typu, ponieważ w takim przypadku wiele typów jednostek będzie mapowanych do tej samej tabeli.
 
 ## <a name="querying-owned-types"></a>Wykonywanie zapytania dotyczącego typów posiadanych
 
@@ -141,7 +148,7 @@ Niektóre z tych ograniczeń mają wpływ na sposób działania typów jednostek
 
 ### <a name="current-shortcomings"></a>Bieżące nieprawidłowości
 
-- Hierarchie dziedziczenia, które zawierają typy jednostek będących własnością, nie są obsługiwane
+- Typy jednostek będących własnością nie mogą mieć hierarchii dziedziczenia
 - Nawigacja referencyjna do typów jednostek będących własnością nie może mieć wartości null, chyba że są jawnie zamapowane na osobną tabelę od właściciela
 - Wystąpienia typów jednostek będących własnością nie mogą być współużytkowane przez wielu właścicieli (jest to dobrze znany scenariusz dla obiektów wartości, których nie można zaimplementować przy użyciu posiadanych typów jednostek)
 

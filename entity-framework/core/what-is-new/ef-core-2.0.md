@@ -4,16 +4,16 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 72393e96c195af1df5a169025ca2ce7a7acb16bb
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 83f6b819409d502dba17a678d44a0746a4a77f4b
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656222"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824878"
 ---
 # <a name="new-features-in-ef-core-20"></a>Nowe funkcje w EF Core 2,0
 
-## <a name="net-standard-20"></a>.NET Standard 2,0
+## <a name="net-standard-20"></a>.NET Standard 2.0
 
 EF Core teraz dotyczy .NET Standard 2,0, co oznacza, że może współdziałać z platformą .NET Core 2,0, .NET Framework 4.6.1 i innymi bibliotekami, które implementują .NET Standard 2,0.
 Zobacz [obsługiwane implementacje platformy .NET](../platforms/index.md) , aby uzyskać więcej informacji na temat tego, co jest obsługiwane.
@@ -72,7 +72,7 @@ Aby uzyskać więcej informacji na temat tej funkcji, zapoznaj się z [sekcją n
 
 ### <a name="model-level-query-filters"></a>Filtry zapytań na poziomie modelu
 
-EF Core 2,0 zawiera nową funkcję wywołującą filtry zapytań na poziomie modelu. Ta funkcja zezwala na predykaty zapytań LINQ (wyrażenie logiczne zwykle przenoszone do składnika LINQ WHERE Query operator) do zdefiniowania bezpośrednio w typach jednostek w modelu metadanych (zwykle w OnModelCreating). Takie filtry są automatycznie stosowane do dowolnych zapytań LINQ obejmujących te typy jednostek, w tym typy jednostek, do których odwołuje się pośrednio, na przykład przy użyciu odwołań do właściwości dołączania lub nawigacji bezpośredniej. Niektóre typowe aplikacje tej funkcji to:
+EF Core 2,0 zawiera nową funkcję wywołującą filtry zapytań na poziomie modelu. Ta funkcja zezwala na predykaty zapytań LINQ (wyrażenie logiczne zwykle przenoszone do składnika LINQ WHERE Query operator) do zdefiniowania bezpośrednio w typach jednostek w modelu metadanych (zwykle w OnModelCreating). Takie filtry są automatycznie stosowane do żadnych zapytań LINQ, obejmujące tych typów jednostek, w tym odwołania do właściwości nawigacji odwołanie pośrednio, takie jak przy użyciu Include lub bezpośredniego typów jednostek. Niektóre typowe aplikacje tej funkcji są następujące:
 
 - Usuwanie nietrwałe — typy jednostek definiują Właściwość IsDeleted.
 - Wielodostępność — typ jednostki definiuje Właściwość TenantId.
@@ -91,12 +91,12 @@ public class BloggingContext : DbContext
     {
         modelBuilder.Entity<Post>().HasQueryFilter(
             p => !p.IsDeleted
-            && p.TenantId == this.TenantId );
+            && p.TenantId == this.TenantId);
     }
 }
 ```
 
-Definiujemy filtr na poziomie modelu, który implementuje wiele dzierżawców i usuwanie nietrwałe dla wystąpień typu jednostki `Post`. Zwróć uwagę na użycie właściwości poziomu wystąpienia DbContext: `TenantId`. Filtry na poziomie modelu będą używać wartości z poprawnego wystąpienia kontekstu (czyli wystąpienia kontekstu, które wykonuje zapytanie).
+Definiujemy filtr na poziomie modelu, który implementuje wiele dzierżawców i usuwanie nietrwałe dla wystąpień typu jednostki `Post`. Zwróć uwagę na użycie właściwości poziomu wystąpienia `DbContext`: `TenantId`. Filtry na poziomie modelu będą używać wartości z poprawnego wystąpienia kontekstu (czyli wystąpienia kontekstu, które wykonuje zapytanie).
 
 Filtry mogą być wyłączone dla poszczególnych zapytań LINQ przy użyciu operatora IgnoreQueryFilters ().
 
@@ -119,7 +119,7 @@ public class BloggingContext : DbContext
     [DbFunction]
     public static int PostReadCount(int blogId)
     {
-        throw new Exception();
+        throw new NotImplementedException();
     }
 }
 ```
@@ -133,11 +133,11 @@ var query =
     select p;
 ```
 
-Kilka rzeczy do zanotowania:
+Kilka kwestii, na które warto zwrócić uwagę:
 
-- Zgodnie z Konwencją nazwa metody jest używana jako nazwa funkcji (w tym przypadku funkcji zdefiniowanej przez użytkownika) podczas generowania kodu SQL, ale można zastąpić nazwę i schemat podczas rejestracji metody
-- Obecnie obsługiwane są tylko funkcje skalarne
-- Należy utworzyć zamapowanej funkcji w bazie danych. Migracja EF Core nie zajmie się tworzeniem IT
+- Zgodnie z Konwencją nazwa metody jest używana jako nazwa funkcji (w tym przypadku funkcji zdefiniowanej przez użytkownika) podczas generowania kodu SQL, ale można zastąpić nazwę i schemat podczas rejestracji metody.
+- Obecnie obsługiwane są tylko funkcje skalarne.
+- Należy utworzyć zamapowanej funkcji w bazie danych. Migracje EF Core nie zapewnią ich tworzenia.
 
 ### <a name="self-contained-type-configuration-for-code-first"></a>Samodzielna konfiguracja typu dla kodu
 
@@ -146,11 +146,11 @@ W EF6 można hermetyzować kod pierwszej konfiguracji określonego typu jednostk
 ``` csharp
 class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 {
-  public void Configure(EntityTypeBuilder<Customer> builder)
-  {
-     builder.HasKey(c => c.AlternateKey);
-     builder.Property(c => c.Name).HasMaxLength(200);
-   }
+    public void Configure(EntityTypeBuilder<Customer> builder)
+    {
+        builder.HasKey(c => c.AlternateKey);
+        builder.Property(c => c.Name).HasMaxLength(200);
+    }
 }
 
 ...
@@ -223,7 +223,7 @@ To działanie poprawi SQL wygenerowanego dla sprzężeń grup. Sprzężenia grup
 
 ### <a name="string-interpolation-in-fromsql-and-executesqlcommand"></a>Interpolacja ciągów w Z tabel i ExecuteSqlCommand
 
-C#6 wprowadza interpolację ciągów, funkcję, która pozwala C# na bezpośrednie osadzanie wyrażeń w literałach ciągów, zapewniając całkiem sposób tworzenia ciągów w czasie wykonywania. W EF Core 2,0 dodaliśmy specjalną obsługę ciągów interpolowanych do naszych dwóch głównych interfejsów API, które akceptują surowe ciągi SQL: `FromSql` i `ExecuteSqlCommand`. Ta nowa obsługa umożliwia C# interpolację ciągów, która będzie używana w sposób bezpieczny. Oznacza to, że w sposób chroniący przed typowymi błędami iniekcji SQL, które mogą wystąpić podczas dynamicznego konstruowania bazy danych SQL w środowisku uruchomieniowym.
+C#6 wprowadza interpolację ciągów, funkcję, która pozwala C# na bezpośrednie osadzanie wyrażeń w literałach ciągów, zapewniając całkiem sposób tworzenia ciągów w czasie wykonywania. W EF Core 2,0 dodaliśmy specjalną obsługę ciągów interpolowanych do naszych dwóch głównych interfejsów API, które akceptują surowe ciągi SQL: `FromSql` i `ExecuteSqlCommand`. Ta nowa obsługa pozwala C# na stosowanie interpolacji ciągów w sposób bezpieczny. Oznacza to, że w sposób chroniący przed typowymi błędami iniekcji SQL, które mogą wystąpić podczas dynamicznego konstruowania bazy danych SQL w środowisku uruchomieniowym.
 
 Oto przykład:
 
@@ -255,7 +255,7 @@ WHERE ""City"" = @p0
     AND ""ContactTitle"" = @p1
 ```
 
-### <a name="effunctionslike"></a>Bieżąco. Functions. like ()
+### <a name="effunctionslike"></a>EF.Functions.Like()
 
 Dodaliśmy EF. Właściwość Functions, która może być używana przez EF Core lub dostawców do definiowania metod, które mapują na funkcje bazy danych lub operatory, aby mogły być wywoływane w zapytaniach LINQ. Pierwszym przykładem takiej metody jest like ():
 

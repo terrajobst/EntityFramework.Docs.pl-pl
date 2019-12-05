@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/index
-ms.openlocfilehash: 24368b4c87e785e779b3f2b2f10de19766451c9b
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: ebc676930ffc396aa70bb8afb91cf5a0cd43e04d
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656234"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824855"
 ---
 # <a name="new-features-in-entity-framework-core-30"></a>Nowe funkcje w Entity Framework Core 3,0
 
@@ -39,7 +39,7 @@ var specialCustomers = context.Customers
     .Where(c => c.Name.StartsWith(n) && IsSpecialCustomer(c));
 ```
 
-To może być akceptowalne, jeśli baza danych zawiera niewielką liczbę wierszy, ale może powodować znaczne problemy z wydajnością lub nawet niepowodzenie aplikacji, jeśli baza danych zawiera dużą liczbę lub kilka wierszy.
+To może być akceptowalne, jeśli baza danych zawiera niewielką liczbę wierszy, ale może powodować znaczne problemy z wydajnością lub nawet niepowodzenie aplikacji, jeśli baza danych zawiera dużą liczbę wierszy.
 
 W EF Core 3,0 ograniczenie oceny klienta ma miejsce tylko w projekcji najwyższego poziomu (zasadniczo jest to ostatnie wywołanie do `Select()`).
 Gdy EF Core 3,0 wykrywa wyrażenia, które nie mogą być przetłumaczone w innym miejscu zapytania, zgłasza wyjątek czasu wykonania.
@@ -145,7 +145,7 @@ Ponieważ zapewniają one doskonałą obsługę mapowania widoków bazy danych w
 
 Na przykład przy użyciu [narzędzia wiersza polecenia dotnet EF](xref:core/miscellaneous/cli/dotnet) można wpisać:
 
-``` console
+```dotnetcli
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer
 ```
 

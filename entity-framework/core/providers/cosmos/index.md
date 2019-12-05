@@ -5,32 +5,32 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 6cac695288d9ba84968b7fab6361f55e9b51be67
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 162e5d387bcbfbf1e90baf27fc62dd2ed562ae58
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656088"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824547"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>Dostawca Azure Cosmos DB EF Core
 
->[!NOTE]
+> [!NOTE]
 > Ten dostawca jest nowy w EF Core 3,0.
 
 Ten dostawca bazy danych umożliwia używanie Entity Framework Core z Azure Cosmos DB. Dostawca jest obsługiwany w ramach [projektu Entity Framework Core](https://github.com/aspnet/EntityFrameworkCore).
 
 Zdecydowanie zalecamy zapoznanie się z [dokumentacją Azure Cosmos DB](/azure/cosmos-db/introduction) przed przeczytaniem tej sekcji.
 
->[!NOTE]
+> [!NOTE]
 > Ten dostawca współpracuje tylko z interfejsem API SQL Azure Cosmos DB.
 
-## <a name="install"></a>Zainstaluj
+## <a name="install"></a>Instalacja programu
 
 Zainstaluj [pakiet NuGet Microsoft. EntityFrameworkCore. Cosmos](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos/).
 
 ## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
-``` console
+```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.Cosmos
 ```
 
@@ -89,7 +89,7 @@ Domyślnie EF Core utworzy kontenery z ustawionym kluczem partycji na `"__partit
 
 [!code-csharp[PartitionKey](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=PartitionKey)]
 
->[!NOTE]
+> [!NOTE]
 >Właściwość klucza partycji może być dowolnego typu, o ile jest [konwertowana na ciąg](xref:core/modeling/value-conversions).
 
 Po skonfigurowaniu właściwości klucza partycji zawsze powinna istnieć wartość inna niż null. Podczas wystawiania zapytania można dodać warunek, aby udostępnić go pojedynczej partycji.

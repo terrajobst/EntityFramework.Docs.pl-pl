@@ -4,12 +4,12 @@ author: rick-anderson
 ms.date: 09/17/2019
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: fca1b532b34e20aeea1968939af96c692d60d738
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: d46c4bb9ac6c8f718b4da5ecd82d54710d41935f
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813605"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824492"
 ---
 # <a name="getting-started-with-ef-core"></a>Wprowadzenie z EF Core
 
@@ -30,7 +30,7 @@ Zainstaluj następujące oprogramowanie:
 ## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [Program Visual Studio 2019 w wersji 16,3 lub nowszej](https://www.visualstudio.com/downloads/) z tym obciążeniem:
-  * **Programowanie dla wielu platform w środowisku .NET Core** (w obszarze **inne zestawy narzędzi**)
+  * **Programowanie dla wielu platform w środowisku .NET Core** (w innych zestawach **narzędzi**)
 
 ---
 
@@ -38,14 +38,14 @@ Zainstaluj następujące oprogramowanie:
 
 ## <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-``` Console
+```dotnetcli
 dotnet new console -o EFGetStarted
 cd EFGetStarted
 ```
 
 ## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Otwórz program Visual Studio
+* Otwórz program Visual Studio.
 * Kliknij pozycję **Utwórz nowy projekt**
 * Wybierz pozycję **aplikacja konsoli (.NET Core)** z **C#** tagiem i kliknij przycisk **dalej** .
 * Wprowadź **EFGetStarted** dla nazwy i kliknij przycisk **Utwórz** .
@@ -58,7 +58,7 @@ Aby zainstalować EF Core, należy zainstalować pakiet dla dostawców usługi E
 
 ## <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-``` Console
+```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 ```
 
@@ -71,7 +71,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
   Install-Package Microsoft.EntityFrameworkCore.Sqlite
   ```
 
-Wyowietlon Możesz również zainstalować pakiety, klikając prawym przyciskiem myszy projekt i wybierając pozycję **Zarządzaj pakietami NuGet** .
+Porada: Możesz także zainstalować pakiety, klikając prawym przyciskiem myszy projekt i wybierając pozycję **Zarządzaj pakietami NuGet** .
 
 ---
 
@@ -95,7 +95,7 @@ Zdefiniuj klasę kontekstu i klasy jednostek, które tworzą model.
 
 EF Core [może również odtworzyć](../managing-schemas/scaffolding.md) model z istniejącej bazy danych.
 
-Wyowietlon W rzeczywistej aplikacji należy umieścić każdą klasę w osobnym pliku i umieścić [Parametry połączenia](../miscellaneous/connection-strings.md) w pliku konfiguracyjnym lub zmiennej środowiskowej. Aby zachować ten samouczek, wszystko jest zawarte w jednym pliku.
+Porada: w rzeczywistej aplikacji należy umieścić każdą klasę w osobnym pliku i umieścić [Parametry połączenia](../miscellaneous/connection-strings.md) w pliku konfiguracyjnym lub zmiennej środowiskowej. Aby zachować ten samouczek, wszystko jest zawarte w jednym pliku.
 
 ## <a name="create-the-database"></a>Tworzenie bazy danych
 
@@ -105,14 +105,14 @@ Poniższe kroki służą do tworzenia bazy [danych programu.](xref:core/managing
 
 * Uruchom następujące polecenia:
 
-  ``` Console
+  ```dotnetcli
   dotnet tool install --global dotnet-ef
   dotnet add package Microsoft.EntityFrameworkCore.Design
   dotnet ef migrations add InitialCreate
   dotnet ef database update
   ```
 
-  Spowoduje to zainstalowanie programu [dotnet EF](../miscellaneous/cli/dotnet.md) i pakietu projektowego, który jest wymagany do uruchomienia polecenia w projekcie. `migrations` Polecenie tworzy szkielet migracji w celu utworzenia początkowego zestawu tabel dla modelu. `database update` Polecenie tworzy bazę danych i stosuje do niej nową migrację.
+  Spowoduje to zainstalowanie programu [dotnet EF](../miscellaneous/cli/dotnet.md) i pakietu projektowego, który jest wymagany do uruchomienia polecenia w projekcie. Polecenie `migrations` tworzy szkielet migracji w celu utworzenia początkowego zestawu tabel dla modelu. `database update` polecenie tworzy bazę danych i stosuje do niej nową migrację.
 
 ## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -124,7 +124,7 @@ Poniższe kroki służą do tworzenia bazy [danych programu.](xref:core/managing
   Update-Database
   ```
 
-  Spowoduje to zainstalowanie [narzędzi PMC dla EF Core](../miscellaneous/cli/powershell.md). `Add-Migration` Polecenie tworzy szkielet migracji w celu utworzenia początkowego zestawu tabel dla modelu. `Update-Database` Polecenie tworzy bazę danych i stosuje do niej nową migrację.
+  Spowoduje to zainstalowanie [narzędzi PMC dla EF Core](../miscellaneous/cli/powershell.md). Polecenie `Add-Migration` tworzy szkielet migracji w celu utworzenia początkowego zestawu tabel dla modelu. `Update-Database` polecenie tworzy bazę danych i stosuje do niej nową migrację.
 
 ---
 
@@ -138,13 +138,13 @@ Poniższe kroki służą do tworzenia bazy [danych programu.](xref:core/managing
 
 ## <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-``` Console
+```dotnetcli
 dotnet run
 ```
 
 ## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Program Visual Studio używa niespójnego katalogu roboczego podczas uruchamiania aplikacji konsolowych platformy .NET Core. (zobacz [dotnet/Project-System # 3619](https://github.com/dotnet/project-system/issues/3619)) Powoduje to zgłaszanie wyjątku: *nie ma takiej tabeli: Blogi*. Aby zaktualizować katalog roboczy:
+Program Visual Studio używa niespójnego katalogu roboczego podczas uruchamiania aplikacji konsolowych platformy .NET Core. (zobacz [dotnet/Project-System # 3619](https://github.com/dotnet/project-system/issues/3619)) Powoduje to zgłaszanie wyjątku: *nie ma takiej tabeli: blogi*. Aby zaktualizować katalog roboczy:
 
 * Kliknij prawym przyciskiem myszy projekt i wybierz polecenie **Edytuj plik projektu**
 * Po prostu poniżej właściwości *TargetFramework* Dodaj następujące elementy:
@@ -153,7 +153,7 @@ Program Visual Studio używa niespójnego katalogu roboczego podczas uruchamiani
   <StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
   ```
 
-* Zapisz plik
+* Zapisz plik.
 
 Teraz możesz uruchomić aplikację:
 

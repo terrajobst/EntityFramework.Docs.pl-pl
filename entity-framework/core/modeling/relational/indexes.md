@@ -1,15 +1,15 @@
 ---
 title: Indeksy (relacyjna baza danych) — EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: 4581e7ba-5e7f-452c-9937-0aaf790ba10a
+author: AndriySvyryd
+ms.author: ansvyryd
+ms.date: 11/05/2019
 uid: core/modeling/relational/indexes
-ms.openlocfilehash: 7bb74d0bfa6090b597eb988a46f00494e25f233e
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: e14615275f85ee9b6b32d080905465d33963feca
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813633"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824578"
 ---
 # <a name="indexes-relational-database"></a>Indeksy (relacyjna baza danych)
 
@@ -20,7 +20,7 @@ Indeks w relacyjnej bazie danych jest mapowany na takie same koncepcje jak indek
 
 ## <a name="conventions"></a>Konwencje
 
-Według Konwencji, indeksy są nazywane `IX_<type name>_<property name>`. W przypadku indeksów `<property name>` złożonych zostaje rozdzielona podkreśleniem listę nazw właściwości.
+Według Konwencji, indeksy mają nazwę `IX_<type name>_<property name>`. W przypadku indeksów złożonych `<property name>` być rozdzielaną podkreśleniem listę nazw właściwości.
 
 ## <a name="data-annotations"></a>Adnotacje danych
 
@@ -36,7 +36,7 @@ Można również określić filtr.
 
 [!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/IndexFilter.cs?name=Model&highlight=9)]
 
-W przypadku korzystania z dostawcy SQL Server Dr dodaje filtr "IS NOT NULL" dla wszystkich kolumn dopuszczających wartości null, które są częścią unikatowego indeksu. Aby zastąpić tę Konwencję, możesz podać `null` wartość.
+W przypadku używania dostawcy SQL Server Dr dodaje filtr `'IS NOT NULL'` dla wszystkich kolumn dopuszczających wartości null, które są częścią unikatowego indeksu. Aby zastąpić tę Konwencję, możesz podać wartość `null`.
 
 [!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/IndexNoFilter.cs?name=Model&highlight=10)]
 
@@ -44,4 +44,4 @@ W przypadku korzystania z dostawcy SQL Server Dr dodaje filtr "IS NOT NULL" dla 
 
 Istnieje możliwość skonfigurowania [indeksów z uwzględnieniem kolumn](https://docs.microsoft.com/sql/relational-databases/indexes/create-indexes-with-included-columns) , aby znacznie poprawić wydajność zapytań, gdy wszystkie kolumny w zapytaniu są uwzględniane w indeksie jako kolumna klucza lub niebędąca kolumną klucza.
 
-[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/ForSqlServerHasIndex.cs?name=Model)]
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/IndexInclude.cs?name=Model)]

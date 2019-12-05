@@ -1,15 +1,15 @@
 ---
 title: Relacje — EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: 0ff736a3-f1b0-4b58-a49c-4a7094bd6935
+description: Jak skonfigurować relacje między typami jednostek podczas korzystania z Entity Framework Core
+author: AndriySvyryd
+ms.date: 11/21/2019
 uid: core/modeling/relationships
-ms.openlocfilehash: 1e59ce9e19c12aa5564bc8467dcfcb3be8ee8996
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 452169c902d56fda0a65a5c2846a9b42c80640fd
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655675"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824761"
 ---
 # <a name="relationships"></a>Relacje
 
@@ -26,19 +26,23 @@ Istnieje kilka terminów używanych do opisywania relacji
 
 * **Podmiot podmiotu zabezpieczeń:** Jest to jednostka, która zawiera właściwości klucza podstawowego/alternatywnego. Czasami określana jako "Parent" relacji.
 
-* **Klucz obcy:** Właściwości w jednostce zależnej, która jest używana do przechowywania wartości właściwości klucza podmiotu, z którą jest powiązana jednostka.
+* **Klucz obcy:** Właściwości w jednostce zależnej, które są używane do przechowywania wartości klucza podmiotu zabezpieczeń powiązanej jednostki.
 
 * **Klucz podmiotu zabezpieczeń:** Właściwości, które jednoznacznie identyfikują jednostkę podmiotu zabezpieczeń. Może to być klucz podstawowy lub klucz alternatywny.
 
-* **Właściwość nawigacji:** Właściwość zdefiniowana w jednostkach głównych i/lub zależnych, która zawiera odwołania do powiązanych jednostek.
+* **Właściwość nawigacji:** Właściwość zdefiniowana dla podmiotu zabezpieczeń i/lub zależnego, która odwołuje się do powiązanej jednostki.
 
   * **Właściwość nawigacji kolekcji:** Właściwość nawigacji, która zawiera odwołania do wielu powiązanych jednostek.
 
   * **Właściwość nawigacji odwołania:** Właściwość nawigacji, która zawiera odwołanie do pojedynczej powiązanej jednostki.
 
   * **Właściwość nawigacji odwrotnej:** Omawiając konkretną właściwość nawigacji, ten termin odnosi się do właściwości nawigacji na drugim końcu relacji.
+  
+* **Relacja odwołująca się do samego siebie:** Relacja, w której zależne i główne typy jednostek są takie same.
 
-Poniższa lista kodu przedstawia relację jeden do wielu między `Blog` i `Post`
+Poniższy kod przedstawia relację "jeden do wielu" między `Blog` i `Post`
+
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/Full.cs#Entities)]
 
 * `Post` jest jednostką zależną
 
@@ -54,11 +58,9 @@ Poniższa lista kodu przedstawia relację jeden do wielu między `Blog` i `Post`
 
 * `Post.Blog` jest właściwością nawigacji odwrotnej `Blog.Posts` (i odwrotnie)
 
-[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/Full.cs#Entities)]
-
 ## <a name="conventions"></a>Konwencje
 
-Zgodnie z Konwencją zostanie utworzona relacja, gdy w typie zostanie wykryta właściwość nawigacji. Właściwość jest uznawana za właściwość nawigacji, jeśli typ wskazujący nie może być mapowany jako typ skalarny przez bieżącego dostawcę bazy danych.
+Domyślnie relacja zostanie utworzona, gdy w typie zostanie wykryta właściwość nawigacji. Właściwość jest uznawana za właściwość nawigacji, jeśli typ wskazujący nie może być mapowany jako typ skalarny przez bieżącego dostawcę bazy danych.
 
 > [!NOTE]  
 > Relacje, które są odnajdywane według Konwencji, będą zawsze ukierunkowane na klucz podstawowy jednostki głównej. Aby określić klucz alternatywny, należy przeprowadzić dodatkową konfigurację przy użyciu interfejsu API Fluent.
@@ -69,24 +71,42 @@ Najbardziej typowym wzorcem relacji jest posiadanie właściwości nawigacji zde
 
 * Jeśli para właściwości nawigacji zostanie znaleziona między dwoma typami, zostaną one skonfigurowane jako właściwości nawigacji odwrotnej tej samej relacji.
 
-* Jeśli jednostka zależna zawiera właściwość o nazwie `<primary key property name>`, `<navigation property name><primary key property name>`lub `<principal entity name><primary key property name>`, zostanie ona skonfigurowana jako klucz obcy.
+* Jeśli jednostka zależna zawiera właściwość o nazwie Math jednego z tych wzorców, zostanie ona skonfigurowana jako klucz obcy:
+  * `<navigation property name><principal key property name>`
+  * `<navigation property name>Id`
+  * `<principal entity name><principal key property name>`
+  * `<principal entity name>Id`
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/Full.cs?name=Entities&highlight=6,15,16)]
 
-> [!WARNING]  
-> Jeśli istnieje wiele właściwości nawigacji zdefiniowanych między dwoma typami (to jest, więcej niż jedna para elementów nawigacyjnych, które wskazują na siebie), nie zostaną utworzone żadne relacje w ramach Konwencji i trzeba będzie ręcznie skonfigurować je w celu określenia, jak pary właściwości nawigacji.
+W tym przykładzie wyróżnione właściwości zostaną użyte do skonfigurowania relacji.
+
+> [!NOTE]
+> Jeśli właściwość jest kluczem podstawowym lub jest typu niezgodnego z kluczem podmiotu zabezpieczeń, nie zostanie on skonfigurowany jako klucz obcy.
+
+> [!NOTE]
+> Przed EF Core 3,0 właściwość o nazwie dokładnie taka sama jak właściwość klucza głównego [była również zgodna jako klucz obcy](https://github.com/aspnet/EntityFrameworkCore/issues/13274)
 
 ### <a name="no-foreign-key-property"></a>Brak właściwości klucza obcego
 
-Chociaż zaleca się zdefiniowanie właściwości klucza obcego w klasie jednostki zależnej, nie jest to wymagane. Jeśli właściwość klucza obcego nie zostanie znaleziona, właściwość klucza obcego cienia zostanie wprowadzona z nazwą `<navigation property name><principal key property name>` (zobacz [Właściwości cienia](shadow-properties.md) , aby uzyskać więcej informacji).
+Chociaż zaleca się zdefiniowanie właściwości klucza obcego w klasie jednostki zależnej, nie jest to wymagane. Jeśli właściwość klucza obcego nie zostanie znaleziona, [Właściwość klucza obcego cienia](shadow-properties.md) zostanie wprowadzona z nazwą `<navigation property name><principal key property name>` lub `<principal entity name><principal key property name>`, jeśli w typie zależnym nie ma żadnej nawigacji.
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/NoForeignKey.cs?name=Entities&highlight=6,15)]
+
+W tym przykładzie klucz obcy Shadow jest `BlogId`, ponieważ oczekuje się, że nazwa nawigacji będzie nadmiarowa.
+
+> [!NOTE]
+> Jeśli właściwość o tej samej nazwie już istnieje, nazwa właściwości cienia zostanie poddana sufiksem liczbowym.
 
 ### <a name="single-navigation-property"></a>Właściwość pojedynczej nawigacji
 
 Dołączenie tylko jednej właściwości nawigacji (bez nawigacji odwrotnej i brak właściwości klucza obcego) nie wystarcza do zdefiniowania relacji przez Konwencję. Można również mieć pojedynczą właściwość nawigacji i właściwość klucza obcego.
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/OneNavigation.cs?name=Entities&highlight=6)]
+
+### <a name="limitations"></a>Ograniczenia
+
+W przypadku zdefiniowania wielu właściwości nawigacji między dwoma typami (oznacza to, że więcej niż tylko jedna para nawigacji wskazuje na siebie) relacje reprezentowane przez właściwości nawigacji są niejednoznaczne. Należy ręcznie skonfigurować je, aby usunąć niejednoznaczność.
 
 ### <a name="cascade-delete"></a>Usuwanie kaskadowe
 
@@ -96,30 +116,27 @@ Zapoznaj się z sekcją [wymagane i opcjonalne relacje](#required-and-optional-r
 
 Zobacz [Kaskada Delete](../saving/cascade-delete.md) , aby uzyskać więcej informacji na temat różnych zachowań usuwania i ustawień domyślnych używanych przez Konwencję.
 
-## <a name="data-annotations"></a>Adnotacje danych
+## <a name="manual-configuration"></a>Konfiguracja ręczna
 
-Istnieją dwie adnotacje dotyczące danych, których można użyć do skonfigurowania relacji, `[ForeignKey]` i `[InverseProperty]`. Są one dostępne w przestrzeni nazw `System.ComponentModel.DataAnnotations.Schema`.
+#### <a name="fluent-apitabfluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
 
-### <a name="foreignkey"></a>[ForeignKey]
+Aby skonfigurować relację w interfejsie API Fluent, należy rozpocząć od zidentyfikowania właściwości nawigacji, które tworzą relację. `HasOne` lub `HasMany` identyfikuje właściwość nawigacji dla typu jednostki, w którym rozpoczyna się konfiguracja. Następnie utworzysz łańcuch wywołań do `WithOne` lub `WithMany`, aby zidentyfikować nawigację odwrotną. `HasOne`/`WithOne` są używane do właściwości nawigacji referencyjnej i `HasMany`/`WithMany` są używane na potrzeby właściwości nawigacji kolekcji.
 
-Możesz użyć adnotacji danych, aby skonfigurować właściwość, która powinna być używana jako właściwość klucza obcego dla danej relacji. Jest to zazwyczaj wykonywane, gdy właściwość klucza obcego nie zostanie odnaleziona według Konwencji.
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NoForeignKey.cs?highlight=14-16)]
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Relationships/ForeignKey.cs?highlight=30)]
-
-> [!TIP]  
-> Adnotacja `[ForeignKey]` może zostać umieszczona na każdej właściwości nawigacji w relacji. Nie musi ona być zgodna z właściwością nawigacji w klasie jednostki zależnej.
-
-### <a name="inverseproperty"></a>[InverseProperty]
+#### <a name="data-annotationstabdata-annotations"></a>[Adnotacje danych](#tab/data-annotations)
 
 Możesz użyć adnotacji danych, aby skonfigurować sposób pary właściwości nawigacji dla jednostek zależnych i głównych. Jest to zazwyczaj wykonywane, gdy istnieje więcej niż jedna para właściwości nawigacji między dwoma typami jednostek.
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Relationships/InverseProperty.cs?highlight=33,36)]
 
-## <a name="fluent-api"></a>Interfejs API Fluent
+> [!NOTE]
+> Możesz użyć [Required] właściwości w jednostce zależnej, aby mieć wpływ na wymaganą relację. [Wymagane] w nawigacji z jednostki głównej jest zwykle ignorowany, ale może spowodować, że jednostka stanie się jednostką zależną.
 
-Aby skonfigurować relację w interfejsie API Fluent, należy rozpocząć od zidentyfikowania właściwości nawigacji, które tworzą relację. `HasOne` lub `HasMany` identyfikuje właściwość nawigacji dla typu jednostki, w którym rozpoczyna się konfiguracja. Następnie utworzysz łańcuch wywołań do `WithOne` lub `WithMany`, aby zidentyfikować nawigację odwrotną. `HasOne`/`WithOne` są używane do właściwości nawigacji referencyjnej i `HasMany`/`WithMany` są używane na potrzeby właściwości nawigacji kolekcji.
+> [!NOTE]
+> Adnotacje danych `[ForeignKey]` i `[InverseProperty]` są dostępne w przestrzeni nazw `System.ComponentModel.DataAnnotations.Schema`. `[Required]` jest dostępny w przestrzeni nazw `System.ComponentModel.DataAnnotations`.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NoForeignKey.cs?highlight=14-16)]
+---
 
 ### <a name="single-navigation-property"></a>Właściwość pojedynczej nawigacji
 
@@ -129,11 +146,27 @@ Jeśli masz tylko jedną właściwość nawigacji, istnieją bezparametryczne pr
 
 ### <a name="foreign-key"></a>Klucz obcy
 
+#### <a name="fluent-apitabfluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
+
 Korzystając z interfejsu API Fluent, można skonfigurować właściwość, która powinna być używana jako właściwość klucza obcego dla danej relacji.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ForeignKey.cs?highlight=17)]
 
-Poniższy list kodu przedstawia sposób konfigurowania złożonego klucza obcego.
+#### <a name="data-annotationstabdata-annotations"></a>[Adnotacje danych](#tab/data-annotations)
+
+Możesz użyć adnotacji danych, aby skonfigurować właściwość, która powinna być używana jako właściwość klucza obcego dla danej relacji. Jest to zazwyczaj wykonywane, gdy właściwość klucza obcego nie zostanie odnaleziona według Konwencji.
+
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Relationships/ForeignKey.cs?highlight=30)]
+
+> [!TIP]  
+> Adnotacja `[ForeignKey]` może zostać umieszczona na każdej właściwości nawigacji w relacji. Nie musi ona być zgodna z właściwością nawigacji w klasie jednostki zależnej.
+
+> [!NOTE]
+> Właściwość określona przy użyciu `[ForeignKey]` na właściwości nawigacji nie musi istnieć typu zależnego. W takim przypadku określona nazwa zostanie użyta do utworzenia klucza obcego cienia.
+
+---
+
+Poniższy kod przedstawia sposób konfigurowania złożonego klucza obcego.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositeForeignKey.cs?highlight=20)]
 
@@ -149,11 +182,11 @@ Nie trzeba podawać właściwości nawigacji. Możesz po prostu podać klucz obc
 
 ### <a name="principal-key"></a>Klucz podmiotu zabezpieczeń
 
-Jeśli chcesz, aby klucz obcy odwołuje się do właściwości innej niż klucz podstawowy, możesz użyć interfejsu API Fluent, aby skonfigurować właściwość klucza podmiotu zabezpieczeń. Właściwość, którą konfigurujesz jako klucz podmiotu zabezpieczeń, zostanie automatycznie skonfigurowana jako klucz alternatywny (zobacz [klucze alternatywne](alternate-keys.md) , aby uzyskać więcej informacji).
+Jeśli chcesz, aby klucz obcy odwołuje się do właściwości innej niż klucz podstawowy, możesz użyć interfejsu API Fluent, aby skonfigurować właściwość klucza podmiotu zabezpieczeń. Właściwość, którą konfigurujesz jako klucz podmiotu zabezpieczeń, zostanie automatycznie skonfigurowana jako [klucz alternatywny](alternate-keys.md).
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/PrincipalKey.cs?name=PrincipalKey&highlight=11)]
 
-Poniższy list kodu przedstawia sposób konfigurowania złożonego klucza podmiotu zabezpieczeń.
+Poniższy kod przedstawia sposób konfigurowania złożonego klucza podmiotu zabezpieczeń.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositePrincipalKey.cs?name=Composite&highlight=11)]
 
@@ -166,11 +199,14 @@ Korzystając z interfejsu API Fluent, można określić, czy relacja jest wymaga
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/Required.cs?name=Required&highlight=11)]
 
+> [!NOTE]
+> Wywołanie `IsRequired(false)` powoduje również, że właściwość klucza obcego jest opcjonalna, chyba że została skonfigurowana inaczej.
+
 ### <a name="cascade-delete"></a>Usuwanie kaskadowe
 
 Korzystając z interfejsu API Fluent, można jawnie skonfigurować zachowanie kaskadowego usuwania dla danej relacji.
 
-Szczegółowe omówienie każdej z tych opcji można znaleźć w sekcji zapisywanie [kaskadowe](../saving/cascade-delete.md) dla zapisywania danych.
+Szczegółowe omówienie każdej z tych opcji można znaleźć w temacie [usuwanie kaskadowe](../saving/cascade-delete.md) .
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CascadeDelete.cs?name=CascadeDelete&highlight=11)]
 

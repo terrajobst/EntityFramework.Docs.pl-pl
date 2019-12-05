@@ -1,16 +1,16 @@
 ---
 title: Podział tabeli — EF Core
+description: Jak skonfigurować podział tabeli przy użyciu Entity Framework Core
 author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 04/10/2019
-ms.assetid: 0EC2CCE1-BD55-45D8-9EA9-20634987F094
 uid: core/modeling/table-splitting
-ms.openlocfilehash: a3a2e5842a6c6b4b490084d205a0d44bb46c17ee
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 0e48c516de43cdc2b54c56f1a96f5e01f9fbbbc4
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656037"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824557"
 ---
 # <a name="table-splitting"></a>Dzielenie tabeli
 
@@ -38,7 +38,7 @@ Poza wymaganą konfiguracją, która wywołuje `Property(o => o.Status).HasColum
 > [!TIP]
 > Zobacz [pełny przykładowy projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting) , aby uzyskać więcej kontekstu.
 
-## <a name="usage"></a>Użycie
+## <a name="usage"></a>Pomiar
 
 Zapisywanie i wykonywanie zapytań względem jednostek przy użyciu dzielenia tabeli odbywa się tak samo jak w przypadku innych jednostek. I począwszy od EF Core 3,0 można `null`odwołanie do jednostki zależnej. Jeśli wszystkie kolumny używane przez jednostkę zależną są `NULL` są bazami danych, żadne wystąpienie dla niego nie zostanie utworzone podczas wykonywania zapytania. Ponadto wszystkie właściwości są opcjonalne i mają ustawioną wartość `null`, co może być nieoczekiwane.
 

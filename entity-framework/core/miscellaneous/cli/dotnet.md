@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 29434c26a503fabb16b43ee8f0c36136a0b5b745
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: 5686d28e6847797130476cd858bd3fb611620140
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811971"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824484"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Dokumentacja narzędzi Entity Framework Core Tools — interfejs wiersza polecenia platformy .NET
 
@@ -33,17 +33,17 @@ Procedura instalacji zależy od typu projektu i wersji:
 
 * `dotnet ef` musi być zainstalowana jako narzędzie globalne lub lokalne. Większość deweloperów zainstaluje `dotnet ef` jako narzędzie globalne przy użyciu następującego polecenia:
 
-  ``` console
+  ```dotnetcli
   dotnet tool install --global dotnet-ef
   ```
 
   Możesz również użyć `dotnet ef` jako narzędzia lokalnego. Aby użyć go jako narzędzia lokalnego, Przywróć zależności projektu, które deklaruje jako zależność narzędzia przy użyciu [pliku manifestu narzędzia](https://github.com/dotnet/cli/issues/10288).
 
-* Zainstaluj [zestaw .NET Core SDK 3,0](https://dotnet.microsoft.com/download/dotnet-core/3.0)). Zestaw SDK należy zainstalować nawet w przypadku najnowszej wersji programu Visual Studio.
+* Zainstaluj [zestaw .NET Core SDK 3,0](https://dotnet.microsoft.com/download/dotnet-core/3.0). Zestaw SDK należy zainstalować nawet w przypadku najnowszej wersji programu Visual Studio.
 
 * Zainstaluj najnowszy pakiet `Microsoft.EntityFrameworkCore.Design`.
 
-  ``` Console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.Design
   ```
 
@@ -61,7 +61,7 @@ Polecenia `dotnet ef` są zawarte w zestaw .NET Core SDK, ale w celu włączenia
 
 * Zainstaluj najnowszy stabilny pakiet `Microsoft.EntityFrameworkCore.Design`.
 
-  ``` Console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.Design
   ```
 
@@ -75,7 +75,7 @@ Polecenia `dotnet ef` są zawarte w zestaw .NET Core SDK, ale w celu włączenia
 
 * Zainstaluj najnowszą wersję 1. x pakietu `Microsoft.EntityFrameworkCore.Design`, na przykład:
 
-  ```console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.Design -v 1.1.6
   ```
 
@@ -105,7 +105,7 @@ Polecenia `dotnet ef` są zawarte w zestaw .NET Core SDK, ale w celu włączenia
 
 Uruchom następujące polecenia, aby upewnić się, że narzędzia interfejsu wiersza polecenia EF Core są prawidłowo zainstalowane:
 
-  ``` Console
+  ```dotnetcli
   dotnet restore
   dotnet ef
   ```
@@ -194,7 +194,7 @@ Argumentu
 
 Poniższe przykłady umożliwiają zaktualizowanie bazy danych do określonej migracji. Pierwsza z nich używa nazwy migracji, a druga używa identyfikatora migracji:
 
-```console
+```dotnetcli
 dotnet ef database update InitialCreate
 dotnet ef database update 20180904195021_InitialCreate
 ```
@@ -233,13 +233,13 @@ Opcje:
 
 Poniższy przykład szkieletuje wszystkie schematy i tabele i umieszcza nowe pliki w folderze *models* .
 
-```console
+```dotnetcli
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
 ```
 
 Poniższy przykład szkieletuje tylko wybrane tabele i tworzy kontekst w osobnym folderze o określonej nazwie:
 
-```console
+```dotnetcli
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t Blog -t Post --context-dir Context -c BlogContext
 ```
 
@@ -281,7 +281,7 @@ Argumentu
 
 | Argument | Opis                                                                                                                                                   |
 |:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<FROM>` | Rozpoczynanie migracji. Migracje mogą być identyfikowane według nazwy lub identyfikatora. Liczba 0 to specjalny przypadek, który oznacza *przed pierwszą migracją*. Wartość domyślna to 0. |
+| `<FROM>` | Rozpoczynanie migracji. Migracje mogą być identyfikowane według nazwy lub identyfikatora. Liczba 0 to specjalny przypadek, który oznacza *przed pierwszą migracją*. Wartość domyślna wynosi 0. |
 | `<TO>`   | Kończenie migracji. Wartość domyślna to Ostatnia migracja.                                                                                                         |
 
 Opcje:
@@ -293,13 +293,13 @@ Opcje:
 
 Poniższy przykład tworzy skrypt migracji InitialCreate:
 
-```console
+```dotnetcli
 dotnet ef migrations script 0 InitialCreate
 ```
 
 Poniższy przykład tworzy skrypt dla wszystkich migracji po migracji InitialCreate.
 
-```console
+```dotnetcli
 dotnet ef migrations script 20180904195021_InitialCreate
 ```
 

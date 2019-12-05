@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: bf9aa32dd731b60d2985a9fe8bebd703af4af03b
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 7de465d483ab2c183c7f37d08c84de00ef113651
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655568"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824504"
 ---
 # <a name="migrations"></a>Migracje
 
@@ -41,7 +41,7 @@ Po [zdefiniowaniu modelu początkowego](xref:core/modeling/index)należy utworzy
 
 ## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
-``` Console
+```dotnetcli
 dotnet ef migrations add InitialCreate
 ```
 
@@ -70,7 +70,7 @@ Następnie Zastosuj migrację do bazy danych, aby utworzyć schemat.
 
 ## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
-``` Console
+```dotnetcli
 dotnet ef database update
 ```
 
@@ -88,7 +88,7 @@ Po wprowadzeniu zmian w modelu EF Core schemat bazy danych może nie być zsynch
 
 ## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
-``` Console
+```dotnetcli
 dotnet ef migrations add AddProductReviews
 ```
 
@@ -149,7 +149,7 @@ Zastosuj migrację do bazy danych przy użyciu odpowiedniego polecenia.
 
 ## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
-``` Console
+```dotnetcli
 dotnet ef database update
 ```
 
@@ -177,7 +177,7 @@ Czasami należy dodać migrację i zdawać sobie sprawę, że należy wprowadzi�
 
 ## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
-``` Console
+```dotnetcli
 dotnet ef migrations remove
 ```
 
@@ -197,7 +197,7 @@ Jeśli migracja (lub kilka migracji) została już zastosowana do bazy danych, a
 
 ## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
-``` Console
+```dotnetcli
 dotnet ef database update LastGoodMigration
 ```
 
@@ -215,7 +215,7 @@ Podczas debugowania migracji lub wdrażania ich w produkcyjnej bazie danych wart
 
 ## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
-``` Console
+```dotnetcli
 dotnet ef migrations script
 ```
 
@@ -252,4 +252,4 @@ myDbContext.Database.Migrate();
 
 ## <a name="next-steps"></a>Następne kroki
 
-Aby uzyskać więcej informacji, zobacz <xref:core/miscellaneous/cli/index>.
+Aby uzyskać więcej informacji, zobacz temat <xref:core/miscellaneous/cli/index>.

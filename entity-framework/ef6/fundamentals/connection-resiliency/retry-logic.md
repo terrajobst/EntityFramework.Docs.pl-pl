@@ -1,14 +1,14 @@
 ---
 title: Odporność połączeń i logika ponawiania — EF6
-author: divega
-ms.date: 10/23/2016
+author: AndriySvyryd
+ms.date: 11/20/2019
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: a01216c3399ca4a04943563435eacd0047337a5f
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 50e65bed32d0cfcf42746da0d632f9e990424b97
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306574"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824839"
 ---
 # <a name="connection-resiliency-and-retry-logic"></a>Odporność połączeń i logika ponowień
 > [!NOTE]
@@ -124,77 +124,14 @@ using (var db = new BloggingContext())
 
 Nie jest to obsługiwane w przypadku korzystania z metody ponawiania próby, ponieważ EF nie wie o żadnych poprzednich operacjach i sposobach ich ponowienia. Na przykład jeśli druga metody SaveChanges nie powiodła się, EF nie ma już wymaganych informacji, aby ponowić próbę wykonania pierwszego wywołania metody SaveChanges.  
 
-### <a name="workaround-suspend-execution-strategy"></a>Obejście problemu: Wstrzymaj strategię wykonywania  
+### <a name="solution-manually-call-execution-strategy"></a>Rozwiązanie: ręczne wywoływanie strategii wykonywania  
 
-Jednym z możliwych obejść jest wstrzymanie procesu ponawiania próby wykonania dla fragmentu kodu, który musi korzystać z transakcji zainicjowanej przez użytkownika. Najprostszym sposobem, aby to zrobić, dodać flagę SuspendExecutionStrategy do klasy konfiguracji opartej na kodzie i zmienić metodę lambda dla strategii wykonywania, aby zwracała strategię wykonania domyślną (niewiążącą), gdy flaga jest ustawiona.  
-
-``` csharp
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.SqlServer;
-using System.Runtime.Remoting.Messaging;
-
-namespace Demo
-{
-    public class MyConfiguration : DbConfiguration
-    {
-        public MyConfiguration()
-        {
-            this.SetExecutionStrategy("System.Data.SqlClient", () => SuspendExecutionStrategy
-              ? (IDbExecutionStrategy)new DefaultExecutionStrategy()
-              : new SqlAzureExecutionStrategy());
-        }
-
-        public static bool SuspendExecutionStrategy
-        {
-            get
-            {
-                return (bool?)CallContext.LogicalGetData("SuspendExecutionStrategy") ?? false;
-            }
-            set
-            {
-                CallContext.LogicalSetData("SuspendExecutionStrategy", value);
-            }
-        }
-    }
-}
-```  
-
-Należy pamiętać, że do przechowywania wartości flagi używany jest CallContext. Zapewnia to podobną funkcjonalność do lokalnego magazynu wątków, ale jest bezpieczne do użycia z kodem asynchronicznym — w tym zapytania asynchroniczne i zapisywania przy użyciu Entity Framework.  
-
-Teraz można wstrzymać strategię wykonywania dla sekcji kodu, która używa transakcji zainicjowanej przez użytkownika.  
-
-``` csharp
-using (var db = new BloggingContext())
-{
-    MyConfiguration.SuspendExecutionStrategy = true;
-
-    using (var trn = db.Database.BeginTransaction())
-    {
-        db.Blogs.Add(new Blog { Url = "http://msdn.com/data/ef" });
-        db.Blogs.Add(new Blog { Url = "http://blogs.msdn.com/adonet" });
-        db.SaveChanges();
-
-        db.Blogs.Add(new Blog { Url = "http://twitter.com/efmagicunicorns" });
-        db.SaveChanges();
-
-        trn.Commit();
-    }
-
-    MyConfiguration.SuspendExecutionStrategy = false;
-}
-```  
-
-### <a name="workaround-manually-call-execution-strategy"></a>Obejście problemu: Ręcznie Wywołaj strategię wykonywania  
-
-Kolejną opcją jest ręczne Użycie strategii wykonywania i nadanie jej całego zestawu logiki, aby można było ponowić próbę wszystkiego, jeśli jedna z operacji zakończy się niepowodzeniem. Nadal musimy zawiesić strategię wykonywania — przy użyciu techniki pokazanej powyżej — tak, aby wszystkie konteksty użyte wewnątrz bloku kodu, które nie próbują ponowić próbę.  
+Rozwiązaniem jest ręczne Użycie strategii wykonywania i nadanie jej całego zestawu logiki, dzięki czemu można ponowić próbę wszystkiego, jeśli jedna z operacji zakończy się niepowodzeniem. Po uruchomieniu strategii wykonywania pochodzącej od DbExecutionStrategy zostanie ona zawiesić niejawną strategię wykonywania używaną w metody SaveChanges.  
 
 Należy zauważyć, że wszystkie konteksty należy skonstruować w bloku kodu, aby można było ponowić próbę. Gwarantuje to, że rozpoczynamy od stanu czystego dla każdej ponowienia próby.  
 
 ``` csharp
 var executionStrategy = new SqlAzureExecutionStrategy();
-
-MyConfiguration.SuspendExecutionStrategy = true;
 
 executionStrategy.Execute(
     () =>
@@ -214,6 +151,4 @@ executionStrategy.Execute(
             }
         }
     });
-
-MyConfiguration.SuspendExecutionStrategy = false;
 ```  
