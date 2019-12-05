@@ -225,6 +225,8 @@
                   href: core/providers/sql-server/index.md
                 - name: Tabele zoptymalizowane pod kątem pamięci
                   href: core/providers/sql-server/memory-optimized-tables.md
+                - name: Określanie opcji usługi Azure SQL Database
+                  href: core/providers/sql-server/azure-sql-database.md
             - name: SQLite
               items:
                 - name: Omówienie
