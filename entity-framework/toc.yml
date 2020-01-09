@@ -79,18 +79,14 @@
           items:
             - name: Omówienie
               href: core/modeling/index.md
-            - name: Uwzględnianie i wykluczanie typów
-              href: core/modeling/included-types.md
-            - name: Uwzględnianie i wykluczanie właściwości
-              href: core/modeling/included-properties.md
-            - name: Klucze (podstawowe)
+            - name: Typy jednostek
+              href: core/modeling/entity-types.md
+            - name: Właściwości jednostki
+              href: core/modeling/entity-properties.md
+            - name: Klucze
               href: core/modeling/keys.md
             - name: Generowane wartości
               href: core/modeling/generated-properties.md
-            - name: Właściwości wymagane i opcjonalne
-              href: core/modeling/required-optional.md
-            - name: Maksymalna długość
-              href: core/modeling/max-length.md
             - name: Tokeny współbieżności
               href: core/modeling/concurrency.md
             - name: Właściwości w tle
@@ -99,10 +95,10 @@
               href: core/modeling/relationships.md
             - name: Indeksy
               href: core/modeling/indexes.md
-            - name: Klucze alternatywne
-              href: core/modeling/alternate-keys.md
             - name: Dziedziczenie
               href: core/modeling/inheritance.md
+            - name: Sekwencje
+              href: core/modeling/sequences.md
             - name: Pola zapasowe
               href: core/modeling/backing-field.md
             - name: Konwersje wartości
@@ -119,36 +115,13 @@
               href: core/modeling/keyless-entity-types.md
             - name: Modele naprzemienne z tą samą klasą DbContext
               href: core/modeling/dynamic-model.md
-            - name: Dane przestrzenne (GIS)
+            - name: Dane przestrzenne
+              displayName: GIS
               href: core/modeling/spatial.md
             - name: Modelowanie relacyjnej bazy danych
               items:
                 - name: Omówienie
                   href: core/modeling/relational/index.md
-                - name: Mapowanie tabeli
-                  href: core/modeling/relational/tables.md
-                - name: Mapowanie kolumn
-                  href: core/modeling/relational/columns.md
-                - name: Typy danych
-                  href: core/modeling/relational/data-types.md
-                - name: Klucze podstawowe
-                  href: core/modeling/relational/primary-keys.md
-                - name: Schemat domyślny
-                  href: core/modeling/relational/default-schema.md
-                - name: Kolumny obliczane
-                  href: core/modeling/relational/computed-columns.md
-                - name: Sekwencje
-                  href: core/modeling/relational/sequences.md
-                - name: Wartości domyślne
-                  href: core/modeling/relational/default-values.md
-                - name: Indeksy
-                  href: core/modeling/relational/indexes.md
-                - name: Ograniczenia klucza obcego
-                  href: core/modeling/relational/fk-constraints.md
-                - name: Klucze alternatywne (ograniczenia unikatowe)
-                  href: core/modeling/relational/unique-constraints.md
-                - name: Dziedziczenie (relacyjna baza danych)
-                  href: core/modeling/relational/inheritance.md
         - name: Zarządzanie schematami bazy danych
           items:
             - name: Omówienie
@@ -465,7 +438,7 @@
                       href: ef6/modeling/designer/advanced/defining-query.md
                     - name: Wiele zestawów wyników
                       href: ef6/modeling/designer/advanced/multiple-result-sets.md
-                    - name: Table-Valued Functions
+                    - name: Funkcje zwracające tabelę
                       href: ef6/modeling/designer/advanced/tvfs.md
                 - name: Skróty klawiaturowe
                   href: ef6/modeling/designer/keyboard-shortcuts.md
