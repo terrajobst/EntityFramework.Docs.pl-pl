@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 7fa3eae5e2edb7b4c40ed4f99ce4a29f367e622a
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 9c616e157ff1bdb9700f436a7ae2788330fe5d45
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824697"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502035"
 ---
 # <a name="generated-values"></a>Generowane wartości
 
@@ -34,7 +34,7 @@ W zależności od używanego dostawcy bazy danych wartości mogą być generowan
 
 W przypadku dodania jednostki do kontekstu, który ma wartość przypisaną do właściwości, EF spróbuje wstawić tę wartość zamiast generować nową. Właściwość jest uznawana za przypisaną wartości, jeśli nie ma przypisanej wartości domyślnej środowiska CLR (`null` dla `string`, `0` dla `int`, `Guid.Empty` dla `Guid`itd.). Aby uzyskać więcej informacji, zobacz [jawne wartości dla wygenerowanych właściwości](../saving/explicit-values-generated-properties.md).
 
-> [!WARNING]  
+> [!WARNING]
 > Sposób generowania wartości dla dodanych jednostek będzie zależeć od używanego dostawcy bazy danych. Dostawcy bazy danych mogą automatycznie skonfigurować generowanie wartości dla niektórych typów właściwości, ale inne mogą wymagać ręcznej konfiguracji sposobu generowania wartości.
 >
 > Na przykład podczas korzystania z SQL Server wartości będą generowane automatycznie dla `GUID` właściwości (przy użyciu algorytmu sekwencyjnego identyfikatora GUID SQL Server). Jeśli jednak określisz, że właściwość `DateTime` jest generowana przy dodawaniu, należy skonfigurować sposób generowania wartości. Aby to zrobić, należy skonfigurować wartość domyślną `GETDATE()`, zobacz [wartości domyślne](relational/default-values.md).
@@ -52,48 +52,73 @@ Podobnie jak `value generated on add`, jeśli określisz wartość właściwośc
 >
 > [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.sql)]
 
-## <a name="conventions"></a>Konwencje
+## <a name="value-generated-on-add"></a>Wartość wygenerowana przy dodawaniu
 
-Domyślnie niezłożone klucze podstawowe typu short, int, Long lub GUID zostaną skonfigurowane w celu uzyskania wartości generowanych podczas dodawania. Wszystkie inne właściwości zostaną skonfigurowane bez generowania wartości.
+Zgodnie z Konwencją, niezłożone klucze podstawowe typu short, int, Long lub GUID są skonfigurowane tak, aby wartości wygenerowały dla wstawionych jednostek, jeśli wartość nie jest dostarczana przez aplikację. Dostawca bazy danych zwykle zajmuje się wymaganą konfiguracją; na przykład numeryczny klucz podstawowy w SQL Server jest automatycznie ustawiany jako kolumna tożsamości.
 
-## <a name="data-annotations"></a>Adnotacje danych
+Można skonfigurować dowolną właściwość, aby wygenerowała wartość dla wstawionych jednostek w następujący sposób:
 
-### <a name="no-value-generation-data-annotations"></a>Nie generowanie wartości (adnotacje danych)
+### <a name="data-annotationstabdata-annotations"></a>[Adnotacje danych](#tab/data-annotations)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedNever.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
-### <a name="value-generated-on-add-data-annotations"></a>Wartość wygenerowana przy dodawaniu (adnotacje danych)
+### <a name="fluent-apitabfluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
-> [!WARNING]  
+***
+
+> [!WARNING]
 > Pozwala to na to, że EF wie, że wartości są generowane dla dodanych jednostek, nie gwarantuje to, że EF skonfiguruje faktyczny mechanizm generowania wartości. Aby uzyskać więcej informacji, zobacz [wartość wygenerowaną w sekcji Dodaj](#value-generated-on-add) .
 
-### <a name="value-generated-on-add-or-update-data-annotations"></a>Wartość wygenerowana podczas dodawania lub aktualizowania (adnotacje danych)
+### <a name="default-values"></a>Wartości domyślne
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs#Sample)]
+W relacyjnych bazach danych kolumna może być skonfigurowana z wartością domyślną; Jeśli wiersz zostanie wstawiony bez wartości dla tej kolumny, zostanie użyta wartość domyślna.
 
-> [!WARNING]  
+Można skonfigurować wartość domyślną właściwości:
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DefaultValue.cs?name=DefaultValue&highlight=5)]
+
+Można również określić fragment SQL, który jest używany do obliczania wartości domyślnej:
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DefaultValueSql.cs?name=DefaultValueSql&highlight=5)]
+
+Określenie wartości domyślnej spowoduje niejawne skonfigurowanie właściwości jako wartości wygenerowanej przy dodawaniu.
+
+## <a name="value-generated-on-add-or-update"></a>Wartość wygenerowana podczas dodawania lub aktualizowania
+
+### <a name="data-annotationstabdata-annotations"></a>[Adnotacje danych](#tab/data-annotations)
+
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
+
+### <a name="fluent-apitabfluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
+
+***
+
+> [!WARNING]
 > Pozwala to na to, że EF wie, że wartości są generowane dla dodanych lub zaktualizowanych jednostek, nie gwarantuje to, że EF skonfiguruje faktyczny mechanizm generowania wartości. Aby uzyskać więcej informacji [, zobacz wartość wygenerowaną w sekcji Dodawanie lub aktualizowanie](#value-generated-on-add-or-update) .
 
-## <a name="fluent-api"></a>Interfejs API Fluent
+### <a name="computed-columns"></a>Kolumny obliczane
 
-Za pomocą interfejsu API Fluent można zmienić wzorzec generowania wartości dla danej właściwości.
+W przypadku niektórych relacyjnych baz danych kolumna może być skonfigurowana do obliczania wartości w bazie danych, zwykle z wyrażeniem odwołującym się do innych kolumn:
 
-### <a name="no-value-generation-fluent-api"></a>Brak generowania wartości (interfejs API Fluent)
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ComputedColumn.cs?name=ComputedColumn&highlight=5)]
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedNever.cs#Sample)]
+> [!NOTE]
+> W niektórych przypadkach wartość kolumny jest obliczana za każdym razem, gdy jest ona pobierana (nazywanej czasem kolumnami *wirtualnymi* ), a w innych, jest obliczana na każdej aktualizacji wiersza i przechowywany (czasami nazywanej kolumnami *przechowywanymi* lub *utrwalonymi* ). Różnią się one między dostawcami baz danych.
 
-### <a name="value-generated-on-add-fluent-api"></a>Wartość wygenerowana przy dodawaniu (interfejs API Fluent)
+## <a name="no-value-generation"></a>Brak generowania wartości
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAdd.cs#Sample)]
+Wyłączenie generowania wartości dla właściwości jest zwykle konieczne, jeśli Konwencja skonfiguruje ją do generowania wartości. Na przykład jeśli masz klucz podstawowy typu int, zostanie on niejawnie ustawiony jako wartość wygenerowana podczas dodawania; można ją wyłączyć, wykonując następujące czynności:
 
-> [!WARNING]  
-> `ValueGeneratedOnAdd()` tylko umożliwia Dr wie, że wartości są generowane dla dodanych jednostek, nie gwarantuje to, że EF skonfiguruje faktyczny mechanizm generowania wartości.  Aby uzyskać więcej informacji, zobacz [wartość wygenerowaną w sekcji Dodaj](#value-generated-on-add) .
+### <a name="data-annotationstabdata-annotations"></a>[Adnotacje danych](#tab/data-annotations)
 
-### <a name="value-generated-on-add-or-update-fluent-api"></a>Wartość wygenerowana podczas dodawania lub aktualizowania (interfejs API Fluent)
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=3)]
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs#Sample)]
+### <a name="fluent-apitabfluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
 
-> [!WARNING]  
-> Pozwala to na to, że EF wie, że wartości są generowane dla dodanych lub zaktualizowanych jednostek, nie gwarantuje to, że EF skonfiguruje faktyczny mechanizm generowania wartości. Aby uzyskać więcej informacji [, zobacz wartość wygenerowaną w sekcji Dodawanie lub aktualizowanie](#value-generated-on-add-or-update) .
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=5)]
+
+***
