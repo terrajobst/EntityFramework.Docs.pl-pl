@@ -3,12 +3,12 @@ title: Istotne zmiany w EF Core 3,0 — EF Core
 author: ajcvickers
 ms.date: 12/03/2019
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: d614103169837238810fabd0a8889043c851ef14
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: cac166e9e194e512de7d730d27c061e6deaf5191
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824866"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502230"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Istotne zmiany zawarte w EF Core 3,0
 
@@ -393,7 +393,7 @@ Ta zmiana została wprowadzona w celu poprawy środowiska dla scenariuszy powią
 
 **Środki zaradcze**
 
-Poprzednie zachowanie można przywrócić za pomocą ustawień na `context.ChangedTracker`.
+Poprzednie zachowanie można przywrócić za pomocą ustawień na `context.ChangeTracker`.
 Na przykład:
 
 ```csharp
@@ -1624,7 +1624,7 @@ Przed EF Core 3,0, Microsoft. EntityFrameworkCore. Design był zwykłym pakietem
 
 **Nowe zachowanie**
 
-Począwszy od EF Core 3,0, jest to pakiet DevelopmentDependency. Oznacza to, że zależność nie będzie przepływać przechodnio do innych projektów i nie można już, domyślnie odwołuje się do zestawu.
+Począwszy od EF Core 3,0, jest to pakiet DevelopmentDependency. Oznacza to, że zależność nie będzie przepływać przechodnio do innych projektów i nie można już, domyślnie odwoływać się do jej zestawu.
 
 **Zalet**
 
@@ -1632,7 +1632,7 @@ Ten pakiet jest przeznaczony wyłącznie do użytku w czasie projektowania. Wdro
 
 **Środki zaradcze**
 
-Jeśli musisz odwołać się do tego pakietu, aby przesłonić zachowanie EF Core w czasie projektowania, możesz zaktualizować metadane elementu PackageReference aktualizacji w projekcie. Jeśli pakiet jest przywoływany przechodniie za pośrednictwem Microsoft. EntityFrameworkCore. Tools, należy dodać jawne PackageReference do pakietu, aby zmienić jego metadane.
+Jeśli musisz odwołać się do tego pakietu, aby przesłonić zachowanie w czasie projektowania EF Core, następnie możesz zaktualizować metadane elementu PackageReference w projekcie.
 
 ``` xml
 <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
@@ -1641,6 +1641,8 @@ Jeśli musisz odwołać się do tego pakietu, aby przesłonić zachowanie EF Cor
   <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
 </PackageReference>
 ```
+
+Jeśli pakiet jest przywoływany przechodniie za pośrednictwem Microsoft. EntityFrameworkCore. Tools, należy dodać jawne PackageReference do pakietu, aby zmienić jego metadane. Takie jawne odwołanie należy dodać do każdego projektu, w którym są potrzebne typy z pakietu.
 
 <a name="SQLitePCL"></a>
 

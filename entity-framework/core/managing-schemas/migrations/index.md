@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: 7de465d483ab2c183c7f37d08c84de00ef113651
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: dc0c1ae1a03c98c6f230557dc0bdd4d29ec191dd
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824504"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502204"
 ---
 # <a name="migrations"></a>Migracje
 
@@ -39,13 +39,13 @@ Zainstaluj [narzędzia wiersza polecenia](xref:core/miscellaneous/cli/index):
 
 Po [zdefiniowaniu modelu początkowego](xref:core/modeling/index)należy utworzyć bazę danych. Aby dodać początkową migrację, uruchom następujące polecenie.
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations add InitialCreate
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Add-Migration InitialCreate
@@ -68,13 +68,13 @@ Sygnatura czasowa w nazwie pliku pomaga zachować ich uporządkowane chronologic
 
 Następnie Zastosuj migrację do bazy danych, aby utworzyć schemat.
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef database update
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Update-Database
@@ -86,13 +86,13 @@ Update-Database
 
 Po wprowadzeniu zmian w modelu EF Core schemat bazy danych może nie być zsynchronizowany. Aby zapewnić aktualność, Dodaj kolejną migrację. Nazwa migracji może być używana jak komunikat zatwierdzenia w systemie kontroli wersji. Na przykład można wybrać nazwę, np. *AddProductReviews* , jeśli zmiana jest nową klasą jednostek do przeglądu.
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations add AddProductReviews
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Add-Migration AddProductReviews
@@ -147,13 +147,13 @@ migrationBuilder.DropColumn(
 
 Zastosuj migrację do bazy danych przy użyciu odpowiedniego polecenia.
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef database update
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Update-Database
@@ -175,13 +175,13 @@ Czasami warto dodać migrację bez wprowadzania żadnych zmian modelu. W takim p
 
 Czasami należy dodać migrację i zdawać sobie sprawę, że należy wprowadzić dodatkowe zmiany w modelu EF Core przed ich zastosowaniem. Aby usunąć ostatnią migrację, użyj tego polecenia.
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations remove
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Remove-Migration
@@ -195,13 +195,13 @@ Po usunięciu migracji możesz wprowadzić dodatkowe zmiany modelu i dodać je p
 
 Jeśli migracja (lub kilka migracji) została już zastosowana do bazy danych, ale konieczne jest jej przywrócenie, można użyć tego samego polecenia do zastosowania migracji, ale określić nazwę migracji, do której chcesz przeprowadzić przywracanie.
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef database update LastGoodMigration
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Update-Database LastGoodMigration
@@ -213,13 +213,13 @@ Update-Database LastGoodMigration
 
 Podczas debugowania migracji lub wdrażania ich w produkcyjnej bazie danych warto wygenerować skrypt SQL. Skrypt może następnie być ponownie przeglądany pod kątem dokładności i dostrojony, aby dopasować potrzeby produkcyjnej bazy danych. Skrypt może być również używany w połączeniu z technologią wdrażania. Podstawowe polecenie jest następujące.
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations script
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Script-Migration

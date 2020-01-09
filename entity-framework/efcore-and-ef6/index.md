@@ -5,12 +5,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
-ms.openlocfilehash: 9fe4905de5bd81fce083d620724b7fad4c6dd11b
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 62f7da64bbb6289edd38b877af71fc126e03d0f6
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182055"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502292"
 ---
 # <a name="compare-ef-core--ef6"></a>Porównanie programów EF Core i EF6
 
@@ -30,7 +30,7 @@ EF Core zaprojektowano w celu udostępnienia środowiska deweloperskiego podobne
 
 ## <a name="feature-comparison"></a>Porównanie funkcji
 
-EF Core oferuje nowe funkcje, które nie zostaną zaimplementowane w EF6 (takie jak [klucze alternatywne](xref:core/modeling/alternate-keys), [aktualizacje wsadowe](xref:core/what-is-new/ef-core-1.0#relational-batching-of-statements)i [mieszany klient/Ocena bazy danych w zapytaniach LINQ](xref:core/querying/client-eval)). Ale ponieważ jest to nowa baza kodu, nie ma także niektórych funkcji, które EF6.
+EF Core oferuje nowe funkcje, które nie zostaną zaimplementowane w EF6 (takie jak [klucze alternatywne](xref:core/modeling/keys#alternate-keys), [aktualizacje wsadowe](xref:core/what-is-new/ef-core-1.0#relational-batching-of-statements)i [mieszany klient/Ocena bazy danych w zapytaniach LINQ](xref:core/querying/client-eval)). Ale ponieważ jest to nowa baza kodu, nie ma także niektórych funkcji, które EF6.
 
 W poniższych tabelach porównano funkcje dostępne w EF Core i EF6. Jest to porównanie wysokiego poziomu i nie wykazuje każdej funkcji ani nie wyjaśnia różnic między tą samą funkcją w różnych wersjach EF.
 
@@ -48,28 +48,28 @@ Kolumna EF Core wskazuje wersję produktu, w której pierwsza pojawiła się fun
 | Konwencje niestandardowe                                    | Tak      | 1,0 (częściowa)                         |
 | Adnotacje danych                                      | Tak      | 1.0                                   |
 | Interfejs API Fluent                                            | Tak      | 1.0                                   |
-| Strukturze Tabela na hierarchię (TPH)                | Tak      | 1.0                                   |
-| Strukturze Tabela na typ (TPT)                     | Tak      |                                       |
-| Strukturze Tabela na konkretną klasę (TPC)           | Tak      |                                       |
+| Dziedziczenie: tabela na hierarchię (TPH)                | Tak      | 1.0                                   |
+| Dziedziczenie: tabela na typ (TPT)                     | Tak      |                                       |
+| Dziedziczenie: tabela na konkretną klasę (TPC)           | Tak      |                                       |
 | Właściwości stanu cienia                               |          | 1.0                                   |
 | Klucze alternatywne                                        |          | 1.0                                   |
 | Jednostka "wiele do wielu" bez sprzężenia                      | Tak      |                                       |
-| Generowanie klucza: Database (Baza danych)                              | Tak      | 1.0                                   |
-| Generowanie klucza: Klient                                |          | 1.0                                   |
+| Generowanie klucza: baza danych                              | Tak      | 1.0                                   |
+| Generowanie klucza: klient                                |          | 1.0                                   |
 | Typy złożone/należące                                   | Tak      | 2.0                                   |
 | Dane przestrzenne                                          | Tak      | 2.2                                   |
 | Graficzna wizualizacja modelu                      | Tak      |                                       |
 | Edytor modelu graficznego                                | Tak      |                                       |
-| Format modelu: Kod                                    | Tak      | 1.0                                   |
+| Format modelu: kod                                    | Tak      | 1.0                                   |
 | Format modelu: EDMX (XML)                              | Tak      |                                       |
-| Utwórz model z bazy danych: Wiersz polecenia              | Tak      | 1.0                                   |
-| Utwórz model z bazy danych: Kreator VS                 | Tak      |                                       |
+| Utwórz model z bazy danych: wiersz polecenia              | Tak      | 1.0                                   |
+| Utwórz model z bazy danych: Kreator programu VS                 | Tak      |                                       |
 | Aktualizuj model z bazy danych                            | Częściowe  |                                       |
 | Globalne filtry zapytań                                  |          | 2.0                                   |
 | Podział tabeli                                       | Tak      | 2.0                                   |
 | Dzielenie jednostek                                      | Tak      |                                       |
 | Mapowanie funkcji skalarnej bazy danych                      | Słabo     | 2.0                                   |
-| Mapowanie pól                                         |          | 1.1                                   |
+| Mapowanie pola                                         |          | 1.1                                   |
 | Typy odwołań do wartościC# null (8,0)                     |          | 3.0                                   |
 
 ### <a name="querying-data"></a>Wykonanie zapytania o dane
@@ -79,13 +79,13 @@ Kolumna EF Core wskazuje wersję produktu, w której pierwsza pojawiła się fun
 | zapytania LINQ                                          | Tak      | 1,0 (w toku dla złożonych zapytań) |
 | Możliwe do odczytu wygenerowane SQL                                | Słabo     | 1.0                                   |
 | Tłumaczenie GroupBy                                   | Tak      | 2.1                                   |
-| Ładowanie powiązanych danych: Eager                           | Tak      | 1.0                                   |
-| Ładowanie powiązanych danych: Eager ładowanie dla typów pochodnych |          | 2.1                                   |
-| Ładowanie powiązanych danych: Lazy                            | Tak      | 2.1                                   |
-| Ładowanie powiązanych danych: Wprost                        | Tak      | 1.1                                   |
-| Nieprzetworzone zapytania SQL: Typy jednostek                         | Tak      | 1.0                                   |
-| Nieprzetworzone zapytania SQL: Typy jednostek z mniejszą ilością                 | Tak      | 2.1                                   |
-| Nieprzetworzone zapytania SQL: Tworzenie za pomocą LINQ                  |          | 1.0                                   |
+| Ładowanie powiązanych danych: eager                           | Tak      | 1.0                                   |
+| Ładowanie powiązanych danych: eager ładowania dla typów pochodnych |          | 2.1                                   |
+| Ładowanie powiązanych danych: z opóźnieniem                            | Tak      | 2.1                                   |
+| Ładowanie powiązanych danych: jawne                        | Tak      | 1.1                                   |
+| Nieprzetworzone zapytania SQL: typy jednostek                         | Tak      | 1.0                                   |
+| Nieprzetworzone zapytania SQL: typy jednostek bez typu                 | Tak      | 2.1                                   |
+| Nieprzetworzone zapytania SQL: tworzenie przy użyciu LINQ                  |          | 1.0                                   |
 | Jawne skompilowane zapytania                           | Słabo     | 2.0                                   |
 | Język zapytań tekstowych (Entity SQL)                | Tak      |                                       |
 | await foreach (C# 8,0)                                |          | 3.0                                   |
@@ -94,9 +94,9 @@ Kolumna EF Core wskazuje wersję produktu, w której pierwsza pojawiła się fun
 
 | **Funkcja**                                           | **EF6**  | **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
-| Śledzenie zmian: Snapshot                             | Tak      | 1.0                                   |
-| Śledzenie zmian: Powiadomienia                         | Tak      | 1.0                                   |
-| Śledzenie zmian: Serwery proxy                              | Tak      |                                       |
+| Śledzenie zmian: migawka                             | Tak      | 1.0                                   |
+| Śledzenie zmian: powiadomienie                         | Tak      | 1.0                                   |
+| Śledzenie zmian: proxy                              | Tak      |                                       |
 | Uzyskiwanie dostępu do śledzonego stanu                               | Tak      | 1.0                                   |
 | Optymistyczna współbieżność                                | Tak      | 1.0                                   |
 | Transakcje                                          | Tak      | 1.0                                   |
@@ -121,11 +121,11 @@ Kolumna EF Core wskazuje wersję produktu, w której pierwsza pojawiła się fun
 
 | **Funkcja**                                           | **EF6**  | **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
-| SQL Server                                            | Tak      | 1.0                                   |
+| Serwer SQL                                            | Tak      | 1.0                                   |
 | MySQL                                                 | Tak      | 1.0                                   |
 | PostgreSQL                                            | Tak      | 1.0                                   |
 | Oracle                                                | Tak      | 1.0                                   |
-| Bazy danych SQLite                                                | Tak      | 1.0                                   |
+| SQLite                                                | Tak      | 1.0                                   |
 | SQL Server Compact                                    | Tak      | 1,0 <sup>(1)</sup>                    |
 | DB2                                                   | Tak      | 1.0                                   |
 | Firebird                                              | Tak      | 2.0                                   |
