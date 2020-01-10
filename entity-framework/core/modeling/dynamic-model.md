@@ -1,26 +1,34 @@
 ---
 title: Przemienne między wieloma modelami o tym samym typie DbContext — EF Core
 author: AndriySvyryd
-ms.date: 12/10/2017
+ms.date: 01/03/2020
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/dynamic-model
-ms.openlocfilehash: 034076b1595894e80b98467354f6c9f139bd7426
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 156d5666cbd9352b274ddc70c99704ca62aeb1fd
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655725"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781134"
 ---
 # <a name="alternating-between-multiple-models-with-the-same-dbcontext-type"></a>Przemienne między wieloma modelami o tym samym typie DbContext
 
-Model zbudowany w `OnModelCreating` może użyć właściwości w kontekście, aby zmienić sposób kompilowania modelu. Na przykład można użyć, aby wykluczyć określoną właściwość:
+Model zbudowany w `OnModelCreating` może użyć właściwości w kontekście, aby zmienić sposób kompilowania modelu. Załóżmy na przykład, że chcemy skonfigurować jednostkę w różny sposób w zależności od właściwości:
 
-[!code-csharp[Main](../../../samples/core/DynamicModel/DynamicContext.cs?name=Class)]
+[!code-csharp[Main](../../../samples/core/Modeling/DynamicModel/DynamicContext.cs?name=OnModelCreating)]
+
+Niestety, ten kod nie działa tak, jak to jest, ponieważ EF kompiluje model i uruchamia `OnModelCreating` tylko raz, buforowanie wyniku ze względu na wydajność. Można jednak podpiąć do mechanizmu buforowania modelu, aby zapewnić, że EF wie o właściwości dającej różne modele.
 
 ## <a name="imodelcachekeyfactory"></a>IModelCacheKeyFactory
 
-Jeśli jednak podjęto próbę wykonania powyższych czynności bez dodatkowych zmian, ten sam model jest tworzony za każdym razem, gdy zostanie utworzony nowy kontekst dla dowolnej wartości `IgnoreIntProperty`. Jest to spowodowane przez mechanizm buforowania modelu, który służy do poprawy wydajności przez wywoływanie `OnModelCreating` raz i buforowanie modelu.
+Dr używa `IModelCacheKeyFactory` do generowania kluczy pamięci podręcznej dla modeli; Domyślnie EF zakłada, że dla dowolnego danego typu kontekstu model będzie taki sam, więc domyślna implementacja tej usługi zwraca klucz, który po prostu zawiera typ kontekstu. Aby generować różne modele z tego samego typu kontekstu, należy zastąpić usługę `IModelCacheKeyFactory` poprawną implementacją; wygenerowany klucz będzie porównywany z innymi kluczami modeli przy użyciu metody `Equals`, biorąc pod uwagę wszystkie zmienne, które wpływają na model:
 
-Domyślnie EF zakłada, że dla dowolnego danego typu kontekstu model będzie taki sam. Aby to osiągnąć, domyślna implementacja `IModelCacheKeyFactory` zwraca klucz, który po prostu zawiera typ kontekstu. Aby zmienić tę wartość, musisz zastąpić usługę `IModelCacheKeyFactory`. Nowa implementacja musi zwrócić obiekt, który można porównać z innymi kluczami modelu przy użyciu metody `Equals`, która uwzględnia wszystkie zmienne, które wpływają na model:
+Następująca implementacja przybiera `IgnoreIntProperty` do konta podczas tworzenia klucza pamięci podręcznej modelu:
 
-[!code-csharp[Main](../../../samples/core/DynamicModel/DynamicModelCacheKeyFactory.cs?name=Class)]
+[!code-csharp[Main](../../../samples/core/Modeling/DynamicModel/DynamicModelCacheKeyFactory.cs?name=DynamicModel)]
+
+Na koniec Zarejestruj nowe `IModelCacheKeyFactory` w `OnConfiguring`kontekstu:
+
+[!code-csharp[Main](../../../samples/core/Modeling/DynamicModel/DynamicContext.cs?name=OnConfiguring)]
+
+Zobacz [pełny przykładowy projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/DynamicModel) , aby uzyskać więcej kontekstu.

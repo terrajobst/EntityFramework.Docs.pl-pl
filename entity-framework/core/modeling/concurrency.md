@@ -1,15 +1,15 @@
 ---
 title: Tokeny współbieżności — EF Core
-author: rowanmiller
-ms.date: 03/03/2018
+author: AndriySvyryd
+ms.date: 01/03/2020
 ms.assetid: bc8b1cb0-befe-4b67-8004-26e6c5f69385
 uid: core/modeling/concurrency
-ms.openlocfilehash: db768c1de99000be91d33764ccd3c3924237f8bb
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 8a5f3aa09c2a83d5be0998a11ef2ee8100437514
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197456"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781147"
 ---
 # <a name="concurrency-tokens"></a>Tokeny współbieżności
 
@@ -18,40 +18,30 @@ ms.locfileid: "71197456"
 
 Właściwości skonfigurowane jako tokeny współbieżności są używane do implementowania optymistycznej kontroli współbieżności.
 
-## <a name="conventions"></a>Konwencje
+## <a name="configuration"></a>Konfiguracja
 
-Zgodnie z Konwencją właściwości nigdy nie są konfigurowane jako tokeny współbieżności.
+### <a name="data-annotationstabdata-annotations"></a>[Adnotacje danych](#tab/data-annotations)
 
-## <a name="data-annotations"></a>Adnotacje danych
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Concurrency.cs?name=Concurrency&highlight=5)]
 
-Możesz użyć adnotacji danych, aby skonfigurować właściwość jako token współbieżności.
+### <a name="fluent-apitabfluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Concurrency.cs#ConfigureConcurrencyAnnotations)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Concurrency.cs?name=Concurrency&highlight=5)]
 
-## <a name="fluent-api"></a>Interfejs API Fluent
+***
 
-Aby skonfigurować właściwość jako token współbieżności, można użyć interfejsu API Fluent.
+## <a name="timestamprowversion"></a>Sygnatura czasowa/rowversion
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Concurrency.cs#ConfigureConcurrencyFluent)]
+Sygnatura czasowa/rowversion jest właściwością, dla której nowa wartość jest automatycznie generowana przez bazę danych przy każdym wstawieniu lub zaktualizowaniu wiersza. Właściwość jest również traktowana jako token współbieżności, co zapewnia, że występuje wyjątek, jeśli aktualizowany wiersz został zmieniony od czasu jego zapytania. Dokładne szczegóły są zależne od używanego dostawcy bazy danych; w przypadku SQL Server Właściwość *Byte []* jest zwykle używana, która zostanie skonfigurowana jako kolumna *rowversion* w bazie danych.
 
-## <a name="timestamprow-version"></a>Sygnatura czasowa/wersja wiersza
+Właściwość można skonfigurować jako sygnaturę czasową/rowversion w następujący sposób:
 
-Sygnatura czasowa jest właściwością, w której nowa wartość jest generowana przez bazę danych przy każdym wstawieniu lub zaktualizowaniu wiersza. Właściwość jest również traktowana jako token współbieżności. Dzięki temu zostanie wyświetlony wyjątek, jeśli ktoś inny zmodyfikował wiersz, który próbujesz zaktualizować od momentu wysłania zapytania o dane.
+### <a name="data-annotationstabdata-annotations"></a>[Adnotacje danych](#tab/data-annotations)
 
-W jaki sposób jest używany dostawca bazy danych. W przypadku SQL Server sygnatura czasowa jest zwykle używana we właściwości *Byte []* , która zostanie skonfigurowana jako kolumna *rowversion* w bazie danych.
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Timestamp.cs?name=Timestamp&highlight=7)]
 
-### <a name="conventions"></a>Konwencje
+### <a name="fluent-apitabfluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
 
-Zgodnie z Konwencją właściwości nigdy nie są konfigurowane jako sygnatury czasowe.
+[! code-CSharp [Main] (.. /.. /.. /samples/core/Modeling/FluentAPI/Timestamp.cs? Name = timestamp & Podświetl = 9, 17]
 
-### <a name="data-annotations"></a>Adnotacje danych
-
-Możesz użyć adnotacji danych, aby skonfigurować właściwość jako sygnaturę czasową.
-
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Timestamp.cs#ConfigureTimestampAnnotations)]
-
-### <a name="fluent-api"></a>Interfejs API Fluent
-
-Aby skonfigurować właściwość jako sygnaturę czasową, można użyć interfejsu API Fluent.
-
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Timestamp.cs#ConfigureTimestampFluent)]
+***

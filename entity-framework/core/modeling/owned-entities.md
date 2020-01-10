@@ -5,17 +5,14 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 7b6d1b3bccbfceb85f03a580ba03a45984d29c74
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 30b91b6e66b6c0f516d1ba12485304b52770cbef
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824597"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781238"
 ---
 # <a name="owned-entity-types"></a>Posiadane typy jednostek
-
-> [!NOTE]
-> Ta funkcja jest nowa w EF Core 2,0.
 
 EF Core umożliwia modelowanie typów jednostek, które mogą być wyświetlane tylko w przypadku właściwości nawigacji innych typów jednostek. Są one nazywane _własnością typów jednostek_. Jednostką zawierającą typ jednostki będącej właścicielem jest jej _właścicielem_.
 
@@ -56,7 +53,7 @@ Aby zrozumieć, w jaki sposób EF Core śledzi te obiekty, warto wiedzieć, że 
 
 Aby skonfigurować kolekcję typów posiadanych, użyj `OwnsMany` w `OnModelCreating`.
 
-Typy należące do muszą być kluczem podstawowym. Jeśli nie ma żadnych właściwości dobrych kandydatów dla typu .NET, EF Core może próbować utworzyć jeden. Jednak jeśli typy posiadane są zdefiniowane za pomocą kolekcji, nie wystarczy tylko utworzyć właściwość Shadow do działania jako klucz obcy w właścicielu i kluczu podstawowym danego wystąpienia, jak w przypadku `OwnsOne`: może istnieć wiele wystąpień typu należącego do użytkownika. właściciel, a w związku z tym klucz właściciela nie wystarcza do zapewnienia unikatowej tożsamości dla każdego należącego wystąpienia.
+Typy należące do muszą być kluczem podstawowym. Jeśli nie ma żadnych właściwości dobrych kandydatów dla typu .NET, EF Core może próbować utworzyć jeden. Jednak w przypadku, gdy posiadane typy są zdefiniowane za pomocą kolekcji, nie wystarczy tylko utworzyć właściwość Shadow do działania jako klucz obcy w właścicielu i kluczu podstawowym danego wystąpienia, jak w przypadku `OwnsOne`: może istnieć wiele wystąpień typu dla każdego właściciela, a tym samym klucz właściciela nie jest wystarczający do zapewnienia unikatowej tożsamości dla każdego należącego wystąpienia.
 
 Poniżej przedstawiono dwa najbardziej proste rozwiązania tego problemu:
 
