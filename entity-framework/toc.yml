@@ -19,10 +19,16 @@
       items:
         - name: Omówienie
           href: core/index.md
-        - name: Nowości
+        - name: Wersje i planowanie
           items:
             - name: Omówienie
               href: core/what-is-new/index.md
+            - name: Proces planowania wersji
+              href: core/what-is-new/release-planning.md
+            - name: EF Core 5.0
+              items:
+                - name: Plan ogólny
+                  href: core/what-is-new/ef-core-5.0/plan.md
             - name: EF Core 3.0
               items:
                 - name: Nowe funkcje
