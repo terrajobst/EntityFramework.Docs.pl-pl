@@ -4,58 +4,58 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a628795e-64df-4f24-a5e8-76bc261e7ed8
 uid: core/modeling/backing-field
-ms.openlocfilehash: 288440a4494117fe59d27187e24424c4d2fd44ab
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: 20cf9dc9b0d556f29680bce588bcbdc4ea48fa74
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811879"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124382"
 ---
 # <a name="backing-fields"></a>Pola zapasowe
 
-> [!NOTE]  
-> Ta funkcja jest nowa w EF Core 1,1.
+Pola zapasowe umożliwiają EF odczyt i/lub zapis do pola, a nie właściwości. Może to być przydatne, gdy hermetyzacja w klasie jest używana do ograniczania użycia i/lub podniesienia semantyki dostępu do danych przez kod aplikacji, ale wartość powinna zostać odczytana i/lub zapisywana w bazie danych bez użycia tych ograniczeń/ulepszeń.
 
-Pola zapasowe umożliwiają EF odczyt i/lub zapis do pola, a nie właściwości. Może to być przydatne, gdy hermetyzacja w klasie jest używana do ograniczania użycia i/lub podniesienia semantyki dostępu do danych przez kod aplikacji, ale wartość powinna zostać odczytana i/lub zapisywana w bazie danych bez użycia tych ograniczeń/ usprawni.
+## <a name="basic-configuration"></a>Konfiguracja podstawowa
 
-## <a name="conventions"></a>Konwencje
-
-Według Konwencji następujące pola zostaną odnalezione jako pola zapasowe dla danej właściwości (wymienione w kolejności pierwszeństwa). Pola są odnajdywane tylko dla właściwości, które są uwzględnione w modelu. Aby uzyskać więcej informacji na temat właściwości uwzględnionych w modelu, zobacz [m.in. & z wyłączeniem właściwości](included-properties.md).
+Według Konwencji następujące pola zostaną odnalezione jako pola zapasowe dla danej właściwości (wymienione w kolejności pierwszeństwa). 
 
 * `_<camel-cased property name>`
 * `_<property name>`
 * `m_<camel-cased property name>`
 * `m_<property name>`
 
+W poniższym przykładzie właściwość `Url` jest skonfigurowana tak, aby miała `_url` jako pole zapasowe:
+
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/BackingField.cs#Sample)]
 
-W przypadku skonfigurowania pola zapasowego program Dr zapisuje bezpośrednio do tego pola podczas materializacji wystąpienia jednostek z bazy danych (zamiast używać metody ustawiającej właściwość). Jeśli EF musi odczytać lub zapisać wartość w innym czasie, będzie używać właściwości, jeśli jest to możliwe. Na przykład jeśli EF musi zaktualizować wartość właściwości, zostanie użyta Metoda ustawiająca właściwość, jeśli jest zdefiniowana. Jeśli właściwość jest tylko do odczytu, nastąpi zapis do pola.
+Należy zauważyć, że pola zapasowe są odnajdywane tylko dla właściwości, które są uwzględnione w modelu. Aby uzyskać więcej informacji na temat właściwości uwzględnionych w modelu, zobacz [m.in. & z wyłączeniem właściwości](included-properties.md).
 
-## <a name="data-annotations"></a>Adnotacje danych
+Możesz również jawnie skonfigurować pola zapasowe, np. Jeśli nazwa pola nie odpowiada powyższym konwencjom:
 
-Nie można skonfigurować pól zapasowych przy użyciu adnotacji danych.
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingField.cs?name=BackingField&highlight=5)]
 
-## <a name="fluent-api"></a>Interfejs API Fluent
+## <a name="field-and-property-access"></a>Dostęp do pól i właściwości
 
-Za pomocą interfejsu API Fluent można skonfigurować pole zapasowe dla właściwości.
+Domyślnie EF zawsze odczytuje i zapisu do pola zapasowego — przy założeniu, że został on poprawnie skonfigurowany — i nigdy nie będzie używać właściwości. Jednakże EF obsługuje również inne wzorce dostępu. Na przykład poniższy przykład instruuje EF do zapisu w polu zapasowym tylko wtedy, gdy materializacji, i do używania właściwości we wszystkich innych przypadkach:
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingField.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldAccessMode.cs?name=BackingFieldAccessMode&highlight=6)]
 
-### <a name="controlling-when-the-field-is-used"></a>Kontrolowanie, gdy pole jest używane
+Aby uzyskać pełny zestaw obsługiwanych opcji, zobacz [Wyliczenie PropertyAccessMode](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode) .
 
-Można skonfigurować, kiedy dr używa pola lub właściwości. Zobacz [Wyliczenie PropertyAccessMode](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode) dla obsługiwanych opcji.
+> [!NOTE]
+> W EF Core 3,0 domyślny tryb dostępu do właściwości został zmieniony z `PreferFieldDuringConstruction` na `PreferField`.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldAccessMode.cs#Sample)]
+## <a name="field-only-properties"></a>Właściwości tylko dla pól
 
-### <a name="fields-without-a-property"></a>Pola bez właściwości
+Można również utworzyć w modelu Właściwość koncepcyjną, która nie ma odpowiedniej właściwości CLR w klasie Entity, ale zamiast tego używa pola do przechowywania danych w jednostce. Różni się to od [Właściwości cienia](shadow-properties.md), gdzie dane są przechowywane w monitorze zmian, a nie w typie CLR obiektu. Właściwości tylko dla pól są często używane, gdy Klasa jednostki używa metod zamiast właściwości do pobierania/ustawiania wartości lub w przypadkach, gdy pola nie powinny być ujawniane w modelu domeny (np. klucze podstawowe).
 
-Można również utworzyć w modelu Właściwość koncepcyjną, która nie ma odpowiedniej właściwości CLR w klasie Entity, ale zamiast tego używa pola do przechowywania danych w jednostce. Różni się to od [Właściwości cienia](shadow-properties.md), gdzie dane są przechowywane w monitorze zmian. Zwykle jest to używane, jeśli Klasa jednostki używa metod do pobierania/ustawiania wartości.
-
-Można nadać EF nazwę pola w interfejsie API `Property(...)`. Jeśli nie ma żadnej właściwości o podaną nazwę, EF będzie szukać pola.
+Właściwość "tylko pole" można skonfigurować, podając nazwę w interfejsie API `Property(...)`:
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldNoProperty.cs#Sample)]
 
-Jeśli w klasie Entity nie ma właściwości, można użyć metody `EF.Property(...)` w zapytaniu LINQ, aby odwołać się do właściwości, która jest koncepcyjnie częścią modelu.
+Dr podejmie próbę znalezienia właściwości CLR o podaną nazwę lub pola, jeśli nie można odnaleźć właściwości. Jeśli nie zostanie znaleziona żadna właściwość ani pole, zamiast tego zostanie ustawiona właściwość Shadow.
+
+Może być konieczne odwoływanie się do właściwości tylko pola z zapytań LINQ, ale takie pola są zwykle prywatne. Można użyć metody `EF.Property(...)` w zapytaniu LINQ, aby odwołać się do pola:
 
 ``` csharp
 var blogs = db.blogs.OrderBy(b => EF.Property<string>(b, "_validatedUrl"));
