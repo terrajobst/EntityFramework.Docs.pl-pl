@@ -1,82 +1,79 @@
 ---
-title: Porównaj Entity Framework 6 i Entity Framework Core-EF
-description: Zawiera wskazówki dotyczące wyboru między Entity Framework 6 i Entity Framework Core.
-author: rowanmiller
-ms.date: 10/27/2016
+title: Porównaj EF6 i EF Core
+description: Wskazówki dotyczące wybierania między EF6 i EF Core.
+author: ajcvickers
+ms.date: 01/23/2019
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
-ms.openlocfilehash: 62f7da64bbb6289edd38b877af71fc126e03d0f6
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: e28c7d0299e5089f56fb0795d00917cfc30f5cf1
+ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502292"
+ms.lasthandoff: 01/30/2020
+ms.locfileid: "76888151"
 ---
 # <a name="compare-ef-core--ef6"></a>Porównanie programów EF Core i EF6
 
-Entity Framework to Mapowanie obiektowo-relacyjne (O/RM) dla platformy .NET. W tym artykule porównano dwie wersje: Entity Framework 6 i Entity Framework Core.
+## <a name="ef-core"></a>EF Core
 
-## <a name="entity-framework-6"></a>Entity Framework 6
+Entity Framework Core ([EF Core](../core/index.md)) jest nowoczesnym obiektem mapowania bazy danych dla platformy .NET. Obsługuje zapytania LINQ, śledzenie zmian, aktualizacje i migracje schematu.
 
-Entity Framework 6 (EF6) to wypróbowana i przetestowana technologia dostępu do danych. Najpierw została wydana w 2008 w ramach .NET Framework 3,5 SP1 i Visual Studio 2008 SP1. Począwszy od wersji 4,1, jest ona dostarczana jako pakiet NuGet [EntityFramework](https://www.nuget.org/packages/EntityFramework/) . EF6 działa na .NET Framework 4. x i .NET Core z 3,0.
+EF Core współpracuje z usługami SQL Server/SQL Azure, SQLite, Azure Cosmos DB, MySQL, PostgreSQL i wieloma innymi bazami danych za pomocą [modelu wtyczki dostawcy bazy danych](../core/providers/index.md).
 
-EF6 nadal jest obsługiwanym produktem i nadal będzie widział poprawki błędów i drobne ulepszenia.
+## <a name="ef6"></a>EF6
 
-## <a name="entity-framework-core"></a>Entity Framework Core
-
-Entity Framework Core (EF Core) to pełny zapis EF6, który został po raz pierwszy opublikowany w 2016. Jest ona dostarczana z pakietami NuGet, głównymi jest [Microsoft. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/). EF Core jest produktem dla wielu platform, który działa w środowisku .NET Core.
-
-EF Core zaprojektowano w celu udostępnienia środowiska deweloperskiego podobnego do EF6. Większość interfejsów API najwyższego poziomu pozostaje taka sama, więc EF Core będą znane deweloperom, którzy korzystali z EF6.
+Entity Framework 6 ([Ef6](../ef6/index.md)) to Mapowanie obiektowo-relacyjnego zaprojektowane dla .NET Framework, ale z obsługą platformy .NET Core. EF6 to stabilny, obsługiwany produkt, ale nie jest już aktywnie opracowywany.
 
 ## <a name="feature-comparison"></a>Porównanie funkcji
 
-EF Core oferuje nowe funkcje, które nie zostaną zaimplementowane w EF6 (takie jak [klucze alternatywne](xref:core/modeling/keys#alternate-keys), [aktualizacje wsadowe](xref:core/what-is-new/ef-core-1.0#relational-batching-of-statements)i [mieszany klient/Ocena bazy danych w zapytaniach LINQ](xref:core/querying/client-eval)). Ale ponieważ jest to nowa baza kodu, nie ma także niektórych funkcji, które EF6.
+EF Core oferuje nowe funkcje, które nie zostaną zaimplementowane w EF6. Jednak nie wszystkie funkcje EF6 są obecnie zaimplementowane w EF Core.
 
-W poniższych tabelach porównano funkcje dostępne w EF Core i EF6. Jest to porównanie wysokiego poziomu i nie wykazuje każdej funkcji ani nie wyjaśnia różnic między tą samą funkcją w różnych wersjach EF.
+W poniższych tabelach porównano funkcje dostępne w EF Core i EF6. Jest to porównanie wysokiego poziomu i nie zawiera list każdej funkcji ani wyjaśnia różnic między tą samą funkcją w różnych wersjach EF.
 
 Kolumna EF Core wskazuje wersję produktu, w której pierwsza pojawiła się funkcja.
 
 ### <a name="creating-a-model"></a>Tworzenie modelu
 
-| **Funkcja**                                           | **EF 6** | **EF Core**                           |
+| **Funkcja**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
 | Podstawowe mapowanie klas                                   | Tak      | 1.0                                   |
 | Konstruktory z parametrami                          |          | 2.1                                   |
 | Konwersje wartości właściwości                            |          | 2.1                                   |
 | Mapowane typy bez kluczy                             |          | 2.1                                   |
 | Konwencje                                           | Tak      | 1.0                                   |
-| Konwencje niestandardowe                                    | Tak      | 1,0 (częściowa)                         |
+| Konwencje niestandardowe                                    | Tak      | 1,0 (częściowa; [#214](https://github.com/dotnet/efcore/issues/214)) |
 | Adnotacje danych                                      | Tak      | 1.0                                   |
 | Interfejs API Fluent                                            | Tak      | 1.0                                   |
 | Dziedziczenie: tabela na hierarchię (TPH)                | Tak      | 1.0                                   |
-| Dziedziczenie: tabela na typ (TPT)                     | Tak      |                                       |
-| Dziedziczenie: tabela na konkretną klasę (TPC)           | Tak      |                                       |
+| Dziedziczenie: tabela na typ (TPT)                     | Tak      | Planowane dla 5,0 ([#2266](https://github.com/dotnet/efcore/issues/2266)) |
+| Dziedziczenie: tabela na konkretną klasę (TPC)           | Tak      | Rozciągnij dla 5,0 ([#3170](https://github.com/dotnet/efcore/issues/3170)) <sup>(1)</sup> |
 | Właściwości stanu cienia                               |          | 1.0                                   |
 | Klucze alternatywne                                        |          | 1.0                                   |
-| Jednostka "wiele do wielu" bez sprzężenia                      | Tak      |                                       |
+| Nawigacja wiele do wielu                              | Tak      | Planowane dla 5,0 ([#19003](https://github.com/dotnet/efcore/issues/19003)) |
+| Jednostka "wiele do wielu" bez sprzężenia                      | Tak      | W zaległości ([#1368](https://github.com/dotnet/efcore/issues/1368)) |
 | Generowanie klucza: baza danych                              | Tak      | 1.0                                   |
 | Generowanie klucza: klient                                |          | 1.0                                   |
 | Typy złożone/należące                                   | Tak      | 2.0                                   |
 | Dane przestrzenne                                          | Tak      | 2.2                                   |
-| Graficzna wizualizacja modelu                      | Tak      |                                       |
-| Edytor modelu graficznego                                | Tak      |                                       |
 | Format modelu: kod                                    | Tak      | 1.0                                   |
-| Format modelu: EDMX (XML)                              | Tak      |                                       |
 | Utwórz model z bazy danych: wiersz polecenia              | Tak      | 1.0                                   |
-| Utwórz model z bazy danych: Kreator programu VS                 | Tak      |                                       |
-| Aktualizuj model z bazy danych                            | Częściowe  |                                       |
+| Aktualizuj model z bazy danych                            | Częściowe  | W zaległości ([#831](https://github.com/dotnet/efcore/issues/831)) |
 | Globalne filtry zapytań                                  |          | 2.0                                   |
 | Podział tabeli                                       | Tak      | 2.0                                   |
-| Dzielenie jednostek                                      | Tak      |                                       |
+| Dzielenie jednostek                                      | Tak      | Rozciągnij dla 5,0 ([#620](https://github.com/dotnet/efcore/issues/620)) <sup>(1)</sup> |
 | Mapowanie funkcji skalarnej bazy danych                      | Słabo     | 2.0                                   |
-| Mapowanie pola                                         |          | 1.1                                   |
+| Mapowanie pól                                         |          | 1.1                                   |
 | Typy odwołań do wartościC# null (8,0)                     |          | 3.0                                   |
+| Graficzna wizualizacja modelu                      | Tak      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
+| Edytor modelu graficznego                                | Tak      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
+| Format modelu: EDMX (XML)                              | Tak      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
+| Utwórz model z bazy danych: Kreator programu VS                 | Tak      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
 
 ### <a name="querying-data"></a>Wykonanie zapytania o dane
 
-| **Funkcja**                                           | **EF6**  | **EF Core**                           |
+| **Funkcja**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
-| zapytania LINQ                                          | Tak      | 1,0 (w toku dla złożonych zapytań) |
+| zapytania LINQ                                          | Tak      | 1.0                                   |
 | Możliwe do odczytu wygenerowane SQL                                | Słabo     | 1.0                                   |
 | Tłumaczenie GroupBy                                   | Tak      | 2.1                                   |
 | Ładowanie powiązanych danych: eager                           | Tak      | 1.0                                   |
@@ -87,79 +84,78 @@ Kolumna EF Core wskazuje wersję produktu, w której pierwsza pojawiła się fun
 | Nieprzetworzone zapytania SQL: typy jednostek bez typu                 | Tak      | 2.1                                   |
 | Nieprzetworzone zapytania SQL: tworzenie przy użyciu LINQ                  |          | 1.0                                   |
 | Jawne skompilowane zapytania                           | Słabo     | 2.0                                   |
-| Język zapytań tekstowych (Entity SQL)                | Tak      |                                       |
 | await foreach (C# 8,0)                                |          | 3.0                                   |
+| Język zapytań tekstowych (Entity SQL)                | Tak      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
 
 ### <a name="saving-data"></a>Zapisywanie danych
 
-| **Funkcja**                                           | **EF6**  | **EF Core**                           |
+| **Funkcja**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
 | Śledzenie zmian: migawka                             | Tak      | 1.0                                   |
 | Śledzenie zmian: powiadomienie                         | Tak      | 1.0                                   |
-| Śledzenie zmian: proxy                              | Tak      |                                       |
+| Śledzenie zmian: proxy                              | Tak      | Scalone dla 5,0 ([#10949](https://github.com/dotnet/efcore/issues/10949)) |
 | Uzyskiwanie dostępu do śledzonego stanu                               | Tak      | 1.0                                   |
 | Optymistyczna współbieżność                                | Tak      | 1.0                                   |
 | Transakcje                                          | Tak      | 1.0                                   |
 | Partia instrukcji                                |          | 1.0                                   |
-| Mapowanie procedury składowanej                              | Tak      |                                       |
+| Mapowanie procedury składowanej                              | Tak      | W zaległości ([#245](https://github.com/dotnet/efcore/issues/245)) |
 | Rozłączone interfejsy API niskiego poziomu grafu                     | Słabo     | 1.0                                   |
-| Zakończenie odłączonego wykresu                         |          | 1,0 (częściowa)                         |
+| Zakończenie odłączonego wykresu                         |          | 1,0 (częściowa; [#5536](https://github.com/dotnet/efcore/issues/5536)) |
 
 ### <a name="other-features"></a>Inne funkcje
 
-| **Funkcja**                                           | **EF6**  | **EF Core**                           |
+| **Funkcja**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
 | Migracje                                            | Tak      | 1.0                                   |
 | Interfejsy API tworzenia/usuwania bazy danych                       | Tak      | 1.0                                   |
 | Dane inicjatora                                             | Tak      | 2.1                                   |
 | Odporność połączenia                                 | Tak      | 1.1                                   |
-| Punkty zaczepienia cyklu życia (zdarzenia, przechwycenia)                | Tak      |                                       |
-| Rejestrowanie proste (Database. log)                         | Tak      |                                       |
+| Interceptory                                          | Tak      | 3.0                                   |
+| Zdarzenia                                                | Tak      | 3,0 (częściowa; [#626](https://github.com/dotnet/efcore/issues/626)) |
+| Rejestrowanie proste (Database. log)                         | Tak      | Scalone dla 5,0 ([#1199](https://github.com/dotnet/efcore/issues/1199)) |
 | Buforowanie kontekstu DbContext                                     |          | 2.0                                   |
 
-### <a name="database-providers"></a>Dostawcy baz danych
+### <a name="database-providers-sup3sup"></a>Dostawcy bazy danych <sup>(3)</sup>
 
-| **Funkcja**                                           | **EF6**  | **EF Core**                           |
+| **Funkcja**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
 | Serwer SQL                                            | Tak      | 1.0                                   |
 | MySQL                                                 | Tak      | 1.0                                   |
 | PostgreSQL                                            | Tak      | 1.0                                   |
 | Oracle                                                | Tak      | 1.0                                   |
 | SQLite                                                | Tak      | 1.0                                   |
-| SQL Server Compact                                    | Tak      | 1,0 <sup>(1)</sup>                    |
+| SQL Server Compact                                    | Tak      | 1,0 <sup>(4)</sup>                    |
 | DB2                                                   | Tak      | 1.0                                   |
 | Firebird                                              | Tak      | 2.0                                   |
-| Jet (Microsoft Access)                                |          | 2,0 <sup>(1)</sup>                    |
-| Cosmos DB                                             |          | 3.0                                   |
+| Jet (Microsoft Access)                                |          | 2,0 <sup>(4)</sup>                    |
+| Azure Cosmos DB                                       |          | 3.0                                   |
 | W pamięci (do testowania)                               |          | 1.0                                   |
 
-<sup>1</sup> dostawcy SQL Server Compact i Jet pracują tylko na .NET Framework (nie na platformie .NET Core).
+<sup>1</sup> cele rozciągające nie są możliwe do osiągnięcia dla danej wersji. Jeśli jednak coś się nie powiedzie, spróbujemy je ściągnąć w.
 
-### <a name="net-implementations"></a>Implementacje platformy .NET
+<sup>2</sup> niektóre funkcje Ef6 nie zostaną zaimplementowane w EF Core. Te funkcje są zależne od EF6's podstawowych Entity Data Model (EDM) i/lub są złożonymi funkcjami ze względu na stosunkowo niski zwrot z inwestycji. Zawsze będziemy powiadamiać o opiniach, ale chociaż EF Core pozwala na wiele rzeczy, które nie są możliwe w EF6, nie jest możliwe, aby EF Core do obsługi wszystkich funkcji EF6.
 
-| **Funkcja**                                           | **EF6**            | **EF Core**                           |
-|:------------------------------------------------------|:-------------------|:--------------------------------------|
-| .NET Framework                                        | Tak                | 1,0 (usunięte w 3,0)                  |
-| .NET Core                                             | Tak (dodano w 6,3) | 1.0                                   |
-| Narzędzie mono & Xamarin                                        |                    | 1,0 (w toku)                     |
-| Platforma UWP                                                   |                    | 1,0 (w toku)                     |
+<sup>3</sup> EF Core dostawcy baz danych implementowani przez inne firmy mogą opóźnić aktualizację do nowych głównych wersji EF Core. Aby uzyskać więcej informacji, zobacz [dostawcy bazy danych](../core/providers/index.md) .
+
+<sup>4</sup> dostawcy SQL Server Compact i Jet pracują tylko na .NET Framework (nie na platformie .NET Core).
+
+### <a name="supported-platforms"></a>Obsługiwane platformy
+
+EF Core 3,1 działa na platformie .NET Core i .NET Framework przy użyciu .NET Standard 2,0. Jednak EF Core 5,0 nie będzie działać na .NET Framework. Zobacz [platformę](../core/platforms/index.md) , aby uzyskać więcej szczegółów.
+
+EF 6.4 działa na platformie .NET Core i .NET Framework przy użyciu wiele obiektów docelowych.
 
 ## <a name="guidance-for-new-applications"></a>Wskazówki dotyczące nowych aplikacji
 
-Rozważ użycie EF Core dla nowej aplikacji, jeśli są spełnione oba z następujących warunków:
-* Aplikacja wymaga możliwości platformy .NET Core. Aby uzyskać więcej informacji, zobacz [Wybieranie między platformą .NET Core i .NET Framework dla aplikacji serwerowych](https://docs.microsoft.com/dotnet/standard/choosing-core-framework-server).
-* EF Core obsługuje wszystkie funkcje wymagane przez aplikację. Jeśli brakuje odpowiedniej funkcji, zapoznaj się z [planem EF Core](xref:core/what-is-new/index) , aby dowiedzieć się, czy istnieją plany obsługi tego programu w przyszłości. 
-
-Rozważ użycie EF6, jeśli są spełnione oba z następujących warunków:
-* Aplikacja będzie działać w systemie Windows i w .NET Framework 4,0 lub nowszej.
-* EF6 obsługuje wszystkie funkcje wymagane przez aplikację.
+Użyj EF Core na platformie .NET Core dla wszystkich nowych aplikacji, chyba że aplikacja wymaga elementu, który jest [obsługiwany tylko w .NET Framework](https://docs.microsoft.com/dotnet/standard/choosing-core-framework-server).
 
 ## <a name="guidance-for-existing-ef6-applications"></a>Wskazówki dotyczące istniejących aplikacji EF6
 
-Ze względu na podstawowe zmiany w EF Core nie zalecamy przeniesienia aplikacji EF6 do EF Core, chyba że istnieje istotny powód wprowadzenia zmiany. Jeśli chcesz przejść do EF Core, aby korzystać z nowych funkcji, upewnij się, że masz świadomość jego ograniczeń. Aby uzyskać więcej informacji, zobacz [przenoszenie z Ef6 do EF Core](porting/index.md). **Przechodzenie z EF6 do EF Core jest bardziej portem niż uaktualnienie.**
+EF Core nie jest zamiennikiem porzucenia dla EF6. Przechodzenie z EF6 do EF Core prawdopodobnie wymaga wprowadzenia zmian w aplikacji.
 
-## <a name="next-steps"></a>Następne kroki
+Podczas przemieszczania aplikacji EF6 do platformy .NET Core:
+* Kontynuuj korzystanie z EF6, jeśli kod dostępu do danych jest stabilny i prawdopodobnie nie będzie mógł rozwijać ani potrzebować nowych funkcji.
+* Port do EF Core, jeśli kod dostępu do danych jest rozwijający lub jeśli aplikacja wymaga nowych funkcji dostępnych tylko w programie EF Core.
+* Przenoszenie do EF Core jest również często wykonywane w celu uzyskania wydajności. Nie wszystkie scenariusze są jednak szybsze, więc najpierw należy wykonać pewne czynności profilowania.
 
-Aby uzyskać więcej informacji, zapoznaj się z dokumentacją:
-* <xref:core/index>
-* <xref:ef6/index>
+Aby uzyskać więcej informacji [, zobacz Przenoszenie z Ef6 do EF Core](porting/index.md) .

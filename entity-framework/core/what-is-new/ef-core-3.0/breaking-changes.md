@@ -3,12 +3,12 @@ title: Istotne zmiany w EF Core 3,0 — EF Core
 author: ajcvickers
 ms.date: 12/03/2019
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 0626ffe98843fbf5ee0e2de4b269da6c395c07f6
-ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
+ms.openlocfilehash: 6e0c17a22b56b206f18e47f678e3e237d5c42375
+ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75781225"
+ms.lasthandoff: 01/30/2020
+ms.locfileid: "76888112"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Istotne zmiany zawarte w EF Core 3,0
 
@@ -109,6 +109,9 @@ Jeśli nie można w pełni przetłumaczyć zapytania, należy ponownie napisać 
 
 [Śledzenie problemu #15498](https://github.com/aspnet/EntityFrameworkCore/issues/15498)
 
+> [!IMPORTANT] 
+> Ponownie EF Core 3,1 cele .NET Standard 2,0. Spowoduje to przywrócenie obsługi .NET Framework.
+
 **Stare zachowanie**
 
 Przed 3,0, EF Core kierowany .NET Standard 2,0 i będzie działać na wszystkich platformach obsługujących ten standard, w tym .NET Framework.
@@ -123,7 +126,7 @@ Jest to część strategii strategicznej w technologiach .NET, która umożliwia
 
 **Środki zaradcze**
 
-Rozważ przeniesienie do nowoczesnej platformy .NET. Jeśli nie jest to możliwe, należy nadal używać EF Core 2,1 lub EF Core 2,2, w których są obsługiwane .NET Framework.
+Użyj EF Core 3,1.
 
 <a name="no-longer"></a>
 ### <a name="entity-framework-core-is-no-longer-part-of-the-aspnet-core-shared-framework"></a>Entity Framework Core nie jest już częścią ASP.NET Core współdzielonej struktury
@@ -1548,7 +1551,7 @@ Przykłady można znaleźć w wielu implementacjach `IDbContextOptionsExtension`
 
 [Śledzenie problemu #10985](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
 
-**Zmień**
+**Stąp**
 
 Zmieniono nazwę `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperator` na `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperatorWarning`.
 

@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 6903aab4911f7478afe3d8987a791ae1c5ccebce
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: 7451ce6e8d5d7078b3f56a6865aa7698e6fc63ca
+ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502217"
+ms.lasthandoff: 01/30/2020
+ms.locfileid: "76888125"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>Dostawca Azure Cosmos DB EF Core
 
@@ -52,7 +52,7 @@ Podobnie jak w przypadku innych dostawców, pierwszym krokiem jest wywołanie [U
 [!code-csharp[Configuration](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Configuration)]
 
 > [!WARNING]
-> Punkt końcowy i klucz są stałe tutaj dla uproszczenia, ale w aplikacji produkcyjnej powinny być [przechowywane securily](/aspnet/core/security/app-secrets#secret-manager)
+> Punkt końcowy i klucz są stałe tutaj dla uproszczenia, ale w aplikacji produkcyjnej powinny być [bezpiecznie przechowywane](/aspnet/core/security/app-secrets#secret-manager).
 
 W tym przykładzie `Order` jest prostą jednostką z odwołaniem do [typu należącego](../../modeling/owned-entities.md) `StreetAddress`.
 
