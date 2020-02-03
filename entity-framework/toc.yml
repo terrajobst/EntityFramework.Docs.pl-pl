@@ -21,7 +21,7 @@
           href: core/index.md
         - name: Wersje i planowanie
           items:
-            - name: Omówienie
+            - name: Bieżące i planowanie wydania (harmonogram działania)
               href: core/what-is-new/index.md
             - name: Proces planowania wersji
               href: core/what-is-new/release-planning.md
