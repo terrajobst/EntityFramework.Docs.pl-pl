@@ -4,12 +4,12 @@ description: Jak skonfigurować relacje między typami jednostek podczas korzyst
 author: AndriySvyryd
 ms.date: 11/21/2019
 uid: core/modeling/relationships
-ms.openlocfilehash: 6b3e0636bfa266b78baafe1b6e318c9707294560
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: 6d68e813cec6c989e8e4cb848f8740489645c65c
+ms.sourcegitcommit: 89567d08c9d8bf9c33bb55a62f17067094a4065a
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502191"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77051410"
 ---
 # <a name="relationships"></a>Relacje
 
@@ -26,9 +26,9 @@ Istnieje kilka terminów używanych do opisywania relacji
 
 * **Podmiot podmiotu zabezpieczeń:** Jest to jednostka, która zawiera właściwości klucza podstawowego/alternatywnego. Czasami określana jako "Parent" relacji.
 
-* **Klucz obcy:** Właściwości w jednostce zależnej, które są używane do przechowywania wartości klucza podmiotu zabezpieczeń powiązanej jednostki.
-
 * **Klucz podmiotu zabezpieczeń:** Właściwości, które jednoznacznie identyfikują jednostkę podmiotu zabezpieczeń. Może to być klucz podstawowy lub klucz alternatywny.
+
+* **Klucz obcy:** Właściwości w jednostce zależnej, które są używane do przechowywania wartości klucza podmiotu zabezpieczeń powiązanej jednostki.
 
 * **Właściwość nawigacji:** Właściwość zdefiniowana dla podmiotu zabezpieczeń i/lub zależnego, która odwołuje się do powiązanej jednostki.
 
@@ -48,9 +48,9 @@ Poniższy kod przedstawia relację "jeden do wielu" między `Blog` i `Post`
 
 * `Blog` jest jednostką główną
 
-* `Post.BlogId` jest kluczem obcym
-
 * `Blog.BlogId` jest kluczem podmiotu zabezpieczeń (w tym przypadku jest to klucz podstawowy, a nie klucz alternatywny)
+
+* `Post.BlogId` jest kluczem obcym
 
 * `Post.Blog` jest właściwością nawigacji referencyjnej
 
