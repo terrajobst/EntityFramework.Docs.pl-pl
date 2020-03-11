@@ -1,38 +1,38 @@
 ---
-title: Procedury składowane z wielu zestawów wyników — EF6
+title: Procedury składowane z wieloma zestawami wyników — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 1b3797f9-cd3d-4752-a55e-47b84b399dc1
 ms.openlocfilehash: 098ed88ba52e211965baf3660f0e51bd74c71efd
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489313"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418705"
 ---
-# <a name="stored-procedures-with-multiple-result-sets"></a>Procedury składowane z wielu zestawów wyników
-Czasami w przypadku, gdy przy użyciu przechowywanych procedur należy zwrócić więcej niż jeden wynik jest ustawiona. Ten scenariusz jest najczęściej używany do zmniejszenia liczby bazy danych rund wymagane do redagowania na jednym ekranie. Przed EF5 platformy Entity Framework pozwoliłoby procedura składowana wywoływana, ale zwróci tylko pierwszy zestaw wyników do kodu wywołującego.
+# <a name="stored-procedures-with-multiple-result-sets"></a>Procedury składowane z wieloma zestawami wyników
+Czasami w przypadku korzystania z procedur składowanych należy zwrócić więcej niż jeden zestaw wyników. Ten scenariusz jest często używany do zmniejszenia liczby rejsów rundy bazy danych wymaganych do utworzenia jednego ekranu. Przed EF5, Entity Framework zezwoli na wywoływanie procedury składowanej, ale zwróci tylko pierwszy zestaw wyników do kodu wywołującego.
 
-W tym artykule przedstawiono dwie metody, których można uzyskać dostęp do więcej niż jeden zestaw wyników z procedury składowanej platformy Entity Framework. Taki, który używa tylko kodu i współdziała z obu kod najpierw i projektancie platformy EF i taki, który działa tylko w Projektancie platformy EF. Narzędzia i obsługa interfejsu API dla tej powinna zwiększyć w przyszłych wersjach programu Entity Framework.
+W tym artykule przedstawiono dwa sposoby korzystania z programu w celu uzyskania dostępu do więcej niż jednego zestawu wyników z procedury składowanej w Entity Framework. Taki, który używa tylko kodu i współpracuje z pierwszym kodem i programem Dr Designer, który działa tylko z programem Dr Designer. Obsługa narzędzi i interfejsów API dla tego działania powinna zostać zwiększona w przyszłych wersjach Entity Framework.
 
-## <a name="model"></a>Model
+## <a name="model"></a>Modelowanie
 
-Przykłady w niniejszym artykule użyć podstawowa blogu i modelu wpisów, gdzie blogu ma wiele wpisów i wpis należy do jednego blogu. Firma Microsoft użyje procedurę składowaną w bazie danych, które zwraca wszystkie blogów i wpisów, podobnie do następującej:
+W przykładach w tym artykule jest używany podstawowy model blogu i ogłoszeń, w których blog zawiera wiele ogłoszeń, a wpis należy do jednego bloga. Będziemy używać procedury składowanej w bazie danych, która zwraca wszystkie blogi i wpisy, podobnie jak w przypadku:
 
 ``` SQL
     CREATE PROCEDURE [dbo].[GetAllBlogsAndPosts]
     AS
-        SELECT * FROM dbo.Blogs
-        SELECT * FROM dbo.Posts
+        SELECT * FROM dbo.Blogs
+        SELECT * FROM dbo.Posts
 ```
 
-## <a name="accessing-multiple-result-sets-with-code"></a>Uzyskiwanie dostępu do wielu wyników ustawia przy użyciu kodu
+## <a name="accessing-multiple-result-sets-with-code"></a>Uzyskiwanie dostępu do wielu zestawów wyników przy użyciu kodu
 
-Firma Microsoft może wykonać kod użycia do wystawiania pierwotne polecenia SQL do wykonywania naszego procedury składowanej. Zaletą tego podejścia jest to, że działa zarówno kod najpierw i projektancie platformy EF.
+Możemy użyć kodu, aby wydać pierwotne polecenie SQL w celu wykonania naszej procedury składowanej. Zaletą tego podejścia jest to, że działa ona zarówno z kodem, jak i programem Dr Designer.
 
-Aby uzyskać wynik wielu ustawia pracy potrzebnych do spadku API obiektu ObjectContext za pomocą interfejsu IObjectContextAdapter.
+Aby można było korzystać z wielu zestawów wyników, musimy porzucić interfejs API ObjectContext przy użyciu interfejsu IObjectContextAdapter.
 
-Gdy będziemy już mieć obiektu ObjectContext, a następnie możemy użyć metody Translate do translacji wyników naszego procedury składowanej do jednostek, które mogą być śledzone i używane w programie EF, jak zwykle. Poniższy przykładowy kod przedstawia to w działaniu.
+Po utworzeniu obiektu ObjectContext możemy użyć metody tłumaczenia, aby przetłumaczyć wyniki naszej procedury składowanej na jednostki, które mogą być śledzone i używane w EF jako normalne. Poniższy przykład kodu demonstruje to w działaniu.
 
 ``` csharp
     using (var db = new BloggingContext())
@@ -82,33 +82,33 @@ Gdy będziemy już mieć obiektu ObjectContext, a następnie możemy użyć meto
     }
 ```
 
-Metoda Translate przyjmuje czytnika, które odebraliśmy, gdy firma Microsoft wykonywane procedury, nazwa obiektu EntitySet i MergeOption. Nazwa obiektu EntitySet będzie taka sama jak właściwość DbSet pochodnej kontekstu. Wyliczenie MergeOption kontroluje sposób obsługi wyniki, jeśli istnieje już tej samej jednostki w pamięci.
+Metoda tłumaczenia akceptuje czytnik otrzymany po wykonaniu procedury, nazwy obiektu EntitySet i MergeOption. Nazwa obiektu EntitySet będzie taka sama jak Właściwość Nieogólnymi w kontekście pochodnym. Wyliczenie MergeOption określa, jak są obsługiwane wyniki, jeśli ta sama jednostka już istnieje w pamięci.
 
-W tym miejscu możemy iterowania po kolekcji blogów przed nazywamy NextResult, jest to ważne, dany kod powyżej, ponieważ pierwszy zestaw wyników, muszą być przetworzone przed przejściem do następnego zestawu wyników.
+W tym miejscu wykonujemy iterację kolekcji blogów przed wywołaniem NextResult. jest to ważne w przypadku powyższego kodu, ponieważ pierwszy zestaw wyników musi być użyty przed przejściem do następnego zestawu wyników.
 
-Po dwóch przetłumaczyć metody są wywoływane, a następnie jednostek blogu i Post są śledzone przez EF w taki sam sposób jak inne jednostki, a zatem być zmodyfikowany lub usunięty i zapisywane jako normalny.
-
->[!NOTE]
-> EF nie przyjmuje żadnego mapowania pod uwagę podczas tworzenia jednostki przy użyciu metody translacji. Będą one po prostu zgodne nazwy kolumn w zestawie wyników z nazwami właściwości w Twoich zajęciach.
+Po wywołaniu dwóch metod translacji blog i wpisy są śledzone przez EF w taki sam sposób jak inne jednostki i dlatego mogą być modyfikowane lub usuwane i zapisywane jako normalne.
 
 >[!NOTE]
-> Czy w przypadku ładowania z opóźnieniem, włączone, uzyskiwania dostępu do właściwości wpisy na jednej z jednostek blogu następnie EF połączy się bazy danych do załadowania opóźnieniem wszystkie wpisy, mimo że firma Microsoft zostały już załadowane je wszystkie. Jest to spowodowane EF nie wiedzieć, czy zostały załadowane wszystkie wpisy lub jeśli istnieje więcej w bazie danych. Jeśli chcesz tego uniknąć, a następnie konieczne będzie wyłączenie ładowania z opóźnieniem.
-
-## <a name="multiple-result-sets-with-configured-in-edmx"></a>Wiele zestawów wyników za pomocą skonfigurowanej w EDMX
+> EF nie przyjmuje mapowania do konta podczas tworzenia jednostek przy użyciu metody tłumaczenia. Będzie po prostu odpowiadać nazwom kolumn w zestawie wyników z nazwami właściwości w klasach.
 
 >[!NOTE]
-> Należy wskazać .NET Framework 4.5, aby mieć możliwość skonfigurowania wielu zestawów wyników w EDMX. Jeśli masz na celu platformy .NET 4.0, można użyć metody oparte na kodzie pokazano w poprzedniej sekcji.
+> Jeśli jest włączone ładowanie z opóźnieniem, uzyskanie dostępu do właściwości Posts w jednej z jednostek blogu spowoduje, że program EF nawiąże połączenie z bazą danych w celu opóźnieniem załadowania wszystkich wpisów, nawet jeśli zostały już załadowane. Wynika to z faktu, że EF nie wie, czy załadowano wszystkie wpisy, czy w bazie danych. Aby tego uniknąć, należy wyłączyć ładowanie z opóźnieniem.
 
-Jeśli używasz projektancie platformy EF, można również zmodyfikować model, aby poinformować go o zestawach różne wyniki, które zostaną zwrócone. Warto zapoznać się przed ręcznie jest, że narzędzi nie jest wynikiem wielu ustawić wiedzieć, więc musisz ręcznie edytować plik edmx. Edytowanie pliku edmx, tak jak to działa, ale spowoduje również przerwanie sprawdzania poprawności modelu w programie VS. Dlatego jeśli Weryfikacja modelu będzie zawsze występują błędy.
+## <a name="multiple-result-sets-with-configured-in-edmx"></a>Wiele zestawów wyników z konfiguracją w EDMX
 
--   W tym celu należy dodać procedurę składowaną do modelu, podobnie jak w przypadku pojedynczego wyniku kwerendy zestawu.
--   Po tym, będzie konieczne modelu kliknij prawym przyciskiem myszy i wybierz **Otwórz za pomocą...** następnie **Xml**
+>[!NOTE]
+> Aby można było skonfigurować wiele zestawów wyników w EDMX, należy wskazać element docelowy .NET Framework 4,5. Jeśli celem jest program .NET 4,0, można użyć metody opartej na kodzie pokazanej w poprzedniej sekcji.
+
+Jeśli używasz programu Dr Designer, możesz również zmodyfikować model, aby wie o różnych zestawach wyników, które zostaną zwrócone. Przede wszystkim należy wiedzieć, że narzędzia nie obsługują wielu zestawów wyników, więc trzeba ręcznie edytować plik EDMX. Edytowanie pliku edmx, tak jak to będzie działało, ale spowoduje również przerwanie weryfikacji modelu w programie VS. Dlatego jeśli sprawdzasz model, zawsze pojawią się błędy.
+
+-   Aby to zrobić, należy dodać procedurę składowaną do modelu, tak jak w przypadku pojedynczego zapytania zestawu wyników.
+-   Po wybraniu tej opcji należy kliknąć prawym przyciskiem myszy Model i wybrać polecenie **Otwórz za pomocą.** następnie **XML**
 
     ![Otwórz jako](~/ef6/media/openas.png)
 
-Masz jeden raz modelu otwarty jako XML, a następnie należy wykonać następujące czynności:
+Po otwarciu modelu jako XML należy wykonać następujące czynności:
 
--   Znajdź złożonych importu typ i funkcję w modelu:
+-   Znajdź typ złożony i import funkcji w modelu:
 
 ``` xml
     <!-- CSDL content -->
@@ -131,10 +131,10 @@ Masz jeden raz modelu otwarty jako XML, a następnie należy wykonać następuj�
     </edmx:ConceptualModels>
 ```
 
- 
+ 
 
 -   Usuń typ złożony
--   Importowanie funkcji należy zaktualizować tak, że jest on mapowany do jednostek, w tym przypadku, który będzie wyglądać następująco:
+-   Zaktualizuj funkcję import, tak aby była mapowana na jednostki, w naszym przypadku będzie wyglądać następująco:
 
 ``` xml
     <FunctionImport Name="GetAllBlogsAndPosts">
@@ -143,7 +143,7 @@ Masz jeden raz modelu otwarty jako XML, a następnie należy wykonać następuj�
     </FunctionImport>
 ```
 
-Informuje modelu, czy procedura składowana zwróci dwie kolekcje, jeden z wpisów w blogu i jeden z wpisów post.
+Oznacza to, że model, który procedura składowana zwróci dwie kolekcje, jeden z wpisów w blogu i jeden z wpisów post.
 
 -   Znajdź element mapowania funkcji:
 
@@ -168,7 +168,7 @@ Informuje modelu, czy procedura składowana zwróci dwie kolekcje, jeden z wpis�
     </edmx:Mappings>
 ```
 
--   Zastąp mapowania wynik jednym dla każdej jednostki, które są zwracane, takie jak następujące:
+-   Zastąp mapowanie wyników jednym dla każdej zwracanej jednostki, na przykład:
 
 ``` xml
     <ResultMapping>
@@ -188,9 +188,9 @@ Informuje modelu, czy procedura składowana zwróci dwie kolekcje, jeden z wpis�
     </ResultMapping>
 ```
 
-Istnieje również możliwość mapowania typów złożonych, takiego jak utworzone domyślnie zestawów wyników. W tym celu możesz utworzyć nowy typ złożony, zamiast je, usuwania i używać złożone typy wszędzie, gdyby użyto nazwy jednostek w powyższych przykładach.
+Istnieje również możliwość mapowania zestawów wyników do typów złożonych, takich jak te utworzone domyślnie. W tym celu należy utworzyć nowy typ złożony, zamiast usuwać go i użyć typów złożonych wszędzie tam, gdzie użyto nazw jednostek w powyższym przykładzie.
 
-Po mapowania te zostały zmienione, można zapisać model i wykonaj następujący kod, aby użyć procedury składowanej:
+Po zmianie tych mapowań można zapisać model i wykonać następujący kod w celu użycia procedury składowanej:
 
 ``` csharp
     using (var db = new BlogEntities())
@@ -214,8 +214,8 @@ Po mapowania te zostały zmienione, można zapisać model i wykonaj następując
 ```
 
 >[!NOTE]
-> Ręczna Edycja pliku edmx dla modelu zostaną zastąpione, jeśli kiedykolwiek ponowne wygenerowanie modelu z bazy danych.
+> Jeśli ręcznie edytujesz plik EDMX dla modelu, zostanie on nadpisany, jeśli kiedykolwiek ponownie wygenerujesz model z bazy danych.
 
 ## <a name="summary"></a>Podsumowanie
 
-Zostały tutaj pokazano dwa różne sposoby uzyskiwania dostępu do wielu wyników ustawia używający narzędzia Entity Framework. Obie z nich są równoważne w zależności od potrzeb i preferencji i wybrać ten, który wydaje się najlepiej w przypadku Twojej sytuacji. Planuje obsługę wielu wyników, których zestawy będą ulepszone w przyszłych wersjach programu Entity Framework i, wykonując kroki opisane w tym dokumencie nie będzie już konieczne.
+W tym miejscu przedstawiono dwie różne metody uzyskiwania dostępu do wielu zestawów wyników przy użyciu Entity Framework. Oba te elementy są równie ważne, w zależności od sytuacji i preferencji, a następnie należy wybrać ten, który jest najlepszy do Twoich potrzeb. Planowane jest, aby obsługa wielu zestawów wyników została ulepszona w przyszłych wersjach Entity Framework i wykonywanie kroków opisanych w tym dokumencie nie będzie już konieczne.

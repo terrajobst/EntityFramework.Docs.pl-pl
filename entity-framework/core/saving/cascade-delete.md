@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 51c8b6f4517a3f87821ed1e4e2d60549e06ed39d
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 6e92b869d691d0224abf1997d9eb7ea035489c5d
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656061"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417615"
 ---
 # <a name="cascade-delete"></a>Usuwanie kaskadowe
 
@@ -41,9 +41,9 @@ W przypadku opcjonalnej relacji (klucz obcy dopuszczający wartość null _) mo�
 | Nazwa zachowania               | Efekt zależny/podrzędny w pamięci    | Efekt zależny/podrzędny w bazie danych  |
 |:----------------------------|:---------------------------------------|:---------------------------------------|
 | **Cascade**                 | Jednostki zostały usunięte                   | Jednostki zostały usunięte                   |
-| **ClientSetNull** (domyślnie) | Właściwości klucza obcego są ustawione na wartość null. | Brak                                   |
+| **ClientSetNull** (domyślnie) | Właściwości klucza obcego są ustawione na wartość null. | None                                   |
 | **SetNull**                 | Właściwości klucza obcego są ustawione na wartość null. | Właściwości klucza obcego są ustawione na wartość null. |
-| **Ograniczone**                | Brak                                   | Brak                                   |
+| **Ograniczone**                | None                                   | None                                   |
 
 ### <a name="required-relationships"></a>Wymagane relacje
 
@@ -52,9 +52,9 @@ W przypadku wymaganych relacji (klucz obcy niedopuszczający wartości null) _ni
 | Nazwa zachowania         | Efekt zależny/podrzędny w pamięci | Efekt zależny/podrzędny w bazie danych |
 |:----------------------|:------------------------------------|:--------------------------------------|
 | **Kaskada** (domyślnie) | Jednostki zostały usunięte                | Jednostki zostały usunięte                  |
-| **ClientSetNull**     | Metody SaveChanges zgłasza                  | Brak                                  |
+| **ClientSetNull**     | Metody SaveChanges zgłasza                  | None                                  |
 | **SetNull**           | Metody SaveChanges zgłasza                  | Metody SaveChanges zgłasza                    |
-| **Ograniczone**          | Brak                                | Brak                                  |
+| **Ograniczone**          | None                                | None                                  |
 
 W podanych powyżej tabelach *żaden* z nich może spowodować naruszenie ograniczenia. Na przykład, jeśli jednostka główna/podrzędna jest usuwana, ale nie jest podejmowana żadna akcja w celu zmiany klucza obcego elementu zależnego/podrzędnego, baza danych prawdopodobnie zgłosi się na metody SaveChanges z powodu naruszenia ograniczenia obcego.
 
@@ -75,7 +75,7 @@ Na wysokim poziomie:
 
 ## <a name="entity-deletion-examples"></a>Przykłady usuwania jednostek
 
-Poniższy kod jest częścią [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/) , którą można pobrać i uruchomić. Przykład pokazuje, co się stanie w przypadku każdego zachowania usuwania zarówno dla relacji opcjonalnych, jak i wymaganych, gdy jednostka nadrzędna jest usuwana.
+Poniższy kod jest częścią [próbki](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/) , którą można pobrać i uruchomić. Przykład pokazuje, co się stanie w przypadku każdego zachowania usuwania zarówno dla relacji opcjonalnych, jak i wymaganych, gdy jednostka nadrzędna jest usuwana.
 
 [!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
 
@@ -186,7 +186,7 @@ Zapoznaj się z informacjami o tym, co się dzieje.
 
 ## <a name="delete-orphans-examples"></a>Usuń przykłady oddzielonych
 
-Poniższy kod jest częścią [próbki](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/) , którą można pobrać i uruchomić. Przykład pokazuje, co się stanie w przypadku każdego zachowania usuwania zarówno dla relacji opcjonalnych, jak i wymaganych, gdy relacja między obiektem nadrzędnym/podmiotem zabezpieczeń a jego elementami podrzędnymi/zależnymi jest poważna. W tym przykładzie relacja jest porzucana przez usunięcie elementów zależnych/podrzędnych (wpisów) z właściwości nawigacji kolekcji na serwerze głównym/nadrzędnym (blog). Zachowanie jest jednak takie samo, jeśli odwołanie od elementu zależnego/podrzędnego do podmiotu zabezpieczeń/nadrzędne jest w zamian wartością null.
+Poniższy kod jest częścią [próbki](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/) , którą można pobrać i uruchomić. Przykład pokazuje, co się stanie w przypadku każdego zachowania usuwania zarówno dla relacji opcjonalnych, jak i wymaganych, gdy relacja między obiektem nadrzędnym/podmiotem zabezpieczeń a jego elementami podrzędnymi/zależnymi jest poważna. W tym przykładzie relacja jest porzucana przez usunięcie elementów zależnych/podrzędnych (wpisów) z właściwości nawigacji kolekcji na serwerze głównym/nadrzędnym (blog). Zachowanie jest jednak takie samo, jeśli odwołanie od elementu zależnego/podrzędnego do podmiotu zabezpieczeń/nadrzędne jest w zamian wartością null.
 
 [!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteOrphansVariations)]
 

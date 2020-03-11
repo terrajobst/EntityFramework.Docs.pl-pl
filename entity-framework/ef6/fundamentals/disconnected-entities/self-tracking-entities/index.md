@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 5e60f5be-7bbb-4bf8-835e-0ac808d6c84a
 ms.openlocfilehash: 3bb9759d89fbd0c10b911625aa7d0afd7747de14
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181727"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419524"
 ---
 # <a name="self-tracking-entities"></a>Jednostki samośledzenia
 
@@ -24,7 +24,7 @@ Ten element szablonu generuje dwa pliki TT (szablon tekstowy):
 - **Nazwa modelu\<\>plik TT** generuje typy jednostek i klasę pomocnika, która zawiera logikę śledzenia zmian, która jest używana przez jednostki samośledzenia i metody rozszerzające, które zezwalają na Ustawianie stanu dla jednostek samodzielnego śledzenia.  
 - **\>nazwy modelu\<. Plik Context.tt** generuje kontekst pochodny i klasę rozszerzenia, która zawiera **metody ApplyChanges —** dla klas **ObjectContext** i **ObjectSet** . Te metody sprawdzają informacje o śledzeniu zmian, które są zawarte na grafie jednostek samodzielnego śledzenia, aby wywnioskować zestaw operacji, które należy wykonać w celu zapisania zmian w bazie danych.  
 
-## <a name="get-started"></a>Rozpocznij  
+## <a name="get-started"></a>Rozpoczęcie pracy  
 
 Aby rozpocząć, odwiedź stronę [przewodnika Samośledzenia jednostek](walkthrough.md) .  
 
@@ -46,7 +46,7 @@ Podczas pracy z jednostkami samośledzenia należy wziąć pod uwagę następuj�
 - Jednostki samośledzące nie są włączone, aby wykonać ładowanie z opóźnieniem.  
 - Serializacja binarna i Serializacja do obiektów ASP.NET State Management nie są obsługiwane przez jednostki samośledzenia. Można jednak dostosować szablon, aby dodać obsługę serializacji binarnej. Aby uzyskać więcej informacji, zobacz [Używanie serializacji binarnej i elementu ViewState z jednostkami samośledzenia](https://go.microsoft.com/fwlink/?LinkId=199208).  
 
-## <a name="security-considerations"></a>Zagadnienia dotyczące zabezpieczeń  
+## <a name="security-considerations"></a>Zagadnienia związane z zabezpieczeniami  
 
 Podczas pracy z jednostkami samodzielnego śledzenia należy wziąć pod uwagę następujące zagadnienia dotyczące zabezpieczeń:  
 

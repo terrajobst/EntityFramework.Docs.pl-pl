@@ -1,39 +1,39 @@
 ---
-title: Przykładowej bazy danych School - EF6
+title: Przykładowa baza danych szkoły — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e83a6a06-e63b-4530-8656-614bf609b12b
 ms.openlocfilehash: 1e9dc98edb8590021bbf3393e9edda1929d505e0
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490717"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416999"
 ---
-# <a name="school-sample-database"></a>Przykładowej bazy danych School
-Ten temat zawiera schemat i dane do bazy danych School. Przykładowa baza danych School jest używana w różnych miejscach w dokumentację programu Entity Framework.  
+# <a name="school-sample-database"></a>Przykładowa bazy danych szkoły
+Ten temat zawiera schemat i dane dla szkolnej bazy danych. Przykładowa baza danych szkoły jest używana w różnych miejscach w dokumentacji Entity Framework.  
 
 > [!NOTE]
-> Serwer bazy danych, który został zainstalowany przy użyciu programu Visual Studio różni się zależnie od wersji programu Visual Studio, możesz użyć. Zobacz [wersji usługi Visual Studio](~/ef6/what-is-new/visual-studio.md) szczegółowe informacje na temat rozwiązania do zastosowania.  
+> Serwer bazy danych zainstalowany przy użyciu programu Visual Studio różni się w zależności od używanej wersji programu Visual Studio. Zobacz [wersje programu Visual Studio](~/ef6/what-is-new/visual-studio.md) , aby uzyskać szczegółowe informacje na temat tego, czego używać.  
 
-Poniżej przedstawiono kroki umożliwiające utworzenie bazy danych:
+Poniżej przedstawiono kroki, które należy wykonać, aby utworzyć bazę danych:
 
-- Otwórz program Visual Studio  
-- **Widok** -> **Eksploratora serwera**  
-- Kliknij prawym przyciskiem myszy **połączeń danych** -> **Dodaj połączenie...**  
-- Jeśli nie jest połączona z bazą danych za pomocą Eksploratora serwera, zanim będzie konieczne wybranie **programu Microsoft SQL Server** jako źródło danych  
-- Łączenie się z LocalDB lub SQL Express, w zależności od tego, który z nich został zainstalowany  
-- Wprowadź **School** jako nazwa bazy danych  
-- Wybierz **OK** i uzyskasz, jeśli chcesz utworzyć nową bazę danych, wybierz opcję **tak**  
-- Nowa baza danych będzie teraz wyświetlany w Eksploratorze serwera  
-- Jeśli używasz programu Visual Studio 2012 lub nowszy
-    - Kliknij prawym przyciskiem myszy w bazie danych w Eksploratorze serwera i wybierz **nowe zapytanie**  
-    - Skopiuj następujące instrukcje SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy, zapytania i wybierz pozycję **wykonania**  
+- Otwórz program Visual Studio.  
+- **Wyświetl** -> **Eksplorator serwera**  
+- Kliknij prawym przyciskiem myszy pozycję **połączenia danych** -> **Dodaj połączenie...**  
+- Jeśli nie masz połączenia z bazą danych Eksplorator serwera przed wybraniem **Microsoft SQL Server** jako źródła danych  
+- Nawiąż połączenie z usługą LocalDB lub SQL Express, w zależności od tego, który z nich jest zainstalowany  
+- Wprowadź **szkołę** jako nazwę bazy danych  
+- Wybierz pozycję **OK** . pojawi się monit z prośbą o utworzenie nowej bazy danych, a następnie wybierz pozycję **tak** .  
+- Nowa baza danych zostanie wyświetlona w Eksplorator serwera  
+- Jeśli używasz programu Visual Studio w wersji 2012 lub nowszej
+    - Kliknij prawym przyciskiem myszy bazę danych w Eksplorator serwera a następnie wybierz pozycję **nowe zapytanie** .  
+    - Skopiuj następujące SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy zapytanie i wybierz polecenie **Execute (wykonaj** ).  
 - Jeśli używasz programu Visual Studio 2010  
-    - Wybierz **danych** -> **języka Transact SQL edytora** -> **nowego połączenia zapytania...**  
-    - Wprowadź **. \SQLEXPRESS** jako nazwę serwera i kliknij przycisk **OK**  
-    - Wybierz **STESample** bazy danych z listy rozwijanej w górnej części edytora zapytań  
-    - Skopiuj następujące instrukcje SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy, zapytania i wybierz pozycję **wykonaj instrukcję SQL**  
+    - Wybierz pozycję **dane** -> **edytor SQL Transact** -> **nowe połączenie zapytania...**  
+    - Wprowadź **.\SQLEXPRESS** jako nazwę serwera, a następnie kliknij przycisk **OK** .  
+    - Wybierz bazę danych **STESample** z listy rozwijanej w górnej części edytora zapytań.  
+    - Skopiuj poniższy kod SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy zapytanie i wybierz polecenie **Wykonaj SQL**  
 
 ``` SQL  
 SET ANSI_NULLS ON

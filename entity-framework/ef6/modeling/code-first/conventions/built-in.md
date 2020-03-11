@@ -1,29 +1,29 @@
 ---
-title: Pierwszy konwencje - EF6
+title: Konwencje Code First — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: bc644573-c2b2-4ed7-8745-3c37c41058ad
 ms.openlocfilehash: 4d03a32db5d84eb37c22617a95005b272172a65d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45491003"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419291"
 ---
-# <a name="code-first-conventions"></a>Pierwszy konwencje związane z
-Kod najpierw umożliwia opisują modelu przy użyciu klas języka C# lub Visual Basic .NET. Wykryto kształtu podstawowego modelu przy użyciu Konwencji. Konwencje to zestawy reguł, które są używane do automatycznego konfigurowania modelu koncepcyjnego oparte na definicje klas, podczas pracy z usługą Code First. Konwencje są zdefiniowane w przestrzeni nazw System.Data.Entity.ModelConfiguration.Conventions.  
+# <a name="code-first-conventions"></a>Konwencje Code First
+Code First pozwala na opisywanie modelu przy użyciu C# lub Visual Basic klas platformy .NET. Podstawowy kształt modelu jest wykrywany przy użyciu konwencji. Konwencje to zestawy reguł, które są używane do automatycznego konfigurowania modelu koncepcyjnego na podstawie definicji klas podczas pracy z Code First. Konwencje są zdefiniowane w przestrzeni nazw System. Data. Entity. ModelConfiguration. Conventions.  
 
-Model można dodatkowo skonfigurować przy użyciu adnotacji danych lub interfejsu API fluent. Pierwszeństwo jest przyznawane konfiguracji za pomocą interfejsu API fluent adnotacje danych, a następnie Konwencji. Aby uzyskać więcej informacji, zobacz [adnotacje danych](~/ef6/modeling/code-first/data-annotations.md), [interfejs Fluent API — relacje](~/ef6/modeling/code-first/fluent/relationships.md), [interfejs Fluent API — typy & właściwości](~/ef6/modeling/code-first/fluent/types-and-properties.md) i [Fluent interfejsu API za pomocą VB.NET](~/ef6/modeling/code-first/fluent/vb.md).  
+Możesz również skonfigurować model przy użyciu adnotacji danych lub interfejsu API Fluent. Pierwszeństwo jest przyznany do konfiguracji za pomocą interfejsu API Fluent, a następnie adnotacje danych, a następnie konwencje. Aby uzyskać więcej informacji, zobacz [Adnotacje dotyczące danych](~/ef6/modeling/code-first/data-annotations.md), usługi [Fluent API i relacje](~/ef6/modeling/code-first/fluent/relationships.md)z [interfejsem API Fluent — typy & właściwości](~/ef6/modeling/code-first/fluent/types-and-properties.md) i [interfejs API Fluent z VB.NET](~/ef6/modeling/code-first/fluent/vb.md).  
 
-Szczegółowa lista konwencje Code First jest dostępna w [dokumentacji interfejsu API](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx). Ten temat zawiera omówienie Konwencji używanych przez rozwiązanie Code First.  
+Szczegółowa lista konwencji Code First jest dostępna w [dokumentacji interfejsu API](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx). Ten temat zawiera omówienie Konwencji używanych przez Code First.  
 
-## <a name="type-discovery"></a>Typ odnajdywania  
+## <a name="type-discovery"></a>Odnajdowanie typów  
 
-Korzystając z rozwiązania deweloperskiego Code First zwykle Rozpocznij od pisania klas .NET Framework, które definiują model koncepcyjny (domena). Oprócz definiowania klasy, należy również umożliwić **DbContext** wiedzieć, jakie typy, które mają zostać uwzględnione w modelu. Aby to zrobić, należy zdefiniować klasy kontekstu, która pochodzi od klasy **DbContext** i udostępnia **DbSet** właściwości dla typów, które mają być częścią modelu. Kod najpierw będzie zawierać tych typów i również będzie ściągać wszystkie typy odwołania, nawet jeśli przywoływane typy są definiowane w innym zestawie.  
+W przypadku korzystania z Code First projektowania zwykle zaczynasz od pisania klas .NET Framework, które definiują model koncepcyjny (domeny). Oprócz definiowania klas należy również pozwolić, aby **DbContext** wie, które typy mają być uwzględnione w modelu. W tym celu należy zdefiniować klasę kontekstową, która pochodzi z **DbContext** i uwidacznia właściwości **nieogólnymi** dla typów, które mają być częścią modelu. Code First będzie zawierać te typy, a także będzie ściągać w dowolnych typach, do których istnieją odwołania, nawet jeśli typy, do których istnieją odwołania, są zdefiniowane w innym zestawie.  
 
-Jeśli Twoje typy brać udziału w hierarchii dziedziczenia, jest wystarczający, aby zdefiniować **DbSet** właściwości dla klasy bazowej, a typów pochodnych zostanie automatycznie dołączony, jeśli są w tym samym zestawie jako klasa bazowa.  
+Jeśli typy uczestniczą w hierarchii dziedziczenia, wystarczy zdefiniować Właściwość **nieogólnymi** dla klasy bazowej, a typy pochodne zostaną automatycznie uwzględnione, jeśli znajdują się w tym samym zestawie co Klasa bazowa.  
 
-W poniższym przykładzie jest tylko jedna **DbSet** właściwości zdefiniowane w **SchoolEntities** klasy (**działów**). Kod najpierw używa tej właściwości do odnalezienia i pobieraj żadnych typów odwołania.  
+W poniższym przykładzie istnieje tylko jedna właściwość **nieogólnymi** zdefiniowana w klasie **SchoolEntities** (**departaments**). Code First używa tej właściwości do odnajdywania i ściągania dowolnych typów, do których istnieją odwołania.  
 
 ``` csharp
 public class SchoolEntities : DbContext
@@ -69,7 +69,7 @@ public partial class OnsiteCourse : Course
 }
 ```  
 
-Aby wyłączyć typ z modelu, należy użyć **NotMapped** atrybutu lub **DbModelBuilder.Ignore** wygodnego interfejsu API.  
+Jeśli chcesz wykluczyć typ z modelu, Użyj atrybutu **NotMapped** lub **DbModelBuilder. ignore** Fluent API.  
 
 ```  csharp
 modelBuilder.Ignore<Department>();
@@ -77,7 +77,7 @@ modelBuilder.Ignore<Department>();
 
 ## <a name="primary-key-convention"></a>Konwencja klucza podstawowego  
 
-Kod najpierw wnioskuje, że właściwość jest kluczem podstawowym, czy właściwości klasy ma nazwę "ID" (bez uwzględniania wielkości liter), a następnie nazwę klasy "ID". Jeśli typ właściwość klucza podstawowego jest wartością liczbową lub identyfikator GUID zostanie on skonfigurowany jako kolumny tożsamości.  
+Code First wniosku, że właściwość jest kluczem podstawowym, jeśli właściwość klasy ma nazwę "ID" (bez uwzględniania wielkości liter) lub nazwę klasy, po której następuje wartość "ID". Jeśli typ właściwości klucz podstawowy ma wartość numeryczną lub identyfikator GUID, zostanie on skonfigurowany jako kolumna tożsamości.  
 
 ``` csharp
 public class Department
@@ -92,13 +92,13 @@ public class Department
 
 ## <a name="relationship-convention"></a>Konwencja relacji  
 
-Platformy Entity Framework właściwości nawigacji Podaj sposób przechodzenia relację między dwoma typami encji. Każdy obiekt może mieć właściwości nawigacji dla każdej relacji, w których uczestniczy. Właściwości nawigacji pozwala na przechodzenie relacji i zarządzanie nimi w obu kierunkach, zwracając obiekt odwołania (Jeśli liczebność jest jedną lub zero lub jeden) lub kolekcji (Jeśli liczebność to wiele). Kod najpierw wnioskuje relacje na podstawie właściwości nawigacji zdefiniowany dla typów.  
+W Entity Framework właściwości nawigacji umożliwiają nawigowanie po relacjach między dwoma typami jednostek. Każdy obiekt może mieć właściwość nawigacji dla każdej relacji, w której uczestniczy. Właściwości nawigacji umożliwiają Nawigowanie między relacjami i zarządzanie nimi w obu kierunkach, zwracając obiekt odniesienia (Jeśli liczebność jest równa jeden lub zero-lub-jeden) lub kolekcji (Jeśli liczebność ma wiele wartości). Code First wnioskuje relacje na podstawie właściwości nawigacji zdefiniowanych w Twoich typach.  
 
-Oprócz właściwości nawigacji zaleca się, że zawrzesz właściwości klucza obcego na typy, które reprezentują obiekty zależne. Dowolną właściwość przy użyciu tego samego typu danych jako główną właściwość klucza podstawowego i nazwą, która jest zgodna z jedną z następujących formatów reprezentuje klucz obcy dla relacji: "\<nazwy właściwości nawigacji\>\<podmiotu zabezpieczeń Nazwa właściwości klucza podstawowego\>','\<Nazwa klasy jednostki\>\<nazwa właściwość klucza podstawowego\>", lub"\<nazwa główna właściwość klucza podstawowego\>". Jeśli nie zostaną znalezione wiele dopasowań pierwszeństwo jest przyznawane w kolejności podanej powyżej. Wykrywanie klucza obcego nie jest uwzględniana wielkość liter. Po wykryciu właściwości klucza obcego Code First wnioskuje liczebność relacji, w oparciu o dopuszczania wartości Null klucza obcego. Jeśli właściwość ma wartość null następnie relacji jest zarejestrowany jako opcjonalna. w przeciwnym razie relacja jest zarejestrowany zgodnie z wymaganiami.  
+Oprócz właściwości nawigacji zaleca się dołączenie właściwości klucza obcego dla typów, które reprezentują obiekty zależne. Każda właściwość o tym samym typie danych co Właściwość głównego klucza głównego i o nazwie, która ma następujący format reprezentuje klucz obcy relacji: "\<nazwa właściwości nawigacji\>\<głównej nazwy właściwości klucza podstawowego\>", "\<głównej nazwy klasy\>" \<nazwa właściwości klucza podstawowego\>"lub"\<głównej nazwy właściwości klucza podstawowego\>". Jeśli zostanie znalezionych wiele dopasowań, pierwszeństwo jest podany w kolejności podanej powyżej. W przypadku wykrywania klucza obcego nie jest rozróżniana wielkość liter. Gdy zostanie wykryta właściwość klucza obcego, Code First ustala liczebność relacji na podstawie wartości null klucza obcego. Jeśli właściwość dopuszcza wartość null, relacja jest zarejestrowana jako opcjonalna. w przeciwnym razie relacja jest zarejestrowana zgodnie z wymaganiami.  
 
-Jeśli klucz obcy dla jednostki zależne nie dopuszcza wartości null, następnie Code First ustawia usuwanie kaskadowe relacji. Jeśli klucz obcy dla jednostki zależne ma wartość null, Code First nie ustawia usuwanie kaskadowe relacji i gdy podmiot zabezpieczeń został usunięty klucz obcy zostanie ustawiona na wartość null. Liczebność i cascade Usuń zachowanie wykryta przez Konwencję może zostać przesłonięta przez przy użyciu interfejsu API fluent.  
+Jeśli klucz obcy jednostki zależnej nie dopuszcza wartości null, Code First ustawia kaskadowe usuwanie dla relacji. Jeśli klucz obcy podmiotu zależnego ma wartość null, Code First nie ustawi kaskadowego usuwania dla relacji i po usunięciu podmiotu zabezpieczeń klucz obcy zostanie ustawiony na wartość null. Sposób mnożenia i usuwania kaskadowego wykrywany przez Konwencję można zastąpić za pomocą interfejsu API Fluent.  
 
-W poniższym przykładzie właściwości nawigacji i klucza obcego są używane do definiowania relacji między klasami dział i kursów.  
+W poniższym przykładzie właściwości nawigacji i klucz obcy są używane do definiowania relacji między klasami działów i kursów.  
 
 ``` csharp
 public class Department
@@ -128,11 +128,11 @@ public class Course
 ```  
 
 > [!NOTE]
-> Jeśli masz wiele relacji między tymi samymi typami (na przykład, załóżmy, że należy zdefiniować **osoby** i **książki** klas, gdzie **osoby** klasa zawiera  **ReviewedBooks** i **AuthoredBooks** właściwości nawigacji i **książki** klasa zawiera **Autor** i  **Weryfikacja** właściwości nawigacji), musisz ręcznie skonfigurować relacje przy użyciu adnotacji danych lub interfejsu API fluent. Aby uzyskać więcej informacji, zobacz [adnotacje danych — relacje](~/ef6/modeling/code-first/data-annotations.md) i [interfejs Fluent API — relacje](~/ef6/modeling/code-first/fluent/relationships.md).  
+> Jeśli istnieje wiele relacji między tymi samymi typami (na przykład załóżmy, że definiujesz klasy **osoba** i **książka** , gdzie Klasa **Person** zawiera właściwości nawigacji **ReviewedBooks** i **AuthoredBooks** , a Klasa **Book** zawiera właściwości nawigacji **autora** i **recenzenta** ) musisz ręcznie skonfigurować relacje przy użyciu adnotacji danych lub interfejsu API Fluent. Aby uzyskać więcej informacji, zobacz [Adnotacje dotyczące danych — relacje](~/ef6/modeling/code-first/data-annotations.md) i [interfejs API Fluent — relacje](~/ef6/modeling/code-first/fluent/relationships.md).  
 
-## <a name="complex-types-convention"></a>Typy złożone Konwencji  
+## <a name="complex-types-convention"></a>Konwencja typów złożonych  
 
-Gdy Code First odnajduje definicję klasy, w którym klucz podstawowy, nie można wywnioskować, a nie klucza podstawowego jest zarejestrowana przy użyciu adnotacji danych lub interfejsu API fluent, ten typ jest automatycznie zarejestrowany jako typ złożony. Wykrywanie typu złożonego wymaga również, że typ nie ma właściwości, które odwołują się typów jednostek i nie odwołuje się właściwość kolekcji innego typu. Biorąc pod uwagę następujące definicje klas Code First może wywnioskować, **szczegóły** jest typem złożonym, ponieważ ma ona bez klucza podstawowego.  
+Gdy Code First odnajduje definicję klasy, w której nie można wywnioskować klucza podstawowego, a klucz podstawowy nie jest zarejestrowany za pomocą adnotacji danych lub interfejsu API Fluent, typ jest automatycznie rejestrowany jako typ złożony. Wykrywanie typu złożonego wymaga również, aby typ nie miał właściwości, które odwołują się do typów jednostek i nie jest przywoływany przez właściwość kolekcji innego typu. Uwzględniając następujące definicje klas Code First mogą wnioskować, że **szczegóły** są typu złożonego, ponieważ nie ma klucza podstawowego.  
 
 ``` csharp
 public partial class OnsiteCourse : Course
@@ -153,13 +153,13 @@ public class Details
 }
 ```  
 
-## <a name="connection-string-convention"></a>Konwencja ciąg połączenia  
+## <a name="connection-string-convention"></a>Konwencja parametrów połączenia  
 
-Aby dowiedzieć się o z konwencjami, czy kontekst DbContext używa do odnajdywania połączenie zobacz [połączenia i modele](~/ef6/fundamentals/configuring/connection-strings.md).  
+Aby dowiedzieć się więcej na temat Konwencji używanych przez DbContext do wykrywania połączenia do użycia, zobacz [połączenia i modele](~/ef6/fundamentals/configuring/connection-strings.md).  
 
 ## <a name="removing-conventions"></a>Usuwanie Konwencji  
 
-Możesz usunąć dowolne konwencje zdefiniowany w przestrzeni nazw System.Data.Entity.ModelConfiguration.Conventions. Poniższy przykład usuwa **PluralizingTableNameConvention**.  
+Można usunąć wszystkie konwencje zdefiniowane w przestrzeni nazw System. Data. Entity. ModelConfiguration. Conventions. Poniższy przykład usuwa **PluralizingTableNameConvention**.  
 
 ``` csharp
 public class SchoolEntities : DbContext
@@ -178,4 +178,4 @@ public class SchoolEntities : DbContext
 
 ## <a name="custom-conventions"></a>Konwencje niestandardowe  
 
-Konwencje niestandardowe są obsługiwane w EF6 i nowszych wersjach. Aby uzyskać więcej informacji, zobacz [konwencje pierwszy kod niestandardowy](~/ef6/modeling/code-first/conventions/custom.md).
+Konwencje niestandardowe są obsługiwane w programie EF6 lub nowszym. Aby uzyskać więcej informacji, zobacz [konwencje Code First niestandardowych](~/ef6/modeling/code-first/conventions/custom.md).

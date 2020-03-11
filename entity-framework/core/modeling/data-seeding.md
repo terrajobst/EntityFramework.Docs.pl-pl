@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 11/02/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/data-seeding
-ms.openlocfilehash: 0b11b6b3104b74e09c60c9c455e22f164df493c7
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 5c056c600f696ad1443ddb7b8c95c4b0ead06d21
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655767"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417227"
 ---
 # <a name="data-seeding"></a>Wstępne wypełnianie danych
 
@@ -25,7 +25,7 @@ Można to zrobić na kilka sposobów w EF Core:
 ## <a name="model-seed-data"></a>Modelowanie danych inicjatora
 
 > [!NOTE]
-> Ta funkcja jest nowa w EF Core 2,1.
+> Ta funkcja jest nowa na platformie EF Core 2.1.
 
 W przeciwieństwie do EF6, w EF Core, umieszczania danych można kojarzyć z typem jednostki w ramach konfiguracji modelu. Następnie EF Core [migracji](xref:core/managing-schemas/migrations/index) mogą automatycznie obliczyć operacje wstawiania, aktualizowania lub usuwania, które należy zastosować podczas uaktualniania bazy danych do nowej wersji modelu.
 
@@ -48,7 +48,7 @@ Typy jednostek będących własnością mogą być umieszczane w podobny sposób
 
 [!code-csharp[OwnedTypeSeed](../../../samples/core/Modeling/DataSeeding/DataSeedingContext.cs?name=OwnedTypeSeed)]
 
-Zobacz [pełny przykładowy projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/DataSeeding) , aby uzyskać więcej kontekstu.
+Zobacz [pełny przykładowy projekt](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Modeling/DataSeeding) , aby uzyskać więcej kontekstu.
 
 Po dodaniu danych do modelu [migracja](xref:core/managing-schemas/migrations/index) powinna zostać użyta do zastosowania zmian.
 

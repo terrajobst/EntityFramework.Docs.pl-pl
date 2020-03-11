@@ -4,11 +4,11 @@ author: ajcvickers
 ms.date: 12/03/2019
 uid: core/what-is-new/ef-core-3.0/breaking-changes
 ms.openlocfilehash: 6e0c17a22b56b206f18e47f678e3e237d5c42375
-ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/30/2020
-ms.locfileid: "76888112"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417462"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Istotne zmiany zawarte w EF Core 3,0
 
@@ -17,7 +17,7 @@ Zmiany, których oczekujemy tylko dostawcy bazy danych, są udokumentowane w obs
 
 ## <a name="summary"></a>Podsumowanie
 
-| **Zmiana powodująca niezgodność**                                                                                               | **Wpływ** |
+| **Zmiana podziału**                                                                                               | **Wpływ** |
 |:------------------------------------------------------------------------------------------------------------------|------------|
 | [Zapytania LINQ nie są już oceniane na kliencie](#linq-queries-are-no-longer-evaluated-on-the-client)         | Wysoka       |
 | [EF Core 3,0 cele .NET Standard 2,1, a nie .NET Standard 2,0](#netstandard21) | Wysoka      |
@@ -25,55 +25,55 @@ Zmiany, których oczekujemy tylko dostawcy bazy danych, są udokumentowane w obs
 | [DetectChanges uznaje wartości klucza generowane przez magazyn](#dc) | Wysoka      |
 | [Nazwy Z tabel, ExecuteSql by i ExecuteSqlAsync](#fromsql) | Wysoka      |
 | [Typy zapytań są konsolidowane z typami jednostek](#qt) | Wysoka      |
-| [Entity Framework Core nie jest już częścią ASP.NET Core współdzielonej struktury](#no-longer) | Średnia      |
-| [Usuwanie kaskadowe jest teraz wykonywane natychmiast domyślnie](#cascade) | Średnia      |
-| [Eager ładowanie pokrewnych jednostek odbywa się teraz w pojedynczym zapytaniu](#eager-loading-single-query) | Średnia      |
-| [DeleteBehavior. ograniczanie ma semantykę oczyszczarki](#deletebehavior) | Średnia      |
-| [Interfejs API konfiguracji dla relacji typu posiadanego został zmieniony](#config) | Średnia      |
-| [Każda właściwość używa niezależnej generacji klucza w pamięci](#each) | Średnia      |
-| [Zapytania nie śledzące już nie wykonują rozpoznawania tożsamości](#notrackingresolution) | Średnia      |
-| [Zmiany interfejsu API metadanych](#metadata-api-changes) | Średnia      |
-| [Zmiany w interfejsie API metadanych specyficzne dla dostawcy](#provider) | Średnia      |
-| [UseRowNumberForPaging został usunięty](#urn) | Średnia      |
-| [Nie można składować metody Z tabel, gdy jest używana z procedurą składowaną](#fromsqlsproc) | Średnia      |
-| [Metody Z tabel można określić tylko dla katalogów głównych zapytań](#fromsql) | Niski      |
-| [~~Wykonywanie zapytania jest rejestrowane na poziomie debugowania~~ Przywrócono](#qe) | Niski      |
-| [Wartości klucza tymczasowego nie są już ustawione na wystąpienia jednostek](#tkv) | Niski      |
-| [Jednostki zależne współużytkujące tabelę z podmiotem zabezpieczeń są teraz opcjonalne](#de) | Niski      |
-| [Wszystkie jednostki współużytkujące tabelę z kolumną Token współbieżności muszą mapować ją na Właściwość](#aes) | Niski      |
-| [Nie można wykonać zapytania dotyczącego jednostek będących własnością, bez właściciela przy użyciu zapytania śledzenia](#owned-query) | Niski      |
-| [Dziedziczone właściwości z niemapowanych typów są teraz mapowane na pojedynczą kolumnę dla wszystkich typów pochodnych](#ip) | Niski      |
-| [Konwencja właściwości klucza obcego nie jest już zgodna z tą samą nazwą co właściwość podmiotu zabezpieczeń](#fkp) | Niski      |
-| [Połączenie z bazą danych jest teraz zamknięte, jeśli nie jest używane już przed ukończeniem elementu TransactionScope](#dbc) | Niski      |
-| [Pola zapasowe są używane domyślnie](#backing-fields-are-used-by-default) | Niski      |
-| [Zgłoś, czy znaleziono wiele zgodnych pól zapasowych](#throw-if-multiple-compatible-backing-fields-are-found) | Niski      |
-| [Nazwy właściwości tylko dla pól powinny być zgodne z nazwą pola](#field-only-property-names-should-match-the-field-name) | Niski      |
-| [AddDbContext/AddDbContextPool nie wywołuje już metody addlogging i AddMemoryCache](#adddbc) | Niski      |
-| [AddEntityFramework * dodaje IMemoryCache z limitem rozmiaru](#addentityframework-adds-imemorycache-with-a-size-limit) | Niski      |
-| [DbContext. entry wykonuje teraz lokalną DetectChanges](#dbe) | Niski      |
-| [Klucze tablic ciągów i bajtów nie są generowane domyślnie przez klienta](#string-and-byte-array-keys-are-not-client-generated-by-default) | Niski      |
-| [ILoggerFactory jest teraz usługą objętą zakresem](#ilf) | Niski      |
-| [Pobieranie z opóźnieniem — nie zakłada się już, że właściwości nawigacji są w pełni załadowane](#lazy-loading-proxies-no-longer-assume-navigation-properties-are-fully-loaded) | Niski      |
-| [Nadmierne Tworzenie wewnętrznych dostawców usług jest teraz domyślnie błędem](#excessive-creation-of-internal-service-providers-is-now-an-error-by-default) | Niski      |
-| [Nowe zachowanie dla HasOne/HasMany wywoływane z pojedynczym ciągiem](#nbh) | Niski      |
-| [Typ zwracany dla kilku metod asynchronicznych został zmieniony z zadania na ValueTask](#rtnt) | Niski      |
-| [Adnotacja relacyjna: TypeMapping ma teraz tylko Właściwość TypeMapping](#rtt) | Niski      |
-| [ToTable dla typu pochodnego zgłasza wyjątek](#totable-on-a-derived-type-throws-an-exception) | Niski      |
-| [Nie EF Core już wysyłać dyrektywy pragma dla wymuszania programu SQLite FK](#pragma) | Niski      |
-| [Microsoft. EntityFrameworkCore. sqlite teraz zależy od SQLitePCLRaw. bundle_e_sqlite3](#sqlite3) | Niski      |
-| [Wartości identyfikatorów GUID są teraz przechowywane jako tekst na komputerze SQLite](#guid) | Niski      |
-| [Wartości char są teraz przechowywane jako tekst na komputerze SQLite](#char) | Niski      |
-| [Identyfikatory migracji są teraz generowane przy użyciu kalendarza niezmiennej kultury](#migid) | Niski      |
-| [Informacje o rozszerzeniu/metadane zostały usunięte z IDbContextOptionsExtension](#xinfo) | Niski      |
-| [Zmieniono nazwę LogQueryPossibleExceptionWithAggregateOperator](#lqpe) | Niski      |
-| [Wyjaśnienie interfejsu API nazw ograniczeń klucza obcego](#clarify) | Niski      |
-| [IRelationalDatabaseCreator. HasTables/HasTablesAsync zostały udostępnione publicznie](#irdc2) | Niski      |
-| [Microsoft. EntityFrameworkCore. Design jest teraz pakietem DevelopmentDependency](#dip) | Niski      |
-| [SQLitePCL. Raw Zaktualizowano do wersji 2.0.0](#SQLitePCL) | Niski      |
-| [NetTopologySuite Zaktualizowano do wersji 2.0.0](#NetTopologySuite) | Niski      |
-| [Firma Microsoft. Data. SqlClient jest używana zamiast elementu System. Data. SqlClient](#SqlClient) | Niski      |
-| [Należy skonfigurować wiele niejednoznacznych relacji odwołujących się do siebie.](#mersa) | Niski      |
-| [Dbfunction. schemat mający wartość null lub pusty ciąg konfiguruje go jako domyślny schemat modelu](#udf-empty-string) | Niski      |
+| [Entity Framework Core nie jest już częścią ASP.NET Core współdzielonej struktury](#no-longer) | Medium      |
+| [Usuwanie kaskadowe jest teraz wykonywane natychmiast domyślnie](#cascade) | Medium      |
+| [Eager ładowanie pokrewnych jednostek odbywa się teraz w pojedynczym zapytaniu](#eager-loading-single-query) | Medium      |
+| [DeleteBehavior. ograniczanie ma semantykę oczyszczarki](#deletebehavior) | Medium      |
+| [Interfejs API konfiguracji dla relacji typu posiadanego został zmieniony](#config) | Medium      |
+| [Każda właściwość używa niezależnej generacji klucza w pamięci](#each) | Medium      |
+| [Zapytania nie śledzące już nie wykonują rozpoznawania tożsamości](#notrackingresolution) | Medium      |
+| [Zmiany interfejsu API metadanych](#metadata-api-changes) | Medium      |
+| [Zmiany w interfejsie API metadanych specyficzne dla dostawcy](#provider) | Medium      |
+| [UseRowNumberForPaging został usunięty](#urn) | Medium      |
+| [Nie można składować metody Z tabel, gdy jest używana z procedurą składowaną](#fromsqlsproc) | Medium      |
+| [Metody Z tabel można określić tylko dla katalogów głównych zapytań](#fromsql) | Małe      |
+| [~~Wykonywanie zapytania jest rejestrowane na poziomie debugowania~~ Przywrócono](#qe) | Małe      |
+| [Wartości klucza tymczasowego nie są już ustawione na wystąpienia jednostek](#tkv) | Małe      |
+| [Jednostki zależne współużytkujące tabelę z podmiotem zabezpieczeń są teraz opcjonalne](#de) | Małe      |
+| [Wszystkie jednostki współużytkujące tabelę z kolumną Token współbieżności muszą mapować ją na Właściwość](#aes) | Małe      |
+| [Nie można wykonać zapytania dotyczącego jednostek będących własnością, bez właściciela przy użyciu zapytania śledzenia](#owned-query) | Małe      |
+| [Dziedziczone właściwości z niemapowanych typów są teraz mapowane na pojedynczą kolumnę dla wszystkich typów pochodnych](#ip) | Małe      |
+| [Konwencja właściwości klucza obcego nie jest już zgodna z tą samą nazwą co właściwość podmiotu zabezpieczeń](#fkp) | Małe      |
+| [Połączenie z bazą danych jest teraz zamknięte, jeśli nie jest używane już przed ukończeniem elementu TransactionScope](#dbc) | Małe      |
+| [Pola zapasowe są używane domyślnie](#backing-fields-are-used-by-default) | Małe      |
+| [Zgłoś, czy znaleziono wiele zgodnych pól zapasowych](#throw-if-multiple-compatible-backing-fields-are-found) | Małe      |
+| [Nazwy właściwości tylko dla pól powinny być zgodne z nazwą pola](#field-only-property-names-should-match-the-field-name) | Małe      |
+| [AddDbContext/AddDbContextPool nie wywołuje już metody addlogging i AddMemoryCache](#adddbc) | Małe      |
+| [AddEntityFramework * dodaje IMemoryCache z limitem rozmiaru](#addentityframework-adds-imemorycache-with-a-size-limit) | Małe      |
+| [DbContext. entry wykonuje teraz lokalną DetectChanges](#dbe) | Małe      |
+| [Klucze tablic ciągów i bajtów nie są generowane domyślnie przez klienta](#string-and-byte-array-keys-are-not-client-generated-by-default) | Małe      |
+| [ILoggerFactory jest teraz usługą objętą zakresem](#ilf) | Małe      |
+| [Pobieranie z opóźnieniem — nie zakłada się już, że właściwości nawigacji są w pełni załadowane](#lazy-loading-proxies-no-longer-assume-navigation-properties-are-fully-loaded) | Małe      |
+| [Nadmierne Tworzenie wewnętrznych dostawców usług jest teraz domyślnie błędem](#excessive-creation-of-internal-service-providers-is-now-an-error-by-default) | Małe      |
+| [Nowe zachowanie dla HasOne/HasMany wywoływane z pojedynczym ciągiem](#nbh) | Małe      |
+| [Typ zwracany dla kilku metod asynchronicznych został zmieniony z zadania na ValueTask](#rtnt) | Małe      |
+| [Adnotacja relacyjna: TypeMapping ma teraz tylko Właściwość TypeMapping](#rtt) | Małe      |
+| [ToTable dla typu pochodnego zgłasza wyjątek](#totable-on-a-derived-type-throws-an-exception) | Małe      |
+| [Nie EF Core już wysyłać dyrektywy pragma dla wymuszania programu SQLite FK](#pragma) | Małe      |
+| [Microsoft. EntityFrameworkCore. sqlite teraz zależy od SQLitePCLRaw. bundle_e_sqlite3](#sqlite3) | Małe      |
+| [Wartości identyfikatorów GUID są teraz przechowywane jako tekst na komputerze SQLite](#guid) | Małe      |
+| [Wartości char są teraz przechowywane jako tekst na komputerze SQLite](#char) | Małe      |
+| [Identyfikatory migracji są teraz generowane przy użyciu kalendarza niezmiennej kultury](#migid) | Małe      |
+| [Informacje o rozszerzeniu/metadane zostały usunięte z IDbContextOptionsExtension](#xinfo) | Małe      |
+| [Zmieniono nazwę LogQueryPossibleExceptionWithAggregateOperator](#lqpe) | Małe      |
+| [Wyjaśnienie interfejsu API nazw ograniczeń klucza obcego](#clarify) | Małe      |
+| [IRelationalDatabaseCreator. HasTables/HasTablesAsync zostały udostępnione publicznie](#irdc2) | Małe      |
+| [Microsoft. EntityFrameworkCore. Design jest teraz pakietem DevelopmentDependency](#dip) | Małe      |
+| [SQLitePCL. Raw Zaktualizowano do wersji 2.0.0](#SQLitePCL) | Małe      |
+| [NetTopologySuite Zaktualizowano do wersji 2.0.0](#NetTopologySuite) | Małe      |
+| [Firma Microsoft. Data. SqlClient jest używana zamiast elementu System. Data. SqlClient](#SqlClient) | Małe      |
+| [Należy skonfigurować wiele niejednoznacznych relacji odwołujących się do siebie.](#mersa) | Małe      |
+| [Dbfunction. schemat mający wartość null lub pusty ciąg konfiguruje go jako domyślny schemat modelu](#udf-empty-string) | Małe      |
 
 ### <a name="linq-queries-are-no-longer-evaluated-on-the-client"></a>Zapytania LINQ nie są już oceniane na kliencie
 
@@ -1551,7 +1551,7 @@ Przykłady można znaleźć w wielu implementacjach `IDbContextOptionsExtension`
 
 [Śledzenie problemu #10985](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
 
-**Stąp**
+**Zmień**
 
 Zmieniono nazwę `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperator` na `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperatorWarning`.
 

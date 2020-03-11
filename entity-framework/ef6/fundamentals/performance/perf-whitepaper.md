@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
 ms.openlocfilehash: 07eb605f0d39f0c1bcfe781540525180f0dd0b22
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181666"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419448"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Zagadnienia dotyczące wydajności dla EF 4, 5 i 6
 Przez David Obando, Eric Dettinger i inne
@@ -41,20 +41,20 @@ Przyjrzyjmy się ogólnemu w miejscu, gdzie podczas wykonywania zapytania przy u
 
 | Kod zapisy użytkownika                                                                                     | Akcja                    | Wpływ na wydajność EF4                                                                                                                                                                                                                                                                                                                                                                                                        | Wpływ na wydajność EF5                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Wpływ na wydajność EF6                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 |:-----------------------------------------------------------------------------------------------------|:--------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `using(var db = new MyContext())` <br/> `{`                                                          | Tworzenie kontekstu          | Średni                                                                                                                                                                                                                                                                                                                                                                                                                        | Średni                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Niski                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | Tworzenie wyrażenia zapytania | Niski                                                                                                                                                                                                                                                                                                                                                                                                                           | Niski                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Niski                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `using(var db = new MyContext())` <br/> `{`                                                          | Tworzenie kontekstu          | Medium                                                                                                                                                                                                                                                                                                                                                                                                                        | Medium                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Małe                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | Tworzenie wyrażenia zapytania | Małe                                                                                                                                                                                                                                                                                                                                                                                                                           | Małe                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Małe                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `  var c1 = q1.First();`                                                                             | Wykonanie zapytania LINQ      | -Ładowanie metadanych: wysokie, ale buforowane <br/> -Wyświetl generowanie: prawdopodobnie bardzo duże, ale w pamięci podręcznej <br/> -Obliczanie parametrów: Średni <br/> -Tłumaczenie zapytania: Średni <br/> -Materializer generacji: Średnia, ale buforowana <br/> -Wykonywanie zapytania do bazy danych: potencjalnie wysokie <br/> + Połączenie. Otwórz <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Materializację obiektu: Średni <br/> -Wyszukiwanie tożsamości: Średnia | -Ładowanie metadanych: wysokie, ale buforowane <br/> -Wyświetl generowanie: prawdopodobnie bardzo duże, ale w pamięci podręcznej <br/> -Obliczanie parametrów: niski <br/> -Tłumaczenie zapytania: Średni, ale buforowany <br/> -Materializer generacji: Średnia, ale buforowana <br/> -Wykonywanie zapytania do bazy danych: potencjalnie wysokie (lepsze zapytania w niektórych sytuacjach) <br/> + Połączenie. Otwórz <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Materializację obiektu: Średni <br/> -Wyszukiwanie tożsamości: Średnia | -Ładowanie metadanych: wysokie, ale buforowane <br/> -Wyświetl generowanie: Średni, ale buforowany <br/> -Obliczanie parametrów: niski <br/> -Tłumaczenie zapytania: Średni, ale buforowany <br/> -Materializer generacji: Średnia, ale buforowana <br/> -Wykonywanie zapytania do bazy danych: potencjalnie wysokie (lepsze zapytania w niektórych sytuacjach) <br/> + Połączenie. Otwórz <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Materializację obiektów: Średni (szybszy niż EF5) <br/> -Wyszukiwanie tożsamości: Średnia |
-| `}`                                                                                                  | Połączenie. Zamknij          | Niski                                                                                                                                                                                                                                                                                                                                                                                                                           | Niski                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Niski                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `}`                                                                                                  | Połączenie. Zamknij          | Małe                                                                                                                                                                                                                                                                                                                                                                                                                           | Małe                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Małe                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 
 **Drugie wykonanie zapytania — grzane zapytanie**
 
 | Kod zapisy użytkownika                                                                                     | Akcja                    | Wpływ na wydajność EF4                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Wpływ na wydajność EF5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Wpływ na wydajność EF6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 |:-----------------------------------------------------------------------------------------------------|:--------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `using(var db = new MyContext())` <br/> `{`                                                          | Tworzenie kontekstu          | Średni                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Średni                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Niski                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | Tworzenie wyrażenia zapytania | Niski                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Niski                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Niski                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `using(var db = new MyContext())` <br/> `{`                                                          | Tworzenie kontekstu          | Medium                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Medium                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Małe                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | Tworzenie wyrażenia zapytania | Małe                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Małe                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Małe                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `  var c1 = q1.First();`                                                                             | Wykonanie zapytania LINQ      | -Wyszukiwanie ~~ładowania~~ metadanych: ~~wysoka, ale buforowana~~ niska <br/> -Wyświetl wyszukiwanie ~~generowania~~ : ~~prawdopodobnie bardzo wysokie, ale w pamięci podręcznej~~ niskie <br/> -Obliczanie parametrów: Średni <br/> -Wyszukiwanie ~~tłumaczenia~~ zapytania: Średni <br/> -Materializer — wyszukiwanie ~~generacji~~ : ~~średnia, ale buforowana~~ niska <br/> -Wykonywanie zapytania do bazy danych: potencjalnie wysokie <br/> + Połączenie. Otwórz <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Materializację obiektu: Średni <br/> -Wyszukiwanie tożsamości: Średnia | -Wyszukiwanie ~~ładowania~~ metadanych: ~~wysoka, ale buforowana~~ niska <br/> -Wyświetl wyszukiwanie ~~generowania~~ : ~~prawdopodobnie bardzo wysokie, ale w pamięci podręcznej~~ niskie <br/> -Obliczanie parametrów: niski <br/> -Wyszukiwanie ~~tłumaczenia~~ zapytania: ~~średnia, ale buforowana~~ niska <br/> -Materializer — wyszukiwanie ~~generacji~~ : ~~średnia, ale buforowana~~ niska <br/> -Wykonywanie zapytania do bazy danych: potencjalnie wysokie (lepsze zapytania w niektórych sytuacjach) <br/> + Połączenie. Otwórz <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Materializację obiektu: Średni <br/> -Wyszukiwanie tożsamości: Średnia | -Wyszukiwanie ~~ładowania~~ metadanych: ~~wysoka, ale buforowana~~ niska <br/> — Wyszukiwanie ~~generowania~~ widoku: ~~Średni, ale buforowany~~ jako niski <br/> -Obliczanie parametrów: niski <br/> -Wyszukiwanie ~~tłumaczenia~~ zapytania: ~~średnia, ale buforowana~~ niska <br/> -Materializer — wyszukiwanie ~~generacji~~ : ~~średnia, ale buforowana~~ niska <br/> -Wykonywanie zapytania do bazy danych: potencjalnie wysokie (lepsze zapytania w niektórych sytuacjach) <br/> + Połączenie. Otwórz <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Materializację obiektów: Średni (szybszy niż EF5) <br/> -Wyszukiwanie tożsamości: Średnia |
-| `}`                                                                                                  | Połączenie. Zamknij          | Niski                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Niski                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Niski                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `}`                                                                                                  | Połączenie. Zamknij          | Małe                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Małe                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Małe                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
 
 Istnieje kilka sposobów zmniejszenia kosztów wydajności zarówno w przypadku zapytań zimnych, jak i ciepłej. Zapoznaj się z nimi w poniższej sekcji. Zapoznaj się z tym, jak zmniejszyć koszt ładowania modelu w zimnych zapytaniach, używając wstępnie wygenerowanych widoków, które powinny pomóc w zmniejszeniu wydajności podczas generowania widoku. W przypadku zapytań ciepłej będziemy obejmować buforowanie planu zapytania, brak zapytań śledzenia i różne opcje wykonywania zapytania.
@@ -104,12 +104,12 @@ Jeśli ręcznie wprowadzisz zmiany do plików schematu dla modelu, konieczne bę
 
 Można również użyć EDMGen do wygenerowania widoków dla pliku EDMX — w poprzednim temacie opisano, jak dodać do tego celu zdarzenie sprzed kompilacji, ale jest to skomplikowane, a w niektórych przypadkach nie jest to możliwe. Zwykle łatwiej jest używać szablonu T4 do generowania widoków, gdy model znajduje się w pliku edmx.
 
-Blog zespołu programu ADO.NET ma wpis, który opisuje sposób używania szablon T4 do generowania widoku ( \<http://blogs.msdn.com/b/adonet/archive/2008/06/20/how-to-use-a-t4-template-for-view-generation.aspx>). Ten wpis obejmuje szablon, który można pobrać i dodać do projektu. Szablon został zapisany dla pierwszej wersji Entity Framework, więc nie gwarantujemy pracy z najnowszymi wersjami Entity Framework. Można jednak pobrać bardziej aktualny zestaw szablonów generacji widoku dla Entity Framework 4 i 5from galerię programu Visual Studio:
+Blog zespołu ADO.NET zawiera wpis opisujący sposób użycia szablonu T4 do generowania widoku (\<http://blogs.msdn.com/b/adonet/archive/2008/06/20/how-to-use-a-t4-template-for-view-generation.aspx>). Ten wpis obejmuje szablon, który można pobrać i dodać do projektu. Szablon został zapisany dla pierwszej wersji Entity Framework, więc nie gwarantujemy pracy z najnowszymi wersjami Entity Framework. Można jednak pobrać bardziej aktualny zestaw szablonów generacji widoku dla Entity Framework 4 i 5from galerię programu Visual Studio:
 
 -   VB.NET: \<http://visualstudiogallery.msdn.microsoft.com/118b44f2-1b91-4de2-a584-7a680418941d>
 -   C\#: \<http://visualstudiogallery.msdn.microsoft.com/ae7730ce-ddab-470f-8456-1b313cd2c44d>
 
-Jeśli używasz platformy Entity Framework 6 można uzyskać widok szablony T4 generacji z galerii Visual Studio na \<http://visualstudiogallery.msdn.microsoft.com/18a7db90-6705-4d19-9dd1-0a6c23d0751f>.
+Jeśli używasz programu Entity Framework 6, możesz uzyskać szablony z galerii programu Visual Studio w \<http://visualstudiogallery.msdn.microsoft.com/18a7db90-6705-4d19-9dd1-0a6c23d0751f>.
 
 ### <a name="24-reducing-the-cost-of-view-generation"></a>2,4 zmniejszenie kosztów generowania widoku
 
@@ -133,12 +133,12 @@ Ważne jest, aby zwrócić uwagę, że wstępnie generowane widoki w Entity Fram
 
 W przypadku korzystania z EDMGen lub Entity Designer w programie Visual Studio, domyślnie otrzymujesz FKs i tylko jedno pole wyboru lub flagę wiersza polecenia, aby przełączać się między FKs i IAs.
 
-Jeśli masz duży model Code First, użycie niezależnych skojarzeń będzie miało ten sam wpływ na generowanie widoku. Można uniknąć tego wpływu, dołączając właściwości klucza obcego klas dla obiektów zależnych, chociaż niektórzy deweloperzy rozważą to zanieczyszczenie modelu obiektów. Można znaleźć więcej informacji na ten temat w \<http://blog.oneunicorn.com/2011/12/11/whats-the-deal-with-mapping-foreign-keys-using-the-entity-framework/>.
+Jeśli masz duży model Code First, użycie niezależnych skojarzeń będzie miało ten sam wpływ na generowanie widoku. Można uniknąć tego wpływu, dołączając właściwości klucza obcego klas dla obiektów zależnych, chociaż niektórzy deweloperzy rozważą to zanieczyszczenie modelu obiektów. Więcej informacji na temat tego tematu można znaleźć w \<http://blog.oneunicorn.com/2011/12/11/whats-the-deal-with-mapping-foreign-keys-using-the-entity-framework/>.
 
 | W przypadku korzystania z      | Zrób to                                                                                                                                                                                                                                                                                                                              |
 |:----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Entity Designer | Po dodaniu skojarzenia między dwiema jednostkami upewnij się, że masz ograniczenie referencyjne. Więzy referencyjne informują Entity Framework o użyciu kluczy obcych zamiast niezależnych skojarzeń. Aby uzyskać więcej informacji, odwiedź stronę \<http://blogs.msdn.com/b/efdesign/archive/2009/03/16/foreign-keys-in-the-entity-framework.aspx>. |
-| EDMGen          | W przypadku generowania plików z bazy danych przy użyciu programu EDMGen klucze obce będą przestrzegane i dodawane do modelu. Aby uzyskać więcej informacji na temat różnych opcji udostępnianych przez EDMGen odwiedź stronę [http://msdn.microsoft.com/library/bb387165.aspx](https://msdn.microsoft.com/library/bb387165.aspx).                           |
+| Entity Designer | Po dodaniu skojarzenia między dwiema jednostkami upewnij się, że masz ograniczenie referencyjne. Więzy referencyjne informują Entity Framework o użyciu kluczy obcych zamiast niezależnych skojarzeń. Aby uzyskać dodatkowe informacje, odwiedź \<http://blogs.msdn.com/b/efdesign/archive/2009/03/16/foreign-keys-in-the-entity-framework.aspx>. |
+| EDMGen          | W przypadku generowania plików z bazy danych przy użyciu programu EDMGen klucze obce będą przestrzegane i dodawane do modelu. Aby uzyskać więcej informacji na temat różnych opcji udostępnianych przez EDMGen, odwiedź witrynę [http://msdn.microsoft.com/library/bb387165.aspx](https://msdn.microsoft.com/library/bb387165.aspx).                           |
 | Code First      | Zapoznaj się z sekcją "Konwencja relacji" tematu [Code First Konwencji](~/ef6/modeling/code-first/conventions/built-in.md) , aby uzyskać informacje na temat dołączania właściwości klucza obcego do obiektów zależnych podczas korzystania z Code First.                                                                                              |
 
 #### <a name="242-moving-your-model-to-a-separate-assembly"></a>2.4.2 przeniesienie modelu do oddzielnego zestawu
@@ -175,7 +175,7 @@ Znajdź używa wartości klucza podstawowego, aby spróbować znaleźć jednostk
 
 W przypadku korzystania z funkcji Znajdź należy wziąć pod uwagę wydajność. Wywołania tej metody domyślnie wyzwalają weryfikację pamięci podręcznej obiektów w celu wykrycia zmian, które nadal oczekują na zatwierdzenie w bazie danych. Ten proces może być bardzo kosztowny, jeśli istnieje bardzo duża liczba obiektów w pamięci podręcznej obiektów lub wykres dużego obiektu dodawany do pamięci podręcznej obiektów, ale można go również wyłączyć. W niektórych przypadkach można postrzegać kolejność o wielkości różnicy w wywołaniu metody Find po wyłączeniu zmian autowykrywania. Jeszcze drugi porządek wielkości jest postrzegany, gdy obiekt rzeczywiście znajduje się w pamięci podręcznej, a kiedy obiekt musi zostać pobrany z bazy danych. Oto przykładowy wykres z miarami wykonywanymi przy użyciu niektórych mikrotestów porównawczych wyrażonych w milisekundach, z obciążeniem jednostek 5000:
 
-.NET ![4,5 Skala logarytmiczna](~/ef6/media/net45logscale.png ".NET 4,5 — Skala logarytmiczna")
+![Skala logarytmiczna programu .NET 4,5](~/ef6/media/net45logscale.png ".NET 4,5 — Skala logarytmiczna")
 
 Przykład wyszukiwania z wyłączonymi zmianami autowykrywania:
 
@@ -244,7 +244,7 @@ Aby zademonstrować efekt buforowania planu zapytania względem wydajności apli
 
 ##### <a name="3231-test-results"></a>3.2.3.1 Wyniki testów
 
-| {1&gt;Test&lt;1}                                                                   | EF5 Brak pamięci podręcznej | EF5 w pamięci podręcznej | EF6 Brak pamięci podręcznej | EF6 w pamięci podręcznej |
+| Testowanie                                                                   | EF5 Brak pamięci podręcznej | EF5 w pamięci podręcznej | EF6 Brak pamięci podręcznej | EF6 w pamięci podręcznej |
 |:-----------------------------------------------------------------------|:-------------|:-----------|:-------------|:-----------|
 | Wyliczanie wszystkich zapytań 18723                                          | 124          | 125,4      | 124,3        | 125,3      |
 | Unikanie odchylenia (tylko pierwsze zapytania 800, niezależnie od złożoności)  | 41,7         | 5.5        | 40.5         | 5.4        |
@@ -396,7 +396,7 @@ Entity Framework obsługuje również buforowanie metadanych. Jest to zasadniczo
 4.  Obiekt ItemCollection jest okresowo sprawdzana pod kątem użycia. Jeśli okaże się, że nie uzyskano ostatnio dostępu do obszaru roboczego, zostanie on oznaczony do oczyszczenia przy następnym wyczyszczeniu pamięci podręcznej.
 5.  Tylko utworzenie EntityConnection spowoduje utworzenie pamięci podręcznej metadanych (mimo że kolekcje elementów w niej nie zostaną zainicjowane do momentu otwarcia połączenia). Ten obszar roboczy pozostanie w pamięci do momentu, aż algorytm buforowania ustali, że nie jest używany.
 
-Zespół Doradczy klientów zapisane wpis w blogu, który opisuje zawierający odwołanie do obiektu ItemCollection w celu uniknięcia "wycofywania", korzystając z dużych modeli: \<http://blogs.msdn.com/b/appfabriccat/archive/2010/10/22/metadataworkspace-reference-in-wcf-services.aspx>.
+Zespół Doradczy klientów zapisał wpis w blogu, który opisuje przechowywanie odniesienia do obiekt ItemCollection w celu uniknięcia "wycofania" podczas korzystania z dużych modeli: \<http://blogs.msdn.com/b/appfabriccat/archive/2010/10/22/metadataworkspace-reference-in-wcf-services.aspx>.
 
 #### <a name="342-the-relationship-between-metadata-caching-and-query-plan-caching"></a>3.4.2 relację między buforowaniem metadanych a buforowaniem planu zapytania
 
@@ -411,7 +411,7 @@ Ta implementacja buforowania drugiego poziomu jest funkcją wstrzykiwaną, któr
 #### <a name="351-additional-references-for-results-caching-with-the-wrapping-provider"></a>3.5.1 dodatkowe informacje dotyczące buforowania wyników w ramach dostawcy zawijania
 
 -   Julie Lerman zapisał "pamięć podręczną drugiego poziomu w Entity Framework i Windows Azure" w witrynie MSDN, która obejmuje jak zaktualizować przykładowego dostawcę otoki do korzystania z buforowania systemu Windows Server AppFabric: [https://msdn.microsoft.com/magazine/hh394143.aspx](https://msdn.microsoft.com/magazine/hh394143.aspx)
--   Jeśli pracujesz z Entity Framework 5, blog zespołu ma wpis, w której opisano Rozpoczynanie pracy z pamięci podręcznej dostawcy programu Entity Framework 5: \<http://blogs.msdn.com/b/adonet/archive/2010/09/13/ef-caching-with-jarek-kowalski-s-provider.aspx>. Zawiera również szablon T4, który pomaga zautomatyzować Dodawanie buforowania drugiego poziomu do projektu.
+-   W przypadku pracy z Entity Framework 5 Blog zespołu zawiera wpis, który opisuje, jak uzyskać działanie z dostawcą pamięci podręcznej dla Entity Framework 5: \<http://blogs.msdn.com/b/adonet/archive/2010/09/13/ef-caching-with-jarek-kowalski-s-provider.aspx>. Zawiera również szablon T4, który pomaga zautomatyzować Dodawanie buforowania drugiego poziomu do projektu.
 
 ## <a name="4-autocompiled-queries"></a>4 autokompilowane zapytania
 
@@ -424,7 +424,7 @@ Entity Framework wykrywa, kiedy zapytanie wymaga ponownej kompilacji, i robi to,
 -   Zmiana MergeOption skojarzonego z zapytaniem. Zapytanie buforowane nie zostanie użyte, a następnie kompilator planu zostanie uruchomiony ponownie, a nowo utworzony plan zostanie zapisany w pamięci podręcznej.
 -   Zmiana wartości ContextOptions. UseCSharpNullComparisonBehavior. Ten sam efekt jest taki sam jak zmiana MergeOption.
 
-Inne warunki mogą uniemożliwić korzystanie z pamięci podręcznej przez zapytanie. Typowe przykłady to:
+Inne warunki mogą uniemożliwić korzystanie z pamięci podręcznej przez zapytanie. Typowe przykłady:
 
 -   Używanie interfejsu IEnumerable&lt;T&gt;. Zawiera &gt;&lt;(wartość T).
 -   Korzystanie z funkcji, które generują zapytania ze stałymi.
@@ -647,14 +647,14 @@ Entity Framework oferuje kilka różnych sposobów wykonywania zapytań. Zapozna
 var q = context.Products.Where(p => p.Category.CategoryName == "Beverages");
 ```
 
-**Formaty**
+**Zalety**
 
 -   Odpowiednie dla operacji CUD.
 -   W pełni materiałowe obiekty.
 -   Najprostszym sposobem pisać składnią wbudowaną w język programowania.
 -   Dobra wydajność.
 
-**Wada**
+**Wady**
 
 -   Niektóre ograniczenia techniczne, takie jak:
     -   Wzorce używające DefaultIfEmpty dla zapytań SPRZĘŻENIa zewnętrznego powodują bardziej skomplikowane zapytania niż proste instrukcje zewnętrznego SPRZĘŻENIa w Entity SQL.
@@ -676,13 +676,13 @@ var q = context.Products.AsNoTracking()
                         .Where(p => p.Category.CategoryName == "Beverages");
 ```
 
-**Formaty**
+**Zalety**
 
 -   Zwiększona wydajność przez zwykłe zapytania LINQ.
 -   W pełni materiałowe obiekty.
 -   Najprostszym sposobem pisać składnią wbudowaną w język programowania.
 
-**Wada**
+**Wady**
 
 -   Nieodpowiednie dla operacji CUD.
 -   Niektóre ograniczenia techniczne, takie jak:
@@ -703,13 +703,13 @@ To konkretne zapytanie nie określa jawnie elementu NoTracking, ale ponieważ ni
 ObjectQuery<Product> products = context.Products.Where("it.Category.CategoryName = 'Beverages'");
 ```
 
-**Formaty**
+**Zalety**
 
 -   Odpowiednie dla operacji CUD.
 -   W pełni materiałowe obiekty.
 -   Obsługuje buforowanie planu zapytania.
 
-**Wada**
+**Wady**
 
 -   Obejmuje ciągi kwerend tekstowych, które są bardziej podatne na błędy użytkownika niż konstrukcje zapytań wbudowane w język.
 
@@ -728,11 +728,11 @@ using (EntityDataReader reader = cmd.ExecuteReader(CommandBehavior.SequentialAcc
 }
 ```
 
-**Formaty**
+**Zalety**
 
 -   Obsługuje buforowanie planu zapytania w programie .NET 4,0 (buforowanie planu jest obsługiwane przez wszystkie inne typy zapytań w programie .NET 4,5).
 
-**Wada**
+**Wady**
 
 -   Obejmuje ciągi kwerend tekstowych, które są bardziej podatne na błędy użytkownika niż konstrukcje zapytań wbudowane w język.
 -   Nieodpowiednie dla operacji CUD.
@@ -764,13 +764,13 @@ var beverages = context.ExecuteStoreQuery<Product>(
 );
 ```
 
-**Formaty**
+**Zalety**
 
 -   Zazwyczaj najszybszą wydajność, ponieważ kompilator planu jest pomijany.
 -   W pełni materiałowe obiekty.
 -   Odpowiednie dla operacji CUD, gdy są używane z Nieogólnymi.
 
-**Wada**
+**Wady**
 
 -   Zapytanie jest tekstowe i podatne na błędy.
 -   Zapytanie jest powiązane z określonym zapleczem przy użyciu semantyki magazynu zamiast semantyki koncepcyjnej.
@@ -787,13 +787,13 @@ private static readonly Func<NorthwindEntities, string, IQueryable<Product>> pro
 var q = context.InvokeProductsForCategoryCQ("Beverages");
 ```
 
-**Formaty**
+**Zalety**
 
 -   Zapewnia wzrost wydajności do 7% w porównaniu do zwykłych zapytań LINQ.
 -   W pełni materiałowe obiekty.
 -   Odpowiednie dla operacji CUD.
 
-**Wada**
+**Wady**
 
 -   Zwiększona złożoność i narzuty związane z programowaniem.
 -   Zwiększenie wydajności jest tracone podczas redagowania na skompilowanym zapytaniu.
@@ -803,7 +803,7 @@ var q = context.InvokeProductsForCategoryCQ("Beverages");
 
 Proste mikrotesty, w których nie upłynął limit czasu tworzenia kontekstu, zostały wprowadzone do testu. Mierzy zapytania o 5000 razy dla zestawu niebuforowanych jednostek w środowisku kontrolowanym. Te liczby mają być pobierane z ostrzeżeniem: nie odzwierciedlają rzeczywistej liczby wyprodukowanej przez aplikację, ale zamiast tego są bardzo precyzyjne pomiary, jaka jest różnica wydajności, gdy porównywane są różne opcje zapytania jabłka do jabłek, z wyłączeniem kosztów tworzenia nowego kontekstu.
 
-| BIEŻĄCO  | {1&gt;Test&lt;1}                                 | Czas (MS) | Pamięć   |
+| BIEŻĄCO  | Testowanie                                 | Czas (MS) | Memory (Pamięć)   |
 |:----|:-------------------------------------|:----------|:---------|
 | EF5 | Obiekt ObjectContext ESQL                   | 2414      | 38801408 |
 | EF5 | Zapytanie ObjectContext LINQ             | 2692      | 38277120 |
@@ -825,7 +825,7 @@ Mikrotesty są bardzo poufne dla małych zmian w kodzie. W takim przypadku róż
 
 Aby porównać rzeczywistą wydajność różnych opcji zapytania, utworzyliśmy 5 oddzielnych odmian testowych, w których używamy innej opcji zapytania, aby wybrać wszystkie produkty, których nazwa kategorii to "napoje". Każda iteracja obejmuje koszt tworzenia kontekstu, a koszt materializacji wszystkich zwracanych jednostek. 10 iteracji jest wykonywanych przed upływem sumy 1000 iteracji czasowych. Wyświetlane wyniki to mediana, wykonywana z 5 przebiegów każdego testu. Aby uzyskać więcej informacji, zobacz dodatek B, który zawiera kod dla testu.
 
-| BIEŻĄCO  | {1&gt;Test&lt;1}                                        | Czas (MS) | Pamięć   |
+| BIEŻĄCO  | Testowanie                                        | Czas (MS) | Memory (Pamięć)   |
 |:----|:--------------------------------------------|:----------|:---------|
 | EF5 | ObjectContext Entity — polecenie                | 621       | 39350272 |
 | EF5 | Zapytanie SQL DbContext w bazie danych             | 825       | 37519360 |
@@ -871,15 +871,15 @@ W przypadku korzystania z Entity Framework jest stosowana strategia dziedziczeni
 
 Jeśli model używa dziedziczenia TPT, generowane zapytania będą bardziej skomplikowane niż te, które są generowane z innymi strategiami dziedziczenia, co może spowodować dłuższe czasy wykonywania w sklepie.  Zazwyczaj generowanie zapytań w modelu TPT i zmaterializowania obiektów powstających zajmuje więcej czasu.
 
-Zobacz "zagadnienia dotyczące wydajności podczas korzystania z dziedziczenia TPT (Tabela na typ) w Entity Framework" w blogu MSDN: \<http://blogs.msdn.com/b/adonet/archive/2010/08/17/performance-considerations-when-using-tpt-table-per-type-inheritance-in-the-entity-framework.aspx>.
+Zapoznaj się z tematem dziedziczenie "zagadnienia dotyczące wydajności Entity Framework w przypadku korzystania z TPT (tabela na typ)" w blogu MSDN: \<http://blogs.msdn.com/b/adonet/archive/2010/08/17/performance-considerations-when-using-tpt-table-per-type-inheritance-in-the-entity-framework.aspx>.
 
 #### <a name="711-avoiding-tpt-in-model-first-or-code-first-applications"></a>7.1.1 unikanie TPT w aplikacjach Model First lub Code First
 
 Gdy tworzysz model dla istniejącej bazy danych, która ma schemat TPT, nie masz wielu opcji. Ale podczas tworzenia aplikacji przy użyciu Model First lub Code First należy unikać dziedziczenia TPT w przypadku problemów z wydajnością.
 
-W przypadku korzystania z Model First w Kreatorze Entity Designer zostanie TPT do dowolnego dziedziczenia w modelu. Jeśli chcesz przełączyć się do strategii TPH dziedziczenia z pierwszego modelu, można używać "jednostki projektanta bazy danych generowania Power Pack" dostępne z galerii Visual Studio ( \<http://visualstudiogallery.msdn.microsoft.com/df3541c3-d833-4b65-b942-989e7ec74c87/>).
+W przypadku korzystania z Model First w Kreatorze Entity Designer zostanie TPT do dowolnego dziedziczenia w modelu. Jeśli chcesz przełączyć się na strategię dziedziczenia TPH z Model First, możesz użyć opcji "Entity Designer Database Generation Pack" dostępnej w galerii programu Visual Studio (\<http://visualstudiogallery.msdn.microsoft.com/df3541c3-d833-4b65-b942-989e7ec74c87/>).
 
-Przy użyciu Code First do konfigurowania mapowania modelu z dziedziczeniem, EF domyślnie będzie używać TPH, dlatego wszystkie jednostki w hierarchii dziedziczenia zostaną zmapowane do tej samej tabeli. Zobacz sekcję "Mapowanie z interfejs Fluent API" artykułu "Kodu pierwszy w jednostki Framework4.1" w MSDN Magazine ( [http://msdn.microsoft.com/magazine/hh126815.aspx](https://msdn.microsoft.com/magazine/hh126815.aspx)) Aby uzyskać więcej informacji.
+Przy użyciu Code First do konfigurowania mapowania modelu z dziedziczeniem, EF domyślnie będzie używać TPH, dlatego wszystkie jednostki w hierarchii dziedziczenia zostaną zmapowane do tej samej tabeli. Aby uzyskać więcej informacji, zobacz sekcję "mapowanie za pomocą interfejsu API Fluent" w artykule "Code First In Entity Framework 4.1" w witrynie MSDN Magazine ( [http://msdn.microsoft.com/magazine/hh126815.aspx](https://msdn.microsoft.com/magazine/hh126815.aspx)).
 
 ### <a name="72-upgrading-from-ef4-to-improve-model-generation-time"></a>7,2 uaktualnienie z EF4 w celu poprawienia czasu generowania modelu
 
@@ -899,7 +899,7 @@ Należy zauważyć, że podczas generowania SSDL, obciążenie jest niemal całk
 
 ### <a name="73-splitting-large-models-with-database-first-and-model-first"></a>7,3 dzielenie dużych modeli przy użyciu Database First i Model First
 
-W miarę wzrostu rozmiaru modelu powierzchnia projektanta zostaje zapełniony i trudno używać. Zazwyczaj rozważamy model z ponad 300 jednostkami, które są zbyt duże, aby efektywnie korzystać z projektanta. Następujący wpis w blogu opisuje kilka opcji do dzielenia dużych modeli: \<http://blogs.msdn.com/b/adonet/archive/2008/11/25/working-with-large-models-in-entity-framework-part-2.aspx>.
+W miarę wzrostu rozmiaru modelu powierzchnia projektanta zostaje zapełniony i trudno używać. Zazwyczaj rozważamy model z ponad 300 jednostkami, które są zbyt duże, aby efektywnie korzystać z projektanta. W poniższym wpisie w blogu opisano kilka opcji dzielenia dużych modeli: \<http://blogs.msdn.com/b/adonet/archive/2008/11/25/working-with-large-models-in-entity-framework-part-2.aspx>.
 
 Wpis został zapisany dla pierwszej wersji Entity Framework, ale kroki nadal mają zastosowanie.
 
@@ -915,7 +915,7 @@ Ustawienie pola ContextTypeName uniemożliwia również wystąpienie problemu fu
 
 Entity Framework umożliwia korzystanie z niestandardowych klas danych razem z modelem danych bez wprowadzania jakichkolwiek modyfikacji klas danych. Oznacza to, że można użyć "zwykłych" obiektów CLR (POCO), takich jak istniejące obiekty domeny, z modelem danych. Te klasy danych POCO (nazywane również obiektami trwałości-ignorujących), które są mapowane na jednostki, które są zdefiniowane w modelu danych, obsługują większość tych samych zachowań zapytania, INSERT, Update i DELETE jako typy jednostek, które są generowane przez narzędzia Entity Data Model.
 
-Entity Framework może również tworzyć klasy proxy pochodzące z typów POCO, które są używane do włączania funkcji, takich jak ładowanie z opóźnieniem i automatyczne śledzenie zmian w jednostkach POCO. Twoich zajęciach POCO muszą spełniać określone wymagania, aby umożliwić Entity Framework użyć serwerów proxy, zgodnie z opisem w tym miejscu: [http://msdn.microsoft.com/library/dd468057.aspx](https://msdn.microsoft.com/library/dd468057.aspx).
+Entity Framework może również tworzyć klasy proxy pochodzące z typów POCO, które są używane do włączania funkcji, takich jak ładowanie z opóźnieniem i automatyczne śledzenie zmian w jednostkach POCO. Klasy POCO muszą spełniać pewne wymagania, aby zezwalać Entity Framework na korzystanie z serwerów proxy, zgodnie z opisem w tym miejscu: [http://msdn.microsoft.com/library/dd468057.aspx](https://msdn.microsoft.com/library/dd468057.aspx).
 
 Serwery proxy śledzenia szansy powiadomień będą powiadamiać menedżera stanu obiektów za każdym razem, gdy jego wartość zostanie zmieniona, więc Entity Framework wie o rzeczywistym stanie jednostek przez cały czas. Jest to realizowane przez dodanie zdarzeń powiadomień do treści metod metody ustawiającej właściwości i posiadanie przetwarzania takich zdarzeń przez menedżera stanu obiektów. Należy pamiętać, że utworzenie jednostki proxy będzie zazwyczaj droższe niż utworzenie jednostki POCO innej niż proxy z powodu dodanego zestawu zdarzeń utworzonych przez Entity Framework.
 
@@ -1141,7 +1141,7 @@ Podobnie jak w przypadku ładowania z opóźnieniem, kompromis będzie więcej z
 
 Entity Framework obecnie nie obsługuje ładowania z opóźnieniem właściwości skalarnych lub złożonych. Jednak w przypadkach, gdy istnieje tabela zawierająca duży obiekt, taki jak obiekt BLOB, można użyć podziału tabeli, aby oddzielić duże właściwości do osobnej jednostki. Załóżmy na przykład, że masz tabelę produktów, która zawiera kolumnę zdjęć varbinary. Jeśli nie ma często potrzeby uzyskiwania dostępu do tej właściwości w zapytaniach, można użyć podziału tabeli, aby przenieść tylko te części jednostki, która jest zwykle potrzebna. Jednostka reprezentująca zdjęcie produktu zostanie załadowana tylko wtedy, gdy jest to konieczne.
 
-Dobre zasób, który pokazuje, jak włączyć dzielenia tabeli jest "Tabela podział w programie Entity Framework" Gil Fink wpis w blogu: \<http://blogs.microsoft.co.il/blogs/gilf/archive/2009/10/13/table-splitting-in-entity-framework.aspx>.
+Dobrym zasobem, który pokazuje, jak włączyć dzielenie tabeli, jest Gil Fink "dzielenie tabeli w Entity Framework": \<http://blogs.microsoft.co.il/blogs/gilf/archive/2009/10/13/table-splitting-in-entity-framework.aspx>.
 
 ## <a name="9-other-considerations"></a>9 inne zagadnienia
 
@@ -1179,7 +1179,7 @@ finally
 }
 ```
 
-Przed wyłączeniem AutoDetectChanges warto zrozumieć, że może to spowodować utratę możliwości śledzenia pewnych informacji o zmianach wprowadzonych w jednostkach przez Entity Framework. Jeśli są obsługiwane nieprawidłowo, może to spowodować niespójność danych w aplikacji. Aby uzyskać więcej informacji na temat wyłączania AutoDetectChanges, przeczytaj \<http://blog.oneunicorn.com/2012/03/12/secrets-of-detectchanges-part-3-switching-off-automatic-detectchanges/>.
+Przed wyłączeniem AutoDetectChanges warto zrozumieć, że może to spowodować utratę możliwości śledzenia pewnych informacji o zmianach wprowadzonych w jednostkach przez Entity Framework. Jeśli są obsługiwane nieprawidłowo, może to spowodować niespójność danych w aplikacji. Aby uzyskać więcej informacji na temat wyłączania AutoDetectChanges, przeczytaj http://blog.oneunicorn.com/2012/03/12/secrets-of-detectchanges-part-3-switching-off-automatic-detectchanges/>\<.
 
 ### <a name="93-context-per-request"></a>kontekst 9,3 na żądanie
 
@@ -1226,7 +1226,7 @@ W przykładzie powyższego zapytania różnica wydajności była mniejsza niż 2
 
 Entity Framework 6 wprowadzono obsługę operacji asynchronicznych w przypadku uruchamiania programu .NET 4,5 lub nowszego. W większości przypadków aplikacje, które mają rywalizację dotyczącą we/wy, będą korzystać z funkcji asynchronicznego wykonywania zapytań i zapisywania. Jeśli aplikacja nie pogorszy się z rywalizacją we/wy, Użycie Async będzie w najlepszym przypadku wykonywane synchronicznie i zwracać wynik w tym samym czasie co w przypadku wywołania synchronicznego lub w najgorszym przypadku, po prostu Opóźnij wykonywanie do zadania asynchronicznego i Dodaj dodatkowe Tim e do ukończenia Twojego scenariusza.
 
-Instrukcje dotyczące sposobu asynchronicznego programowania pracy, która pomoże przy wyborze rozwiązania, jeśli async poprawi wydajność aplikacji odwiedzanych przez użytkownika [http://msdn.microsoft.com/library/hh191443.aspx](https://msdn.microsoft.com/library/hh191443.aspx). Aby uzyskać więcej informacji na temat używania operacji asynchronicznych na Entity Framework, zobacz [wykonywanie zapytań asynchronicznych i zapisywanie](~/ef6/fundamentals/async.md
+Aby uzyskać informacje na temat sposobu działania asynchronicznego programowania, który pomoże Ci w wyborze, czy Async poprawi wydajność aplikacji [http://msdn.microsoft.com/library/hh191443.aspx](https://msdn.microsoft.com/library/hh191443.aspx). Aby uzyskać więcej informacji na temat używania operacji asynchronicznych na Entity Framework, zobacz [wykonywanie zapytań asynchronicznych i zapisywanie](~/ef6/fundamentals/async.md
 ).
 
 ### <a name="96-ngen"></a>9,6 NGEN
@@ -1247,17 +1247,17 @@ W przypadku korzystania z EDMX i Code First należy pamiętać, że elastycznoś
 
 ### <a name="101-using-the-visual-studio-profiler"></a>10,1 przy użyciu profilera programu Visual Studio
 
-Jeśli masz problemy z wydajnością Entity Framework, możesz użyć profilera, takiego jak wbudowany w program Visual Studio, aby zobaczyć, gdzie Twoja aplikacja spędza swoją godzinę. To narzędzie, firma Microsoft służącego do generowania wykresów kołowych "Eksplorowanie wydajności programu ADO.NET Entity Framework — część 1" wpis w blogu ( \<http://blogs.msdn.com/b/adonet/archive/2008/02/04/exploring-the-performance-of-the-ado-net-entity-framework-part-1.aspx>) ukazują, gdzie Entity Framework spędza czas podczas wykonywania kwerend ścieżce nieaktywnej i bez wyłączania zasilania.
+Jeśli masz problemy z wydajnością Entity Framework, możesz użyć profilera, takiego jak wbudowany w program Visual Studio, aby zobaczyć, gdzie Twoja aplikacja spędza swoją godzinę. Jest to narzędzie, które zostało użyte do wygenerowania wykresów kołowych w blogu "Eksplorowanie wydajności ADO.NET Entity Framework-część 1" (\<http://blogs.msdn.com/b/adonet/archive/2008/02/04/exploring-the-performance-of-the-ado-net-entity-framework-part-1.aspx>) wskazujący, gdzie Entity Framework poświęca czas na zimne i grzane zapytania.
 
-Wpis "Entity Framework profilowania przy użyciu programu Visual Studio 2010 Profiler" został zapisany przez dane i modelowanie zespołu Doradczego ds. klienta pokazuje rzeczywisty przykład sposobu użycia profilera do zbadania problemu z wydajnością.  http://blogs.msdn.com/b/dmcat/archive/2010/04/30/profiling-entity-framework-using-the-visual-studio-2010-profiler.aspx>\<. Ten wpis został zapisany dla aplikacji systemu Windows. Jeśli zachodzi potrzeba profilowania aplikacji sieci Web, narzędzia Windows Performance Recorder (WP) i Windows Performance Analyzer (WPA) mogą działać lepiej niż w przypadku programu Visual Studio. WPR i WPA są częścią zestawu narzędzi wydajności Windows, który jest dołączony do Windows Assessment and Deployment Kit ( [http://www.microsoft.com/download/details.aspx?id=39982](https://www.microsoft.com/download/details.aspx?id=39982)).
+Wpis "Entity Framework profilowania przy użyciu programu Visual Studio 2010 Profiler" został zapisany przez dane i modelowanie zespołu Doradczego ds. klienta pokazuje rzeczywisty przykład sposobu użycia profilera do zbadania problemu z wydajnością.  http://blogs.msdn.com/b/dmcat/archive/2010/04/30/profiling-entity-framework-using-the-visual-studio-2010-profiler.aspx>\<. Ten wpis został zapisany dla aplikacji systemu Windows. Jeśli zachodzi potrzeba profilowania aplikacji sieci Web, narzędzia Windows Performance Recorder (WP) i Windows Performance Analyzer (WPA) mogą działać lepiej niż w przypadku programu Visual Studio. Żądanie WP i WPA jest częścią zestawu narzędzi wydajności systemu Windows, który jest dostępny w zestawie do oceny i wdrażania systemu Windows ( [http://www.microsoft.com/download/details.aspx?id=39982](https://www.microsoft.com/download/details.aspx?id=39982)).
 
 ### <a name="102-applicationdatabase-profiling"></a>10,2 Profilowanie aplikacji/bazy danych
 
 Narzędzia, takie jak Profiler wbudowany w program Visual Studio, informują o tym, gdzie Twoja aplikacja jest w trakcie.  Dostępny jest inny typ profilera służący do przeprowadzania dynamicznej analizy uruchomionej aplikacji w środowisku produkcyjnym lub przedprodukcyjnym w zależności od potrzeb, a także wyszukuje typowe pułapek i antywzorce dostępu do bazy danych.
 
-Dwa komercyjnego profilowania są Profiler Framework jednostki ( \<http://efprof.com>) i ORMProfiler ( \<http://ormprofiler.com>).
+Dwa dostępne w celach komercyjnych narzędzia do tworzenia plików są Entity Framework profilerem (\<http://efprof.com>) i ORMProfiler (\<http://ormprofiler.com>).
 
-Jeśli aplikacja jest aplikacją MVC używającą Code First, można użyć MiniProfiler StackExchange. Scott Hanselman opis tego narzędzia w jego blog znajduje się na: \<http://www.hanselman.com/blog/NuGetPackageOfTheWeek9ASPNETMiniProfilerFromStackExchangeRocksYourWorld.aspx>.
+Jeśli aplikacja jest aplikacją MVC używającą Code First, można użyć MiniProfiler StackExchange. Scott Hanselman zawiera opis tego narzędzia w blogu: \<http://www.hanselman.com/blog/NuGetPackageOfTheWeek9ASPNETMiniProfilerFromStackExchangeRocksYourWorld.aspx>.
 
 Aby uzyskać więcej informacji na temat profilowania działania bazy danych aplikacji, zobacz artykuł dotyczący usługi Julie Lerman w witrynie MSDN Magazine zatytułowany [profilowanie działania bazy danych w Entity Framework](https://msdn.microsoft.com/magazine/gg490349.aspx).
 
@@ -1288,7 +1288,7 @@ Jeśli chcesz włączyć rejestrowanie bazy danych bez ponownego kompilowania i 
   </interceptors>
 ```
 
-Aby uzyskać więcej informacji na temat dodawania rejestrowanie bez konieczności ponownego kompilowania przejdź do pozycji \<http://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/>.
+Aby uzyskać więcej informacji na temat dodawania rejestrowania bez ponownego kompilowania, przejdź do http://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/>\<.
 
 ## <a name="11-appendix"></a>11 dodatek
 

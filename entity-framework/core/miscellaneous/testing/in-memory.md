@@ -4,19 +4,19 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 0d0590f1-1ea3-4d5c-8f44-db17395cd3f3
 uid: core/miscellaneous/testing/in-memory
-ms.openlocfilehash: fcd2f99ad06fd30ef9e36fd1e5a6a09fe0a45d07
-ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
+ms.openlocfilehash: 18641677098c20d9172136b07868dcb647d189c6
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75781121"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416510"
 ---
 # <a name="testing-with-inmemory"></a>Testowanie za pomocą bazy danych InMemory
 
 Dostawca inMemory jest przydatny, gdy chce się testować składniki przy użyciu czegoś przybliżonego łączącego się z rzeczywistą bazą danych, bez nakładu pracy rzeczywistej operacji bazy danych.
 
 > [!TIP]  
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing) użyty w tym artykule można zobaczyć w witrynie GitHub.
+> [Przykład](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing) tego artykułu można wyświetlić w witrynie GitHub.
 
 ## <a name="inmemory-is-not-a-relational-database"></a>Brak pamięci to relacyjna baza danych
 

@@ -1,51 +1,51 @@
 ---
-title: Wybieranie jednostki wersję środowiska uruchomieniowego EF projektanta modeli - EF6
+title: Wybieranie wersji środowiska uruchomieniowego Entity Framework dla modeli programu EF Designer — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 7ace90a6-46f8-4f55-a88c-7cad9620085c
 ms.openlocfilehash: 40ad05c1f015e6a51150d04eee8d9aa581d72c33
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45488494"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418148"
 ---
-# <a name="selecting-entity-framework-runtime-version-for-ef-designer-models"></a>Wybieranie jednostki wersję środowiska uruchomieniowego EF projektanta modeli
+# <a name="selecting-entity-framework-runtime-version-for-ef-designer-models"></a>Wybieranie wersji środowiska uruchomieniowego Entity Framework dla modeli programu EF Designer
 > [!NOTE]
-> **EF6 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 6. Jeśli używasz starszej wersji, niektóre lub wszystkie informacje, nie ma zastosowania.
+> **Ef6 tylko** — funkcje, interfejsy API itp. omówione na tej stronie zostały wprowadzone w Entity Framework 6. Jeśli używasz wcześniejszej wersji, niektóre lub wszystkie informacje nie są stosowane.
 
-Począwszy od platformy EF6 dodano następujący ekran projektancie platformy EF, aby możliwe było wybrać wersję środowiska uruchomieniowego, który ma pod kątem podczas jego tworzenia. Ekran pojawi się na najnowszą wersję programu Entity Framework nie jest już zainstalowany w projekcie. Jeśli już jest zainstalowana najnowsza wersja będzie używany tylko domyślnie.
+Począwszy od EF6, dodano następujący ekran do projektanta EF, aby umożliwić wybranie wersji środowiska uruchomieniowego, która ma być docelowa podczas tworzenia modelu. Ekran pojawi się, gdy Najnowsza wersja Entity Framework nie jest jeszcze zainstalowana w projekcie. Jeśli Najnowsza wersja jest już zainstalowana, zostanie użyta domyślnie.
 
-![Ekran](~/ef6/media/screen.png)
+![Wyświetla](~/ef6/media/screen.png)
 
 
-## <a name="targeting-ef6x"></a>Określanie wartości docelowej EF6.x
+## <a name="targeting-ef6x"></a>Element docelowy EF6. x
 
-Możesz wybrać platformy EF6 z ekranu wybierz wersję usługi, aby dodać środowiska uruchomieniowego platformy EF6 do projektu. Po dodaniu EF6 należy zatrzymać, widzisz ten ekran w bieżącym projekcie.
+Aby dodać środowisko uruchomieniowe EF6 do projektu, możesz wybrać EF6 z ekranu "Wybierz swoją wersję". Po dodaniu EF6u ten ekran zostanie zatrzymany w bieżącym projekcie.
 
-EF6 zostanie wyłączona, jeśli masz już starszą wersję programu EF zainstalowany (ponieważ nie może wskazać wiele wersji środowiska uruchomieniowego, w tym samym projekcie). Jeśli opcja EF6 nie jest włączona w tym miejscu, wykonaj następujące kroki, aby uaktualnić projekt do EF6:
+EF6 zostanie wyłączona, jeśli masz już zainstalowaną starszą wersję EF (ponieważ nie można określić wielu wersji środowiska uruchomieniowego z tego samego projektu). Jeśli opcja EF6 nie jest włączona w tym miejscu, wykonaj następujące kroki, aby uaktualnić projekt do EF6:
 
-1.  Kliknij prawym przyciskiem myszy projekt w Eksploratorze rozwiązań i wybierz **Zarządzaj pakietami NuGet...**
-2.  Wybierz **aktualizacji**
-3.  Wybierz **EntityFramework** (Upewnij się, będzie ona konieczność jej zaktualizowania do wersji mają)
-4.  Kliknij przycisk **aktualizacji**
+1.  Kliknij prawym przyciskiem myszy projekt w Eksplorator rozwiązań i wybierz pozycję **Zarządzaj pakietami NuGet...**
+2.  Wybierz **aktualizacje**
+3.  Wybierz pozycję **EntityFramework** (Upewnij się, że zamierzasz ją zaktualizować do wybranej wersji)
+4.  Kliknij pozycję **Update** (Aktualizuj)
 
- 
+ 
 
-## <a name="targeting-ef5x"></a>Określanie wartości docelowej EF5.x
+## <a name="targeting-ef5x"></a>Element docelowy EF5. x
 
-Możesz wybrać EF5 z ekranu wybierz wersję usługi, aby dodać środowiska uruchomieniowego EF5 do projektu. Po dodaniu EF5 nadal zobaczysz ekran z opcją EF6 wyłączone.
+Aby dodać środowisko uruchomieniowe EF5 do projektu, możesz wybrać EF5 z ekranu "Wybierz swoją wersję". Po dodaniu EF5 nadal zobaczysz ekran z opcją EF6 wyłączona.
 
-Jeśli masz EF4.x wersję środowiska uruchomieniowego już zainstalowanego zostanie wyświetlone tej wersji na liście ekranu, a nie EF5 EF. W takiej sytuacji można przeprowadzić uaktualnienie do EF5 wykonując następujące czynności:
+Jeśli masz już zainstalowaną wersję EF4. x środowiska uruchomieniowego, zobaczysz tę wersję EF podaną na ekranie, a nie EF5. W tej sytuacji można przeprowadzić uaktualnienie do EF5, wykonując następujące czynności:
 
-1.  Wybierz **Tools -&gt; Menedżer pakietów biblioteki -&gt; Konsola Menedżera pakietów**
-2.  Uruchom **EntityFramework instalacji pakietu-wersja 5.0.0**
+1.  Wybieranie **narzędzi-&gt; Library Package Manager —&gt; konsoli Menedżera pakietów**
+2.  Uruchom **install-package EntityFramework — wersja 5.0.0**
 
- 
+ 
 
-## <a name="targeting-ef4x"></a>Określanie wartości docelowej EF4.x
+## <a name="targeting-ef4x"></a>Element docelowy EF4. x
 
-Można zainstalować środowisko uruchomieniowe EF4.x do projektu wykonując następujące czynności:
+Środowisko uruchomieniowe EF4. x można zainstalować w projekcie, wykonując następujące czynności:
 
-1.  Wybierz **Tools -&gt; Menedżer pakietów biblioteki -&gt; Konsola Menedżera pakietów**
-2.  Uruchom **EntityFramework instalacji pakietu — w wersji 4.3.0**
+1.  Wybieranie **narzędzi-&gt; Library Package Manager —&gt; konsoli Menedżera pakietów**
+2.  Uruchom **install-package EntityFramework — wersja 4.3.0**

@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 4c2d9a95-de6f-4e97-9738-c1f8043eff69
 ms.openlocfilehash: b3c4c35d636caf4ddd251dd78e026587abc57d42
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182612"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418890"
 ---
 # <a name="code-first-migrations-in-team-environments"></a>Migracje Code First w środowiskach zespołu
 > [!NOTE]
@@ -107,7 +107,7 @@ Deweloperzy \#1 i Developer \#2 wprowadzają teraz pewne zmiany w modelu EF w ic
 
 Jest to cieszymy dzień dla deweloperów \#1, ponieważ nastąpiły najpierw przesłanie zmian. Ponieważ nikt inny nie zaewidencjonuje się, ponieważ synchronizuje swoje repozytorium, może po prostu przesłać zmiany bez wykonywania scalania.
 
-![Prześlij](~/ef6/media/submit.png)
+![Submit](~/ef6/media/submit.png)
 
 Teraz czas na przesłanie dewelopera \#2. Nie cieszymy. Ponieważ ktoś inny przesłał zmiany od czasu ich synchronizacji, będzie musiał ściągnąć zmiany i scalić. System kontroli źródła prawdopodobnie będzie mógł automatycznie scalić zmiany na poziomie kodu, ponieważ są one bardzo proste. Stan repozytorium lokalnego \#2 dewelopera po synchronizacji przedstawiono na poniższej ilustracji. 
 

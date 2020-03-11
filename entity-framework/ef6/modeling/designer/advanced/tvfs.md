@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: f019c97b-87b0-4e93-98f4-2c539f77b2dc
 ms.openlocfilehash: 35684196dcd7b708a8feeb1eca3096e8d4e555ec
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182537"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418698"
 ---
 # <a name="table-valued-functions-tvfs"></a>Funkcje z wartościami przechowywanymi w tabeli (TVFs)
 > [!NOTE]
@@ -22,7 +22,7 @@ Obsługa TVF została wprowadzona w Entity Framework w wersji 5. Należy pamięt
 
 TVFs są bardzo podobne do procedur składowanych z jedną różnicą kluczową: wynik TVF można utworzyć. Oznacza to, że wyniki z TVF można użyć w zapytaniu LINQ, podczas gdy nie można wykonać wyników procedury składowanej.
 
-## <a name="watch-the-video"></a>Obejrzyj wideo
+## <a name="watch-the-video"></a>Obejrzyj film
 
 **Przedstawione przez**: Julia Kornich
 
@@ -38,7 +38,7 @@ Aby ukończyć ten przewodnik, musisz wykonać następujące czynności:
 
 ## <a name="set-up-the-project"></a>Konfigurowanie projektu
 
-1.  Otwórz program Visual Studio
+1.  Otwórz program Visual Studio.
 2.  W menu **plik** wskaż polecenie **Nowy**, a następnie kliknij pozycję **projekt** .
 3.  W lewym okienku kliknij pozycję **Visual C\#** , a następnie wybierz szablon **konsoli**
 4.  Wprowadź **TVF** jako nazwę projektu, a następnie kliknij przycisk **OK** .

@@ -1,34 +1,34 @@
 ---
-title: Migracje automatyczne Code First - EF6
+title: Automatyczne Migracje Code First — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0eb86787-2161-4cb4-9cb8-67c5d6e95650
 ms.openlocfilehash: 2713afaf09707b7696e90464aac9945c2d82d274
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283917"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419001"
 ---
-# <a name="automatic-code-first-migrations"></a>Migracje automatyczne Code First
-Automatycznej migracji pozwala użyć migracje Code First bez potrzeby plik kodu dla każdej zmiany wprowadzone w projekcie. Nie wszystkie zmiany można zastosować automatycznie — na przykład zmienia nazwę kolumny korzystają z migracji za pomocą kodu.
+# <a name="automatic-code-first-migrations"></a>Automatyczne Migracje Code First
+Automatyczne migracje umożliwiają używanie Migracje Code First bez pliku kodu w projekcie dla każdej wprowadzonej zmiany. Nie wszystkie zmiany mogą być stosowane automatycznie — na przykład zmiana nazw kolumn wymaga użycia migracji opartej na kodzie.
 
 > [!NOTE]
-> W tym artykule przyjęto założenie, że wiesz, jak użyć migracje Code First w podstawowych scenariuszy. Jeśli tego nie zrobisz, a następnie należy odczytać [migracje Code First](~/ef6/modeling/code-first/migrations/index.md) przed kontynuowaniem.
+> W tym artykule założono, że wiesz, jak używać Migracje Code First w podstawowych scenariuszach. Jeśli tego nie zrobisz, musisz przeczytać [migracje Code First](~/ef6/modeling/code-first/migrations/index.md) przed kontynuowaniem.
 
-## <a name="recommendation-for-team-environments"></a>Zalecenia dotyczące środowiska zespołowe
+## <a name="recommendation-for-team-environments"></a>Zalecenie dla środowisk zespołu
 
-Możesz rozdzielać migracje w architekturze kodu i automatyczne, ale nie jest to zalecane w scenariuszach tworzenia zespołu. Jeśli jesteś częścią zespołu deweloperów korzystających z kontroli źródła albo należy używać wyłącznie automatycznej migracji lub migracje oparte wyłącznie na kodzie. Biorąc pod uwagę ograniczenia na potrzeby automatycznej migracji firma Microsoft zaleca, za pomocą migracje oparte na kodzie w środowiskach zespołu.
+Można przeplatać migracje automatyczne i oparte na kodzie, ale nie jest to zalecane w scenariuszach deweloperskich zespołu. Jeśli jesteś częścią zespołu deweloperów korzystających z kontroli źródła, należy używać czysto automatycznych migracji lub czystych migracji opartych na kodzie. Uwzględniając ograniczenia migracji automatycznej, zalecamy korzystanie z migracji opartych na kodzie w środowiskach zespołu.
 
-## <a name="building-an-initial-model--database"></a>Tworzenie początkowej modelu i bazy danych
+## <a name="building-an-initial-model--database"></a>Kompilowanie wstępnego modelu & bazy danych
 
-Zanim zaczniemy, za pomocą migracji potrzebujemy projektu i model Code First chcesz pracować. W tym przewodniku są użyjemy canonical **Blog** i **wpis** modelu.
+Przed rozpoczęciem korzystania z migracji potrzebujemy projektu i modelu Code First do pracy z programem. W tym instruktażu będziemy używać **bloga** i modelu **post** .
 
--   Utwórz nową **MigrationsAutomaticDemo** aplikacji konsoli
--   Dodaj najnowszą wersję **EntityFramework** pakiet NuGet do projektu
-    -   **Narzędzia —&gt; Menedżer pakietów biblioteki —&gt; Konsola Menedżera pakietów**
-    -   Uruchom **EntityFramework instalacji pakietu** polecenia
--   Dodaj **Model.cs** pliku z kodem, pokazano poniżej. Ten kod definiuje pojedynczy **Blog** klasę, która sprawia, że nasz model domeny i **BlogContext** klasę, która jest nasz kontekst EF Code First
+-   Utwórz nową aplikację konsolową **MigrationsAutomaticDemo**
+-   Dodaj najnowszą wersję pakietu NuGet **EntityFramework** do projektu
+    -   **Tools — Menedżer pakietów&gt; Library —&gt; konsoli Menedżera pakietów**
+    -   Uruchom polecenie **install-package EntityFramework**
+-   Dodaj plik **model.cs** z kodem pokazanym poniżej. Ten kod definiuje jedną klasę **blogu** , która składa się z naszego modelu domeny i klasy **BlogContext** , która stanowi nasz kontekst Code First
 
   ``` csharp
       using System.Data.Entity;
@@ -51,7 +51,7 @@ Zanim zaczniemy, za pomocą migracji potrzebujemy projektu i model Code First ch
       }
   ```
 
--   Teraz, gdy model, nadszedł czas na jej używać do wykonywania dostęp do danych. Aktualizacja **Program.cs** pliku z kodem, pokazano poniżej.
+-   Teraz, gdy mamy już model, który jest używany do uzyskiwania dostępu do danych. Zaktualizuj plik **program.cs** za pomocą kodu pokazanego poniżej.
 
   ``` csharp
       using System;
@@ -83,51 +83,51 @@ Zanim zaczniemy, za pomocą migracji potrzebujemy projektu i model Code First ch
       }
   ```
 
--   Uruchom aplikację i zostanie wyświetlony **MigrationsAutomaticCodeDemo.BlogContext** baza danych została utworzona dla Ciebie.
+-   Uruchom aplikację i zobaczysz, że została utworzona baza danych **MigrationsAutomaticCodeDemo. BlogContext** .
 
-    ![Bazy danych LocalDB](~/ef6/media/databaselocaldb.png)
+    ![LocalDB bazy danych](~/ef6/media/databaselocaldb.png)
 
 ## <a name="enabling-migrations"></a>Włączanie migracji
 
-Nadszedł czas na pewnych zmian więcej w naszym modelu.
+Jest to czas na wprowadzenie kolejnych zmian w modelu.
 
--   Umożliwia wprowadzenie właściwość adres Url do klasy blogu.
+-   Wprowadźmy Właściwość adresu URL do klasy bloga.
 
 ``` csharp
     public string Url { get; set; }
 ```
 
-Jeśli zamierzasz uruchomić aplikację ponownie otrzymamy InvalidOperationException, podając *modelu kopii kontekstu "BlogContext" została zmieniona od czasu utworzenia bazy danych. Należy rozważyć użycie migracje Code First w aktualizacji bazy danych (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](https://go.microsoft.com/fwlink/?LinkId=238269) *).*
+Jeśli chcesz uruchomić aplikację ponownie, otrzymasz InvalidOperationException z informacją o *tym, że model zapasowy kontekstu "BlogContext" został zmieniony od czasu utworzenia bazy danych. Aby zaktualizować bazę danych (http://go.microsoft.com/fwlink/?LinkId=238269), należy rozważyć użycie Migracje Code First* [](https://go.microsoft.com/fwlink/?LinkId=238269) *.*
 
-Jak sugeruje wyjątek, jest czas, aby rozpocząć korzystanie z migracje Code First. Ponieważ chcemy użyć migracje automatyczne zamierzamy określ **— EnableAutomaticMigrations** przełącznika.
+Z powodu wyjątku sugerujemy czas rozpoczęcia korzystania z Migracje Code First. Ze względu na to, że chcemy użyć automatycznych migracji, zamierzamy określić przełącznik **– EnableAutomaticMigrations** .
 
--   Uruchom **Enable-Migrations — EnableAutomaticMigrations** polecenia w poleceniu ten konsoli Menedżera pakietów została dodana **migracje** folderu do naszego projektu. Ten nowy folder zawiera jeden plik:
+-   Uruchom polecenie **enable-migrations-EnableAutomaticMigrations** w konsoli Menedżera pakietów to polecenie dodało folder **migracji** do projektu. Ten nowy folder zawiera jeden plik:
 
--   **Klasa konfiguracji.** Ta klasa pozwala skonfigurować sposób działania migracji w Twoim kontekście. W tym przewodniku po prostu używamy domyślnej konfiguracji.
-    *Ponieważ istnieje tylko pojedynczy kontekst Code First w projekcie, Enable-Migrations jest wypełniane automatycznie typ kontekstu, którego dotyczy ta konfiguracja.*
+-   **Klasa konfiguracji.** Ta klasa umożliwia skonfigurowanie sposobu zachowania migracji dla kontekstu. W tym instruktażu zostanie użyta domyślna konfiguracja.
+    *Ponieważ istnieje tylko jeden Code First kontekst w projekcie, Enable-migrations automatycznie wypełnia typ kontekstu, do którego odnosi się ta konfiguracja.*
 
- 
+ 
 
-## <a name="your-first-automatic-migration"></a>Pierwszy automatycznej migracji
+## <a name="your-first-automatic-migration"></a>Twoja pierwsza automatyczna migracja
 
-Migracje Code First ma dwa podstawowe polecenia, które ma być zapoznanie się z.
+Migracje Code First ma dwa podstawowe polecenia, z którymi zamierzasz się zapoznać.
 
--   **Dodaj migracji** będzie tworzenia szkieletu dalej migracji, w oparciu o zmiany wprowadzone do modelu od chwili utworzenia ostatniej migracji
--   **Update-Database** Zastosuj wszelkie oczekujące migracji do bazy danych
+-   W ramach **migracji** do kolejnej migracji w oparciu o zmiany wprowadzone w modelu od momentu utworzenia ostatniej migracji
+-   **Aktualizacja — baza danych** zastosuje wszystkie oczekujące migracje do bazy danych
 
-Firma Microsoft zamierza uniknąć za pomocą Dodaj migracji (chyba że to naprawdę musimy) i skoncentrować się na umożliwienie migracje Code First automatycznie obliczyć i zastosować zmiany. Użyjmy **Update-Database** można pobrać migracje Code First, aby wypchnąć zmiany do nasz model (nowy **Blog.Ur**właściwość l) w bazie danych.
+Będziemy unikać używania dodatku do migracji (chyba że naprawdę to konieczne) i skupić się na umożliwieniu Migracje Code First automatycznego obliczania i stosowania zmian. Użyjmy polecenia **Update-Database** , aby uzyskać migracje Code First w celu wypchnięcia zmian do naszego modelu (Nowa właściwość **bloga**l) do bazy danych.
 
--   Uruchom **Update-Database** polecenia w konsoli Menedżera pakietów.
+-   Uruchom polecenie **Update-Database** w konsoli Menedżera pakietów.
 
-**MigrationsAutomaticDemo.BlogContext** bazy danych został zaktualizowany do uwzględnienia **adresu Url** kolumny w **blogi** tabeli.
+Baza danych **MigrationsAutomaticDemo. BlogContext** jest teraz aktualizowana w celu uwzględnienia kolumny **adresu URL** w tabeli **blogów** .
 
- 
+ 
 
-## <a name="your-second-automatic-migration"></a>Drugi automatycznej migracji
+## <a name="your-second-automatic-migration"></a>Twoja druga automatyczna migracja
 
-Upewnijmy się, innej zmiany i pozwól migracje Code First automatycznie wypychać zmiany do bazy danych dla nas.
+Wprowadźmy kolejną zmianę i pozwól, Migracje Code First automatycznie wypychanie zmian do bazy danych.
 
--   Możemy również dodać nowy **wpis** klasy
+-   Dodajmy również nową klasę **post**
 
 ``` csharp
     public class Post
@@ -142,33 +142,33 @@ Upewnijmy się, innej zmiany i pozwól migracje Code First automatycznie wypycha
     }
 ```
 
--   Dodamy również **wpisy** kolekcji **Blog** klasy w celu utworzenia drugiej stronie relacji między **Blog** i **wpis**
+-   Dodamy również kolekcję **ogłoszeń** do klasy **blog** , aby utworzyć drugi koniec relacji między **blogiem** i **wpisem**
 
 ``` csharp
     public virtual List<Post> Posts { get; set; }
 ```
 
-Teraz za pomocą **Update-Database** Aby przełączyć bazę danych aktualne. Teraz możemy określić **— pełne** Flaga, dzięki czemu możesz zobaczyć SQL Server, który działa migracje Code First.
+Teraz korzystaj z bazy **danych Update-Database** , aby zapewnić aktualność bazy danych. Ten czas pozwala określić flagę **– verbose** , aby zobaczyć, że program SQL migracje Code First jest uruchomiony.
 
--   Uruchom **Update-Database — pełne** polecenia w konsoli Menedżera pakietów.
+-   Uruchom polecenie **Update-Database – verbose** w konsoli Menedżera pakietów.
 
-## <a name="adding-a-code-based-migration"></a>Dodawanie kodu na podstawie migracji
+## <a name="adding-a-code-based-migration"></a>Dodawanie migracji opartej na kodzie
 
-Teraz Przyjrzyjmy się coś, co firma Microsoft może być konieczne użycie oparty na kodzie migracja.
+Teraz przyjrzyjmy się coś, co będziemy potrzebować do użycia migracji opartej na kodzie dla programu.
 
--   Dodajmy **ocena** właściwości **blogu** klasy
+-   Dodajmy do klasy **bloga** Właściwość **Rating**
 
 ``` csharp
     public int Rating { get; set; }
 ```
 
-Firma Microsoft może po prostu uruchomić **Update-Database** do wypychania tych zmian w bazie danych. Jednak dodajemy dopuszcza **Blogs.Rating** kolumny, w przypadku istniejących danych w tabeli zostaną zostaną przypisane domyślne CLR typu danych dla nowej kolumny (ocena jest liczba całkowita, tak byłoby **0**). Ale chcemy określić wartość domyślną **3** więc w istniejącym wiersze **blogi** tabeli rozpoczyna się od klasyfikacji znośnego.
-Użyjemy polecenia Add-migracji można zapisać tej zmiany, które się do migracji za pomocą kodu, dzięki czemu możemy poddać edycji. **Migracji Dodaj** polecenie umożliwia nam nazwij te migracji, po prostu nazwiemy naszych **AddBlogRating**.
+Po prostu można uruchomić z **bazy danych Update-Database** , aby wypchnąć te zmiany do bazy danych. Jednak dodawana jest kolumna " **blogi. Rating** ", która nie dopuszcza wartości null, jeśli w tabeli znajdują się jakieś dane, do których zostanie przypisany domyślny typ danych dla nowej kolumny (Klasyfikacja jest liczbą całkowitą, tak aby była **równa 0**). Ale chcemy określić wartość domyślną równą **3** , aby istniejące wiersze w tabeli **blogów** miały od znośnego klasyfikację.
+Użyjmy polecenia Add-Migration, aby napisać tę zmianę do migracji opartej na kodzie, aby można było ją edytować. Polecenie **Add-Migration** umożliwia nam nadanie nazw migracji nazwy, przywołują nasze **AddBlogRating**.
 
--   Uruchom **AddBlogRating migracji Dodaj** polecenia w konsoli Menedżera pakietów.
--   W **migracje** folderu w efekcie powstał nowy **AddBlogRating** migracji. Nazwa pliku migracji jest wstępnie stała z sygnaturą czasową pomagające w kolejności. Umożliwia edytowanie wygenerowany kod, aby określić domyślną wartość 3 dla Blog.Rating (wiersz 10 w poniższym kodzie)
+-   Uruchom polecenie **Add-Migration AddBlogRating** w konsoli Menedżera pakietów.
+-   W folderze **migracji** mamy teraz nową migrację **AddBlogRating** . Nazwa pliku migracji jest wstępnie naprawiona sygnaturą czasową, aby pomóc w określeniu kolejności. Zmodyfikujmy wygenerowany kod, aby określić wartość domyślną 3 dla blogu. Klasyfikacja (wiersz 10 w poniższym kodzie)
 
-*Migracji ma również plik związany z kodem, który przechwytuje niektórych metadanych. Te metadane umożliwi migracje Code First replikowanie automatycznej migracji, możemy wykonać przed migracją to oparty na kodzie. Jest to ważne, jeśli inny Deweloper chce Uruchom migracje naszych lub gdy nadejdzie czas wdrażania naszej aplikacji.*
+*Migracja ma także plik związany z kodem, który przechwytuje niektóre metadane. Te metadane umożliwią Migracje Code First replikowania automatycznych migracji wykonanych przed tą migracją opartą na kodzie. Jest to ważne, jeśli inny deweloper chce przeprowadzić migracje lub czas wdrożenia naszej aplikacji.*
 
 ``` csharp
     namespace MigrationsAutomaticDemo.Migrations
@@ -191,24 +191,24 @@ Użyjemy polecenia Add-migracji można zapisać tej zmiany, które się do migra
     }
 ```
 
-Nasze edytowanych migracji jest dobra, dlatego użyjemy **Update-Database** Aby przełączyć bazę danych aktualne.
+Twoja edytowana migracja jest dobra, dlatego użyjemy polecenia **Update-Database** , aby zapewnić aktualność bazy danych.
 
--   Uruchom **Update-Database** polecenia w konsoli Menedżera pakietów.
+-   Uruchom polecenie **Update-Database** w konsoli Menedżera pakietów.
 
-## <a name="back-to-automatic-migrations"></a>Powrót do automatycznej migracji
+## <a name="back-to-automatic-migrations"></a>Z powrotem do automatycznych migracji
 
-Jesteśmy teraz bezpłatnych wrócić do automatycznej migracji dla prostsze zmian. Migracje Code First zajmie się przeprowadzania migracji automatycznej i oparte na kodzie w odpowiedniej kolejności, na podstawie metadanych, która jest przechowywana w pliku związanym z kodem dla każdego migracji opartego na kodzie.
+Teraz możemy przełączyć się z powrotem do automatycznej migracji, aby uprościć zmiany. Migracje Code First zadbają o przeprowadzenie migracji automatycznej i opartej na kodzie w odpowiedniej kolejności na podstawie metadanych przechowywanych w pliku związanym z kodem dla każdej migracji opartej na kodzie.
 
--   Dodajmy właściwość Post.Abstract naszym modelu
+-   Dodajmy do naszego modelu Właściwość post. abstract
 
 ``` csharp
     public string Abstract { get; set; }
 ```
 
-Teraz możemy użyć **Update-Database** można pobrać migracje Code First wypychania tej zmiany do bazy danych za pomocą automatycznej migracji.
+Teraz możemy użyć usługi **Update-Database** , aby uzyskać migracje Code First do wypchnięcia tej zmiany do bazy danych przy użyciu automatycznej migracji.
 
--   Uruchom **Update-Database** polecenia w konsoli Menedżera pakietów.
+-   Uruchom polecenie **Update-Database** w konsoli Menedżera pakietów.
 
 ## <a name="summary"></a>Podsumowanie
 
-W tym przewodniku pokazano, jak użyć migracje automatycznego wypychania modelu zmienia się z bazą danych. Przedstawiono także sposób tworzenia szkieletu i uruchamiania oparte na kodzie migracje między automatycznej migracji, gdy potrzebujesz większej kontroli.
+W tym instruktażu przedstawiono sposób korzystania z automatycznych migracji w celu wypychania zmian modelu do bazy danych. Pokazano również, jak szkieletować i uruchamiać migracje oparte na kodzie między automatyczną migracją, gdy potrzebna jest większa kontrola.

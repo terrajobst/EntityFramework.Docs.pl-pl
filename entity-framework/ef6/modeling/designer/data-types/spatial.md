@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 06baa6e1-d680-4a95-845b-81305c87a962
 ms.openlocfilehash: a9c54fbc14dd02ce5d4d91449a0d5f9e72f7f0f7
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182504"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418540"
 ---
 # <a name="spatial---ef-designer"></a>Projektant przestrzenny-EF
 > [!NOTE]
@@ -24,7 +24,7 @@ Aby można było używać typów danych przestrzennych, należy również użyć
 
 Istnieją dwa główne typy danych przestrzennych: Geografia i geometria. Typ danych Geografia przechowuje dane ellipsoidal (na przykład współrzędne geograficzne i Długość geograficzna). Typ danych geometrii reprezentuje układ współrzędnych Euclidean (płaski).
 
-## <a name="watch-the-video"></a>Obejrzyj wideo
+## <a name="watch-the-video"></a>Obejrzyj film
 W tym filmie wideo przedstawiono sposób mapowania typów przestrzennych przy użyciu Entity Framework Designer. Pokazano również, jak używać zapytania LINQ, aby znaleźć odległość między dwiema lokalizacjami.
 
 **Przedstawione przez**: Julia Kornich
@@ -48,7 +48,7 @@ Aby ukończyć ten przewodnik, musisz mieć zainstalowaną wersję Visual Studio
 2.  Wybierz pozycję **dane** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablony.
 3.  W polu Nazwa pliku wprowadź **UniversityModel. edmx** , a następnie kliknij przycisk **Dodaj** .
 4.  Na stronie kreatora Entity Data Model wybierz pozycję **pusty model** w oknie dialogowym Wybierz zawartość modelu
-5.  Kliknij przycisk **Zakończ** .
+5.  Kliknij przycisk **Zakończ**
 
 Zostanie wyświetlona Entity Designer, która zapewnia powierzchnię projektową do edycji modelu.
 
@@ -62,7 +62,7 @@ Kreator wykonuje następujące czynności:
 
 1.  Kliknij prawym przyciskiem myszy pusty obszar na powierzchni projektowej, a następnie wybierz polecenie **dodaj&gt; jednostki**, pojawi się okno dialogowe Nowa jednostka
 2.  Określ nazwę typu dla **Uniwersytetu** i określ **UniversityID** dla nazwy właściwości klucza, pozostaw typ jako **Int32**
-3.  Kliknij przycisk **OK**
+3.  Kliknij przycisk **OK**.
 4.  Kliknij prawym przyciskiem myszy jednostkę i wybierz polecenie **Dodaj nową-&gt; Właściwość skalarna**
 5.  Zmień nazwę nowej właściwości na **nazwę**
 6.  Dodaj kolejną Właściwość skalarną i zmień jej nazwę na **lokalizację** Otwórz okno właściwości i Zmień typ nowej właściwości na **Geografia**

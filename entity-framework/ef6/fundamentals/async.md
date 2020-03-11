@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
 ms.openlocfilehash: 0642dc13e7aa3906fa1495031c62701fc16f0192
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181846"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417981"
 ---
 # <a name="async-query-and-save"></a>Zapytanie asynchroniczne i zapisywanie
 > [!NOTE]
@@ -154,12 +154,12 @@ Ponieważ kod jest synchroniczny, podczas uruchamiania programu można obserwowa
 
 Teraz, gdy nasz program został uruchomiony, możemy zacząć korzystać z nowych słów kluczowych async i await. Wprowadziliśmy następujące zmiany w programie Program.cs
 
-1.  Wiersz 2: Instrukcja using dla przestrzeni nazw **System. Data. Entity** daje nam dostęp do metod rozszerzenia asynchronicznego EF.
-2.  Wiersz 4: Instrukcja using dla przestrzeni nazw **System. Threading. Tasks** umożliwia nam korzystanie z typu **zadania** .
-3.  Wiersz 12 & 18: Przechwytuje jako zadanie monitorujące postęp **PerformSomeDatabaseOperations** (wiersz 12), a następnie blokując wykonywanie programu w celu wykonania tego zadania po zakończeniu całej pracy dla programu (wiersz 18).
-4.  Wiersz 25: Zaktualizowaliśmy **PerformSomeDatabaseOperations** , aby można było je oznaczyć jako **Async** i zwrócić **zadanie**.
-5.  Wiersz 35: Teraz wywołujemy asynchroniczną wersję metody SaveChanges i oczekuje na jej ukończenie.
-6.  Wiersz 42: Teraz wywołujemy asynchroniczną wersję ToList — i czeka na wynik.
+1.  Wiersz 2: Instrukcja using dla przestrzeni nazw **System. Data. Entity** daje nam dostęp do metod rozszerzeń asynchronicznych EF.
+2.  Wiersz 4: Instrukcja using dla przestrzeni nazw **System. Threading. Tasks** umożliwia nam korzystanie z tego typu **zadania** .
+3.  Wiersz 12 & 18: Przechwytywanie jako zadanie monitorujące postęp **PerformSomeDatabaseOperations** (wiersz 12), a następnie blokowanie wykonywania programu dla tego zadania, gdy wszystkie prace dla programu zostaną wykonane (wiersz 18).
+4.  Wiersz 25: Zaktualizowaliśmy **PerformSomeDatabaseOperations** , aby można było oznaczyć ją jako **Async** i zwrócić **zadanie**.
+5.  Wiersz 35: obecnie wywołujemy asynchroniczną wersję metody SaveChanges i oczekuje na jej ukończenie.
+6.  Wiersz 42: obecnie wywołujemy asynchroniczną wersję ToList — i oczekuje na wynik.
 
 Aby uzyskać pełną listę dostępnych metod rozszerzenia w przestrzeni nazw System. Data. Entity, zapoznaj się z klasą QueryableExtensions. *Należy również dodać "using System. Data. Entity" do instrukcji using.*
 
@@ -222,12 +222,12 @@ Aby uzyskać pełną listę dostępnych metod rozszerzenia w przestrzeni nazw Sy
 Teraz, gdy kod jest asynchroniczny, można obserwować inny przepływ wykonywania podczas uruchamiania programu:
 
 1. **Metody SaveChanges** rozpoczyna wypychanie nowego **bloga** do bazy danych  
-    *Once polecenie jest wysyłane do bazy danych, w bieżącym wątku zarządzanym nie jest wymagany czas obliczeniowy. Metoda **PerformDatabaseOperations** zwraca (nawet jeśli nie została ukończona), a przepływ programu w metodzie Main jest kontynuowany.*
+    *Po wysłaniu polecenia do bazy danych nie jest wymagany czas obliczeniowy w bieżącym wątku zarządzanym. Metoda **PerformDatabaseOperations** zwraca (nawet jeśli nie została ukończona), a przepływ programu w metodzie Main jest kontynuowany.*
 2. **Cytat dnia jest zapisywana w konsoli**  
-    *Since nie ma więcej pracy do wykonania w metodzie Main, zarządzany wątek jest blokowany na wywołanie oczekiwania do momentu zakończenia operacji bazy danych. Po zakończeniu zostanie wykonane pozostała część naszych **PerformDatabaseOperations** .*
+    *Ponieważ nie ma więcej pracy do wykonania w metodzie Main, zarządzany wątek jest blokowany na wywołanie oczekiwania do momentu zakończenia operacji bazy danych. Po zakończeniu zostanie wykonane pozostała część naszych **PerformDatabaseOperations** .*
 3.  **Metody SaveChanges**  
 4.  Zapytanie dotyczące wszystkich **blogów** jest wysyłane do bazy danych  
-    *Again, zarządzany wątek jest bezpłatny do wykonywania innych czynności w czasie przetwarzania zapytania w bazie danych. Ponieważ wszystkie inne wykonania zostały ukończone, wątek zostanie po prostu zatrzymany na wywołaniu oczekiwania.*
+    *Ponownie zarządzany wątek jest bezpłatny do wykonywania innych czynności w czasie przetwarzania zapytania w bazie danych. Ponieważ wszystkie inne wykonania zostały ukończone, wątek zostanie po prostu zatrzymany na wywołaniu oczekiwania.*
 5.  Zapytania zwracane i wyniki są zapisywane w **konsoli**  
 
 ![Asynchroniczne dane wyjściowe](~/ef6/media/asyncoutput.png) 

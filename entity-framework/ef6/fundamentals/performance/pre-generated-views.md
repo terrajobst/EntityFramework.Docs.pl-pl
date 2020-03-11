@@ -1,43 +1,43 @@
 ---
-title: Widoki wstępnie wygenerowanego mapowania — EF6
+title: Wstępnie wygenerowane widoki mapowania — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 917ba9c8-6ddf-4631-ab8c-c4fb378c2fcd
 ms.openlocfilehash: 1fda9fe9638adce9b24a6b81aa081effeb0def81
-ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/30/2018
-ms.locfileid: "47459529"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419392"
 ---
-# <a name="pre-generated-mapping-views"></a>Widoki wstępnie wygenerowanego mapowania
-Zanim Entity Framework można wykonać zapytania i zapisać zmiany w źródle danych, go wygenerować zestaw widoków mapowanie dostępu do bazy danych. Widoki te mapowania są zbiór instrukcję SQL jednostki, która reprezentuje bazy danych w sposób abstrakcyjnej i są częścią metadanych, które są buforowane dla domeny aplikacji. Jeśli tworzysz wiele wystąpień tego samego kontekstu w tej samej domenie aplikacji, będą ponownie używały widokach mapowania z pamięci podręcznej metadanych zamiast ponownego generowania ich. Ponieważ generowanie Widok mapowania jest znaczna część całkowity koszt wykonania pierwszego zapytania, platformy Entity Framework umożliwia wstępnie wygenerować widokach mapowania i umieścić je w projekcie skompilowany. Aby uzyskać więcej informacji, zobacz [zagadnienia związane z wydajnością (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md).
+# <a name="pre-generated-mapping-views"></a>Wstępnie wygenerowane widoki mapowania
+Zanim Entity Framework będzie mogła wykonać zapytanie lub zapisać zmiany w źródle danych, musi wygenerować zestaw widoków mapowania, aby uzyskać dostęp do bazy danych. Te widoki mapowania są zestawem instrukcji Entity SQL, które reprezentują bazę danych w sposób abstrakcyjny i są częścią metadanych, które są buforowane dla domeny aplikacji. Jeśli utworzysz wiele wystąpień tego samego kontekstu w tej samej domenie aplikacji, zostaną one ponownie użyte w widokach mapowania z buforowanych metadanych zamiast ich wygenerowania. Ponieważ generowanie widoku mapowania jest istotną częścią całkowitego kosztu wykonywania pierwszego zapytania, Entity Framework umożliwia wstępne Generowanie widoków mapowania i uwzględnianie ich w skompilowanym projekcie. Aby uzyskać więcej informacji, zobacz  [zagadnienia dotyczące wydajności (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md).
 
-## <a name="generating-mapping-views-with-the-ef-power-tools-community-edition"></a>Generowanie mapowanie widoków przy użyciu programu EF Power Tools Community Edition
+## <a name="generating-mapping-views-with-the-ef-power-tools-community-edition"></a>Generowanie widoków mapowania przy użyciu narzędzia EF PowerShell w wersji Community Edition
 
-Najłatwiej można wstępnie wygenerować widoków jest użycie [EF Power Tools Community Edition](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition). Po utworzeniu zainstalowano narzędzia zasilania masz opcję menu, aby wygenerować widoki, zgodnie z poniższymi instrukcjami.
+Najprostszym sposobem na wstępne wygenerowanie widoków jest użycie [Narzędzia Dr PowerShell Tools Community Edition](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition). Po zainstalowaniu narzędzi do zarządzania narzędziami można korzystać z opcji menu do generowania widoków, jak pokazano poniżej.
 
--   Aby uzyskać **Code First** modeli kliknij prawym przyciskiem myszy plik kodu zawierający klasy DbContext.
--   Aby uzyskać **projektancie platformy EF** modeli kliknij prawym przyciskiem myszy w pliku EDMX.
+-   Dla modeli **Code First** kliknij prawym przyciskiem myszy plik kodu, który zawiera klasę DbContext.
+-   W przypadku modeli programu **Dr Designer** kliknij prawym przyciskiem myszy plik EDMX.
 
-![Generowanie widoków](~/ef6/media/generateviews.png)
+![Generuj widoki](~/ef6/media/generateviews.png)
 
-Po zakończeniu procesu będą dostępne podobny do następującego wygenerowane klasy
+Po zakończeniu procesu będziesz mieć klasę podobną do następującej wygenerowanej
 
-![wygenerowanych widoków](~/ef6/media/generatedviews.png)
+![wygenerowane widoki](~/ef6/media/generatedviews.png)
 
-Teraz po uruchomieniu aplikacji EF użyje tej klasy można załadować widoki, zgodnie z potrzebami. W przypadku zmiany modelu i ponownie generuje ta klasa EF spowoduje zgłoszenie wyjątku.
+Teraz po uruchomieniu aplikacji EF użyje tej klasy do załadowania widoków zgodnie z potrzebami. Jeśli model zmieni się i nie utworzysz ponownie tej klasy, program EF zgłosi wyjątek.
 
-## <a name="generating-mapping-views-from-code---ef6-onwards"></a>Generowanie widoków mapowania z kodu — od wersji EF6
+## <a name="generating-mapping-views-from-code---ef6-onwards"></a>Generowanie widoków mapowania na podstawie kodu-EF6 lub nowszego
 
-Inny sposób, aby wygenerować widoków jest korzystanie z interfejsów API, który zapewnia EF. Przy użyciu tej metody należy swobody serializacji widoków, jednak lubisz, ale trzeba będzie również załadować widoków samodzielnie.
+Innym sposobem generowania widoków jest użycie interfejsów API, które zapewnia program Dr. Korzystając z tej metody, masz swobodę serializowania widoków, ale trzeba również samodzielnie załadować widoki.
 
 > [!NOTE]
-> **EF6 począwszy tylko** — interfejsy API, przedstawione w tej sekcji zostały wprowadzone w programie Entity Framework 6. Jeśli używasz starszej wersji tych informacji nie ma zastosowania.
+> **Ef6 tylko do wewnątrz** — interfejsy API przedstawione w tej sekcji zostały wprowadzone w Entity Framework 6. Jeśli używasz wcześniejszej wersji, te informacje nie są stosowane.
 
 ### <a name="generating-views"></a>Generowanie widoków
 
-Interfejsy API, aby wygenerować widoki znajdują się w klasie System.Data.Entity.Core.Mapping.StorageMappingItemCollection. Aby pobrać StorageMappingCollection dla kontekstu, za pomocą obiektu MetadataWorkspace dla obiektu ObjectContext. Jeśli używasz nowszej interfejsu API typu DbContext, wówczas użytkownik może uzyskać dostępu do tego za pomocą IObjectContextAdapter, takich jak poniżej, w tym kodzie mamy wystąpienie usługi DbContext pochodnej wywołuje dbContext:
+Interfejsy API do generowania widoków znajdują się w klasie System. Data. Entity. Core. Mapping. StorageMappingItemCollection. Można pobrać StorageMappingCollection dla kontekstu przy użyciu obiektu MetadataWorkspace obiektu ObjectContext. Jeśli używasz nowszego interfejsu API DbContext, możesz uzyskać do niego dostęp przy użyciu IObjectContextAdapter, takiego jak poniżej, w tym kodzie mamy wystąpienie pochodne DbContext o nazwie DbContext:
 
 ``` csharp
     var objectContext = ((IObjectContextAdapter) dbContext).ObjectContext;
@@ -45,31 +45,31 @@ Interfejsy API, aby wygenerować widoki znajdują się w klasie System.Data.Enti
                                                                         .GetItemCollection(DataSpace.CSSpace);
 ```
 
-Po utworzeniu obiekt StorageMappingItemCollection można uzyskać dostęp do metod GenerateViews i ComputeMappingHashValue.
+Po udostępnieniu StorageMappingItemCollection można uzyskać dostęp do metod GenerateViews i ComputeMappingHashValue.
 
 ``` csharp
     public Dictionary\<EntitySetBase, DbMappingView> GenerateViews(IList<EdmSchemaError> errors)
     public string ComputeMappingHashValue()
 ```
 
-Pierwsza metoda tworzy słownik z wpis dla każdego widoku w mapowaniu kontenera. Druga metoda oblicza wartość skrótu dla mapowania jeden kontener i jest używany w czasie wykonywania do sprawdzania poprawności, model nie zmienił się od czasu widoki zostały wstępnie wygenerowane. Zastąpienia dwie metody są udostępniane dla złożonych scenariuszy obejmujących wiele mapowań kontenera.
+Pierwsza metoda tworzy słownik z wpisem dla każdego widoku w mapowaniu kontenera. Druga metoda oblicza wartość skrótu dla mapowania jednego kontenera i jest używana w czasie wykonywania w celu sprawdzenia, czy model nie został zmieniony od czasu, gdy widoki zostały wstępnie wygenerowane. Zastępowanie dwóch metod są dostępne dla złożonych scenariuszy obejmujących wiele mapowań kontenerów.
 
-Podczas generowania widoków spowoduje wywołanie metody GenerateViews i następnie zapisać wynikowy EntitySetBase i DbMappingView. Należy również przechowywać wyznaczania wartości skrótu, generowany przez metodę ComputeMappingHashValue.
+Podczas generowania widoków zostanie wywołana metoda GenerateViews, a następnie nastąpi wygenerowanie wyników EntitySetBase i DbMappingView. Należy również przechowywać skrót wygenerowany przez metodę ComputeMappingHashValue.
 
-### <a name="loading-views"></a>Trwa ładowanie widoków
+### <a name="loading-views"></a>Ładowanie widoków
 
-Aby załadować widoki generowane przez metodę GenerateViews, możesz zapewnić EF klasę, która dziedziczy z klasy abstrakcyjnej DbMappingViewCache. DbMappingViewCache określa dwie metody, które należy zaimplementować:
+Aby załadować widoki wygenerowane przez metodę GenerateViews, można dostarczyć EF z klasą, która dziedziczy z klasy abstrakcyjnej DbMappingViewCache. DbMappingViewCache określa dwie metody, które należy zaimplementować:
 
 ``` csharp
     public abstract string MappingHashValue { get; }
     public abstract DbMappingView GetView(EntitySetBase extent);
 ```
 
-Właściwość MappingHashValue musi zwracać wyznaczania wartości skrótu, generowany przez metodę ComputeMappingHashValue. Gdy EF jest przejście do zadania dla widoków najpierw wygeneruje i porównania wartości skrótu modelu przy użyciu skrótu zwracane przez tę właściwość. Jeśli nie są zgodne EF spowoduje zgłoszenie wyjątku EntityCommandCompilationException.
+Właściwość MappingHashValue musi zwracać skrót wygenerowany przez metodę ComputeMappingHashValue. Gdy program Dr będzie pytał o widoki, najpierw generuje i porówna wartość skrótu modelu z skrótem zwracanym przez tę właściwość. Jeśli nie są zgodne, EF zgłosi wyjątek EntityCommandCompilationException.
 
-Metoda GetView będzie akceptować EntitySetBase i muszą zwracać DbMappingVIew, zawierający EntitySql, który został wygenerowany w tym został skojarzony z danym EntitySetBase w słowniku generowany przez metodę GenerateViews. Jeśli EF prosi o widoku, że nie masz następnie GetView powinna zwrócić wartość null.
+Metoda GetView akceptuje EntitySetBase i należy zwrócić element DbMappingVIew zawierający EntitySql, który został wygenerowany dla, który został skojarzony z daną EntitySetBase w słowniku wygenerowanym przez metodę GenerateViews. Jeśli Dr pyta o widok, którego nie masz, wówczas GetView powinien zwrócić wartość null.
 
-Poniżej przedstawiono wyciąg z DbMappingViewCache, który jest generowany przy użyciu zaawansowanych narzędzi, jak opisano powyżej, w nim widać sposób przechowywania i pobierania EntitySql wymagane.
+Poniżej znajduje się wyciąg z DbMappingViewCache, który jest generowany przy użyciu narzędzi, zgodnie z powyższym opisem. w tym artykule zobaczymy jeden ze sposobów przechowywania i pobierania wymaganego EntitySql.
 
 ``` csharp
     public override string MappingHashValue
@@ -117,10 +117,10 @@ Poniżej przedstawiono wyciąg z DbMappingViewCache, który jest generowany przy
     }
 ```
 
-Mają zastosowanie do programów EF swoje DbMappingViewCache dodasz Użyj DbMappingViewCacheTypeAttribute, określając kontekst, który został utworzony dla. W poniższym kodzie za pomocą klasy MyMappingViewCache wnoszonym BlogContext.
+Aby można było korzystać z DbMappingViewCache, należy dodać użycie DbMappingViewCacheTypeAttribute, określając kontekst, dla którego został utworzony. W kodzie poniżej skojarzemy BlogContext z klasą MyMappingViewCache.
 
 ``` csharp
     [assembly: DbMappingViewCacheType(typeof(BlogContext), typeof(MyMappingViewCache))]
 ```
 
-W przypadku bardziej złożonych scenariuszy wystąpienia pamięci podręcznej Widok mapowania można podać, określając fabrykę pamięci podręcznej Widok mapowania. Można to zrobić poprzez implementację klasy abstrakcyjnej System.Data.Entity.Infrastructure.MappingViews.DbMappingViewCacheFactory. Wystąpienie fabryki pamięci podręcznej Widok mapowania, która jest używana można pobrać lub ustawić za pomocą StorageMappingItemCollection.MappingViewCacheFactoryproperty.
+W przypadku bardziej złożonych scenariuszy wystąpienia pamięci podręcznej widoku mapowania można podać, określając fabrykę pamięci podręcznej widoku mapowania. Można to zrobić przez zaimplementowanie klasy abstrakcyjnej System. Data. Entity. Infrastructure. MappingViews. DbMappingViewCacheFactory. Wystąpienie używanej fabryki pamięci podręcznej widoku mapowania można pobrać lub ustawić za pomocą StorageMappingItemCollection. MappingViewCacheFactoryproperty.

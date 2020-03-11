@@ -4,16 +4,16 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
 ms.openlocfilehash: d540fc6e84049f345ae22998f94c309e0be73fc3
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182574"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418813"
 ---
 # <a name="code-first-to-a-new-database"></a>Code First do nowej bazy danych
 Ten film wideo i przewodnik krok po kroku zawierają wprowadzenie do Code First tworzenia elementów docelowych dla nowej bazy danych. Ten scenariusz obejmuje bazę danych, która nie istnieje i Code First utworzy, lub pustą bazę danych, która Code First doda nowe tabele do programu. Code First pozwala definiować model przy użyciu klas C\# lub VB.Net. Można opcjonalnie wykonać dodatkową konfigurację przy użyciu atrybutów klas i właściwości albo za pomocą interfejsu API Fluent.
 
-## <a name="watch-the-video"></a>Obejrzyj wideo
+## <a name="watch-the-video"></a>Obejrzyj film
 Ten film wideo zawiera wprowadzenie do Code First tworzenia elementów docelowych dla nowej bazy danych. Ten scenariusz obejmuje bazę danych, która nie istnieje i Code First utworzy, lub pustą bazę danych, która Code First doda nowe tabele do programu. Code First pozwala definiować model przy użyciu C# klas lub VB.NET. Można opcjonalnie wykonać dodatkową konfigurację przy użyciu atrybutów klas i właściwości albo za pomocą interfejsu API Fluent.
 
 **Przedstawione przez**: [Rowan Miller](https://romiller.com/)
@@ -30,11 +30,11 @@ W przypadku korzystania z programu Visual Studio 2010 należy również zainstal
 
 Aby zachować prostotę, możemy utworzyć podstawową aplikację konsolową, która używa Code First do uzyskiwania dostępu do danych.
 
--   Otwórz program Visual Studio
+-   Otwórz program Visual Studio.
 -   **Plik —&gt; nowy&gt; projekt...**
 -   Wybierz pozycję **Windows** z menu po lewej stronie i **aplikacji konsolowej**
 -   Wprowadź **CodeFirstNewDatabaseSample** jako nazwę
--   Wybierz **przycisk OK**
+-   Kliknij przycisk **OK**
 
 ## <a name="2-create-the-model"></a>2. Utwórz model
 
@@ -328,7 +328,7 @@ Pełna lista adnotacji obsługiwanych przez EF to:
 -   [TimestampAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.timestampattribute)
 -   [ComplexTypeattribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.complextypeattribute)
 -   [ColumnAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.columnattribute)
--   [TableAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.tableattribute)
+-   [Tabelaattribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.tableattribute)
 -   [InversePropertyAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.inversepropertyattribute)
 -   [ForeignKeyAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.foreignkeyattribute)
 -   [DatabaseGeneratedAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.databasegeneratedattribute)

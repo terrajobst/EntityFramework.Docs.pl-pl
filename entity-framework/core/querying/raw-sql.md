@@ -4,23 +4,23 @@ author: smitpatel
 ms.date: 10/08/2019
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: b7087771f1a9e8ee5e044cfea367d74a0b1c1d35
-ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
+ms.openlocfilehash: a54bb67c0fce9d621382f6372e70fe4cdca48a20
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72445923"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417671"
 ---
 # <a name="raw-sql-queries"></a>Pierwotne zapytania SQL
 
 Entity Framework Core pozwala na rozwijanie do nieprzetworzonych zapytań SQL podczas pracy z relacyjną bazą danych. Surowe zapytania SQL są przydatne, jeśli nie można wyrazić tego zapytania przy użyciu LINQ. Nieprzetworzone zapytania SQL są używane również wtedy, gdy użycie zapytania LINQ skutkuje nieefektywnym zapytaniem SQL. Surowe zapytania SQL mogą zwracać zwykłe typy jednostek lub [mniejsze typy jednostek](xref:core/modeling/keyless-entity-types) , które są częścią modelu.
 
 > [!TIP]  
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying/) tego artykułu można wyświetlić w witrynie GitHub.
+> [Przykład](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying/) tego artykułu można wyświetlić w witrynie GitHub.
 
 ## <a name="basic-raw-sql-queries"></a>Podstawowe nieprzetworzone zapytania SQL
 
-Można użyć metody rozszerzenia `FromSqlRaw`, aby rozpocząć zapytanie LINQ na podstawie pierwotnego zapytania SQL. `FromSqlRaw` można używać tylko w przypadku katalogów głównych, które są bezpośrednio w `DbSet<>`.
+Możesz użyć metody rozszerzenia `FromSqlRaw`, aby rozpocząć zapytanie LINQ na podstawie pierwotnego zapytania SQL. `FromSqlRaw` można używać tylko w przypadku katalogów głównych zapytań, które są bezpośrednio w `DbSet<>`.
 
 [!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRaw)]
 
@@ -35,16 +35,16 @@ W celu wykonania procedury składowanej można użyć nieprzetworzonych zapytań
 >
 > Wprowadzając wszelkie wartości podane przez użytkownika w nieprzetworzonej kwerendzie SQL, należy zachować ostrożność, aby uniknąć ataków iniekcji SQL. Oprócz sprawdzania, czy takie wartości nie zawierają nieprawidłowych znaków, należy zawsze używać parametryzacja, które wysyła wartości odrębnie od tekstu SQL.
 >
-> W szczególności nigdy nie przekazuj ciągu połączonego lub interpolowanego (`$""`) z niezweryfikowanymi wartościami dostarczonymi przez użytkownika do `FromSqlRaw` lub `ExecuteSqlRaw`. Metody `FromSqlInterpolated` i `ExecuteSqlInterpolated` umożliwiają używanie składni interpolacji ciągów w taki sposób, aby chronić przed atakami polegającymi na iniekcji SQL.
+> W szczególności nigdy nie przekazuj ciągu połączonego lub interpolowanego (`$""`) z niezweryfikowanymi wartościami dostarczonymi przez użytkownika do `FromSqlRaw` lub `ExecuteSqlRaw`. Metody `FromSqlInterpolated` i `ExecuteSqlInterpolated` umożliwiają używanie składni interpolacji ciągów w taki sposób, aby chronić przed atakami polegającymi na iniekcji kodu SQL.
 
-Poniższy przykład przekazuje pojedynczy parametr do procedury składowanej, dołączając symbol zastępczy parametru w ciągu zapytania SQL i dostarczając dodatkowy argument. Ta składnia może wyglądać podobnie do składni `String.Format`, podana wartość jest opakowana w `DbParameter` i wygenerowanej nazwy parametru, gdzie został określony symbol zastępczy `{0}`.
+Poniższy przykład przekazuje pojedynczy parametr do procedury składowanej, dołączając symbol zastępczy parametru w ciągu zapytania SQL i dostarczając dodatkowy argument. Ta składnia może wyglądać podobnie jak składnia `String.Format`, podana wartość jest opakowana w `DbParameter` i wygenerowaną nazwą parametru wstawioną w miejscu, w którym został określony `{0}` symbol zastępczy.
 
 [!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRawStoredProcedureParameter)]
 
-`FromSqlInterpolated` jest podobna do `FromSqlRaw`, ale umożliwia użycie składni interpolacji ciągów. Podobnie jak `FromSqlRaw`, `FromSqlInterpolated` można używać tylko w przypadku katalogów głównych zapytań. Podobnie jak w poprzednim przykładzie, wartość jest konwertowana na `DbParameter` i nie jest narażony na wstrzyknięcie kodu SQL.
+`FromSqlInterpolated` jest podobna do `FromSqlRaw`, ale umożliwia użycie składni interpolacji ciągów. Podobnie jak `FromSqlRaw`, `FromSqlInterpolated` można używać tylko w przypadku katalogów głównych zapytań. Jak w poprzednim przykładzie, wartość jest konwertowana na `DbParameter` i nie jest narażona na wstrzyknięcie kodu SQL.
 
 > [!NOTE]
-> Przed wersjami 3,0 `FromSqlRaw` i `FromSqlInterpolated` były dwa przeciążenia o nazwach `FromSql`. Aby uzyskać więcej informacji, zobacz [sekcję poprzednie wersje](#previous-versions).
+> Przed wersjami 3,0 `FromSqlRaw` i `FromSqlInterpolated` były dwa przeciążenia o nazwie `FromSql`. Aby uzyskać więcej informacji, zobacz [sekcję poprzednie wersje](#previous-versions).
 
 [!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlInterpolatedStoredProcedureParameter)]
 
@@ -79,17 +79,17 @@ Metoda `Include` może służyć do uwzględnienia powiązanych danych, podobnie
 
 [!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlInterpolatedInclude)]
 
-Redagowanie przy użyciu LINQ wymaga, aby pierwotne zapytanie SQL było możliwe do utworzenia, ponieważ EF Core będzie traktować dane SQL jako podzapytanie. Zapytania SQL, które mogą być składane na początku ze słowem kluczowym `SELECT`. Dodatkowo przekazanie danych SQL nie powinno zawierać żadnych znaków ani opcji, które nie są prawidłowe w podzapytaniu, na przykład:
+Redagowanie przy użyciu LINQ wymaga, aby pierwotne zapytanie SQL było możliwe do utworzenia, ponieważ EF Core będzie traktować dane SQL jako podzapytanie. Zapytania SQL, które mogą być składane na początku za pomocą słowa kluczowego `SELECT`. Dodatkowo przekazanie danych SQL nie powinno zawierać żadnych znaków ani opcji, które nie są prawidłowe w podzapytaniu, na przykład:
 
 - Końcowy średnik
 - Na SQL Server, końcowa Wskazówka na poziomie zapytania (na przykład `OPTION (HASH JOIN)`)
 - Na SQL Server, klauzula `ORDER BY`, która nie jest używana z `OFFSET 0` lub `TOP 100 PERCENT` w klauzuli `SELECT`
 
-SQL Server nie zezwala na tworzenie wywołań procedur składowanych, więc każda próba zastosowania dodatkowych operatorów zapytań do takiego wywołania spowoduje nieprawidłowe użycie języka SQL. Użyj metody `AsEnumerable` lub `AsAsyncEnumerable` bezpośrednio po `FromSqlRaw` lub `FromSqlInterpolated` metodach, aby upewnić się, że EF Core nie próbuje utworzyć przez procedurę składowaną.
+SQL Server nie zezwala na tworzenie wywołań procedur składowanych, więc każda próba zastosowania dodatkowych operatorów zapytań do takiego wywołania spowoduje nieprawidłowe użycie języka SQL. Użyj metody `AsEnumerable` lub `AsAsyncEnumerable` bezpośrednio po `FromSqlRaw` lub `FromSqlInterpolated` metod, aby upewnić się, że EF Core nie próbuje utworzyć przez procedurę składowaną.
 
 ## <a name="change-tracking"></a>Śledzenie zmian
 
-Zapytania, które używają metod `FromSqlRaw` lub `FromSqlInterpolated`, są zgodne ze szczegółowymi regułami śledzenia zmian, co inne zapytanie LINQ w EF Core. Na przykład, jeśli typ jednostki projekty zapytań, wyniki będą śledzone domyślnie.
+Zapytania, które używają metod `FromSqlRaw` lub `FromSqlInterpolated`, są zgodne ze szczegółowymi regułami śledzenia zmian, co inne zapytania LINQ w EF Core. Na przykład, jeśli typ jednostki projekty zapytań, wyniki będą śledzone domyślnie.
 
 Poniższy przykład używa nieprzetworzonego zapytania SQL, które wybiera z funkcji zwracającej tabelę (TVF), a następnie wyłącza śledzenie zmian z wywołaniem `AsNoTracking`:
 
@@ -105,4 +105,4 @@ Istnieje kilka ograniczeń, które należy wziąć pod uwagę podczas korzystani
 
 ## <a name="previous-versions"></a>Poprzednie wersje
 
-EF Core w wersji 2,2 i starszych miała dwa przeciążenia metody o nazwie `FromSql`, które zadziałały w taki sam sposób, jak w przypadku nowszych `FromSqlRaw` i `FromSqlInterpolated`. Można łatwo przypadkowo wywołać metodę nieprzetworzonego ciągu, gdy zamiarem było wywołanie interpolowanej metody String i odwrotnie. Przypadkowe wywołanie nieprawidłowego przeciążenia może spowodować, że kwerendy nie są sparametryzowane, gdy powinny one być.
+EF Core w wersji 2,2 i starszych miała dwa przeciążenia metody o nazwie `FromSql`, które zadziałały w taki sam sposób jak nowsze `FromSqlRaw` i `FromSqlInterpolated`. Można łatwo przypadkowo wywołać metodę nieprzetworzonego ciągu, gdy zamiarem było wywołanie interpolowanej metody String i odwrotnie. Przypadkowe wywołanie nieprawidłowego przeciążenia może spowodować, że kwerendy nie są sparametryzowane, gdy powinny one być.

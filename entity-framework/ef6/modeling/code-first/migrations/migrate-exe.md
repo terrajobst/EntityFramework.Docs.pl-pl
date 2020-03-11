@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 989ea862-e936-4c85-926a-8cfbef5df5b8
 ms.openlocfilehash: 34866ddbbf81f090a064af148a612dd354ae9401
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824815"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418960"
 ---
 # <a name="using-migrateexe"></a>Korzystanie z programu zmigrować. exe
 Migracje Code First można użyć do zaktualizowania bazy danych z poziomu programu Visual Studio, ale można ją również wykonać za pomocą narzędzia wiersza polecenia migruje. exe. Ta strona zawiera krótkie omówienie sposobu używania programu Migration. exe do wykonywania migracji względem bazy danych programu.

@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: dc6110a0-80a0-4370-8190-cea942841cee
 ms.openlocfilehash: 841aec645abdb2a56076d0b70bfb2614b0acafb4
-ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72446005"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419462"
 ---
 # <a name="improving-startup-performance-with-ngen"></a>Poprawianie wydajności uruchamiania za pomocą narzędzia NGen
 > [!NOTE]
@@ -56,7 +56,7 @@ Gdy chodzi o wybór zestawów do generowania obrazów natywnych dla aplikacji w 
 
 - **Główny zestaw środowiska uruchomieniowego EF, EntityFramework. dll**: typowa aplikacja oparta na EF wykonuje znaczną ilość kodu z tego zestawu podczas uruchamiania lub pierwszego dostępu do bazy danych. W związku z tym tworzenie obrazów natywnych tego zestawu da największe zyski w zakresie wydajności uruchamiania.  
 - **Dowolny zestaw dostawcy EF używany przez aplikację**: czas uruchamiania może również nieco wzczerpać korzyści z generowania obrazów natywnych tych elementów. Na przykład jeśli aplikacja używa dostawcy EF do SQL Server należy wygenerować obraz natywny dla EntityFramework. SqlServer. dll.  
-- **Zestawy aplikacji i inne zależności**: [Dokumentacja programu Ngen. exe](https://msdn.microsoft.com/library/6t9t5wcf.aspx) obejmuje ogólne kryteria wyboru zestawów do generowania obrazów natywnych oraz wpływ obrazów natywnych na zabezpieczenia, zaawansowane opcje, takie jak "twarde" Wiązanie ", scenariusze takie jak używanie obrazów natywnych w scenariuszach debugowania i profilowania itp.  
+- **Zestawy aplikacji i inne zależności**: [Dokumentacja programu Ngen. exe](https://msdn.microsoft.com/library/6t9t5wcf.aspx) obejmuje ogólne kryteria wyboru zestawów do generowania obrazów natywnych oraz wpływ obrazów natywnych na zabezpieczenia, zaawansowane opcje, takie jak "twarde powiązania", scenariusze, takie jak używanie obrazów natywnych w scenariuszach debugowania i profilowania itp.  
 
 > [!TIP]
 > Upewnij się, że dokładnie mierzy wpływ używania obrazów natywnych na wydajność uruchamiania i ogólną wydajność aplikacji oraz porównanie ich z rzeczywistymi wymaganiami. Chociaż obrazy natywne zwykle pomogą ulepszyć wydajność, a w niektórych przypadkach zmniejszają użycie pamięci, a nie wszystkie scenariusze byłyby równie korzystne. Na przykład w przypadku stałego wykonywania stanu (czyli, gdy wszystkie metody używane przez aplikację zostały wywołane co najmniej raz) kod wygenerowany przez kompilator JIT może w rzeczywistości spowodować nieco lepszą wydajność niż obrazy natywne.  

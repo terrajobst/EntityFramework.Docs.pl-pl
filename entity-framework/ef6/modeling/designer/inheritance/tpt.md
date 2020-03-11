@@ -1,79 +1,79 @@
 ---
-title: Dziedziczenie projektanta TPT - EF6
+title: Projektant TPT — dziedziczenie — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: efc78c31-b4ea-4ea3-a0cd-c69eb507020e
 ms.openlocfilehash: 84330fba4807620aa242a70cd8ac76a60284416d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489456"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418211"
 ---
-# <a name="designer-tpt-inheritance"></a>Dziedziczenie TPT projektanta
-Ten przewodnik krok po kroku pokazano, jak zaimplementować Tabela wg typu (TPT) dziedziczenia w modelu przy użyciu narzędzia Entity Framework Designer (Projektant EF). Tabela wg typu dziedziczenia używa osobnej tabeli w bazie danych do przechowywania danych dla właściwości dziedziczone i właściwości klucza dla każdego typu w hierarchii dziedziczenia.
+# <a name="designer-tpt-inheritance"></a>TPT dziedziczenia projektanta
+W tym przewodniku krok po kroku pokazano, jak zaimplementować dziedziczenie według typu (TPT) w modelu przy użyciu Entity Framework Designer (program EF Designer). Dziedziczenie na poziomie tabeli używa oddzielnej tabeli w bazie danych, aby zachować dane dla właściwości niedziedziczonych i właściwości klucza dla każdego typu w hierarchii dziedziczenia.
 
-W tym przewodniku, firma Microsoft będzie zmapowana **kurs** (typ podstawowy) **OnlineCourse** (pochodzi z kursu) i **OnsiteCourse** (pochodzi od klasy **kurs**) jednostki do tabel z takich samych nazwach. Utworzymy model z bazy danych i następnie zmienić model, który ma implementują dziedziczenie TPT.
+W tym instruktażu zamapujemy **kurs** (typ podstawowy), **OnlineCourse** (pochodzą z kursu) i **OnsiteCourse** (pochodzą od **kursów**) do tabel o tych samych nazwach. Utworzymy model z bazy danych, a następnie zmienimy model w celu zaimplementowania dziedziczenia TPT.
 
-Można również uruchomić z pierwszego modelu i następnie wygenerować bazę danych z modelu. Projektancie platformy EF używa strategii TPT domyślnie, a więc wszystkie dziedziczenia w modelu będą mapowane do oddzielnych tabel.
+Możesz również rozpocząć od Model First, a następnie wygenerować bazę danych na podstawie modelu. Projektant EF domyślnie korzysta z strategii TPT, dlatego każde dziedziczenie w modelu zostanie zmapowane do oddzielnych tabel.
 
 ## <a name="other-inheritance-options"></a>Inne opcje dziedziczenia
 
-Tabela wg hierarchii (TPH) jest inny typ dziedziczenia, w której jedna baza danych tabela jest używana do przechowywania danych dla wszystkich typów jednostek w hierarchii dziedziczenia.  Aby uzyskać informacje o mapowaniu Tabela wg hierarchii dziedziczenia z Projektanta obiektów, zobacz [dziedziczenia TPH projektancie platformy EF](~/ef6/modeling/designer/inheritance/tph.md). 
+Tabela na hierarchię (TPH) jest innym typem dziedziczenia, w którym jedna tabela bazy danych jest używana do przechowywania danych dla wszystkich typów jednostek w hierarchii dziedziczenia.  Aby uzyskać informacje o sposobach mapowania dziedziczenia na poziomie tabeli przy użyciu Entity Designer, zobacz [dziedziczenie w programie EF Designer TPH](~/ef6/modeling/designer/inheritance/tph.md). 
 
-Należy pamiętać, że tabeli na na konkretny typ dziedziczenia (TPC) i dziedziczenie mieszane modeli są obsługiwane przez środowisko uruchomieniowe programu Entity Framework, ale nie są obsługiwane w Projektancie platformy EF. Jeśli chcesz użyć TPC lub mieszane dziedziczenia, masz dwie opcje: Użyj Code First lub ręczna Edycja pliku EDMX. Jeśli użytkownik chce pracować z pliku EDMX, okno Szczegóły mapowania, które zostaną wprowadzone w "trybie awaryjnym" i nie można zmienić mapowania za pomocą projektanta.
+Należy zauważyć, że w środowisku uruchomieniowym Entity Framework są obsługiwane dziedziczenie typu tabeli dla konkretnych typów (TPC) i modele dziedziczenia mieszanego, ale nie są obsługiwane przez projektanta EF. Jeśli chcesz użyć programu TPC lub dziedziczenia mieszanego, masz dwie opcje: Użyj Code First lub ręcznie Edytuj plik EDMX. Jeśli zdecydujesz się pracować z plikiem EDMX, okno Szczegóły mapowania zostanie umieszczone w trybie bezpiecznym i nie będzie można użyć projektanta, aby zmienić mapowania.
 
 ## <a name="prerequisites"></a>Wymagania wstępne
 
 W celu wykonania instrukcji w tym przewodniku potrzebne są następujące elementy:
 
-- Najnowszą wersję programu Visual Studio.
-- [Przykładowej bazy danych School](~/ef6/resources/school-database.md).
+- Najnowsza wersja programu Visual Studio.
+- [Przykładowa baza danych szkoły](~/ef6/resources/school-database.md).
 
 ## <a name="set-up-the-project"></a>Konfigurowanie projektu
 
--   Otwórz program Visual Studio 2012.
--   Wybierz **plikach&gt; New -&gt; projektu**
--   W okienku po lewej stronie kliknij **Visual C\#**, a następnie wybierz pozycję **konsoli** szablonu.
--   Wprowadź **TPTDBFirstSample** jako nazwę.
--   Wybierz **OK**.
+-   Open Visual Studio 2012.
+-   Wybierz pozycję **plik —&gt; nowy&gt; projekt**
+-   W lewym okienku kliknij pozycję **Visual C\#** , a następnie wybierz szablon **konsoli** .
+-   Wprowadź **TPTDBFirstSample** jako nazwę.
+-   Wybierz **przycisk OK**.
 
 ## <a name="create-a-model"></a>Tworzenie modelu
 
--   Kliknij prawym przyciskiem myszy projekt w Eksploratorze rozwiązań, a następnie wybierz pozycję **Add -&gt; nowy element**.
--   Wybierz **danych** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablonów.
--   Wprowadź **TPTModel.edmx** nazwę pliku, a następnie kliknij przycisk **Dodaj**.
--   W oknie dialogowym Wybierz zawartość modelu, wybierz pozycję ** Generuj z bazy danych, a następnie kliknij przycisk **dalej**.
--   Kliknij przycisk **nowe połączenie**.
-    W oknie dialogowym właściwości połączenia, wprowadź nazwę serwera (na przykład **(localdb)\\mssqllocaldb**), wybierz metodę uwierzytelniania, wpisz **School** nazwy bazy danych, a następnie Kliknij przycisk **OK**.
-    Okno dialogowe Wybierz połączenie danych jest aktualizowana ustawienie połączenia bazy danych.
--   W oknie dialogowym Wybierz obiekty bazy danych w węźle tabel, wybierz **działu**, **kursu, OnlineCourse i OnsiteCourse** tabel.
--   Kliknij przycisk **Zakończ**.
+-   Kliknij prawym przyciskiem myszy projekt w Eksplorator rozwiązań i wybierz polecenie **dodaj&gt; nowy element**.
+-   Wybierz pozycję **dane** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablony.
+-   W polu Nazwa pliku wprowadź **TPTModel. edmx** , a następnie kliknij przycisk **Dodaj**.
+-   W oknie dialogowym Wybierz zawartość modelu wybierz pozycję ** Generuj z bazy danych**, a następnie kliknij przycisk **dalej**.
+-   Kliknij pozycję **nowe połączenie**.
+    W oknie dialogowym właściwości połączenia wprowadź nazwę serwera (na przykład **(LocalDB)\\mssqllocaldb**), wybierz metodę uwierzytelniania, wpisz  **szkoły** dla nazwy bazy danych, a następnie kliknij przycisk **OK**.
+    Okno dialogowe Wybieranie połączenia danych zostanie zaktualizowane przy użyciu ustawienia połączenia z bazą danych.
+-   W oknie dialogowym Wybierz obiekty bazy danych w węźle tabele wybierz tabele **dział**, **kurs, OnlineCourse i OnsiteCourse** .
+-   Kliknij przycisk **Zakończ**.
 
-Zostanie wyświetlona Projektancie jednostki, zapewniającą powierzchnię projektową do edycji modelu. Wszystkie obiekty, które zostały wybrane w oknie dialogowym Wybierz obiekty bazy danych są dodawane do modelu.
+Zostanie wyświetlona Entity Designer, która zapewnia powierzchnię projektową do edycji modelu. Wszystkie obiekty wybrane w oknie dialogowym Wybierz obiekty bazy danych zostaną dodane do modelu.
 
-## <a name="implement-table-per-type-inheritance"></a>Implementowanie dziedziczenia tabelę według typu
+## <a name="implement-table-per-type-inheritance"></a>Implementowanie dziedziczenia na poziomie tabeli
 
--   Na powierzchni projektowej kliknij prawym przyciskiem myszy **OnlineCourse** typu jednostki, a następnie wybierz **właściwości**.
--   W **właściwości** okna, ustaw właściwość typu Base **kurs**.
--   Kliknij prawym przyciskiem myszy **OnsiteCourse** typu jednostki, a następnie wybierz **właściwości**.
--   W **właściwości** okna, ustaw właściwość typu Base **kurs**.
--   Kliknij prawym przyciskiem myszy skojarzenia (wiersz) między **OnlineCourse** i **kurs** typów jednostek.
-    Wybierz **usunięte z modelu**.
--   Kliknij prawym przyciskiem myszy skojarzenie między **OnsiteCourse** i **kurs** typów jednostek.
-    Wybierz **usunięte z modelu**.
+-   Na powierzchni projektowej kliknij prawym przyciskiem myszy typ jednostki **OnlineCourse** i wybierz polecenie **Właściwości**.
+-   W oknie **Właściwości** ustaw właściwość typ podstawowy na **kurs**.
+-   Kliknij prawym przyciskiem myszy typ jednostki **OnsiteCourse** i wybierz polecenie **Właściwości**.
+-   W oknie **Właściwości** ustaw właściwość typ podstawowy na **kurs**.
+-   Kliknij prawym przyciskiem myszy skojarzenie (wiersz) między typami jednostek **OnlineCourse** i **kurs** .
+    Wybierz pozycję **Usuń z modelu**.
+-   Kliknij prawym przyciskiem myszy skojarzenie między typami jednostek **OnsiteCourse** i **kurs** .
+    Wybierz pozycję **Usuń z modelu**.
 
-Firma Microsoft usunie teraz **CourseID** właściwość **OnlineCourse** i **OnsiteCourse** ponieważ te klasy dziedziczą **CourseID** z **kurs** typ podstawowy.
+Usuniemy teraz Właściwość **CourseID** z **OnlineCourse** i **OnsiteCourse** , ponieważ te klasy dziedziczą **CourseID** z typu podstawowego **kursu** .
 
--   Kliknij prawym przyciskiem myszy **CourseID** właściwość **OnlineCourse** typu jednostki, a następnie wybierz **usunięte z modelu**.
--   Kliknij prawym przyciskiem myszy **CourseID** właściwość **OnsiteCourse** typu jednostki, a następnie wybierz **usunięte z modelu**
--   Tabela wg typu dziedziczenia jest teraz implementowane.
+-   Kliknij prawym przyciskiem myszy Właściwość **CourseID** typu jednostki **OnlineCourse** , a następnie wybierz pozycję **Usuń z modelu**.
+-   Kliknij prawym przyciskiem myszy Właściwość **CourseID** typu jednostki **OnsiteCourse** , a następnie wybierz pozycję **Usuń z modelu** .
+-   Dziedziczenie dla typu tabeli jest teraz zaimplementowane.
 
 ![TPT](~/ef6/media/tpt.png)
 
-## <a name="use-the-model"></a>Użyj modelu
+## <a name="use-the-model"></a>Korzystanie z modelu
 
-Otwórz **Program.cs** pliku gdzie **Main** metoda jest zdefiniowana. Wklej następujący kod do **Main** funkcji. Kod wykonuje trzy zapytania. Pierwsze zapytanie powoduje zwrócenie wszystkich **kursów** związane z określonej dział. Drugie zapytanie używa **OfType** metodę, aby zwrócić **OnlineCourses** związane z określonej dział. Zwraca trzecie zapytanie **OnsiteCourses**.
+Otwórz plik **program.cs** , w którym jest zdefiniowana Metoda **Main** . Wklej następujący kod do funkcji **Main** . Kod wykonuje trzy zapytania. Pierwsze zapytanie powoduje przywrócenie wszystkich **kursów** związanych z określonym działem. Drugie zapytanie używa metody **OfType** do zwracania **OnlineCourses** związanych z określonym działem. Trzecie zapytanie zwraca **OnsiteCourses**.
 
 ``` csharp
     using (var context = new SchoolEntities())

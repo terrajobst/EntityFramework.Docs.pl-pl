@@ -5,12 +5,12 @@ ms.author: avickers
 ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 88c3fa8ea5b8246a932f5cf21e674bc7cc71c0ea
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 421531e68ac98c0553938f1c24892701f22fef3c
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656269"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417598"
 ---
 # <a name="disconnected-entities"></a>Rozłączone jednostki
 
@@ -20,7 +20,7 @@ Jednak czasami do jednostek są wysyłane zapytania przy użyciu jednego wystąp
 
 <!-- markdownlint-disable MD028 -->
 > [!TIP]
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Disconnected/) tego artykułu można wyświetlić w witrynie GitHub.
+> [Przykład](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/Disconnected/) tego artykułu można wyświetlić w witrynie GitHub.
 
 > [!TIP]
 > EF Core może śledzić tylko jedno wystąpienie dowolnej jednostki z daną wartością klucza podstawowego. Najlepszym sposobem na uniknięcie tego problemu jest użycie kontekstu krótkotrwałego dla każdej jednostki pracy w taki sposób, że kontekst zaczyna puste, ma dołączone jednostki, zapisuje te jednostki, a następnie kontekst zostaje usunięty i odrzucony.

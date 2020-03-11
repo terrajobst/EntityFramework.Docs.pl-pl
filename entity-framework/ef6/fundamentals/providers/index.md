@@ -5,11 +5,11 @@ ms.date: 06/27/2018
 ms.assetid: 7BFB7763-CD6C-4520-93A2-7B265F5FA586
 uid: ef6/fundamentals/providers/index
 ms.openlocfilehash: 661398e7d6037875ce0cdb15c221a729d1f0c7d8
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656200"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419364"
 ---
 # <a name="entity-framework-6-providers"></a>Entity Framework 6 dostawców
 > [!NOTE]
@@ -39,7 +39,7 @@ Dostawcy wie, że zostały skompilowane dla EF6:
     *   [Łącznik MySQL/NET dla Entity Framework](https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework60.html)
 *   **PostgreSQL**
     *   Npgsql jest dostępny jako [pakiet NuGet](https://www.nuget.org/packages/EntityFramework6.Npgsql/)
-*   **Database**
+*   **Oracle**
     *   ODP.NET jest dostępny jako [pakiet NuGet](https://www.nuget.org/packages/Oracle.ManagedDataAccess.EntityFramework/)
 
 Należy pamiętać, że włączenie na tej liście nie wskazuje poziomu funkcjonalności ani wsparcia dla danego dostawcy, tylko wtedy, gdy udostępniono kompilację dla EF6.

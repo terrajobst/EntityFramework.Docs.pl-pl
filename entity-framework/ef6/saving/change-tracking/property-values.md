@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: e3278b4b-9378-4fdb-923d-f64d80aaae70
 ms.openlocfilehash: d8a18182754980d79b71df3f227b30c4ce40366f
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182140"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416968"
 ---
 # <a name="working-with-property-values"></a>Praca z wartościami właściwości
 W przypadku większości Entity Framework należy zachować ostrożność śledzenia stanu, oryginalnych wartości i bieżących wartości właściwości wystąpień jednostek. Mogą jednak wystąpić sytuacje — takie jak scenariusze rozłączenia — w przypadku, gdy chcesz wyświetlić informacje o właściwościach i manipulować nimi. Techniki przedstawione w tym temacie dotyczą również modeli utworzonych przy użyciu Code First i programu Dr Designer.  

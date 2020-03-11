@@ -1,21 +1,21 @@
 ---
-title: Metoda Load - EF6
+title: Metoda Load-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 03c5a069-b7b4-455f-a16f-ee3b96cc4e28
 ms.openlocfilehash: bcea8ab2477f44281cd5de824457a72a84ccc766
-ms.sourcegitcommit: 4a795285004612ac03ab26532ac09ca333cb4c8f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50123820"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417124"
 ---
 # <a name="the-load-method"></a>Metoda Load
-Istnieje kilka scenariuszy, w których możesz chcieć ładowanie jednostek z bazy danych do kontekstu, bez żadnego z tych jednostek natychmiast działania. Dobrym przykładem Trwa ładowanie jednostek dla wiązania danych, zgodnie z opisem w [dane lokalne](~/ef6/querying/local-data.md). Typowym sposobem to jest Napisz zapytanie LINQ, a następnie wywołać tolist — na nim tylko po to, aby od razu odrzucić utworzona lista. Metoda rozszerzenia obciążenia działa podobnie jak tolist — z wyjątkiem tego, aby całkowicie uniknąć tworzenia listy.  
+Istnieje kilka scenariuszy, w których może zaistnieć potrzeba załadowania jednostek z bazy danych do kontekstu bez natychmiastowego wykonywania jakichkolwiek czynności z tymi jednostkami. Dobrym przykładem jest ładowanie jednostek dla powiązania danych zgodnie z opisem w [danych lokalnych](~/ef6/querying/local-data.md). Typowym sposobem wykonania tej czynności jest zapisanie zapytania LINQ, a następnie Wywołaj ToList — na nim, aby natychmiast odrzucić utworzoną listę. Metoda ładowania rozszerzenia działa podobnie jak ToList —, z tą różnicą, że nie pozwala ona na całkowite utworzenie listy.  
 
-Techniki przedstawione w tym temacie stosuje się jednakowo do modeli utworzonych za pomocą Code First i projektancie platformy EF.  
+Techniki przedstawione w tym temacie dotyczą również modeli utworzonych przy użyciu Code First i programu Dr Designer.  
 
-Poniżej przedstawiono dwa przykłady użycia obciążenia. Pierwszy pochodzi z aplikacji powiązanie danych formularzy Windows, których obciążenia jest używana do wykonywania zapytań dla jednostek przed powiązania do kolekcji lokalnej, zgodnie z opisem w [dane lokalne](~/ef6/querying/local-data.md):  
+Poniżej przedstawiono dwa przykłady użycia ładowania. Pierwszy jest pobierany z Windows Forms aplikacji do powiązania danych, w której obciążenie jest używane do wykonywania zapytań dotyczących jednostek przed powiązaniem z kolekcją lokalną, zgodnie z opisem w temacie [dane lokalne](~/ef6/querying/local-data.md):  
 
 ``` csharp
 protected override void OnLoad(EventArgs e)
@@ -29,7 +29,7 @@ protected override void OnLoad(EventArgs e)
 }
 ```  
 
-W drugim przykładzie pokazano przy użyciu ładowania do ładowania filtrowanym kolekcji powiązanych jednostek, zgodnie z opisem w [ładowanie powiązanych jednostek](~/ef6/querying/related-data.md):  
+Drugi przykład pokazuje użycie obciążenia do załadowania filtrowanej kolekcji pokrewnych jednostek, zgodnie z opisem w temacie [ładowanie powiązanych jednostek](~/ef6/querying/related-data.md):  
 
 ``` csharp
 using (var context = new BloggingContext())

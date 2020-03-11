@@ -5,16 +5,16 @@ ms.date: 02/23/2018
 ms.assetid: 420AFFE7-B709-4A68-9149-F06F8746FB33
 uid: core/modeling/constructors
 ms.openlocfilehash: ddfaa8eebde388a9d3309f21b8891de593077956
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811896"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417330"
 ---
 # <a name="entity-types-with-constructors"></a>Typy jednostek z konstruktorami
 
 > [!NOTE]  
-> Ta funkcja jest nowa w EF Core 2,1.
+> Ta funkcja jest nowa na platformie EF Core 2.1.
 
 Począwszy od EF Core 2,1, można teraz zdefiniować konstruktora z parametrami i mieć EF Core wywołać tego konstruktora podczas tworzenia wystąpienia jednostki. Parametry konstruktora można powiązać z zamapowanymi właściwościami lub różnymi rodzajami usług, aby ułatwić zachowanie takich zachowań jak ładowanie z opóźnieniem.
 

@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 452f17c3-9f26-4de4-9894-8bc036e23b0f
 ms.openlocfilehash: f5e7532e6c0b473d8ce77cbd11e3e673b0af6cbe
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921782"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418169"
 ---
 # <a name="designer-table-splitting"></a>Dzielenie tabeli projektanta
 W tym instruktażu pokazano, jak zmapować wiele typów jednostek do pojedynczej tabeli, modyfikując model przy użyciu Entity Framework Designer (Dr Designer).
@@ -65,7 +65,7 @@ W tej sekcji podzielę jednostkę **osoby** na dwie jednostki, a następnie mapu
 -   Utwórz skojarzenie między **osobą** i **HireInfo**. W tym celu kliknij prawym przyciskiem myszy pusty obszar na powierzchni projektowej, wskaż polecenie **Dodaj nowe**, a następnie kliknij pozycję **skojarzenie**.
 -   Zostanie wyświetlone okno dialogowe **Dodawanie skojarzenia** . Nazwa **PersonHireInfo** jest domyślnie określona.
 -   Określ liczebność **1 (jeden)** na obu końcach relacji.
--   Naciśnij klawisz **OK**.
+-   Naciśnij przycisk **OK**.
 
 Następny krok wymaga okna **szczegóły mapowania** . Jeśli nie widzisz tego okna, kliknij prawym przyciskiem myszy powierzchnię projektu i wybierz polecenie **szczegóły mapowania**.
 
@@ -79,7 +79,7 @@ Następny krok wymaga okna **szczegóły mapowania** . Jeśli nie widzisz tego
 -   Kliknij prawym przyciskiem myszy skojarzenie na powierzchni projektowej i wybierz polecenie **Właściwości**.
 -   W oknie **Właściwości** wybierz właściwość **ograniczenia referencyjne** i kliknij przycisk wielokropka.
 -   Wybierz **osobę** z listy rozwijanej **główna** .
--   Naciśnij klawisz **OK**.
+-   Naciśnij przycisk **OK**.
 
  
 
@@ -126,7 +126,7 @@ Następujące instrukcje języka T-SQL zostały wykonane względem bazy danych *
 
 -   Następujący element **INSERT** został wykonany w wyniku wykonywania kontekstu. Metody SaveChanges () i łączy dane od **osoby** i jednostek **HireInfo**
 
-    ![Wstaw](~/ef6/media/insert.png)
+    ![Insert](~/ef6/media/insert.png)
 
 -   Następujący **wybór** został wykonany w wyniku wykonywania kontekstu. **Persons** . FirstOrDefault () i wybiera tylko kolumny mapowane do osoby
 

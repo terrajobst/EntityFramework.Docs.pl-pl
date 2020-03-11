@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
 ms.openlocfilehash: 2c5e6f1b3f60862124bafcac42e8859a7591f8e6
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72812153"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416961"
 ---
 # <a name="data-validation"></a>Walidacja danych
 > [!NOTE]
@@ -54,7 +54,7 @@ public string Title { get; set; }
 
 W przypadku braku dodatkowych zmian kodu lub znaczników w aplikacji istniejąca aplikacja MVC przeprowadzi weryfikację po stronie klienta, nawet dynamicznie kompilując komunikat przy użyciu nazw właściwości i adnotacji.
 
-![Rysunek 1](~/ef6/media/figure01.png)
+![rysunek 1](~/ef6/media/figure01.png)
 
 W metodzie post tego widoku Utwórz Entity Framework służy do zapisywania nowego bloga w bazie danych, ale Walidacja po stronie klienta MVC jest wyzwalana, zanim aplikacja osiągnie ten kod.
 

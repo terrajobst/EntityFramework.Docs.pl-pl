@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: b21207c9-1d95-4aa3-ae05-bc5fe300dab0
 ms.openlocfilehash: 9bd644461f50a7eff1006cb8866ca9a3b08b6b8d
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181715"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419534"
 ---
 # <a name="self-tracking-entities-walkthrough"></a>Wskazówki dotyczące samośledzenia jednostek
 > [!IMPORTANT]
@@ -42,7 +42,7 @@ Serwer bazy danych zainstalowany przy użyciu programu Visual Studio różni si�
 
 Przyjrzyjmy się i wygenerujemy bazę danych.
 
--   Otwórz program Visual Studio
+-   Otwórz program Visual Studio.
 -   **Widok-&gt; Eksplorator serwera**
 -   Kliknij prawym przyciskiem myszy pozycję **połączenia danych —&gt; Dodaj połączenie...**
 -   Jeśli nie masz połączenia z bazą danych Eksplorator serwera przed wybraniem **Microsoft SQL Server** jako źródła danych

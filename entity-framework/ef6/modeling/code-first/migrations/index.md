@@ -1,33 +1,33 @@
 ---
-title: Migracje Code First - EF6
+title: Migracje Code First — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
 ms.openlocfilehash: e5a91af73bab9d45b0f1f4242ce503c6b6f407f6
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668703"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418963"
 ---
 # <a name="code-first-migrations"></a>Migracje Code First
-Migracje Code First jest zalecany sposób rozwijać schemat bazy danych aplikacji, jeśli używasz kodu pierwszego przepływu pracy. Migracje udostępniają zestaw narzędzi, które umożliwiają:
+Migracje Code First jest zalecanym sposobem, aby rozwijać schemat bazy danych aplikacji, jeśli jest używany przepływ pracy Code First. Migracje udostępniają zestaw narzędzi umożliwiających:
 
-1. Tworzenie początkowej bazy danych, która współdziała z modelu platformy EF
-2. Generowanie migracji, aby śledzić zmiany wprowadzone do modelu platformy EF
-2. Bazy danych na bieżąco z tymi zmianami
+1. Utwórz początkową bazę danych, która współpracuje z modelem EF
+2. Generowanie migracji w celu śledzenia zmian wprowadzonych w modelu EF
+2. Aktualizuj bazę danych o te zmiany
 
-Następujące Instruktaż zapewnia przegląd migracje Code First platformy Entity Framework. Możesz ukończenia całego instruktażu lub od razu przejść do tematu, który Cię interesuje. Omówiono następujące tematy:
+Poniższy przewodnik zawiera omówienie Migracje Code First w Entity Framework. Możesz ukończyć cały przewodnik lub przejść do tematu, który Cię interesuje. Omówione są następujące tematy:
 
-## <a name="building-an-initial-model--database"></a>Tworzenie początkowej modelu i bazy danych
+## <a name="building-an-initial-model--database"></a>Kompilowanie wstępnego modelu & bazy danych
 
-Zanim zaczniemy, za pomocą migracji potrzebujemy projektu i model Code First chcesz pracować. W tym przewodniku są użyjemy canonical **Blog** i **wpis** modelu.
+Przed rozpoczęciem korzystania z migracji potrzebujemy projektu i modelu Code First do pracy z programem. W tym instruktażu będziemy używać **bloga** i modelu **post** .
 
--   Utwórz nową **MigrationsDemo** aplikacji konsoli
--   Dodaj najnowszą wersję **EntityFramework** pakiet NuGet do projektu
-    -   **Narzędzia —&gt; Menedżer pakietów biblioteki —&gt; Konsola Menedżera pakietów**
-    -   Uruchom **EntityFramework instalacji pakietu** polecenia
--   Dodaj **Model.cs** pliku z kodem, pokazano poniżej. Ten kod definiuje pojedynczy **Blog** klasę, która sprawia, że nasz model domeny i **BlogContext** klasę, która jest nasz kontekst EF Code First
+-   Utwórz nową aplikację konsolową **MigrationsDemo**
+-   Dodaj najnowszą wersję pakietu NuGet **EntityFramework** do projektu
+    -   **Tools — Menedżer pakietów&gt; Library —&gt; konsoli Menedżera pakietów**
+    -   Uruchom polecenie **install-package EntityFramework**
+-   Dodaj plik **model.cs** z kodem pokazanym poniżej. Ten kod definiuje jedną klasę **blogu** , która składa się z naszego modelu domeny i klasy **BlogContext** , która stanowi nasz kontekst Code First
 
   ``` csharp
       using System.Data.Entity;
@@ -50,7 +50,7 @@ Zanim zaczniemy, za pomocą migracji potrzebujemy projektu i model Code First ch
       }
   ```
 
--   Teraz, gdy model, nadszedł czas na jej używać do wykonywania dostęp do danych. Aktualizacja **Program.cs** pliku z kodem, pokazano poniżej.
+-   Teraz, gdy mamy już model, który jest używany do uzyskiwania dostępu do danych. Zaktualizuj plik **program.cs** za pomocą kodu pokazanego poniżej.
 
   ``` csharp
       using System;
@@ -82,50 +82,50 @@ Zanim zaczniemy, za pomocą migracji potrzebujemy projektu i model Code First ch
       }
   ```
 
--   Uruchom aplikację i zostanie wyświetlony **MigrationsCodeDemo.BlogContext** baza danych została utworzona dla Ciebie.
+-   Uruchom aplikację i zobaczysz, że została utworzona baza danych **MigrationsCodeDemo. BlogContext** .
 
-    ![Bazy danych LocalDB](~/ef6/media/databaselocaldb.png)
+    ![LocalDB bazy danych](~/ef6/media/databaselocaldb.png)
 
 ## <a name="enabling-migrations"></a>Włączanie migracji
 
-Nadszedł czas na pewnych zmian więcej w naszym modelu.
+Jest to czas na wprowadzenie kolejnych zmian w modelu.
 
--   Umożliwia wprowadzenie właściwość adres Url do klasy blogu.
+-   Wprowadźmy Właściwość adresu URL do klasy bloga.
 
 ``` csharp
     public string Url { get; set; }
 ```
 
-Jeśli zamierzasz uruchomić aplikację ponownie otrzymamy InvalidOperationException, podając *modelu kopii kontekstu "BlogContext" została zmieniona od czasu utworzenia bazy danych. Należy rozważyć użycie migracje Code First w aktualizacji bazy danych (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](https://go.microsoft.com/fwlink/?LinkId=238269) *).*
+Jeśli chcesz uruchomić aplikację ponownie, otrzymasz InvalidOperationException z informacją o *tym, że model zapasowy kontekstu "BlogContext" został zmieniony od czasu utworzenia bazy danych. Aby zaktualizować bazę danych (http://go.microsoft.com/fwlink/?LinkId=238269), należy rozważyć użycie Migracje Code First* [](https://go.microsoft.com/fwlink/?LinkId=238269) *.*
 
-Jak sugeruje wyjątek, jest czas, aby rozpocząć korzystanie z migracje Code First. Pierwszym krokiem jest włączanie funkcji migracje dla nasz kontekst.
+Z powodu wyjątku sugerujemy czas rozpoczęcia korzystania z Migracje Code First. Pierwszym krokiem jest włączenie migracji w naszym kontekście.
 
--   Uruchom **Enable-Migrations** polecenia w konsoli Menedżera pakietów
+-   Uruchamianie polecenia **enable-migrations** w konsoli Menedżera pakietów
 
-    To polecenie został dodany **migracje** folderu do naszego projektu. Ten nowy folder zawiera dwa pliki:
+    To polecenie dodało folder **migracji** do naszego projektu. Ten nowy folder zawiera dwa pliki:
 
--   **Klasa konfiguracji.** Ta klasa pozwala skonfigurować sposób działania migracji w Twoim kontekście. W tym przewodniku po prostu używamy domyślnej konfiguracji.
-    *Ponieważ istnieje tylko pojedynczy kontekst Code First w projekcie, Enable-Migrations jest wypełniane automatycznie typ kontekstu, którego dotyczy ta konfiguracja.*
--   **Migracja InitialCreate**. Ta migracja został wygenerowany, ponieważ już mieliśmy Code First utworzyć bazę danych, zanim umożliwiliśmy migracji. Kod w tej migracji szkieletu reprezentuje obiektów, które zostały już utworzone w bazie danych. W tym przypadku, który jest **Blog** tabeli za pomocą **BlogId** i **nazwa** kolumn. Nazwa pliku zawiera sygnaturę czasową, aby pomóc w kolejności.
-    *Jeśli baza danych nie został już utworzony tej migracji InitialCreate czy nie zostały dodane do projektu. Zamiast tego po raz pierwszy nazywamy migracji Dodaj kod, aby utworzyć te tabele będą szkieletu do nowej migracji.*
+-   **Klasa konfiguracji.** Ta klasa umożliwia skonfigurowanie sposobu zachowania migracji dla kontekstu. W tym instruktażu zostanie użyta domyślna konfiguracja.
+    *Ponieważ istnieje tylko jeden Code First kontekst w projekcie, Enable-migrations automatycznie wypełnia typ kontekstu, do którego odnosi się ta konfiguracja.*
+-   **Migracja InitialCreate**. Ta migracja została wygenerowana, ponieważ Code First utworzyć bazę danych dla nas przed włączeniem migracji. Kod w tej migracji szkieletowej reprezentuje obiekty, które zostały już utworzone w bazie danych. W naszym przypadku jest to tabela **blogów** z **BlogId** i kolumnami **nazw** . Nazwa pliku zawiera sygnaturę czasową ułatwiającą porządkowanie.
+    *Jeśli baza danych nie została jeszcze utworzona, migracja InitialCreate nie została dodana do projektu. Zamiast tego podczas pierwszego wywołania metody Add-Migration kod służący do tworzenia tych tabel będzie szkieletem do nowej migracji.*
 
 ### <a name="multiple-models-targeting-the-same-database"></a>Wiele modeli przeznaczonych dla tej samej bazy danych
 
-W przypadku używania wersji przed EF6, tylko jeden model Code First może służyć do generowania/Zarządzanie schematami bazy danych. Jest to wynikiem pojedynczej  **\_ \_MigrationsHistory** tabeli na bazę danych w sposób identyfikowania zapisy, które należą do modelu.
+W przypadku korzystania z wersji wcześniejszych niż EF6 tylko jeden model Code First może być używany do generowania schematu bazy danych i zarządzania nią. Jest to wynik pojedynczej **\_\_tabeli MigrationsHistory** na bazę danych bez możliwości zidentyfikowania wpisów należących do tego modelu.
 
-Począwszy od platformy EF6, **konfiguracji** klasa zawiera **elementu ContextKey** właściwości. Jest to zabezpieczenie jako unikatowy identyfikator dla każdego modelu Code First. W kolumnie  **\_ \_MigrationsHistory** tabeli umożliwia wpisy z wielu modeli, aby udostępnić w tabeli. Ta właściwość jest domyślnie do w pełni kwalifikowanej nazwy kontekstu.
+Począwszy od EF6, Klasa **konfiguracji** zawiera właściwość **ContextKey** . Działa jako unikatowy identyfikator dla każdego modelu Code First. Odpowiadająca kolumna w **\_\_tabeli MigrationsHistory** umożliwia zapisów z wielu modeli w celu udostępnienia tabeli. Domyślnie ta właściwość ma ustawioną w pełni kwalifikowaną nazwę kontekstu.
 
-## <a name="generating--running-migrations"></a>Generowanie i uruchamianie migracji
+## <a name="generating--running-migrations"></a>Generowanie & wykonywania migracji
 
-Migracje Code First ma dwa podstawowe polecenia, które ma być zapoznanie się z.
+Migracje Code First ma dwa podstawowe polecenia, z którymi zamierzasz się zapoznać.
 
--   **Dodaj migracji** będzie tworzenia szkieletu dalej migracji, w oparciu o zmiany wprowadzone do modelu od chwili utworzenia ostatniej migracji
--   **Update-Database** Zastosuj wszelkie oczekujące migracji do bazy danych
+-   W ramach **migracji** do kolejnej migracji w oparciu o zmiany wprowadzone w modelu od momentu utworzenia ostatniej migracji
+-   **Aktualizacja — baza danych** zastosuje wszystkie oczekujące migracje do bazy danych
 
-Potrzebujemy do tworzenia szkieletu migracji, aby zadbać o nową właściwość adres Url, które dodaliśmy. **Migracji Dodaj** polecenie umożliwia nam nazwij te migracji, po prostu nazwiemy naszych **AddBlogUrl**.
+Musimy utworzyć szkielet migracji, aby zachować ostrożność podczas dodawania nowej właściwości adresu URL. Polecenie **Add-Migration** umożliwia nam nadanie nazw migracji nazwy, przywołują nasze **AddBlogUrl**.
 
--   Uruchom **AddBlogUrl migracji Dodaj** polecenia w konsoli Menedżera pakietów
--   W **migracje** folderu w efekcie powstał nowy **AddBlogUrl** migracji. Filename migracji wstępnie ustalony z sygnaturą czasową pomagające w kolejności
+-   Uruchamianie polecenia **Add-Migration AddBlogUrl** w konsoli Menedżera pakietów
+-   W folderze **migracji** mamy teraz nową migrację **AddBlogUrl** . Nazwa pliku migracji jest wstępnie naprawiona sygnaturą czasową, aby ułatwić porządkowanie
 
 ``` csharp
     namespace MigrationsDemo.Migrations
@@ -148,24 +148,24 @@ Potrzebujemy do tworzenia szkieletu migracji, aby zadbać o nową właściwość
     }
 ```
 
-Firma Microsoft, można teraz edytować lub dodać do tej migracji, ale wszystko wygląda dość dobrze. Użyjmy **Update-Database** dotyczą tej migracji bazy danych.
+Możemy teraz edytować lub dodawać do tej migracji, ale wszystko wygląda dość dobrze. Aby zastosować tę migrację do bazy danych, użyjmy do bazy **danych Update-Database** .
 
--   Uruchom **Update-Database** polecenia w konsoli Menedżera pakietów
--   Migracje Code First zostanie porównany migracji w naszym **migracje** folder z tymi, które zostały zastosowane do bazy danych. Zostanie on wyświetlony **AddBlogUrl** migracji musi być zastosowane i uruchom go.
+-   Uruchamianie polecenia **Update-Database** w konsoli Menedżera pakietów
+-   Migracje Code First będzie porównać migracje w naszym folderze **migracji** z tymi, które zostały zastosowane do bazy danych programu. Zobaczy on, że należy zastosować migrację **AddBlogUrl** i uruchomić ją.
 
-**MigrationsDemo.BlogContext** bazy danych został zaktualizowany do uwzględnienia **adresu Url** kolumny w **blogi** tabeli.
+Baza danych **MigrationsDemo. BlogContext** jest teraz aktualizowana w celu uwzględnienia kolumny **adresu URL** w tabeli **blogów** .
 
 ## <a name="customizing-migrations"></a>Dostosowywanie migracji
 
-Do tej pory mamy już i uruchamianie migracji bez wprowadzania żadnych zmian. Teraz Przyjrzyjmy się edycją kodu, który pobiera wygenerowany domyślnie.
+Do tej pory wygenerowałeś i przeprowadzimy migrację bez wprowadzania żadnych zmian. Teraz przyjrzyjmy się edycji kodu, który jest generowany domyślnie.
 
--   Nadszedł czas, aby wprowadzić pewne zmiany więcej w naszym modelu, możemy dodać nową **ocena** właściwości **blogu** klasy
+-   Aby wprowadzić więcej zmian w modelu, dodajmy nową właściwość **rankingu** do klasy **bloga**
 
 ``` csharp
     public int Rating { get; set; }
 ```
 
--   Możemy również dodać nowy **wpis** klasy
+-   Dodajmy również nową klasę **post**
 
 ``` csharp
     public class Post
@@ -180,21 +180,21 @@ Do tej pory mamy już i uruchamianie migracji bez wprowadzania żadnych zmian. T
     }
 ```
 
--   Dodamy również **wpisy** kolekcji **Blog** klasy w celu utworzenia drugiej stronie relacji między **Blog** i **wpis**
+-   Dodamy również kolekcję **ogłoszeń** do klasy **blog** , aby utworzyć drugi koniec relacji między **blogiem** i **wpisem**
 
 ``` csharp
     public virtual List<Post> Posts { get; set; }
 ```
 
-Użyjemy **migracji Dodaj** polecenie, aby umożliwić migracje Code First tworzenia szkieletu jego najbardziej prawdopodobny wybór na migrację dla nas. Zamierzamy wywołania tej migracji **AddPostClass**.
+Użyjemy polecenia **Add-Migration** , aby zapewnić, że migracje Code First szkieletem na potrzeby migracji do nas. Będziemy wywoływać to **AddPostClass**migracji.
 
--   Uruchom **AddPostClass migracji Dodaj** polecenia w konsoli Menedżera pakietów.
+-   Uruchom polecenie **Add-Migration AddPostClass** w konsoli Menedżera pakietów.
 
-Migracje Code First jak całkiem Niezłe rozwiązanie zadanie tworzenia szkieletów te zmiany, ale istnieje kilka kwestii, które firma Microsoft może wystąpić potrzeba zmiany:
+Migracje Code First było bardzo dobre zadanie tworzenia szkieletu tych zmian, ale istnieje kilka rzeczy, które warto zmienić:
 
-1.  Najpierw w górę, możemy dodać unikatowego indeksu **Posts.Title** kolumny (Dodawanie w wierszu 22 & 29 w poniższym kodzie).
-2.  Dodajemy również dopuszcza **Blogs.Rating** kolumny. W przypadku istniejących danych w tabeli zostaną zostaną przypisane domyślne CLR typu danych dla nowej kolumny (ocena jest liczba całkowita, tak byłoby **0**). Ale chcemy określić wartość domyślną **3** więc w istniejącym wiersze **blogi** tabeli rozpoczyna się od klasyfikacji znośnego.
-    (Wartość domyślna określona w wierszu 24 kod poniżej można znaleźć)
+1.  Najpierw Dodaj unikatowy indeks do **wpisów. kolumna tytułu** (dodanie w wierszu 22 & 29 w poniższym kodzie).
+2.  Dodawana jest również kolumna " **Blogi** " z nie dopuszczaniem wartości null. Jeśli w tabeli znajdują się jakieś dane, zostanie do niego przypisana domyślna wartość CLR typu danych dla nowej kolumny (Klasyfikacja jest liczbą całkowitą, tak aby była **równa 0**). Ale chcemy określić wartość domyślną równą **3** , aby istniejące wiersze w tabeli **blogów** miały od znośnego klasyfikację.
+    (Można zobaczyć wartość domyślną określoną w wierszu 24 poniższego kodu)
 
 ``` csharp
     namespace MigrationsDemo.Migrations
@@ -235,25 +235,25 @@ Migracje Code First jak całkiem Niezłe rozwiązanie zadanie tworzenia szkielet
     }
 ```
 
-Nasze edytowanych migracji jest gotowy do Przejdź, dlatego użyjemy **Update-Database** Aby przełączyć bazę danych aktualne. Teraz możemy określić **— pełne** Flaga, dzięki czemu możesz zobaczyć SQL Server, który działa migracje Code First.
+Twoja edytowana migracja jest gotowa do użycia, więc użyjemy **aktualizacji bazy danych** , aby zapewnić aktualność bazy danych. Ten czas pozwala określić flagę **– verbose** , aby zobaczyć, że program SQL migracje Code First jest uruchomiony.
 
--   Uruchom **Update-Database — pełne** polecenia w konsoli Menedżera pakietów.
+-   Uruchom polecenie **Update-Database – verbose** w konsoli Menedżera pakietów.
 
-## <a name="data-motion--custom-sql"></a>Ruchu danych niestandardowymi SQL
+## <a name="data-motion--custom-sql"></a>Ruch danych/niestandardowe SQL
 
-Do tej pory mają przyjrzeliśmy się migracji, które operacje, które nie zmieniać i przenieść wszystkie dane teraz możemy przyjrzeć się coś wymagających przenoszenia niektórych danych. Istnieje jeszcze nie natywną obsługę ruchu danych, ale niektóre dowolnych poleceń SQL w dowolnym momencie można uruchomić w naszego skryptu.
+Do tej pory oglądamy operacje migracji, które nie zmieniają ani nie przechodzą żadnych danych, teraz przyjrzyjmy się coś, co będzie wymagało przeniesienia pewnych danych. Nie ma jeszcze natywnej obsługi ruchu danych, ale można uruchamiać w dowolnym momencie dowolne polecenia SQL.
 
--   Dodajmy **Post.Abstract** właściwość nasz model. Później, będziemy do wstępnego wypełniania **abstrakcyjne** dla istniejących wpisów od początku przy użyciu jakiś tekst **zawartości** kolumny.
+-   Dodajmy do naszego modelu Właściwość **post. abstract** . Później będziemy wstępnie wypełniać **streszczenie** istniejących wpisów przy użyciu pewnego tekstu od początku kolumny **Content (zawartość** ).
 
 ``` csharp
     public string Abstract { get; set; }
 ```
 
-Użyjemy **migracji Dodaj** polecenie, aby umożliwić migracje Code First tworzenia szkieletu jego najbardziej prawdopodobny wybór na migrację dla nas.
+Użyjemy polecenia **Add-Migration** , aby zapewnić, że migracje Code First szkieletem na potrzeby migracji do nas.
 
--   Uruchom **AddPostAbstract migracji Dodaj** polecenia w konsoli Menedżera pakietów.
--   Wygenerowany migracji zajmie się zmiany schematu, ale chcemy również do wstępnego wypełniania **abstrakcyjne** kolumny przy użyciu 100 pierwszych znaków zawartości dla każdego wpisu. Możemy to zrobić przez rozwijanej opuszcza SQL i uruchamianie **aktualizacji** instrukcji po dodaniu kolumny.
-    (Dodanie w wierszu 12 w poniższym kodzie)
+-   Uruchom polecenie **Add-Migration AddPostAbstract** w konsoli Menedżera pakietów.
+-   Wygenerowane migracje uwzględniają zmiany schematu, ale chcemy również wstępnie wypełnić kolumnę **abstrakcyjną** przy użyciu pierwszych 100 znaków zawartości dla każdego wpisu. Możemy to zrobić przez upuszczenie na SQL i uruchomienie instrukcji **Update** po dodaniu kolumny.
+    (Dodawanie w wierszu 12 w poniższym kodzie)
 
 ``` csharp
     namespace MigrationsDemo.Migrations
@@ -278,43 +278,43 @@ Użyjemy **migracji Dodaj** polecenie, aby umożliwić migracje Code First tworz
     }
 ```
 
-Nasze edytowanych migracji jest dobra, dlatego użyjemy **Update-Database** Aby przełączyć bazę danych aktualne. Firma Microsoft będzie określić **— pełne** Flaga, dzięki czemu możemy zobaczyć SQL są uruchamiane w bazie danych.
+Twoja edytowana migracja jest dobra, dlatego użyjemy polecenia **Update-Database** , aby zapewnić aktualność bazy danych. Określimy flagę **– verbose** , aby można było zobaczyć uruchamianie kodu SQL w bazie danych.
 
--   Uruchom **Update-Database — pełne** polecenia w konsoli Menedżera pakietów.
+-   Uruchom polecenie **Update-Database – verbose** w konsoli Menedżera pakietów.
 
-## <a name="migrate-to-a-specific-version-including-downgrade"></a>Migrowanie do określonej wersji (w tym obniżenia poziomu)
+## <a name="migrate-to-a-specific-version-including-downgrade"></a>Migrowanie do określonej wersji (w tym obniżanie poziomu)
 
-Do tej pory zawsze uaktualniliśmy do najnowszych migracji, ale mogą zaistnieć sytuacje, kiedy zechcesz, uaktualnianie i obniżanie wersji do migracji.
+Do tej pory zawsze uaktualniono do najnowszej migracji, ale mogą wystąpić sytuacje, w których uaktualnienie/obniżenie poziomu zostanie przeprowadzone w określonej migracji.
 
-Załóżmy, że chcemy przeprowadzić migrację naszych bazy danych do stanu sprzed po uruchomieniu naszych **AddBlogUrl** migracji. Możemy użyć **— TargetMigration** przełącznika na starszą wersję tej migracji.
+Załóżmy, że chcemy przeprowadzić migrację bazy danych do stanu, w którym znajdowała się po zakończeniu migracji **AddBlogUrl** . Do obniżenia poziomu migracji można użyć przełącznika **– TargetMigration** .
 
--   Uruchom **Update-Database-TargetMigration: AddBlogUrl** polecenia w konsoli Menedżera pakietów.
+-   Uruchom polecenie **Update-Database – TargetMigration: AddBlogUrl** w konsoli Menedżera pakietów.
 
-To polecenie uruchomi skrypt w dół dla naszych **AddBlogAbstract** i **AddPostClass** migracji.
+To polecenie spowoduje uruchomienie skryptu w dół dla naszych **AddBlogAbstract** i migracji **AddPostClass** .
 
-Jeśli chcesz przeprowadzić wdrożenie aż z powrotem do pustej bazy danych, wówczas można użyć **Update-Database-TargetMigration: $InitialDatabase** polecenia.
+Jeśli chcesz przywrócić cały sposób do pustej bazy danych, możesz użyć polecenia **Update-Database – TargetMigration: $InitialDatabase** .
 
 ## <a name="getting-a-sql-script"></a>Pobieranie skryptu SQL
 
-Jeśli inny Deweloper chce tych zmian na swoich maszynach one po prostu synchronizacji po sprawdzenie zmian w systemie kontroli źródła. Po naszej nowej migracji one po prostu uruchomić polecenie Update-Database, aby zmiany zastosowana lokalnie. Jednak jeśli chcemy wdrożyć tych zmian na serwerze testowym i po pewnym czasie produkcji, prawdopodobnie chcemy skrypt SQL, które firma Microsoft może przekazują do naszych DBA.
+Jeśli inny deweloper chce zmienić te zmiany na komputerze, może po prostu przeprowadzić synchronizację, gdy sprawdzimy nasze zmiany w kontroli źródła. Po otrzymaniu nowych migracji można po prostu uruchomić polecenie Update-Database, aby zmiany zostały zastosowane lokalnie. Jeśli jednak chcemy wypchnąć te zmiany do serwera testowego i ostatecznie produkcji, prawdopodobnie chcemy, aby skrypt SQL mógł zostać przekazany do naszego DBA.
 
--   Uruchom **Update-Database** polecenia, ale tym razem określ **— skrypt** Flaga tak, aby zmiany są zapisywane do skryptu zamiast stosowane. Firma Microsoft będzie również określić źródło i cel migracji można wygenerować skryptu dla. Chcemy, aby skrypt, aby przejść od pustej bazy danych (**$InitialDatabase**) do najnowszej wersji (migracja **AddPostAbstract**).
-    *Jeśli nie określisz migracji docelowego migracji użyje najnowszych migracji jako element docelowy. Jeśli nie określisz migracje źródła migracje użyje bieżący stan bazy danych.*
--   Uruchom **Update-Database-Script - SourceMigration: $InitialDatabase - TargetMigration: AddPostAbstract** polecenia w konsoli Menedżera pakietów
+-   Uruchom polecenie **Update-Database** , ale ten czas należy określić flagę **– Script** , tak aby zmiany były zapisywane do skryptu, a nie do zastosowania. Określimy również migrację źródłową i docelową w celu wygenerowania skryptu. Chcemy, aby skrypt przeszedł z pustej bazy danych ( **$InitialDatabase**) do najnowszej wersji ( **AddPostAbstract**migracji).
+    *Jeśli nie określisz docelowej migracji, migracja będzie używać najnowszej migracji jako docelowej. Jeśli nie określisz migracji źródła, migracja będzie używać bieżącego stanu bazy danych.*
+-   Uruchom polecenie **Update-Database-Script-SourceMigration: $InitialDatabase-TargetMigration: AddPostAbstract** w konsoli Menedżera pakietów
 
-Migracje Code First uruchomi proces migracji, ale zamiast faktycznie stosowania zmian go będzie zapisać je do pliku SQL dla Ciebie. Wygenerowany skrypt jest otwierany automatycznie w programie Visual Studio gotowe wyświetlić lub zapisać.
+Migracje Code First uruchomi potok migracji, ale zamiast tego rzeczywiście zastosuje zmiany, zapisze je do pliku SQL. Po wygenerowaniu skryptu zostanie on otwarty w programie Visual Studio, gotowy do wyświetlenia lub zapisania.
 
-### <a name="generating-idempotent-scripts"></a>Generowanie skryptów Idempotentne
+### <a name="generating-idempotent-scripts"></a>Generowanie skryptów idempotentne
 
-Począwszy od platformy EF6, jeśli określisz **— SourceMigration $InitialDatabase** wygenerowany skrypt będzie "idempotentne". Skrypty Idempotentne można uaktualnić bazy danych obecnie w dowolnej wersji do najnowszej wersji (lub określonej wersji, jeśli używasz **— TargetMigration**). Wygenerowany skrypt zawiera logikę do sprawdzenia  **\_ \_MigrationsHistory** tabeli i tylko zastosować zmiany, które nie zostały zastosowane wcześniej.
+Rozpoczynając od EF6, jeśli określono wartość **– SourceMigration $InitialDatabase** , wygenerowany skrypt będzie "idempotentne". Skrypty idempotentne mogą uaktualnić bazę danych obecnie w dowolnej wersji do najnowszej wersji (lub określonej wersji, jeśli używasz programu **– TargetMigration**). Wygenerowany skrypt zawiera logikę, aby sprawdzić **\_\_tabeli MigrationsHistory** i zastosować tylko zmiany, które nie zostały wcześniej zastosowane.
 
-## <a name="automatically-upgrading-on-application-startup-migratedatabasetolatestversion-initializer"></a>Automatycznie uaktualnianie przy uruchamianiu aplikacji (inicjatorze MigrateDatabaseToLatestVersion)
+## <a name="automatically-upgrading-on-application-startup-migratedatabasetolatestversion-initializer"></a>Automatyczne uaktualnianie przy uruchamianiu aplikacji (inicjator MigrateDatabaseToLatestVersion)
 
-Jeśli aplikacja jest wdrażana można ją automatycznie uaktualnić bazy danych (stosując wszystkie oczekujące migracje) po uruchomieniu aplikacji. Można to zrobić, rejestrując **MigrateDatabaseToLatestVersion** inicjatora bazy danych. Inicjator bazy danych zawiera po prostu logikę, który służy do upewnij się, że baza danych jest prawidłowo skonfigurowana. Logika jest uruchamiany po raz pierwszy kontekstu jest używana w ramach procesu aplikacji (**AppDomain**).
+W przypadku wdrażania aplikacji może być konieczne automatyczne uaktualnienie bazy danych (przez zastosowanie wszelkich oczekujących migracji) podczas uruchamiania aplikacji. Można to zrobić przez zarejestrowanie inicjatora bazy danych **MigrateDatabaseToLatestVersion** . Inicjator bazy danych po prostu zawiera logikę, która jest używana do poprawnego skonfigurowania bazy danych. Ta logika jest uruchamiana przy pierwszym użyciu kontekstu w procesie aplikacji (**AppDomain**).
 
-Firma Microsoft może aktualizować **Program.cs** pliku, jak pokazano poniżej, aby ustawić **MigrateDatabaseToLatestVersion** inicjator dla BlogContext, zanim użyjemy kontekstu (wiersz 14). Należy pamiętać, że trzeba będzie również dodać za pomocą instrukcji for **System.Data.Entity** przestrzeni nazw (wiersz 5).
+Można zaktualizować plik **program.cs** , jak pokazano poniżej, aby ustawić inicjator **MigrateDatabaseToLatestVersion** dla BlogContext przed użyciem kontekstu (wiersz 14). Należy pamiętać, że należy również dodać instrukcję using dla przestrzeni nazw **System. Data. Entity** (wiersz 5).
 
-*Kiedy tworzymy wystąpienie tego inicjatora, należy określić typ kontekstu (**BlogContext**) i konfiguracji migracji (**konfiguracji**) — Konfiguracja migracji jest klasa, która otrzymała dodany do naszych **migracje** folderu podczas umożliwiliśmy migracji.*
+*Gdy utworzymy wystąpienie tego inicjatora, musimy określić typ kontekstu (**BlogContext**) i konfigurację migracji (**konfigurację**) — Konfiguracja migracji jest klasą dodaną do folderu **migracji** po włączeniu migracji.*
 
 ``` csharp
     using System;
@@ -350,4 +350,4 @@ Firma Microsoft może aktualizować **Program.cs** pliku, jak pokazano poniżej,
     }
 ```
 
-Teraz zawsze, gdy nasze działania aplikacji, najpierw będzie sprawdzał, jeśli baza danych jego celem jest element jest aktualny i Zastosuj wszelkie oczekujące migracji, jeśli nie jest.
+Teraz za każdym razem, gdy aplikacja jest uruchamiana, najpierw sprawdza, czy baza danych, do której jest przeznaczona, jest aktualna, i zastosuje oczekujące migracje, jeśli nie jest.

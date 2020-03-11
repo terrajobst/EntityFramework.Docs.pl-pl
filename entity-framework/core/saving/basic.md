@@ -4,19 +4,19 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 850d842e-3fad-4ef2-be17-053768e97b9e
 uid: core/saving/basic
-ms.openlocfilehash: 6f72458504a9dbe99038af7cfd23b6991258f6b8
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 066d67d6104316832a33f5a3648f1f2fa6cc9c50
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197779"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417636"
 ---
 # <a name="basic-save"></a>Zapisywanie podstawowe
 
 Dowiedz się, jak dodawać, modyfikować i usuwać dane przy użyciu własnych klas kontekstu i jednostek.
 
 > [!TIP]  
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Basics/) użyty w tym artykule można zobaczyć w witrynie GitHub.
+> [Przykład](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/Basics/) tego artykułu można wyświetlić w witrynie GitHub.
 
 ## <a name="adding-data"></a>Dodawanie danych
 

@@ -1,21 +1,21 @@
 ---
-title: Definiowanie DbSets - EF6
+title: Definiowanie dbsets-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 4528a509-ace7-4dfb-8065-1b833f5e03a0
 ms.openlocfilehash: 045b22d2b9d26804948689dd7c9dd694baadda7e
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489001"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419095"
 ---
-# <a name="defining-dbsets"></a>Definiowanie DbSets
-Podczas programowania z użyciem kodu pierwszego przepływu pracy należy zdefiniować pochodnego typu DbContext, który reprezentuje sesję z bazą danych i udostępnia DbSet dla każdego typu w modelu. W tym temacie omówiono różne sposoby, można zdefiniować właściwości DbSet.  
+# <a name="defining-dbsets"></a>Definiowanie dbsets
+Podczas tworzenia przy użyciu przepływu pracy Code First definiujesz pochodny DbContext, który reprezentuje sesję z bazą danych i uwidacznia Nieogólnymi dla każdego typu w modelu. W tym temacie opisano różne sposoby definiowania właściwości Nieogólnymi.  
 
-## <a name="dbcontext-with-dbset-properties"></a>Kontekst DbContext z właściwościami DbSet  
+## <a name="dbcontext-with-dbset-properties"></a>DbContext z właściwościami Nieogólnymi  
 
-Często spotykana pokazano w przykładach Code First jest typu DbContext za pomocą właściwości publiczne automatyczne DbSet typów jednostek w modelu. Na przykład:  
+Typowy przypadek przedstawiony w Code First przykłady ma mieć DbContext z publicznymi właściwościami Nieogólnymi dla typów jednostek modelu. Na przykład:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -25,11 +25,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-W przypadku użycia w trybie Code First, to zostanie skonfigurowany jako typy jednostek, jak również konfigurowanie innych typów, które są osiągalne z tych blogów i wpisów. Ponadto DbContext będzie automatycznie wywoływać metody ustawiającej dla każdej z tych właściwości można ustawić wystąpienie DbSet odpowiednie.  
+Gdy jest używany w trybie Code First, spowoduje to skonfigurowanie blogów i wpisów jako typów jednostek, a także skonfigurowanie innych typów dostępnych z tych obiektów. Dodatkowo DbContext automatycznie wywoła metodę ustawiającą dla każdej z tych właściwości, aby ustawić wystąpienie odpowiedniego Nieogólnymi.  
 
-## <a name="dbcontext-with-idbset-properties"></a>Kontekst DbContext z właściwościami IDbSet  
+## <a name="dbcontext-with-idbset-properties"></a>DbContext z właściwościami IDbSet  
 
-Istnieją sytuacje, na przykład w przypadku tworzenia mocks lub elementów sztucznych, gdzie jest bardziej użyteczny zadeklarować właściwości zestawu przy użyciu interfejsu. W takich przypadkach IDbSet interfejs może służyć zamiast DbSet. Na przykład:  
+Istnieją sytuacje, takie jak podczas tworzenia imitacji lub sztucznych, gdzie bardziej przydatne jest zadeklarowanie właściwości zestawu przy użyciu interfejsu. W takich przypadkach można użyć interfejsu IDbSet zamiast Nieogólnymi. Na przykład:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -39,11 +39,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Ten kontekst działa w taki sam sposób, jak kontekst, który używa klasy DbSet dla jego właściwości zestawu.  
+Ten kontekst działa w taki sam sposób, jak kontekst, który używa klasy Nieogólnymi dla właściwości zestawu.  
 
-## <a name="dbcontext-with-read-only-set-properties"></a>Kontekst DbContext za pomocą właściwości tylko do odczytu zestawu  
+## <a name="dbcontext-with-read-only-set-properties"></a>DbContext z właściwościami zestawu tylko do odczytu  
 
-Jeśli nie chcesz ujawniać publicznej metody ustawiające dla właściwości DbSet lub IDbSet zamiast tego można utworzyć właściwości tylko do odczytu i samodzielnie utworzyć wystąpień zestawu. Na przykład:  
+Jeśli nie chcesz ujawniać publicznych metod ustawiających właściwości Nieogólnymi lub IDbSet, możesz zamiast tego utworzyć właściwości tylko do odczytu i samodzielnie utworzyć wystąpienia zestawu. Na przykład:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -60,6 +60,6 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Należy pamiętać, że DbContext buforuje wystąpienie DbSet zwrócony z metody Set, tak, aby każda z tych właściwości zwróci to samo wystąpienie, za każdym razem, gdy jest wywoływana.  
+Należy zauważyć, że DbContext buforuje wystąpienie elementu Nieogólnymi zwracanego z metody Set, tak aby każda z tych właściwości zwracała to samo wystąpienie przy każdym wywołaniu.  
 
-Odnajdywanie typów jednostek dla Code First działa tak samo jak postaci, w jakiej jest dla właściwości publicznej metod pobierających i ustawiających.  
+Odnajdywanie typów jednostek dla Code First działa w taki sam sposób jak w przypadku właściwości z publicznymi metodami pobierającymi i metodami ustawiającymi.  

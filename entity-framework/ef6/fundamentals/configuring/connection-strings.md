@@ -1,29 +1,29 @@
 ---
-title: Parametry połączenia i modeli — EF6
+title: Parametry połączenia i modele — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 294bb138-978f-4fe2-8491-fdf3cd3c60c4
 ms.openlocfilehash: 2c9f084107e4de7f5439bf0082b46a3b538496e0
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490751"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419298"
 ---
-# <a name="connection-strings-and-models"></a>Parametry połączenia i modeli
-W tym temacie opisano, jak Entity Framework umożliwia odnalezienie połączenie bazy danych i jak można ją zmienić. Modele utworzone przy użyciu Code First i projektancie platformy EF zostały omówione w tym temacie.  
+# <a name="connection-strings-and-models"></a>Parametry połączenia i modele
+W tym temacie opisano, w jaki sposób Entity Framework wykrywają używane połączenie z bazą danych i jak można je zmienić. Modele utworzone przy użyciu Code First i programu Dr Designer zostały omówione w tym temacie.  
 
-Zazwyczaj aplikacja programu Entity Framework używa klasy pochodzącej od typu DbContext. Ta klasa pochodna wywoła jednym z konstruktorów w klasie bazowej DbContext do sterowania:  
+Zazwyczaj aplikacja Entity Framework używa klasy pochodnej DbContext. Ta klasa pochodna wywoła jeden z konstruktorów w klasie Base DbContext, aby kontrolować:  
 
-- Jak kontekst połączy się z bazą danych — oznacza to, jak ciąg połączenia jest znaleziono użyć  
-- Kontekst użyje obliczania modelu za pomocą funkcji Code First czy załadować model utworzony za pomocą projektanta EF  
+- Jak kontekst będzie łączyć się z bazą danych — to znaczy, jak znaleziono/użyto parametrów połączenia  
+- Czy kontekst będzie używać obliczeń dla modelu przy użyciu Code First lub załadowania modelu utworzonego za pomocą narzędzia Dr Designer  
 - Dodatkowe opcje zaawansowane  
 
-Następujące fragmenty pokazano niektóre sposoby konstruktorów typu DbContext może być używana.  
+Poniższe fragmenty pokazują, jak można użyć konstruktorów DbContext.  
 
-## <a name="use-code-first-with-connection-by-convention"></a>Za pomocą Code First połączenia zgodnie z Konwencją  
+## <a name="use-code-first-with-connection-by-convention"></a>Używanie Code First z połączeniem według Konwencji  
 
-W przypadku dowolnej innej konfiguracji nie zostało wykonane w aplikacji, wywołując konstruktora bez parametrów na DbContext spowoduje, że DbContext do pracy w trybie Code First przy użyciu połączenia z bazą danych utworzonych przez Konwencję. Na przykład:  
+Jeśli nie wykonano żadnej innej konfiguracji w aplikacji, wywołanie konstruktora bez parametrów w DbContext spowoduje uruchomienie DbContext w trybie Code First przy użyciu połączenia bazy danych utworzonego zgodnie z Konwencją. Na przykład:  
 
 ``` csharp  
 namespace Demo.EF
@@ -38,13 +38,13 @@ namespace Demo.EF
 }
 ```  
 
-W tym przykładzie DbContext używa w przestrzeni nazw kwalifikowana nazwa Twojej class—Demo.EF.BloggingContext—as pochodnej kontekstu nazwy bazy danych i tworzy ciąg połączenia dla tej bazy danych przy użyciu programu SQL Express lub LocalDB. Jeśli obie są zainstalowane, będzie używany program SQL Express.  
+W tym przykładzie DbContext używa kwalifikowanej nazwy klasy kontekstu pochodnego — demonstracyjne. EF. BloggingContext — jako nazwy bazy danych i tworzy parametry połączenia dla tej bazy danych przy użyciu programu SQL Express lub LocalDB. W przypadku zainstalowania obu tych programów zostanie użyta opcja SQL Express.  
 
-Visual Studio 2010 zawiera programu SQL Express, domyślnie i programu Visual Studio 2012 i nowszych obejmują LocalDB. Podczas instalacji pakietu EntityFramework NuGet sprawdza, czy serwer bazy danych, która jest dostępna. Pakiet NuGet zostanie następnie zaktualizuj plik konfiguracji ustawienia domyślnego serwera bazy danych, który używa Code First, podczas tworzenia połączenia zgodnie z Konwencją. Jeśli program SQL Express jest uruchomiona, będzie używany. Jeśli program SQL Express nie jest dostępna następnie LocalDB zostanie zarejestrowana jako domyślny zamiast tego. Nie zmian do pliku konfiguracji, jeśli zawiera on już ustawienie domyślna fabryka połączenia.  
+Program Visual Studio 2010 zawiera domyślnie program SQL Express, a program Visual Studio 2012 i nowsze zawierają LocalDB. Podczas instalacji pakiet NuGet EntityFramework sprawdza, który serwer bazy danych jest dostępny. Pakiet NuGet zaktualizuje plik konfiguracyjny przez ustawienie domyślnego serwera bazy danych, który Code First używa podczas tworzenia połączenia według Konwencji. Jeśli program SQL Express jest uruchomiony, będzie używany. Jeśli program SQL Express nie jest dostępny, LocalDB zostanie zarejestrowany jako domyślny. Nie wprowadzono żadnych zmian w pliku konfiguracji, jeśli zawiera on już ustawienie domyślnej fabryki połączeń.  
 
-## <a name="use-code-first-with-connection-by-convention-and-specified-database-name"></a>Za pomocą Code First połączenia, Konwencji i określoną nazwę bazy danych  
+## <a name="use-code-first-with-connection-by-convention-and-specified-database-name"></a>Użyj Code First z połączeniem według Konwencji i określonej nazwy bazy danych  
 
-Jeśli nie wykonano dowolnej innej konfiguracji w aplikacji, następnie wywoływania konstruktora ciągu na DbContext, nazwą bazy danych, którego chcesz użyć spowoduje, że DbContext do pracy w trybie Code First przy użyciu połączenia z bazą danych utworzony zgodnie z Konwencją do bazy danych tę nazwę. Na przykład:  
+Jeśli nie wykonano żadnej innej konfiguracji w aplikacji, wywołanie konstruktora String w DbContext z nazwą bazy danych, której chcesz użyć, spowoduje uruchomienie DbContext w trybie Code First przy użyciu połączenia z bazą danych utworzonego w ramach Konwencji do bazy danych programu Ta nazwa. Na przykład:  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -56,11 +56,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-W tym przykładzie DbContext używa "BloggingDatabase" jako nazwy bazy danych i tworzy ciąg połączenia dla tej bazy danych przy użyciu programu SQL Express (zainstalowany za pomocą programu Visual Studio 2010) lub LocalDB (zainstalowany za pomocą programu Visual Studio 2012). Jeśli obie są zainstalowane, będzie używany program SQL Express.  
+W tym przykładzie DbContext wykorzystuje "BloggingDatabase" jako nazwę bazy danych i tworzy parametry połączenia dla tej bazy danych przy użyciu programu SQL Express (zainstalowanego z programem Visual Studio 2010) lub LocalDB (instalowany z programem Visual Studio 2012). W przypadku zainstalowania obu tych programów zostanie użyta opcja SQL Express.  
 
-## <a name="use-code-first-with-connection-string-in-appconfigwebconfig-file"></a>Za pomocą Code First parametrów połączenia w pliku app.config/web.config  
+## <a name="use-code-first-with-connection-string-in-appconfigwebconfig-file"></a>Użyj Code First z parametrami połączenia w pliku App. config/Web. config  
 
-Można umieścić ciąg połączenia w pliku app.config lub web.config. Na przykład:  
+Możesz zdecydować się na umieszczenie parametrów połączenia w pliku App. config lub Web. config. Na przykład:  
 
 ``` xml  
 <configuration>
@@ -72,9 +72,9 @@ Można umieścić ciąg połączenia w pliku app.config lub web.config. Na przyk
 </configuration>
 ```  
 
-Jest to prosty sposób sprawdzić DbContext do korzystania z serwera bazy danych innych niż SQL Express lub LocalDB — w powyższym przykładzie określa bazę danych programu SQL Server Compact Edition.  
+Jest to prosty sposób, aby poinformować DbContext o korzystaniu z serwera bazy danych innego niż SQL Express lub LocalDB — powyższy przykład określa bazę danych SQL Server Compact Edition.  
 
-Jeśli nazwa ciągu połączenia jest zgodna z nazwą kontekstu (z lub bez kwalifikacji przestrzeni nazw) następnie go będą mogli odnaleźć DbContext stosowania konstruktora bez parametrów. Nazwa parametrów połączenia jest inna niż Nazwa kontekstu można określić typu DbContext, aby używać tego połączenia w trybie Code First, przekazując nazwę parametrów połączenia do konstruktora typu DbContext. Na przykład:  
+Jeśli nazwa parametrów połączenia jest zgodna z nazwą kontekstu (z kwalifikacją lub bez), zostanie ona znaleziona przez DbContext, gdy używany jest Konstruktor bez parametrów. Jeśli nazwa parametrów połączenia różni się od nazwy kontekstu, można powiedzieć DbContext, aby użyć tego połączenia w trybie Code First, przekazując nazwę ciągu połączenia do konstruktora DbContext. Na przykład:  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -86,7 +86,7 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Alternatywnie można użyć formy "nazwa =\<nazwa parametrów połączenia\>" dla ciągu przekazany do konstruktora typu DbContext. Na przykład:  
+Alternatywnie można użyć formularza "name =\<nazwa parametrów połączenia\>" dla ciągu przesłanego do konstruktora DbContext. Na przykład:  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -98,13 +98,13 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Ten formularz, sprawia, że jawne, oczekiwany ciąg połączenia, można znaleźć w pliku konfiguracji. Jeśli nie można odnaleźć parametrów połączenia o podanej nazwie, zostanie zgłoszony wyjątek.  
+Ten formularz określa, że oczekiwano, że parametry połączenia będą znajdować się w pliku konfiguracyjnym. Jeśli nie zostanie znaleziony ciąg połączenia o podaną nazwę, zostanie zgłoszony wyjątek.  
 
-## <a name="databasemodel-first-with-connection-string-in-appconfigwebconfig-file"></a>Pierwszy Model/bazy danych przy użyciu parametrów połączenia w pliku app.config/web.config  
+## <a name="databasemodel-first-with-connection-string-in-appconfigwebconfig-file"></a>Baza danych/Model First z parametrami połączenia w pliku App. config/Web. config  
 
-Modele utworzone za pomocą projektanta EF różnią się od Code First w tym modelu już istnieje i nie jest generowany z kodu, gdy aplikacja zostanie uruchomiona. Ten model jest zwykle istnieje jako plik EDMX w projekcie.  
+Modele utworzone przy użyciu narzędzia Dr Designer różnią się od Code First w tym, że model już istnieje i nie jest generowany na podstawie kodu podczas uruchamiania aplikacji. Model zazwyczaj istnieje jako plik EDMX w projekcie.  
 
-Projektant doda EF parametry połączenia do pliku app.config lub web.config. Parametry połączenia są specjalne, ponieważ zawiera informacje o sposobach znajdowania informacji w pliku EDMX. Na przykład:  
+Projektant doda parametry połączenia EF do pliku App. config lub Web. config. Te parametry połączenia mają specjalne informacje o sposobach znajdowania informacji w pliku EDMX. Na przykład:  
 
 ``` xml  
 <configuration>  
@@ -124,7 +124,7 @@ Projektant doda EF parametry połączenia do pliku app.config lub web.config. Pa
 </configuration>
 ```  
 
-W Projektancie platformy EF także wygeneruje kod, który zawiera informacje dla kontekstu DbContext dla tego połączenia, przekazując nazwę parametrów połączenia do konstruktora typu DbContext. Na przykład:  
+Program Dr Designer generuje również kod, który informuje DbContext o konieczności użycia tego połączenia, przekazując nazwę ciągu połączenia do konstruktora DbContext. Na przykład:  
 
 ``` csharp  
 public class NorthwindContext : DbContext
@@ -136,13 +136,13 @@ public class NorthwindContext : DbContext
 }
 ```  
 
-Kontekst DbContext wie, można załadować istniejącego modelu (a nie za pomocą Code First go obliczyć z kodu), ponieważ parametry połączenia są parametry połączenia platformy EF zawierającego szczegółowe informacje o modelu do użycia.  
+DbContext wie, aby załadować istniejący model (zamiast używać Code First do obliczenia go z kodu), ponieważ parametry połączenia to parametry połączenia EF zawierające szczegółowe informacje o modelu do użycia.  
 
-## <a name="other-dbcontext-constructor-options"></a>Inne opcje konstruktora typu DbContext  
+## <a name="other-dbcontext-constructor-options"></a>Inne opcje konstruktora DbContext  
 
-Klasy DbContext zawiera inne konstruktory i wzorce użycia, które umożliwiają niektórych bardziej zaawansowanych scenariuszy. Niektóre z nich to:  
+Klasa DbContext zawiera inne konstruktory i wzorce użycia, które umożliwiają bardziej zaawansowane scenariusze. Niektóre z nich są następujące:  
 
-- Klasa DbModelBuilder umożliwia tworzenie model Code First bez tworzenia wystąpienia wystąpienie typu DbContext. Z tego powodu jest obiektem DbModel. Możesz następnie przekazać ten obiekt DbModel do jednego z konstruktorów typu DbContext, gdy jesteś gotowy do utworzenia wystąpienia typu DbContext.  
-- Pełny ciąg połączenia można przekazać do typu DbContext, zamiast tylko nazwy ciągu bazy danych lub połączenie. Domyślnie ten ciąg połączenia jest używana z dostawcą System.Data.SqlClient; Można to zmienić, ustawiając z inną implementacją IConnectionFactory na kontekście. Database.DefaultConnectionFactory.  
-- Można użyć istniejącego obiektu DbConnection, przekazując go do konstruktora typu DbContext. Jeśli obiekt połączenia jest wystąpieniem EntityConnection, określony w połączeniu model nie będą używane zamiast obliczania modelu przy użyciu najpierw kod. Jeśli obiekt jest wystąpieniem innego typu — na przykład element SqlConnection — a następnie kontekst użyje go w trybie Code First.  
-- Istniejący obiekt ObjectContext można przekazać do konstruktora typu DbContext do utworzenia typu DbContext zawijania istniejącego kontekstu. Może to służyć do istniejących aplikacji, które używają obiektu ObjectContext, ale którym chcesz korzystać z zalet DbContext w niektórych części aplikacji.  
+- Klasy DbModelBuilder można użyć do kompilowania modelu Code First bez wystąpienia wystąpienia DbContext. Wynikiem tego jest obiekt dbmodel. Następnie można przekazać ten obiekt dbmodel do jednego z konstruktorów DbContext, gdy wszystko jest gotowe do utworzenia wystąpienia DbContext.  
+- Można przekazać pełne parametry połączenia do DbContext zamiast tylko nazwę bazy danych lub parametrów połączenia. Domyślnie te parametry połączenia są używane z dostawcą system. Data. SqlClient; można to zmienić, ustawiając inną implementację IConnectionFactory w kontekście. Database. DefaultConnectionFactory.  
+- Istniejący obiekt DbConnection można użyć przez przekazanie go do konstruktora DbContext. Jeśli obiekt połączenia jest wystąpieniem elementu EntityConnection, zostanie użyty model określony w połączeniu zamiast obliczania modelu przy użyciu Code First. Jeśli obiekt jest wystąpieniem innego typu — na przykład sqlconnecting — kontekst będzie używać go dla trybu Code First.  
+- Można przekazać istniejący obiekt ObjectContext do konstruktora DbContext, aby utworzyć DbContext zawija istniejący kontekst. Ta funkcja może być używana w przypadku istniejących aplikacji, które używają obiektu ObjectContext, ale chcą korzystać z DbContext w niektórych częściach aplikacji.  

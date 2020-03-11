@@ -1,21 +1,21 @@
 ---
-title: Zarządzanie połączeniami - EF6
+title: Zarządzanie połączeniami — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: ecaa5a27-b19e-4bf9-8142-a3fb00642270
 ms.openlocfilehash: a6352bbbc38c38bd5f30536736ec969056df2c7d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489339"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417988"
 ---
 # <a name="connection-management"></a>Zarządzanie połączeniami
-Na tej stronie opisano zachowanie programu Entity Framework w odniesieniu do przekazywania połączenia do kontekstu i funkcjonalność **Database.Connection.Open()** interfejsu API.  
+Na tej stronie opisano zachowanie Entity Framework w odniesieniu do przekazywania połączeń z kontekstem i funkcjonalnością interfejsu API **Database. Connection. Open ()** .  
 
 ## <a name="passing-connections-to-the-context"></a>Przekazywanie połączeń do kontekstu  
 
-### <a name="behavior-for-ef5-and-earlier-versions"></a>Zachowanie EF5 i wcześniejszymi wersjami  
+### <a name="behavior-for-ef5-and-earlier-versions"></a>Zachowanie dla EF5 i starszych wersji  
 
 Istnieją dwa konstruktory, które akceptują połączenia:  
 
@@ -24,12 +24,12 @@ public DbContext(DbConnection existingConnection, bool contextOwnsConnection)
 public DbContext(DbConnection existingConnection, DbCompiledModel model, bool contextOwnsConnection)
 ```  
 
-Istnieje możliwość, aby móc ich używać, ale trzeba pracować na kilka ograniczeń:  
+Można z nich korzystać, ale musisz obejść kilka ograniczeń:  
 
-1. W przypadku przekazania otwartego połączenia do jednego z tych następnie po raz pierwszy ramach podejmują próbę użycia go, który jest generowany, InvalidOperationException stwierdzającego nie można ponownie otworzyć już otwartego połączenia.  
-2. Flaga contextOwnsConnection jest interpretowany oznacza informację określającą, czy połączenie podstawowe magazynu powinny zostać usunięte, jeśli kontekst zostanie usunięty. Jednak niezależnie od tego ustawienia połączenia magazynu jest zawsze zamknięte, jeśli kontekst zostanie usunięty. Dlatego jeśli masz więcej niż jednego typu DbContext w ramach tego samego niezależnie od kontekst zostanie usunięty, najpierw połączenie zostanie zamknięte (podobnie jeśli mają różne istniejącego połączenia ADO.NET z typu DbContext, DbContext zawsze zamknie połączenie po jego usunięciu) .  
+1. W przypadku przekazania otwartego połączenia z jedną z tych sytuacji, gdy platforma próbuje użyć jej po raz pierwszy, zostanie wygenerowane InvalidOperationException, co oznacza, że nie może ponownie otworzyć otwartego połączenia.  
+2. Flaga contextOwnsConnection jest interpretowana tak, aby oznaczała, czy podstawowe połączenie z magazynem powinno zostać usunięte, gdy kontekst zostanie usunięty. Jednak niezależnie od tego ustawienia połączenie ze sklepem jest zawsze zamykane po usunięciu kontekstu. Tak więc jeśli masz więcej niż jeden DbContext z tym samym połączeniem, niezależnie od tego, że kontekst zostanie usunięty, zamknie połączenie (podobnie, jeśli połączysz istniejące połączenie ADO.NET z DbContext, DbContext zawsze zamknie połączenie, gdy zostanie usunięte) .  
 
-Istnieje możliwość obejść pierwszy ograniczenie powyżej, przekazując zamkniętego połączenia i tylko wykonywanie kodu, który otwiera go po utworzeniu wszystkich kontekstach:  
+Istnieje możliwość obejścia pierwszego ograniczenia powyżej przez przekazanie zamkniętego połączenia i wykonanie tylko kodu, który otworzy go po utworzeniu wszystkich kontekstów:  
 
 ``` csharp
 using System.Collections.Generic;
@@ -71,11 +71,11 @@ namespace ConnectionManagementExamples
 }
 ```  
 
-Drugi ograniczenie po prostu oznacza, że musisz punktowanych — usuwanie wszystkich obiektów typu DbContext, dopóki nie będziesz gotowy dla połączenia zostanie zamknięty.  
+Drugie ograniczenie oznacza jedynie, że należy zrezygnować z wyrzucenia dowolnego obiektu DbContext do momentu, aż będzie można zamknąć połączenie.  
 
-### <a name="behavior-in-ef6-and-future-versions"></a>Zachowanie w przyszłych wersjach i EF6  
+### <a name="behavior-in-ef6-and-future-versions"></a>Zachowanie w EF6 i przyszłych wersjach  
 
-W przyszłych wersjach i EF6 kontekstu DbContext ma ten sam dwa konstruktory, ale nie wymaga już zamknięte połączenia przekazany do konstruktora po ich odebraniu. Dlatego teraz jest to możliwe:  
+W EF6 i przyszłych wersjach, DbContext ma te same dwa konstruktory, ale nie wymaga już zamknięcia połączenia przenoszonego do konstruktora po odebraniu. Jest to teraz możliwe:  
 
 ``` csharp
 using System.Collections.Generic;
@@ -123,24 +123,24 @@ namespace ConnectionManagementExamples
 }
 ```  
 
-Flaga contextOwnsConnection teraz kontroluje również informację, czy połączenie jest zamknięte i usunięty po usunięciu kontekstu DbContext. Dlatego w powyższym przykładzie połączenie nie jest zamknięte w kontekście usunięty (wiersz 32), ponieważ miałoby to miejsce w poprzednich wersjach programu EF, ale raczej, jeśli jest to samo połączenie zostanie usunięty (wiersz 40).  
+Flaga contextOwnsConnection teraz kontroluje, czy połączenie jest zamknięte i usuwane po usunięciu kontekstu DbContext. Dlatego w powyższym przykładzie połączenie nie jest zamykane, gdy kontekst zostanie usunięty (wiersz 32), tak jak w poprzednich wersjach EF, ale zamiast w przypadku usunięcia samego połączenia (wiersz 40).  
 
-Oczywiście jest nadal możliwe dla kontekstu DbContext przejąć kontrolę nad połączenia (tylko zestaw contextOwnsConnection na wartość true, lub użyj jednego z innych konstruktory) Jeśli więc chcesz.  
+Oczywiście jest nadal możliwe, aby w kontekście DbContext przejąć kontrolę nad połączeniem (po prostu ustawić contextOwnsConnection na true lub użyć jednego z innych konstruktorów), jeśli wolisz.  
 
 > [!NOTE]
-> Istnieje kilka dodatkowych kwestii dotyczących podczas korzystania z transakcji za pomocą tego nowego modelu. Aby uzyskać szczegółowe informacje, zobacz [Praca z transakcji](~/ef6/saving/transactions.md).  
+> W przypadku korzystania z transakcji z nowym modelem należy wziąć pod uwagę pewne dodatkowe zagadnienia. Aby uzyskać szczegółowe informacje, zobacz [Praca z transakcjami](~/ef6/saving/transactions.md).  
 
-## <a name="databaseconnectionopen"></a>Database.Connection.Open()  
+## <a name="databaseconnectionopen"></a>Database. Connection. Open ()  
 
-### <a name="behavior-for-ef5-and-earlier-versions"></a>Zachowanie EF5 i wcześniejszymi wersjami  
+### <a name="behavior-for-ef5-and-earlier-versions"></a>Zachowanie dla EF5 i starszych wersji  
 
-EF5 i wcześniejszych wersji jest to błąd, **ObjectContext.Connection.State** nie został zaktualizowany w celu odzwierciedlenia rzeczywisty stan bazowego połączenia magazynu. Na przykład, jeśli zostanie wykonane następujący kod należy mogą być zwracane stan **zamknięte** mimo, że w rzeczywistości bazowego przechowywania połączenia **Otwórz**.  
+W programie EF5 i starszych wersjach występuje usterka taka, że obiekt **ObjectContext. Connection. State** nie został zaktualizowany w celu odzwierciedlenia stanu rzeczywistego połączenia z magazynem. Na przykład, jeśli został wykonany następujący kod, można zwrócić stan **zamknięte** , nawet jeśli w rzeczywistości jest **otwarte**podstawowe połączenie z magazynem.  
 
 ``` csharp
 ((IObjectContextAdapter)context).ObjectContext.Connection.State
 ```  
 
-Oddzielnie, jeśli otworzysz połączenie z bazą danych, wywołując Database.Connection.Open() będą one otwarte do momentu przy następnym wykonania kwerendy lub wywołanie niczego, co wymaga połączenia z bazą danych (na przykład SaveChanges()), ale po czy bazowego przechowywania połączenie zostanie zamknięte. Kontekst będzie, a następnie ponownie otworzyć i ponownie zamknij połączenie, każdym razem, gdy inna operacja bazy danych jest wymagane:  
+Niezależnie od tego, czy połączenie z bazą danych zostanie otwarte przez wywołanie metody Database. Connection. Open (), zostanie otwarte do momentu następnego wykonania zapytania lub wywołania dowolnego, które wymaga połączenia z bazą danych (na przykład metody SaveChanges ()), ale po tym źródłowym magazynie połączenie zostanie zamknięte. Kontekst zostanie następnie ponownie otwarty i ponownie zamknięty przy każdej operacji na innej bazie danych:  
 
 ``` csharp
 using System;
@@ -184,14 +184,14 @@ namespace ConnectionManagementExamples
 }
 ```  
 
-### <a name="behavior-in-ef6-and-future-versions"></a>Zachowanie w przyszłych wersjach i EF6  
+### <a name="behavior-in-ef6-and-future-versions"></a>Zachowanie w EF6 i przyszłych wersjach  
 
-EF6 i przyszłych wersji iż podejmujemy podejście, jeśli kod wywołujący wybierze do otwierania połączenia przez kontekst wywołania. Database.Connection.Open(), a następnie go ma przyczyna to i platformę będzie założono, że chce kontrolować otwierające i zamykające połączenia i nie jest już połączenie zostanie zamknięte automatycznie.  
+W przypadku EF6 i przyszłych wersji wprowadziliśmy podejście, które w przypadku, gdy wywołujący kod wybiera, aby otworzyć połączenie przez wywołanie kontekstu. Plik Database. Connection. Open () jest dobrym powodem do tego celu, a platforma zakłada, że chce ona kontrolować otwieranie i zamykanie połączenia i nie będzie już zamykać połączenia automatycznie.  
 
 > [!NOTE]
-> Może to prowadzić do połączenia, które są otwarte przez długi czas, więc używać ostrożnie.  
+> Może to potencjalnie prowadzić do połączeń, które są otwarte przez długi czas, dlatego należy korzystać z nich.  
 
-Zaktualizowaliśmy również kod tak, aby ObjectContext.Connection.State teraz śledzi informacje o stan połączenia podstawowej poprawnie.  
+Zaktualizowaliśmy również kod, tak aby obiekt ObjectContext. Connection. State teraz śledził stan podstawowego połączenia poprawnie.  
 
 ``` csharp
 using System;

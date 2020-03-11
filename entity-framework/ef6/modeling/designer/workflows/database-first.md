@@ -4,16 +4,16 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: cc6ffdb3-388d-4e79-a201-01ec2577c949
 ms.openlocfilehash: d40cff4ddccf43a394ef4f244653372a5a89b05a
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182451"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418358"
 ---
 # <a name="database-first"></a>Database First
 Ten film wideo i przewodnik krok po kroku zawierają wprowadzenie do Database First opracowywania przy użyciu Entity Framework. Database First umożliwia odtwarzanie modelu z istniejącej bazy danych. Model jest przechowywany w pliku EDMX (rozszerzenie EDMX) i można go przeglądać i edytować w Entity Framework Designer. Klasy, z którymi można korzystać w aplikacji, są generowane automatycznie na podstawie pliku EDMX.
 
-## <a name="watch-the-video"></a>Obejrzyj wideo
+## <a name="watch-the-video"></a>Obejrzyj film
 To wideo zawiera wprowadzenie do Database First tworzenia przy użyciu Entity Framework. Database First umożliwia odtwarzanie modelu z istniejącej bazy danych. Model jest przechowywany w pliku EDMX (rozszerzenie EDMX) i można go przeglądać i edytować w Entity Framework Designer. Klasy, z którymi można korzystać w aplikacji, są generowane automatycznie na podstawie pliku EDMX.
 
 **Przedstawione przez**: [Rowan Miller](https://romiller.com/)
@@ -41,7 +41,7 @@ Serwer bazy danych zainstalowany przy użyciu programu Visual Studio różni si�
 
 Przyjrzyjmy się i wygenerujemy bazę danych.
 
--   Otwórz program Visual Studio
+-   Otwórz program Visual Studio.
 -   **Widok-&gt; Eksplorator serwera**
 -   Kliknij prawym przyciskiem myszy pozycję **połączenia danych —&gt; Dodaj połączenie...**
 -   Jeśli nie masz połączenia z bazą danych Eksplorator serwera przed wybraniem Microsoft SQL Server jako źródła danych
@@ -83,11 +83,11 @@ CREATE TABLE [dbo].[Posts] (
 
 Aby zachować prostotę, możemy utworzyć podstawową aplikację konsolową, która używa Database First do uzyskiwania dostępu do danych:
 
--   Otwórz program Visual Studio
+-   Otwórz program Visual Studio.
 -   **Plik —&gt; nowy&gt; projekt...**
 -   Wybierz pozycję **Windows** z menu po lewej stronie i **aplikacji konsolowej**
 -   Wprowadź **DatabaseFirstSample** jako nazwę
--   Wybierz **przycisk OK**
+-   Kliknij przycisk **OK**
 
  
 

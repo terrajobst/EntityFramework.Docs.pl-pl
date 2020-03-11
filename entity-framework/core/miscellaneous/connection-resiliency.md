@@ -1,27 +1,27 @@
 ---
-title: Elastyczność połączenia — EF Core
+title: Odporność połączenia — EF Core
 author: rowanmiller
 ms.date: 11/15/2016
 ms.assetid: e079d4af-c455-4a14-8e15-a8471516d748
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: 6d8cf117dfd94524a53e10bb4a23c2a44c4c8e7b
-ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
+ms.openlocfilehash: 07646e6ead845c38537945a03367ac7f50784236
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/21/2019
-ms.locfileid: "56459175"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416642"
 ---
 # <a name="connection-resiliency"></a>Elastyczność połączenia
 
-Elastyczność połączenia automatycznie ponawia próbę polecenia bazy danych nie powiodło się. Funkcja może być używana z żadną bazą danych, podając "strategii wykonywania", która hermetyzuje logikę niezbędną do wykrywania błędów i ponów próbę wykonania polecenia. EF Core dostawców można podać strategii wykonywania dopasowane do swoich warunków błędów konkretnej bazy danych i zasady ponawiania optymalne.
+Odporność połączenia automatycznie ponawia próby nieudane polecenia bazy danych. Funkcja może być używana z dowolną bazą danych, dostarczając "strategię wykonywania", która hermetyzuje logikę niezbędną do wykrywania błędów i ponawiania prób. Dostawcy EF Core mogą dostarczać strategie wykonywania dostosowane do ich określonych warunków awarii bazy danych i optymalne zasady ponawiania.
 
-Na przykład dostawca programu SQL Server zawiera strategii wykonywania, który jest w szczególny sposób dopasowane do programu SQL Server (w tym usługi SQL Azure). Ją rozpoznaje rodzaje wyjątków, które mogą być ponawiane i posiada odpowiednie ustawienia domyślne, aby uzyskać maksymalną liczbę ponownych prób, opóźnienie między ponownych prób.
+Na przykład dostawca SQL Server obejmuje strategię wykonywania, która jest specjalnie dostosowana do SQL Server (w tym SQL Azure). Jest on świadomy typów wyjątków, które mogą być ponawiane i ma rozsądne wartości domyślne dla maksymalnej liczby ponownych prób, opóźnienia między kolejnymi próbami itd.
 
-Strategia wykonywania jest określony podczas konfigurowania opcji dla kontekstu. Jest to zazwyczaj w `OnConfiguring` metody pochodnej kontekstu:
+Podczas konfigurowania opcji dla kontekstu określono strategię wykonywania. Zwykle jest to metoda `OnConfiguring` w kontekście pochodnym:
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#OnConfiguring)]
 
-lub `Startup.cs` dla aplikacji platformy ASP.NET Core:
+lub w `Startup.cs` dla aplikacji ASP.NET Core:
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)
@@ -33,9 +33,9 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-## <a name="custom-execution-strategy"></a>Strategia wykonywania niestandardowych
+## <a name="custom-execution-strategy"></a>Niestandardowa strategia wykonywania
 
-Istnieje mechanizm do zarejestrowania strategii wykonywania niestandardowych samodzielnie, jeśli chcesz zmienić dowolne z ustawień domyślnych.
+Istnieje mechanizm, aby zarejestrować własną niestandardową strategię wykonywania, jeśli chcesz zmienić ustawienia domyślne.
 
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -47,63 +47,63 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 }
 ```
 
-## <a name="execution-strategies-and-transactions"></a>Strategii wykonywania i transakcji
+## <a name="execution-strategies-and-transactions"></a>Strategie wykonywania i transakcje
 
-Strategii wykonywania, który automatycznie ponawia próbę na błędy musi być w stanie odtworzyć każdej operacji w bloku ponawiania, która kończy się niepowodzeniem. Po włączeniu ponownych prób każdej operacji wykonywanych przy użyciu programu EF Core staje się własną wywołały operacji. Oznacza to, każde zapytanie i każde wywołanie `SaveChanges()` zostanie ponowiona jako jednostki, jeśli wystąpi błąd przejściowy.
+Strategia wykonywania, która automatycznie ponawia próbę w przypadku awarii, musi być w stanie odtworzyć każdą operację w bloku ponawiania, który zakończy się niepowodzeniem. Po włączeniu ponownych prób każda operacja wykonywana za pośrednictwem EF Core będzie własną operacją wywołały. Oznacza to, że każde zapytanie i każde wywołanie `SaveChanges()` zostanie ponowione w przypadku wystąpienia błędu przejściowego.
 
-Jednakże jeżeli Twój kod inicjuje transakcji przy użyciu `BeginTransaction()` definiujesz własną grupę działań, które muszą być traktowane jako jednostka i wszystko wewnątrz transakcji musi być odtwarzane ma miejsce awaria. Jeśli spróbuje to zrobić, korzystając z strategii wykonywania, zostanie wyświetlony następujący wyjątek:
+Jeśli jednak kod inicjuje transakcję przy użyciu `BeginTransaction()` definiujesz własną grupę operacji, która musi być traktowana jako jednostka, a wszystkie elementy wewnątrz transakcji byłyby potrzebne do odtworzenia. Jeśli podjęto próbę wykonania tej czynności podczas korzystania z strategii wykonywania, zostanie wyświetlony wyjątek:
 
-> InvalidOperationException: Strategia wykonywania skonfigurowany "SqlServerRetryingExecutionStrategy" nie obsługuje transakcji zainicjowanej przez użytkownika. Strategia wykonywania zwróconych przez "DbContext.Database.CreateExecutionStrategy()" umożliwia wykonywanie wszystkich operacji w transakcji jako jednostka z możliwością ponowienia próby.
+> InvalidOperationException: skonfigurowana strategia wykonywania "SqlServerRetryingExecutionStrategy" nie obsługuje transakcji inicjowanych przez użytkownika. Użyj strategii wykonywania zwróconej przez obiekt "DbContext. Database. CreateExecutionStrategy ()", aby wykonać wszystkie operacje w transakcji jako jednostkę wywołały.
 
-To rozwiązanie jest ręcznie wywołać strategii wykonywania z delegatem reprezentujący wszystko, co ma zostać wykonana. Jeśli wystąpi błąd przejściowy, strategia wykonywania wywoła delegata ponownie.
+Rozwiązaniem jest ręczne wywołanie strategii wykonywania z delegatem reprezentującym wszystkie elementy, które należy wykonać. Jeśli wystąpi błąd przejściowy, strategia wykonywania ponownie wywoła delegata.
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#ManualTransaction)]
 
-To podejście można również otoczenia transakcji.
+Takie podejście może być również używane z transakcjami otoczenia.
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#AmbientTransaction)]
 
-## <a name="transaction-commit-failure-and-the-idempotency-issue"></a>Błąd zatwierdzania transakcji i problem idempotentności
+## <a name="transaction-commit-failure-and-the-idempotency-issue"></a>Błąd zatwierdzania transakcji i problem z idempotentności
 
-Ogólnie rzecz biorąc gdy wystąpi awaria połączenia bieżąca transakcja zostanie wycofana. Jednakże, jeśli połączenie zostało przerwane, gdy transakcja jest zwrócenia zatwierdzone Wynikowy stan transakcji jest nieznany. Zobacz ten [wpis w blogu](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) Aby uzyskać więcej informacji.
+Ogólnie rzecz biorąc, gdy występuje błąd połączenia, bieżąca transakcja jest wycofywana. Jeśli jednak połączenie zostanie usunięte podczas zatwierdzania transakcji, stan wynikający z transakcji jest nieznany. 
 
-Domyślnie strategii wykonywania ponowi operację tak, jakby transakcja została wycofana, ale jeśli nie jest to wynikiem będzie wyjątek nowy stan bazy danych jest niezgodny lub może prowadzić do **uszkodzenie danych** Jeśli Operacja nie zależą od określonego stanu, na przykład podczas wstawiania nowego wiersza przy użyciu automatycznego generowania wartości klucza.
+Domyślnie strategia wykonywania ponowi próbę wykonania operacji tak, jakby transakcja została wycofana, ale jeśli nie jest to przypadek, spowoduje to wyjątek, jeśli nowy stan bazy danych jest niezgodny lub może doprowadzić do **uszkodzenia danych** , jeśli operacja nie zależy od określonego stanu, na przykład podczas wstawiania nowego wiersza z automatycznie generowanymi wartościami klucza.
 
-Istnieje kilka sposobów, aby poradzić sobie z tym.
+Można to zrobić na kilka sposobów.
 
-### <a name="option-1---do-almost-nothing"></a>Opcja 1 — czy (prawie) nothing
+### <a name="option-1---do-almost-nothing"></a>Opcja 1 — do (prawie) nic
 
-Prawdopodobieństwo awarii połączenia podczas zatwierdzania transakcji jest niska, dlatego może być akceptowalne, aby aplikacja została właśnie się niepowodzeniem, jeśli rzeczywiście występuje ten problem.
+Prawdopodobieństwo błędu połączenia podczas zatwierdzania transakcji jest niskie, dlatego może być akceptowalne, aby aplikacja mogła zakończyć się niepowodzeniem, jeśli ten stan rzeczywiście wystąpi.
 
-Jednak należy unikać używania generowane przez magazyn kluczy w celu zapewnienia, że zamiast opcji dodawania zduplikowany wiersz jest zgłaszany wyjątek. Należy rozważyć użycie wartość identyfikatora GUID generowany przez klienta lub generator wartości po stronie klienta.
+Należy jednak unikać używania kluczy generowanych przez magazyn w celu zapewnienia, że wyjątek jest zgłaszany zamiast dodawania zduplikowanego wiersza. Rozważ użycie wygenerowanej przez klienta wartości GUID lub generatora wartości po stronie klienta.
 
-### <a name="option-2---rebuild-application-state"></a>Opcja 2 — stan aplikacji ponownej kompilacji
+### <a name="option-2---rebuild-application-state"></a>Opcja 2 — ponowne kompilowanie stanu aplikacji
 
-1. Odrzucenie aktualnego `DbContext`.
-2. Utwórz nową `DbContext` i przywrócenia stanu aplikacji z bazy danych.
-3. Informuje użytkownika, że ostatnia operacja może nie zostały zakończone pomyślnie.
+1. Odrzuć bieżącą `DbContext`.
+2. Utwórz nowy `DbContext` i Przywróć stan aplikacji z bazy danych.
+3. Poinformuj użytkownika, że Ostatnia operacja mogła nie zostać ukończona pomyślnie.
 
-### <a name="option-3---add-state-verification"></a>Opcja 3 — Dodawanie weryfikacji do stanu
+### <a name="option-3---add-state-verification"></a>Opcja 3 — Dodawanie weryfikacji stanu
 
-Dla większości działań, które zmieniają stan bazy danych jest można dodać kod, który sprawdza, czy powiodła się. EF udostępnia metodę rozszerzenia, aby to ułatwić - `IExecutionStrategy.ExecuteInTransaction`.
+W przypadku większości operacji, które zmieniają stan bazy danych, można dodać kod, który sprawdza, czy zakończył się pomyślnie. EF udostępnia metodę rozszerzenia, aby ułatwić `IExecutionStrategy.ExecuteInTransaction`.
 
-Ta metoda rozpoczyna się i zatwierdzeń transakcji i akceptuje także funkcję `verifySucceeded` parametrów, które jest wywoływane, gdy wystąpi błąd przejściowy podczas zatwierdzania transakcji.
+Ta metoda rozpoczyna i zatwierdza transakcję, a także akceptuje funkcję w `verifySucceeded` parametr, który jest wywoływany, gdy wystąpi błąd przejściowy podczas zatwierdzania transakcji.
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#Verification)]
 
 > [!NOTE]
-> W tym miejscu `SaveChanges` jest wywoływana z `acceptAllChangesOnSuccess` równa `false` Aby uniknąć zmieniania stanu `Blog` jednostki do `Unchanged` Jeśli `SaveChanges` zakończy się pomyślnie. Dzięki temu, aby ponowić próbę wykonania tej samej operacji, jeśli zatwierdzenie zakończy się niepowodzeniem, a transakcja zostanie wycofana.
+> W tym miejscu `SaveChanges` jest wywoływana z `acceptAllChangesOnSuccess` ustawionym na `false`, aby uniknąć zmiany stanu jednostki `Blog` na `Unchanged`, jeśli `SaveChanges` się powiedzie. Pozwala to na ponowienie próby wykonania tej operacji, jeśli zatwierdzenie zakończy się niepowodzeniem, a transakcja zostanie wycofana.
 
-### <a name="option-4---manually-track-the-transaction"></a>Opcja 4 — ręcznie śledzić transakcji
+### <a name="option-4---manually-track-the-transaction"></a>Opcja 4 — ręcznie Śledź transakcję
 
-Jeśli musisz używać generowane przez magazyn kluczy lub potrzebujesz ogólny sposób obsługi błędów zatwierdzania, który nie są zależne od operacji wykonywanych każdej transakcji można przypisać Identyfikatora, który jest sprawdzany, jeśli zatwierdzenie zakończy się niepowodzeniem.
+Jeśli konieczne jest użycie kluczy generowanych przez magazyn lub konieczny jest ogólny sposób obsługi niepowodzeń zatwierdzeń, które nie zależą od operacji wykonywanej przez każdą transakcję, można przypisać identyfikator, który jest sprawdzany, gdy zatwierdzenie zakończy się niepowodzeniem.
 
-1. Dodaj tabelę w bazie danych używane do śledzenia stanu transakcji.
+1. Dodaj tabelę do bazy danych używanej do śledzenia stanu transakcji.
 2. Wstaw wiersz do tabeli na początku każdej transakcji.
-3. Jeśli połączenie nie powiedzie się podczas zatwierdzania, sprawdź, czy obecność odpowiedni wiersz w bazie danych.
-4. Jeśli zatwierdzenie zakończy się pomyślnie, usuń odpowiedni wiersz w celu uniknięcia wzrostu tabeli.
+3. Jeśli połączenie zakończy się niepowodzeniem podczas zatwierdzania, sprawdź obecność odpowiedniego wiersza w bazie danych.
+4. Jeśli zatwierdzenie zakończy się pomyślnie, Usuń odpowiedni wiersz, aby uniknąć wzrostu tabeli.
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#Tracking)]
 
 > [!NOTE]
-> Upewnij się, że kontekst użyty w celu weryfikacji ma zdefiniowany jako połączenie jest prawdopodobnie nastąpi ich awaria ponownie podczas weryfikacji w przypadku niepowodzenia podczas zatwierdzania transakcji strategii wykonywania.
+> Upewnij się, że kontekst używany do weryfikacji ma strategię wykonywania zdefiniowaną z chwilą, że połączenie będzie prawdopodobnie kończyć się niepowodzeniem, jeśli wystąpił błąd podczas zatwierdzania transakcji.

@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: d617aed1-15f2-48a9-b187-186991c666e3
 ms.openlocfilehash: 018f480c1f0f1e74fc9f7a8950a6880e96f1facc
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182649"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419102"
 ---
 # <a name="spatial---code-first"></a>Code First przestrzenne
 > [!NOTE]
@@ -24,7 +24,7 @@ Aby można było używać typów danych przestrzennych, należy również użyć
 
 Istnieją dwa główne typy danych przestrzennych: Geografia i geometria. Typ danych Geografia przechowuje dane ellipsoidal (na przykład współrzędne geograficzne i Długość geograficzna). Typ danych geometrii reprezentuje układ współrzędnych Euclidean (płaski).
 
-## <a name="watch-the-video"></a>Obejrzyj wideo
+## <a name="watch-the-video"></a>Obejrzyj film
 W tym filmie wideo pokazano, jak mapować typy przestrzenne za pomocą Entity Framework Code First. Pokazano również, jak używać zapytania LINQ, aby znaleźć odległość między dwiema lokalizacjami.
 
 **Przedstawione przez**: Julia Kornich

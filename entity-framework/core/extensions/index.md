@@ -5,11 +5,11 @@ ms.date: 12/17/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
 ms.openlocfilehash: 99f59153a452a2f4aad5811110ebc5b5da7717ef
-ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/30/2020
-ms.locfileid: "76888040"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417196"
 ---
 # <a name="ef-core-tools--extensions"></a>Rozszerzenia narzędzi EF Core &
 
@@ -24,17 +24,17 @@ Te narzędzia i rozszerzenia zapewniają dodatkową funkcjonalność dla Entity 
 
 LLBLGen Pro to rozwiązanie do modelowania jednostek z obsługą Entity Framework i Entity Framework Core. Umożliwia ona łatwe definiowanie modelu jednostki i mapowanie go do bazy danych przy użyciu najpierw pierwszej lub modelu bazy danych, dzięki czemu możesz od razu zacząć pisać zapytania. Dla EF Core: 2.
 
-[Witryny sieci Web](https://www.llblgen.com/)
+[Producenta](https://www.llblgen.com/)
 
 ### <a name="devart-entity-developer"></a>Deweloper jednostki Devart
 
 Deweloper jednostki jest zaawansowanym projektantem ORM dla ADO.NET Entity Framework, NHibernate, LinqConnect, Telerik Data Access i LINQ to SQL. Obsługuje ona projektowanie EF Core modeli wizualnie, przy użyciu pierwszej metody modelu lub pierwszej podejścia do C# bazy danych i lub Visual Basic generowania kodu. Dla EF Core: 2.
 
-[Witryny sieci Web](https://www.devart.com/entitydeveloper/)
+[Producenta](https://www.devart.com/entitydeveloper/)
 
 ### <a name="nhydrate-orm-for-entity-framework"></a>nHydrate ORM dla Entity Framework
 
-Obiekt ORM, który tworzy klasy o jednoznacznie określonym typie, rozszerzalny dla Entity Framework. Wygenerowany kod jest Entity Framework Core. Nie ma żadnych różnic. Nie jest to zamiennik dla EF lub niestandardowej ORM. Jest to Wizualizacja warstwa modelowania, która umożliwia zespołowi zarządzanie złożonymi schematami bazy danych. Dobrze sprawdza się w przypadku oprogramowania SCM, takiego jak Git, umożliwiając dostęp dla użytkowników do modelu z minimalnymi konfliktami. Instalator śledzi zmiany modelu i tworzy skrypty uaktualniania. Dla EF Core: 3.
+Obiekt ORM, który tworzy klasy o jednoznacznie określonym typie, rozszerzalny dla Entity Framework. Wygenerowany kod jest Entity Framework Core. Nie ma żadnej różnicy. Nie jest to zamiennik dla EF lub niestandardowej ORM. Jest to Wizualizacja warstwa modelowania, która umożliwia zespołowi zarządzanie złożonymi schematami bazy danych. Dobrze sprawdza się w przypadku oprogramowania SCM, takiego jak Git, umożliwiając dostęp dla użytkowników do modelu z minimalnymi konfliktami. Instalator śledzi zmiany modelu i tworzy skrypty uaktualniania. Dla EF Core: 3.
 
 [Witryna usługi GitHub](https://github.com/nHydrate/nHydrate)
 
@@ -168,7 +168,7 @@ Rozszerza kontekst DbContext z funkcjami takimi jak: Filter include, Audit, bufo
 
 Rozszerza swój kontekst dbwith operacji zbiorczych o wysokiej wydajności: BulkSaveChanges, BulkInsert, BulkUpdate, BulkDelete, BulkMerge i inne. Dla EF Core: 2, 3.
 
-[Witryny sieci Web](https://entityframework-extensions.net/)
+[Producenta](https://entityframework-extensions.net/)
 
 ### <a name="expressionify"></a>Expressionify
 

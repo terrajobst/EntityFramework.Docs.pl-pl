@@ -5,15 +5,15 @@ ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
 ms.openlocfilehash: 3ab90d46b7a4476044e5ea38eaf04f995708e7bf
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655801"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416670"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurowanie klasy DbContext
 
-W tym artykule przedstawiono podstawowe wzorce konfigurowania `DbContext` za pośrednictwem `DbContextOptions` w celu nawiązania połączenia z bazą danych przy użyciu określonego dostawcy EF Core i opcjonalnych zachowań.
+W tym artykule przedstawiono podstawowe wzorce konfigurowania `DbContext` za pośrednictwem `DbContextOptions` do łączenia się z bazą danych przy użyciu określonego dostawcy EF Core i opcjonalnych zachowań.
 
 ## <a name="design-time-dbcontext-configuration"></a>Konfiguracja DbContext czasu projektowania
 
@@ -23,14 +23,14 @@ Chociaż każdy wzorzec zapewniający niezbędne informacje konfiguracyjne dla `
 
 ## <a name="configuring-dbcontextoptions"></a>Konfigurowanie DbContextOptions
 
-Aby można było wykonać dowolną z zadań, `DbContext` musi mieć wystąpienie `DbContextOptions`. Wystąpienie `DbContextOptions` przenosi informacje o konfiguracji, takie jak:
+`DbContext` musi mieć wystąpienie `DbContextOptions`, aby można było wykonać dowolną ilość pracy. Wystąpienie `DbContextOptions` przenosi informacje o konfiguracji, takie jak:
 
-- Dostawca bazy danych do użycia, zwykle wybierany przez wywołanie metody, takiej jak `UseSqlServer` lub `UseSqlite`. Te metody rozszerzające wymagają odpowiedniego pakietu dostawcy, takiego jak `Microsoft.EntityFrameworkCore.SqlServer` lub `Microsoft.EntityFrameworkCore.Sqlite`. Metody są zdefiniowane w przestrzeni nazw `Microsoft.EntityFrameworkCore`.
+- Dostawca bazy danych do użycia, zazwyczaj wybierany przez wywołanie metody, takiej jak `UseSqlServer` lub `UseSqlite`. Te metody rozszerzające wymagają odpowiedniego pakietu dostawcy, takiego jak `Microsoft.EntityFrameworkCore.SqlServer` lub `Microsoft.EntityFrameworkCore.Sqlite`. Metody są zdefiniowane w przestrzeni nazw `Microsoft.EntityFrameworkCore`.
 - Wszystkie niezbędne parametry połączenia lub identyfikator wystąpienia bazy danych, zwykle przesyłane jako argument do metody wyboru dostawcy wymienione powyżej
 - Wszystkie selektory nieopcjonalnych zachowań na poziomie dostawcy, zwykle również łańcucha wewnątrz wywołania metody wyboru dostawcy
 - Wszystkie selektory zachowań ogólnych EF Core, zwykle łańcucha po lub przed metodą selektora dostawcy
 
-Poniższy przykład konfiguruje `DbContextOptions`, aby użyć dostawcy SQL Server, połączenia zawartego w zmiennej `connectionString`, limicie czasu polecenia na poziomie dostawcy i selektora zachowania EF Core, który wykonuje wszystkie zapytania wykonywane w `DbContext` [śledzenie bez śledzenia](xref:core/querying/tracking#no-tracking-queries) Domyślnie:
+Poniższy przykład konfiguruje `DbContextOptions` do korzystania z dostawcy SQL Server, połączenie zawarte w zmiennej `connectionString`, przekroczenie limitu czasu polecenia dostawcy i selektor zachowania EF Core, które domyślnie wykonuje wszystkie zapytania wykonywane w `DbContext` [bez śledzenia](xref:core/querying/tracking#no-tracking-queries) :
 
 ``` csharp
 optionsBuilder
@@ -39,7 +39,7 @@ optionsBuilder
 ```
 
 > [!NOTE]  
-> Metody selektora dostawcy i inne metody selektora zachowań wymienione powyżej to metody rozszerzające dla `DbContextOptions` lub klasy opcji specyficznych dla dostawcy. Aby można było uzyskać dostęp do tych metod rozszerzających, może być konieczne posiadanie przestrzeni nazw (zwykle `Microsoft.EntityFrameworkCore`) w zakresie i uwzględnienie dodatkowych zależności pakietu w projekcie.
+> Metody selektora dostawcy i inne metody selektora zachowań wymienione powyżej to metody rozszerzające dotyczące `DbContextOptions` lub klas opcji specyficznych dla dostawcy. Aby mieć dostęp do tych metod rozszerzających, może być konieczne posiadanie przestrzeni nazw (zwykle `Microsoft.EntityFrameworkCore`) w zakresie i uwzględnienie w projekcie dodatkowych zależności pakietów.
 
 `DbContextOptions` można dostarczyć do `DbContext` przez zastąpienie metody `OnConfiguring` lub zewnętrznie za pośrednictwem argumentu konstruktora.
 
@@ -61,7 +61,7 @@ public class BloggingContext : DbContext
 ```
 
 > [!TIP]  
-> Konstruktor podstawowy DbContext również akceptuje nieogólną wersję `DbContextOptions`, ale użycie niegenerycznej wersji nie jest zalecane w przypadku aplikacji z wieloma typami kontekstu.
+> Konstruktor podstawowy DbContext również akceptuje nieogólną wersję `DbContextOptions`, ale użycie nieogólnej wersji nie jest zalecane w przypadku aplikacji z wieloma typami kontekstu.
 
 Aplikacja może teraz przekazać `DbContextOptions` podczas tworzenia wystąpienia kontekstu w następujący sposób:
 
@@ -107,7 +107,7 @@ using (var context = new BloggingContext())
 
 ### <a name="using-dbcontext-with-dependency-injection"></a>Używanie DbContext z iniekcją zależności
 
-EF Core obsługuje użycie `DbContext` z kontenerem iniekcji zależności. Typ kontekstu DbContext można dodać do kontenera usługi przy użyciu metody `AddDbContext<TContext>`.
+EF Core obsługuje używanie `DbContext` z kontenerem iniekcji zależności. Typ kontekstu DbContext można dodać do kontenera usługi za pomocą metody `AddDbContext<TContext>`.
 
 `AddDbContext<TContext>` spowoduje, że zarówno typ kontekstu DB, `TContext`, jak i odpowiednie `DbContextOptions<TContext>` dostępne do iniekcji z kontenera usług.
 
@@ -166,7 +166,7 @@ var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
 
 ## <a name="avoiding-dbcontext-threading-issues"></a>Unikanie problemów wielowątkowości DbContext
 
-Entity Framework Core nie obsługuje wielu operacji równoległych na tym samym wystąpieniu `DbContext`. Obejmuje to zarówno równoległe wykonywanie zapytań asynchronicznych, jak i jawne jednoczesne użycie z wielu wątków. W związku z tym zawsze `await` asynchroniczne wywołania natychmiast lub używają oddzielnych wystąpień `DbContext` dla operacji wykonywanych równolegle.
+Entity Framework Core nie obsługuje wielu operacji równoległych dla tego samego wystąpienia `DbContext`. Obejmuje to zarówno równoległe wykonywanie zapytań asynchronicznych, jak i jawne jednoczesne użycie z wielu wątków. W związku z tym zawsze należy natychmiast `await` asynchroniczne wywołania lub używać oddzielnych wystąpień `DbContext` dla operacji wykonywanych równolegle.
 
 Gdy EF Core wykryje próbę użycia wystąpienia `DbContext` współbieżnie, zobaczysz `InvalidOperationException` z komunikatem podobnym do tego:
 
@@ -186,11 +186,11 @@ Zawsze Czekaj na EF Core metod asynchronicznych.
 
 Metoda rozszerzenia [`AddDbContext`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) domyślnie rejestruje typy `DbContext` z [okresem istnienia w zakresie](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes) .
 
-Jest to bezpieczne z równoczesnych problemów z dostępem w aplikacjach ASP.NET Core, ponieważ w danym momencie istnieje tylko jeden wątek wykonujący każde żądanie klienta, a ponieważ każde żądanie pobiera oddzielny zakres iniekcji zależności (i w związku z tym jest osobnym wystąpieniem `DbContext`).
+Jest to bezpieczne z równoczesnych problemów z dostępem w aplikacjach ASP.NET Core, ponieważ w danym momencie istnieje tylko jeden wątek wykonujący każde żądanie klienta, a ponieważ każde żądanie pobiera oddzielny zakres iniekcji zależności (i w związku z tym oddzielnym wystąpieniem `DbContext`).
 
 Jednak każdy kod, który jawnie wykonuje wiele wątków równolegle, powinien mieć pewność, że wystąpienia `DbContext` nie są nigdy dostępne jednocześnie.
 
-Przy użyciu iniekcji zależności można to osiągnąć przez zarejestrowanie kontekstu jako zakresu i Tworzenie zakresów (przy użyciu `IServiceScopeFactory`) dla każdego wątku lub przez zarejestrowanie `DbContext` jako przejściowe (przy użyciu przeciążenia `AddDbContext`, które przyjmuje parametr `ServiceLifetime`).
+Przy użyciu iniekcji zależności można to osiągnąć przez zarejestrowanie kontekstu jako zakresu i Tworzenie zakresów (przy użyciu `IServiceScopeFactory`) dla każdego wątku lub przez zarejestrowanie `DbContext` jako przejściowego (przy użyciu przeciążenia `AddDbContext`, które przyjmuje parametr `ServiceLifetime`).
 
 ## <a name="more-reading"></a>Więcej informacji
 

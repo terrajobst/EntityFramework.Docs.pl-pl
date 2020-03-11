@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
 ms.openlocfilehash: 7030dc675993339f72c935f6b430cead85fecb7f
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306523"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419686"
 ---
 # <a name="working-with-transactions"></a>Praca z transakcjami
 > [!NOTE]
@@ -32,21 +32,21 @@ Jednak niektórzy użytkownicy wymagają większej kontroli nad ich transakcjami
 
 ## <a name="how-the-apis-work"></a>Jak działają interfejsy API  
 
-Przed EF6 Entity Framework nawiązać połączenie z bazą danych (wyjątek został zakończony, jeśli przekazano połączenie, które zostało już otwarte). Ponieważ transakcja może być uruchamiana tylko w otwartym połączeniu, oznacza to, że jedynym sposobem, w jaki użytkownik może otoczyć kilka operacji do jednej transakcji, było użycie elementu [TransactionScope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx) lub użycie właściwości **ObjectContext. Connection** i uruchomienie wywołanie metody **Open ()** i **BeginTransaction ()** bezpośrednio na zwracanym obiekcie **EntityConnection** . Dodatkowo wywołania interfejsu API, które skontaktowali się z bazą danych, byłyby niepowodzeniem, jeśli rozpoczęto transakcję na źródłowym połączeniu z bazą danych.  
+Przed EF6 Entity Framework nawiązać połączenie z bazą danych (wyjątek został zakończony, jeśli przekazano połączenie, które zostało już otwarte). Ponieważ transakcja może być uruchamiana tylko w ramach otwartego połączenia, oznacza to, że jedynym sposobem, w jaki użytkownik może otoczyć kilka operacji do jednej transakcji, było użycie elementu [TransactionScope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx) lub użycie właściwości **ObjectContext. Connection** i rozpoczęcie wywoływania metody **Open ()** i **BeginTransaction ()** bezpośrednio na zwracanym obiekcie **EntityConnection** . Dodatkowo wywołania interfejsu API, które skontaktowali się z bazą danych, byłyby niepowodzeniem, jeśli rozpoczęto transakcję na źródłowym połączeniu z bazą danych.  
 
 > [!NOTE]
 > Ograniczenie tylko akceptowania zamkniętych połączeń zostało usunięte w Entity Framework 6. Aby uzyskać szczegółowe informacje, zobacz [Zarządzanie połączeniami](~/ef6/fundamentals/connection-management.md).  
 
 Począwszy od EF6, platforma udostępnia teraz:  
 
-1. **Database. BeginTransaction ()** : Łatwiejsza Metoda dla użytkownika umożliwiająca uruchamianie i wykonywanie transakcji w ramach istniejącego kontekstu DbContext — pozwala na łączenie kilku operacji w ramach tej samej transakcji, a tym samym wszystkie zatwierdzone lub wszystkie wycofane jako jeden. Umożliwia także użytkownikowi łatwiejsze Określanie poziomu izolacji transakcji.  
+1. **Database. BeginTransaction ()** : łatwiejsza metoda umożliwiająca użytkownikowi uruchamianie i Kończenie transakcji w ramach istniejącego DbContext — pozwala to na łączenie kilku operacji w ramach tej samej transakcji, a więc wszystkie zatwierdzone lub wszystkie wycofane jako jeden. Umożliwia także użytkownikowi łatwiejsze Określanie poziomu izolacji transakcji.  
 2. **Database. UseTransaction ()** : który umożliwia DbContext używanie transakcji, która została uruchomiona poza Entity Framework.  
 
 ### <a name="combining-several-operations-into-one-transaction-within-the-same-context"></a>Łączenie kilku operacji w jedną transakcję w tym samym kontekście  
 
 **Database. BeginTransaction ()** ma dwa przesłonięcia — jeden, który pobiera jawne [IsolationLevel](https://msdn.microsoft.com/library/system.data.isolationlevel.aspx) i jeden nie przyjmuje argumentów i używa domyślnego IsolationLevel z dostawcy bazy danych. Oba zastąpienia zwracają obiekt **DbContextTransaction** , który dostarcza metody **commit ()** i **Rollback ()** , które wykonują zatwierdzenie i wycofywanie w źródłowej transakcji magazynu.  
 
-**DbContextTransaction** jest przeznaczony do usunięcia, gdy zostanie on zatwierdzony lub wycofany. Jednym z łatwych sposobów osiągnięcia tego jest **użycie (...) {...}** Składnia, która automatycznie wywoła metodę **Dispose ()** , gdy zostanie ukończony blok using:  
+**DbContextTransaction** jest przeznaczony do usunięcia, gdy zostanie on zatwierdzony lub wycofany. Jednym z łatwych sposobów osiągnięcia tego jest **użycie (...) {.** ..} Składnia, która automatycznie wywoła metodę **Dispose ()** , gdy zostanie ukończony blok using:  
 
 ``` csharp
 using System;
@@ -178,7 +178,7 @@ Zostanie wyświetlony wyjątek z bazy danych. UseTransaction (), jeśli przejdzi
 
 W tej sekcji szczegółowo opisano sposób działania powyższych transakcji:  
 
-- Odporność połączenia  
+- Elastyczność połączenia  
 - Metody asynchroniczne  
 - Transakcje elementu TransactionScope  
 
@@ -188,8 +188,8 @@ Nowa funkcja odporności połączenia nie działa z zainicjowanymi przez użytko
 
 ### <a name="asynchronous-programming"></a>Programowanie asynchroniczne  
 
-Podejście opisane w poprzednich sekcjach nie wymaga żadnych dalszych opcji ani ustawień do pracy z [zapytań asynchronicznych i zapisywania metod.](~/ef6/fundamentals/async.md
-) Należy jednak pamiętać, że w zależności od tego, co robisz w metodach asynchronicznych, może to skutkować długotrwałymi transakcjami, co może spowodować zakleszczenie lub blokowanie, które są nieprawidłowe dla wydajności ogólnej aplikacji.  
+Podejście opisane w poprzednich sekcjach nie wymaga żadnych dalszych opcji ani ustawień do pracy z [zapytań asynchronicznych i zapisywania metod](~/ef6/fundamentals/async.md
+). Należy jednak pamiętać, że w zależności od tego, co robisz w metodach asynchronicznych, może to skutkować długotrwałymi transakcjami, co może spowodować zakleszczenie lub blokowanie, które są nieprawidłowe dla wydajności ogólnej aplikacji.  
 
 ### <a name="transactionscope-transactions"></a>Transakcje elementu TransactionScope  
 

@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 13ae7bc1-74b4-4ee4-8d73-c337be841467
 ms.openlocfilehash: 8990d1373ea2121ce11337a43dbcdf3b9e1532bd
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182557"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418733"
 ---
 # <a name="msl-specification"></a>Specyfikacja MSL
 Mapowanie specyfikacji języka (MSL) to język oparty na języku XML, który opisuje mapowanie między modelem koncepcyjnym i modelem magazynu aplikacji Entity Framework.
@@ -39,8 +39,8 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **al
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                     |
 |:---------------|:------------|:--------------------------------------------------------------------------|
-| **Klucz**        | Tak         | Alias dla przestrzeni nazw, który jest określony przez atrybut **Value** . |
-| **Wartość**      | Tak         | Przestrzeń nazw, dla której wartość elementu **Key** jest aliasem.     |
+| **Klucz**        | Yes         | Alias dla przestrzeni nazw, który jest określony przez atrybut **Value** . |
+| **Wartość**      | Yes         | Przestrzeń nazw, dla której wartość elementu **Key** jest aliasem.     |
 
 ### <a name="example"></a>Przykład
 
@@ -93,9 +93,9 @@ W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **As
 
 | Nazwa atrybutu     | Jest wymagana | Wartość                                                                                                                                                                             |
 |:-------------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **AssociationSet** | Tak         | Nazwa mapowanego skojarzenia.                                                                                                                                 |
-| **From**           | Tak         | Wartość atrybutu **FromRole** właściwości nawigacji, która odnosi się do mapowanego skojarzenia. Aby uzyskać więcej informacji, zobacz element NavigationProperty (CSDL). |
-| **To**             | Tak         | Wartość atrybutu **ToRole** właściwości nawigacji, która odnosi się do mapowanego skojarzenia. Aby uzyskać więcej informacji, zobacz element NavigationProperty (CSDL).   |
+| **AssociationSet** | Yes         | Nazwa mapowanego skojarzenia.                                                                                                                                 |
+| **Wniosek**           | Yes         | Wartość atrybutu **FromRole** właściwości nawigacji, która odnosi się do mapowanego skojarzenia. Aby uzyskać więcej informacji, zobacz element NavigationProperty (CSDL). |
+| **Do**             | Yes         | Wartość atrybutu **ToRole** właściwości nawigacji, która odnosi się do mapowanego skojarzenia. Aby uzyskać więcej informacji, zobacz element NavigationProperty (CSDL).   |
 
 ### <a name="example"></a>Przykład
 
@@ -200,8 +200,8 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **As
 
 | Nazwa atrybutu     | Jest wymagana | Wartość                                                                                       |
 |:-------------------|:------------|:--------------------------------------------------------------------------------------------|
-| **Nazwa**           | Tak         | Nazwa mapowanego zestawu skojarzeń modelu koncepcyjnego.                      |
-| **TypeName**       | Nie          | Kwalifikowana nazwa przestrzeni nazw typu powiązania modelu koncepcyjnego, który jest mapowany. |
+| **Nazwa**           | Yes         | Nazwa mapowanego zestawu skojarzeń modelu koncepcyjnego.                      |
+| **Nazwa**       | Nie          | Kwalifikowana nazwa przestrzeni nazw typu powiązania modelu koncepcyjnego, który jest mapowany. |
 | **StoreEntitySet** | Nie          | Nazwa mapowanej tabeli.                                                 |
 
 ### <a name="example"></a>Przykład
@@ -238,8 +238,8 @@ W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **Co
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                                            |
 |:---------------|:------------|:-------------------------------------------------------------------------------------------------|
-| **Nazwa**       | Tak         | Nazwa właściwości złożonej typu jednostki w modelu koncepcyjnym, który jest mapowany. |
-| **TypeName**   | Nie          | Kwalifikowana nazwa obszaru nazw typu właściwości modelu koncepcyjnego.                              |
+| **Nazwa**       | Yes         | Nazwa właściwości złożonej typu jednostki w modelu koncepcyjnym, który jest mapowany. |
+| **Nazwa**   | Nie          | Kwalifikowana nazwa obszaru nazw typu właściwości modelu koncepcyjnego.                              |
 
 ### <a name="example"></a>Przykład
 
@@ -308,7 +308,7 @@ W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **Co
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------|
-| **TypeName**   | Tak         | Kwalifikowana nazwa przestrzeni nazw typu złożonego, który jest zamapowany. |
+| **Nazwa**   | Yes         | Kwalifikowana nazwa przestrzeni nazw typu złożonego, który jest zamapowany. |
 
 ### <a name="example"></a>Przykład
 
@@ -380,7 +380,7 @@ W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **Co
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                                                                                                                                         |
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **ColumnName** | Nie          | Nazwa kolumny tabeli, której wartość jest używana do obliczania warunku.                                                                                                                                                                                                                   |
-| **IsNull**     | Nie          | **Wartość true** lub **false**. Jeśli wartość jest **równa true** , a wartość kolumny ma wartość **null**lub jeśli wartość jest równa **false** , a wartość kolumny nie jest **równa null**, warunek ma wartość true. W przeciwnym razie warunek ma wartość false. <br/> Nie można jednocześnie używać atrybutów **IsNull** i **Value** . |
+| **IsNull**     | Nie          | **True** lub **False**. Jeśli wartość jest **równa true** , a wartość kolumny ma wartość **null**lub jeśli wartość jest równa **false** , a wartość kolumny nie jest **równa null**, warunek ma wartość true. W przeciwnym razie warunek ma wartość false. <br/> Nie można jednocześnie używać atrybutów **IsNull** i **Value** . |
 | **Wartość**      | Nie          | Wartość, z którą jest porównywana wartość kolumny. Jeśli wartości są takie same, warunek ma wartość true. W przeciwnym razie warunek ma wartość false. <br/> Nie można jednocześnie używać atrybutów **IsNull** i **Value** .                                                                       |
 | **Nazwa**       | Nie          | Nazwa właściwości jednostki modelu koncepcyjnego, której wartość jest używana do obliczania warunku. <br/> Ten atrybut nie ma zastosowania, jeśli element **Condition** jest używany w elemencie FunctionImportMapping.                                                                           |
 
@@ -440,7 +440,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **De
 
 | Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Tak         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest mapowana funkcja Delete. Procedura składowana musi być zadeklarowana w modelu magazynu. |
+| **FunctionName**          | Yes         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest mapowana funkcja Delete. Procedura składowana musi być zadeklarowana w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru wyjściowego, który zwraca liczbę wierszy, których to dotyczy.                                                                               |
 
 #### <a name="example"></a>Przykład
@@ -504,7 +504,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **De
 
 | Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Tak         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest mapowana funkcja Delete. Procedura składowana musi być zadeklarowana w modelu magazynu. |
+| **FunctionName**          | Yes         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest mapowana funkcja Delete. Procedura składowana musi być zadeklarowana w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru wyjściowego, który zwraca liczbę wierszy, których to dotyczy.                                                                               |
 
 #### <a name="example"></a>Przykład
@@ -558,7 +558,7 @@ W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **En
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                 |
 |:---------------|:------------|:------------------------------------------------------|
-| Nazwa           | Tak         | Nazwa elementu end skojarzenia, który jest mapowany. |
+| Name (Nazwa)           | Yes         | Nazwa elementu end skojarzenia, który jest mapowany. |
 
 ### <a name="example"></a>Przykład
 
@@ -628,9 +628,9 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **En
 
 | Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **StorageModelContainer** | Tak         | Nazwa mapowanego kontenera jednostek modelu magazynu.                                                                                                                                                                                     |
-| **CdmEntityContainer**    | Tak         | Nazwa mapowanego kontenera jednostek modelu koncepcyjnego.                                                                                                                                                                                  |
-| **GenerateUpdateViews**   | Nie          | **Wartość true** lub **false**. W przypadku **wartości false**nie są generowane żadne widoki aktualizacji. Ten atrybut powinien mieć ustawioną **wartość false** , jeśli masz mapowanie tylko do odczytu, które byłoby nieprawidłowe, ponieważ dane mogły się nie przewidzieć pomyślnie. <br/> Wartość domyślna to **True**. |
+| **StorageModelContainer** | Yes         | Nazwa mapowanego kontenera jednostek modelu magazynu.                                                                                                                                                                                     |
+| **CdmEntityContainer**    | Yes         | Nazwa mapowanego kontenera jednostek modelu koncepcyjnego.                                                                                                                                                                                  |
+| **GenerateUpdateViews**   | Nie          | **True** lub **False**. W przypadku **wartości false**nie są generowane żadne widoki aktualizacji. Ten atrybut powinien mieć ustawioną **wartość false** , jeśli masz mapowanie tylko do odczytu, które byłoby nieprawidłowe, ponieważ dane mogły się nie przewidzieć pomyślnie. <br/> Wartość domyślna to **True**. |
 
 ### <a name="example"></a>Przykład
 
@@ -679,7 +679,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **el
 
 | Nazwa atrybutu           | Jest wymagana | Wartość                                                                                                                                                                                                                         |
 |:-------------------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**                 | Tak         | Nazwa mapowanego zestawu jednostek modelu koncepcyjnego.                                                                                                                                                             |
+| **Nazwa**                 | Yes         | Nazwa mapowanego zestawu jednostek modelu koncepcyjnego.                                                                                                                                                             |
 | **Nazwa elementu TypeName** **1**       | Nie          | Nazwa mapowanego typu jednostki modelu koncepcyjnego.                                                                                                                                                            |
 | **StoreEntitySet** **1** | Nie          | Nazwa zestawu jednostek modelu magazynu, do którego jest mapowany.                                                                                                                                                             |
 | **Atrybutem makecolumnsdistinct**  | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy zwracane są tylko unikatowe wiersze. <br/> Jeśli ten atrybut ma **wartość true**, atrybut **GenerateUpdateViews** elementu EntityContainerMapping musi być ustawiony na **wartość false**. |
@@ -745,7 +745,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **En
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                                                |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **TypeName**   | Tak         | Kwalifikowana nazwa przestrzeni nazw typu jednostki modelu koncepcyjnego, który jest mapowany. <br/> Jeśli typ jest abstrakcyjny lub typem pochodnym, wartość musi być `IsOfType(Namespace-qualified_type_name)`. |
+| **Nazwa**   | Yes         | Kwalifikowana nazwa przestrzeni nazw typu jednostki modelu koncepcyjnego, który jest mapowany. <br/> Jeśli typ jest abstrakcyjny lub typem pochodnym, wartość musi być `IsOfType(Namespace-qualified_type_name)`. |
 
 ### <a name="example"></a>Przykład
 
@@ -831,8 +831,8 @@ W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **Fu
 
 | Nazwa atrybutu         | Jest wymagana | Wartość                                                                                   |
 |:-----------------------|:------------|:----------------------------------------------------------------------------------------|
-| **FunctionImportName** | Tak         | Nazwa importowanej funkcji w modelu koncepcyjnym, który jest mapowany.           |
-| **FunctionName**       | Tak         | Kwalifikowana nazwa przestrzeni nazw funkcji w modelu magazynu, który jest zamapowany. |
+| **FunctionImportName** | Yes         | Nazwa importowanej funkcji w modelu koncepcyjnym, który jest mapowany.           |
+| **FunctionName**       | Yes         | Kwalifikowana nazwa przestrzeni nazw funkcji w modelu magazynu, który jest zamapowany. |
 
 ### <a name="example"></a>Przykład
 
@@ -889,7 +889,7 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do elementu **
 
 | Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Tak         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest mapowana funkcja INSERT. Procedura składowana musi być zadeklarowana w modelu magazynu. |
+| **FunctionName**          | Yes         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest mapowana funkcja INSERT. Procedura składowana musi być zadeklarowana w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru wyjściowego zwracająca liczbę odnośnych wierszy.                                                                               |
 
 #### <a name="example"></a>Przykład
@@ -940,7 +940,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **In
 
 | Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Tak         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest mapowana funkcja INSERT. Procedura składowana musi być zadeklarowana w modelu magazynu. |
+| **FunctionName**          | Yes         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest mapowana funkcja INSERT. Procedura składowana musi być zadeklarowana w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru wyjściowego, który zwraca liczbę wierszy, których to dotyczy.                                                                               |
 
 #### <a name="example"></a>Przykład
@@ -997,7 +997,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **ma
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                 |
 |:---------------|:------------|:------------------------------------------------------|
-| **Odstęp**      | Tak         | **C-S**. Jest to stała wartość i nie można jej zmienić. |
+| **Odstęp**      | Yes         | **C-S**. Jest to stała wartość i nie można jej zmienić. |
 
 ### <a name="example"></a>Przykład
 
@@ -1050,7 +1050,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **el
 
 | Nazwa atrybutu          | Jest wymagana | Wartość                                                                                                                                                                                                                         |
 |:------------------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **StoreEntitySet**      | Tak         | Nazwa mapowanej tabeli lub widoku.                                                                                                                                                                           |
+| **StoreEntitySet**      | Yes         | Nazwa mapowanej tabeli lub widoku.                                                                                                                                                                           |
 | **Atrybutem makecolumnsdistinct** | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy zwracane są tylko unikatowe wiersze. <br/> Jeśli ten atrybut ma **wartość true**, atrybut **GenerateUpdateViews** elementu EntityContainerMapping musi być ustawiony na **wartość false**. |
 
 ### <a name="example"></a>Przykład
@@ -1213,7 +1213,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Qu
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                         |
 |:---------------|:------------|:------------------------------------------------------------------------------|
-| **TypeName**   | Nie          | Nazwa typu modelu koncepcyjnego, który jest mapowany przez widok zapytania. |
+| **Nazwa**   | Nie          | Nazwa typu modelu koncepcyjnego, który jest mapowany przez widok zapytania. |
 
 ### <a name="example"></a>Przykład
 
@@ -1327,8 +1327,8 @@ W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **re
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                         |
 |:---------------|:------------|:------------------------------------------------------------------------------|
-| **Nazwa**       | Tak         | Nazwa właściwości Entity w modelu koncepcyjnym, który jest mapowany. |
-| **ColumnName** | Tak         | Nazwa mapowanej kolumny.                                          |
+| **Nazwa**       | Yes         | Nazwa właściwości Entity w modelu koncepcyjnym, który jest mapowany. |
+| **ColumnName** | Yes         | Nazwa mapowanej kolumny.                                          |
 
 ### <a name="example"></a>Przykład
 
@@ -1479,15 +1479,15 @@ W poniższej tabeli opisano atrybuty, które są stosowane, gdy element **elemen
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                           |
 |:---------------|:------------|:----------------------------------------------------------------|
-| **Nazwa**       | Tak         | Nazwa mapowanej właściwości modelu koncepcyjnego. |
-| **ColumnName** | Tak         | Nazwa mapowanej kolumny tabeli.              |
+| **Nazwa**       | Yes         | Nazwa mapowanej właściwości modelu koncepcyjnego. |
+| **ColumnName** | Yes         | Nazwa mapowanej kolumny tabeli.              |
 
 W poniższej tabeli opisano atrybuty, które mają zastosowanie do elementu **element scalarproperty** , gdy jest on używany do mapowania właściwości modelu koncepcyjnego na parametr procedury składowanej:
 
 | Nazwa atrybutu    | Jest wymagana | Wartość                                                                                                                                           |
 |:------------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**          | Tak         | Nazwa mapowanej właściwości modelu koncepcyjnego.                                                                                 |
-| **ParameterName** | Tak         | Nazwa mapowanego parametru.                                                                                                 |
+| **Nazwa**          | Yes         | Nazwa mapowanej właściwości modelu koncepcyjnego.                                                                                 |
+| **ParameterName** | Yes         | Nazwa mapowanego parametru.                                                                                                 |
 | **Wersja**       | Nie          | **Bieżący** lub **oryginalny** w zależności od tego, czy bieżąca wartość lub oryginalna wartość właściwości ma być używana do sprawdzania współbieżności. |
 
 ### <a name="example"></a>Przykład
@@ -1597,7 +1597,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Up
 
 | Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Tak         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest zamapowana funkcja aktualizacji. Procedura składowana musi być zadeklarowana w modelu magazynu. |
+| **FunctionName**          | Yes         | Kwalifikowana nazwa przestrzeni nazw procedury składowanej, do której jest zamapowana funkcja aktualizacji. Procedura składowana musi być zadeklarowana w modelu magazynu. |
 | **RowsAffectedParameter** | Nie          | Nazwa parametru wyjściowego, który zwraca liczbę wierszy, których to dotyczy.                                                                               |
 
 ### <a name="example"></a>Przykład

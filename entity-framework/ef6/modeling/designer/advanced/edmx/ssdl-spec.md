@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: a4af4b1a-40f4-48cc-b2e0-fa8f5d9d5419
 ms.openlocfilehash: b20d1f99f1da9c53a8a164fccc461e07d19c879d
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182547"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418726"
 ---
 # <a name="ssdl-specification"></a>Specyfikacja SSDL
 Język definicji schematu magazynu (SSDL) to język oparty na języku XML, który opisuje model magazynu aplikacji Entity Framework.
@@ -42,7 +42,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **As
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                            |
 |:---------------|:------------|:---------------------------------------------------------------------------------|
-| **Nazwa**       | Tak         | Nazwa odpowiedniego ograniczenia klucza obcego w źródłowej bazie danych. |
+| **Nazwa**       | Yes         | Nazwa odpowiedniego ograniczenia klucza obcego w źródłowej bazie danych. |
 
 > [!NOTE]
 > Do elementu **Association** można zastosować dowolną liczbę atrybutów adnotacji (niestandardowych atrybutów XML). Jednak atrybuty niestandardowe nie mogą należeć do żadnej przestrzeni nazw XML zarezerwowanej dla SSDL. W pełni kwalifikowane nazwy dla wszystkich dwóch atrybutów niestandardowych nie mogą być takie same.
@@ -88,8 +88,8 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **As
 
 | Nazwa atrybutu  | Jest wymagana | Wartość                                                                                                |
 |:----------------|:------------|:-----------------------------------------------------------------------------------------------------|
-| **Nazwa**        | Tak         | Nazwa ograniczenia klucza obcego, które reprezentuje zestaw skojarzeń.                          |
-| **Skojarzenie** | Tak         | Nazwa skojarzenia, która definiuje kolumny, które uczestniczą w ograniczeniu klucza obcego. |
+| **Nazwa**        | Yes         | Nazwa ograniczenia klucza obcego, które reprezentuje zestaw skojarzeń.                          |
+| **Skojarzenie** | Yes         | Nazwa skojarzenia, która definiuje kolumny, które uczestniczą w ograniczeniu klucza obcego. |
 
 > [!NOTE]
 > Do elementu **AssociationSet** można zastosować dowolną liczbę atrybutów adnotacji (niestandardowych atrybutów XML). Jednak atrybuty niestandardowe nie mogą należeć do żadnej przestrzeni nazw XML zarezerwowanej dla SSDL. W pełni kwalifikowane nazwy dla wszystkich dwóch atrybutów niestandardowych nie mogą być takie same.
@@ -199,7 +199,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **za
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                       |
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Rola**       | Tak         | Taka sama wartość jak atrybut **roli** (jeśli jest używany) odpowiadającego elementu końcowego; w przeciwnym razie nazwa tabeli zawierającej kolumnę odwołania. |
+| **Rola**       | Yes         | Taka sama wartość jak atrybut **roli** (jeśli jest używany) odpowiadającego elementu końcowego; w przeciwnym razie nazwa tabeli zawierającej kolumnę odwołania. |
 
 > [!NOTE]
 > Do elementu **zależnego** można zastosować dowolną liczbę atrybutów adnotacji (niestandardowych atrybutów XML). Jednak atrybuty niestandardowe nie mogą należeć do żadnej przestrzeni nazw XML zarezerwowanej dla CSDL. W pełni kwalifikowane nazwy dla wszystkich dwóch atrybutów niestandardowych nie mogą być takie same.
@@ -278,9 +278,9 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do elementu **
 
 | Nazwa atrybutu   | Jest wymagana | Wartość                                                                                                                                                                                                                                                                                                                                                                                      |
 |:-----------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Typ**         | Tak         | W pełni kwalifikowana nazwa zestawu jednostek SSDL, który znajduje się na końcu ograniczenia klucza obcego.                                                                                                                                                                                                                                                                                          |
+| **Typ**         | Yes         | W pełni kwalifikowana nazwa zestawu jednostek SSDL, który znajduje się na końcu ograniczenia klucza obcego.                                                                                                                                                                                                                                                                                          |
 | **Rola**         | Nie          | Wartość atrybutu **roli** w głównym lub zależnym elemencie odpowiedniego elementu ReferentialConstraint (jeśli jest używany).                                                                                                                                                                                                                                             |
-| **Liczebność** | Tak         | **1**, **0.. 1**lub **\*** w zależności od liczby wierszy, które mogą znajdować się na końcu ograniczenia klucza obcego. <br/> **1** wskazuje, że dokładnie jeden wiersz istnieje na końcu ograniczenia klucza obcego. <br/> **0.. 1** oznacza, że na końcu ograniczenia klucza obcego istnieje zero lub jeden wiersz. <br/> **\*** wskazuje, że na końcu ograniczenia klucza obcego istnieje zero, jeden lub więcej wierszy. |
+| **Kardynalność** | Yes         | **1**, **0.. 1**lub **\*** w zależności od liczby wierszy, które mogą znajdować się na końcu ograniczenia klucza obcego. <br/> **1** wskazuje, że dokładnie jeden wiersz istnieje na końcu ograniczenia klucza obcego. <br/> **0.. 1** oznacza, że na końcu ograniczenia klucza obcego istnieje zero lub jeden wiersz. <br/> **\*** wskazuje, że na końcu ograniczenia klucza obcego istnieje zero, jeden lub więcej wierszy. |
 
 > [!NOTE]
 > Do elementu **End** można zastosować dowolną liczbę atrybutów adnotacji (niestandardowych atrybutów XML). Jednak atrybuty niestandardowe nie mogą należeć do żadnej przestrzeni nazw XML zarezerwowanej dla CSDL. W pełni kwalifikowane nazwy dla wszystkich dwóch atrybutów niestandardowych nie mogą być takie same.
@@ -323,7 +323,7 @@ W poniższej tabeli opisano atrybuty, które mogą być stosowane do elementu **
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------|
-| **Elementy**  | Tak         | Nazwa zestawu jednostek SSDL znajdującego się na końcu ograniczenia klucza obcego.                                      |
+| **Elementy**  | Yes         | Nazwa zestawu jednostek SSDL znajdującego się na końcu ograniczenia klucza obcego.                                      |
 | **Rola**       | Nie          | Wartość jednego z atrybutów **roli** określonych dla jednego elementu **końcowego** odpowiedniego elementu skojarzenia. |
 
 > [!NOTE]
@@ -367,7 +367,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **En
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                   |
 |:---------------|:------------|:------------------------------------------------------------------------|
-| **Nazwa**       | Tak         | Nazwa kontenera jednostek. Ta nazwa nie może zawierać kropek (.). |
+| **Nazwa**       | Yes         | Nazwa kontenera jednostek. Ta nazwa nie może zawierać kropek (.). |
 
 > [!NOTE]
 > Do elementu **EntityContainer** można zastosować dowolną liczbę atrybutów adnotacji (niestandardowych atrybutów XML). Jednak atrybuty niestandardowe nie mogą należeć do żadnej przestrzeni nazw XML zarezerwowanej dla SSDL. W pełni kwalifikowane nazwy dla wszystkich dwóch atrybutów niestandardowych nie mogą być takie same.
@@ -411,9 +411,9 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **En
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
-| **Nazwa**       | Tak         | Nazwa zestawu jednostek.                                                              |
-| **Elementy** | Tak         | W pełni kwalifikowana nazwa typu jednostki, dla którego zestaw jednostek zawiera wystąpienia. |
-| **Schemat**     | Nie          | Schemat bazy danych.                                                                     |
+| **Nazwa**       | Yes         | Nazwa zestawu jednostek.                                                              |
+| **Elementy** | Yes         | W pełni kwalifikowana nazwa typu jednostki, dla którego zestaw jednostek zawiera wystąpienia. |
+| **Schematy**     | Nie          | Schemat bazy danych.                                                                     |
 | **Tabela**      | Nie          | Tabela bazy danych.                                                                      |
 
 > [!NOTE]
@@ -455,7 +455,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **En
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**       | Tak         | Nazwa typu jednostki. Ta wartość jest zwykle taka sama jak nazwa tabeli, w której typ jednostki reprezentuje wiersz. Ta wartość nie może zawierać kropek (.). |
+| **Nazwa**       | Yes         | Nazwa typu jednostki. Ta wartość jest zwykle taka sama jak nazwa tabeli, w której typ jednostki reprezentuje wiersz. Ta wartość nie może zawierać kropek (.). |
 
 > [!NOTE]
 > Do elementu **EntityType** można zastosować dowolną liczbę atrybutów adnotacji (niestandardowych atrybutów XML). Jednak atrybuty niestandardowe nie mogą należeć do żadnej przestrzeni nazw XML zarezerwowanej dla SSDL. W pełni kwalifikowane nazwy dla wszystkich dwóch atrybutów niestandardowych nie mogą być takie same.
@@ -503,15 +503,15 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Fu
 
 | Nazwa atrybutu             | Jest wymagana | Wartość                                                                                                                                                                                                              |
 |:---------------------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**                   | Tak         | Nazwa procedury składowanej.                                                                                                                                                                                  |
+| **Nazwa**                   | Yes         | Nazwa procedury składowanej.                                                                                                                                                                                  |
 | **Atrybuty**             | Nie          | Zwracany typ procedury składowanej.                                                                                                                                                                           |
-| **Aggregate**              | Nie          | **True** , jeśli procedura składowana zwraca wartość zagregowaną; w przeciwnym razie **false**.                                                                                                                                  |
+| **Agreguj**              | Nie          | **True** , jeśli procedura składowana zwraca wartość zagregowaną; w przeciwnym razie **false**.                                                                                                                                  |
 | **Wbudowan**                | Nie          | **Prawda** , jeśli funkcja jest wbudowaną<sup>1</sup> funkcją; w przeciwnym razie **false**.                                                                                                                                  |
 | **StoreFunctionName**      | Nie          | Nazwa procedury składowanej.                                                                                                                                                                                  |
 | **NiladicFunction**        | Nie          | **Prawda** , jeśli funkcja jest funkcją niladic<sup>2</sup> ; W przeciwnym razie **zwraca wartość false** .                                                                                                                                   |
 | **IsComposable**           | Nie          | **Prawda** , jeśli funkcja jest funkcją składającą się z<sup>3</sup> ; W przeciwnym razie **zwraca wartość false** .                                                                                                                                |
 | **ParameterTypeSemantics** | Nie          | Wyliczenie, które definiuje semantykę typu służącą do rozpoznawania przeciążeń funkcji. Wyliczenie jest zdefiniowane w manifeście dostawcy dla definicji funkcji. Wartość domyślna to **AllowImplicitConversion**. |
-| **Schemat**                 | Nie          | Nazwa schematu, w którym zdefiniowano procedurę przechowywaną.                                                                                                                                                   |
+| **Schematy**                 | Nie          | Nazwa schematu, w którym zdefiniowano procedurę przechowywaną.                                                                                                                                                   |
 
 <sup>1</sup> Wbudowana funkcja jest funkcją, która jest zdefiniowana w bazie danych. Aby uzyskać informacje o funkcjach, które są zdefiniowane w modelu magazynu, zobacz element CommandText (SSDL).
 
@@ -583,7 +583,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **on
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                                               |
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------|
-| **Akcja**     | Tak         | **Kaskada** lub **none**. ( **Ograniczona** wartość jest prawidłowa, ale ma takie samo zachowanie jak **none**). |
+| **Akcja**     | Yes         | **Kaskada** lub **none**. ( **Ograniczona** wartość jest prawidłowa, ale ma takie samo zachowanie jak **none**). |
 
 > [!NOTE]
 > Do elementu **onDelete** można zastosować dowolną liczbę atrybutów adnotacji (niestandardowych atrybutów XML). Jednak atrybuty niestandardowe nie mogą należeć do żadnej przestrzeni nazw XML zarezerwowanej dla SSDL. W pełni kwalifikowane nazwy dla wszystkich dwóch atrybutów niestandardowych nie mogą być takie same.
@@ -626,12 +626,12 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **pa
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                                                                           |
 |:---------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**       | Tak         | Nazwa parametru.                                                                                                                                                                                                      |
-| **Typ**       | Tak         | Typ parametru.                                                                                                                                                                                                             |
+| **Nazwa**       | Yes         | Nazwa parametru.                                                                                                                                                                                                      |
+| **Typ**       | Yes         | Typ parametru.                                                                                                                                                                                                             |
 | **Wyst**       | Nie          | **W**, **out**lub **Inout** , w zależności od tego, czy parametr jest parametrem wejściowym, wyjściowym lub wejściowym.                                                                                                                |
 | **MaxLength**  | Nie          | Maksymalna długość parametru.                                                                                                                                                                                            |
 | **Dokładne**  | Nie          | Precyzja parametru.                                                                                                                                                                                                 |
-| **Zasięgu**      | Nie          | Skala parametru.                                                                                                                                                                                                     |
+| **Skalowanie**      | Nie          | Skala parametru.                                                                                                                                                                                                     |
 | **SRID**       | Nie          | Identyfikator odwołania do systemu przestrzennego. Prawidłowe tylko dla parametrów typów przestrzennych. Aby uzyskać więcej informacji, zobacz [SRID](https://en.wikipedia.org/wiki/SRID) i [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 
 > [!NOTE]
@@ -669,7 +669,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **g�
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                      |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Rola**       | Tak         | Taka sama wartość jak atrybut **roli** (jeśli jest używany) odpowiadającego elementu końcowego; w przeciwnym razie nazwa tabeli, która zawiera kolumnę, do której się odwołuje. |
+| **Rola**       | Yes         | Taka sama wartość jak atrybut **roli** (jeśli jest używany) odpowiadającego elementu końcowego; w przeciwnym razie nazwa tabeli, która zawiera kolumnę, do której się odwołuje. |
 
 > [!NOTE]
 > Do elementu **Principal** można zastosować dowolną liczbę atrybutów adnotacji (niestandardowych atrybutów XML). Jednak atrybuty niestandardowe nie mogą należeć do żadnej przestrzeni nazw XML zarezerwowanej dla CSDL. W pełni kwalifikowane nazwy dla wszystkich dwóch atrybutów niestandardowych nie mogą być takie same.
@@ -709,14 +709,14 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **W�
 
 | Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                                                                                           |
 |:--------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**                  | Tak         | Nazwa odpowiedniej kolumny.                                                                                                                                                                                           |
-| **Typ**                  | Tak         | Typ odpowiadającej kolumny.                                                                                                                                                                                           |
+| **Nazwa**                  | Yes         | Nazwa odpowiedniej kolumny.                                                                                                                                                                                           |
+| **Typ**                  | Yes         | Typ odpowiadającej kolumny.                                                                                                                                                                                           |
 | **Wymaga**              | Nie          | Wartość **true** (wartość domyślna) lub **Fałsz** w zależności od tego, czy odpowiadająca kolumna może mieć wartość null.                                                                                                                  |
 | **DefaultValue**          | Nie          | Wartość domyślna odpowiedniej kolumny.                                                                                                                                                                                  |
 | **MaxLength**             | Nie          | Maksymalna długość odpowiedniej kolumny.                                                                                                                                                                                 |
 | **FixedLength**           | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy odpowiadająca wartość kolumny będzie przechowywana jako ciąg o stałej długości.                                                                                                              |
 | **Dokładne**             | Nie          | Precyzja odpowiadającej kolumny.                                                                                                                                                                                      |
-| **Zasięgu**                 | Nie          | Skala odpowiadającej kolumny.                                                                                                                                                                                          |
+| **Skalowanie**                 | Nie          | Skala odpowiadającej kolumny.                                                                                                                                                                                          |
 | **Unicode**               | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy odpowiadająca wartość kolumny będzie przechowywana jako ciąg Unicode.                                                                                                                   |
 | **Sortowanie**             | Nie          | Ciąg określający sekwencję sortowania, która ma być używana w źródle danych.                                                                                                                                                   |
 | **SRID**                  | Nie          | Identyfikator odwołania do systemu przestrzennego. Prawidłowe tylko dla właściwości typów przestrzennych. Aby uzyskać więcej informacji, zobacz [SRID](https://en.wikipedia.org/wiki/SRID) i [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
@@ -761,7 +761,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Pr
 
 | Nazwa atrybutu | Jest wymagana | Wartość                                |
 |:---------------|:------------|:-------------------------------------|
-| **Nazwa**       | Tak         | Nazwa właściwości, której dotyczy odwołanie. |
+| **Nazwa**       | Yes         | Nazwa właściwości, której dotyczy odwołanie. |
 
 > [!NOTE]
 > Do elementu **PropertyRef** można zastosować dowolną liczbę atrybutów adnotacji (niestandardowych atrybutów XML). Jednak atrybuty niestandardowe nie mogą należeć do żadnej przestrzeni nazw XML zarezerwowanej dla CSDL. W pełni kwalifikowane nazwy dla wszystkich dwóch atrybutów niestandardowych nie mogą być takie same.
@@ -910,10 +910,10 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Sc
 
 | Nazwa atrybutu            | Jest wymagana | Wartość                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 |:--------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Namespace**             | Tak         | Przestrzeń nazw modelu magazynu. Wartość atrybutu **Namespace** służy do tworzenia w pełni kwalifikowanej nazwy typu. Na przykład jeśli obiekt **EntityType** o nazwie *Customer* znajduje się w przestrzeni nazw ExampleModel. Store, a następnie w pełni kwalifikowana nazwa **obiektu EntityType** to ExampleModel. Store. Customer. <br/> Następujące ciągi nie mogą być używane jako wartość atrybutu **Namespace** : **system**, **przejściowy**lub **EDM**. Wartość atrybutu **przestrzeni nazw** nie może być taka sama jak wartość atrybutu **Namespace** w elemencie schematu CSDL. |
-| **Alias**                 | Nie          | Identyfikator używany zamiast nazwy przestrzeni nazw. Na przykład jeśli obiekt **EntityType** o nazwie *Customer* znajduje się w przestrzeni nazw ExampleModel. Store, a wartość atrybutu **aliasu** to *StorageModel*, można użyć StorageModel. Customer jako w pełni kwalifikowanej nazwy elementu **EntityType.**                                                                                                                                                                                                                                                                                    |
-| **Dostawca**              | Tak         | Dostawca danych.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| **ProviderManifestToken** | Tak         | Token wskazujący dostawcy, który manifest dostawcy ma zwrócić. Nie zdefiniowano żadnego formatu dla tokenu. Wartości dla tokenu są definiowane przez dostawcę. Aby uzyskać informacje na temat tokenów manifestu dostawcy SQL Server, zobacz SqlClient dla Entity Framework.                                                                                                                                                                                                                                                                                                                        |
+| **Przestrzeń nazw**             | Yes         | Przestrzeń nazw modelu magazynu. Wartość atrybutu **Namespace** służy do tworzenia w pełni kwalifikowanej nazwy typu. Na przykład jeśli obiekt **EntityType** o nazwie *Customer* znajduje się w przestrzeni nazw ExampleModel. Store, a następnie w pełni kwalifikowana nazwa **obiektu EntityType** to ExampleModel. Store. Customer. <br/> Następujące ciągi nie mogą być używane jako wartość atrybutu **Namespace** : **system**, **przejściowy**lub **EDM**. Wartość atrybutu **przestrzeni nazw** nie może być taka sama jak wartość atrybutu **Namespace** w elemencie schematu CSDL. |
+| **Użyj**                 | Nie          | Identyfikator używany zamiast nazwy przestrzeni nazw. Na przykład jeśli obiekt **EntityType** o nazwie *Customer* znajduje się w przestrzeni nazw ExampleModel. Store, a wartość atrybutu **aliasu** to *StorageModel*, można użyć StorageModel. Customer jako w pełni kwalifikowanej nazwy elementu **EntityType.**                                                                                                                                                                                                                                                                                    |
+| **Dostawca**              | Yes         | Dostawca danych.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **ProviderManifestToken** | Yes         | Token wskazujący dostawcy, który manifest dostawcy ma zwrócić. Nie zdefiniowano żadnego formatu dla tokenu. Wartości dla tokenu są definiowane przez dostawcę. Aby uzyskać informacje na temat tokenów manifestu dostawcy SQL Server, zobacz SqlClient dla Entity Framework.                                                                                                                                                                                                                                                                                                                        |
 
 ### <a name="example"></a>Przykład
 
@@ -1074,5 +1074,5 @@ W poniższej tabeli opisano aspekty, które są obsługiwane w programie SSDL:
 | **FixedLength** | Określa, czy długość wartości kolumny może się różnić.                                                                                                                                                                                                  |
 | **MaxLength**   | Określa maksymalną długość wartości kolumny.                                                                                                                                                                                                           |
 | **Dokładne**   | Dla właściwości typu **Decimal**określa liczbę cyfr, jaką może mieć wartość właściwości. Dla właściwości typu **Time**, **DateTime**i **DateTimeOffset**określa liczbę cyfr ułamkowych części sekundy wartości kolumny. |
-| **Zasięgu**       | Określa liczbę cyfr z prawej strony punktu dziesiętnego dla wartości kolumny.                                                                                                                                                                      |
+| **Skalowanie**       | Określa liczbę cyfr z prawej strony punktu dziesiętnego dla wartości kolumny.                                                                                                                                                                      |
 | **Unicode**     | Wskazuje, czy wartość kolumny jest przechowywana w formacie Unicode.                                                                                                                                                                                                    |

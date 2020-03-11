@@ -1,31 +1,31 @@
 ---
-title: Praca z DbContext - EF6
+title: Praca z DbContext-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: b0e6bddc-8a87-4d51-b1cb-7756df938c23
 ms.openlocfilehash: d961ffd8bed7f5b2f82dcfa30fc0241b7437be50
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489066"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416323"
 ---
-# <a name="working-with-dbcontext"></a>Praca z typu DbContext
+# <a name="working-with-dbcontext"></a>Praca z klasą DbContext
 
-Aby można było używać programu Entity Framework do zapytania, wstawiania, aktualizowania i usuwania danych, używając obiektów platformy .NET, należy najpierw [utworzyć Model](~/ef6/modeling/index.md) która mapuje jednostek i relacji, które są zdefiniowane w modelu służącym do tabel w bazie danych.
+Aby można było używać Entity Framework do wykonywania zapytań, wstawiania, aktualizowania i usuwania danych przy użyciu obiektów .NET, należy najpierw [utworzyć model](~/ef6/modeling/index.md) , który mapuje jednostki i relacje zdefiniowane w modelu do tabel w bazie danych.
 
-Po utworzeniu modelu, jest podstawową klasą aplikacji współdziała z `System.Data.Entity.DbContext` (często określanymi jako klasy kontekstu). Można użyć typu DbContext powiązanych z modelu do:
-- Pisanie i wykonywania zapytań   
-- Zmaterializowania wyników zapytania jako obiekty jednostki
-- Śledź zmiany wprowadzone do tych obiektów
-- Utrwalanie zmian obiektów na bazie danych
-- Powiązanie obiektów w pamięci na kontrolkę interfejsu użytkownika
+Po utworzeniu modelu Klasa podstawowa, z którą współdziała aplikacja, jest `System.Data.Entity.DbContext` (często określana jako Klasa kontekstu). Można użyć DbContext skojarzonego z modelem, aby:
+- Zapisywanie i wykonywanie zapytań   
+- Zmaterializowania wyniki zapytania jako obiekty jednostek
+- Śledzenie zmian wprowadzonych w tych obiektach
+- Utrwalanie zmian obiektów w bazie danych
+- Powiązywanie obiektów w kontrolkach z pamięcią
 
-Ta strona udostępnia wskazówki na temat zarządzania z klasy kontekstu.  
+Na tej stronie przedstawiono wskazówki dotyczące zarządzania klasą kontekstową.  
 
-## <a name="defining-a-dbcontext-derived-class"></a>Definiowanie klasy pochodne typu DbContext  
+## <a name="defining-a-dbcontext-derived-class"></a>Definiowanie klasy pochodnej DbContext  
 
-Zalecany sposób pracy z kontekstu jest Definiowanie klasy, która pochodzi od typu DbContext i udostępnia właściwości DbSet, które reprezentują kolekcji określonej jednostki w kontekście. Jeśli pracujesz w Projektancie platformy EF kontekście zostanie wygenerowany dla Ciebie. Jeśli pracujesz z Code First, zwykle napiszesz kontekście samodzielnie.  
+Zalecanym sposobem pracy z kontekstem jest zdefiniowanie klasy, która dziedziczy z DbContext i uwidacznia właściwości Nieogólnymi, które reprezentują kolekcje określonych jednostek w kontekście. Jeśli pracujesz z programem Dr Designer, kontekst zostanie wygenerowany dla Ciebie. Jeśli pracujesz z Code First, zazwyczaj Napisz kontekst samodzielnie.  
 
 ``` csharp
 public class ProductContext : DbContext
@@ -35,16 +35,16 @@ public class ProductContext : DbContext
 }
 ```  
 
-Po utworzeniu kontekstu, należy wyszukać, Dodaj (przy użyciu `Add` lub `Attach` metody) lub Usuń (przy użyciu `Remove`) jednostki w kontekście za pomocą tych właściwości. Uzyskiwanie dostępu do `DbSet` właściwość obiektu kontekstu reprezentują począwszy od zapytania, które zwraca wszystkich jednostek określonego typu. Należy zauważyć, że tylko dostęp do właściwości nie będą wykonywane zapytania. Zapytanie jest wykonywane gdy:  
+Po umieszczeniu kontekstu należy wykonać zapytanie o, dodać (przy użyciu metod `Add` lub `Attach`) lub usunąć (przy użyciu `Remove`) jednostki w kontekście za pośrednictwem tych właściwości. Uzyskiwanie dostępu do właściwości `DbSet` w obiekcie kontekstu reprezentuje zapytanie początkowe zwracające wszystkie jednostki określonego typu. Należy pamiętać, że tylko uzyskanie dostępu do właściwości nie spowoduje wykonania zapytania. Zapytanie jest wykonywane, gdy:  
 
-- Są wyliczane przez `foreach` (C#) lub `For Each` — instrukcja (Visual Basic).  
-- Jego są wyliczane przez operację kolekcji takich jak `ToArray`, `ToDictionary`, lub `ToList`.  
-- Operatory LINQ, takich jak `First` lub `Any` są określone w najbardziej zewnętrznej część zapytania.  
-- Noszą nazwę jednej z następujących metod: `Load` metody rozszerzenia `DbEntityEntry.Reload`, `Database.ExecuteSqlCommand`, i `DbSet<T>.Find`, jeśli jednostki z określonym kluczem nie znajduje się już ładowane w kontekście.  
+- Jest on wyliczany przez instrukcję `foreach` (C#) lub `For Each` (Visual Basic).  
+- Jest on wyliczany przez operację kolekcji, taką jak `ToArray`, `ToDictionary`lub `ToList`.  
+- Operatory LINQ, takie jak `First` lub `Any`, są określone w najbardziej zewnętrznej części zapytania.  
+- Wywoływana jest jedna z następujących metod: `Load` Metoda rozszerzenia, `DbEntityEntry.Reload`, `Database.ExecuteSqlCommand`i `DbSet<T>.Find`, jeśli jednostka z określonym kluczem nie została już załadowana w kontekście.  
 
 ## <a name="lifetime"></a>Okres istnienia  
 
-Okres istnienia w kontekście rozpoczyna się, gdy wystąpienie zostanie utworzona i kończy się, gdy wystąpienie jest usunięty lub zebranych elementów bezużytecznych. Użyj **przy użyciu** Jeśli chcesz, aby wszystkie zasoby, które kontekstu kontrolki usuwana na końcu bloku. Kiedy używasz **przy użyciu**, kompilator automatycznie tworzy blok try/finally i wywołuje metodę dispose w **na koniec** bloku.  
+Okres istnienia kontekstu rozpoczyna się, gdy wystąpienie jest tworzone i kończące się, gdy wystąpienie zostanie usunięte lub nie zostało pobrane jako elementy bezużyteczne. Użyj **polecenia using** , jeśli chcesz, aby wszystkie zasoby, które zostaną usunięte przez formant kontekstu na końcu bloku. Gdy używasz **polecenia using**, kompilator automatycznie tworzy blok try/finally i wywołuje metodę Dispose w bloku **finally** .  
 
 ``` csharp
 public void UseProducts()
@@ -56,20 +56,20 @@ public void UseProducts()
 }
 ```  
 
-Poniżej przedstawiono ogólne wskazówki przy podejmowaniu decyzji o okresie istnienia w kontekście:  
+Poniżej przedstawiono ogólne wytyczne dotyczące okresu istnienia kontekstu:  
 
-- Podczas pracy z aplikacjami sieci Web, należy użyć wystąpienia kontekstu na żądanie.  
-- Podczas pracy z Windows Presentation Foundation (WPF) lub Windows Forms, należy użyć wystąpienia kontekstu dla formularza. Dzięki temu można korzystać z funkcji śledzenia zmian zapewnia tego kontekstu.  
-- Jeśli wystąpienie kontekstu jest tworzony przez kontener iniekcji zależności, zazwyczaj przyczyną jest odpowiedzialność kontenera można zlikwidować kontekstu.
-- Jeśli kontekst jest tworzony w kodzie aplikacji, pamiętaj, aby dysponować kontekstu, gdy nie jest już wymagany.  
-- Podczas pracy z kontekstem długoterminowych należy rozważyć następujące kwestie:  
-    - Jak załadować więcej obiektów i ich odwołania do pamięci, zmniejszenie zużycia pamięci kontekstu może szybko wzrosnąć. Może to spowodować problemy z wydajnością.  
-    - Kontekst nie jest bezpieczna dla wątków, w związku z tym go nie może być współużytkowany przez wiele wątków jednocześnie wykonywania pracy.
-    - Jeśli wyjątek powoduje, że kontekst będzie w stanie nieodwracalny, może rozwiązać niniejszą całej aplikacji.  
-    - Ryzyko związane z współbieżności problemy podczas zwiększyć wraz ze wzrostem natężenia przerwy między czasem, gdy dane są badane i zaktualizowane.  
+- Podczas pracy z aplikacjami sieci Web Użyj wystąpienia kontekstu dla żądania.  
+- Podczas pracy z Windows Presentation Foundation (WPF) lub Windows Forms, użyj wystąpienia kontekstu na formularz. Dzięki temu można korzystać z funkcji śledzenia zmian udostępnianej przez kontekst.  
+- Jeśli wystąpienie kontekstu jest tworzone przez kontener iniekcji zależności, zwykle jest to odpowiedzialność za kontener do usunięcia kontekstu.
+- Jeśli kontekst jest tworzony w kodzie aplikacji, należy pamiętać o usunięciu kontekstu, gdy nie jest już wymagany.  
+- Podczas pracy z długotrwałym kontekstem należy wziąć pod uwagę następujące kwestie:  
+    - Podczas ładowania większej liczby obiektów i ich odwołań do pamięci, użycie pamięci przez kontekst może szybko ulec zwiększeniu. Może to spowodować problemy z wydajnością.  
+    - Kontekst nie jest bezpieczny dla wątków, dlatego nie powinien być współużytkowany w wielu wątkach wykonujących wykonywane czynności.
+    - Jeśli wyjątek powoduje, że kontekst jest w stanie niemożliwym do odzyskania, cała aplikacja może zakończyć działanie.  
+    - Prawdopodobieństwo uruchamiania w ramach problemów związanych z współbieżnością zwiększa się w miarę przerwy między czasem, gdy dane są badane i aktualizowane.  
 
 ## <a name="connections"></a>Połączenia  
 
-Domyślnie w kontekście zarządza połączeń z bazą danych. Kontekst otwiera i zamyka połączenia, zgodnie z potrzebami. Na przykład kontekście otwiera połączenie, aby wykonać zapytanie, a następnie zamyka połączenia, po przetworzeniu wszystkich zestawów wyników.  
+Domyślnie, kontekst zarządza połączeniami z bazą danych. Kontekst otwiera i zamyka połączenia zgodnie z wymaganiami. Na przykład kontekst otwiera połączenie w celu wykonania zapytania, a następnie zamyka połączenie po przetworzeniu wszystkich zestawów wyników.  
 
-Istnieją przypadki, gdy użytkownik chce mieć większą kontrolę nad, gdy połączenie otwiera i zamyka. Na przykład podczas pracy z programu SQL Server Compact, często zaleca się zachować oddzielne Otwieranie połączenia z bazą danych dla cyklu życia aplikacji w celu zwiększenia wydajności. Ten proces można zarządzać ręcznie za pomocą `Connection` właściwości.  
+Istnieją przypadki, gdy chcesz mieć większą kontrolę nad tym, kiedy połączenie zostanie otwarte i zamknięte. Na przykład podczas pracy z SQL Server Compact często zaleca się zachowanie oddzielnego otwartego połączenia z bazą danych przez okres istnienia aplikacji w celu zwiększenia wydajności. Można zarządzać tym procesem ręcznie przy użyciu właściwości `Connection`.  

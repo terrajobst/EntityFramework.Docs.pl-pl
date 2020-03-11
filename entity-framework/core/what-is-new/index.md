@@ -1,24 +1,24 @@
 ---
 title: EF Core wersje i planowanie
 author: ajcvickers
-ms.date: 01/29/2020
+ms.date: 03/03/2020
 ms.assetid: C21F89EE-FB08-4ED9-A2A0-76CB7656E6E4
 uid: core/what-is-new/index
-ms.openlocfilehash: 0704b624a50d0736fefbb5633e9e7e657499a703
-ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
+ms.openlocfilehash: 2c41f65d1fead8430a39c6230a0f22506686504e
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/30/2020
-ms.locfileid: "76888075"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417960"
 ---
 # <a name="ef-core-releases-and-planning"></a>EF Core wersje i planowanie
 
 ## <a name="stable-releases"></a>Stabilne wersje
 
-| Wydanie | Platforma docelowa | Obsługiwane do | Łącza
+| Release | Platforma docelowa | Obsługiwane do | Linki
 |:--------|------------------|-----------------|------
-| [EF Core 3,1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.1.1) | .NET Standard 2.0 | 3 grudnia 2022 (LTS) | [Instruktaż](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-3-1-and-entity-framework-6-4/)
-| [EF Core 3,0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.1) | .NET Standard 2.1 | 3 marca 2020 | Ważne [zmiany](ef-core-3.0/breaking-changes.md) / [anonsu](https://devblogs.microsoft.com/dotnet/announcing-ef-core-3-0-and-ef-6-3-general-availability/)
+| [EF Core 3,1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.1.2) | .NET Standard 2.0 | 3 grudnia 2022 (LTS) | [Instruktaż](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-3-1-and-entity-framework-6-4/)
+| ~~[EF Core 3,0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.3)~~ | .NET Standard 2.1 | Wygasła 3 marca, 2020 | Ważne [zmiany](ef-core-3.0/breaking-changes.md) / [anonsu](https://devblogs.microsoft.com/dotnet/announcing-ef-core-3-0-and-ef-6-3-general-availability/)
 | ~~[EF Core 2,2](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.2.6)~~ | .NET Standard 2.0 | Wygasł 23 grudnia, 2019 | [Instruktaż](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-2/)
 | [EF Core 2.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.1.14) | .NET Standard 2.0 | 21 sierpnia 2021 (LTS) | [Instruktaż](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-1/)
 | ~~[EF Core 2,0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.0.3)~~ | .NET Standard 2.0 | Wygasła 1 października 2018 | [Instruktaż](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-0/)

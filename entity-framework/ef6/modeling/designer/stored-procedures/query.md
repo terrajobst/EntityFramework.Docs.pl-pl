@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 9554ed25-c5c1-43be-acad-5da37739697f
 ms.openlocfilehash: 2e0092b526278597e8477d47eeb642598647bb91
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182482"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418393"
 ---
 # <a name="designer-query-stored-procedures"></a>Procedury składowane zapytania projektanta
 W tym przewodniku krok po kroku pokazano, jak używać Entity Framework Designer (programu EF Designer) do importowania procedur składowanych do modelu, a następnie wywoływać zaimportowane procedury składowane w celu pobrania wyników. 

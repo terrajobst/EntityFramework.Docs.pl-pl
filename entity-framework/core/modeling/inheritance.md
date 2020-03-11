@@ -6,11 +6,11 @@ ms.author: ansvyryd
 ms.date: 10/27/2016
 uid: core/modeling/inheritance
 ms.openlocfilehash: 507854e3acc0347adee612e516b3e2e0b10f55cf
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502174"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417296"
 ---
 # <a name="inheritance"></a>Dziedziczenie
 
@@ -31,7 +31,7 @@ Można uwzględnić typy w modelu, uwidaczniając Nieogólnymi dla każdego typu
 
 Ten model jest mapowany na następujący schemat bazy danych (należy zwrócić uwagę na niejawnie utworzoną kolumnę *rozróżniacza* , która określa, który typ *blogu* jest przechowywany w każdym wierszu):
 
-![obraz](_static/inheritance-tph-data.png)
+![image](_static/inheritance-tph-data.png)
 
 >[!NOTE]
 > W przypadku korzystania z mapowania TPH kolumny bazy danych są automatycznie wprowadzane do wartości null. Na przykład kolumna *RssUrl* ma wartość null, ponieważ zwykłe wystąpienia *blogu* nie mają tej właściwości.

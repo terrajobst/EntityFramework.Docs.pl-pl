@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
 ms.openlocfilehash: 1c889877b827408919c6170cf997e8805cc607cf
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824831"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419060"
 ---
 # <a name="fluent-api-with-vbnet"></a>Interfejs API Fluent z VB.NET
 Code First pozwala definiować model przy użyciu klas C\# lub VB.NET. Można opcjonalnie wykonać dodatkową konfigurację przy użyciu atrybutów klas i właściwości albo za pomocą interfejsu API Fluent. W tym instruktażu pokazano, jak przeprowadzić konfigurację interfejsu API Fluent przy użyciu VB.NET.
@@ -32,7 +32,7 @@ Aby zachować prostotę, możemy utworzyć podstawową aplikację konsolową, kt
 -   **Plik —&gt; nowy&gt; projekt...**
 -   Wybierz pozycję **Windows** z menu po lewej stronie i **aplikacji konsolowej**
 -   Wprowadź **CodeFirstVBSample** jako nazwę
--   Wybierz przycisk **OK**.
+-   Kliknij przycisk **OK**
 
 ## <a name="define-the-model"></a>Zdefiniuj model
 

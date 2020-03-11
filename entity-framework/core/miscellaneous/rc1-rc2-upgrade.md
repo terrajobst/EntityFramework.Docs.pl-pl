@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: 6d75b229-cc79-4d08-88cd-3a1c1b24d88f
 uid: core/miscellaneous/rc1-rc2-upgrade
 ms.openlocfilehash: 887b7cd539b9c0f5a680398f5039757420228710
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181286"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416611"
 ---
 # <a name="upgrading-from-ef-core-10-rc1-to-10-rc2"></a>Uaktualnianie z wersji EF Core 1,0 RC1 do 1,0 RC2
 
@@ -25,7 +25,7 @@ Między RC1 a RC2 zmieniono z "Entity Framework 7" na "Entity Framework Core". W
 |:----------------------------------------------------------|:---------------------------------------------------------------------|
 | EntityFramework.MicrosoftSqlServer        7.0.0-rc1-final | Microsoft.EntityFrameworkCore.SqlServer         1.0.0-rc2-final      |
 | EntityFramework.SQLite                    7.0.0-rc1-final | Microsoft.EntityFrameworkCore.Sqlite            1.0.0-rc2-final      |
-| EntityFramework7.Npgsql                   3.1.0-rc1-3     | NpgSql.EntityFrameworkCore.Postgres             <to be advised>      |
+| EntityFramework7.Npgsql                   3.1.0-rc1-3     | NpgSql. EntityFrameworkCore. Postgres <to be advised>      |
 | EntityFramework.SqlServerCompact35        7.0.0-rc1-final | EntityFrameworkCore.SqlServerCompact35          1.0.0-rc2-final      |
 | EntityFramework.SqlServerCompact40        7.0.0-rc1-final | EntityFrameworkCore.SqlServerCompact40          1.0.0-rc2-final      |
 | EntityFramework.InMemory                  7.0.0-rc1-final | Microsoft.EntityFrameworkCore.InMemory          1.0.0-rc2-final      |
@@ -33,13 +33,13 @@ Między RC1 a RC2 zmieniono z "Entity Framework 7" na "Entity Framework Core". W
 | EntityFramework. Commands 7.0.0-RC1 — Final | Microsoft. EntityFrameworkCore. Tools 1.0.0-zestawu — wersja finalna |
 | EntityFramework.MicrosoftSqlServer.Design 7.0.0-rc1-final | Microsoft.EntityFrameworkCore.SqlServer.Design  1.0.0-rc2-final      |
 
-## <a name="namespaces"></a>{1&gt;Przestrzenie nazw&lt;1}
+## <a name="namespaces"></a>Przestrzenie nazw
 
 Wraz z nazwami pakietów przestrzenie nazw zmieniają się z `Microsoft.Data.Entity.*` na `Microsoft.EntityFrameworkCore.*`. Tę zmianę można obsłużyć za pomocą Znajdź/Zamień `using Microsoft.Data.Entity` z `using Microsoft.EntityFrameworkCore`.
 
 ## <a name="table-naming-convention-changes"></a>Zmiany konwencji nazewnictwa tabel
 
-Istotna zmiana funkcjonalna w wersji RC2 była używana jako nazwa właściwości `DbSet<TEntity>` danej jednostki jako nazwy tabeli mapowanej na, a nie tylko nazwa klasy. Więcej informacji na temat tej zmiany można znaleźć [związany z tym problem z ogłoszeniem](https://github.com/aspnet/Announcements/issues/167)
+Istotna zmiana funkcjonalna w wersji RC2 była używana jako nazwa właściwości `DbSet<TEntity>` danej jednostki jako nazwy tabeli mapowanej na, a nie tylko nazwa klasy. Więcej informacji na temat tej zmiany można znaleźć w [powiązanym problemie związanym z ogłoszeniem](https://github.com/aspnet/Announcements/issues/167).
 
 W przypadku istniejących aplikacji w wersji RC1 zalecamy dodanie następującego kodu do początku metody `OnModelCreating`, aby zachować strategię nazewnictwa RC1:
 

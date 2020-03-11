@@ -6,11 +6,11 @@ ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
 ms.openlocfilehash: 5b45f83ca7f02665f52ccfe16b5af506a6046a62
-ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76124434"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417406"
 ---
 # <a name="spatial-data"></a>Dane przestrzenne
 
@@ -23,7 +23,7 @@ Dane przestrzenne reprezentują lokalizację fizyczną i kształt obiektów. Wie
 
 Aby można było używać danych przestrzennych z EF Core, należy zainstalować odpowiedni pomocniczy pakiet NuGet. Który pakiet należy zainstalować zależy od dostawcy, którego używasz.
 
-Dostawca platformy EF Core                        | Przestrzenny pakiet NuGet
+Dostawca EF Core                        | Przestrzenny pakiet NuGet
 --------------------------------------- | ---------------------
 Microsoft.EntityFrameworkCore.SqlServer | [Microsoft. EntityFrameworkCore. SqlServer. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite)
 Microsoft.EntityFrameworkCore.Sqlite    | [Microsoft. EntityFrameworkCore. sqlite. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite)
@@ -49,7 +49,7 @@ optionsBuilder.UseSqlServer(
 Istnieje kilka typów danych przestrzennych. Używany typ zależy od typów kształtów, które mają być dozwolone. Poniżej znajduje się hierarchia typów NKTY przerwania, których można użyć do właściwości w modelu. Znajdują się one w przestrzeni nazw `NetTopologySuite.Geometries`.
 
 * Geometrii
-  * Punkt
+  * Moment
   * LineString
   * Tworząc
   * GeometryCollection
@@ -207,7 +207,7 @@ var currentCountry = db.Countries
     .FirstOrDefault(c => c.Border.Contains(currentLocation));
 ```
 
-## <a name="sql-server"></a>Serwer SQL
+## <a name="sql-server"></a>Oprogramowanie SQL Server
 
 Jeśli używasz SQL Server, musisz wiedzieć o kilku dodatkowych kwestiach.
 

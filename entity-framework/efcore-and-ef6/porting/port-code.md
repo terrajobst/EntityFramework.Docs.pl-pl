@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: 2dce1a50-7d84-4856-abf6-2763dd9be99d
 uid: efcore-and-ef6/porting/port-code
 ms.openlocfilehash: 0a99eac2091c07d8bcf7d4e5e4bdc2afcaeee810
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181216"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419638"
 ---
 # <a name="porting-an-ef6-code-based-model-to-ef-core"></a>Przenoszenie modelu opartego na kodzie EF6 do EF Core
 
@@ -25,13 +25,13 @@ Warto pozostawić zainstalowany pakiet NuGet EF6 (EntityFramework), ponieważ EF
 
 ## <a name="swap-namespaces"></a>Zamień przestrzenie nazw
 
-Większość interfejsów API, które są używane w EF6, znajduje się w przestrzeni nazw `System.Data.Entity` (wraz z powiązanymi przestrzeniami nazw). Pierwsza zmiana kodu polega na zamianie na przestrzeń nazw `Microsoft.EntityFrameworkCore`. Zwykle zaczynasz od pochodnego pliku kodu kontekstu, a następnie z tego powodu wykorzystasz błędy kompilacji w miarę ich występowania.
+Większość interfejsów API, które są używane w EF6, znajduje się w przestrzeni nazw `System.Data.Entity` (i powiązanych podrzędnych przestrzeni nazw). Pierwsza zmiana kodu polega na zamianie na przestrzeń nazw `Microsoft.EntityFrameworkCore`. Zwykle zaczynasz od pochodnego pliku kodu kontekstu, a następnie z tego powodu wykorzystasz błędy kompilacji w miarę ich występowania.
 
 ## <a name="context-configuration-connection-etc"></a>Konfiguracja kontekstu (połączenie itp.)
 
-Zgodnie z opisem w temacie upewnij się, że [EF Core będzie działała dla aplikacji](ensure-requirements.md), EF Core ma mniej Magic wokół wykrywania bazy danych w celu nawiązania połączenia. Należy zastąpić metodę `OnConfiguring` w kontekście pochodnym i skonfigurować połączenie z bazą danych przy użyciu interfejsu API specyficznego dla dostawcy bazy danych.
+Zgodnie z opisem w temacie upewnij się, że [EF Core będzie działała dla aplikacji](ensure-requirements.md), EF Core ma mniej Magic wokół wykrywania bazy danych w celu nawiązania połączenia. Należy przesłonić metodę `OnConfiguring` w kontekście pochodnym i skonfigurować połączenie z bazą danych przy użyciu interfejsu API specyficznego dla dostawcy bazy danych.
 
-Większość aplikacji EF6 przechowuje parametry połączenia w plikach aplikacji `App/Web.config`. W EF Core należy odczytać te parametry połączenia za pomocą interfejsu API `ConfigurationManager`. Może być konieczne dodanie odwołania do zestawu platformy `System.Configuration`, aby można było korzystać z tego interfejsu API.
+Większość aplikacji EF6 przechowuje parametry połączenia w pliku `App/Web.config` aplikacji. W EF Core należy odczytać te parametry połączenia za pomocą interfejsu API `ConfigurationManager`. Może być konieczne dodanie odwołania do zestawu programu `System.Configuration` Framework, aby można było używać tego interfejsu API.
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -54,7 +54,7 @@ W tym momencie jest kwestią rozwiązywania błędów kompilacji i przeglądania
 
 Nie istnieje naprawdę możliwy do przenoszenia istniejących EF6 migracji do EF Core.
 
-Jeśli to możliwe, najlepiej założyć, że wszystkie poprzednie migracje z EF6 zostały zastosowane do bazy danych, a następnie rozpocznij migrację schematu z tego punktu przy użyciu EF Core. W tym celu należy użyć polecenia `Add-Migration`, aby dodać migrację po przeprowadzeniu modelu do EF Core. Następnie można usunąć cały kod z metod `Up` i `Down` migracji szkieletowej. Kolejne migracje zostaną porównane z modelem, gdy początkowa migracja została poddana migracji.
+Jeśli to możliwe, najlepiej założyć, że wszystkie poprzednie migracje z EF6 zostały zastosowane do bazy danych, a następnie rozpocznij migrację schematu z tego punktu przy użyciu EF Core. W tym celu należy użyć `Add-Migration` polecenie, aby dodać migrację po przeprowadzeniu modelu do EF Core. Następnie można usunąć cały kod z `Up` i `Down` metod migracji szkieletowej. Kolejne migracje zostaną porównane z modelem, gdy początkowa migracja została poddana migracji.
 
 ## <a name="test-the-port"></a>Testowanie portu
 

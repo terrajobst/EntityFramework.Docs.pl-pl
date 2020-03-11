@@ -1,75 +1,75 @@
 ---
-title: Definiowanie zapytania — projektancie platformy EF - EF6
+title: Definiowanie zapytania-Dr Designer-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e52a297e-85aa-42f6-a922-ba960f8a4b22
 ms.openlocfilehash: b1589dc12ccb50754c2e950932a2d82bc4869f6b
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489482"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418799"
 ---
-# <a name="defining-query---ef-designer"></a>Definiowanie zapytania — projektancie platformy EF
-W tym instruktażu przedstawiono sposób dodawania, definiując kwerendy i odpowiednia jednostka typu do modelu, używając projektancie platformy EF. Definiowanie zapytania jest najczęściej używany do zapewnia funkcje podobne do dostarczony przez widok bazy danych, ale widok jest zdefiniowany w modelu, a nie bazy danych. Definiowanie zapytań pozwala wykonać instrukcję SQL, który jest określony w **DefiningQuery** element z pliku edmx. Aby uzyskać więcej informacji, zobacz **DefiningQuery** w [Specyfikacja SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).
+# <a name="defining-query---ef-designer"></a>Definiowanie zapytania-Dr Designer
+W tym instruktażu pokazano, jak dodać zapytanie definiujące i odpowiedni typ jednostki do modelu przy użyciu narzędzia Dr Designer. Definiowanie zapytania jest często używane w celu zapewnienia funkcjonalności podobnej do tej, która jest udostępniana przez widok bazy danych, ale widok jest zdefiniowany w modelu, a nie w bazie danych. Definiowanie zapytania pozwala wykonać instrukcję SQL, która jest określona w **DefiningQuery** elementu pliku. edmx. Aby uzyskać więcej informacji, zobacz **DefiningQuery** w [specyfikacji SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).
 
-Korzystając z Definiowanie zapytań, należy zdefiniować typ jednostki w modelu. Typ jednostki jest używany do powierzchni dane udostępniane przez definiowanie zapytań. Należy pamiętać, że udostępniane za pośrednictwem tego typu jednostki danych tylko do odczytu.
+Podczas korzystania z definiowania zapytań należy również zdefiniować typ jednostki w modelu. Typ jednostki jest używany do prezentowania danych przez definiowanie zapytania. Należy pamiętać, że dane, które są udostępniane przez ten typ jednostki, są tylko do odczytu.
 
-Nie można wykonać zapytań sparametryzowanych jako Definiowanie zapytań. Jednak dane można zaktualizować przez mapowanie insert, update i delete funkcji typu jednostki który uwypukli najistotniejsze dane do procedur składowanych. Aby uzyskać więcej informacji, zobacz [wstawiania, aktualizowania i usuwania przy użyciu procedur składowanych](~/ef6/modeling/designer/stored-procedures/cud.md).
+Zapytania sparametryzowane nie mogą być wykonywane jako definiujące zapytania. Dane można jednak zaktualizować, mapując funkcje INSERT, Update i DELETE klasy Entity, która wyświetla dane w procedurach składowanych. Aby uzyskać więcej informacji, zobacz [Wstawianie, aktualizowanie i usuwanie za pomocą procedur składowanych](~/ef6/modeling/designer/stored-procedures/cud.md).
 
 W tym temacie przedstawiono sposób wykonywania następujących zadań.
 
--   Dodaj zapytanie definiujące
--   Dodaj typ jednostki do modelu
--   Definiowanie zapytania do typu jednostki mapy
+-   Dodawanie zapytania definiującego
+-   Dodawanie typu jednostki do modelu
+-   Mapowanie zapytania definiującego na typ jednostki
 
 ## <a name="prerequisites"></a>Wymagania wstępne
 
 W celu wykonania instrukcji w tym przewodniku potrzebne są następujące elementy:
 
-- Najnowszą wersję programu Visual Studio.
-- [Przykładowej bazy danych School](~/ef6/resources/school-database.md).
+- Najnowsza wersja programu Visual Studio.
+- [Przykładowa baza danych szkoły](~/ef6/resources/school-database.md).
 
 ## <a name="set-up-the-project"></a>Konfigurowanie projektu
 
-Ten przewodnik korzysta z programu Visual Studio 2012 lub nowszego.
+W tym instruktażu jest używany program Visual Studio 2012 lub nowszy.
 
 -   Otwórz program Visual Studio.
--   Na **pliku** menu wskaż **New**, a następnie kliknij przycisk **projektu**.
--   W okienku po lewej stronie kliknij **Visual C\#**, a następnie wybierz pozycję **aplikację Konsolową** szablonu.
--   Wprowadź **DefiningQuerySample** jako nazwę projektu i kliknij przycisk **OK**.
+-   W menu **plik** wskaż polecenie **Nowy**, a następnie kliknij pozycję **projekt**.
+-   W lewym okienku kliknij pozycję **Visual C\#** , a następnie wybierz szablon **Aplikacja konsolowa** .
+-   Wprowadź **DefiningQuerySample** jako nazwę projektu, a następnie kliknij przycisk **OK**.
 
- 
+ 
 
-## <a name="create-a-model-based-on-the-school-database"></a>Tworzenie modelu, w oparciu o bazę danych School
+## <a name="create-a-model-based-on-the-school-database"></a>Tworzenie modelu opartego na bazie danych szkoły
 
--   Kliknij prawym przyciskiem myszy nazwę projektu w Eksploratorze rozwiązań, wskaż opcję **Dodaj**, a następnie kliknij przycisk **nowy element**.
--   Wybierz **danych** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablonów.
--   Wprowadź **DefiningQueryModel.edmx** nazwę pliku, a następnie kliknij przycisk **Dodaj**.
--   W oknie dialogowym Wybierz zawartość modelu, wybierz **Generuj z bazy danych**, a następnie kliknij przycisk **dalej**.
--   Kliknij przycisk nowe połączenie. W oknie dialogowym właściwości połączenia, wprowadź nazwę serwera (na przykład **(localdb)\\mssqllocaldb**), wybierz metodę uwierzytelniania, wpisz **School** nazwy bazy danych, a następnie Kliknij przycisk **OK**.
-    Okno dialogowe Wybierz połączenie danych jest aktualizowana ustawienie połączenia bazy danych.
--   W oknie dialogowym Wybierz obiekty bazy danych sprawdź **tabel** węzła. Spowoduje to dodanie wszystkich tabel do **School** modelu.
--   Kliknij przycisk **Zakończ**.
--   W Eksploratorze rozwiązań kliknij prawym przyciskiem myszy **DefiningQueryModel.edmx** plik i wybierz **Otwórz za pomocą...** .
--   Wybierz **Edytor (tekstu) XML**.
+-   Kliknij prawym przyciskiem myszy nazwę projektu w Eksplorator rozwiązań, wskaż polecenie **Dodaj**, a następnie kliknij pozycję **nowy element**.
+-   Wybierz pozycję **dane** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablony.
+-   W polu Nazwa pliku wprowadź **DefiningQueryModel. edmx** , a następnie kliknij przycisk **Dodaj**.
+-   W oknie dialogowym Wybierz zawartość modelu wybierz pozycję **Generuj z bazy danych**, a następnie kliknij przycisk **dalej**.
+-   Kliknij pozycję nowe połączenie. W oknie dialogowym właściwości połączenia wprowadź nazwę serwera (na przykład **(LocalDB)\\mssqllocaldb**), wybierz metodę uwierzytelniania, wpisz  **szkoły** dla nazwy bazy danych, a następnie kliknij przycisk **OK**.
+    Okno dialogowe Wybieranie połączenia danych zostanie zaktualizowane przy użyciu ustawienia połączenia z bazą danych.
+-   W oknie dialogowym Wybierz obiekty bazy danych sprawdź, czy **tabele** węzła. Spowoduje to dodanie wszystkich tabel do modelu **szkoły** .
+-   Kliknij przycisk **Zakończ**.
+-   W Eksplorator rozwiązań kliknij prawym przyciskiem myszy plik **DefiningQueryModel. edmx** i wybierz polecenie **Otwórz za pomocą...** .
+-   Wybierz **Edytor XML (tekst)** .
 
     ![Edytor XML](~/ef6/media/xmleditor.png)
 
--   Kliknij przycisk **tak** Jeśli zostanie wyświetlony monit z następującym komunikatem:
+-   Kliknij przycisk **tak** , jeśli zostanie wyświetlony monit z następującym komunikatem:
 
     ![Ostrzeżenie 2](~/ef6/media/warning2.png)
 
- 
+ 
 
-## <a name="add-a-defining-query"></a>Dodaj zapytanie definiujące
+## <a name="add-a-defining-query"></a>Dodawanie zapytania definiującego
 
-W tym kroku, które zostaną użyte zapytanie edytora XML, aby dodać definiujące, a następnie wpisz jednostki SSDL części pliku edmx. 
+W tym kroku użyjesz edytora XML, aby dodać zapytanie definiujące i typ jednostki do sekcji SSDL pliku edmx. 
 
--   Dodaj **EntitySet** elementu SSDL części pliku edmx (wiersz 5 do 13). Określ następujące ustawienia:
-    -   Tylko **nazwa** i **EntityType** atrybuty **EntitySet** są określony element.
-    -   W pełni kwalifikowana nazwa typu jednostki jest używany w **EntityType** atrybutu.
-    -   Instrukcja SQL do wykonania jest określona w **DefiningQuery** elementu.
+-   Dodaj element **EntitySet** do sekcji SSDL w pliku edmx (wiersz 5 – 13). Określ następujące ustawienia:
+    -   Określono tylko **atrybuty ** i **EntityType** elementu **EntitySet** .
+    -   W pełni kwalifikowana nazwa typu jednostki jest używana w atrybucie  **EntityType** .
+    -   Instrukcja SQL do wykonania jest określona w elemencie **DefiningQuery** .
 
 ``` xml
     <!-- SSDL content -->
@@ -88,10 +88,10 @@ W tym kroku, które zostaną użyte zapytanie edytora XML, aby dodać definiują
           <EntitySet Name="Course" EntityType="SchoolModel.Store.Course" store:Type="Tables" Schema="dbo" />
 ```
 
--   Dodaj **EntityType** element do sekcji SSDL edmx. Plik jak pokazano poniżej. Należy pamiętać o następujących kwestiach:
-    -   Wartość **nazwa** atrybut odnosi się do wartości **EntityType** atrybutu w **EntitySet** element powyżej, mimo że w pełni kwalifikowana nazwa Typ jednostki jest używany w **EntityType** atrybutu.
-    -   Nazwy właściwości odpowiadają nazwom kolumny zwróconą przez instrukcję SQL w **DefiningQuery** elementu (powyżej).
-    -   W tym przykładzie klucz jednostki składa się z trzech właściwości w celu zapewnienia unikalną wartość kluczową.
+-   Dodaj element **EntityType** do sekcji SSDL w obiekcie. edmx. plik, jak pokazano poniżej. Należy pamiętać o następujących kwestiach:
+    -   Wartość atrybutu **name** odnosi się do wartości atrybutu **EntityType** w elemencie **EntitySet** powyżej, chociaż w atrybucie **EntityType** jest używana w pełni kwalifikowana nazwa typu jednostki.
+    -   Nazwy właściwości odpowiadają nazwom kolumn zwracanym przez instrukcję SQL w elemencie **DefiningQuery** (powyżej).
+    -   W tym przykładzie klucz jednostki składa się z trzech właściwości, aby zapewnić unikatową wartość klucza.
 
 ``` xml
     <EntityType Name="GradeReport">
@@ -119,40 +119,40 @@ W tym kroku, które zostaną użyte zapytanie edytora XML, aby dodać definiują
 ```
 
 >[!NOTE]
-> Jeśli później uruchomić **Kreator modelu aktualizacji** okno dialogowe, wszelkie zmiany wprowadzone do modelu magazynu, w tym Definiowanie zapytań, zostaną zastąpione.
+> Jeśli później zostanie uruchomione okno dialogowe **Kreatora aktualizacji** , wszelkie zmiany wprowadzone do modelu magazynu, w tym Definiowanie zapytań, zostaną nadpisywane.
 
- 
+ 
 
-## <a name="add-an-entity-type-to-the-model"></a>Dodaj typ jednostki do modelu
+## <a name="add-an-entity-type-to-the-model"></a>Dodawanie typu jednostki do modelu
 
-W tym kroku zostanie dodany typ jednostki do modelu koncepcyjnego, za pomocą projektanta EF.  Należy pamiętać o następujących kwestiach:
+W tym kroku dodamy typ jednostki do modelu koncepcyjnego za pomocą narzędzia Dr Designer.  Zwróć uwagę na następujące kwestie:
 
--   **Nazwa** jednostki odnosi się do wartości **EntityType** atrybutu w **EntitySet** powyżej elementu.
--   Nazwy właściwości odpowiadają nazwom kolumny zwróconą przez instrukcję SQL w **DefiningQuery** powyżej elementu.
--   W tym przykładzie klucz jednostki składa się z trzech właściwości w celu zapewnienia unikalną wartość kluczową.
+-   **Nazwa** jednostki odpowiada wartości atrybutu **EntityType** w powyższym elemencie **EntitySet** .
+-   Nazwy właściwości odpowiadają nazwom kolumn zwracanym przez instrukcję SQL w powyższym elemencie **DefiningQuery** .
+-   W tym przykładzie klucz jednostki składa się z trzech właściwości, aby zapewnić unikatową wartość klucza.
 
-W Projektancie platformy EF, należy otworzyć modelu.
+Otwórz model w programie Dr Designer.
 
--   Kliknij dwukrotnie DefiningQueryModel.edmx.
--   Powiedz **tak** się następujący komunikat:
+-   Kliknij dwukrotnie plik DefiningQueryModel. edmx.
+-   Załóżmy **,** że zostanie wyświetlony następujący komunikat:
 
     ![Ostrzeżenie 2](~/ef6/media/warning2.png)
 
- 
+ 
 
-Zostanie wyświetlona Projektancie jednostki, zapewniającą powierzchnię projektową do edycji modelu.
+Zostanie wyświetlona Entity Designer, która zapewnia powierzchnię projektową do edycji modelu.
 
--   Kliknij prawym przyciskiem myszy Projektanta powierzchni i wybierz **Dodaj nowe**-&gt;**jednostki...** .
+-   Kliknij prawym przyciskiem myszy powierzchnię projektanta i wybierz polecenie **Dodaj nową**-&gt;**jednostki.** .
 -   Określ **GradeReport** dla nazwy jednostki i **CourseID** dla **właściwości klucza**.
--   Kliknij prawym przyciskiem myszy **GradeReport** jednostki, a następnie wybierz pozycję **Dodaj nowe** - &gt; **właściwość skalarną**.
--   Zmienić domyślną nazwę właściwości do **FirstName**.
--   Dodaj inną właściwość skalarną i określ **LastName** dla nazwy.
--   Dodaj inną właściwość skalarną i określ **klasy korporacyjnej** dla nazwy.
--   W **właściwości** oknie zmiany **klasy korporacyjnej**firmy **typu** właściwości **dziesiętna**.
--   Wybierz **FirstName** i **LastName** właściwości.
--   W **właściwości** oknie zmiany **EntityKey** wartość właściwości **True**.
+-   Kliknij prawym przyciskiem myszy jednostkę **GradeReport** i wybierz pozycję **dodaj nową**-&gt; **Właściwość skalarna**.
+-   Zmień domyślną nazwę właściwości na **FirstName**.
+-   Dodaj kolejną Właściwość skalarną i podaj **LastName** dla nazwy.
+-   Dodaj kolejną Właściwość skalarną i określ **klasy** dla nazwy.
+-   W oknie **Właściwości** Zmień właściwość **Typ** **klasy**na **Decimal**.
+-   Wybierz właściwości **FirstName** i **LastName** .
+-   W oknie **Właściwości** Zmień wartość właściwości **EntityKey** na **true**.
 
-W rezultacie, następujące elementy zostały dodane do **CSDL** części pliku edmx.
+W związku z tym następujące elementy zostały dodane do sekcji **CSDL** pliku. edmx.
 
 ``` xml
     <EntitySet Name="GradeReport" EntityType="SchoolModel.GradeReport" />
@@ -162,19 +162,19 @@ W rezultacie, następujące elementy zostały dodane do **CSDL** części pliku 
     </EntityType>
 ```
 
- 
+ 
 
-## <a name="map-the-defining-query-to-the-entity-type"></a>Definiowanie zapytania do typu jednostki mapy
+## <a name="map-the-defining-query-to-the-entity-type"></a>Mapowanie zapytania definiującego na typ jednostki
 
-W tym kroku użyjemy, okno Szczegóły mapowania, aby zamapować koncepcyjnej i typy jednostek magazynu.
+W tym kroku będziemy używać okna Szczegóły mapowania do mapowania typów jednostek koncepcyjnych i magazynowych.
 
--   Kliknij prawym przyciskiem myszy **GradeReport** jednostki na projekt powierzchni i wybierz **mapowania tabeli,**.  
-    **Szczegóły mapowania** zostanie wyświetlone okno.
--   Wybierz **GradeReport** z **&lt;Dodaj tabelę lub widok&gt;** listy rozwijanej (znajdującej się w **tabeli**s).  
-    Domyślne mapowania między koncepcyjnej i magazynu **GradeReport** typu jednostki są wyświetlane.  
-    ![Mapowanie Details3](~/ef6/media/mappingdetails.png)
+-   Kliknij prawym przyciskiem myszy jednostkę **GradeReport** na powierzchni projektowej i wybierz pozycję **Mapowanie tabeli**.  
+    Zostanie wyświetlone okno **szczegóły mapowania** .
+-   Wybierz pozycję **GradeReport** z **&lt;Dodaj tabelę lub widok&gt;** listy rozwijanej (znajdującej się w **tabeli**s).  
+    Zostaną wyświetlone domyślne mapowania między typem jednostki **GradeReport** koncepcyjnej i magazynu.  
+    ![mapowanie Details3](~/ef6/media/mappingdetails.png)
 
-W rezultacie **obiekcie EntitySetMapping** element zostanie dodany do sekcji mapowania pliku edmx. 
+W związku z tym element **elementu EntitySetMapping** jest dodawany do sekcji mapowania pliku edmx. 
 
 ``` xml
     <EntitySetMapping Name="GradeReports">
@@ -189,13 +189,13 @@ W rezultacie **obiekcie EntitySetMapping** element zostanie dodany do sekcji map
     </EntitySetMapping>
 ```
 
--   Kompilowanie aplikacji.
+-   Skompiluj aplikację.
 
- 
+ 
 
-## <a name="call-the-defining-query-in-your-code"></a>Wywołaj Definiowanie zapytania w kodzie
+## <a name="call-the-defining-query-in-your-code"></a>Wywoływanie definiowania zapytania w kodzie
 
-Definiowanie zapytania można teraz wykonać przy użyciu **GradeReport** typu jednostki. 
+Można teraz wykonać Definiowanie zapytania przy użyciu typu jednostki **GradeReport** . 
 
 ``` csharp
     using (var context = new SchoolEntities())

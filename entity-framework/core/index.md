@@ -5,17 +5,17 @@ ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 uid: core/index
 ms.openlocfilehash: e6127f775d6bbbdf81debf5519388fe252fe079d
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655619"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416847"
 ---
 # <a name="entity-framework-core"></a>Entity Framework Core
 
 Entity Framework (EF) Core to [lekkie, rozszerzalne i](https://github.com/aspnet/EntityFrameworkCore) wieloplatformowe wersje popularnej Entity Framework technologii dostępu do danych.
 
-EF Core może być funkcją mapowania obiektów relacyjnych (O/RM), co umożliwia deweloperom platformy .NET współdziałanie z bazą danych przy użyciu obiektów .NET i wyeliminowanie potrzeby większości kodu dostępu do danych, które zwykle wymagają zapisu.
+EF Core może służyć jako maper obiektowo relacyjny (O/RM), dzięki czemu deweloperzy platformy .NET mogą pracować z bazą danych, używając obiektów platformy .NET i eliminując potrzebę pisania większości kodu dostępu do danych.
 
 EF Core obsługuje wiele aparatów baz danych, zobacz [dostawcy bazy danych](providers/index.md) , aby uzyskać szczegółowe informacje.
 
@@ -27,15 +27,15 @@ Można wygenerować model z istniejącej bazy danych, ręcznie nakodować model 
 
 [!code-csharp[Main](../../samples/core/Intro/Model.cs)]
 
-## <a name="querying"></a>Wykonywanie zapytania dotyczącego
+## <a name="querying"></a>Wykonywanie zapytania
 
-Wystąpienia klas jednostek są pobierane z bazy danych przy użyciu języka Integrated Language Query (LINQ). Zobacz [wykonywanie zapytań o dane](querying/index.md) , aby dowiedzieć się więcej.
+Wystąpienia klas jednostek są pobierane z bazy danych przy użyciu języka Language Integrated Query (LINQ). Zobacz [wykonywanie zapytań o dane](querying/index.md) , aby dowiedzieć się więcej.
 
 [!code-csharp[Main](../../samples/core/Intro/Program.cs#Querying)]
 
 ## <a name="saving-data"></a>Zapisywanie danych
 
-Dane są tworzone, usuwane i modyfikowane w bazie danych przy użyciu wystąpień klas jednostek. Aby dowiedzieć się więcej, zobacz [Zapisywanie danych](saving/index.md) .
+Dane są tworzone, usuwane i modyfikowane w bazie danych za pomocą wystąpień klas jednostek. Aby dowiedzieć się więcej, zobacz [Zapisywanie danych](saving/index.md) .
 
 [!code-csharp[Main](../../samples/core/Intro/Program.cs#SavingData)]
 

@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 2eda668b-1e5d-487d-9a8c-0e3beef03fcb
 ms.openlocfilehash: efd646348d8a18bbeed2d0a0e708d4d36eb26eac
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182432"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417110"
 ---
 # <a name="local-data"></a>Dane lokalne
 Uruchomienie zapytania LINQ bezpośrednio w odniesieniu do Nieogólnymi zawsze wyśle zapytanie do bazy danych, ale dostęp do danych znajdujących się obecnie w pamięci można uzyskać przy użyciu właściwości Nieogólnymi. local. Możesz również uzyskać dostęp do dodatkowych informacji EF, które są śledzone na temat jednostek przy użyciu metod DbContext. entry i DbContext. ChangeTracker. Forms. Techniki przedstawione w tym temacie dotyczą również modeli utworzonych przy użyciu Code First i programu Dr Designer.  

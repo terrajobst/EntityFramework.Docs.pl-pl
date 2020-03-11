@@ -6,11 +6,11 @@ ms.date: 01/23/2019
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
 ms.openlocfilehash: e28c7d0299e5089f56fb0795d00917cfc30f5cf1
-ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/30/2020
-ms.locfileid: "76888151"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419648"
 ---
 # <a name="compare-ef-core--ef6"></a>Porównanie programów EF Core i EF6
 
@@ -36,97 +36,97 @@ Kolumna EF Core wskazuje wersję produktu, w której pierwsza pojawiła się fun
 
 | **Funkcja**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
-| Podstawowe mapowanie klas                                   | Tak      | 1.0                                   |
+| Podstawowe mapowanie klas                                   | Yes      | 1.0                                   |
 | Konstruktory z parametrami                          |          | 2.1                                   |
 | Konwersje wartości właściwości                            |          | 2.1                                   |
 | Mapowane typy bez kluczy                             |          | 2.1                                   |
-| Konwencje                                           | Tak      | 1.0                                   |
-| Konwencje niestandardowe                                    | Tak      | 1,0 (częściowa; [#214](https://github.com/dotnet/efcore/issues/214)) |
-| Adnotacje danych                                      | Tak      | 1.0                                   |
-| Interfejs API Fluent                                            | Tak      | 1.0                                   |
-| Dziedziczenie: tabela na hierarchię (TPH)                | Tak      | 1.0                                   |
-| Dziedziczenie: tabela na typ (TPT)                     | Tak      | Planowane dla 5,0 ([#2266](https://github.com/dotnet/efcore/issues/2266)) |
-| Dziedziczenie: tabela na konkretną klasę (TPC)           | Tak      | Rozciągnij dla 5,0 ([#3170](https://github.com/dotnet/efcore/issues/3170)) <sup>(1)</sup> |
+| Konwencja                                           | Yes      | 1.0                                   |
+| Konwencje niestandardowe                                    | Yes      | 1,0 (częściowa; [#214](https://github.com/dotnet/efcore/issues/214)) |
+| Adnotacje danych                                      | Yes      | 1.0                                   |
+| Interfejs API Fluent                                            | Yes      | 1.0                                   |
+| Dziedziczenie: tabela na hierarchię (TPH)                | Yes      | 1.0                                   |
+| Dziedziczenie: tabela na typ (TPT)                     | Yes      | Planowane dla 5,0 ([#2266](https://github.com/dotnet/efcore/issues/2266)) |
+| Dziedziczenie: tabela na konkretną klasę (TPC)           | Yes      | Rozciągnij dla 5,0 ([#3170](https://github.com/dotnet/efcore/issues/3170)) <sup>(1)</sup> |
 | Właściwości stanu cienia                               |          | 1.0                                   |
 | Klucze alternatywne                                        |          | 1.0                                   |
-| Nawigacja wiele do wielu                              | Tak      | Planowane dla 5,0 ([#19003](https://github.com/dotnet/efcore/issues/19003)) |
-| Jednostka "wiele do wielu" bez sprzężenia                      | Tak      | W zaległości ([#1368](https://github.com/dotnet/efcore/issues/1368)) |
-| Generowanie klucza: baza danych                              | Tak      | 1.0                                   |
+| Nawigacja wiele do wielu                              | Yes      | Planowane dla 5,0 ([#19003](https://github.com/dotnet/efcore/issues/19003)) |
+| Jednostka "wiele do wielu" bez sprzężenia                      | Yes      | W zaległości ([#1368](https://github.com/dotnet/efcore/issues/1368)) |
+| Generowanie klucza: baza danych                              | Yes      | 1.0                                   |
 | Generowanie klucza: klient                                |          | 1.0                                   |
-| Typy złożone/należące                                   | Tak      | 2.0                                   |
-| Dane przestrzenne                                          | Tak      | 2.2                                   |
-| Format modelu: kod                                    | Tak      | 1.0                                   |
-| Utwórz model z bazy danych: wiersz polecenia              | Tak      | 1.0                                   |
-| Aktualizuj model z bazy danych                            | Częściowe  | W zaległości ([#831](https://github.com/dotnet/efcore/issues/831)) |
+| Typy złożone/należące                                   | Yes      | 2.0                                   |
+| Dane przestrzenne                                          | Yes      | 2.2                                   |
+| Format modelu: kod                                    | Yes      | 1.0                                   |
+| Utwórz model z bazy danych: wiersz polecenia              | Yes      | 1.0                                   |
+| Aktualizuj model z bazy danych                            | Częściowo  | W zaległości ([#831](https://github.com/dotnet/efcore/issues/831)) |
 | Globalne filtry zapytań                                  |          | 2.0                                   |
-| Podział tabeli                                       | Tak      | 2.0                                   |
-| Dzielenie jednostek                                      | Tak      | Rozciągnij dla 5,0 ([#620](https://github.com/dotnet/efcore/issues/620)) <sup>(1)</sup> |
+| Podział tabeli                                       | Yes      | 2.0                                   |
+| Dzielenie jednostek                                      | Yes      | Rozciągnij dla 5,0 ([#620](https://github.com/dotnet/efcore/issues/620)) <sup>(1)</sup> |
 | Mapowanie funkcji skalarnej bazy danych                      | Słabo     | 2.0                                   |
 | Mapowanie pól                                         |          | 1.1                                   |
 | Typy odwołań do wartościC# null (8,0)                     |          | 3.0                                   |
-| Graficzna wizualizacja modelu                      | Tak      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
-| Edytor modelu graficznego                                | Tak      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
-| Format modelu: EDMX (XML)                              | Tak      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
-| Utwórz model z bazy danych: Kreator programu VS                 | Tak      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
+| Graficzna wizualizacja modelu                      | Yes      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
+| Edytor modelu graficznego                                | Yes      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
+| Format modelu: EDMX (XML)                              | Yes      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
+| Utwórz model z bazy danych: Kreator programu VS                 | Yes      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
 
-### <a name="querying-data"></a>Wykonanie zapytania o dane
+### <a name="querying-data"></a>Wykonywanie zapytań na danych
 
 | **Funkcja**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
-| zapytania LINQ                                          | Tak      | 1.0                                   |
+| zapytania LINQ                                          | Yes      | 1.0                                   |
 | Możliwe do odczytu wygenerowane SQL                                | Słabo     | 1.0                                   |
-| Tłumaczenie GroupBy                                   | Tak      | 2.1                                   |
-| Ładowanie powiązanych danych: eager                           | Tak      | 1.0                                   |
+| Tłumaczenie GroupBy                                   | Yes      | 2.1                                   |
+| Ładowanie powiązanych danych: eager                           | Yes      | 1.0                                   |
 | Ładowanie powiązanych danych: eager ładowania dla typów pochodnych |          | 2.1                                   |
-| Ładowanie powiązanych danych: z opóźnieniem                            | Tak      | 2.1                                   |
-| Ładowanie powiązanych danych: jawne                        | Tak      | 1.1                                   |
-| Nieprzetworzone zapytania SQL: typy jednostek                         | Tak      | 1.0                                   |
-| Nieprzetworzone zapytania SQL: typy jednostek bez typu                 | Tak      | 2.1                                   |
+| Ładowanie powiązanych danych: z opóźnieniem                            | Yes      | 2.1                                   |
+| Ładowanie powiązanych danych: jawne                        | Yes      | 1.1                                   |
+| Nieprzetworzone zapytania SQL: typy jednostek                         | Yes      | 1.0                                   |
+| Nieprzetworzone zapytania SQL: typy jednostek bez typu                 | Yes      | 2.1                                   |
 | Nieprzetworzone zapytania SQL: tworzenie przy użyciu LINQ                  |          | 1.0                                   |
 | Jawne skompilowane zapytania                           | Słabo     | 2.0                                   |
 | await foreach (C# 8,0)                                |          | 3.0                                   |
-| Język zapytań tekstowych (Entity SQL)                | Tak      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
+| Język zapytań tekstowych (Entity SQL)                | Yes      | Nie zaplanowano pomocy technicznej <sup>(2)</sup>     |
 
 ### <a name="saving-data"></a>Zapisywanie danych
 
 | **Funkcja**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
-| Śledzenie zmian: migawka                             | Tak      | 1.0                                   |
-| Śledzenie zmian: powiadomienie                         | Tak      | 1.0                                   |
-| Śledzenie zmian: proxy                              | Tak      | Scalone dla 5,0 ([#10949](https://github.com/dotnet/efcore/issues/10949)) |
-| Uzyskiwanie dostępu do śledzonego stanu                               | Tak      | 1.0                                   |
-| Optymistyczna współbieżność                                | Tak      | 1.0                                   |
-| Transakcje                                          | Tak      | 1.0                                   |
+| Śledzenie zmian: migawka                             | Yes      | 1.0                                   |
+| Śledzenie zmian: powiadomienie                         | Yes      | 1.0                                   |
+| Śledzenie zmian: proxy                              | Yes      | Scalone dla 5,0 ([#10949](https://github.com/dotnet/efcore/issues/10949)) |
+| Uzyskiwanie dostępu do śledzonego stanu                               | Yes      | 1.0                                   |
+| Optymistyczna współbieżność                                | Yes      | 1.0                                   |
+| Transakcje                                          | Yes      | 1.0                                   |
 | Partia instrukcji                                |          | 1.0                                   |
-| Mapowanie procedury składowanej                              | Tak      | W zaległości ([#245](https://github.com/dotnet/efcore/issues/245)) |
+| Mapowanie procedury składowanej                              | Yes      | W zaległości ([#245](https://github.com/dotnet/efcore/issues/245)) |
 | Rozłączone interfejsy API niskiego poziomu grafu                     | Słabo     | 1.0                                   |
 | Zakończenie odłączonego wykresu                         |          | 1,0 (częściowa; [#5536](https://github.com/dotnet/efcore/issues/5536)) |
 
-### <a name="other-features"></a>Inne funkcje
+### <a name="other-features"></a>Pozostałe funkcje
 
 | **Funkcja**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
-| Migracje                                            | Tak      | 1.0                                   |
-| Interfejsy API tworzenia/usuwania bazy danych                       | Tak      | 1.0                                   |
-| Dane inicjatora                                             | Tak      | 2.1                                   |
-| Odporność połączenia                                 | Tak      | 1.1                                   |
-| Interceptory                                          | Tak      | 3.0                                   |
-| Zdarzenia                                                | Tak      | 3,0 (częściowa; [#626](https://github.com/dotnet/efcore/issues/626)) |
-| Rejestrowanie proste (Database. log)                         | Tak      | Scalone dla 5,0 ([#1199](https://github.com/dotnet/efcore/issues/1199)) |
+| Migracje                                            | Yes      | 1.0                                   |
+| Interfejsy API tworzenia/usuwania bazy danych                       | Yes      | 1.0                                   |
+| Dane inicjatora                                             | Yes      | 2.1                                   |
+| Elastyczność połączenia                                 | Yes      | 1.1                                   |
+| Interceptory                                          | Yes      | 3.0                                   |
+| Zdarzenia                                                | Yes      | 3,0 (częściowa; [#626](https://github.com/dotnet/efcore/issues/626)) |
+| Rejestrowanie proste (Database. log)                         | Yes      | Scalone dla 5,0 ([#1199](https://github.com/dotnet/efcore/issues/1199)) |
 | Buforowanie kontekstu DbContext                                     |          | 2.0                                   |
 
 ### <a name="database-providers-sup3sup"></a>Dostawcy bazy danych <sup>(3)</sup>
 
 | **Funkcja**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
-| Serwer SQL                                            | Tak      | 1.0                                   |
-| MySQL                                                 | Tak      | 1.0                                   |
-| PostgreSQL                                            | Tak      | 1.0                                   |
-| Oracle                                                | Tak      | 1.0                                   |
-| SQLite                                                | Tak      | 1.0                                   |
-| SQL Server Compact                                    | Tak      | 1,0 <sup>(4)</sup>                    |
-| DB2                                                   | Tak      | 1.0                                   |
-| Firebird                                              | Tak      | 2.0                                   |
+| Oprogramowanie SQL Server                                            | Yes      | 1.0                                   |
+| MySQL                                                 | Yes      | 1.0                                   |
+| PostgreSQL                                            | Yes      | 1.0                                   |
+| Oracle                                                | Yes      | 1.0                                   |
+| SQLite                                                | Yes      | 1.0                                   |
+| SQL Server Compact                                    | Yes      | 1,0 <sup>(4)</sup>                    |
+| DB2                                                   | Yes      | 1.0                                   |
+| Firebird                                              | Yes      | 2.0                                   |
 | Jet (Microsoft Access)                                |          | 2,0 <sup>(4)</sup>                    |
 | Azure Cosmos DB                                       |          | 3.0                                   |
 | W pamięci (do testowania)                               |          | 1.0                                   |

@@ -4,12 +4,12 @@ author: smitpatel
 ms.date: 10/10/2019
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: 66988f936ab75e17620398c8f21e4a32bbc950bd
-ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
+ms.openlocfilehash: a6c71c12f429f1324abe91d1b2cef96312bec051
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72445949"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417650"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>Śledzenie a zapytania bez śledzenia
 
@@ -19,7 +19,7 @@ ms.locfileid: "72445949"
 > [Typy jednostek](xref:core/modeling/keyless-entity-types) nie są nigdy śledzone. Gdziekolwiek w tym artykule opisano typy jednostek, odwołują się do typów jednostek, które mają zdefiniowany klucz.
 
 > [!TIP]  
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) tego artykułu można wyświetlić w witrynie GitHub.
+> [Przykład](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying) tego artykułu można wyświetlić w witrynie GitHub.
 
 ## <a name="tracking-queries"></a>Zapytania śledzenia
 
@@ -43,7 +43,7 @@ Ponieważ zapytanie śledzenia używa śledzenia zmian, EF Core przeprowadzi roz
 
 ## <a name="tracking-and-custom-projections"></a>Śledzenie i projekcje niestandardowe
 
-Nawet jeśli typ wyniku zapytania nie jest typem jednostki, EF Core nadal będzie śledzić typy jednostek zawarte w wyniku. W poniższym zapytaniu, które zwraca typ anonimowy, będą śledzone wystąpienia `Blog` w zestawie wyników.
+Nawet jeśli typ wyniku zapytania nie jest typem jednostki, EF Core nadal będzie śledzić typy jednostek zawarte w wyniku. W poniższym zapytaniu, które zwraca typ anonimowy, wystąpienia `Blog` w zestawie wyników będą śledzone.
 
 [!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection1)]
 
@@ -55,7 +55,7 @@ Jeśli zestaw wyników nie zawiera żadnych typów jednostek, śledzenie nie jes
 
 [!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection3)]
 
- EF Core obsługuje Obliczanie klienta w projekcji najwyższego poziomu. Jeśli EF Core materializuje wystąpienie jednostki na potrzeby oceny klienta, zostanie ono śledzone. W tym miejscu, ponieważ przekazujemy jednostki `blog` do metody klienta `StandardizeURL`, EF Core śledzi również wystąpienia blogu.
+ EF Core obsługuje Obliczanie klienta w projekcji najwyższego poziomu. Jeśli EF Core materializuje wystąpienie jednostki na potrzeby oceny klienta, zostanie ono śledzone. W tym miejscu, ponieważ przekazujemy `blog` jednostki do `StandardizeURL`metody klienta, EF Core śledzi również wystąpienia blogu.
 
 [!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ClientProjection)]
 

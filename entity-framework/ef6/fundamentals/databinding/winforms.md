@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
 ms.openlocfilehash: 4b3eee20ff238864b94ef4edfb97c1bae0713300
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181786"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419604"
 ---
 # <a name="databinding-with-winforms"></a>Wiązanie danych z WinForms
 W tym przewodniku krok po kroku pokazano, jak powiązać typy POCO z kontrolkami formularzy okien (WinForms) w formularzu "wzorzec-szczegóły". Aplikacja używa Entity Framework do wypełniania obiektów danymi z bazy danych, śledzenia zmian i utrwalania danych w bazie danych.
@@ -25,11 +25,11 @@ W przypadku korzystania z programu Visual Studio 2010 należy również zainstal
 
 ## <a name="create-the-application"></a>Tworzenie aplikacji
 
--   Otwórz program Visual Studio
+-   Otwórz program Visual Studio.
 -   **Plik —&gt; nowy&gt; projekt...**
 -   Wybierz pozycję **Windows** w lewym okienku i **FormsApplication Windows** w okienku po prawej stronie
 -   Wprowadź **WinFormswithEFSample** jako nazwę
--   Wybierz **przycisk OK**
+-   Kliknij przycisk **OK**
 
 ## <a name="install-the-entity-framework-nuget-package"></a>Zainstaluj pakiet NuGet Entity Framework
 
@@ -189,7 +189,7 @@ Przyjrzyjmy się i wygenerujemy bazę danych.
 
 -   Wybierz pozycję **OK** . pojawi się monit z prośbą o utworzenie nowej bazy danych, a następnie wybierz pozycję **tak** .
 
-    ![Utwórz bazę danych](~/ef6/media/createdatabase.png)
+    ![Create Database](~/ef6/media/createdatabase.png)
 
 -   Nowa baza danych będzie teraz wyświetlana w Eksplorator serwera, kliknij ją prawym przyciskiem myszy, a następnie wybierz pozycję **nowe zapytanie** .
 -   Skopiuj następujące SQL do nowego zapytania, a następnie kliknij prawym przyciskiem myszy zapytanie i wybierz polecenie **Execute (wykonaj** ).
@@ -280,7 +280,7 @@ Dodaj klasy, które są zdefiniowane w modelu jako źródła danych dla tej apli
 
     ![Źródło danych](~/ef6/media/datasource.png)
 
--   Kliknij przycisk **Zakończ.**
+-   Kliknij przycisk **Zakończ**.
     Jeśli okno źródła danych nie jest wyświetlane, wybierz pozycję **wyświetl&gt; inne&gt; źródła danych systemu Windows**
 -   Naciśnij ikonę pinezki, aby okno źródła danych nie było ukrywane. Może być konieczne kliknięcie przycisku Odśwież, jeśli okno było już widoczne.
 
@@ -297,7 +297,7 @@ Dodaj klasy, które są zdefiniowane w modelu jako źródła danych dla tej apli
     -   Kliknij prawym przyciskiem myszy formant DataGridView i wybierz polecenie **Edytuj kolumny...** .
     -   Wybierz kolumnę **ProductID** i dla opcji **ReadOnly** Ustaw **wartość true**.
     -   Wybierz kolumnę **IDkategorii** i naciśnij przycisk **Usuń** . Wykonaj te same czynności z kolumną **Category** .
-    -   Naciśnij klawisz **OK**.
+    -   Naciśnij przycisk **OK**.
 
     Do tej pory skojarzenie formantów DataGridView ze składnikami BindingSource w projektancie. W następnej sekcji dodamy kod do kodu w celu ustawienia categoryBindingSource. DataSource do kolekcji jednostek, które są aktualnie śledzone przez DbContext. Podczas przeciągania i upuszczania produktów z poziomu kategorii WinForms brały pod uwagę skonfigurowanie właściwości productsBindingSource. DataSource na wartość categoryBindingSource i productsBindingSource. DataMember dla produktów. Ze względu na to powiązanie tylko produkty należące do aktualnie wybranej kategorii będą wyświetlane w productDataGridView.
 -   Włącz przycisk **Zapisz** na pasku narzędzi nawigacji, klikając prawym przyciskiem myszy i wybierając pozycję **włączone**.

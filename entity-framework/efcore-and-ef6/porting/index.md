@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: 826b58bd-77b0-4bbc-bfcd-24d1ed3a8f38
 uid: efcore-and-ef6/porting/index
 ms.openlocfilehash: 77096b9bffba6b8c2a3d7bfb0c2e41e2d170a7db
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182088"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416951"
 ---
 # <a name="porting-from-ef6-to-ef-core"></a>Przenoszenie z programu EF6 do programu EF Core
 
@@ -29,7 +29,7 @@ To nie jest wyczerpująca lista niektórych zmian w zachowaniu między EF6 i EF 
 
 ### <a name="dbsetaddattach-and-graph-behavior"></a>Nieogólnymi. Add/Attach i Graph Behavior
 
-W EF6, wywołanie `DbSet.Add()` na jednostce powoduje cykliczne wyszukiwanie dla wszystkich jednostek, do których odwołuje się we właściwościach nawigacji. Wszystkie znalezione jednostki i nie są już śledzone przez kontekst, również są oznaczone jako dodane. `DbSet.Attach()` zachowuje się tak samo, chyba że wszystkie jednostki są oznaczone jako niezmienione.
+W EF6 wywoływanie `DbSet.Add()` na jednostce powoduje wyszukiwanie cykliczne dla wszystkich jednostek, do których odwołuje się we właściwościach nawigacji. Wszystkie znalezione jednostki i nie są już śledzone przez kontekst, również są oznaczone jako dodane. `DbSet.Attach()` zachowuje się tak samo, chyba że wszystkie jednostki są oznaczone jako niezmienione.
 
 **EF Core wykonuje podobne wyszukiwanie cykliczne, ale przy niewielkich różnych regułach.**
 
@@ -39,7 +39,7 @@ W EF6, wywołanie `DbSet.Add()` na jednostce powoduje cykliczne wyszukiwanie dla
 
     *  **Jeśli klucz podstawowy jednostki jest generowany przez magazyn**
 
-        * Jeśli klucz podstawowy nie jest ustawiony na wartość, stan jest ustawiany na dodane. Wartość klucza podstawowego jest uznawana za "nie ustawiono", jeśli jest przypisana wartość domyślna CLR dla typu właściwości (na przykład `0` dla `int`, `null` dla `string` itd.).
+        * Jeśli klucz podstawowy nie jest ustawiony na wartość, stan jest ustawiany na dodane. Wartość klucza podstawowego jest uznawana za "nie ustawiono", jeśli jest przypisana wartość domyślna CLR dla typu właściwości (na przykład `0` dla `int`, `null` dla `string`itp.).
 
         * Jeśli klucz podstawowy ma ustawioną wartość, stan jest ustawiony na niezmienione.
 
@@ -51,7 +51,7 @@ W EF6, wywołanie `DbSet.Add()` na jednostce powoduje cykliczne wyszukiwanie dla
 
 * Jeśli konfiguracja nie zostanie wykonana, EF6 wybierze bazę danych w programie SQL Express lub LocalDb.
 
-* Jeśli parametry połączenia o tej samej nazwie, co kontekst znajduje się w pliku aplikacji `App/Web.config`, zostanie użyte to połączenie.
+* Jeśli parametry połączenia o takiej samej nazwie jak kontekst znajduje się w pliku `App/Web.config` aplikacji, zostanie użyte połączenie.
 
 * Jeśli baza danych nie istnieje, zostanie utworzona.
 
