@@ -47,7 +47,7 @@
               href: core/what-is-new/ef-core-1.1.md
             - name: EF Core 1.0
               href: core/what-is-new/ef-core-1.0.md
-            - name: Uaktualnianie z wcześniejszych wersji
+            - name: Uaktualnianie z poprzednich wersji
               items:
                 - name: Z wersji 1.0 RC1 do wersji RC2
                   href: core/miscellaneous/rc1-rc2-upgrade.md
@@ -55,7 +55,7 @@
                   href: core/miscellaneous/rc2-rtm-upgrade.md
                 - name: Z wersji 1.x do wersji 2.0
                   href: core/miscellaneous/1x-2x-upgrade.md
-        - name: Rozpocznij
+        - name: Wprowadzenie
           items:
             - name: Samouczek EF Core
               href: core/get-started/index.md
@@ -75,7 +75,7 @@
               items:
                 - name: Omówienie
                   href: core/miscellaneous/testing/index.md
-                - name: Testowanie za pomocą systemu SQLite
+                - name: Testowanie przy użyciu oprogramowania SQLite
                   href: core/miscellaneous/testing/sqlite.md
                 - name: Testowanie za pomocą bazy danych InMemory
                   href: core/miscellaneous/testing/in-memory.md
@@ -117,7 +117,7 @@
               href: core/modeling/constructors.md
             - name: Dzielenie tabeli
               href: core/modeling/table-splitting.md
-            - name: Posiadane typy jednostek
+            - name: Własnościowe typy jednostek
               href: core/modeling/owned-entities.md
             - name: Typy jednostek bez kluczy
               href: core/modeling/keyless-entity-types.md
@@ -126,7 +126,7 @@
             - name: Dane przestrzenne
               displayName: GIS
               href: core/modeling/spatial.md
-        - name: Zarządzanie schematami bazy danych
+        - name: Zarządzanie schematami baz danych
           items:
             - name: Omówienie
               href: core/managing-schemas/index.md
@@ -144,15 +144,15 @@
                   href: core/managing-schemas/migrations/providers.md
                 - name: Niestandardowa tabela historii
                   href: core/managing-schemas/migrations/history-table.md
-            - name: Tworzenie i upuszczanie interfejsów API
+            - name: Tworzenie i usuwanie interfejsów API
               href: core/managing-schemas/ensure-created.md
             - name: Odtwarzanie (tworzenie szkieletów)
               href: core/managing-schemas/scaffolding.md
-        - name: Wykonanie zapytania o dane
+        - name: Zapytania o dane
           items:
             - name: Omówienie
               href: core/querying/index.md
-            - name: Klient a wyznaczenie wartości na serwerze
+            - name: Klient a serwer — ocena
               href: core/querying/client-eval.md
             - name: Śledzenie a brak śledzenia
               href: core/querying/tracking.md
@@ -168,7 +168,7 @@
               href: core/querying/filters.md
             - name: Tagi zapytań
               href: core/querying/tags.md
-            - name: Jak działa zapytanie
+            - name: Jak działają zapytania
               href: core/querying/how-query-works.md
         - name: Zapisywanie danych
           items:
@@ -218,7 +218,7 @@
                   href: core/providers/cosmos/unstructured-data.md
                 - name: Ograniczenia rozwiązania Cosmos
                   href: core/providers/cosmos/limitations.md
-            - name: InMemory (for Testing)
+            - name: InMemory (na potrzeby testowania)
               href: core/providers/in-memory/index.md
             - name: Tworzenie dostawcy bazy danych
               href: core/providers/writing-a-provider.md
@@ -226,7 +226,7 @@
               href: core/providers/provider-log.md
         - name: Narzędzia i rozszerzenia
           href: core/extensions/index.md
-        - name: Informacje w wierszu polecenia
+        - name: Dokumentacja wiersza polecenia
           items:
             - name: Omówienie
               href: core/miscellaneous/cli/index.md
@@ -244,17 +244,17 @@
       items:
         - name: Omówienie
           href: ef6/index.md
-        - name: Nowości
+        - name: Co nowego?
           items:
             - name: Omówienie
               href: ef6/what-is-new/index.md
             - name: Poprzednie wydania
               href: ef6/what-is-new/past-releases.md
-            - name: Uaktualnianie do wersji EF6
+            - name: Uaktualnianie do programu EF6
               href: ef6/what-is-new/upgrading-to-ef6.md
             - name: Wydania programu Visual Studio
               href: ef6/what-is-new/visual-studio.md
-        - name: Rozpocznij
+        - name: Wprowadzenie
           href: ef6/get-started.md
         - name: Podstawy
           items:
@@ -280,7 +280,7 @@
               href: ef6/fundamentals/connection-management.md
             - name: Elastyczność połączenia
               items:
-                - name: Logika ponawiania próby
+                - name: Logika ponowień
                   href: ef6/fundamentals/connection-resiliency/retry-logic.md
                 - name: Niepowodzenia zatwierdzania transakcji
                   href: ef6/fundamentals/connection-resiliency/commit-failures.md
@@ -294,7 +294,7 @@
               items:
                 - name: Omówienie
                   href: ef6/fundamentals/disconnected-entities/index.md
-                - name: Własnoręczne śledzenie jednostek
+                - name: Jednostki samośledzące
                   items:
                     - name: Omówienie
                       href: ef6/fundamentals/disconnected-entities/self-tracking-entities/index.md
@@ -446,11 +446,11 @@
                       href: ef6/modeling/designer/advanced/tvfs.md
                 - name: Skróty klawiaturowe
                   href: ef6/modeling/designer/keyboard-shortcuts.md
-        - name: Wykonanie zapytania o dane
+        - name: Zapytania o dane
           items:
             - name: Omówienie
               href: ef6/querying/index.md
-            - name: Load — Metoda
+            - name: 'Load, metoda'
               href: ef6/querying/load-method.md
             - name: Dane lokalne
               href: ef6/querying/local-data.md
@@ -458,7 +458,7 @@
               href: ef6/querying/no-tracking.md
             - name: Korzystanie z pierwotnych zapytań SQL
               href: ef6/querying/raw-sql.md
-            - name: Wykonywanie zapytań o dane pokrewne
+            - name: Wykonywanie zapytań dotyczących powiązanych danych
               href: ef6/querying/related-data.md
         - name: Zapisywanie danych
           items:
@@ -490,7 +490,7 @@
               href: ef6/resources/get-help.md
             - name: Słownik
               href: ef6/resources/glossary.md
-            - name: Przykładowa bazy danych szkoły
+            - name: Przykładowa baza danych szkoły
               href: ef6/resources/school-database.md
             - name: Narzędzia i rozszerzenia
               href: ef6/resources/tools.md
@@ -547,4 +547,4 @@
                     - name: Rosyjski
                       href: ef6/resources/licenses/ef6/rus.md
         - name: Dokumentacja interfejsów API platformy EF6 >>
-          href: 'https://docs.microsoft.com/dotnet/api/?view=entity-framework-6.2.0'
+          href: /dotnet/api/?view=entity-framework-6.2.0
