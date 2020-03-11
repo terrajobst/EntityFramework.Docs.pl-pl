@@ -4,11 +4,11 @@ author: divega
 ms.date: 06/27/2018
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
 ms.openlocfilehash: 8bda3f51e8934f2add862c30e60f1185f068c515
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181609"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419361"
 ---
 # <a name="the-entity-framework-6-provider-model"></a>Model dostawcy Entity Framework 6
 
@@ -28,7 +28,7 @@ Dostawca EF jest w rzeczywistości kolekcją usług specyficznych dla dostawcy z
 
 ### <a name="dbproviderfactory"></a>DbProviderFactory
 
-EF jest zależne od typu pochodzącego od klasy [System. Data. Common. DbProviderFactory](https://msdn.microsoft.com/library/system.data.common.dbproviderfactory.aspx) na potrzeby wykonywania wszystkich operacji dostępu do bazy danych niskiego poziomu. DbProviderFactory nie jest faktycznie częścią EF, ale zamiast tego jest klasą w .NET Framework, która służy do zapewnienia punktu wejścia dla dostawców ADO.NET, które mogą być używane przez EF, inne O/RMs lub bezpośrednio przez aplikację w celu uzyskania wystąpień połączeń, poleceń, parametrów i inne ADO.NET abstrakcje w dostawcy niezależny od sposób. Więcej informacji na temat DbProviderFactory można znaleźć w [dokumentacji MSDN dotyczącej ADO.NET](https://msdn.microsoft.com/library/a6cd7c08.aspx).
+EF jest zależne od typu pochodzącego od klasy [System. Data. Common. DbProviderFactory](https://msdn.microsoft.com/library/system.data.common.dbproviderfactory.aspx) na potrzeby wykonywania wszystkich operacji dostępu do bazy danych niskiego poziomu. DbProviderFactory nie jest faktycznie częścią EF, ale zamiast tego jest klasą w .NET Framework, która obsługuje punkt wejścia dla dostawców ADO.NET, które mogą być używane przez EF, inne O/RMs lub bezpośrednio przez aplikację w celu uzyskania wystąpień połączeń, poleceń, parametrów i innych abstrakcyjnych ADO.NET w ramach dostawcy niezależny od. Więcej informacji na temat DbProviderFactory można znaleźć w [dokumentacji MSDN dotyczącej ADO.NET](https://msdn.microsoft.com/library/a6cd7c08.aspx).
 
 ### <a name="dbproviderservices"></a>DbProviderServices
 
@@ -36,9 +36,9 @@ EF jest zależne od tego, czy typ pochodzący z DbProviderServices zapewnia doda
 
 Więcej szczegółowych informacji na temat podstawowych funkcji implementacji DbProviderServices można znaleźć w [witrynie MSDN](https://msdn.microsoft.com/library/ee789835.aspx). Należy jednak pamiętać, że od czasu pisania te informacje nie są aktualizowane dla EF6, chociaż większość koncepcji nadal jest ważna. SQL Server i SQL Server Compact implementacje DbProviderServices są również zaewidencjonowane do [bazy kodu typu open source](https://github.com/aspnet/EntityFramework6/) i mogą służyć jako przydatne odwołania do innych implementacji.
 
-W starszych wersjach EF implementacja DbProviderServices do użycia została uzyskana bezpośrednio od dostawcy ADO.NET. Zostało to zrobione przez rzutowanie DbProviderFactory do IServiceProvider i wywołanie metody GetService. To ściśle połączoną dostawcę EF z DbProviderFactory. Ten sprzężenie uniemożliwiło przechodzenie EF z .NET Framework i w związku z tym to ścisłe sprzęganie zostało usunięte, a implementacja DbProviderServices jest teraz zarejestrowana bezpośrednio w pliku konfiguracyjnym aplikacji lub w oparciu o kod Konfiguracja opisana szczegółowo w sekcji _Rejestrowanie DbProviderServices_ poniżej.
+W starszych wersjach EF implementacja DbProviderServices do użycia została uzyskana bezpośrednio od dostawcy ADO.NET. Zostało to zrobione przez rzutowanie DbProviderFactory do IServiceProvider i wywołanie metody GetService. To ściśle połączoną dostawcę EF z DbProviderFactory. Ten sprzężenie uniemożliwiło przenoszenie EF z .NET Framework i w związku z tym do EF6 tego ścisłego sprzężenia zostało usunięte, a implementacja DbProviderServices jest teraz rejestrowana bezpośrednio w pliku konfiguracji aplikacji lub w konfiguracji opartej na kodzie, zgodnie z opisem w sekcji więcej szczegółów dotyczącej _rejestrowania DbProviderServices_ poniżej.
 
-## <a name="additional-services"></a>Dodatkowe usługi
+## <a name="additional-services"></a>Usługi dodatkowe
 
 Oprócz podstawowych usług opisanych powyżej istnieje również wiele innych usług używanych przez EF, które są zawsze lub czasami specyficzne dla dostawcy. Domyślne implementacje konkretnych dostawców tych usług mogą być dostarczane przez implementację DbProviderServices. Aplikacje mogą również przesłaniać implementacje tych usług lub dostarczać implementacje, gdy typ DbProviderServices nie udostępnia wartości domyślnej. Opisano to szczegółowo w sekcji _Rozwiązywanie dodatkowych usług_ poniżej.
 
@@ -102,7 +102,7 @@ public class MyConfiguration : DbConfiguration
 
 ## <a name="resolving-additional-services"></a>Rozpoznawanie dodatkowych usług
 
-Jak wspomniano powyżej w sekcji _Przegląd typów dostawcy_ , Klasa DbProviderServices może być również używana do rozwiązywania dodatkowych usług. Jest to możliwe, ponieważ DbProviderServices implementuje IDbDependencyResolver, a każdy zarejestrowany typ DbProviderServices jest dodawany jako "domyślny program rozpoznawania nazw". Mechanizm IDbDpendencyResolver jest opisany bardziej szczegółowo w [Rozdziale zależności](~/ef6/fundamentals/configuring/dependency-resolution.md). Nie trzeba jednak zrozumieć wszystkich koncepcji w tej specyfikacji w celu rozwiązania dodatkowych usług w dostawcy.
+Jak wspomniano powyżej w sekcji _Przegląd typów dostawcy_ , Klasa DbProviderServices może być również używana do rozwiązywania dodatkowych usług. Jest to możliwe, ponieważ DbProviderServices implementuje IDbDependencyResolver, a każdy zarejestrowany typ DbProviderServices jest dodawany jako "domyślny program rozpoznawania nazw". Mechanizm IDbDpendencyResolver został opisany bardziej szczegółowo w temacie [rozpoznawanie zależności](~/ef6/fundamentals/configuring/dependency-resolution.md). Nie trzeba jednak zrozumieć wszystkich koncepcji w tej specyfikacji w celu rozwiązania dodatkowych usług w dostawcy.
 
 Najczęstszym sposobem, w jaki dostawca rozpoznaje dodatkowe usługi, jest wywołanie DbProviderServices. AddDependencyResolver dla każdej usługi w konstruktorze klasy DbProviderServices. Na przykład SqlProviderServices (dostawca EF dla SQL Server) ma kod podobny do tego w przypadku inicjalizacji:
 
@@ -256,7 +256,7 @@ Rozwiązanie DbProviderFactory w ten sposób ma pewne konsekwencje:
 
 Ważne jest, aby pamiętać o wykonywaniu którejkolwiek z tych rzeczy, które mają wpływ tylko na wyszukiwanie DbProviderFactory przez EF. Inny kod nieef może nadal oczekiwać, że dostawca ADO.NET jest zarejestrowany w normalny sposób i może się nie powieść, jeśli nie zostanie znaleziona Rejestracja. Z tego powodu zwykle lepiej jest zarejestrować DbProviderFactory w normalnym ADO.NET sposób.
 
-### <a name="related-services"></a>Pokrewne usługi
+### <a name="related-services"></a>Powiązane usługi
 
 Jeśli program EF jest używany do rozpoznawania DbProviderFactory, należy również rozwiązać usługi IProviderInvariantName i IDbProviderFactoryResolver.
 

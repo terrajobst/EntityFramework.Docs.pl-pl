@@ -1,43 +1,43 @@
 ---
-title: Praca z stany jednostki - EF6
+title: Praca z Stanami jednostek — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: acb27f46-3f3a-4179-874a-d6bea5d7120c
 ms.openlocfilehash: ef0e8d5a5a9d66adab7046088c49d8cd472edc8a
-ms.sourcegitcommit: e5f9ca4aa41e64141fa63a1e5fcf4d4775d67d24
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/05/2018
-ms.locfileid: "52899655"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419700"
 ---
-# <a name="working-with-entity-states"></a>Praca z stany jednostki
-W tym temacie opisano sposób dodawania i dołączyć jednostek do kontekstu i jak przetwarza je podczas SaveChanges Entity Framework.
-Śledzenie stanu jednostek, gdy są one połączone z kontekstu, ale w scenariuszach odłączone lub N-warstwowa można pozwolić, aby wiedzieć, jakie stanu jednostek EF powinien być w zajmuje się platformy Entity Framework.
-Techniki przedstawione w tym temacie stosuje się jednakowo do modeli utworzonych za pomocą Code First i projektancie platformy EF.  
+# <a name="working-with-entity-states"></a>Praca z Stanami jednostek
+W tym temacie opisano sposób dodawania i dołączania jednostek do kontekstu oraz sposobu, w jaki Entity Framework przetwarzają je podczas metody SaveChanges.
+Entity Framework ma obsłużyć śledzenie stanu jednostek, gdy są one połączone z kontekstem, ale w przypadku scenariuszy rozłączonych lub N-warstwowych można pozwolić, aby EF wiedział, jaki jest stan jednostek.
+Techniki przedstawione w tym temacie dotyczą również modeli utworzonych przy użyciu Code First i programu Dr Designer.  
 
-## <a name="entity-states-and-savechanges"></a>Stany jednostki i SaveChanges
+## <a name="entity-states-and-savechanges"></a>Stany jednostek i metody SaveChanges
 
-Jednostki może być jeden z pięciu stanów zdefiniowanych przez wyliczenie EntityState. Te stany są następujące:  
+Jednostka może znajdować się w jednym z pięciu Stanów, zgodnie z definicją EntityState. Te Stany to:  
 
-- Dodano: jednostka jest śledzony przez kontekst, ale jeszcze nie istnieje w bazie danych  
-- Niezmieniona: jednostka jest śledzony przez kontekst i istnieje w bazie danych i jego wartości właściwości nie zmieniły się od wartości w bazie danych  
-- Zmodyfikowane: jednostka jest śledzony przez kontekst i istnieje w bazie danych, a niektóre lub wszystkie wartości właściwości zostały zmodyfikowane  
-- Usunięto: jednostka jest śledzony przez kontekst i istnieje w bazie danych, ale została oznaczona do usunięcia z bazy danych następnym razem, gdy zostanie wywołana SaveChanges  
-- Odłączony: jednostka nie jest śledzony przez kontekst  
+- Dodano: jednostka jest śledzona przez kontekst, ale jeszcze nie istnieje w bazie danych  
+- Niezmieniony: jednostka jest śledzona przez kontekst i istnieje w bazie danych, a jej wartości właściwości nie uległy zmianie z wartości w bazie danych.  
+- Zmodyfikowano: jednostka jest śledzona przez kontekst i istnieje w bazie danych, a niektóre lub wszystkie wartości właściwości zostały zmodyfikowane.  
+- Usunięto: jednostka jest śledzona przez kontekst i istnieje w bazie danych, ale została oznaczona do usunięcia z bazy danych przy następnym wywołaniu metody SaveChanges  
+- Odłączono: jednostka nie jest śledzona przez kontekst  
 
-SaveChanges wykonuje różne znaczenie w przypadku jednostek w różnych stanach:  
+Metody SaveChanges wykonuje różne rzeczy dla jednostek w różnych stanach:  
 
-- Niezmienione jednostki są nie korzystały SaveChanges. Aktualizacje nie są wysyłane do bazy danych dla obiektów w stanie niezmieniony.  
-- Dodano jednostki są wstawiane do bazy danych, a następnie stają się zmian podczas SaveChanges zwraca.  
-- Jednostki zmodyfikowane zostaną zaktualizowane w bazie danych, a następnie stają się zmian podczas SaveChanges zwraca.  
-- Usuniętych jednostek są usuwane z bazy danych, a następnie zostanie odłączony od kontekstu.  
+- Niezmienione jednostki nie są rozróżniane przez metody SaveChanges. Aktualizacje nie są wysyłane do bazy danych dla jednostek w stanie niezmienionym.  
+- Dodane jednostki są wstawiane do bazy danych, a następnie stają się niezmienione, gdy metody SaveChanges zwraca.  
+- Zmodyfikowane jednostki są aktualizowane w bazie danych, a następnie stają się niezmienione, gdy metody SaveChanges zwraca.  
+- Usunięte jednostki są usuwane z bazy danych, a następnie odłączane od kontekstu.  
 
-W poniższych przykładach pokazano sposób, w którym można zmienić stanu jednostki lub grafu jednostki.  
+W poniższych przykładach pokazano, jak można zmienić stan jednostki lub grafu jednostki.  
 
 ## <a name="adding-a-new-entity-to-the-context"></a>Dodawanie nowej jednostki do kontekstu  
 
-Nowa jednostka można dodać do kontekstu poprzez wywołanie metody Add w DbSet.
-To powoduje umieszczenie jednostki w stanie Added, co oznacza, że zostanie on wstawiony do bazy danych przy następnym wywołaniu funkcji SaveChanges.
+Nową jednostkę można dodać do kontekstu, wywołując metodę Add w Nieogólnymi.
+Powoduje to umieszczenie jednostki w stanie dodany, co oznacza, że zostanie ona wstawiona do bazy danych przy następnym wywołaniu metody SaveChanges.
 Na przykład:  
 
 ``` csharp
@@ -49,7 +49,7 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Innym sposobem dodania nowego obiektu dla kontekstu jest aby zmienić jego stan dodany. Na przykład:  
+Innym sposobem dodania nowej jednostki do kontekstu jest zmiana jej stanu na dodany. Na przykład:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -60,8 +60,8 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Na koniec możesz dodać nową jednostkę do kontekstu przez podłączenie jej do innej jednostki, która jest już śledzony.
-Może to być, dodając nową jednostkę do właściwości nawigacji kolekcji innej jednostki lub przez ustawienie właściwości nawigacji odwołanie do innej jednostki, aby wskazywał nową jednostkę. Na przykład:  
+Na koniec można dodać nową jednostkę do kontekstu, łącząc ją z inną jednostką, która jest już śledzona.
+Może to być spowodowane dodaniem nowej jednostki do właściwości nawigacji kolekcji innej jednostki lub przez ustawienie właściwości nawigacji referencyjnej innej jednostki, aby wskazywała nową jednostkę. Na przykład:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -77,11 +77,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Należy zauważyć, że dla wszystkich tych przykładach, jeśli jednostka dodawany ma odwołania do innych jednostek, które nie są jeszcze śledzone następnie te nowe jednostki zostanie także dodana do kontekstu i zostaną wstawione do bazy danych przy następnym wywołaniu funkcji SaveChanges.  
+Należy zauważyć, że dla wszystkich tych przykładów, jeśli dodawana jednostka zawiera odwołania do innych jednostek, które nie są jeszcze śledzone, te nowe jednostki zostaną również dodane do kontekstu i zostaną wstawione do bazy danych przy następnym wywołaniu metody SaveChanges.  
 
 ## <a name="attaching-an-existing-entity-to-the-context"></a>Dołączanie istniejącej jednostki do kontekstu  
 
-Jeśli masz jednostki, który znasz już istnieje w bazie danych, ale który nie jest obecnie śledzony przez kontekst, a następnie będzie widnieć napis kontekstu do śledzenia jednostek przy użyciu metody Dołącz na DbSet. Jednostki będą w stanie niezmieniony w kontekście. Na przykład:  
+Jeśli masz już istniejącą jednostkę w bazie danych, która nie jest obecnie śledzona przez kontekst, możesz powiedzieć kontekstowi, aby śledził jednostkę przy użyciu metody Attach w Nieogólnymi. Jednostka będzie w stanie niezmienionym w kontekście. Na przykład:  
 
 ``` csharp
 var existingBlog = new Blog { BlogId = 1, Name = "ADO.NET Blog" };
@@ -96,9 +96,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Należy pamiętać, że nie zostaną wprowadzone zmiany do bazy danych jeśli SaveChanges nazywa się bez wykonania tej czynności manipulowania dołączonych jednostki. Jest tak, ponieważ jednostka jest w stanie niezmieniony.  
+Należy zauważyć, że w bazie danych nie zostaną wprowadzone żadne zmiany, jeśli metody SaveChanges jest wywoływana bez wykonywania jakichkolwiek innych operacji manipulowania załączoną jednostką. Wynika to z faktu, że jednostka jest w stanie niezmienionym.  
 
-Innym sposobem na dołączanie istniejącej jednostki do kontekstu jest aby zmienić jego stan Unchanged. Na przykład:  
+Innym sposobem dołączenia istniejącej jednostki do kontekstu jest zmiana stanu na niezmieniony. Na przykład:  
 
 ``` csharp
 var existingBlog = new Blog { BlogId = 1, Name = "ADO.NET Blog" };
@@ -113,11 +113,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Należy pamiętać, że dla obu tych przykładach Jeśli jednostki dołączany ma odwołania do innych jednostek, które nie są jeszcze śledzone następnie te nowe jednostki będą również dołączone do kontekstu w stanie niezmieniony.  
+Należy zauważyć, że w obu tych przykładach, jeśli dołączona jednostka ma odwołania do innych jednostek, które nie są jeszcze śledzone, te nowe jednostki zostaną również dołączone do kontekstu w stanie niezmienionym.  
 
-## <a name="attaching-an-existing-but-modified-entity-to-the-context"></a>Dołączanie do istniejącego, ale zmodyfikowano jednostkę do kontekstu  
+## <a name="attaching-an-existing-but-modified-entity-to-the-context"></a>Dołączanie istniejącej, ale zmodyfikowanej jednostki do kontekstu  
 
-Jeśli masz jednostki, który znasz już istnieje w bazie danych, ale które mogą wprowadzono zmiany, a następnie będzie widnieć napis kontekstu, aby dołączyć jednostki i ustaw jego stan zmodyfikowane.
+Jeśli masz już istniejącą jednostkę w bazie danych, ale w której można było wprowadzić zmiany, możesz poinstruować kontekst, aby dołączyć jednostkę i ustawić jej stan na zmodyfikowano.
 Na przykład:  
 
 ``` csharp
@@ -133,14 +133,14 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Po zmianie stanu na zmodyfikowane właściwości jednostki zostanie oznaczona jako zmodyfikowana i wartości właściwości wysyłanych do bazy danych po wywołaniu funkcji SaveChanges.  
+Zmiana stanu na zmodyfikowano wszystkie właściwości jednostki zostanie oznaczona jako zmodyfikowana, a wszystkie wartości właściwości będą wysyłane do bazy danych po wywołaniu metody SaveChanges.  
 
-Należy pamiętać, że jeśli jednostka dołączany zawiera odwołania do innych jednostek, które nie są jeszcze śledzone, następnie te nowe jednostki zostanie dołączony do kontekstu w stanie niezmieniony — ich nie zostaną automatycznie wprowadzone zmodyfikowane.
-Jeśli masz wiele jednostek, które muszą być oznaczone zmodyfikowane należy ustawić stan dla każdego z tych jednostek indywidualnie.  
+Należy pamiętać, że jeśli dołączona jednostka ma odwołania do innych jednostek, które nie są jeszcze śledzone, wówczas te nowe jednostki zostaną dołączone do kontekstu w stanie niezmienionym — nie zostaną automatycznie zmodyfikowane.
+Jeśli masz wiele jednostek, które muszą zostać oznaczone jako zmodyfikowane, należy ustawić dla każdej z nich stan osobno.  
 
-## <a name="changing-the-state-of-a-tracked-entity"></a>Zmiany stanu jednostki śledzonych  
+## <a name="changing-the-state-of-a-tracked-entity"></a>Zmiana stanu śledzonej jednostki  
 
-Można zmienić stanu jednostki, która jest już śledzony przez ustawienie właściwości stanu na jej wejścia. Na przykład:  
+Stan jednostki, która jest już śledzona, można zmienić, ustawiając właściwość State na jej wpis. Na przykład:  
 
 ``` csharp
 var existingBlog = new Blog { BlogId = 1, Name = "ADO.NET Blog" };
@@ -156,13 +156,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Należy pamiętać, że wywołanie apletu Dodaj lub Dołącz do jednostki, która jest już śledzony umożliwia także zmiany stanu jednostki. Na przykład wywołanie dołączenia dla jednostki, która jest obecnie w stanie dodany zmieni jego stan na Unchanged.  
+Należy zauważyć, że wywołanie metody Add lub Attach dla jednostki, która jest już śledzona, może być również używane do zmiany stanu jednostki. Na przykład wywołanie metody Attach dla jednostki, która jest obecnie w stanie dodany, zmieni swój stan na niezmieniony.  
 
-## <a name="insert-or-update-pattern"></a>Wstaw lub zaktualizuj wzorzec  
+## <a name="insert-or-update-pattern"></a>Wstaw lub Aktualizuj wzorzec  
 
-Typowym wzorcem dla niektórych aplikacji jest dodawanie jednostki jako nowy (co powoduje wstawienie bazy danych) lub dołączyć jednostkę jako istniejące i oznacz go jako zmodyfikowana (co powoduje aktualizację bazy danych) w zależności od wartości klucza podstawowego.
-Na przykład podczas korzystania z kluczy podstawowych całkowitą bazy danych, generowany jest wspólne dla obiektu z kluczem zero jako nowe i jednostki z kluczem różna od zera, jak istniejące.
-Ten wzorzec można osiągnąć przez ustawienie stanu jednostki, w oparciu o sprawdzenie wartości klucza podstawowego. Na przykład:  
+Typowym wzorcem dla niektórych aplikacji jest dodanie jednostki jako nowej (w wyniku wstawienia bazy danych) lub dołączenie jednostki jako istniejącej i oznaczenie jej jako zmodyfikowanej (w wyniku aktualizacji bazy danych) w zależności od wartości klucza podstawowego.
+Na przykład podczas korzystania z wygenerowanej przez bazę danych liczb całkowitych klucze podstawowe są wspólne do traktowania jednostki z kluczem zerowym jako nowy i jednostki z niezerowym kluczem jako istniejący.
+Ten wzorzec można osiągnąć przez ustawienie stanu jednostki na podstawie sprawdzenia wartości klucza podstawowego. Na przykład:  
 
 ``` csharp
 public void InsertOrUpdate(Blog blog)
@@ -178,4 +178,4 @@ public void InsertOrUpdate(Blog blog)
 }
 ```  
 
-Należy pamiętać, że po zmianie stanu na zmodyfikowane właściwości jednostki zostanie oznaczona jako zmodyfikowana, i wartości właściwości wysyłanych do bazy danych po wywołaniu funkcji SaveChanges.  
+Należy zauważyć, że po zmianie stanu na zmodyfikowane wszystkie właściwości jednostki zostaną oznaczone jako zmodyfikowane, a wszystkie wartości właściwości będą wysyłane do bazy danych po wywołaniu metody SaveChanges.  

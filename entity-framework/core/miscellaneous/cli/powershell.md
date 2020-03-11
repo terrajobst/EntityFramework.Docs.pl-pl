@@ -5,11 +5,11 @@ ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
 ms.openlocfilehash: a9ce6d5b5f36a72e3715a9de787f1f00e989a58c
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811899"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416719"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Dokumentacja narzędzi Entity Framework Core Tools — konsola Menedżera pakietów w programie Visual Studio
 
@@ -176,7 +176,7 @@ Parametry:
 
 | Parametr | Opis                                                                     |
 |:----------|:--------------------------------------------------------------------------------|
-| -Wymuś    | Przywróć migrację (Wycofaj zmiany, które zostały zastosowane do bazy danych). |
+| -Force    | Przywróć migrację (Wycofaj zmiany, które zostały zastosowane do bazy danych). |
 
 ## <a name="scaffold-dbcontext"></a>Szkielet — DbContext
 
@@ -195,7 +195,7 @@ Parametry:
 | -Tabele \<ciąg [] >                | Tabele, dla których mają zostać wygenerowane typy jednostek. Jeśli ten parametr zostanie pominięty, zostaną uwzględnione wszystkie tabele.                                                                                                                                                                         |
 | — Adnotacje                   | Użyj atrybutów, aby skonfigurować model (tam, gdzie to możliwe). Jeśli ten parametr zostanie pominięty, zostanie użyty tylko interfejs API Fluent.                                                                                                                                                      |
 | -UseDatabaseNames                  | Nazwy tabel i kolumn należy używać dokładnie tak, jak pojawiają się one w bazie danych. Jeśli ten parametr zostanie pominięty, nazwy baz danych są zmieniane na bardziej ściśle C# zgodne z konwencjami stylu nazwy.                                                                                       |
-| -Wymuś                             | Zastąp istniejące pliki.                                                                                                                                                                                                                                               |
+| -Force                             | Zastąp istniejące pliki.                                                                                                                                                                                                                                               |
 
 Przykład:
 
@@ -217,7 +217,7 @@ Parametry:
 
 | Parametr                | Opis                                                                                                                                                                                                                |
 |:-------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| *-From* \<ciąg >        | Rozpoczynanie migracji. Migracje mogą być identyfikowane według nazwy lub identyfikatora. Liczba 0 to specjalny przypadek, który oznacza *przed pierwszą migracją*. Wartość domyślna to 0.                                                              |
+| *-From* \<ciąg >        | Rozpoczynanie migracji. Migracje mogą być identyfikowane według nazwy lub identyfikatora. Liczba 0 to specjalny przypadek, który oznacza *przed pierwszą migracją*. Wartość domyślna wynosi 0.                                                              |
 | *-Do* \<ciąg >          | Kończenie migracji. Wartość domyślna to Ostatnia migracja.                                                                                                                                                                      |
 | <nobr>-Idempotentne</nobr> | Generuj skrypt, którego można użyć w bazie danych w dowolnej migracji.                                                                                                                                                         |
 | -Output \<ciąg >        | Plik, w którym ma zostać zapisany wynik. Jeśli ten parametr zostanie pominięty, plik zostanie utworzony przy użyciu wygenerowanej nazwy w tym samym folderze, w którym są tworzone pliki środowiska uruchomieniowego aplikacji, na przykład: */obj/Debug/netcoreapp2.1/ghbkztfz.SQL/* . |

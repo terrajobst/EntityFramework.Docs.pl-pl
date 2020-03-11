@@ -5,17 +5,17 @@ ms.date: 02/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 uid: core/what-is-new/ef-core-2.1
 ms.openlocfilehash: ba3a26bcd76cd0b9615b13f32456e7280afe533a
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73654845"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417483"
 ---
 # <a name="new-features-in-ef-core-21"></a>Nowe funkcje w EF Core 2,1
 
 Oprócz licznych poprawek i niewielkich ulepszeń funkcjonalnych i wydajności EF Core 2,1 obejmuje niektóre atrakcyjne nowe funkcje:
 
-## <a name="lazy-loading"></a>Ładowanie z opóźnieniem
+## <a name="lazy-loading"></a>ładowanie z opóźnieniem
 
 EF Core teraz zawiera niezbędne bloki konstrukcyjne dla każdego do tworzenia klas jednostek, które mogą ładować właściwości nawigacji na żądanie. Utworzyliśmy również nowy pakiet Microsoft. EntityFrameworkCore. proxy, który korzysta z tych bloków konstrukcyjnych, aby utworzyć klasy proxy z opóźnieniem, oparte na minimalnych modyfikacjach klas jednostek (na przykład klasy z wirtualnymi właściwościami nawigacji).
 

@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 6bb12583-c39a-454c-8d83-d2a2793ca9ef
 uid: index
 ms.openlocfilehash: 1643e3c9d1b8565155ebc1c04713a40883d03a07
-ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75781017"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416927"
 ---
 <div id="main" class="v2">
     <div class="container">
@@ -24,7 +24,7 @@ ms.locfileid: "75781017"
                         <ul id="entityfmwk1" class="cardsC">
                             <li>
                                 <div class="container intro">
-                                    <p>Entity Framework jest maperem obiektowo-relacyjnym (O/RM), który pozwala programistom korzystającym ze środowiska .NET pracować z bazą danych, używając obiektów platformy .NET. Dzięki temu większa część kodu dostępu do danych, który programiści muszą zwykle tworzyć, nie jest już potrzebna.</p>
+                                    <p>Entity Framework jest maperem obiektowo-relacyjnym (O/RM), który pozwala programistom korzystającym ze środowiska .NET pracować z bazą danych, używając obiektów platformy .NET. Dzięki takiemu rozwiązaniu deweloperzy nie muszą pisać wielu linijek kodu dostępu do danych.</p>
                                 </div>
                             </li>
                             <li>
@@ -111,7 +111,7 @@ ms.locfileid: "75781017"
                 <a href="#efcore">EF Core</a>
                 <ul id="efcore">
                     <li>
-                        <a href="#efcore-all">wszystko</a>
+                        <a href="#efcore-all">Wszystkie</a>
                         <ul id="efcore-all" class="cardsF">
                             <li>
                                 <div class="container intro">
@@ -258,7 +258,7 @@ ms.locfileid: "75781017"
                                                     </div>
                                                 </div>
                                                 <div class="cardText">
-                                                    <h3>Rozpocznij</h3>
+                                                    <h3>Rozpoczęcie pracy</h3>
                                                     <p>Dowiedz się, jak uzyskać dostęp do danych za pomocą programu Entity Framework 6.</p>
                                                 </div>
                                             </div>
@@ -277,7 +277,7 @@ ms.locfileid: "75781017"
                                                     </div>
                                                 </div>
                                                 <div class="cardText">
-                                                    <h3>Odwołanie do biblioteki API</h3>
+                                                    <h3>Dokumentacja interfejsu API</h3>
                                                     <p>Przeglądaj interfejs API programu Entity Framework 6 uporządkowany według przestrzeni nazw.</p>
                                                 </div>
                                             </div>

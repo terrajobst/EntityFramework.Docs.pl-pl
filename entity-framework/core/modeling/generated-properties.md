@@ -6,11 +6,11 @@ ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/generated-properties
 ms.openlocfilehash: 9c616e157ff1bdb9700f436a7ae2788330fe5d45
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502035"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416347"
 ---
 # <a name="generated-values"></a>Generowane wartości
 
@@ -58,11 +58,11 @@ Zgodnie z Konwencją, niezłożone klucze podstawowe typu short, int, Long lub G
 
 Można skonfigurować dowolną właściwość, aby wygenerowała wartość dla wstawionych jednostek w następujący sposób:
 
-### <a name="data-annotationstabdata-annotations"></a>[Adnotacje danych](#tab/data-annotations)
+### <a name="data-annotations"></a>[Adnotacje danych](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
-### <a name="fluent-apitabfluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
+### <a name="fluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
@@ -87,11 +87,11 @@ Określenie wartości domyślnej spowoduje niejawne skonfigurowanie właściwoś
 
 ## <a name="value-generated-on-add-or-update"></a>Wartość wygenerowana podczas dodawania lub aktualizowania
 
-### <a name="data-annotationstabdata-annotations"></a>[Adnotacje danych](#tab/data-annotations)
+### <a name="data-annotations"></a>[Adnotacje danych](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
 
-### <a name="fluent-apitabfluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
+### <a name="fluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
 
@@ -113,11 +113,11 @@ W przypadku niektórych relacyjnych baz danych kolumna może być skonfigurowana
 
 Wyłączenie generowania wartości dla właściwości jest zwykle konieczne, jeśli Konwencja skonfiguruje ją do generowania wartości. Na przykład jeśli masz klucz podstawowy typu int, zostanie on niejawnie ustawiony jako wartość wygenerowana podczas dodawania; można ją wyłączyć, wykonując następujące czynności:
 
-### <a name="data-annotationstabdata-annotations"></a>[Adnotacje danych](#tab/data-annotations)
+### <a name="data-annotations"></a>[Adnotacje danych](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=3)]
 
-### <a name="fluent-apitabfluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
+### <a name="fluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=5)]
 

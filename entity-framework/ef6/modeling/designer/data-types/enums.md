@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: c6ae6d8f-1ace-47db-ad47-b1718f1ba082
 ms.openlocfilehash: 92a763b84a04d3ce7ec0853ef2a4852356cf7997
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182517"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418568"
 ---
 # <a name="enum-support---ef-designer"></a>Obsługa Wyliczenie-Dr Designer
 > [!NOTE]
@@ -46,7 +46,7 @@ Aby ukończyć ten przewodnik, musisz mieć zainstalowaną wersję Visual Studio
 2.  Wybierz pozycję **dane** z menu po lewej stronie, a następnie wybierz pozycję **ADO.NET Entity Data Model** w okienku szablony.
 3.  W polu Nazwa pliku wprowadź **EnumTestModel. edmx** , a następnie kliknij przycisk **Dodaj** .
 4.  Na stronie kreatora Entity Data Model wybierz pozycję **pusty model** w oknie dialogowym Wybierz zawartość modelu
-5.  Kliknij przycisk **Zakończ** .
+5.  Kliknij przycisk **Zakończ**
 
 Zostanie wyświetlona Entity Designer, która zapewnia powierzchnię projektową do edycji modelu.
 
@@ -60,7 +60,7 @@ Kreator wykonuje następujące czynności:
 
 1.  Kliknij prawym przyciskiem myszy pusty obszar na powierzchni projektowej, a następnie wybierz polecenie **dodaj&gt; jednostki**, pojawi się okno dialogowe Nowa jednostka
 2.  Określ **dział** dla nazwy typu i określ **DepartmentID** dla nazwy właściwości klucza, pozostaw typ jako **Int32**
-3.  Kliknij przycisk **OK**
+3.  Kliknij przycisk **OK**.
 4.  Kliknij prawym przyciskiem myszy jednostkę i wybierz polecenie **Dodaj nową-&gt; Właściwość skalarna**
 5.  Zmień nazwę nowej właściwości na **nazwę**
 6.  Zmień typ nowej właściwości na **Int32** (domyślnie Nowa właściwość jest typu String) Aby zmienić typ, Otwórz okno właściwości i Zmień Właściwość Type na **Int32**

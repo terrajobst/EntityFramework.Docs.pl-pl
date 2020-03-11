@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: c54255f4-253f-49eb-bec8-ad7927ac2fa3
 ms.openlocfilehash: 642e5977ecbbf0c474cac1ceae19d33a135aa875
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182596"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418778"
 ---
 # <a name="csdl-specification"></a>Specyfikacja CSDL
 Język definicji schematu koncepcyjnego (CSDL) to język oparty na języku XML, który opisuje jednostki, relacje i funkcje, które tworzą model koncepcyjny aplikacji opartej na danych. Ten model koncepcyjny może być używany przez Entity Framework lub Usługi danych programu WCF. Metadane, które są opisane w CSDL, są używane przez Entity Framework do mapowania jednostek i relacji, które są zdefiniowane w modelu koncepcyjnym ze źródłem danych. Aby uzyskać więcej informacji, zobacz [Specyfikacja SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md) i [Specyfikacja MSL](~/ef6/modeling/designer/advanced/edmx/msl-spec.md).
@@ -47,9 +47,9 @@ Element **Association** może mieć następujące elementy podrzędne (w podanej
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Association** .
 
-| Nazwa atrybutu | Jest wymagana | Value                        |
+| Nazwa atrybutu | Jest wymagana | Wartość                        |
 |:---------------|:------------|:-----------------------------|
-| **Nazwa**       | Tak         | Nazwa skojarzenia. |
+| **Nazwa**       | Yes         | Nazwa skojarzenia. |
 
  
 
@@ -110,10 +110,10 @@ Atrybut **Association** określa typ skojarzenia, które zawiera zestaw skojarze
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **AssociationSet** .
 
-| Nazwa atrybutu  | Jest wymagana | Value                                                                                                                                                             |
+| Nazwa atrybutu  | Jest wymagana | Wartość                                                                                                                                                             |
 |:----------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**        | Tak         | Nazwa zestawu jednostek. Wartość atrybutu **name** nie może być taka sama jak wartość atrybutu **skojarzenia** .                                 |
-| **Skojarzenie** | Tak         | W pełni kwalifikowana nazwa skojarzenia, z którą zestaw skojarzeń zawiera wystąpienia. Skojarzenie musi znajdować się w tej samej przestrzeni nazw co zestaw skojarzenia. |
+| **Nazwa**        | Yes         | Nazwa zestawu jednostek. Wartość atrybutu **name** nie może być taka sama jak wartość atrybutu **skojarzenia** .                                 |
+| **Skojarzenie** | Yes         | W pełni kwalifikowana nazwa skojarzenia, z którą zestaw skojarzeń zawiera wystąpienia. Skojarzenie musi znajdować się w tej samej przestrzeni nazw co zestaw skojarzenia. |
 
  
 
@@ -150,7 +150,7 @@ Poniższy przykład pokazuje element **EntityContainer** z dwoma elementami **As
 Element **CollectionType** w języku definicji schematu koncepcyjnego (CSDL) określa, że parametr funkcji lub typ zwracany funkcji jest kolekcją. Element **CollectionType** może być elementem podrzędnym elementu Parameter lub ReturnType (Function). Typ kolekcji można określić przy użyciu atrybutu **typu** lub jednego z następujących elementów podrzędnych:
 
 -   **CollectionType**
--   ReferenceType
+-   referenceType
 -   RowType
 -   TypeRef
 
@@ -163,7 +163,7 @@ Element **CollectionType** w języku definicji schematu koncepcyjnego (CSDL) okr
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **CollectionType** . Należy zauważyć, że atrybuty **DefaultValue**, **MaxLength**, **FixedLength**, **Precision**, **Scale**, **Unicode**i **Collation** mają zastosowanie tylko do kolekcji **EDMSimpleTypes**.
 
-| Nazwa atrybutu                                                          | Jest wymagana | Value                                                                                                                                                                                                                            |
+| Nazwa atrybutu                                                          | Jest wymagana | Wartość                                                                                                                                                                                                                            |
 |:------------------------------------------------------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Typ**                                                                | Nie          | Typ kolekcji.                                                                                                                                                                                                      |
 | **Wymaga**                                                            | Nie          | **Wartość true** (wartość domyślna) lub **Fałsz** w zależności od tego, czy właściwość może mieć wartość null. <br/> [!NOTE]                                                                                                                 |
@@ -172,7 +172,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Co
 | **MaxLength**                                                           | Nie          | Maksymalna długość wartości właściwości.                                                                                                                                                                                        |
 | **FixedLength**                                                         | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy wartość właściwości będzie przechowywana jako ciąg o stałej długości.                                                                                                                           |
 | **Dokładne**                                                           | Nie          | Precyzja wartości właściwości.                                                                                                                                                                                             |
-| **Zasięgu**                                                               | Nie          | Skala wartości właściwości.                                                                                                                                                                                                 |
+| **Skalowanie**                                                               | Nie          | Skala wartości właściwości.                                                                                                                                                                                                 |
 | **SRID**                                                                | Nie          | Identyfikator odwołania do systemu przestrzennego. Prawidłowe tylko dla właściwości typów przestrzennych.   Aby uzyskać więcej informacji, zobacz [SRID](https://en.wikipedia.org/wiki/SRID) i [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx) |
 | **Unicode**                                                             | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy wartość właściwości będzie przechowywana jako ciąg Unicode.                                                                                                                                |
 | **Sortowanie**                                                           | Nie          | Ciąg określający sekwencję sortowania, która ma być używana w źródle danych.                                                                                                                                                    |
@@ -260,12 +260,12 @@ Element **complexType** może mieć następujące elementy podrzędne (w podanej
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **complexType** .
 
-| Nazwa atrybutu                                                                                                 | Jest wymagana | Value                                                                                                                                                                               |
+| Nazwa atrybutu                                                                                                 | Jest wymagana | Wartość                                                                                                                                                                               |
 |:---------------------------------------------------------------------------------------------------------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Name                                                                                                           | Tak         | Nazwa typu złożonego. Nazwa typu złożonego nie może być taka sama jak nazwa innego typu złożonego, typu jednostki lub skojarzenia znajdującego się w zakresie modelu. |
+| Name (Nazwa)                                                                                                           | Yes         | Nazwa typu złożonego. Nazwa typu złożonego nie może być taka sama jak nazwa innego typu złożonego, typu jednostki lub skojarzenia znajdującego się w zakresie modelu. |
 | BaseType                                                                                                       | Nie          | Nazwa innego typu złożonego, który jest typem podstawowym typu złożonego, który jest definiowany. <br/> [!NOTE]                                                                     |
 | > Ten atrybut nie ma zastosowania w CSDL v1. Dziedziczenie dla typów złożonych nie jest obsługiwane w tej wersji. |             |                                                                                                                                                                                     |
-| Abstrakcyjny                                                                                                       | Nie          | **Wartość true** lub **false** (wartość domyślna) w zależności od tego, czy typ złożony jest typem abstrakcyjnym. <br/> [!NOTE]                                                                  |
+| Abstract                                                                                                       | Nie          | **Wartość true** lub **false** (wartość domyślna) w zależności od tego, czy typ złożony jest typem abstrakcyjnym. <br/> [!NOTE]                                                                  |
 | > Ten atrybut nie ma zastosowania w CSDL v1. Typy złożone w tej wersji nie mogą być typami abstrakcyjnymi.         |             |                                                                                                                                                                                     |
 
  
@@ -350,9 +350,9 @@ Element **zależny** może mieć następujące elementy podrzędne (w podanej ko
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **zależnego** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                |
 |:---------------|:------------|:---------------------------------------------------------------------|
-| **Rola**       | Tak         | Nazwa typu jednostki na elemencie zależnym końca skojarzenia. |
+| **Rola**       | Yes         | Nazwa typu jednostki na elemencie zależnym końca skojarzenia. |
 
  
 
@@ -386,12 +386,12 @@ Poniższy przykład przedstawia element **ReferentialConstraint** , który jest 
 
 ## <a name="documentation-element-csdl"></a>Element dokumentacji (CSDL)
 
-Element **dokumentacji** w języku definicji schematu koncepcyjnego (CSDL) może służyć do dostarczania informacji dotyczących obiektu, który jest zdefiniowany w elemencie nadrzędnym. W pliku. edmx, gdy element **dokumentacji** jest elementem podrzędnym elementu, który pojawia się jako obiekt na powierzchni projektowej programu EF Designer (na przykład jednostki, skojarzenia lub właściwości), zawartość elementu **dokumentacji** pojawi się w Okno **Właściwości** programu Visual Studio dla obiektu.
+Element **dokumentacji** w języku definicji schematu koncepcyjnego (CSDL) może służyć do dostarczania informacji dotyczących obiektu, który jest zdefiniowany w elemencie nadrzędnym. W pliku. edmx, gdy element **dokumentacji** jest elementem podrzędnym elementu, który pojawia się jako obiekt na powierzchni projektowej programu EF Designer (na przykład jednostki, skojarzenia lub właściwości), zawartość elementu **dokumentacji** pojawi się w oknie **Właściwości** programu Visual Studio dla obiektu.
 
 Element **dokumentacji** może zawierać następujące elementy podrzędne (w podanej kolejności):
 
 -   **Podsumowanie**: Krótki opis elementu nadrzędnego. (zero lub jeden element)
--   **LongDescription**: Obszerny opis elementu nadrzędnego. (zero lub jeden element)
+-   **LongDescription**: obszerny opis elementu nadrzędnego. (zero lub jeden element)
 -   Elementy adnotacji. (zero lub więcej elementów)
 
 ### <a name="applicable-attributes"></a>Odpowiednie atrybuty
@@ -400,7 +400,7 @@ Do elementu **dokumentacji** można zastosować dowolną liczbę atrybutów adno
 
 ### <a name="example"></a>Przykład
 
-Poniższy przykład pokazuje element **dokumentacji** jako element podrzędny elementu EntityType. Jeśli Poniższy fragment kodu znajduje się w zawartości CSDL pliku. edmx, zawartość elementów **podsumowania** i **longDescription** pojawi się w oknie **Właściwości** programu Visual Studio po kliknięciu typu jednostki `Customer`.
+Poniższy przykład pokazuje element **dokumentacji** jako element podrzędny elementu EntityType. Jeśli Poniższy fragment kodu znajduje się w zawartości CSDL pliku. edmx, zawartość **podsumowania** i elementów **longDescription** pojawi się w oknie **Właściwości** programu Visual Studio po kliknięciu `Customer` typ jednostki.
 
 ``` xml
  <EntityType Name="Customer">
@@ -437,11 +437,11 @@ Element **końcowy** może mieć następujące elementy podrzędne (w podanej ko
 
 W poniższej tabeli opisano atrybuty, które mogą być stosowane do elementu **końcowego** , gdy jest elementem podrzędnym elementu **skojarzenia** .
 
-| Nazwa atrybutu   | Jest wymagana | Value                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Nazwa atrybutu   | Jest wymagana | Wartość                                                                                                                                                                                                                                                                                                                                                                                                              |
 |:-----------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Typ**         | Tak         | Nazwa typu jednostki na jednym końcu skojarzenia.                                                                                                                                                                                                                                                                                                                                                         |
+| **Typ**         | Yes         | Nazwa typu jednostki na jednym końcu skojarzenia.                                                                                                                                                                                                                                                                                                                                                         |
 | **Rola**         | Nie          | Nazwa punktu końcowego skojarzenia. Jeśli nie podano nazwy, zostanie użyta nazwa typu jednostki na końcu skojarzenia.                                                                                                                                                                                                                                                                                           |
-| **Liczebność** | Tak         | **1**, **0.. 1**lub **\*** w zależności od liczby wystąpień typu jednostki, które mogą znajdować się na końcu skojarzenia. <br/> **1** wskazuje, że dokładnie jedno wystąpienie typu jednostki istnieje na końcu skojarzenia. <br/> **0.. 1** oznacza, że na końcu skojarzenia istnieją wystąpienia typu jednostki, które są równe zero lub jeden. <br/> **\*** oznacza, że na końcu skojarzenia istnieje zero, jedno lub więcej wystąpień typu jednostki. |
+| **Kardynalność** | Yes         | **1**, **0.. 1**lub **\*** w zależności od liczby wystąpień typu jednostki, które mogą znajdować się na końcu skojarzenia. <br/> **1** wskazuje, że dokładnie jedno wystąpienie typu jednostki istnieje na końcu skojarzenia. <br/> **0.. 1** oznacza, że na końcu skojarzenia istnieją wystąpienia typu jednostki, które są równe zero lub jeden. <br/> **\*** wskazuje, że na końcu skojarzenia istnieje zero, jedno lub więcej wystąpień typu jednostki. |
 
  
 
@@ -482,9 +482,9 @@ Element **końcowy** może mieć następujące elementy podrzędne (w podanej ko
 
 W poniższej tabeli opisano atrybuty, które mogą być stosowane do elementu **końcowego** , gdy jest elementem podrzędnym elementu **AssociationSet** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                                                                                                                 |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                                                                 |
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Elementy**  | Tak         | Nazwa elementu **EntitySet** , który definiuje jeden koniec elementu nadrzędnego obiektu **AssociationSet** . Element **EntitySet** musi być zdefiniowany w tym samym kontenerze jednostki co element nadrzędny **AssociationSet** . |
+| **Elementy**  | Yes         | Nazwa elementu **EntitySet** , który definiuje jeden koniec elementu nadrzędnego obiektu **AssociationSet** . Element **EntitySet** musi być zdefiniowany w tym samym kontenerze jednostki co element nadrzędny **AssociationSet** . |
 | **Rola**       | Nie          | Nazwa punktu końcowego zestawu skojarzenia. Jeśli atrybut **roli** nie jest używany, nazwa punktu końcowego zestawu skojarzenia będzie nazwą zestawu jednostek.                                                                   |
 
  
@@ -536,9 +536,9 @@ Można rozwinąć element **EntityContainer** , aby dołączyć zawartość inne
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **using** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                           |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                           |
 |:---------------|:------------|:----------------------------------------------------------------|
-| **Nazwa**       | Tak         | Nazwa kontenera jednostek.                               |
+| **Nazwa**       | Yes         | Nazwa kontenera jednostek.                               |
 | **Poszerza**    | Nie          | Nazwa innego kontenera jednostek w tej samej przestrzeni nazw. |
 
  
@@ -591,10 +591,10 @@ Element **EntitySet** może mieć następujące elementy podrzędne (w podanej k
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **EntitySet** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                    |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
-| **Nazwa**       | Tak         | Nazwa zestawu jednostek.                                                              |
-| **Elementy** | Tak         | W pełni kwalifikowana nazwa typu jednostki, dla którego zestaw jednostek zawiera wystąpienia. |
+| **Nazwa**       | Yes         | Nazwa zestawu jednostek.                                                              |
+| **Elementy** | Yes         | W pełni kwalifikowana nazwa typu jednostki, dla którego zestaw jednostek zawiera wystąpienia. |
 
  
 
@@ -652,8 +652,8 @@ Element **EntityType** reprezentuje strukturę koncepcji najwyższego poziomu, t
 
 -   Unikatowa nazwa. (Wymagane).
 -   Klucz jednostki, który jest zdefiniowany przez jedną lub więcej właściwości. (Wymagane).
--   Właściwości zawierające dane. (Opcjonalnie).
--   Właściwości nawigacji, które umożliwiają nawigację z jednego końca skojarzenia z drugim. (Opcjonalnie).
+-   Właściwości zawierające dane. (opcjonalnie)
+-   Właściwości nawigacji, które umożliwiają nawigację z jednego końca skojarzenia z drugim. (opcjonalnie)
 
 W aplikacji wystąpienie typu jednostki reprezentuje określony obiekt (na przykład konkretny klient lub zamówienie). Każde wystąpienie typu jednostki musi mieć unikatowy klucz jednostki w ramach zestawu jednostek.
 
@@ -671,9 +671,9 @@ Element **EntityType** może mieć następujące elementy podrzędne (w podanej 
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **EntityType** .
 
-| Nazwa atrybutu                                                                                                                                  | Jest wymagana | Value                                                                                            |
+| Nazwa atrybutu                                                                                                                                  | Jest wymagana | Wartość                                                                                            |
 |:------------------------------------------------------------------------------------------------------------------------------------------------|:------------|:-------------------------------------------------------------------------------------------------|
-| **Nazwa**                                                                                                                                        | Tak         | Nazwa typu jednostki.                                                                     |
+| **Nazwa**                                                                                                                                        | Yes         | Nazwa typu jednostki.                                                                     |
 | **BaseType**                                                                                                                                    | Nie          | Nazwa innego typu jednostki, który jest typem podstawowym typu jednostki, który jest definiowany.  |
 | **Streszczeń**                                                                                                                                    | Nie          | **Wartość true** lub **false**, w zależności od tego, czy typ jednostki jest typem abstrakcyjnym.                 |
 | **OpenType**                                                                                                                                    | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy typem jednostki jest otwarty typ jednostki. <br/> [!NOTE] |
@@ -722,9 +722,9 @@ Element **EnumType** może mieć następujące elementy podrzędne (w podanej ko
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **EnumType** .
 
-| Nazwa atrybutu     | Jest wymagana | Value                                                                                                                                                                                         |
+| Nazwa atrybutu     | Jest wymagana | Wartość                                                                                                                                                                                         |
 |:-------------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**           | Tak         | Nazwa typu jednostki.                                                                                                                                                                  |
+| **Nazwa**           | Yes         | Nazwa typu jednostki.                                                                                                                                                                  |
 | **IsFlags**        | Nie          | **Wartość true** lub **false**, w zależności od tego, czy typ wyliczeniowy może być używany jako zestaw flag. Wartość domyślna to **false.** .                                                                     |
 | **Podstawowytype** | Nie          | **EDM. Byte**, **EDM. Int16**, **EDM. Int32**, **EDM. Int64** lub **EDM.** bajty definiujące zakres wartości typu.   Domyślny typ podstawowy elementów wyliczenia to **EDM. Int32.** . |
 
@@ -768,9 +768,9 @@ Typ zwracany dla funkcji musi być określony za pomocą elementu **ReturnType**
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Function** .
 
-| Nazwa atrybutu | Jest wymagana | Value                              |
+| Nazwa atrybutu | Jest wymagana | Wartość                              |
 |:---------------|:------------|:-----------------------------------|
-| **Nazwa**       | Tak         | Nazwa funkcji.          |
+| **Nazwa**       | Yes         | Nazwa funkcji.          |
 | **Atrybuty** | Nie          | Typ zwracany przez funkcję. |
 
  
@@ -815,9 +815,9 @@ Typ zwracany dla funkcji musi być określony za pomocą elementu **ReturnType**
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **FunctionImport** .
 
-| Nazwa atrybutu   | Jest wymagana | Value                                                                                                                                                                                                 |
+| Nazwa atrybutu   | Jest wymagana | Wartość                                                                                                                                                                                                 |
 |:-----------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**         | Tak         | Nazwa zaimportowanej funkcji.                                                                                                                                                                    |
+| **Nazwa**         | Yes         | Nazwa zaimportowanej funkcji.                                                                                                                                                                    |
 | **Atrybuty**   | Nie          | Typ zwracany przez funkcję. Nie używaj tego atrybutu, jeśli funkcja nie zwraca wartości. W przeciwnym razie wartość musi być kolekcją ComplexType, EntityType lub EDMSimpleType.        |
 | **Elementy**    | Nie          | Jeśli funkcja zwraca kolekcję typów jednostek, wartość **obiektu EntitySet** musi być zestawem jednostek, do którego należy kolekcja. W przeciwnym razie atrybut **EntitySet** nie może być używany. |
 | **IsComposable** | Nie          | Jeśli wartość jest równa true, funkcja jest możliwa do przetworzenia (funkcja zwracająca tabelę) i może być użyta w zapytaniu LINQ.  Wartość domyślna to **false**.                                                           |
@@ -907,9 +907,9 @@ Element **członkowski** jest elementem podrzędnym elementu EnumType i definiuj
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **FunctionImport** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                                                                                    |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**       | Tak         | Nazwa elementu członkowskiego.                                                                                                                                                                  |
+| **Nazwa**       | Yes         | Nazwa elementu członkowskiego.                                                                                                                                                                  |
 | **Wartość**      | Nie          | Wartość elementu członkowskiego. Domyślnie pierwszy element członkowski ma wartość 0, a wartość każdego kolejnego modułu wyliczającego jest zwiększana o 1. Może istnieć wiele elementów członkowskich z tymi samymi wartościami. |
 
  
@@ -940,7 +940,7 @@ Element **NavigationProperty** definiuje właściwość nawigacji, która zawier
 
 Należy zauważyć, że właściwości nawigacji są opcjonalne na obu typach jednostek na końcu skojarzenia. Jeśli zdefiniujesz właściwość nawigacji na jednym typie jednostki na końcu skojarzenia, nie musisz definiować właściwości nawigacji dla typu jednostki na drugim końcu skojarzenia.
 
-Typ danych zwracanych przez właściwość nawigacji jest określany przez liczebność jego zdalnego skojarzenia. Załóżmy na przykład, że właściwość nawigacji, **OrdersNavProp**, istnieje w typie jednostki **klienta** i przechodzi do skojarzenia jeden-do-wielu między **klientem** i **kolejnością**. Ze względu na to, że zdalne skojarzenie dla właściwości nawigacji ma liczebność wiele (\*), jego typ danych jest kolekcją ( **zamówienia**). Podobnie, jeśli właściwość nawigacji, **CustomerNavProp**, istnieje w typie podmiotu **zamówienia** , jego typem danych byłby **Klient** , ponieważ liczebność zdalnego zakończenia to jeden (1).
+Typ danych zwracanych przez właściwość nawigacji jest określany przez liczebność jego zdalnego skojarzenia. Załóżmy na przykład, że właściwość nawigacji, **OrdersNavProp**, istnieje w typie jednostki **klienta** i przechodzi do skojarzenia jeden-do-wielu między **klientem** i **kolejnością**. Ze względu na to, że zdalne skojarzenie dla właściwości nawigacji ma liczebność wiele (\*), jego typ danych jest kolekcją ( **kolejności**). Podobnie, jeśli właściwość nawigacji, **CustomerNavProp**, istnieje w typie podmiotu **zamówienia** , jego typem danych byłby **Klient** , ponieważ liczebność zdalnego zakończenia to jeden (1).
 
 Element **NavigationProperty** może mieć następujące elementy podrzędne (w podanej kolejności):
 
@@ -951,12 +951,12 @@ Element **NavigationProperty** może mieć następujące elementy podrzędne (w 
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **NavigationProperty** .
 
-| Nazwa atrybutu   | Jest wymagana | Value                                                                                                                                                                                                                                            |
+| Nazwa atrybutu   | Jest wymagana | Wartość                                                                                                                                                                                                                                            |
 |:-----------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**         | Tak         | Nazwa właściwości nawigacji.                                                                                                                                                                                                             |
-| **Relacje** | Tak         | Nazwa skojarzenia znajdującego się w zakresie modelu.                                                                                                                                                                                |
-| **ToRole**       | Tak         | Koniec skojarzenia, na którym kończy się nawigacja. Wartość atrybutu **ToRole** musi być taka sama jak wartość jednego z atrybutów **roli** zdefiniowanych na jednym z punktów końcowych skojarzenia (zdefiniowana w elemencie AssociationEnd).       |
-| **FromRole**     | Tak         | Koniec skojarzenia, z którego rozpoczyna się nawigacja. Wartość atrybutu **FromRole** musi być taka sama jak wartość jednego z atrybutów **roli** zdefiniowanych na jednym z punktów końcowych skojarzenia (zdefiniowana w elemencie AssociationEnd). |
+| **Nazwa**         | Yes         | Nazwa właściwości nawigacji.                                                                                                                                                                                                             |
+| **Relacje** | Yes         | Nazwa skojarzenia znajdującego się w zakresie modelu.                                                                                                                                                                                |
+| **ToRole**       | Yes         | Koniec skojarzenia, na którym kończy się nawigacja. Wartość atrybutu **ToRole** musi być taka sama jak wartość jednego z atrybutów **roli** zdefiniowanych na jednym z punktów końcowych skojarzenia (zdefiniowana w elemencie AssociationEnd).       |
+| **FromRole**     | Yes         | Koniec skojarzenia, z którego rozpoczyna się nawigacja. Wartość atrybutu **FromRole** musi być taka sama jak wartość jednego z atrybutów **roli** zdefiniowanych na jednym z punktów końcowych skojarzenia (zdefiniowana w elemencie AssociationEnd). |
 
  
 
@@ -1005,9 +1005,9 @@ Element **onDelete** może mieć następujące elementy podrzędne (w podanej ko
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **onDelete** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                                                                                                                         |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                                                                         |
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Akcja**     | Tak         | **Kaskada** lub **none**. W przypadku usunięcia **kaskadowych**typów jednostek zależnych zostaną usunięte, gdy typ podmiotu zabezpieczeń zostanie usunięty. Jeśli **nie**, typy jednostek zależnych nie zostaną usunięte, gdy typ podmiotu zabezpieczeń zostanie usunięty. |
+| **Akcja**     | Yes         | **Kaskada** lub **none**. W przypadku usunięcia **kaskadowych**typów jednostek zależnych zostaną usunięte, gdy typ podmiotu zabezpieczeń zostanie usunięty. Jeśli **nie**, typy jednostek zależnych nie zostaną usunięte, gdy typ podmiotu zabezpieczeń zostanie usunięty. |
 
  
 
@@ -1049,14 +1049,14 @@ Element **Parameter** może mieć następujące elementy podrzędne (w podanej k
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **parametru** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                                                                                                                           |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                                                                           |
 |:---------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**       | Tak         | Nazwa parametru.                                                                                                                                                                                                      |
-| **Typ**       | Tak         | Typ parametru. Wartość musi być typu **EDMSimpleType** lub złożonego, który znajduje się w zakresie modelu.                                                                                                             |
+| **Nazwa**       | Yes         | Nazwa parametru.                                                                                                                                                                                                      |
+| **Typ**       | Yes         | Typ parametru. Wartość musi być typu **EDMSimpleType** lub złożonego, który znajduje się w zakresie modelu.                                                                                                             |
 | **Wyst**       | Nie          | **W**, **out**lub **Inout** , w zależności od tego, czy parametr jest parametrem wejściowym, wyjściowym lub wejściowym.                                                                                                                |
 | **MaxLength**  | Nie          | Maksymalna dozwolona długość parametru.                                                                                                                                                                                    |
 | **Dokładne**  | Nie          | Precyzja parametru.                                                                                                                                                                                                 |
-| **Zasięgu**      | Nie          | Skala parametru.                                                                                                                                                                                                     |
+| **Skalowanie**      | Nie          | Skala parametru.                                                                                                                                                                                                     |
 | **SRID**       | Nie          | Identyfikator odwołania do systemu przestrzennego. Prawidłowe tylko dla parametrów typów przestrzennych. Aby uzyskać więcej informacji, zobacz [SRID](https://en.wikipedia.org/wiki/SRID) i [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 
  
@@ -1106,16 +1106,16 @@ Element **Parameter** może mieć następujące elementy podrzędne (w podanej k
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **parametru** .
 
-| Nazwa atrybutu   | Jest wymagana | Value                                                                                                                                                                                                                           |
+| Nazwa atrybutu   | Jest wymagana | Wartość                                                                                                                                                                                                                           |
 |:-----------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**         | Tak         | Nazwa parametru.                                                                                                                                                                                                      |
+| **Nazwa**         | Yes         | Nazwa parametru.                                                                                                                                                                                                      |
 | **Typ**         | Nie          | Typ parametru. Parametr może być dowolnym z następujących typów (lub kolekcji tych typów): <br/> **EdmSimpleType** <br/> typ jednostki <br/> typ złożony <br/> Typ wiersza <br/> typ odwołania                             |
 | **Wymaga**     | Nie          | **Wartość true** (wartość domyślna) lub **Fałsz** w zależności od tego, czy właściwość może mieć wartość **null** .                                                                                                                          |
 | **DefaultValue** | Nie          | Wartość domyślna właściwości.                                                                                                                                                                                              |
 | **MaxLength**    | Nie          | Maksymalna długość wartości właściwości.                                                                                                                                                                                       |
 | **FixedLength**  | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy wartość właściwości będzie przechowywana jako ciąg o stałej długości.                                                                                                                          |
 | **Dokładne**    | Nie          | Precyzja wartości właściwości.                                                                                                                                                                                            |
-| **Zasięgu**        | Nie          | Skala wartości właściwości.                                                                                                                                                                                                |
+| **Skalowanie**        | Nie          | Skala wartości właściwości.                                                                                                                                                                                                |
 | **SRID**         | Nie          | Identyfikator odwołania do systemu przestrzennego. Prawidłowe tylko dla właściwości typów przestrzennych. Aby uzyskać więcej informacji, zobacz [SRID](https://en.wikipedia.org/wiki/SRID) i [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 | **Unicode**      | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy wartość właściwości będzie przechowywana jako ciąg Unicode.                                                                                                                               |
 | **Sortowanie**    | Nie          | Ciąg określający sekwencję sortowania, która ma być używana w źródle danych.                                                                                                                                                   |
@@ -1155,9 +1155,9 @@ Element **Principal** może mieć następujące elementy podrzędne (w podanej k
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **głównego** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                |
 |:---------------|:------------|:---------------------------------------------------------------------|
-| **Rola**       | Tak         | Nazwa typu jednostki na końcu elementu głównego skojarzenia. |
+| **Rola**       | Yes         | Nazwa typu jednostki na końcu elementu głównego skojarzenia. |
 
  
 
@@ -1202,7 +1202,7 @@ Element **Property** może mieć następujące elementy podrzędne (w podanej ko
 -   Element dokumentacji (dozwolone zero lub jeden element)
 -   Elementy adnotacji (dozwolone zero lub więcej elementów)
 
-Do elementu **Property** można zastosować następujące aspekty: **Nullable**, **DefaultValue**, **MaxLength**, **FixedLength**, **Precision**, **Scale**, **Unicode**, **Collation**, **ConcurrencyMode**. Aspektami są atrybuty XML, które dostarczają informacji o sposobie przechowywania wartości właściwości w magazynie danych.
+Następujące aspekty można zastosować do elementu **Property** : **nullable**, **DefaultValue**, **MaxLength**, **FixedLength**, **Precision**, **Scale**, **Unicode**, **Collation**, **ConcurrencyMode**. Aspektami są atrybuty XML, które dostarczają informacji o sposobie przechowywania wartości właściwości w magazynie danych.
 
 > [!NOTE]
 > Zestawy reguł mogą być stosowane tylko do właściwości typu **EDMSimpleType**.
@@ -1213,17 +1213,17 @@ Do elementu **Property** można zastosować następujące aspekty: **Nullable**,
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Właściwości** .
 
-| Nazwa atrybutu                                                         | Jest wymagana | Value                                                                                                                                                                                                                           |
+| Nazwa atrybutu                                                         | Jest wymagana | Wartość                                                                                                                                                                                                                           |
 |:-----------------------------------------------------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**                                                               | Tak         | Nazwa właściwości.                                                                                                                                                                                                       |
-| **Typ**                                                               | Tak         | Typ wartości właściwości. Typ wartości właściwości musi być typem **EDMSimpleType** lub złożonym (wskazywanym przez w pełni kwalifikowaną nazwą), która znajduje się w zakresie modelu.                                                 |
+| **Nazwa**                                                               | Yes         | Nazwa właściwości.                                                                                                                                                                                                       |
+| **Typ**                                                               | Yes         | Typ wartości właściwości. Typ wartości właściwości musi być typem **EDMSimpleType** lub złożonym (wskazywanym przez w pełni kwalifikowaną nazwą), która znajduje się w zakresie modelu.                                                 |
 | **Wymaga**                                                           | Nie          | **Wartość true** (wartość domyślna) lub <strong>Fałsz</strong> w zależności od tego, czy właściwość może mieć wartość null. <br/> [!NOTE]                                                                                                   |
 | > W obszarze CSDL V1 właściwość typu złożonego musi mieć `Nullable="False"`. |             |                                                                                                                                                                                                                                 |
 | **DefaultValue**                                                       | Nie          | Wartość domyślna właściwości.                                                                                                                                                                                              |
 | **MaxLength**                                                          | Nie          | Maksymalna długość wartości właściwości.                                                                                                                                                                                       |
 | **FixedLength**                                                        | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy wartość właściwości będzie przechowywana jako ciąg o stałej długości.                                                                                                                          |
 | **Dokładne**                                                          | Nie          | Precyzja wartości właściwości.                                                                                                                                                                                            |
-| **Zasięgu**                                                              | Nie          | Skala wartości właściwości.                                                                                                                                                                                                |
+| **Skalowanie**                                                              | Nie          | Skala wartości właściwości.                                                                                                                                                                                                |
 | **SRID**                                                               | Nie          | Identyfikator odwołania do systemu przestrzennego. Prawidłowe tylko dla właściwości typów przestrzennych. Aby uzyskać więcej informacji, zobacz [SRID](https://en.wikipedia.org/wiki/SRID) i [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 | **Unicode**                                                            | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy wartość właściwości będzie przechowywana jako ciąg Unicode.                                                                                                                               |
 | **Sortowanie**                                                          | Nie          | Ciąg określający sekwencję sortowania, która ma być używana w źródle danych.                                                                                                                                                   |
@@ -1276,7 +1276,7 @@ Elementy **Właściwości** (jako elementy podrzędne elementu **RowType** ) def
 Element **Property** może mieć dokładnie jeden z następujących elementów podrzędnych:
 
 -   CollectionType
--   ReferenceType
+-   referenceType
 -   RowType
 
 Element **Property** może mieć dowolną liczbę elementów podrzędnych adnotacji.
@@ -1290,17 +1290,17 @@ Element **Property** może mieć dowolną liczbę elementów podrzędnych adnota
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Właściwości** .
 
-| Nazwa atrybutu                                                     | Jest wymagana | Value                                                                                                                                                                                                                           |
+| Nazwa atrybutu                                                     | Jest wymagana | Wartość                                                                                                                                                                                                                           |
 |:-------------------------------------------------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Nazwa**                                                           | Tak         | Nazwa właściwości.                                                                                                                                                                                                       |
-| **Typ**                                                           | Tak         | Typ wartości właściwości.                                                                                                                                                                                                 |
+| **Nazwa**                                                           | Yes         | Nazwa właściwości.                                                                                                                                                                                                       |
+| **Typ**                                                           | Yes         | Typ wartości właściwości.                                                                                                                                                                                                 |
 | **Wymaga**                                                       | Nie          | **Wartość true** (wartość domyślna) lub **Fałsz** w zależności od tego, czy właściwość może mieć wartość null. <br/> [!NOTE]                                                                                                                |
-| > W CSDL V1 właściwość typu złożonego musi mieć `Nullable="False"`. |             |                                                                                                                                                                                                                                 |
+| > W CSDL 1 właściwość typu złożonego musi mieć `Nullable="False"`. |             |                                                                                                                                                                                                                                 |
 | **DefaultValue**                                                   | Nie          | Wartość domyślna właściwości.                                                                                                                                                                                              |
 | **MaxLength**                                                      | Nie          | Maksymalna długość wartości właściwości.                                                                                                                                                                                       |
 | **FixedLength**                                                    | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy wartość właściwości będzie przechowywana jako ciąg o stałej długości.                                                                                                                          |
 | **Dokładne**                                                      | Nie          | Precyzja wartości właściwości.                                                                                                                                                                                            |
-| **Zasięgu**                                                          | Nie          | Skala wartości właściwości.                                                                                                                                                                                                |
+| **Skalowanie**                                                          | Nie          | Skala wartości właściwości.                                                                                                                                                                                                |
 | **SRID**                                                           | Nie          | Identyfikator odwołania do systemu przestrzennego. Prawidłowe tylko dla właściwości typów przestrzennych. Aby uzyskać więcej informacji, zobacz [SRID](https://en.wikipedia.org/wiki/SRID) i [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 | **Unicode**                                                        | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy wartość właściwości będzie przechowywana jako ciąg Unicode.                                                                                                                               |
 | **Sortowanie**                                                      | Nie          | Ciąg określający sekwencję sortowania, która ma być używana w źródle danych.                                                                                                                                                   |
@@ -1356,9 +1356,9 @@ Element **PropertyRef** może zawierać tylko elementy adnotacji (zero lub więc
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **PropertyRef** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                |
+| Nazwa atrybutu | Jest wymagana | Wartość                                |
 |:---------------|:------------|:-------------------------------------|
-| **Nazwa**       | Tak         | Nazwa właściwości, której dotyczy odwołanie. |
+| **Nazwa**       | Yes         | Nazwa właściwości, której dotyczy odwołanie. |
 
  
 
@@ -1427,9 +1427,9 @@ Element **ReferenceType** może mieć następujące elementy podrzędne (w podan
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **ReferenceType** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                         |
+| Nazwa atrybutu | Jest wymagana | Wartość                                         |
 |:---------------|:------------|:----------------------------------------------|
-| **Typ**       | Tak         | Nazwa typu obiektu, do którego występuje odwołanie. |
+| **Typ**       | Yes         | Nazwa typu obiektu, do którego występuje odwołanie. |
 
  
 
@@ -1522,7 +1522,7 @@ Zwracanymi typami mogą być dowolne **EdmSimpleType**, typ jednostki, typ zło�
 Zwracany typ funkcji można określić przy użyciu atrybutu **typu** **ReturnValue** (funkcja) lub z jednym z następujących elementów podrzędnych:
 
 -   CollectionType
--   ReferenceType
+-   referenceType
 -   RowType
 
 > [!NOTE]
@@ -1534,7 +1534,7 @@ Zwracany typ funkcji można określić przy użyciu atrybutu **typu** **ReturnVa
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **ReturnType** (Function).
 
-| Nazwa atrybutu | Jest wymagana | Value                              |
+| Nazwa atrybutu | Jest wymagana | Wartość                              |
 |:---------------|:------------|:-----------------------------------|
 | **Atrybuty** | Nie          | Typ zwracany przez funkcję. |
 
@@ -1574,7 +1574,7 @@ Zwracany typ funkcji jest określany przy użyciu atrybutu **Type** elementu **R
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **ReturnType** (FunctionImport).
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                                                                                                 |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                                                 |
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Typ**       | Nie          | Typ zwracany przez funkcję. Wartość musi być kolekcją typu ComplexType, EntityType lub EDMSimpleType.                                                                                      |
 | **Elementy**  | Nie          | Jeśli funkcja zwraca kolekcję typów jednostek, wartość **obiektu EntitySet** musi być zestawem jednostek, do którego należy kolekcja. W przeciwnym razie atrybut **EntitySet** nie może być używany. |
@@ -1648,7 +1648,7 @@ Element **schematu** jest głównym elementem definicji modelu koncepcyjnego. Za
 
 Element **schematu** może zawierać zero lub więcej z następujących elementów podrzędnych:
 
--   Użyciu
+-   Używanie
 -   EntityContainer
 -   Typ entityType
 -   EnumType
@@ -1671,10 +1671,10 @@ Przestrzeń nazw modelu koncepcyjnego różni się od przestrzeni nazw XML eleme
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **Schema** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 |:---------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Namespace**  | Tak         | Przestrzeń nazw modelu koncepcyjnego. Wartość atrybutu **Namespace** służy do tworzenia w pełni kwalifikowanej nazwy typu. Na przykład jeśli obiekt **EntityType** o nazwie *Customer* znajduje się w prostej przestrzeni nazw. przykład. model, wówczas w pełni kwalifikowana nazwa elementu **EntityType** to SimpleExampleModel. Customer. <br/> Następujące ciągi nie mogą być używane jako wartość atrybutu **Namespace** : **System**, **przejściowy**lub **EDM**. Wartość atrybutu **przestrzeni nazw** nie może być taka sama jak wartość atrybutu **Namespace** w elemencie schematu SSDL. |
-| **Alias**      | Nie          | Identyfikator używany zamiast nazwy przestrzeni nazw. Na przykład jeśli obiekt **EntityType** o nazwie *Customer* znajduje się w prostej. przykładowej przestrzeni nazw, a wartość atrybutu **alias** jest *modelem*, można użyć model. Customer jako w pełni kwalifikowanej nazwy typu **EntityType.**                                                                                                                                                                                                                                                                                                     |
+| **Przestrzeń nazw**  | Yes         | Przestrzeń nazw modelu koncepcyjnego. Wartość atrybutu **Namespace** służy do tworzenia w pełni kwalifikowanej nazwy typu. Na przykład jeśli obiekt **EntityType** o nazwie *Customer* znajduje się w prostej przestrzeni nazw. przykład. model, wówczas w pełni kwalifikowana nazwa elementu **EntityType** to SimpleExampleModel. Customer. <br/> Następujące ciągi nie mogą być używane jako wartość atrybutu **Namespace** : **system**, **przejściowy**lub **EDM**. Wartość atrybutu **przestrzeni nazw** nie może być taka sama jak wartość atrybutu **Namespace** w elemencie schematu SSDL. |
+| **Użyj**      | Nie          | Identyfikator używany zamiast nazwy przestrzeni nazw. Na przykład jeśli obiekt **EntityType** o nazwie *Customer* znajduje się w prostej. przykładowej przestrzeni nazw, a wartość atrybutu **alias** jest *modelem*, można użyć model. Customer jako w pełni kwalifikowanej nazwy typu **EntityType.**                                                                                                                                                                                                                                                                                                     |
 
  
 
@@ -1760,16 +1760,16 @@ Element **TypeRef** może mieć następujące elementy podrzędne (w podanej kol
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **TypeRef** . Należy zauważyć, że atrybuty **DefaultValue**, **MaxLength**, **FixedLength**, **Precision**, **Scale**, **Unicode**i **Collation** mają zastosowanie tylko do **EDMSimpleTypes**.
 
-| Nazwa atrybutu                                                     | Jest wymagana | Value                                                                                                                                                                                                                           |
+| Nazwa atrybutu                                                     | Jest wymagana | Wartość                                                                                                                                                                                                                           |
 |:-------------------------------------------------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Typ**                                                           | Nie          | Nazwa typu, do którego się odwołuje.                                                                                                                                                                                          |
 | **Wymaga**                                                       | Nie          | **Wartość true** (wartość domyślna) lub **Fałsz** w zależności od tego, czy właściwość może mieć wartość null. <br/> [!NOTE]                                                                                                                |
-| > W CSDL V1 właściwość typu złożonego musi mieć `Nullable="False"`. |             |                                                                                                                                                                                                                                 |
+| > W CSDL 1 właściwość typu złożonego musi mieć `Nullable="False"`. |             |                                                                                                                                                                                                                                 |
 | **DefaultValue**                                                   | Nie          | Wartość domyślna właściwości.                                                                                                                                                                                              |
 | **MaxLength**                                                      | Nie          | Maksymalna długość wartości właściwości.                                                                                                                                                                                       |
 | **FixedLength**                                                    | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy wartość właściwości będzie przechowywana jako ciąg o stałej długości.                                                                                                                          |
 | **Dokładne**                                                      | Nie          | Precyzja wartości właściwości.                                                                                                                                                                                            |
-| **Zasięgu**                                                          | Nie          | Skala wartości właściwości.                                                                                                                                                                                                |
+| **Skalowanie**                                                          | Nie          | Skala wartości właściwości.                                                                                                                                                                                                |
 | **SRID**                                                           | Nie          | Identyfikator odwołania do systemu przestrzennego. Prawidłowe tylko dla właściwości typów przestrzennych. Aby uzyskać więcej informacji, zobacz [SRID](https://en.wikipedia.org/wiki/SRID) i [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 | **Unicode**                                                        | Nie          | **Prawda** lub **Fałsz** w zależności od tego, czy wartość właściwości będzie przechowywana jako ciąg Unicode.                                                                                                                               |
 | **Sortowanie**                                                      | Nie          | Ciąg określający sekwencję sortowania, która ma być używana w źródle danych.                                                                                                                                                   |
@@ -1820,10 +1820,10 @@ Element **using** może mieć następujące elementy podrzędne:
 
 W poniższej tabeli opisano atrybuty, które można zastosować do elementu **using** .
 
-| Nazwa atrybutu | Jest wymagana | Value                                                                                                                                                                              |
+| Nazwa atrybutu | Jest wymagana | Wartość                                                                                                                                                                              |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Namespace**  | Tak         | Nazwa zaimportowanej przestrzeni nazw.                                                                                                                                                |
-| **Alias**      | Tak         | Identyfikator używany zamiast nazwy przestrzeni nazw. Chociaż ten atrybut jest wymagany, nie jest wymagane, aby był używany zamiast nazwy przestrzeni nazw do kwalifikowania nazw obiektów. |
+| **Przestrzeń nazw**  | Yes         | Nazwa zaimportowanej przestrzeni nazw.                                                                                                                                                |
+| **Użyj**      | Yes         | Identyfikator używany zamiast nazwy przestrzeni nazw. Chociaż ten atrybut jest wymagany, nie jest wymagane, aby był używany zamiast nazwy przestrzeni nazw do kwalifikowania nazw obiektów. |
 
  
 
@@ -1834,7 +1834,7 @@ W poniższej tabeli opisano atrybuty, które można zastosować do elementu **us
 
 ### <a name="example"></a>Przykład
 
-Poniższy przykład demonstruje element **using** używany do importowania przestrzeni nazw, która jest zdefiniowana w innym miejscu. Należy zauważyć, że przestrzeń nazw dla elementu **schematu** jest wyświetlana `BooksModel`. Właściwość `Address` elementu**EntityType** `Publisher` jest typem złożonym, który jest zdefiniowany w przestrzeni nazw `ExtendedBooksModel` (zaimportowanym przy **użyciu elementu using** ).
+Poniższy przykład demonstruje element **using** używany do importowania przestrzeni nazw, która jest zdefiniowana w innym miejscu. Należy zauważyć, że przestrzeń nazw dla elementu **schematu** jest wyświetlana `BooksModel`. Właściwość `Address` **obiektu EntityType** `Publisher`jest typu złożonego, który jest zdefiniowany w `ExtendedBooksModel` przestrzeni nazw (zaimportowany za **pomocą elementu using** ).
 
 ``` xml
  <Schema xmlns="https://schemas.microsoft.com/ado/2009/11/edm"
@@ -1923,7 +1923,7 @@ Poniższy kod pobiera metadane w atrybucie adnotacji i zapisuje go w konsoli pro
 ```
  
 
-W powyższym kodzie założono, że plik `School.csdl` znajduje się w katalogu wyjściowym projektu i dodano następujące instrukcje `Imports` i `Using` do projektu:
+W powyższym kodzie przyjęto założenie, że plik `School.csdl` znajduje się w katalogu wyjściowym projektu i dodano następujące instrukcje `Imports` i `Using` do projektu:
 
 ``` csharp
  using System.Data.Metadata.Edm;
@@ -1993,7 +1993,7 @@ Poniższy kod pobiera metadane w elemencie adnotacji i zapisuje go w konsoli pro
 ```
  
 
-W powyższym kodzie przyjęto założenie, że plik szkoły. csdl znajduje się w katalogu wyjściowym projektu i dodano następujące instrukcje `Imports` i `Using` do projektu:
+W powyższym kodzie założono, że plik szkoły. csdl znajduje się w katalogu wyjściowym projektu i dodano następujące `Imports` i instrukcje `Using` do projektu:
 
 ``` csharp
  using System.Data.Metadata.Edm;
@@ -2011,22 +2011,22 @@ W poniższej tabeli przedstawiono typy danych pierwotnych, które są obsługiwa
 | EDMSimpleType                    | Opis                                                | Odpowiednie aspekty                                                        |
 |:---------------------------------|:-----------------------------------------------------------|:-------------------------------------------------------------------------|
 | **EDM. Binary**                   | Zawiera dane binarne.                                      | MaxLength, FixedLength, nullable, wartość domyślna                                |
-| **EDM. Boolean**                  | Zawiera wartość **true** lub **false**.                  | Dopuszcza wartość null, wartość domyślna                                                        |
+| **Edm.Boolean**                  | Zawiera wartość **true** lub **false**.                  | Dopuszcza wartość null, wartość domyślna                                                        |
 | **EDM. Byte**                     | Zawiera 8-bitową liczbę całkowitą bez znaku.                  | Precyzja, wartość null, wartość domyślna                                             |
 | **EDM. DateTime**                 | Przedstawia datę i godzinę.                                | Precyzja, wartość null, wartość domyślna                                             |
-| **EDM. DateTimeOffset**           | Zawiera datę i godzinę przesunięcia w minutach od GMT. | Precyzja, wartość null, wartość domyślna                                             |
+| **Edm.DateTimeOffset**           | Zawiera datę i godzinę przesunięcia w minutach od GMT. | Precyzja, wartość null, wartość domyślna                                             |
 | **EDM. Decimal**                  | Zawiera wartość liczbową ze stałą dokładnością i skalą.   | Precyzja, wartość null, wartość domyślna                                             |
-| **EDM. Double**                   | Zawiera liczbę zmiennoprzecinkową z dokładnością do 15 cyfr   | Precyzja, wartość null, wartość domyślna                                             |
+| **Edm.Double**                   | Zawiera liczbę zmiennoprzecinkową z dokładnością do 15 cyfr   | Precyzja, wartość null, wartość domyślna                                             |
 | **EDM. float**                    | Zawiera liczbę zmiennoprzecinkową z dokładnością do 7 cyfr.   | Precyzja, wartość null, wartość domyślna                                             |
 | **EDM. GUID**                     | Zawiera unikatowy identyfikator 16-bajtowy.                      | Precyzja, wartość null, wartość domyślna                                             |
 | **EDM. Int16**                    | Zawiera wartość 16-bitową liczbę całkowitą ze znakiem.                    | Precyzja, wartość null, wartość domyślna                                             |
-| **EDM. Int32**                    | Zawiera podpisaną 32-bitową liczbę całkowitą.                    | Precyzja, wartość null, wartość domyślna                                             |
-| **EDM. Int64**                    | Zawiera podpisaną 64-bitową liczbę całkowitą.                    | Precyzja, wartość null, wartość domyślna                                             |
+| **Edm.Int32**                    | Zawiera podpisaną 32-bitową liczbę całkowitą.                    | Precyzja, wartość null, wartość domyślna                                             |
+| **Edm.Int64**                    | Zawiera podpisaną 64-bitową liczbę całkowitą.                    | Precyzja, wartość null, wartość domyślna                                             |
 | **EDM.**                    | Zawiera 8-bitową liczbę całkowitą ze znakiem.                     | Precyzja, wartość null, wartość domyślna                                             |
-| **EDM. String**                   | Zawiera dane znakowe.                                   | Unicode, FixedLength, MaxLength, Collation, Precision, nullable, wartość domyślna |
+| **Edm.String**                   | Zawiera dane znakowe.                                   | Unicode, FixedLength, MaxLength, Collation, Precision, nullable, wartość domyślna |
 | **EDM. Time**                     | Zawiera godzinę.                                    | Precyzja, wartość null, wartość domyślna                                             |
 | **EDM. Geography**                |                                                            | Nullable, default, SRID                                                  |
-| **EDM. geographyPoint względem**           |                                                            | Nullable, default, SRID                                                  |
+| **Edm.GeographyPoint**           |                                                            | Nullable, default, SRID                                                  |
 | **EDM. GeographyLineString**      |                                                            | Nullable, default, SRID                                                  |
 | **EDM. GeographyPolygon**         |                                                            | Nullable, default, SRID                                                  |
 | **EDM. GeographyMultiPoint**      |                                                            | Nullable, default, SRID                                                  |
@@ -2055,18 +2055,18 @@ W poniższej tabeli opisano aspekty, które są obsługiwane w CSDL. Wszystkie a
 > [!NOTE]
 > Aby uzyskać informacje na temat typów danych w modelu koncepcyjnym, zobacz typy modelu koncepcyjnego (CSDL).
 
-| Aspekcie               | Opis                                                                                                                                                                                                                                                   | Stosuje się do                                                                                                                                                                                                                                                                                                                                                                           | Używany do generowania bazy danych | Używane przez środowisko uruchomieniowe |
+| Aspekcie               | Opis                                                                                                                                                                                                                                                   | Informacje zawarte w tym artykule dotyczą                                                                                                                                                                                                                                                                                                                                                                           | Używany do generowania bazy danych | Używane przez środowisko uruchomieniowe |
 |:--------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------|:--------------------|
-| **Sortowanie**       | Określa sekwencję sortowania (lub sekwencję sortowania), która ma być używana podczas wykonywania operacji porównania i porządkowania na wartościach właściwości.                                                                                                               | **EDM. String**                                                                                                                                                                                                                                                                                                                                                                       | Tak                              | Nie                  |
-| **Obsługują** | Wskazuje, że wartość właściwości powinna być używana do optymistycznych kontroli współbieżności.                                                                                                                                                                    | Wszystkie właściwości **EDMSimpleType**                                                                                                                                                                                                                                                                                                                                                     | Nie                               | Tak                 |
-| **Domyślne**         | Określa wartość domyślną właściwości, jeśli nie podano żadnej wartości podczas tworzenia wystąpienia.                                                                                                                                                                       | Wszystkie właściwości **EDMSimpleType**                                                                                                                                                                                                                                                                                                                                                     | Tak                              | Tak                 |
-| **FixedLength**     | Określa, czy długość wartości właściwości może się różnić.                                                                                                                                                                                                  | **EDM. Binary**, **EDM. String**                                                                                                                                                                                                                                                                                                                                                       | Tak                              | Nie                  |
-| **MaxLength**       | Określa maksymalną długość wartości właściwości.                                                                                                                                                                                                           | **EDM. Binary**, **EDM. String**                                                                                                                                                                                                                                                                                                                                                       | Tak                              | Nie                  |
-| **Wymaga**        | Określa, czy właściwość może mieć wartość **null** .                                                                                                                                                                                                     | Wszystkie właściwości **EDMSimpleType**                                                                                                                                                                                                                                                                                                                                                     | Tak                              | Tak                 |
-| **Dokładne**       | Dla właściwości typu **Decimal**określa liczbę cyfr, jaką może mieć wartość właściwości. Dla właściwości typu **Time**, **DateTime**i **DateTimeOffset**określa liczbę cyfr ułamkowych części sekundy wartości właściwości. | **EDM. DateTime**, **EDM. DateTimeOffset**, **EDM. Decimal**, **EDM. Time**                                                                                                                                                                                                                                                                                                              | Tak                              | Nie                  |
-| **Zasięgu**           | Określa liczbę cyfr z prawej strony punktu dziesiętnego dla wartości właściwości.                                                                                                                                                                      | **EDM. Decimal**                                                                                                                                                                                                                                                                                                                                                                      | Tak                              | Nie                  |
-| **SRID**            | Określa identyfikator systemu odwołań do systemu przestrzennego. Aby uzyskać więcej informacji, zobacz [SRID](https://en.wikipedia.org/wiki/SRID) i [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx).                                                              | **EDM. Geography, EDM. geographyPoint względem, EDM. GeographyLineString, EDM. GeographyPolygon, EDM. GeographyMultiPoint, EDM. GeographyMultiLineString, EDM. GeographyMultiPolygon, EDM. Geographycollection, EDM. Geometry, EDM. GeometryPoint, EDM. GeometryLineString, EDM. GeometryPolygon, EDM. GeometryMultiPoint, EDM. GeometryMultiLineString, EDM. GeometryMultiPolygon, EDM. GeometryCollection** | Nie                               | Tak                 |
-| **Unicode**         | Wskazuje, czy wartość właściwości jest przechowywana w formacie Unicode.                                                                                                                                                                                                    | **EDM. String**                                                                                                                                                                                                                                                                                                                                                                       | Tak                              | Tak                 |
+| **Sortowanie**       | Określa sekwencję sortowania (lub sekwencję sortowania), która ma być używana podczas wykonywania operacji porównania i porządkowania na wartościach właściwości.                                                                                                               | **Edm.String**                                                                                                                                                                                                                                                                                                                                                                       | Yes                              | Nie                  |
+| **Obsługują** | Wskazuje, że wartość właściwości powinna być używana do optymistycznych kontroli współbieżności.                                                                                                                                                                    | Wszystkie właściwości **EDMSimpleType**                                                                                                                                                                                                                                                                                                                                                     | Nie                               | Yes                 |
+| **Domyślne**         | Określa wartość domyślną właściwości, jeśli nie podano żadnej wartości podczas tworzenia wystąpienia.                                                                                                                                                                       | Wszystkie właściwości **EDMSimpleType**                                                                                                                                                                                                                                                                                                                                                     | Yes                              | Yes                 |
+| **FixedLength**     | Określa, czy długość wartości właściwości może się różnić.                                                                                                                                                                                                  | **EDM. Binary**, **EDM. String**                                                                                                                                                                                                                                                                                                                                                       | Yes                              | Nie                  |
+| **MaxLength**       | Określa maksymalną długość wartości właściwości.                                                                                                                                                                                                           | **EDM. Binary**, **EDM. String**                                                                                                                                                                                                                                                                                                                                                       | Yes                              | Nie                  |
+| **Wymaga**        | Określa, czy właściwość może mieć wartość **null** .                                                                                                                                                                                                     | Wszystkie właściwości **EDMSimpleType**                                                                                                                                                                                                                                                                                                                                                     | Yes                              | Yes                 |
+| **Dokładne**       | Dla właściwości typu **Decimal**określa liczbę cyfr, jaką może mieć wartość właściwości. Dla właściwości typu **Time**, **DateTime**i **DateTimeOffset**określa liczbę cyfr ułamkowych części sekundy wartości właściwości. | **EDM. DateTime**, **EDM. DateTimeOffset**, **EDM. Decimal**, **EDM. Time**                                                                                                                                                                                                                                                                                                              | Yes                              | Nie                  |
+| **Skalowanie**           | Określa liczbę cyfr z prawej strony punktu dziesiętnego dla wartości właściwości.                                                                                                                                                                      | **EDM. Decimal**                                                                                                                                                                                                                                                                                                                                                                      | Yes                              | Nie                  |
+| **SRID**            | Określa identyfikator systemu odwołań do systemu przestrzennego. Aby uzyskać więcej informacji, zobacz [SRID](https://en.wikipedia.org/wiki/SRID) i [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx).                                                              | **EDM. Geography, EDM. geographyPoint względem, EDM. GeographyLineString, EDM. GeographyPolygon, EDM. GeographyMultiPoint, EDM. GeographyMultiLineString, EDM. GeographyMultiPolygon, EDM. Geographycollection, EDM. Geometry, EDM. GeometryPoint, EDM. GeometryLineString, EDM. GeometryPolygon, EDM. GeometryMultiPoint, EDM. GeometryMultiLineString, EDM. GeometryMultiPolygon, EDM. GeometryCollection** | Nie                               | Yes                 |
+| **Unicode**         | Wskazuje, czy wartość właściwości jest przechowywana w formacie Unicode.                                                                                                                                                                                                    | **Edm.String**                                                                                                                                                                                                                                                                                                                                                                       | Yes                              | Yes                 |
 
 >[!NOTE]
 > Podczas generowania bazy danych z modelu koncepcyjnego Kreator generowania bazy danych rozpozna wartość atrybutu **StoreGeneratedPattern** w elemencie **Property** , jeśli znajduje się w następującej przestrzeni nazw: https://schemas.microsoft.com/ado/2009/02/edm/annotation. Obsługiwane wartości atrybutu to **tożsamość** i **obliczana**. Wartość **tożsamości** spowoduje utworzenie kolumny bazy danych o wartości tożsamości wygenerowanej w bazie danych. Wartość **obliczana** spowoduje wygenerowanie kolumny z wartością obliczaną w bazie danych.

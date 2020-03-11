@@ -5,16 +5,16 @@ ms.date: 10/23/2016
 ms.assetid: 8ae74d63-6bad-4686-b325-bbf9d68f3743
 uid: ef6/index
 ms.openlocfilehash: 28a13879416a52cbe8035c23013f16390c75c4c9
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656177"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416333"
 ---
 # <a name="entity-framework-6"></a>Entity Framework 6
 Entity Framework 6 (EF6) to próba i przetestowana funkcja mapowania obiektów relacyjnych (O/RM) dla platformy .NET z wieloma latami tworzenia i stabilizacji funkcji.
 
-Jako O/RM EF6 zmniejszają niezgodność zależności między światowymi i zorientowanymi na obiektach, dzięki czemu deweloperzy mogą pisać aplikacje, które współdziałają z danymi przechowywanymi w relacyjnych bazach danych przy użyciu obiektów .NET o jednoznacznie określonym typie, które reprezentują domena aplikacji i eliminuje konieczność użycia dużej części kodu "wodociąging" do uzyskiwania dostępu do danych, które zwykle wymagają zapisu.
+Jako O/RM EF6 zmniejszają niezgodność między działami relacyjnymi i zorientowanymi na obiekty, dzięki czemu deweloperzy mogą pisać aplikacje, które współdziałają z danymi przechowywanymi w relacyjnych bazach danych przy użyciu obiektów .NET o jednoznacznie określonym typie, które reprezentują domenę aplikacji, i eliminując konieczność korzystania z dużej części kodu "wodociąging" z dostępem do danych, które zwykle wymagają zapisu.
 
 EF6 implementuje wiele popularnych funkcji O/RM:
 - Mapowanie klas jednostek [poco](xref:ef6/resources/glossary#poco) , które nie są zależne od żadnych typów EF
@@ -38,9 +38,9 @@ EF6 implementuje wiele popularnych funkcji O/RM:
 EF Core to bardziej nowoczesny, lekki i rozszerzalny wersja Entity Framework, która ma bardzo podobne możliwości i korzyści EF6.
 EF Core to pełny ponowny zapis i zawiera wiele nowych funkcji, które nie są dostępne w EF6, chociaż nadal nie ma niektórych najbardziej zaawansowanych funkcji mapowania EF6.
 Jeśli zestaw funkcji spełnia Twoje wymagania, należy rozważyć użycie EF Core w nowych aplikacjach.
-[Porównaj EF Core & Ef6](xref:efcore-and-ef6/index) sprawdza ten wybór bardziej szczegółowo.
+[Porównaj EF Core &AMP; Ef6](xref:efcore-and-ef6/index) sprawdza ten wybór bardziej szczegółowo.
 
-## <a name="get-startedxrefef6get-started"></a>[Wprowadzenie](xref:ef6/get-started)
+## <a name="get-started"></a>[Rozpoczęcie pracy](xref:ef6/get-started)
 
 Dodaj pakiet NuGet EntityFramework do projektu lub zainstaluj [Entity Framework Tools dla programu Visual Studio](https://aka.ms/AA6i8c5). Następnie Obejrzyj filmy wideo, samouczki odczytywania oraz zaawansowaną dokumentację, aby ułatwić EF6.
 

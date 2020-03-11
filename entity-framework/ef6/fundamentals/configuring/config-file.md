@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 000044c6-1d32-4cf7-ae1f-ea21d86ebf8f
 ms.openlocfilehash: 86389e4a3a3bac46e2a4cf2da648a4b19e29f3c3
-ms.sourcegitcommit: 299011fc4bd576eed58a4274f967639fa13fec53
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886554"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417974"
 ---
 # <a name="configuration-file-settings"></a>Ustawienia pliku konfiguracji
 Entity Framework umożliwia określenie wielu ustawień z pliku konfiguracji. Ogólnie EF stosuje się zasadę "Konwencja przed konfiguracją": wszystkie ustawienia omówione w tym wpisie mają zachowanie domyślne, ale trzeba się martwić o zmianę ustawienia, gdy wartość domyślna nie spełnia już wymagań.  
@@ -34,7 +34,7 @@ Sekcja **entityFramework** została automatycznie dodana do pliku konfiguracji p
 </configuration>
 ```  
 
-## <a name="connection-strings"></a>Parametry połączeń  
+## <a name="connection-strings"></a>Parametry połączenia  
 
 [Ta strona](~/ef6/fundamentals/configuring/connection-strings.md) zawiera więcej informacji na temat sposobu, w jaki Entity Framework określa bazę danych, która ma być używana, w tym parametry połączenia w pliku konfiguracji.  
 
@@ -92,7 +92,7 @@ Zwykle nie trzeba samodzielnie rejestrować dostawców. Jest to zwykle wykonywan
 
 Dostawcy są rejestrowani przez dołączenie elementu **dostawcy** w sekcji podrzędnej **dostawcy** sekcji **entityFramework** . Istnieją dwa wymagane atrybuty dla wpisu dostawcy:  
 
-- niezmiennaname identyfikuje podstawowego dostawcę ADO.NET, którego celem jest ten dostawca EF  
+- **niezmiennaname** identyfikuje podstawowego dostawcę ADO.NET, którego celem jest ten dostawca EF  
 - **Typ** to kwalifikowana nazwa typu zestawu dla implementacji dostawcy EF  
 
 > [!NOTE]
@@ -145,7 +145,7 @@ Domyślnie spowoduje to zastąpienie pliku dziennika nowym plikiem przy każdym 
 </interceptors>
 ```  
 
-Aby uzyskać dodatkowe informacje na temat **DatabaseLogger** i rejestrowania interceptorów, zobacz wpis [w blogu EF 6,1: Włączenie rejestrowania bez ponownego kompilowania](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/).  
+Aby uzyskać dodatkowe informacje na temat **DatabaseLogger** i rejestrowania interceptorów, zobacz wpis w blogu [EF 6,1: Włączanie rejestrowania bez ponownego kompilowania](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/).  
 
 ## <a name="code-first-default-connection-factory"></a>Code First domyślną fabrykę połączeń  
 
@@ -180,7 +180,7 @@ Na przykład SqlCeConnectionFactory, który jest zawarty w Entity Framework, wym
 </entityFramework>
 ```  
 
-Jeśli nie ustawisz domyślnej fabryki połączeń, Code First używa SqlConnectionFactory, wskazując na `.\SQLEXPRESS`. SqlConnectionFactory ma także konstruktora, który umożliwia przesłonięcie części parametrów połączenia. Jeśli chcesz użyć wystąpienia SQL Server innego niż `.\SQLEXPRESS` można użyć tego konstruktora do ustawienia serwera.  
+Jeśli nie ustawisz domyślnej fabryki połączeń, Code First używa SqlConnectionFactory, wskazując `.\SQLEXPRESS`. SqlConnectionFactory ma także konstruktora, który umożliwia przesłonięcie części parametrów połączenia. Jeśli chcesz użyć wystąpienia SQL Server innego niż `.\SQLEXPRESS` można użyć tego konstruktora do ustawienia serwera.  
 
 Następująca konfiguracja spowoduje, że Code First używać **MyDatabaseServer** dla kontekstów, które nie mają jawnie ustawionych parametrów połączenia.  
 
@@ -240,7 +240,7 @@ Parametry konstruktora używają tej samej składni co domyślne fabryki połąc
 
 Istnieje możliwość skonfigurowania jednego z inicjatorów ogólnych baz danych, które znajdują się w Entity Framework. Atrybut **Type** używa formatu .NET Framework dla typów ogólnych.  
 
-Na przykład, jeśli używasz migracje Code First, można skonfigurować bazę danych do automatycznego migrowania przy użyciu `MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>` inicjatora.  
+Na przykład, jeśli używasz Migracje Code First, można skonfigurować bazę danych do automatycznego migrowania przy użyciu inicjatora `MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>`.  
 
 ``` xml
 <contexts>

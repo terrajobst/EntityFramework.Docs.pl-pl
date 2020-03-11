@@ -1,33 +1,33 @@
 ---
-title: Niestandardowy kod Konwencji pierwsze - EF6
+title: Niestandardowe Konwencje Code First — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: dd2bdbd9-ae9e-470a-aeb8-d0ba160499b7
 ms.openlocfilehash: cfd7f7cad532dca5227793c04d7d91e977ea5e4e
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489847"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419228"
 ---
-# <a name="custom-code-first-conventions"></a>Konwencje pierwszy kod niestandardowy
+# <a name="custom-code-first-conventions"></a>Niestandardowe Konwencje Code First
 > [!NOTE]
-> **EF6 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 6. Jeśli używasz starszej wersji, niektóre lub wszystkie informacje, nie ma zastosowania.
+> **Ef6 tylko** — funkcje, interfejsy API itp. omówione na tej stronie zostały wprowadzone w Entity Framework 6. Jeśli używasz wcześniejszej wersji, niektóre lub wszystkie informacje nie są stosowane.
 
-Przy użyciu najpierw kod modelu jest obliczana z klas przy użyciu zestawu Konwencji. Wartość domyślna [pierwszy konwencje związane z](~/ef6/modeling/code-first/conventions/built-in.md) określić elementy, takie jak, których właściwość staje się klucz podstawowy jednostki, nazwa tabeli mapuje jednostki i jakie dokładności i skali dziesiętna kolumna ma domyślnie.
+W przypadku korzystania z Code First model jest obliczany na podstawie klas przy użyciu zestawu Konwencji. Domyślne [konwencje Code First](~/ef6/modeling/code-first/conventions/built-in.md) określają, jak, która właściwość jest kluczem podstawowym jednostki, nazwą tabeli, do której jest mapowany obiekt, i co określa precyzję i skalę kolumny dziesiętnej domyślnie.
 
-Czasami te domyślnych Konwencji nie są idealne dla modelu, a trzeba pracować wokół nich przez skonfigurowanie wielu pojedynczych jednostek przy użyciu adnotacji danych lub interfejsu API Fluent. Niestandardowe pierwszy konwencje związane z umożliwiają definiowanie własnych Konwencji odpowiadającym, które zapewniają domyślne wartości dla modelu. W tym przewodniku omówimy różnego rodzaju konwencje niestandardowych oraz sposób tworzenia każdego z nich.
+Czasami te konwencje domyślne nie są idealnym rozwiązaniem dla modelu i należy je obejść przez skonfigurowanie wielu pojedynczych jednostek przy użyciu adnotacji danych lub interfejsu API Fluent. Niestandardowe Konwencje Code First umożliwiają definiowanie własnych Konwencji, które zapewniają wartości domyślne konfiguracji dla modelu. W tym instruktażu zapoznajemy różne typy niestandardowych Konwencji oraz sposób tworzenia każdego z nich.
 
 
-## <a name="model-based-conventions"></a>Konwencje opartych na modelu
+## <a name="model-based-conventions"></a>Konwencje oparte na modelu
 
-Ta strona obejmuje interfejs API DbModelBuilder konwencje niestandardowych. Ten interfejs API powinny być wystarczające do tworzenia większość konwencje niestandardowych. Jednak istnieje także możliwość tworzenia opartych na modelu Konwencji — konwencje, które manipulują końcowego modelu, po jego utworzeniu — Obsługa zaawansowanych scenariuszy. Aby uzyskać więcej informacji, zobacz [opartych na modelu Konwencji](~/ef6/modeling/code-first/conventions/model.md).
+Ta strona obejmuje interfejs API DbModelBuilder dla Konwencji niestandardowych. Ten interfejs API powinien być wystarczający do tworzenia większości Konwencji niestandardowych. Istnieje również możliwość utworzenia Konwencji opartych na modelu, które manipulują ostatnim modelem po jego utworzeniu — do obsługi zaawansowanych scenariuszy. Aby uzyskać więcej informacji, zobacz [konwencje oparte na modelu](~/ef6/modeling/code-first/conventions/model.md).
 
- 
+ 
 
-## <a name="our-model"></a>Nasz Model
+## <a name="our-model"></a>Nasz model
 
-Zacznijmy od definiowania prosty model, który możemy użyć za pomocą naszych Konwencji. Dodaj następujące klasy do projektu.
+Zacznijmy od zdefiniowania prostego modelu, który będzie używany z naszymi konwencjami. Dodaj następujące klasy do projektu.
 
 ``` csharp
     using System;
@@ -62,13 +62,13 @@ Zacznijmy od definiowania prosty model, który możemy użyć za pomocą naszych
     }
 ```
 
- 
+ 
 
-## <a name="introducing-custom-conventions"></a>Wprowadzenie do niestandardowych Konwencji
+## <a name="introducing-custom-conventions"></a>Wprowadzenie do Konwencji niestandardowych
 
-Napiszmy Konwencji, który konfiguruje żadnej właściwości o nazwie klucza jako klucza podstawowego dla tego typu jednostki.
+Napiszmy Konwencję, która konfiguruje dowolny klucz o nazwie jako klucz podstawowy dla tego typu jednostki.
 
-Konwencje są włączone w Konstruktorze modelu, którego dostęp można uzyskać poprzez zastąpienie OnModelCreating w kontekście. Aktualizacja klasy ProductContext w następujący sposób:
+Konwencje są włączane w konstruktorze modelu, do którego można uzyskać dostęp poprzez zastępowanie OnModelCreating w kontekście. Zaktualizuj klasę ProductContext w następujący sposób:
 
 ``` csharp
     public class ProductContext : DbContext
@@ -89,9 +89,9 @@ Konwencje są włączone w Konstruktorze modelu, którego dostęp można uzyska�
     }
 ```
 
-Teraz, będą wszystkich właściwości w naszym modelu o nazwie klucza skonfigurowany jako klucz podstawowy jednostki, niezależnie od jej części.
+Teraz Każda właściwość w naszym modelu o nazwie Key zostanie skonfigurowana jako klucz podstawowy każdego podmiotu.
 
-Również zapytała Konwencji naszego dokładniejszą przez filtrowanie według typu właściwości, który będziemy do skonfigurowania:
+Możemy również bardziej szczegółowo wprowadzać konwencje przez filtrowanie według typu właściwości, którą zamierzamy skonfigurować:
 
 ``` csharp
     modelBuilder.Properties<int>()
@@ -99,9 +99,9 @@ Również zapytała Konwencji naszego dokładniejszą przez filtrowanie według 
                 .Configure(p => p.IsKey());
 ```
 
-To spowoduje skonfigurowanie wszystkich właściwości o nazwie klucza jako podstawowego klucza ich jednostki, ale tylko wtedy, gdy są one liczbą całkowitą.
+Spowoduje to skonfigurowanie wszystkich właściwości o nazwie klucz jako klucz podstawowy swojej jednostki, ale tylko wtedy, gdy są one liczbami całkowitymi.
 
-Funkcją interesujące metody IsKey jest dodatek. Co oznacza, że jeśli wywołujesz IsKey na wiele właściwości, a wszystkie staną się częścią klucza złożonego. Jedno zastrzeżenie: to jest, czy podczas określania wielu właściwości klucza należy także określić, zamówienie tych właściwości. Można to zrobić, wywołując HasColumnOrder metody, takie jak poniżej:
+Ciekawą funkcją metody IsKey jest to, że jest to dodatek. Oznacza to, że jeśli wywołasz IsKey na wielu właściwościach i staną się one częścią klucza złożonego. Jednym z tych warunków jest to, że w przypadku określenia wielu właściwości klucza należy również określić zamówienie dla tych właściwości. Można to zrobić przez wywołanie metody HasColumnOrder podobnej do poniższego:
 
 ``` csharp
     modelBuilder.Properties<int>()
@@ -113,24 +113,24 @@ Funkcją interesujące metody IsKey jest dodatek. Co oznacza, że jeśli wywołu
                 .Configure(x => x.IsKey().HasColumnOrder(2));
 ```
 
-Ten kod konfiguruje typy w naszym modelu ma klucz złożony składający się z nazwy kolumny klucza int i ciąg. Jeśli firma Microsoft umożliwia wyświetlenie modelu w Projektancie wyglądała następująco:
+Ten kod skonfiguruje typy w naszym modelu w taki sposób, aby zawierał klucz złożony składający się z kolumny klucza int i kolumny Nazwa ciągu. Jeśli przeglądasz model w projektancie, będzie to wyglądać następująco:
 
 ![Klucz złożony](~/ef6/media/compositekey.png)
 
-Inny przykład Konwencji właściwość to skonfigurować wszystkie właściwości daty/godziny w swój model do mapowania typu datetime2 w programie SQL Server zamiast daty/godziny. Można to osiągnąć przy użyciu następujących czynności:
+Innym przykładem Konwencji właściwości jest skonfigurowanie wszystkich właściwości DateTime w modelu do mapowania na typ datetime2 w SQL Server zamiast DateTime. Można to osiągnąć przy użyciu następujących czynności:
 
 ``` csharp
     modelBuilder.Properties<DateTime>()
                 .Configure(c => c.HasColumnType("datetime2"));
 ```
 
- 
+ 
 
 ## <a name="convention-classes"></a>Klasy Konwencji
 
-Innym sposobem definiowania Konwencji jest użycie klasy Konwencji do hermetyzacji z Konwencji. Korzystając z klasy Konwencji, a następnie utworzyć typ, który dziedziczy z klasy Konwencji w przestrzeni nazw System.Data.Entity.ModelConfiguration.Conventions.
+Innym sposobem definiowania Konwencji jest użycie klasy Konwencji do hermetyzacji Konwencji. Korzystając z klasy Konwencji, należy utworzyć typ, który dziedziczy z klasy Konwencji w przestrzeni nazw System. Data. Entity. ModelConfiguration. Conventions.
 
-Możemy utworzyć klasę Konwencji z Konwencją datetime2, który wcześniej pokazaliśmy, wykonując następujące czynności:
+Możemy utworzyć klasę Konwencji z Konwencją datetime2, którą wykazałeś wcześniej, wykonując następujące czynności:
 
 ``` csharp
     public class DateTime2Convention : Convention
@@ -143,7 +143,7 @@ Możemy utworzyć klasę Konwencji z Konwencją datetime2, który wcześniej pok
     }
 ```
 
-Aby poinformować EF, użyj tej Konwencji, dodaj go do kolekcji konwencje w OnModelCreating, który jeśli wykonywano wraz z tym przewodnikiem będzie wyglądać następująco:
+Aby poinformować Dr o konieczności użycia tej Konwencji, należy dodać ją do kolekcji Konwencji w OnModelCreating, co w przypadku, gdy użytkownik wykonał następujące czynności z przewodnikiem:
 
 ``` csharp
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -156,13 +156,13 @@ Aby poinformować EF, użyj tej Konwencji, dodaj go do kolekcji konwencje w OnMo
     }
 ```
 
-Jak widać, że wystąpienie Konwencji naszego możemy dodać do kolekcji Konwencji. Dziedziczenie z Konwencji oferuje wygodny sposób grupowania i udostępnianie konwencje przez zespoły lub projekty. Na przykład można mieć biblioteki klas w języku wspólny zbiór konwencji, że projekty wszystkie Twojej organizacji użyj.
+Jak widać, dodajemy wystąpienie naszej Konwencji do kolekcji Konwencji. Dziedziczenie z Konwencji zapewnia wygodny sposób grupowania i udostępniania Konwencji dla zespołów lub projektów. Można na przykład mieć bibliotekę klas ze wspólnym zestawem Konwencji używanym przez wszystkie projekty organizacji.
 
- 
+ 
 
 ## <a name="custom-attributes"></a>Atrybuty niestandardowe
 
-Innym zastosowaniem doskonałe Konwencji jest aby włączyć nowe atrybuty, które będą używane podczas konfigurowania modelu. Na przykład Utwórz atrybut, który możemy użyć, aby oznaczyć właściwości ciągu jako innego niż Unicode.
+Innym doskonałym zastosowaniem Konwencji jest włączenie nowych atrybutów do użycia podczas konfigurowania modelu. Aby to zilustrować, Utwórzmy atrybut, którego możemy użyć do oznaczania właściwości ciągu jako innych niż Unicode.
 
 ``` csharp
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
@@ -171,7 +171,7 @@ Innym zastosowaniem doskonałe Konwencji jest aby włączyć nowe atrybuty, któ
     }
 ```
 
-Teraz Utwórzmy Konwencji zastosowaniu tego atrybutu w naszym modelu:
+Teraz Utwórzmy Konwencję, aby zastosować ten atrybut do naszego modelu:
 
 ``` csharp
     modelBuilder.Properties()
@@ -179,13 +179,13 @@ Teraz Utwórzmy Konwencji zastosowaniu tego atrybutu w naszym modelu:
                 .Configure(c => c.IsUnicode(false));
 ```
 
-Z niniejszej Konwencji firma Microsoft można dodać atrybutu NonUnicode do żadnego z naszych właściwości ciągów, które oznacza, że kolumna w bazie danych będą przechowywane jako varchar zamiast nvarchar.
+W tej konwencji można dodać atrybut niebędący znakiem Unicode do dowolnej właściwości ciągu, co oznacza, że kolumna w bazie danych będzie przechowywana jako varchar zamiast nvarchar.
 
-Jedną z rzeczy uwag dotyczących niniejszej Konwencji jest to, że jeśli atrybut NonUnicode zostanie umieszczony na coś innego niż właściwość ciągu, a następnie go spowoduje zgłoszenie wyjątku. Dzieje się tak, ponieważ nie można skonfigurować IsUnicode na dowolnego typu innego niż ciąg. Jeśli tak się stanie, następnie można wprowadzić swoje Konwencji bardziej szczegółowe tak, aby go odfiltrowuje wszystkie elementy, które nie jest ciąg.
+Jedną z elementów, które należy zwrócić uwagę, jest to, że jeśli umieścisz atrybut niezgodny ze standardem Unicode dla elementu innego niż właściwość String, zostanie zgłoszony wyjątek. Jest to spowodowane tym, że nie można skonfigurować elementu isunicode dla dowolnego typu innego niż ciąg. W takim przypadku można uczynić swoją Konwencję bardziej szczegółowo, aby odfiltrować wszystkie elementy, które nie są ciągami.
 
-Chociaż powyżej Konwencji działa w przypadku definiowania atrybutów niestandardowych, które ma innego interfejsu API, które mogą być znacznie łatwiejsze do użycia, szczególnie gdy zachodzi potrzeba użycia właściwości z klasy atrybutów.
+Chociaż powyższa Konwencja dotyczy definiowania atrybutów niestandardowych, istnieje inny interfejs API, który może być dużo łatwiejszy do użycia, szczególnie w przypadku, gdy chcesz użyć właściwości z klasy Attribute.
 
-W tym przykładzie użyjemy aktualizacja naszych atrybutu i zmień ją na atrybut IsUnicode, więc wygląda następująco:
+Na potrzeby tego przykładu będziemy aktualizować nasz atrybut i zmieniać go na atrybut isunicode, więc wygląda następująco:
 
 ``` csharp
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
@@ -200,7 +200,7 @@ W tym przykładzie użyjemy aktualizacja naszych atrybutu i zmień ją na atrybu
     }
 ```
 
-Gdy będziemy już mieć, firma Microsoft można ustawić typu wartość logiczna na naszych atrybut Konwencji stwierdzić, czy właściwość powinna być Unicode. Firma Microsoft może zrobić w Konwencji, które mamy już uzyskując ClrProperty klasy konfiguracji następująco:
+Po tym, możemy ustawić bool dla naszego atrybutu, aby określić, czy właściwość powinna być w formacie Unicode. Możemy to zrobić w ramach Konwencji, aby uzyskać dostęp do ClrPropertyowej klasy konfiguracji w następujący sposób:
 
 ``` csharp
     modelBuilder.Properties()
@@ -208,7 +208,7 @@ Gdy będziemy już mieć, firma Microsoft można ustawić typu wartość logiczn
                 .Configure(c => c.IsUnicode(c.ClrPropertyInfo.GetCustomAttribute<IsUnicode>().Unicode));
 ```
 
-Jest to dość proste, ale jest bardziej zwięzły sposób realizacji tego celu za pomocą Having metoda konwencje interfejsu API. Having metoda ma parametr typu Func&lt;PropertyInfo, T&gt; który akceptuje PropertyInfo taka sama jak Where metody, ale oczekuje się, aby zwrócić obiekt. Jeśli zwracany obiekt ma wartość null, a następnie właściwość nie zostanie skonfigurowany, co oznacza można odfiltrować właściwości z nią tak samo jak miejsca, ale różni się w tym będzie również przechwytywania zwróconego obiektu i przekazać go do metody konfiguracji. Działa to podobnie do poniższych:
+Jest to bardzo proste, ale istnieje bardziej zwięzły sposób osiągnięcia tego przy użyciu metody interfejsu API Konwencji. Metoda HAVING ma parametr typu Func&lt;PropertyInfo, T&gt;, który akceptuje PropertyInfo tak samo jak Metoda WHERE, ale oczekiwano zwrócenia obiektu. Jeśli zwracany obiekt ma wartość null, właściwość nie zostanie skonfigurowana, co oznacza, że właściwości można odfiltrować w taki sam sposób, jak w przypadku, gdy jest to inna metoda, która również przechwytuje zwracany obiekt i przekazuje go do metody Configure. Działa to w następujący sposób:
 
 ``` csharp
     modelBuilder.Properties()
@@ -216,15 +216,15 @@ Jest to dość proste, ale jest bardziej zwięzły sposób realizacji tego celu 
                 .Configure((config, att) => config.IsUnicode(att.Unicode));
 ```
 
-Atrybuty niestandardowe nie są Jedyny przypadek, kiedy używać Having metody przydaje się dowolnego miejsca, wymagających przeglądanie informacji o coś, co możesz filtrowania podczas konfigurowania właściwości lub typów.
+Atrybuty niestandardowe nie są jedynym powodem korzystania z metody HAVING. jest to przydatne wszędzie tam, gdzie trzeba się dowiedzieć, na czym polega filtrowanie podczas konfigurowania typów lub właściwości.
 
- 
+ 
 
 ## <a name="configuring-types"></a>Konfigurowanie typów
 
-Do tej pory wszystkie nasze konwencje zostały dla właściwości, ale istnieje inny obszar konwencje interfejsu API na temat konfigurowania typów w modelu. Proces jest podobny do Konwencji, które zauważono pory, ale opcje konfigurowania wewnątrz będzie znajdować się w jednostce zamiast właściwości poziomu.
+Dotychczas wszystkie nasze konwencje zostały przeznaczone dla właściwości, ale istnieje inny obszar interfejsu API Konwencji do konfigurowania typów w modelu. Środowisko jest podobne do obowiązujących Konwencji, ale opcje w obszarze Konfiguracja będą znajdować się w jednostkach, a nie na poziomie właściwości.
 
-Jedną z rzeczy, które konwencje poziomu typu mogą być bardzo przydatne podczas ulegnie zmianie tabeli konwencji nazewnictwa, aby mapować do istniejącego schematu, która różni się od domyślnej EF lub Utwórz nową bazę danych z różnych konwencji nazewnictwa. W tym celu najpierw należy metodę, która może zaakceptować TypeInfo dla typu w naszym modelu i zwraca nazwę tabeli dla tego typu, co należy:
+Jedną z elementów, które mogą być w rzeczywistości użyteczne w przypadku zmiany konwencji nazewnictwa tabel, w celu zamapowania na istniejący schemat, który różni się od wartości domyślnej EF lub utworzyć nową bazę danych z inną konwencją nazewnictwa. Aby to zrobić, najpierw musimy przyjąć metodę, która może akceptować elementelement dla typu w naszym modelu i zwracać informacje o nazwie tabeli dla tego typu:
 
 ``` csharp
     private string GetTableName(Type type)
@@ -235,20 +235,20 @@ Jedną z rzeczy, które konwencje poziomu typu mogą być bardzo przydatne podcz
     }
 ```
 
-Ta metoda przyjmuje typ i zwraca ciąg, który używa małą znakami podkreślenia zamiast CamelCase. W naszym modelu oznacza to, że klasa ProductCategory zostaną zmapowane do tabeli o nazwie produktu\_kategorii zamiast oddzielały kategorie Productcategory.
+Ta metoda przyjmuje typ i zwraca ciąg, który używa małych liter z podkreśleniami zamiast CamelCase. W naszym modelu oznacza to, że Klasa ProductCategory zostanie zmapowana do tabeli o nazwie Product\_Category zamiast ProductCategories.
 
-Gdy będziemy już mieć tej metody można nazywamy je w Konwencji następująco:
+Po zastosowaniu tej metody możemy ją wywoływać w Konwencji podobnej do tej:
 
 ``` csharp
     modelBuilder.Types()
                 .Configure(c => c.ToTable(GetTableName(c.ClrType)));
 ```
 
-Ta konwencja konfiguruje każdy typ w naszym modelu do mapowania nazwy tabeli, który jest zwracany z metody naszych GetTableName. Ta konwencja jest odpowiednikiem wywołania metody ToTable dla każdej jednostki w modelu używając interfejsu API Fluent.
+Ta konwencja umożliwia skonfigurowanie każdego typu w naszym modelu do mapowania na nazwę tabeli zwracaną z naszej metody gettablename. Ta konwencja jest równoznaczna z wywołaniem metody ToTable dla każdej jednostki w modelu przy użyciu interfejsu API Fluent.
 
-Jedno należy zwrócić uwagę na to jest, że po wywołaniu ToTable EF potrwa ciąg, który jest udostępniany jako nazwę tabeli dokładnie, bez jakichkolwiek pluralizacja, który normalnie jak podczas określania nazwy tabeli. To dlatego nazwa tabeli z Konwencji naszego produktu\_kategorii zamiast produktu\_kategorii. Możemy rozwiązać, w Konwencji naszego poprzez wywołanie usługi pluralizacja określić główną przyczynę.
+Jednym z nich jest to, że po wywołaniu ToTable EF przyjmuje ciąg, który podano jako dokładną nazwę tabeli, bez żadnego z pluralizacja, które normalnie zwykle podczas określania nazw tabel. Z tego względu nazwa tabeli z naszej Konwencji to produkt\_kategorii, a nie kategorii\_produktu. Możemy rozwiązać ten problem w naszej Konwencji, wykonując wywołanie do usługi pluralizacja Service wypróbujemy.
 
-W poniższym kodzie użyto [rozpoznawania zależności](~/ef6/fundamentals/configuring/dependency-resolution.md) funkcja, dodany do programu EF6 można pobrać usługi pluralizacja, który był używany EF i naszych Nazwa tabeli w liczbie mnogiej.
+W poniższym kodzie zostanie użyta funkcja [rozpoznawania zależności](~/ef6/fundamentals/configuring/dependency-resolution.md) dodana w Ef6 do pobrania usługi pluralizacja, która mogłaby zostać użyta, i pluralize naszej nazwy tabeli.
 
 ``` csharp
     private string GetTableName(Type type)
@@ -264,11 +264,11 @@ W poniższym kodzie użyto [rozpoznawania zależności](~/ef6/fundamentals/confi
 ```
 
 > [!NOTE]
-> Ogólny wersję GetService jest metodą rozszerzenia w przestrzeni nazw System.Data.Entity.Infrastructure.DependencyResolution, musisz dodać za pomocą instrukcji do kontekstu w taki sposób, aby można było go używać.
+> Ogólna wersja GetService jest metodą rozszerzającą w przestrzeni nazw System. Data. Entity. Infrastructure. DependencyResolution, dlatego należy dodać instrukcję using do kontekstu, aby można było jej używać.
 
 ### <a name="totable-and-inheritance"></a>ToTable i dziedziczenie
 
-Innym ważnym aspektem ToTable jest to, że jeśli jawnie mapujesz typ danej tabeli, a następnie można zmienić strategię mapowania, która platforma EF użyje. Jeśli wywołasz ToTable dla każdego typu w hierarchii dziedziczenia, przekazując nazwę typu jako nazwę tabeli, tak jak opisano powyżej, następnie zostanie zmieniony strategii mapowania Tabela wg hierarchii (TPH) domyślny Tabela wg typu (TPT). Najlepszym sposobem, aby opisać to jest whith konkretny przykład:
+Innym ważnym aspektem ToTable jest to, że jeśli jawnie mapujesz typ do danej tabeli, możesz zmienić strategię mapowania, która będzie używana przez EF. Jeśli wywołasz ToTable dla każdego typu w hierarchii dziedziczenia, przekazanie nazwy typu jako nazwy tabeli jak wspomniano powyżej, zmienisz domyślną strategię mapowania tabeli na hierarchię (TPH) na typ tabeli (TPT). Najlepszym sposobem opisywania tej metody jest whith konkretnego przykładu:
 
 ``` csharp
     public class Employee
@@ -283,27 +283,27 @@ Innym ważnym aspektem ToTable jest to, że jeśli jawnie mapujesz typ danej tab
     }
 ```
 
-Domyślnie pracownika i Menedżera są mapowane na tej samej tabeli (pracownicy) w bazie danych. Tabela będzie zawierać zarówno pracowników i menedżerów, a kolumna dyskryminatora, który poinformuje, jakiego typu wystąpienia są przechowywane w każdym wierszu. Jest to mapowanie TPH, ponieważ ma jedną tabelę dla hierarchii. Jednak jeśli wywołasz ToTable na obu classe następnie każdego typu będzie zamiast tego można zamapować na własną tabelę, znany także jako TPT, ponieważ każdy typ ma własną tabelę.
+Domyślnie zarówno pracownik, jak i Menedżer są zamapowane na tę samą tabelę (pracownicy) w bazie danych. Tabela będzie zawierać zarówno pracowników, jak i menedżerów z kolumną rozróżniacza, która informuje, jakiego typu wystąpienie jest przechowywane w każdym wierszu. Jest to mapowanie TPH, ponieważ istnieje jedna tabela dla hierarchii. Jeśli jednak wywołasz ToTable na obu Classe, wówczas każdy typ będzie mapowany do własnej tabeli, znanej również jako TPT, ponieważ każdy typ ma własną tabelę.
 
 ``` csharp
     modelBuilder.Types()
                 .Configure(c=>c.ToTable(c.ClrType.Name));
 ```
 
-Powyższy kod będzie zmapowana do struktury tabeli, która wygląda podobnie do poniższego:
+Powyższy kod zostanie zmapowany na strukturę tabeli, która wygląda następująco:
 
-![Przykład Tpt](~/ef6/media/tptexample.jpg)
+![Przykład TPT](~/ef6/media/tptexample.jpg)
 
-Można tego uniknąć, a obsługa TPH domyślnego mapowania na kilka sposobów:
+Można to uniknąć i zachować domyślne mapowanie TPH na kilka sposobów:
 
-1.  Wywołaj ToTable z taką samą nazwę tabeli, dla każdego typu w hierarchii.
-2.  Wywołaj ToTable tylko w klasie bazowej, hierarchii, w tym przykładzie, która byłaby pracownika.
+1.  Wywołaj ToTable z tą samą nazwą tabeli dla każdego typu w hierarchii.
+2.  Wywołaj ToTable tylko w klasie podstawowej hierarchii, w naszym przykładzie, który byłby pracownikiem.
 
- 
+ 
 
 ## <a name="execution-order"></a>Kolejność wykonywania
 
-Konwencje działają w sposób ostatniego wins, taki sam jak interfejs Fluent API. Oznacza to, że jeśli piszesz dwóch Konwencjach skonfigurowanych na tej samej opcji tej właściwości, a następnie ostatni z nich do wykonania usługi wins. Na przykład w poniższym kodzie maksymalna długość wszystkich ciągów ma wartość 500, ale możemy następnie skonfiguruj wszystkie właściwości w modelu, który ma mieć maksymalną długość równą 250 o nazwie Name.
+Konwencje działają w ostatnim systemie WINS, tak samo jak w przypadku interfejsu API Fluent. Oznacza to, że jeśli piszesz dwie konwencje, które skonfigurują tę samą opcję tej samej właściwości, to ostatni z nich do wykonania usługi WINS. Przykładowo w kodzie poniżej maksymalnej długości wszystkich ciągów jest ustawiona na 500, ale następnie skonfigurujemy wszystkie właściwości o nazwie name w modelu, aby mieć maksymalną długość 250.
 
 ``` csharp
     modelBuilder.Properties<string>()
@@ -314,23 +314,23 @@ Konwencje działają w sposób ostatniego wins, taki sam jak interfejs Fluent AP
                 .Configure(c => c.HasMaxLength(250));
 ```
 
-Ponieważ Konwencji, aby ustawić maksymalną długość do 250 po ten, który ustawia wszystkie ciągi na 500, wszystkie właściwości o nazwie Name w naszym modelu będą mieć MaxLength 250 podczas innych ciągów, takich jak opisy, będzie wynosić 500. Za pomocą Konwencji w ten sposób oznacza, że może zapewnić Konwencję ogólnych dla typów lub właściwości w modelu i następnie zastąpić te je dla podzbiorów, które różnią się.
+Ze względu na to, że Konwencja ustawiająca maksymalną długość na 250 jest późniejsza niż ta, która ustawia wszystkie ciągi na 500, wszystkie właściwości o nazwie name w naszym modelu będą mieć wartość MaxLength 250, natomiast wszystkie inne ciągi, takie jak opisy, byłyby 500. Stosowanie Konwencji w ten sposób oznacza, że można dostarczyć ogólną Konwencję dla typów lub właściwości w modelu, a następnie overide je dla podzestawów, które różnią się.
 
-Fluent API i adnotacje danych może również zastąpić Konwencji w szczególnych przypadkach. W naszym powyższym przykładzie Jeśli firma Microsoft gdyby użyto Fluent API, aby ustawić maksymalną długość właściwości następnie może mieć testujemy go przed lub po Konwencji, ponieważ dokładniejszą Fluent API wygra nad bardziej ogólnych Konwencji konfiguracji.
+Interfejs API Fluent i adnotacje danych mogą również służyć do przesłania Konwencji w określonych przypadkach. W naszym przykładzie powyżej, jeśli użyto interfejsu API Fluent do ustawienia maksymalnej długości właściwości, możemy ją umieścić przed lub po Konwencji, ponieważ bardziej szczegółowy interfejs API Fluent będzie omawiać bardziej ogólną Konwencję konfiguracyjną.
 
- 
+ 
 
 ## <a name="built-in-conventions"></a>Konwencje wbudowane
 
-Ponieważ konwencje niestandardowe mogą mieć wpływ domyślnych Konwencji Code First, może być przydatne do dodania konwencje do uruchomienia przed lub po innym Konwencji. W tym celu można użyć AddBefore i AddAfter metod zbierania konwencje na Twoje pochodnego typu DbContext. Poniższy kod zwiększałoby klasy Konwencji utworzony wcześniej tak, aby było uruchamiane przed wbudowanej w Konwencji klucza odnajdywania.
+Ponieważ konwencje niestandardowe mogą mieć wpływ domyślne konwencje Code First, może być przydatne do dodawania Konwencji do uruchamiania przed lub po innej konwencji. W tym celu można użyć metod addbefore i addafter w ramach kolekcji Konwencji w pochodnym kontekście DbContext. Poniższy kod dodaje utworzoną wcześniej klasę Konwencji tak, aby była uruchamiana przed wbudowaną Konwencją odnajdowania kluczy.
 
 ``` csharp
     modelBuilder.Conventions.AddBefore<IdKeyDiscoveryConvention>(new DateTime2Convention());
 ```
 
-Ma to być najbardziej przydatne podczas dodawania konwencje, które mają zostać uruchomione przed lub po wbudowanej Konwencji, lista wbudowanej konwencje można znaleźć tutaj: [Namespace System.Data.Entity.ModelConfiguration.Conventions](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx) .
+Jest to najbardziej używany podczas dodawania Konwencji, które muszą zostać uruchomione przed lub po wbudowaną konwencje, Lista wbudowanych Konwencji można znaleźć tutaj: [System. Data. Entity. ModelConfiguration. Conventions](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).
 
-Można również usunąć konwencje, które mają być stosowane do modelu. Aby usunąć z Konwencją, należy użyć metody Remove. Oto przykład usuwania PluralizingTableNameConvention.
+Można również usunąć konwencje, które nie mają być stosowane do modelu. Aby usunąć Konwencję, użyj metody Remove. Oto przykład usunięcia PluralizingTableNameConvention.
 
 ``` csharp
     protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -1,31 +1,31 @@
 ---
-title: Pierwsze adnotacje danych - EF6 kodu
+title: Code First adnotacje danych — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: fcd01aef7303573001460b352f8099b2cc6e224a
-ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
+ms.openlocfilehash: 9fac2a90c46d78ff5fd632800cc0050276467773
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 07/17/2019
-ms.locfileid: "68286477"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419186"
 ---
-# <a name="code-first-data-annotations"></a>Adnotacje danych na pierwszym kodu
+# <a name="code-first-data-annotations"></a>Code First adnotacje danych
 > [!NOTE]
-> **EF4.1 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 4.1. Jeśli używasz starszej wersji, niektóre lub wszystkie z tych informacji nie ma zastosowania.
+> **Dr 4.1 tylko** — funkcje, interfejsy API itp. omówione na tej stronie zostały wprowadzone w Entity Framework 4,1. Jeśli używasz wcześniejszej wersji, niektóre lub wszystkie te informacje nie są stosowane.
 
-Zawartość na tej stronie są zaczerpnięte z artykułu pierwotnie napisane przez Julie Lerman (\<http://thedatafarm.com>).
+Zawartość na tej stronie jest dostosowana z artykułu utworzonego pierwotnie przez Julie Lerman (\<http://thedatafarm.com>).
 
-Entity Framework Code First pozwala na używanie własnych klas domeny do reprezentowania model, który zależy od platformy EF do wykonywania zapytań, zmień śledzenie i aktualizowanie funkcji. Kod najpierw wykorzystuje wzorzec programowania, określane jako Konwencja za pośrednictwem konfiguracji. Najpierw kod będzie założono, że Twoich zajęciach zgodne z konwencjami Entity Framework, w takim przypadku będą działać automatycznie informacje o tym, jak wykonać to zadanie. Jednak jeśli Twoich zajęciach nie wykonuj tych konwencji, masz możliwość dodawania konfiguracje do swojej klasy zapewniające EF niezbędne informacje.
+Entity Framework Code First umożliwia korzystanie z własnych klas domeny do reprezentowania modelu, w którym opiera się program Dr, aby wykonywać zapytania, śledzenie zmian i aktualizowanie funkcji. Code First wykorzystuje wzorzec programistyczny nazywany "Konwencją od konfiguracji". W Code First założono, że klasy są zgodne z konwencjami Entity Framework i w takim przypadku automatycznie postanowili, jak wykonać swoje zadanie. Jeśli jednak klasy nie są zgodne z tymi konwencjami, można dodać konfiguracje do klas, aby dostarczyć EF z wymaganymi informacjami.
 
-Kod daje najpierw dodaj te konfiguracje do swoich klas na dwa sposoby. Jeden używa proste atrybuty o nazwie DataAnnotations, a drugi używa Code First Fluent interfejsu API, który zapewnia sposób, aby opisać konfiguracje obowiązkowo, w kodzie.
+Code First zapewnia dwa sposoby dodawania tych konfiguracji do klas. Jeden z nich korzysta z prostych atrybutów o nazwie DataAnnotations, a drugi korzysta z interfejsu API Fluent Code First, który zapewnia sposób bezpodstawnego opisywania konfiguracji w kodzie.
 
-Ten artykuł koncentruje się na konfigurowanie Twoich zajęciach — wyróżnianie najczęściej wymagane konfiguracje, za pomocą DataAnnotations (w przestrzeni nazw System.ComponentModel.DataAnnotations). DataAnnotations również są zrozumiałe przez kilka aplikacji .NET, takich jak ASP.NET MVC, która umożliwia tych aplikacji korzystać z tej samej adnotacji dla walidacji po stronie klienta.
+Ten artykuł koncentruje się na używaniu adnotacji danych (w przestrzeni nazw System. ComponentModel. DataAnnotations) w celu skonfigurowania klas — wyróżnianie najczęściej potrzebnych konfiguracji. Adnotacje DataAnnotations są również zrozumiałe dla wielu aplikacji platformy .NET, takich jak ASP.NET MVC, dzięki czemu te aplikacje mogą korzystać z tych samych adnotacji w przypadku walidacji po stronie klienta.
 
 
 ## <a name="the-model"></a>Model
 
-Zademonstruję DataAnnotations pierwszy kodu przy użyciu prostego pary klasy: Blog i Post.
+Pokażę Code First DataAnnotations z prostą parą klas: blog i post.
 
 ``` csharp
     public class Blog
@@ -47,15 +47,15 @@ Zademonstruję DataAnnotations pierwszy kodu przy użyciu prostego pary klasy: B
     }
 ```
 
-Jak są one klasy blogu i wpis wygodnie Konwencją pierwszy kodu i wymagają nie ulepszeń, aby włączyć zgodności EF. Jednak również umożliwia adnotacje zapewnienie EF więcej informacji na temat klas i bazy danych, które mapują.
+Podobnie jak w przypadku, w blogu i na wpisach klasy te wygodnie przestrzegać pierwszej Konwencji kodu i nie wymagają żadnych dostosowań, aby zapewnić kompatybilność EF. Można jednak również użyć adnotacji, aby uzyskać więcej informacji na temat klas i bazy danych, do której są mapowane.
 
  
 
-## <a name="key"></a>Key
+## <a name="key"></a>Klucz
 
-Entity Framework opiera się na każdej jednostki o wartości klucza, który służy do śledzenia jednostek. Jeden Konwencji Code First jest niejawne właściwości klucza; Kod najpierw sprawdza właściwości o nazwie "Id" lub kombinacji nazwy klasy i "Id", takich jak "BlogId". Ta właściwość będzie zmapowana do kolumny klucza podstawowego w bazie danych.
+Entity Framework opiera się na każdej jednostce mającej wartość klucza, która jest używana do śledzenia jednostek. Jedną z Konwencji Code First są niejawne właściwości klucza; Code First będzie szukać właściwości o nazwie "ID" lub kombinacji nazwy klasy i "ID", takiej jak "BlogId". Ta właściwość zostanie zamapowana na kolumnę klucza podstawowego w bazie danych.
 
-Klasy blogu i wpis stosują taką Konwencję. Co zrobić, jeśli ich nie? Co zrobić, jeśli użyto nazwy w blogu *PrimaryTrackingKey* w zamian lub nawet *foo*? Jeśli kod najpierw nie może znaleźć właściwość, która pasuje do niniejszej Konwencji spowoduje zgłoszenie wyjątku, ze względu na wymagania programu Entity Framework, musi mieć właściwość klucza. Można użyć klucza adnotacji, aby określić, które właściwości, które ma być używany jako EntityKey.
+Zarówno w blogu, jak i po tej Konwencji są stosowane następujące klasy. Co zrobić, jeśli nie? Co zrobić, jeśli blog użył nazwy *PrimaryTrackingKey* zamiast tego, a nawet *foo*? Jeśli kod nie znajduje właściwości zgodnej z tą konwencją, zgłosi wyjątek z powodu Entity Framework wymaga, aby właściwość klucza była wymagana. Możesz użyć adnotacji klucza, aby określić, która właściwość ma być używana jako obiekt EntityKey.
 
 ``` csharp
     public class Blog
@@ -68,13 +68,13 @@ Klasy blogu i wpis stosują taką Konwencję. Co zrobić, jeśli ich nie? Co zro
     }
 ```
 
-Jeśli najpierw przy użyciu kodu jest funkcją generowanie bazy danych, tabela blogu będzie miała kolumny klucza podstawowego o nazwie PrimaryTrackingKey, który również jest zdefiniowany jako tożsamość domyślnie.
+Jeśli używasz funkcji generowania bazy danych w pierwszej kolejności, tabela blogu będzie miała kolumnę klucza podstawowego o nazwie PrimaryTrackingKey, która również jest definiowana jako tożsamość domyślnie.
 
-![Blog tabeli za pomocą klucza podstawowego](~/ef6/media/jj591583-figure01.png)
+![Tabela blogów z kluczem podstawowym](~/ef6/media/jj591583-figure01.png)
 
 ### <a name="composite-keys"></a>Klucze złożone
 
-Entity Framework obsługuje kluczy złożonych — klucze podstawowe, które składają się z więcej niż jednej właściwości. Na przykład może mieć klasy usługi Passport, którego klucz podstawowy jest kombinacją PassportNumber i IssuingCountry.
+Entity Framework obsługuje klucze złożone — klucze podstawowe, które składają się z więcej niż jednej właściwości. Na przykład może istnieć Klasa paszportu, której klucz podstawowy jest kombinacją PassportNumber i IssuingCountry.
 
 ``` csharp
     public class Passport
@@ -88,14 +88,14 @@ Entity Framework obsługuje kluczy złożonych — klucze podstawowe, które sk�
     }
 ```
 
-Podjęto próbę użycia klasy powyżej w modelu platformy EF mogłoby spowodować `InvalidOperationException`:
+Próba użycia powyższej klasy w modelu EF spowoduje, że `InvalidOperationException`:
 
-*Nie można określić złożonego podstawowego klucza porządkowanie dla typu "Paszport". Użyj metody HasKey lub ColumnAttribute, aby określić zamówienia złożone kluczy podstawowych.*
+*Nie można określić porządkowania złożonego klucza podstawowego dla typu "Passport". Użyj metody ColumnAttribute lub Haskey —, aby określić zamówienie dla złożonych kluczy podstawowych.*
 
-Aby można było używać kluczy złożonych, platformy Entity Framework wymaga do definiowania porządku właściwości klucza. Można to zrobić przy użyciu adnotacji kolumny do określania kolejności.
+Aby można było używać kluczy złożonych, Entity Framework wymaga zdefiniowania zamówienia dla właściwości klucza. Można to zrobić za pomocą adnotacji kolumny, aby określić kolejność.
 
 >[!NOTE]
-> Wartość kolejności jest względna (a nie na podstawie indeksu), dzięki czemu można używać dowolnej wartości. Na przykład 100 do 200 byłoby dopuszczalne zamiast 1 i 2.
+> Wartość Order jest względna (a nie oparta na indeksach), więc można użyć dowolnych wartości. Na przykład 100 i 200 byłyby dopuszczalne zamiast 1 i 2.
 
 ``` csharp
     public class Passport
@@ -111,9 +111,9 @@ Aby można było używać kluczy złożonych, platformy Entity Framework wymaga 
     }
 ```
 
-Jeśli jednostki z kluczy obcych złożonych, należy określić w tej samej kolumnie, porządkowanie, który był używany dla odpowiednich właściwości klucza podstawowego.
+Jeśli masz jednostki z złożonymi kluczami obcymi, musisz określić tę samą kolejność kolumn, która została użyta dla odpowiednich właściwości klucza podstawowego.
 
-Tylko względną kolejność w ramach właściwości klucza obcego muszą być takie same, dokładne wartości, które są przypisane do **kolejność** nie muszą być zgodne. Na przykład w następującej klasy 3 i 4 może służyć zamiast 1 i 2.
+Tylko kolejność względna we właściwościach klucza obcego musi być taka sama, dokładne wartości przypisane do **kolejności** nie muszą być zgodne. Na przykład w przypadku następujących klas można użyć 3 i 4 zamiast 1 i 2.
 
 ``` csharp
     public class PassportStamp
@@ -135,63 +135,63 @@ Tylko względną kolejność w ramach właściwości klucza obcego muszą być t
     }
 ```
 
-## <a name="required"></a>Wymagane
+## <a name="required"></a>Wymagany
 
-Wymagane adnotacji informuje EF, czy określona właściwość jest wymagana.
+Wymagana adnotacja informuje Dr, że określona właściwość jest wymagana.
 
-Dodawanie wymaganych do właściwości Title wymusi EF (i MVC), aby upewnić się, że właściwość zawiera dane.
+Dodanie wymagane do właściwości title spowoduje wymuszenie EF (i MVC) w celu upewnienia się, że właściwość zawiera dane.
 
 ``` csharp
     [Required]
     public string Title { get; set; }
 ```
 
-Bez dodatkowego kodu i znaczników zmiany w aplikacji aplikacji MVC przeprowadzi weryfikację po stronie klienta, nawet dynamiczne tworzenie komunikat przy użyciu nazwy właściwości i adnotacji.
+W przypadku braku dodatkowych zmian kodu lub znaczników w aplikacji aplikacja MVC przeprowadzi weryfikację po stronie klienta, nawet dynamicznie kompilując komunikat przy użyciu nazw właściwości i adnotacji.
 
-![Utwórz stronę o tytule jest wymagana błąd](~/ef6/media/jj591583-figure02.png)
+![Błąd tworzenia strony z tytułem](~/ef6/media/jj591583-figure02.png)
 
-Wymagany atrybut wpłynie również na wygenerowanej bazy danych, wprowadzając mapowanej właściwości niedopuszczającej. Należy zauważyć, że pole tytułu została zmieniona na "nie ma wartości null".
+Wymagany atrybut będzie również miał wpływ na wytworzoną bazę danych, ponieważ nie dopuszcza ona wartości null dla mapowanej właściwości. Zwróć uwagę, że pole title zostało zmienione na wartość "not null".
 
 >[!NOTE]
-> W niektórych przypadkach może nie być możliwe dla kolumny w bazie danych, może nie dopuszczać wartości null, nawet jeśli właściwość jest wymagana. Na przykład, gdy przy użyciu danych strategii TPH dziedziczenia dla wielu typów są przechowywane w jednej tabeli. Jeśli typ pochodny obejmuje wymagana właściwość kolumny nie można dokonać innych niż null, ponieważ nie wszystkie typy w hierarchii mają ta właściwość.
+> W niektórych przypadkach może nie być możliwe, aby kolumna w bazie danych nie mogła dopuszczać wartości null, mimo że właściwość jest wymagana. Na przykład w przypadku korzystania z danych strategii dziedziczenia TPH dla wielu typów jest przechowywany w jednej tabeli. Jeśli typ pochodny zawiera wymaganą właściwość, nie można wprowadzić wartości null w kolumnie, ponieważ nie wszystkie typy w hierarchii będą mieć tę właściwość.
 
  
 
-![Blogi dotyczące tabeli](~/ef6/media/jj591583-figure03.png)
+![Tabela blogów](~/ef6/media/jj591583-figure03.png)
 
  
 
-## <a name="maxlength-and-minlength"></a>Element MaxLength i MinLength
+## <a name="maxlength-and-minlength"></a>MaxLength i MinLength
 
-Atrybuty MaxLength i MinLength umożliwiają określenie dodatkowych właściwości sprawdzania poprawności, tak jak w przypadku wymagany.
+Atrybuty MaxLength i MinLength umożliwiają określenie dodatkowych walidacji właściwości, tak jak w przypadku, gdy jest to wymagane.
 
-Oto BloggerName o wymagania dotyczące długości. W przykładzie pokazano również sposób łączenia atrybutów.
+Oto wymagania dotyczące długości. W przykładzie pokazano również, jak łączyć atrybuty.
 
 ``` csharp
     [MaxLength(10),MinLength(5)]
     public string BloggerName { get; set; }
 ```
 
-Adnotacja MaxLength wpłynie na bazie danych przez ustawienie właściwości długości do 10.
+Adnotacja MaxLength będzie miała wpływ na bazę danych, ustawiając długość właściwości na 10.
 
-![Tabela blogi, zawierająca maksymalna długość w kolumnie BloggerName](~/ef6/media/jj591583-figure04.png)
+![Tabela blogów pokazująca maksymalną długość w kolumnie Bloggername](~/ef6/media/jj591583-figure04.png)
 
-Adnotacja po stronie klienta w MVC i adnotacji po stronie serwera EF 4.1 zachowa weryfikacji ponownie dynamicznie tworzenie komunikat o błędzie: "Pole BloggerName musi być typu string lub tablicy o maksymalnej długości"10"." Ten komunikat jest nieco długi. Wiele adnotacje umożliwiają określenie komunikat o błędzie z atrybutem komunikat o błędzie.
+Adnotacja po stronie klienta MVC i adnotacja po stronie serwera EF 4,1 będą zarówno uwzględniane w tej weryfikacji, jak i ponownie dynamicznie kompilują komunikat o błędzie: "pole Bloggername musi być ciągiem lub typem tablicy o maksymalnej długości" 10 "." Ten komunikat jest nieco długi. Wiele adnotacji pozwala określić komunikat o błędzie z atrybutem ErrorMessage.
 
 ``` csharp
     [MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
     public string BloggerName { get; set; }
 ```
 
-Można również określić komunikat o błędzie w wymaganych adnotacji.
+W wymaganej adnotacji można także określić ErrorMessage.
 
-![Tworzenie strony przy użyciu niestandardowego komunikatu o błędzie](~/ef6/media/jj591583-figure05.png)
+![Utwórz stronę z niestandardowym komunikatem o błędzie](~/ef6/media/jj591583-figure05.png)
 
  
 
 ## <a name="notmapped"></a>NotMapped
 
-Kod Konwencji pierwsze decyduje o tym, że dla każdej właściwości, który jest obsługiwany typ danych jest reprezentowana w bazie danych. Ale to nie jest zawsze w przypadku aplikacji. Na przykład może mieć właściwości w klasie blogów, która tworzy kod, w oparciu o pola tytułu i BloggerName. Tej właściwości można tworzyć dynamicznie i nie musi być przechowywany. Możesz oznaczyć wszystkie właściwości, które nie są mapowane do bazy danych z adnotacją NotMapped, np. Ta właściwość BlogCode.
+Pierwsza Konwencja kodu wskazuje, że każda właściwość o obsługiwanym typie danych jest reprezentowana w bazie danych. Ale nie zawsze jest to przypadek w aplikacjach. Na przykład może istnieć właściwość w klasie blogu, która tworzy kod na podstawie pól tytuł i Bloggername. Tę właściwość można utworzyć dynamicznie i nie musi być przechowywana. Można oznaczyć wszystkie właściwości, które nie są mapowane do bazy danych za pomocą adnotacji NotMapped, takiej jak ta właściwość BlogCode.
 
 ``` csharp
     [NotMapped]
@@ -208,7 +208,7 @@ Kod Konwencji pierwsze decyduje o tym, że dla każdej właściwości, który je
 
 ## <a name="complextype"></a>ComplexType
 
-Nie jest niczym niezwykłym opisują jednostek domeny przez zestaw klas, a następnie warstwy tych klas do opisania całą jednostkę. Może na przykład dodać klasę o nazwie BlogDetails do modelu.
+Nie jest bardzo rzadko opisywanie jednostek domeny w zestawie klas, a następnie warstwowe klasy do opisywania kompletnej jednostki. Na przykład możesz dodać klasę o nazwie BlogDetails do modelu.
 
 ``` csharp
     public class BlogDetails
@@ -220,9 +220,9 @@ Nie jest niczym niezwykłym opisują jednostek domeny przez zestaw klas, a nast�
     }
 ```
 
-Należy zauważyć, że BlogDetails nie ma żadnych typów właściwości klucza. W przypadku projektowania opartego na domenach BlogDetails nazywa się obiektu wartości. Entity Framework odnosi się do obiektów wartości jako typy złożone.  Typy złożone nie mogą być śledzone własnych.
+Zwróć uwagę, że BlogDetails nie ma żadnego typu właściwości klucza. W projekcie opartym na domenie BlogDetails jest określany jako obiekt wartości. Entity Framework odnosi się do obiektów wartości jako typów złożonych.  Typy złożone nie mogą być śledzone we własnym zakresie.
 
-Jednak jako właściwość w klasie blogu BlogDetails będzie śledzona jako część obiektu blogu. Aby najpierw umożliwia to rozpoznawanie kodu należy oznaczyć klasę BlogDetails jako ComplexType.
+Jednak jako właściwość w klasie blogu BlogDetails ją będzie śledzony jako część obiektu blogu. Aby najpierw rozpoznać kod, należy oznaczyć klasę BlogDetails jako ComplexType.
 
 ``` csharp
     [ComplexType]
@@ -235,105 +235,105 @@ Jednak jako właściwość w klasie blogu BlogDetails będzie śledzona jako cz�
     }
 ```
 
-Teraz można dodać właściwość w klasie blogu do reprezentowania BlogDetails na blogu.
+Teraz możesz dodać właściwość w klasie blogu, aby reprezentować BlogDetails dla tego bloga.
 
 ``` csharp
         public BlogDetails BlogDetail { get; set; }
 ```
 
-W bazie danych w tabeli blogu będzie zawierać wszystkie właściwości blogu, w tym właściwości zawarte w jego właściwość BlogDetail. Domyślnie każdej z nich jest poprzedzone nazwą typu złożonego BlogDetail.
+W bazie danych tabela blogów zawiera wszystkie właściwości blogu, w tym właściwości zawarte we właściwości BlogDetail. Domyślnie każda z nich jest poprzedzona nazwą typu złożonego, BlogDetail.
 
-![Blog tabelę z typu złożonego](~/ef6/media/jj591583-figure06.png)
+![Tabela blogów z typem złożonym](~/ef6/media/jj591583-figure06.png)
 
 
 ## <a name="concurrencycheck"></a>ConcurrencyCheck
 
-Adnotacja ConcurrencyCheck pozwala Flaga jedną lub więcej właściwości, które ma być używany dla współbieżności sprawdzanie w bazie danych, gdy użytkownik edytuje lub usunięcie jednostki. Jeśli masz doświadczenie w pracy z projektantem EF, jest to zgodne z ustawienie właściwości przed na stałe.
+Adnotacja ConcurrencyCheck umożliwia Oflagowanie jednej lub wielu właściwości, które mają być używane na potrzeby sprawdzania współbieżności w bazie danych, gdy użytkownik edytuje lub usunie jednostkę. Jeśli pracujesz z projektantem EF, jest to zgodne z ustawieniem ConcurrencyMode właściwości, który został naprawiony.
 
-Zobaczmy, jak działa ConcurrencyCheck, dodając ją do właściwości BloggerName.
+Zobaczmy, jak działa ConcurrencyCheck przez dodanie go do właściwości Bloggername.
 
 ``` csharp
     [ConcurrencyCheck, MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
     public string BloggerName { get; set; }
 ```
 
-Po wywołaniu funkcji SaveChanges ze względu na adnotacji ConcurrencyCheck pola BloggerName oryginalna wartość tej właściwości będzie używany w aktualizacji. Polecenie będzie podejmować próby zlokalizowania prawidłowego wiersza, filtrując nie tylko na wartości klucza, ale także w oryginalnej wartości BloggerName.  Poniżej przedstawiono krytycznych części polecenia UPDATE wysyłane do bazy danych, gdzie można zobaczyć, polecenie spowoduje zaktualizowanie wiersza, który ma PrimaryTrackingKey jest 1 i BloggerName "Julie", który podczas oryginalnej wartości w tym blogu został pobrany z bazy danych.
+Gdy metody SaveChanges jest wywoływana, ze względu na adnotację ConcurrencyCheck w polu Bloggername, oryginalna wartość tej właściwości zostanie użyta w ramach aktualizacji. Polecenie spróbuje zlokalizować prawidłowy wiersz przez filtrowanie nie tylko dla wartości klucza, ale również od oryginalnej wartości Bloggername.  Poniżej przedstawiono krytyczne części polecenia aktualizacji wysyłane do bazy danych, w którym można zobaczyć, że polecenie zaktualizuje wiersz, który ma PrimaryTrackingKey ma wartość 1, a w polu Bloggername elementu "Julie", który był oryginalną wartością, gdy ten blog został pobrany z bazy danych.
 
 ``` SQL
     where (([PrimaryTrackingKey] = @4) and ([BloggerName] = @5))
     @4=1,@5=N'Julie'
 ```
 
-Jeśli ktoś zmienił nazwę blogger blogu w tym samym czasie, ta aktualizacja zakończy się niepowodzeniem, a otrzymasz DbUpdateConcurrencyException, który należy do obsługi.
+Jeśli ktoś zmienił nazwę usługi Blogger dla tego bloga w międzyczasie, ta aktualizacja zakończy się niepowodzeniem i uzyskasz DbUpdateConcurrencyException, które należy obsłużyć.
 
  
 
 ## <a name="timestamp"></a>TimeStamp
 
-Jest to bardziej powszechne, aby używać pól rowversion lub sygnatura czasowa sprawdzania współbieżności. Jednak zamiast przy użyciu adnotacji ConcurrencyCheck, można użyć bardziej szczegółowe adnotacji sygnatury czasowej, tak długo, jak typ właściwości to tablica bajtów. Kod najpierw traktują właściwości sygnatury czasowej niż jako właściwości ConcurrencyCheck, ale jej będzie również upewnij się, że pole bazy danych, która najpierw generuje kod innych niż null. Może mieć tylko jedną właściwość sygnatury czasowej w danej klasy.
+Jest to bardziej powszechne, aby użyć pól rowversion lub timestamp do sprawdzania współbieżności. Zamiast używać adnotacji ConcurrencyCheck, można użyć bardziej specyficznej adnotacji sygnatury czasowej, tak długo, jak typ właściwości jest tablicą bajtów. Kod najpierw traktuje właściwości sygnatur czasowych tak samo jak właściwości ConcurrencyCheck, ale również upewnij się, że pole bazy danych, które generuje najpierw kod, nie dopuszcza wartości null. W danej klasie można mieć tylko jedną właściwość timestamp.
 
-Dodawanie następującej właściwości do klasy Blog:
+Dodanie następującej właściwości do klasy bloga:
 
 ``` csharp
     [Timestamp]
     public Byte[] TimeStamp { get; set; }
 ```
 
-wyniki w kodzie, najpierw tworząc kolumnę sygnatur czasowych nie dopuszcza wartości null w tabeli bazy danych.
+wyniki w kodzie najpierw tworzą kolumnę znacznika czasu niedopuszczające wartości null w tabeli bazy danych.
 
-![Blogi tabeli z kolumną sygnatury czasu](~/ef6/media/jj591583-figure07.png)
+![Tabela blogów z kolumną sygnatury czasowej](~/ef6/media/jj591583-figure07.png)
 
  
 
-## <a name="table-and-column"></a>Tabel i kolumn
+## <a name="table-and-column"></a>Tabela i kolumna
 
-Pozwalasz Code First utworzyć bazę danych, można zmienić nazwy tabel i kolumn, które, która zostanie utworzona. Umożliwia także Code First przy użyciu istniejącej bazy danych. Ale nie zawsze jest przypadek, że nazwy klas i właściwości w domenie pasują do nazw tabel i kolumn w bazie danych.
+Jeśli chcesz Code First utworzyć bazę danych, możesz zmienić nazwę tabel i kolumn, które tworzy. Możesz również użyć Code First z istniejącą bazą danych. Ale nie zawsze jest to przypadek, że nazwy klas i właściwości w domenie są zgodne z nazwami tabel i kolumn w bazie danych.
 
-Moje klasy ma nazwę blogu i zgodnie z Konwencją kod najpierw przyjęto założenie, że to będzie zmapowana do tabeli o nazwie blogów. Jeśli tak nie jest atrybutem tabeli można określić nazwę tabeli. Tutaj na przykład adnotacja jest określającą, czy nazwa tabeli jest InternalBlogs.
+Moja Klasa jest nazywana blogiem i Konwencją, kod najpierw przyjmuje, że zostanie on zmapowany do tabeli o nazwie blogi. Jeśli tak nie jest, możesz określić nazwę tabeli z atrybutem tabeli. Na przykład adnotacja określa, że nazwa tabeli to InternalBlogs.
 
 ``` csharp
     [Table("InternalBlogs")]
     public class Blog
 ```
 
-Adnotacja kolumny jest więcej doświadczenie podczas określania atrybutów zamapowanych kolumn. Można zastrzec nazwę, typ danych lub nawet kolejność, w której kolumna pojawia się w tabeli. Oto przykład atrybut kolumny.
+Adnotacja kolumny to więcej doświadczony w określaniu atrybutów mapowanej kolumny. Można określić nazwę, typ danych, a nawet kolejność, w jakiej w tabeli pojawia się kolumna. Oto przykład atrybutu Column.
 
 ``` csharp
     [Column("BlogDescription", TypeName="ntext")]
     public String Description {get;set;}
 ```
 
-Nie należy mylić w kolumnie Nazwa typu atrybutu o DataAnnotation typu danych. Typ danych jest adnotacja używane dla interfejsu użytkownika i jest ignorowana przez rozwiązanie Code First.
+Nie należy mylić atrybutu TypeName kolumny z adnotacją datadatatype. DataType jest adnotacją użytą dla interfejsu użytkownika i jest ignorowana przez Code First.
 
-Oto tabeli po jest zostały ponownie wygenerowane. Nazwa tabeli został zmieniony na InternalBlogs i opis kolumny z typu złożonego jest teraz BlogDescription. Ponieważ nazwa została określona w adnotacji, kod najpierw nie będzie używać konwencji początkowych nazwa kolumny o nazwie typu złożonego.
+Poniżej znajduje się tabela po jej ponownej generacji. Nazwa tabeli została zmieniona na InternalBlogs, a kolumna opisu typu złożonego jest teraz BlogDescription. Ponieważ nazwa została określona w adnotacji, kod pierwszy nie będzie używać konwencji rozpoczynającej nazwę kolumny o nazwie typu złożonego.
 
-![Tabela blogi i kolumny, zmieniono jego nazwę](~/ef6/media/jj591583-figure08.png)
+![Zmieniono nazwę tabeli i kolumny blogów](~/ef6/media/jj591583-figure08.png)
 
  
 
 ## <a name="databasegenerated"></a>DatabaseGenerated
 
-Funkcje bazy danych ważna jest możliwość mają być obliczane właściwości. Jeśli masz mapowania klas Code First tabel zawierających kolumny obliczane, nie ma programu Entity Framework, aby spróbować zaktualizować te kolumny. Jednak EF w celu uzyskania tych wartości z bazy danych, po zostały wstawione lub zaktualizowane dane. Do tych właściwości w klasie wraz z wyliczenia obliczane, można użyć adnotacji DatabaseGenerated. Inne typy wyliczeniowe to: Brak i tożsamości.
+Ważne funkcje bazy danych to możliwość posiadania obliczanych właściwości. Jeśli mapujesz klasy Code First do tabel zawierających kolumny obliczane, nie chcesz, aby Entity Framework do aktualizacji tych kolumn. Ale chcesz, aby program Dr zwracał te wartości z bazy danych po wstawieniu lub zaktualizowaniu danych. Możesz użyć adnotacji DatabaseGenerated, aby oflagować te właściwości w klasie wraz z obliczanym wyliczeniem. Inne wyliczenia to brak i tożsamość.
 
 ``` csharp
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTime DateCreated { get; set; }
 ```
 
-Można użyć bazy danych, generowany dla kolumn bajtów lub sygnatura czasowa, gdy kod najpierw generuje bazy danych, w przeciwnym razie należy używać tylko to po wskazaniu istniejących baz danych, ponieważ kod najpierw nie będzie można określić formułę dla kolumny obliczanej.
+Możesz użyć bazy danych wygenerowanej w kolumnach bajtowych lub sygnatur czasowych, gdy pierwszy generuje bazę danych, w przeciwnym razie należy używać jej tylko podczas wskazywania istniejących baz danych, ponieważ kod nie będzie mógł określić formuły dla kolumny obliczanej.
 
-Już wspomniano powyżej, domyślnie, właściwość klucza, która jest liczbą całkowitą staną się klucza tożsamości w bazie danych. Który będzie taka sama jak ustawienie DatabaseGenerated DatabaseGeneratedOption.Identity. Jeśli nie chcesz go jako klucza tożsamości, można ustawić wartości do DatabaseGeneratedOption.None.
+Przeczytasz powyżej, ponieważ domyślnie właściwość klucza, która jest liczbą całkowitą, staje się kluczem tożsamości w bazie danych. Jest to takie samo, jak ustawienie DatabaseGenerated na DatabaseGeneratedOption. Identity. Jeśli nie chcesz, aby był on kluczem tożsamości, możesz ustawić wartość na DatabaseGeneratedOption. None.
 
  
 
 ## <a name="index"></a>Indeks
 
 > [!NOTE]
-> **EF6.1 począwszy tylko** -atrybutu indeksu została wprowadzona w programie Entity Framework 6.1. Informacje przedstawione w tej sekcji nie ma zastosowania, jeśli używasz starszej wersji.
+> **Dr 6.1 tylko** -atrybut indeksu został wprowadzony w Entity Framework 6,1. Jeśli używasz wcześniejszej wersji, informacje przedstawione w tej sekcji nie są stosowane.
 
-Można utworzyć indeksu w co najmniej jedną kolumnę, za pomocą **IndexAttribute**. Dodawanie atrybutu do jednej lub więcej właściwości będzie powodować EF utworzyć odpowiedni indeks w bazie danych, podczas tworzenia bazy danych lub tworzenia szkieletu odpowiednich **CreateIndex** wywołuje się, jeśli używasz migracje Code First.
+Możesz utworzyć indeks dla jednej lub wielu kolumn przy użyciu **indeksuattribute**. Dodanie atrybutu do co najmniej jednej właściwości spowoduje, że program Dr utworzy odpowiedni indeks w bazie danych podczas tworzenia bazy danych lub tworzy szkielet odpowiednich wywołań funkcji **indeksu** w przypadku korzystania z migracje Code First.
 
-Na przykład, poniższy kod będzie skutkować indeksu tworzona **ocena** kolumny **wpisy** tabeli w bazie danych.
+Na przykład poniższy kod spowoduje utworzenie indeksu w kolumnie **Klasyfikacja** tabeli **wpisy** w bazie danych.
 
 ``` csharp
     public class Post
@@ -347,14 +347,14 @@ Na przykład, poniższy kod będzie skutkować indeksu tworzona **ocena** kolumn
     }
 ```
 
-Domyślnie, będą miały nazwę nadaną indeks **IX\_&lt;nazwa właściwości&gt;**  (IX\_klasyfikacji w powyższym przykładzie). Mimo że można określić również nazwę indeksu. W poniższym przykładzie określono indeks powinien zostać nazwany **PostRatingIndex**.
+Domyślnie indeks będzie miał nazwę **\_, &lt;nazwa właściwości&gt;** (IX\_Klasyfikacja w powyższym przykładzie). Możesz również określić nazwę dla indeksu. Poniższy przykład określa, że indeks powinien mieć nazwę **PostRatingIndex**.
 
 ``` csharp
     [Index("PostRatingIndex")]
     public int Rating { get; set; }
 ```
 
-Indeksy są domyślnie nie jest unikatowa, ale można użyć **IsUnique** o nazwie parametru, aby określić, że indeks powinien być unikatowy. Poniższy przykład przedstawia unikatowego indeksu na **użytkownika**przez nazwę logowania.
+Domyślnie indeksy nie są unikatowe, ale można użyć **Isuniqued** nazwanego parametru, aby określić, że indeks powinien być unikatowy. W poniższym przykładzie wprowadzono unikatowy indeks nazwy logowania **użytkownika**.
 
 ``` csharp
     public class User
@@ -369,9 +369,9 @@ Indeksy są domyślnie nie jest unikatowa, ale można użyć **IsUnique** o nazw
     }
 ```
 
-### <a name="multiple-column-indexes"></a>Indeksy wielu kolumn
+### <a name="multiple-column-indexes"></a>Indeksy z wieloma kolumnami
 
-Indeksy, obejmujące wiele kolumn są określane przy użyciu tej samej nazwie w wielu adnotacjach indeksu dla danej tabeli. Podczas tworzenia indeksów wielokolumnowych, należy określić kolejność kolumn w indeksie. Na przykład, poniższy kod tworzy indeks wielokolumnowych na **ocena** i **BlogId** o nazwie **IX\_BlogIdAndRating**. **BlogId** jest w pierwszej kolumnie indeksu i **ocena** drugi.
+Indeksy obejmujące wiele kolumn są określane przy użyciu tej samej nazwy w wielu adnotacjach indeksu dla danej tabeli. Podczas tworzenia indeksów wielokolumnowych należy określić kolejność kolumn w indeksie. Na przykład poniższy kod tworzy indeks z wielokolumnową **klasyfikacją** i **BlogId** o nazwie **IX\_BlogIdAndRating**. **BlogId** jest pierwszą kolumną w indeksie i **klasyfikacją** jest drugi.
 
 ``` csharp
     public class Post
@@ -388,16 +388,16 @@ Indeksy, obejmujące wiele kolumn są określane przy użyciu tej samej nazwie w
 
  
 
-## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>Atrybuty relacji: InverseProperty i klucza obcego
+## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>Atrybuty relacji: InverseProperty i ForeignKey
 
 > [!NOTE]
-> Ta strona zawiera informacje o konfigurowaniu relacje w modelu Code First przy użyciu adnotacji danych. Aby uzyskać ogólne informacje dotyczące relacji w EF i uzyskiwania dostępu i manipulowanie danymi za pomocą relacji, zobacz [relacje & właściwości nawigacji](~/ef6/fundamentals/relationships.md). *
+> Ta strona zawiera informacje na temat konfigurowania relacji w modelu Code First przy użyciu adnotacji danych. Aby uzyskać ogólne informacje na temat relacji w EF oraz jak uzyskać dostęp do danych i manipulować nimi przy użyciu relacji, zobacz [relacje & właściwości nawigacji](~/ef6/fundamentals/relationships.md). *
 
-Kod Konwencji pierwsze zajmie się najbardziej typowe relacje w modelu, ale istnieją przypadki, gdzie potrzebuje pomocy.
+Pierwsza Konwencja kodowa będzie uwzględniać najpopularniejsze relacje w modelu, ale zdarzają się sytuacje, w których potrzebna jest pomoc.
 
-Zmiana nazwy właściwości klucza klasy blogu utworzone problem z jego relacji do wpisu. 
+Zmiana nazwy właściwości klucza w klasie blogu stworzyła problem z relacją do opublikowania. 
 
-Podczas generowania bazy danych, kod najpierw widzi właściwość BlogId w klasie Post i rozpoznaje je, zgodnie z Konwencją, czy jest on zgodny Nazwa klasy oraz "Id" jako klucza obcego do klasy blogu. Ale nie ma właściwości BlogId w klasie blogu. Rozwiązania dla tego jest utworzenie właściwości nawigacji we wpisie i użyj DataAnnotation obcego, aby najpierw zrozumieć sposób tworzenia relacji między dwoma klasami kodu — przy użyciu właściwości Post.BlogId — oraz jak określić ograniczeń, Baza danych.
+Podczas generowania bazy danych, kod najpierw widzi Właściwość BlogId w klasie post i rozpoznaje ją, zgodnie z Konwencją zgodną z nazwą klasy i "identyfikatorem" jako kluczem obcym klasy blogu. Nie istnieje jednak żadna właściwość BlogId w klasie blogu. Rozwiązanie to służy do tworzenia właściwości nawigacji w wpisie i używania zastosowanej adnotacji DataAnnotation, aby pomóc w kodzie najpierw zrozumieć, jak utworzyć relację między dwoma klasami — za pomocą właściwości post. BlogId — a także określić ograniczenia w Database.
 
 ``` csharp
     public class Post
@@ -413,20 +413,20 @@ Podczas generowania bazy danych, kod najpierw widzi właściwość BlogId w klas
     }
 ```
 
-Ograniczenia w bazie danych przedstawiono relację między InternalBlogs.PrimaryTrackingKey i Posts.BlogId. 
+W ograniczeniu w bazie danych zostanie wyświetlona relacja między InternalBlogs. PrimaryTrackingKey i Posts. BlogId. 
 
-![Relacja między InternalBlogs.PrimaryTrackingKey i Posts.BlogId](~/ef6/media/jj591583-figure09.png)
+![Relacja między InternalBlogs. PrimaryTrackingKey i Posts. BlogId](~/ef6/media/jj591583-figure09.png)
 
-InverseProperty jest używany, jeśli masz wiele relacji między klasami.
+InverseProperty jest używany, gdy istnieje wiele relacji między klasami.
 
-W klasie wpis może być do śledzenia określonego autora wpisu w blogu oraz która ją edytowała. Poniżej przedstawiono dwie nowe właściwości nawigacji dla klasy wpisu.
+W klasie post możesz chcieć śledzić, kto napisał wpis w blogu, a także kto go edytował. Poniżej przedstawiono dwie nowe właściwości nawigacji dla klasy post.
 
 ``` csharp
     public Person CreatedBy { get; set; }
     public Person UpdatedBy { get; set; }
 ```
 
-Należy również dodać w klasie osoby odwołuje się tych właściwości. Klasa osoba ma właściwości nawigacji Wstecz do wpisu, jeden dla wszystkich wpisów, napisane przez osoby i jeden dla wszystkich wpisów, aktualizowane przez tę osobę.
+Należy również dodać do klasy Person, do której odwołują się te właściwości. Klasa Person ma właściwości nawigacji z powrotem do wpisu, jeden dla wszystkich wpisów zapisanych przez osobę i jeden dla wszystkich wpisów zaktualizowanych przez tę osobę.
 
 ``` csharp
     public class Person
@@ -438,11 +438,11 @@ Należy również dodać w klasie osoby odwołuje się tych właściwości. Klas
     }
 ```
 
-Kod najpierw jest możliwość dopasowania właściwości do dwóch klas samodzielnie. W tabeli bazy danych dla wpisów powinien mieć jeden klucz obcy dla osoby CreatedBy i jeden dla osoby UpdatedBy, ale kod najpierw utworzy cztery właściwości klucza obcego: Osoby\_identyfikator, osoba\_Id1, CreatedBy\_identyfikator i UpdatedBy\_identyfikatora.
+Kod nie jest w stanie dopasować właściwości do obu klas samodzielnie. Tabela bazy danych dla wpisów powinna mieć jeden klucz obcy dla osoby CreatedBy i jeden dla osoby UpdatedBy, ale najpierw kod utworzy cztery właściwości klucza obcego: Person\_ID, Person\_Id1, CreatedBy\_ID i UpdatedBy\_ID.
 
-![Wpisy tabeli za pomocą kluczy obcych dodatkowych](~/ef6/media/jj591583-figure10.png)
+![Tabela ogłoszeń z dodatkowymi kluczami obcym](~/ef6/media/jj591583-figure10.png)
 
-Aby rozwiązać te problemy, można użyć adnotacji InverseProperty, aby określić wyrównanie właściwości.
+Aby rozwiązać te problemy, można użyć adnotacji InverseProperty do określenia wyrównania właściwości.
 
 ``` csharp
     [InverseProperty("CreatedBy")]
@@ -452,14 +452,14 @@ Aby rozwiązać te problemy, można użyć adnotacji InverseProperty, aby okreś
     public List<Post> PostsUpdated { get; set; }
 ```
 
-Ponieważ właściwość PostsWritten osobiście wie, to odnosi się do typu wpisu, utworzy relacji z elementem Post.CreatedBy. Podobnie Post.UpdatedBy połączyć PostsUpdated. I kod najpierw nie utworzy ich klucze obce dodatkowych.
+Ponieważ właściwość PostsWritten w osobach wie, że odnosi się to do typu wpisu, spowoduje skompilowanie relacji do post. CreatedBy. Podobnie PostsUpdated zostanie połączony z wpisem post. UpdatedBy. I najpierw kod nie utworzy dodatkowych kluczy obcych.
 
-![Wpisy tabeli bez kluczy obcych dodatkowych](~/ef6/media/jj591583-figure11.png)
+![Tabela ogłoszeń bez dodatkowych kluczy obcych](~/ef6/media/jj591583-figure11.png)
 
  
 
 ## <a name="summary"></a>Podsumowanie
 
-DataAnnotations nie tylko umożliwiają opisują weryfikacji po stronie klienta i serwera, w Twoich zajęciach pierwszy kodu, ale również umożliwiają rozszerzanie i nawet rozwiązać założeń, które kod najpierw spowoduje, że Twoje klasy oparte na konwencjach jej informacje. Za pomocą DataAnnotations można nie tylko zachęcić generowanie schematu bazy danych, ale można również mapować Twoich zajęciach pierwszy kodu do wcześniej istniejącej bazy danych.
+Adnotacje DataAnnotations nie tylko opisują weryfikację po stronie klienta i serwera w pierwszej klasie kodowej, ale umożliwiają również zwiększenie i nawet poprawienie założeń, które w pierwszej kolejności składają się na klasy na podstawie Konwencji. Za pomocą adnotacji DataAnnotation można nie tylko dyskowo generować schemat bazy danych, ale można również mapować najpierw klasy kodu do istniejącej bazy danych.
 
-Gdy są bardzo elastyczne, należy pamiętać, zapewniające DataAnnotations tylko najbardziej najczęściej potrzebne zmiany konfiguracji wprowadzone w Twoich zajęciach pierwszy kod. Aby skonfigurować Twoje klasy dla niektórych przypadków brzegowych, powinien wyglądać mechanizmu alternatywną konfigurację, Code First API Fluent.
+Chociaż są bardzo elastyczne, należy pamiętać, że adnotacje danych udostępniają tylko najczęściej potrzebne zmiany konfiguracji, które można wprowadzić w przypadku pierwszej klasy kodu. Aby skonfigurować klasy dla niektórych przypadków brzegowych, należy odszukać alternatywny mechanizm konfiguracji, Code First interfejs API Fluent.

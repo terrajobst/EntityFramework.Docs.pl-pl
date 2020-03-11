@@ -1,97 +1,97 @@
 ---
-title: Interfejs Fluent API — Konfigurowanie i mapowania właściwości i typy — EF6
+title: Interfejs API Fluent — Konfigurowanie i mapowanie właściwości i typów — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 648ed274-c501-4630-88e0-d728ab5c4057
 ms.openlocfilehash: 7371cc99142ccf8fc6bea237d7d58d1e67fcecec
-ms.sourcegitcommit: 75f8a179ac9a70ad390fc7ab2a6c5e714e701b8b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/27/2018
-ms.locfileid: "52339806"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419067"
 ---
-# <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Interfejs API Fluent — Konfigurowanie i mapowania właściwości i typy
-Podczas pracy z programu Entity Framework Code First to zachowanie domyślne jest do mapowania klas usługi POCO tabel przy użyciu zestawu konwencje wbudowanymi do programów EF. Czasami jednak użytkownik nie może lub nie powinny być zgodne z konwencjami te i zamapować jednostek na coś innego niż co zgodnie z konwencjami.  
+# <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Interfejs API Fluent — Konfigurowanie i mapowanie właściwości i typów
+Podczas pracy z Entity Framework Code First domyślnym zachowaniem jest mapowanie klas POCO na tabele przy użyciu zestawu Konwencji rozszerzania do EF. Czasami jednak nie ma potrzeby stosowania tych konwencji lub nie należy ich stosować do zamapowania jednostek na coś innego niż te, które są podyktowane przez konwencje.  
 
-Istnieją dwa główne sposoby, można skonfigurować EF, aby użyć coś innego niż konwencje, to znaczy [adnotacje](~/ef6/modeling/code-first/data-annotations.md) lub interfejs fluent API w systemu szyfrowania plików. Adnotacje dotyczą tylko podzbiór funkcji interfejsu API fluent, więc istnieją scenariusze mapowania, które nie mogą być osiągnięte korzystanie z adnotacji. Ten artykuł jest przeznaczony do pokazują, jak skonfigurować właściwości za pomocą interfejsu API fluent.  
+Istnieją dwa podstawowe sposoby konfigurowania EF do używania czegoś innego niż konwencji, czyli [adnotacji](~/ef6/modeling/code-first/data-annotations.md) lub interfejsu API Fluent systemu szyfrowania plików. Adnotacje obejmują tylko podzestaw funkcji interfejsu API Fluent, więc istnieją scenariusze mapowania, których nie można osiągnąć przy użyciu adnotacji. Ten artykuł został zaprojektowany z założeniami, aby zademonstrować, jak używać interfejsu API Fluent do konfigurowania właściwości.  
 
-Kod pierwszego interfejsu API fluent najczęściej odbywa się przez zastąpienie [OnModelCreating](https://msdn.microsoft.com/library/system.data.entity.dbcontext.onmodelcreating.aspx) metody w swojej pochodnej [DbContext](https://msdn.microsoft.com/library/system.data.entity.dbcontext.aspx). Poniższe przykłady są przeznaczone do przedstawiają sposób wykonywania różnych zadań przy użyciu wygodnego interfejsu api i umożliwiają skopiowania kod i dostosować go do potrzeb Twojego modelu, jeśli chcesz zobaczyć model, który może być używany z jako — jest to znajduje się na końcu tego artykułu.  
+Najczęściej dostępnym interfejsem API Fluent kodu jest zastąpienie metody [OnModelCreating](https://msdn.microsoft.com/library/system.data.entity.dbcontext.onmodelcreating.aspx) w pochodnym [kontekście DbContext](https://msdn.microsoft.com/library/system.data.entity.dbcontext.aspx). Poniższe przykłady zaprojektowano w celu pokazania, jak wykonywać różne zadania za pomocą interfejsu API Fluent oraz jak można skopiować kod i dostosować go do własnych potrzeb modelu, jeśli chcesz zobaczyć model, którego można używać z usługą AS, na końcu tego artykułu.  
 
-## <a name="model-wide-settings"></a>Ustawienia dla całego modelu  
+## <a name="model-wide-settings"></a>Ustawienia całego modelu  
 
-### <a name="default-schema-ef6-onwards"></a>Schemat domyślny (od wersji EF6)  
+### <a name="default-schema-ef6-onwards"></a>Domyślny schemat (EF6 lub nowszy)  
 
-Uruchamianie platformy EF6 umożliwia metoda HasDefaultSchema na DbModelBuilder Określ schemat bazy danych do użycia dla wszystkich tabel, procedur składowanych, itp. To ustawienie domyślne, zostaną zastąpione dla obiektów, które jawnie skonfigurujesz inny schemat.  
+Począwszy od EF6 można użyć metody HasDefaultSchema na DbModelBuilder, aby określić schemat bazy danych, który ma być używany dla wszystkich tabel, procedury składowane itd. To ustawienie domyślne zostanie przesłonięte dla wszystkich obiektów jawnie skonfigurowanych dla innego schematu.  
 
 ``` csharp
 modelBuilder.HasDefaultSchema("sales");
 ```  
 
-### <a name="custom-conventions-ef6-onwards"></a>Konwencje niestandardowe (od wersji EF6)  
+### <a name="custom-conventions-ef6-onwards"></a>Konwencje niestandardowe (EF6 lub nowszy)  
 
-Począwszy od tworzenia własnych Konwencji odpowiadającym, aby uzupełnić te dołączone w Code First platformy EF6. Aby uzyskać więcej informacji, zobacz [konwencje pierwszy kod niestandardowy](~/ef6/modeling/code-first/conventions/custom.md).  
+Począwszy od EF6, można utworzyć własne konwencje, aby uzupełnić te zawarte w Code First. Aby uzyskać więcej informacji, zobacz [konwencje Code First niestandardowych](~/ef6/modeling/code-first/conventions/custom.md).  
 
-## <a name="property-mapping"></a>Mapowanie właściwości  
+## <a name="property-mapping"></a>Odwzorowanie właściwości  
 
-[Właściwość](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.property.aspx) metoda służy do konfigurowania atrybutów dla każdej właściwości należących do jednostki lub typ złożony. Metoda właściwość jest używana do uzyskiwania obiektu konfiguracji dla danej właściwości. Opcje na obiekt konfiguracji są specyficzne dla typu skonfigurowana; Na przykład jest dostępne tylko na właściwości parametrów IsUnicode.  
+Metoda [Właściwości](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.property.aspx) służy do konfigurowania atrybutów dla każdej właściwości należącej do jednostki lub typu złożonego. Metoda Property służy do uzyskania obiektu konfiguracji dla danej właściwości. Opcje obiektu konfiguracji są specyficzne dla konfigurowanego typu; Isunicode jest dostępny tylko dla właściwości ciągu na przykład.  
 
 ### <a name="configuring-a-primary-key"></a>Konfigurowanie klucza podstawowego  
 
-Konwencja platformy Entity Framework, kluczy podstawowych jest:  
+Entity Framework Konwencji dla kluczy podstawowych jest:  
 
-1. Klasa definiuje właściwość, której nazwa to "ID" lub "Id"  
-2. lub nazwa klasy, po której następuje "ID" lub "Id"  
+1. Klasa definiuje właściwość, której nazwa to "ID" lub "ID"  
+2. lub nazwa klasy, po której następuje wartość "ID" lub "ID"  
 
-Aby jawnie ustawić właściwość, która ma być kluczem podstawowym, można użyć metody HasKey. W poniższym przykładzie metoda HasKey służy do konfigurowania InstructorID klucz podstawowy dla typu OfficeAssignment.  
+Aby jawnie ustawić właściwość jako klucz podstawowy, można użyć metody Haskey —. W poniższym przykładzie metoda Haskey — jest używana do konfigurowania klucza podstawowego InstructorID dla typu OfficeAssignment.  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>().HasKey(t => t.InstructorID);
 ```  
 
-### <a name="configuring-a-composite-primary-key"></a>Konfigurowanie złożony klucz podstawowy  
+### <a name="configuring-a-composite-primary-key"></a>Konfigurowanie złożonego klucza podstawowego  
 
-Poniższy przykład umożliwia skonfigurowanie DepartmentID i nazwy właściwości na złożony klucz podstawowy typu działu.  
+Poniższy przykład konfiguruje właściwości DepartmentID i Name w postaci złożonego klucza podstawowego typu działu.  
 
 ``` csharp
 modelBuilder.Entity<Department>().HasKey(t => new { t.DepartmentID, t.Name });
 ```  
 
-### <a name="switching-off-identity-for-numeric-primary-keys"></a>Wyłączanie tożsamości liczbowych kluczy podstawowych  
+### <a name="switching-off-identity-for-numeric-primary-keys"></a>Wyłączanie tożsamości dla numerycznych kluczy podstawowych  
 
-Poniższy przykład ustawia właściwość DepartmentID System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.None, aby wskazać, że wartość nie zostanie wygenerowany przez bazę danych.  
+Poniższy przykład ustawia właściwość DepartmentID na system. ComponentModel. DataAnnotations. DatabaseGeneratedOption. None, aby wskazać, że wartość nie zostanie wygenerowana przez bazę danych.  
 
 ``` csharp
 modelBuilder.Entity<Department>().Property(t => t.DepartmentID)
     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 ```  
 
-### <a name="specifying-the-maximum-length-on-a-property"></a>Określanie maksymalnego we właściwości  
+### <a name="specifying-the-maximum-length-on-a-property"></a>Określanie maksymalnej długości właściwości  
 
-W poniższym przykładzie nazwa właściwości, należy nie może przekraczać 50 znaków. Jeśli wprowadzisz wartość, która jest dłuższa niż 50 znaków, otrzymasz [DbEntityValidationException](https://msdn.microsoft.com/library/system.data.entity.validation.dbentityvalidationexception.aspx) wyjątku. Jeśli Code First tworzy bazę danych z tego modelu do 50 znaków zostanie ustawiony także maksymalna długość nazwy kolumny.  
+W poniższym przykładzie właściwość Name nie może być dłuższa niż 50 znaków. Jeśli wartość jest dłuższa niż 50 znaków, zostanie wyświetlony wyjątek [DbEntityValidationException](https://msdn.microsoft.com/library/system.data.entity.validation.dbentityvalidationexception.aspx) . Jeśli Code First tworzy bazę danych z tego modelu, ustawi również maksymalną długość kolumny Nazwa na 50 znaków.  
 
 ``` csharp
 modelBuilder.Entity<Department>().Property(t => t.Name).HasMaxLength(50);
 ```  
 
-### <a name="configuring-the-property-to-be-required"></a>Konfigurowanie wymaganych właściwości  
+### <a name="configuring-the-property-to-be-required"></a>Konfigurowanie właściwości, która ma być wymagana  
 
-W poniższym przykładzie właściwość Name jest wymagany. Jeśli nie określisz nazwy, wystąpi wyjątek DbEntityValidationException. Jeśli Code First tworzy bazę danych z tego modelu kolumny używane do przechowywania tej właściwości zwykle będzie innych niż null.  
+W poniższym przykładzie właściwość Name jest wymagana. Jeśli nazwa nie zostanie określona, zostanie wyświetlony wyjątek DbEntityValidationException. Jeśli Code First tworzy bazę danych z tego modelu, kolumna użyta do przechowania tej właściwości zazwyczaj nie dopuszcza wartości null.  
 
 > [!NOTE]
-> W niektórych przypadkach może nie być możliwe dla kolumny w bazie danych, może nie dopuszczać wartości null, nawet jeśli właściwość jest wymagana. Na przykład, gdy przy użyciu danych strategii TPH dziedziczenia dla wielu typów są przechowywane w jednej tabeli. Jeśli typ pochodny obejmuje wymagana właściwość kolumny nie można dokonać innych niż null, ponieważ nie wszystkie typy w hierarchii mają ta właściwość.  
+> W niektórych przypadkach może nie być możliwe, aby kolumna w bazie danych nie mogła dopuszczać wartości null, mimo że właściwość jest wymagana. Na przykład w przypadku korzystania z danych strategii dziedziczenia TPH dla wielu typów jest przechowywany w jednej tabeli. Jeśli typ pochodny zawiera wymaganą właściwość, nie można wprowadzić wartości null w kolumnie, ponieważ nie wszystkie typy w hierarchii będą mieć tę właściwość.  
 
 ``` csharp
 modelBuilder.Entity<Department>().Property(t => t.Name).IsRequired();
 ```  
 
-### <a name="configuring-an-index-on-one-or-more-properties"></a>Konfigurowanie indeksu na co najmniej jednej właściwości  
+### <a name="configuring-an-index-on-one-or-more-properties"></a>Konfigurowanie indeksu dla jednej lub wielu właściwości  
 
 > [!NOTE]
-> **EF6.1 począwszy tylko** -atrybutu indeksu została wprowadzona w programie Entity Framework 6.1. Informacje przedstawione w tej sekcji nie ma zastosowania, jeśli używasz starszej wersji.  
+> **Dr 6.1 tylko** -atrybut indeksu został wprowadzony w Entity Framework 6,1. Jeśli używasz wcześniejszej wersji, informacje przedstawione w tej sekcji nie są stosowane.  
 
-Tworzenie indeksów nie jest natywnie obsługiwane przez interfejs Fluent API, ale umożliwia korzystanie z pomocy technicznej dla **IndexAttribute** za pośrednictwem interfejsu API Fluent. Atrybuty indeksu są przetwarzane przez dołączenie adnotacją modelu na model, który następnie jest przekształcane w indeksu w bazie danych później w potoku. Można ręcznie dodać te same adnotacje przy użyciu interfejsu API Fluent.  
+Tworzenie indeksów nie jest natywnie obsługiwane przez interfejs API Fluent, ale można korzystać z pomocy technicznej dla elementu **indexattribute** za pośrednictwem interfejsu API Fluent. Atrybuty indeksu są przetwarzane przez dołączenie do modelu adnotacji modelu, która następnie jest później przekształcana w indeks w bazie danych w potoku. Można ręcznie dodać te same adnotacje przy użyciu interfejsu API Fluent.  
 
-W tym celu najłatwiej można utworzyć wystąpienia **IndexAttribute** zawierający wszystkie ustawienia dla nowego indeksu. Następnie można utworzyć wystąpienia **IndexAnnotation** czyli EF określonego typu który przekonwertuje **IndexAttribute** ustawienia do adnotacji modelu, które mogą być przechowywane w modelu platformy EF. Te mogą być następnie przekazywany do **HasColumnAnnotation** metody w interfejsie API Fluent, określając nazwę **indeksu** dla adnotacji.  
+Najprostszym sposobem jest utworzenie wystąpienia **indexattribute** , które zawiera wszystkie ustawienia dla nowego indeksu. Następnie można utworzyć wystąpienie klasy **IndexAnnotation** , która jest typem określonym przez EF, który przekonwertuje ustawienia **indexattribute** na adnotację modelu, która może być przechowywana w modelu EF. Można je następnie przesłać do metody **HasColumnAnnotation** w interfejsie API Fluent, określając **indeks** nazwy adnotacji.  
 
 ``` csharp
 modelBuilder
@@ -100,9 +100,9 @@ modelBuilder
     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()));
 ```  
 
-Aby uzyskać pełną listę ustawień dostępnych w **IndexAttribute**, zobacz *indeksu* części [adnotacje danych na pierwszym kodu](~/ef6/modeling/code-first/data-annotations.md). W tym dostosowywania nazwę indeksu, tworzenie indeksów unikatowych i tworzenie indeksów wielokolumnowych.  
+Aby zapoznać się z pełną listą ustawień dostępnych w **indeksie indexattribute**, zapoznaj się z sekcją *indeks* w obszarze [Code First adnotacje danych](~/ef6/modeling/code-first/data-annotations.md). Dotyczy to również dostosowywania nazwy indeksu, tworzenia unikatowych indeksów i tworzenia indeksów obejmujących wiele kolumn.  
 
-Można określić wiele adnotacji indeksu na jedną właściwość, przekazując tablicę **IndexAttribute** do konstruktora **IndexAnnotation**.  
+Można określić wiele adnotacji indeksów dla pojedynczej właściwości, przekazując tablicę **indexattribute** do konstruktora **IndexAnnotation**.  
 
 ``` csharp
 modelBuilder
@@ -117,9 +117,9 @@ modelBuilder
             })));
 ```  
 
-### <a name="specifying-not-to-map-a-clr-property-to-a-column-in-the-database"></a>Określanie nie można zamapować właściwość CLR z kolumną w bazie danych  
+### <a name="specifying-not-to-map-a-clr-property-to-a-column-in-the-database"></a>Określanie, aby nie mapować właściwości CLR do kolumny w bazie danych  
 
-Poniższy przykład pokazuje, jak określić, czy właściwość na typ CLR nie została zamapowana na kolumnę w bazie danych.  
+Poniższy przykład pokazuje, jak określić, że właściwość typu CLR nie jest zamapowana na kolumnę w bazie danych.  
 
 ``` csharp
 modelBuilder.Entity<Department>().Ignore(t => t.Budget);
@@ -127,7 +127,7 @@ modelBuilder.Entity<Department>().Ignore(t => t.Budget);
 
 ### <a name="mapping-a-clr-property-to-a-specific-column-in-the-database"></a>Mapowanie właściwości CLR do określonej kolumny w bazie danych  
 
-Poniższy przykład mapuje właściwość CLR nazwę kolumny bazy danych DepartmentName.  
+Poniższy przykład mapuje nazwę właściwości CLR do kolumny bazy danych Departmentname.  
 
 ``` csharp
 modelBuilder.Entity<Department>()
@@ -135,9 +135,9 @@ modelBuilder.Entity<Department>()
     .HasColumnName("DepartmentName");
 ```  
 
-### <a name="renaming-a-foreign-key-that-is-not-defined-in-the-model"></a>Zmiana nazw klucz obcy, który nie jest zdefiniowany w modelu  
+### <a name="renaming-a-foreign-key-that-is-not-defined-in-the-model"></a>Zmiana nazwy klucza obcego, który nie jest zdefiniowany w modelu  
 
-Jeśli nie chcesz zdefiniować klucz obcy dla typu CLR, ale aby określić nazwę, jakie powinien mieć w bazie danych, wykonaj następujące czynności:  
+Jeśli zdecydujesz się nie definiować klucza obcego w typie CLR, ale chcesz określić nazwę, którą powinna zawierać w bazie danych, wykonaj następujące czynności:  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -146,9 +146,9 @@ modelBuilder.Entity<Course>()
     .Map(m => m.MapKey("ChangedDepartmentID"));
 ```  
 
-### <a name="configuring-whether-a-string-property-supports-unicode-content"></a>Skonfigurowanie, czy właściwość ciągu obsługuje zawartość Unicode  
+### <a name="configuring-whether-a-string-property-supports-unicode-content"></a>Konfigurowanie, czy właściwość String obsługuje zawartość Unicode  
 
-Domyślnie ciągi są Unicode (nvarchar w programie SQL Server). Metoda IsUnicode służy do określenia, czy ciąg powinien być typu varchar.  
+Domyślnie ciągi są w formacie Unicode (nvarchar w SQL Server). Można użyć metody isunicode, aby określić, że ciąg powinien być typu varchar.  
 
 ``` csharp
 modelBuilder.Entity<Department>()
@@ -158,7 +158,7 @@ modelBuilder.Entity<Department>()
 
 ### <a name="configuring-the-data-type-of-a-database-column"></a>Konfigurowanie typu danych kolumny bazy danych  
 
-[HasColumnType](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.configuration.stringcolumnconfiguration.hascolumntype.aspx) metoda umożliwia mapowanie na różne reprezentacje tego samego typu podstawowego. Przy użyciu tej metody nie włącza wykonywania konwersji danych w czasie wykonywania. Należy pamiętać, że IsUnicode preferowanym sposobem tworzenia kolumn ustawienie varchar, ponieważ jest niezależny od bazy danych.  
+Metoda [HasColumnType](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.configuration.stringcolumnconfiguration.hascolumntype.aspx) umożliwia mapowanie do różnych reprezentacji tego samego typu podstawowego. Użycie tej metody nie pozwala na wykonywanie konwersji danych w czasie wykonywania. Należy pamiętać, że funkcja isunicode jest preferowanym sposobem ustawiania kolumn na varchar, ponieważ jest to baza danych niezależny od.  
 
 ``` csharp
 modelBuilder.Entity<Department>()   
@@ -168,9 +168,9 @@ modelBuilder.Entity<Department>()
 
 ### <a name="configuring-properties-on-a-complex-type"></a>Konfigurowanie właściwości typu złożonego  
 
-Istnieją dwa sposoby konfigurowania właściwości skalarne w typie złożonym.  
+Istnieją dwa sposoby konfigurowania właściwości skalarnych w typie złożonym.  
 
-Właściwości można wywołać w ComplexTypeConfiguration.  
+Możesz wywołać właściwość w ComplexTypeConfiguration.  
 
 ``` csharp
 modelBuilder.ComplexType<Details>()
@@ -178,7 +178,7 @@ modelBuilder.ComplexType<Details>()
     .HasMaxLength(20);
 ```  
 
-Zapisu kropkowego umożliwia również dostęp do właściwości typu złożonego.  
+Można również użyć notacji kropka, aby uzyskać dostęp do właściwości typu złożonego.  
 
 ``` csharp
 modelBuilder.Entity<OnsiteCourse>()
@@ -186,9 +186,9 @@ modelBuilder.Entity<OnsiteCourse>()
     .HasMaxLength(20);
 ```  
 
-### <a name="configuring-a-property-to-be-used-as-an-optimistic-concurrency-token"></a>Konfigurowanie właściwości, aby służyć jako Token optymistycznej współbieżności  
+### <a name="configuring-a-property-to-be-used-as-an-optimistic-concurrency-token"></a>Konfigurowanie właściwości, która ma być używana jako optymistyczny Token współbieżności  
 
-Aby określić, że właściwości w obiekcie reprezentuje tokenem współbieżności, można użyć atrybutu ConcurrencyCheck lub metoda IsConcurrencyToken.  
+Aby określić, że właściwość w jednostce reprezentuje Token współbieżności, można użyć atrybutu ConcurrencyCheck lub metody IsConcurrencyToken.  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>()
@@ -196,7 +196,7 @@ modelBuilder.Entity<OfficeAssignment>()
     .IsConcurrencyToken();
 ```  
 
-Metoda IsRowVersion służy również do skonfigurowania właściwości, aby być w wersji wierszy w bazie danych. Ustawianie właściwości jako wersja wiersza automatycznie skonfiguruje je jako token optymistycznej współbieżności.  
+Można również użyć metody IsRowVersion, aby skonfigurować właściwość jako wersję wiersza w bazie danych. Ustawienie właściwości jako wersji wiersza automatycznie konfiguruje ją jako optymistyczny Token współbieżności.  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>()
@@ -206,41 +206,41 @@ modelBuilder.Entity<OfficeAssignment>()
 
 ## <a name="type-mapping"></a>Mapowanie typu  
 
-### <a name="specifying-that-a-class-is-a-complex-type"></a>Określanie, czy klasa jest typem złożonym  
+### <a name="specifying-that-a-class-is-a-complex-type"></a>Określanie, że Klasa jest typu złożonego  
 
-Zgodnie z Konwencją typ, który ma określony klucz podstawowy jest traktowany jako typ złożony. Istnieją sytuacje, w którym Code First nie wykrywa typ złożony (na przykład, jeśli użytkownik ma właściwość o nazwie identyfikator, ale nie oznaczają, aby mogła być kluczem podstawowym). W takich przypadkach należy użyć interfejsu API fluent jawnie określić, że typ jest typem złożonym.  
+Zgodnie z Konwencją typ, który nie ma określonego klucza podstawowego, jest traktowany jako typ złożony. Istnieją scenariusze, w których Code First nie wykrywa typu złożonego (na przykład jeśli masz właściwość o nazwie ID, ale nie ma znaczenia, że jest to klucz podstawowy). W takich przypadkach można użyć interfejsu API Fluent, aby jawnie określić, że typ jest typem złożonym.  
 
 ``` csharp
 modelBuilder.ComplexType<Details>();
 ```  
 
-### <a name="specifying-not-to-map-a-clr-entity-type-to-a-table-in-the-database"></a>Określanie nie można zamapować typ CLR jednostki do tabeli w bazie danych  
+### <a name="specifying-not-to-map-a-clr-entity-type-to-a-table-in-the-database"></a>Określanie, aby nie mapować typu jednostki CLR na tabelę w bazie danych  
 
-Poniższy przykład pokazuje, jak wykluczyć typu CLR z mapowany do tabeli w bazie danych.  
+Poniższy przykład pokazuje, jak wykluczyć typ CLR z mapowania do tabeli w bazie danych.  
 
 ``` csharp
 modelBuilder.Ignore<OnlineCourse>();
 ```  
 
-### <a name="mapping-an-entity-type-to-a-specific-table-in-the-database"></a>Mapowania typ jednostki do określonej tabeli w bazie danych  
+### <a name="mapping-an-entity-type-to-a-specific-table-in-the-database"></a>Mapowanie typu jednostki na określoną tabelę w bazie danych  
 
-Wszystkie właściwości działu zostanie zamapowane do kolumn w tabeli o nazwie t_ działu.  
+Wszystkie właściwości działu zostaną zamapowane na kolumny w tabeli o nazwie dział t_.  
 
 ``` csharp
 modelBuilder.Entity<Department>()  
     .ToTable("t_Department");
 ```  
 
-Można również określić nazwę schematu następująco:  
+Można również określić nazwę schematu w następujący sposób:  
 
 ``` csharp
 modelBuilder.Entity<Department>()  
     .ToTable("t_Department", "school");
 ```  
 
-### <a name="mapping-the-table-per-hierarchy-tph-inheritance"></a>Mapowanie dziedziczenia tabela wg hierarchii (TPH)  
+### <a name="mapping-the-table-per-hierarchy-tph-inheritance"></a>Mapowanie dziedziczenia tabeli na hierarchię (TPH)  
 
-W tym scenariuszu mapowania TPH wszystkich typów w hierarchii dziedziczenia są mapowane na pojedynczą tabelę. Kolumna dyskryminatora jest używany do identyfikowania typu każdego wiersza. Podczas tworzenia modelu przy użyciu Code First, TPH jest strategia domyślna dla typów, które uczestniczą w hierarchii dziedziczenia. Domyślnie kolumna dyskryminatora zostanie dodana do tabeli o nazwie "Dyskryminatora" i nazwę typu CLR poszczególnych typów w hierarchii jest używany dla wartości dyskryminatora. Zachowanie domyślne można modyfikować za pomocą interfejsu API fluent.  
+W scenariuszu mapowania TPH wszystkie typy w hierarchii dziedziczenia są mapowane na pojedynczą tabelę. Kolumna rozróżniacza służy do identyfikowania typu każdego wiersza. Podczas tworzenia modelu przy użyciu Code First TPH jest domyślną strategią dla typów, które uczestniczą w hierarchii dziedziczenia. Domyślnie kolumna rozróżniacz jest dodawana do tabeli o nazwie "rozróżniacz", a nazwa typu CLR każdego typu w hierarchii jest używana dla wartości rozróżniacza. Domyślne zachowanie można zmienić za pomocą interfejsu API Fluent.  
 
 ``` csharp
 modelBuilder.Entity<Course>()  
@@ -248,23 +248,23 @@ modelBuilder.Entity<Course>()
     .Map<OnsiteCourse>(m => m.Requires("Type").HasValue("OnsiteCourse"));
 ```  
 
-### <a name="mapping-the-table-per-type-tpt-inheritance"></a>Mapowanie dziedziczenia tabela wg typu (TPT)  
+### <a name="mapping-the-table-per-type-tpt-inheritance"></a>Mapowanie dziedziczenia według typu tabeli (TPT)  
 
-W tym scenariuszu mapowania TPT wszystkie typy są mapowane na poszczególnych tabel. Właściwości, które należą wyłącznie do typu podstawowego lub typu pochodnego są przechowywane w tabeli, która mapuje do tego typu. Tabele mapowane na typy pochodne również przechowywać klucz obcy, który tworzy sprzężenie tabeli pochodnej z tabeli podstawowej.  
+W scenariuszu mapowania TPT wszystkie typy są mapowane na poszczególne tabele. Właściwości, które należą wyłącznie do typu podstawowego lub typu pochodnego, są przechowywane w tabeli, która jest mapowana na ten typ. Tabele mapowane na typy pochodne również przechowują klucz obcy, który łączy tabelę pochodną z tabelą bazową.  
 
 ``` csharp
 modelBuilder.Entity<Course>().ToTable("Course");  
 modelBuilder.Entity<OnsiteCourse>().ToTable("OnsiteCourse");
 ```  
 
-### <a name="mapping-the-table-per-concrete-class-tpc-inheritance"></a>Mapowanie dziedziczenia klasy tabeli na konkretny (TPC)  
+### <a name="mapping-the-table-per-concrete-class-tpc-inheritance"></a>Mapowanie dziedziczenia klasy opartej na tabeli (TPC)  
 
-W tym scenariuszu mapowania TPC wszystkie typy nieabstrakcyjnej w hierarchii są mapowane na poszczególnych tabel. Tabele, które mapują do klas pochodnych nie mają relacji do tabeli, która mapuje do klasy bazowej w bazie danych. Wszystkie właściwości klasy, w tym właściwości dziedziczonych są mapowane na kolumny odpowiedniej tabeli.  
+W scenariuszu mapowania TPC wszystkie typy nieabstrakcyjne w hierarchii są mapowane do poszczególnych tabel. Tabele mapowane na klasy pochodne nie mają relacji z tabelą, która jest mapowana na klasę bazową w bazie danych. Wszystkie właściwości klasy, łącznie z dziedziczonymi właściwościami, są mapowane na kolumny odpowiadającej tabeli.  
 
-Wywołaj metodę MapInheritedProperties, aby skonfigurować każdego typu pochodnego. MapInheritedProperties ponownie mapuje wszystkie właściwości, które były dziedziczone z klasy bazowej do nowych kolumn w tabeli dla klasy pochodnej.  
+Wywołaj metodę MapInheritedProperties, aby skonfigurować każdy typ pochodny. MapInheritedProperties ponownie mapuje wszystkie właściwości, które były dziedziczone z klasy bazowej na nowe kolumny w tabeli dla klasy pochodnej.  
 
 > [!NOTE]
-> Należy pamiętać, że ponieważ nie mają tabele uczestniczących w hierarchii dziedziczenia TPC klucz podstawowy będzie jednostki zduplikowane klucze podczas wstawiania do tabel, które są mapowane do podklasy, jeśli masz wartości bazy danych, wygenerowane za pomocą tego samego Inicjator właściwości identity. Aby rozwiązać ten problem, możesz określić wartość różnych inicjatora początkowej dla każdej tabeli lub wyłączyć tożsamość na właściwość klucza podstawowego. Tożsamość jest wartością domyślną dla właściwości klucza liczby całkowitej, podczas pracy z usługą Code First.  
+> Należy zauważyć, że ponieważ tabele uczestniczące w hierarchii dziedziczenia TPC nie współdzielą klucza podstawowego, podczas wstawiania w tabelach, które są mapowane na podklasy, nie są dostępne klucze jednostkowe, jeśli masz wartości wygenerowane przez bazę danych z tym samym inicjatorem tożsamości. Aby rozwiązać ten problem, możesz określić inną początkową wartość inicjatora dla każdej tabeli lub wyłączyć tożsamość we właściwości klucza podstawowego. Tożsamość jest wartością domyślną dla właściwości klucza Integer podczas pracy z Code First.  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -284,9 +284,9 @@ modelBuilder.Entity<OnlineCourse>().Map(m =>
 });
 ```  
 
-### <a name="mapping-properties-of-an-entity-type-to-multiple-tables-in-the-database-entity-splitting"></a>Mapowanie właściwości typu jednostki z wieloma tabelami w bazie danych (jednostka dzielenie)  
+### <a name="mapping-properties-of-an-entity-type-to-multiple-tables-in-the-database-entity-splitting"></a>Mapowanie właściwości typu jednostki na wiele tabel w bazie danych (podział jednostki)  
 
-Jednostki podział umożliwia właściwości typu jednostki, aby być rozkładane na wiele tabel. W poniższym przykładzie jednostki dział zostanie podzielona na dwie tabele: dział i DepartmentDetails. Podział jednostki używa wielu wywołań metody mapy do mapowania podzbiór właściwości do określonej tabeli.  
+Dzielenie jednostek umożliwia rozproszenie właściwości typu jednostki między wieloma tabelami. W poniższym przykładzie jednostka działu jest dzielona na dwie tabele: Department i DepartmentDetails. Dzielenie jednostek używa wielu wywołań metody map do mapowania podzestawu właściwości do konkretnej tabeli.  
 
 ``` csharp
 modelBuilder.Entity<Department>()
@@ -302,9 +302,9 @@ modelBuilder.Entity<Department>()
     });
 ```  
 
-### <a name="mapping-multiple-entity-types-to-one-table-in-the-database-table-splitting"></a>Mapowanie typów jednostek do jednej tabeli w bazie danych (tabeli dzielenie)  
+### <a name="mapping-multiple-entity-types-to-one-table-in-the-database-table-splitting"></a>Mapowanie wielu typów jednostek na jedną tabelę w bazie danych (podział tabeli)  
 
-Poniższy przykład mapuje dwóch typów jednostek, które mają klucz podstawowy do jednej tabeli.  
+Poniższy przykład mapuje dwa typy jednostek, które współużytkują klucz podstawowy z jedną tabelą.  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>()
@@ -319,13 +319,13 @@ modelBuilder.Entity<Instructor>().ToTable("Instructor");
 modelBuilder.Entity<OfficeAssignment>().ToTable("Instructor");
 ```  
 
-### <a name="mapping-an-entity-type-to-insertupdatedelete-stored-procedures-ef6-onwards"></a>Mapowanie typu jednostki do wstawiania/aktualizowania/usuwania procedur składowanych (od wersji EF6)  
+### <a name="mapping-an-entity-type-to-insertupdatedelete-stored-procedures-ef6-onwards"></a>Mapowanie typu jednostki, aby wstawiać/aktualizować/usuwać procedury składowane (EF6 lub nowszy)  
 
-Uruchamianie platformy EF6 można mapować jednostki używanie procedur składowanych do wstawiania, aktualizacji i usuwania. Aby uzyskać więcej informacji, zobacz [kodu pierwszy wstawiania/aktualizowania/usuwania procedur składowanych](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md).  
+Począwszy od EF6 można zmapować jednostki, aby używać procedur składowanych do wstawiania aktualizacji i usuwania. Aby uzyskać więcej informacji, zobacz [Code First wstawiania/aktualizowania/usuwania procedur składowanych](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md).  
 
 ## <a name="model-used-in-samples"></a>Model używany w przykładach  
 
-Poniższy model Code First jest używany dla przykładów na tej stronie.  
+Następujący model Code First jest używany dla przykładów na tej stronie.  
 
 ``` csharp
 using System.Data.Entity;

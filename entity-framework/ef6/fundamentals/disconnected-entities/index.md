@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
 ms.openlocfilehash: f1ce44e7b00ec4c60a81ed850ce5c9d866495e1b
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181767"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419527"
 ---
 # <a name="working-with-disconnected-entities"></a>Praca z odłączonymi jednostkami
 W aplikacji opartej na Entity Framework Klasa kontekstowa jest odpowiedzialna za wykrywanie zmian zastosowanych do śledzonych jednostek. Wywołanie metody metody SaveChanges zachowuje zmiany śledzone przez kontekst do bazy danych. Podczas pracy z aplikacjami n-warstwowymi obiekty jednostek są zwykle modyfikowane podczas odłączania od kontekstu i należy zdecydować, jak śledzić zmiany i raportować te zmiany z powrotem do kontekstu. W tym temacie omówiono różne opcje, które są dostępne w przypadku korzystania z Entity Framework z odłączonymi jednostkami.   
@@ -30,4 +30,4 @@ Jeśli nie chcesz korzystać z istniejącego rozwiązania n-warstwowego lub chce
 Tego szablonu można używać z modelami utworzonymi przy użyciu programu EF Designer, ale nie można ich używać z modelami Code First. Aby uzyskać więcej informacji, zobacz [samośledzące jednostki](self-tracking-entities/index.md).  
 
 > [!IMPORTANT]
-> Nie zalecamy już korzystania z szablonu samośledzenia jednostek. Będzie ona nadal dostępna tylko do obsługi istniejących aplikacji. Jeśli aplikacja wymaga pracy z odłączonymi wykresami jednostek, należy wziąć pod uwagę inne alternatywy, takie jak [śledzone jednostki](https://trackableentities.github.io/), które są technologią podobną do samodzielnego śledzenia jednostek, które są opracowywane przez społeczność lub piszą kod niestandardowy korzystający z interfejsów API śledzenia zmian niskiego poziomu.
+> Nie zalecamy już korzystania z szablonu samośledzenia jednostek. Będzie ona nadal dostępna tylko do obsługi istniejących aplikacji. Jeśli aplikacja wymaga pracy z odłączonymi wykresami jednostek, należy wziąć pod uwagę inne alternatywy, takie jak [śledzone jednostki](https://trackableentities.github.io/), które są technologią podobną do samodzielnego śledzenia jednostek, które są opracowywane przez społeczność lub piszą kod niestandardowy przy użyciu interfejsów API śledzenia zmian niskiego poziomu.

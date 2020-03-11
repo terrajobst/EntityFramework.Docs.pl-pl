@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 9/13/2019
 uid: core/modeling/keyless-entity-types
-ms.openlocfilehash: 129e24b154ba32583435aeb742dbf478350344e8
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 520c9ed93240c05deee36fa527a3757490fd7082
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824664"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417317"
 ---
 # <a name="keyless-entity-types"></a>Typy jednostek bez kluczy
 
@@ -47,7 +47,7 @@ Niektóre główne scenariusze użycia dla typów jednostek nie są następując
 
 ## <a name="mapping-to-database-objects"></a>Mapowanie na obiekty bazy danych
 
-Mapowanie typu jednostki o mniejszym stopniu do obiektu bazy danych jest realizowane przy użyciu `ToTable` lub `ToView` interfejsu API Fluent. Z perspektywy programu EF Core jest podany w tej metodzie obiekt bazy danych _widoku_, co oznacza, że jest ona traktowana jako źródła zapytań tylko do odczytu i nie może być elementem docelowym aktualizacji, wstawiania lub operacje usuwania. Nie oznacza to jednak, że obiekt bazy danych jest rzeczywiście wymagany jako widok bazy danych. Może być również tabelą bazy danych, która będzie traktowana jako tylko do odczytu. W przypadku zwykłych typów jednostek EF Core zakłada, że obiekt bazy danych określony w metodzie `ToTable` może być traktowany jako _tabela_, co oznacza, że może być używany jako źródło zapytania, ale również celem operacji Update, DELETE i Insert. W rzeczywistości, można określić nazwy widoku bazy danych w `ToTable` i wszystko powinno działać prawidłowo tak długo, jak widok jest skonfigurowany jako nadaje się do aktualizacji w bazie danych.
+Mapowanie typu jednostki o mniejszym stopniu do obiektu bazy danych jest realizowane przy użyciu `ToTable` lub `ToView` interfejsu API Fluent. Z perspektywy EF Core obiekt bazy danych określony w tej metodzie jest _widokiem_, co oznacza, że jest traktowany jako źródło zapytania tylko do odczytu i nie może być elementem docelowym operacji Update, INSERT ani Delete. Nie oznacza to jednak, że obiekt bazy danych jest rzeczywiście wymagany jako widok bazy danych. Może być również tabelą bazy danych, która będzie traktowana jako tylko do odczytu. W przypadku zwykłych typów jednostek EF Core zakłada, że obiekt bazy danych określony w metodzie `ToTable` może być traktowany jako _tabela_, co oznacza, że może być używany jako źródło zapytania, ale również celem operacji Update, DELETE i Insert. W rzeczywistości można określić nazwę widoku bazy danych w `ToTable` i wszystko powinno działać prawidłowo, o ile widok jest skonfigurowany do aktualizacji w bazie danych.
 
 > [!NOTE]
 > `ToView` zakłada, że obiekt już istnieje w bazie danych i nie zostanie utworzony przez migracje.
@@ -57,7 +57,7 @@ Mapowanie typu jednostki o mniejszym stopniu do obiektu bazy danych jest realizo
 Poniższy przykład pokazuje, jak używać typów jednostek bez użycia do wykonywania zapytań w widoku bazy danych.
 
 > [!TIP]
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/KeylessEntityTypes) użyty w tym artykule można zobaczyć w witrynie GitHub.
+> [Przykład](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/KeylessEntityTypes) tego artykułu można wyświetlić w witrynie GitHub.
 
 Najpierw należy zdefiniować prosty model blogu i Post:
 

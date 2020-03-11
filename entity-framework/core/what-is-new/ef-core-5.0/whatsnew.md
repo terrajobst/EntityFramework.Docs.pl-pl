@@ -3,12 +3,12 @@ title: Co nowego w EF Core 5,0
 author: ajcvickers
 ms.date: 01/29/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew.md
-ms.openlocfilehash: e858379cc46abbef999fd32a3685e1d522524889
-ms.sourcegitcommit: 89567d08c9d8bf9c33bb55a62f17067094a4065a
+ms.openlocfilehash: 65d7bd43e8a00c77fd6091a74c677635710d03e3
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77052033"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417967"
 ---
 # <a name="whats-new-in-ef-core-50"></a>Co nowego w EF Core 5,0
 
@@ -30,7 +30,7 @@ Oznacza to, że zapewnia prosty sposób pobierania dzienników z EF Core bez kon
 
 Wstępna dokumentacja jest zawarta w [statusie tygodnia Ef 5 grudnia 2019](https://github.com/dotnet/efcore/issues/15403#issuecomment-562332863).
 
-Dodatkowa dokumentacja jest śledzona przez [#2085](https://github.com/aspnet/EntityFramework.Docs/issues/2085)problemu.
+Dodatkowa dokumentacja jest śledzona przez [#2085](https://github.com/dotnet/EntityFramework.Docs/issues/2085)problemu.
 
 ### <a name="simple-way-to-get-generated-sql"></a>Prosty sposób uzyskiwania wygenerowanego kodu SQL
 
@@ -38,7 +38,7 @@ EF Core 5,0 wprowadza metodę rozszerzenia `ToQueryString`, która zwróci kod S
 
 Wstępna dokumentacja jest uwzględniona w [statusie tygodniowym EF dla 9 stycznia 2020](https://github.com/dotnet/efcore/issues/19549#issuecomment-572823246).
 
-Dodatkowa dokumentacja jest śledzona przez [#1331](https://github.com/aspnet/EntityFramework.Docs/issues/1331)problemu.
+Dodatkowa dokumentacja jest śledzona przez [#1331](https://github.com/dotnet/EntityFramework.Docs/issues/1331)problemu.
 
 ### <a name="enhanced-debug-views"></a>Udoskonalone widoki debugowania
 
@@ -48,7 +48,7 @@ W przypadku EF Core 5,0 ten widok modelu jest łatwiejszy do odczytania i dodani
 
 Wstępna dokumentacja jest uwzględniona w [Stanach tygodnia EF 12 grudnia 2019](https://github.com/dotnet/efcore/issues/15403#issuecomment-565196206).
 
-Dodatkowa dokumentacja jest śledzona przez [#2086](https://github.com/aspnet/EntityFramework.Docs/issues/2086)problemu.
+Dodatkowa dokumentacja jest śledzona przez [#2086](https://github.com/dotnet/EntityFramework.Docs/issues/2086)problemu.
 
 ### <a name="connection-or-connection-string-can-be-changed-on-initialized-dbcontext"></a>Parametry Connection lub Connection można zmienić w zainicjowanym kontekście DbContext
 
@@ -56,7 +56,7 @@ Teraz łatwiej jest utworzyć wystąpienie DbContext bez żadnego połączenia l
 Ponadto parametry połączenia lub połączenia można teraz przystąpić do wystąpienia kontekstu.
 Pozwala to temu samemu wystąpieniu kontekstu na dynamiczne łączenie się z różnymi bazami danych.
 
-Dokumentacja jest śledzona przez [#2075](https://github.com/aspnet/EntityFramework.Docs/issues/2075)problemu.
+Dokumentacja jest śledzona przez [#2075](https://github.com/dotnet/EntityFramework.Docs/issues/2075)problemu.
 
 ### <a name="change-tracking-proxies"></a>Serwery proxy śledzenia zmian
 
@@ -64,7 +64,7 @@ EF Core mogą teraz generować serwery proxy środowiska uruchomieniowego, któr
 Następnie te zmiany są raportowane w oparciu o właściwości jednostki bezpośrednio do EF Core, unikając konieczności skanowania pod kątem zmian.
 Jednak serwery proxy są dostarczane z własnym zestawem ograniczeń, więc nie są przeznaczone dla wszystkich użytkowników.
 
-Dokumentacja jest śledzona przez [#2076](https://github.com/aspnet/EntityFramework.Docs/issues/2076)problemu.
+Dokumentacja jest śledzona przez [#2076](https://github.com/dotnet/EntityFramework.Docs/issues/2076)problemu.
 
 ### <a name="improved-handling-of-database-null-semantics"></a>Ulepszona obsługa semantyki o wartości null bazy danych
 
@@ -73,14 +73,14 @@ C#z drugiej strony traktuje wartość null jako zdefiniowaną wartość, która 
 EF Core domyślnie tłumaczy zapytania, tak aby korzystały C# z semantyki o wartości null.
 EF Core 5,0 znacznie poprawia wydajność tych tłumaczeń.
 
-Dokumentacja jest śledzona przez [#1612](https://github.com/aspnet/EntityFramework.Docs/issues/1612)problemu.
+Dokumentacja jest śledzona przez [#1612](https://github.com/dotnet/EntityFramework.Docs/issues/1612)problemu.
 
 ### <a name="indexer-properties"></a>Właściwości indeksatora
 
 EF Core 5,0 obsługuje mapowanie właściwości C# indeksatora.
 Dzięki temu jednostki mogą działać jako zbiory właściwości, w których kolumny są mapowane na nazwane właściwości w zbiorze.
 
-Dokumentacja jest śledzona przez [#2018](https://github.com/aspnet/EntityFramework.Docs/issues/2018)problemu.
+Dokumentacja jest śledzona przez [#2018](https://github.com/dotnet/EntityFramework.Docs/issues/2018)problemu.
 
 ### <a name="generation-of-check-constraints-for-enum-mappings"></a>Generowanie ograniczeń check dla mapowań wyliczenia
 
@@ -91,14 +91,14 @@ Na przykład:
 MyEnumColumn VARCHAR(10) NOT NULL CHECK (MyEnumColumn IN('Useful', 'Useless', 'Unknown'))
 ```
 
-Dokumentacja jest śledzona przez [#2082](https://github.com/aspnet/EntityFramework.Docs/issues/2082)problemu.
+Dokumentacja jest śledzona przez [#2082](https://github.com/dotnet/EntityFramework.Docs/issues/2082)problemu.
 
 ### <a name="query-translations-for-more-datetime-constructs"></a>Tłumaczenie zapytań dla większej liczby konstrukcji DateTime
 
 Zapytania zawierające nową konstrukcję DataTime są teraz tłumaczone.
 Ponadto funkcja SQL Server DateDiffWeek jest teraz zamapowana.
 
-Dokumentacja jest śledzona przez [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079)problemu.
+Dokumentacja jest śledzona przez [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079)problemu.
 
 ### <a name="query-translations-for-more-byte-array-constructs"></a>Tłumaczenie zapytania dla większej liczby konstrukcji tablicy
 
@@ -106,7 +106,7 @@ Zapytania używające właściwości Contains, Length, SequenceEqual itp. on-Byt
 
 Wstępna dokumentacja jest zawarta w [statusie tygodnia Ef 5 grudnia 2019](https://github.com/dotnet/efcore/issues/15403#issuecomment-562332863).
 
-Dodatkowa dokumentacja jest śledzona przez [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079)problemu.
+Dodatkowa dokumentacja jest śledzona przez [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079)problemu.
 
 ### <a name="query-translation-for-reverse"></a>Tłumaczenie zapytania do tyłu
 
@@ -117,7 +117,7 @@ Na przykład:
 context.Employees.OrderBy(e => e.EmployeeID).Reverse()
 ```
 
-Dokumentacja jest śledzona przez [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079)problemu.
+Dokumentacja jest śledzona przez [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079)problemu.
 
 ### <a name="query-translation-for-bitwise-operators"></a>Tłumaczenie zapytania dla operatorów bitowych
 
@@ -127,10 +127,10 @@ Zapytania wykorzystujące operatory bitowe są teraz tłumaczone na przykład w 
 context.Orders.Where(o => ~o.OrderID == negatedId)
 ```
 
-Dokumentacja jest śledzona przez [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079)problemu.
+Dokumentacja jest śledzona przez [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079)problemu.
 
 ### <a name="query-translation-for-strings-on-cosmos"></a>Tłumaczenie zapytania dla ciągów w Cosmos
 
 Zapytania korzystające z metod String zawierają, StartsWith i EndsWith są teraz tłumaczone przy użyciu dostawcy Azure Cosmos DB.
 
-Dokumentacja jest śledzona przez [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079)problemu.
+Dokumentacja jest śledzona przez [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079)problemu.

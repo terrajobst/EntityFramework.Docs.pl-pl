@@ -4,19 +4,19 @@ author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: 2e187a2a-4072-4198-9040-aaad68e424fd
 uid: core/querying/complex-query-operators
-ms.openlocfilehash: 350a7fa6a3ee1de16bad4b63e10842f9356a1b60
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 44c2695ea003da043925740a52596fd27da638f8
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72186261"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417744"
 ---
 # <a name="complex-query-operators"></a>Złożone operatory zapytań
 
 Program Query Integrated Language (LINQ) zawiera wiele operatorów złożonych, które łączą wiele źródeł danych lub przetwarzają złożone. Nie wszystkie operatory LINQ mają odpowiednie tłumaczenia po stronie serwera. Czasami zapytanie w jednym formularzu jest tłumaczone na serwer, ale jeśli zapisywana w innym formularzu nie zostanie przetłumaczyć nawet wtedy, gdy wynik jest taki sam. Na tej stronie opisano niektóre operatory złożone i ich obsługiwane odmiany. W przyszłych wersjach możemy rozpoznać więcej wzorców i dodać odpowiednie tłumaczenia. Należy również pamiętać, że obsługa tłumaczenia zależy od dostawców. Określone zapytanie, które jest tłumaczone w programie SqlServer, może nie współpracować z bazami danych oprogramowania SQLite.
 
 > [!TIP]
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) użyty w tym artykule można zobaczyć w witrynie GitHub.
+> [Przykład](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying) tego artykułu można wyświetlić w witrynie GitHub.
 
 ## <a name="join"></a>Join
 

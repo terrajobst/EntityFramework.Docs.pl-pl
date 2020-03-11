@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: 20A25111-AEBE-4BC2-83A5-3F651952DF72
 uid: core/what-is-new/ef-core-1.0
 ms.openlocfilehash: 2cd2a54d75ed3f0caa8b674dfb56babcfcc13592
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655860"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417525"
 ---
 # <a name="features-included-in-ef-core-10"></a>Funkcje zawarte w EF Core 1,0
 
@@ -65,7 +65,7 @@ Umożliwia zdefiniowanie obiektów sekwencji w modelu.
 
 Umożliwia definiowanie kluczy alternatywnych i możliwość definiowania relacji przeznaczonych dla tego klucza.
 
-### <a name="indexes"></a>Zwiększa
+### <a name="indexes"></a>Indeksy
 
 Zdefiniowanie indeksów w modelu powoduje automatyczne wprowadzenie indeksów w bazie danych. Obsługiwane są również unikatowe indeksy.
 
@@ -163,7 +163,7 @@ Szkieletuje model EF oparty na istniejącym schemacie relacyjnej bazy danych.
 
 ## <a name="database-providers"></a>Dostawcy baz danych
 
-### <a name="sql-server"></a>Serwer SQL
+### <a name="sql-server"></a>Oprogramowanie SQL Server
 
 Nawiązuje połączenie z Microsoft SQL Server 2008.
 

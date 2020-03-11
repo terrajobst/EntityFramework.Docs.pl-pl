@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: c3c1940b-136d-45d8-aa4f-cb5040f8980a
 uid: core/miscellaneous/rc2-rtm-upgrade
 ms.openlocfilehash: 779caad7883d13684b389dab7515be44bc42e1ef
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655821"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416524"
 ---
 # <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Uaktualnianie z wersji EF Core 1,0 RC2 do wersji RTM
 
@@ -36,10 +36,10 @@ Wszystkie istniejące migracje, które były szkieletem przed użyciem wersji RT
 Ta zmiana wpływa na projekty, które używają ASP.NET Identity i zostały utworzone na podstawie szablonu projektu sprzed-RTM. Szablon projektu zawiera migrację używaną do utworzenia bazy danych. Tę migrację należy edytować, aby określić maksymalną długość `256` dla następujących kolumn.
 
 * **AspNetRoles**
-  * Nazwa
+  * Name (Nazwa)
   * NormalizedName
 * **AspNetUsers**
-  * Poczta e-mail
+  * Email
   * NormalizedEmail
   * NormalizedUserName
   * UserName

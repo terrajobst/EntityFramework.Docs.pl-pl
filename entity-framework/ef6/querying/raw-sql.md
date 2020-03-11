@@ -1,21 +1,21 @@
 ---
-title: Pierwotne zapytania SQL - EF6
+title: Nieprzetworzone zapytania SQL — EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9e1ee76e-2499-408c-81e8-9b6c5d1945a0
 ms.openlocfilehash: 168aee67186535bf2a50705e86bfc5a88147e369
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283787"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417096"
 ---
 # <a name="raw-sql-queries"></a>Pierwotne zapytania SQL
-Platformy Entity Framework umożliwia tworzenie zapytań za pomocą LINQ z Twoich zajęciach jednostki. Jednak może być razy, które chcesz uruchamiać zapytania przy użyciu surowego SQL bezpośrednio w bazie danych. W tym wywołaniem procedury składowane, które mogą być przydatne w przypadku Code First modeli, które aktualnie nie obsługują mapowanie procedur składowanych. Techniki przedstawione w tym temacie stosuje się jednakowo do modeli utworzonych za pomocą Code First i projektancie platformy EF.  
+Entity Framework umożliwia wykonywanie zapytań przy użyciu LINQ z klasami jednostek. Mogą jednak wystąpić sytuacje, w których chcesz uruchamiać zapytania przy użyciu RAW SQL bezpośrednio względem bazy danych. Obejmuje to wywoływanie procedur składowanych, które mogą być przydatne w przypadku modeli Code First, które obecnie nie obsługują mapowania na procedury składowane. Techniki przedstawione w tym temacie dotyczą również modeli utworzonych przy użyciu Code First i programu Dr Designer.  
 
 ## <a name="writing-sql-queries-for-entities"></a>Pisanie zapytań SQL dla jednostek  
 
-Metoda SqlQuery na DbSet umożliwia pierwotne zapytania SQL, który ma zostać zapisany, który zwróci wystąpień jednostek. Zwracanych obiektów będą śledzone przez kontekst, tak jak powinny, jeśli zostały zwrócone przez zapytanie LINQ. Na przykład:  
+Metoda sqlQuery w Nieogólnymi umożliwia zapisanie nieprzetworzonego zapytania SQL, które zwróci wystąpienia jednostki. Zwracane obiekty będą śledzone według kontekstu, tak jakby były zwracane przez zapytanie LINQ. Na przykład:  
 
 ``` csharp  
 using (var context = new BloggingContext())
@@ -24,15 +24,15 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Należy pamiętać, że podobnie jak w przypadku zapytań LINQ, zapytanie nie jest wykonywany do momentu wyliczane są wyniki — w powyższym przykładzie jest to zrobić za pomocą wywołania tolist —.  
+Należy pamiętać, że tak samo jak w przypadku zapytań LINQ zapytanie nie jest wykonywane, dopóki wyniki nie zostaną wyliczone — w powyższym przykładzie jest to wykonywane z wywołaniem do ToList —.  
 
-Należy zachować ostrożność przy każdym pierwotne zapytania SQL są zapisywane w dwóch powodów. Po pierwsze zapytanie mają być zapisywane upewnij się, że tylko zwraca jednostek, które są naprawdę żądanego typu. Na przykład podczas korzystania z funkcji, takich jak dziedziczenie jest łatwo można napisać zapytanie, które spowoduje utworzenie jednostek, które są nieprawidłowego typu CLR.  
+Należy zachować ostrożność, gdy surowe zapytania SQL są zapisywane z dwóch przyczyn. Najpierw należy napisać zapytanie, aby upewnić się, że zwraca tylko jednostki, które są naprawdę żądany typ. Na przykład podczas korzystania z funkcji, takich jak dziedziczenie, można łatwo napisać zapytanie, które będzie tworzyć jednostki o nieprawidłowym typie CLR.  
 
-Po drugie niektóre typy pierwotne zapytania SQL ujawnia potencjalne zagrożenia bezpieczeństwa, zwłaszcza w części dotyczącej ataki przez wstrzyknięcie kodu SQL. Upewnij się, że użyto parametrów w zapytaniu w prawidłowy sposób, aby zabezpieczyć się przed takimi atakami.  
+Drugim, niektóre typy nieprzetworzonego zapytania SQL ujawniają potencjalne zagrożenia bezpieczeństwa, szczególnie w przypadku ataków na iniekcję SQL. Upewnij się, że parametry w zapytaniu są używane w prawidłowy sposób do ochrony przed takimi atakami.  
 
-### <a name="loading-entities-from-stored-procedures"></a>Trwa ładowanie jednostek z procedur składowanych  
+### <a name="loading-entities-from-stored-procedures"></a>Ładowanie jednostek z procedur składowanych  
 
-DbSet.SqlQuery służy do ładowania jednostki w wynikach procedury składowanej. Na przykład poniższy kod wywołuje dbo. Procedura GetBlogs w bazie danych:  
+Można użyć Nieogólnymi. sqlQuery do załadowania jednostek z wyników procedury składowanej. Na przykład poniższy kod wywołuje obiekt dbo. Procedura getblogs w bazie danych:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -41,7 +41,7 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Parametry można też przekazać do procedury składowanej przy użyciu następującej składni:  
+Parametry można także przekazać do procedury składowanej przy użyciu następującej składni:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -52,9 +52,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-## <a name="writing-sql-queries-for-non-entity-types"></a>Pisanie zapytań SQL dla typów innych niż jednostek  
+## <a name="writing-sql-queries-for-non-entity-types"></a>Pisanie zapytań SQL dla typów innych niż Entity  
 
-Zapytanie SQL zwraca wystąpień dowolnego typu, w tym typów pierwotnych, mogą być tworzone przy użyciu metody SqlQuery klasy bazy danych. Na przykład:  
+Zapytanie SQL zwracające wystąpienia dowolnego typu, w tym typy pierwotne, można utworzyć za pomocą metody sqlQuery w klasie Database. Na przykład:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -64,11 +64,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Kontekst nigdy nie będą śledzone wyniki zwrócone z SqlQuery w bazie danych, nawet jeśli obiekty są wystąpieniami typu jednostki.  
+Wyniki zwrócone z sqlQuery w bazie danych nigdy nie będą śledzone przez kontekst, nawet jeśli obiekty są wystąpieniami typu jednostki.  
 
-## <a name="sending-raw-commands-to-the-database"></a>Wysyłania poleceń pierwotnych do bazy danych  
+## <a name="sending-raw-commands-to-the-database"></a>Wysyłanie poleceń RAW do bazy danych  
 
-W poleceniach zapytań nie mogą być wysyłane do bazy danych przy użyciu metody ExecuteSqlCommand w bazie danych. Na przykład:  
+Polecenia niebędące zapytaniami można wysyłać do bazy danych przy użyciu metody ExecuteSqlCommand w bazie danych. Na przykład:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -78,8 +78,8 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Należy zauważyć, że wszelkie zmiany wprowadzone do danych w bazie danych przy użyciu ExecuteSqlCommand nieprzezroczysta dla kontekstu aż do jednostek są załadowane lub ponownie załadować z bazy danych.  
+Należy pamiętać, że zmiany wprowadzone w danych w bazie danych przy użyciu ExecuteSqlCommand są nieprzezroczyste dla kontekstu do momentu załadowania lub ponownego załadowania jednostek z bazy danych.  
 
 ### <a name="output-parameters"></a>Parametry wyjściowe  
 
-Jeśli używane są parametry wyjściowe, ich wartości nie będzie dostępne, dopóki wyniki zostały całkowicie odczytane. Jest to spowodowane bazowego zachowanie obiekt DbDataReader, zobacz [podczas pobierania danych przy użyciu elementu DataReader](https://go.microsoft.com/fwlink/?LinkID=398589) Aby uzyskać więcej informacji.  
+Jeśli są używane parametry wyjściowe, ich wartości nie będą dostępne, dopóki wyniki nie zostaną całkowicie odczytane. Jest to spowodowane zachowaniem podstawowego elementu DbDataReader. zobacz [pobieranie danych za pomocą elementu DataReader](https://go.microsoft.com/fwlink/?LinkID=398589) , aby uzyskać więcej szczegółów.  

@@ -4,17 +4,17 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 32d19ac6-9186-4ae1-8655-64ee49da55d0
 ms.openlocfilehash: 6082124481f5795bbcb62fff2bb6a58ecdcb48e4
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490964"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417863"
 ---
-# <a name="dependency-resolution"></a>Rozpoznawanie zależności
+# <a name="dependency-resolution"></a>Rozwiązywanie zależności
 > [!NOTE]
-> **EF6 począwszy tylko** — funkcje, interfejsów API itp. z opisem na tej stronie zostały wprowadzone w programie Entity Framework 6. Jeśli używasz starszej wersji, niektóre lub wszystkie informacje, nie ma zastosowania.  
+> **Ef6 tylko** — funkcje, interfejsy API itp. omówione na tej stronie zostały wprowadzone w Entity Framework 6. Jeśli używasz wcześniejszej wersji, niektóre lub wszystkie informacje nie są stosowane.  
 
-Począwszy od platformy EF6 Entity Framework zawiera mechanizm ogólnego przeznaczenia do uzyskania implementacji usług, które są wymagane. Oznacza to kiedy EF używa wystąpienia niektóre interfejsy lub klas bazowych zostanie wyświetlony monit dla konkretnej implementacji interfejsu lub klasy bazowej do użycia. Jest to osiągane przy użyciu interfejsu IDbDependencyResolver:  
+Począwszy od EF6, Entity Framework zawiera mechanizm ogólnego przeznaczenia do uzyskiwania implementacji wymaganych usług. Oznacza to, że gdy EF używa wystąpienia niektórych interfejsów lub klas bazowych, będzie pytał o konkretną implementację interfejsu lub klasy bazowej do użycia. Jest to realizowane za pomocą interfejsu IDbDependencyResolver:  
 
 ``` csharp
 public interface IDbDependencyResolver
@@ -23,186 +23,186 @@ public interface IDbDependencyResolver
 }
 ```  
 
-Metoda GetService zwykle jest wywoływana przez EF i jest obsługiwane przez implementację IDbDependencyResolver EF lub aplikacji. Gdy zostanie wywołana, argument typu jest typem klasy interfejsu lub base żądanej usługi i klucz obiektu jest wartość null lub obiekt dostarczający informacje kontekstowe o żądanej usługi.  
+Metoda GetService jest zazwyczaj wywoływana przez EF i jest obsługiwana przez implementację IDbDependencyResolver dostarczonej przez EF lub przez aplikację. Gdy wywoływana, argument typu jest interfejsem lub typem klasy bazowej żądanej usługi, a obiekt klucza ma wartość null lub obiekt zawierający informacje kontekstowe dotyczące żądanej usługi.  
 
-Jeżeli nie określono inaczej, dowolny obiekt zwrócony musi być metodą o bezpiecznych wątkach, ponieważ może służyć jako pojedynczą. W wielu przypadkach, w których obiekt zwrócony, w którym to przypadku to fabryka sama fabryka musi być metodą o bezpiecznych wątkach, ale obiekt zwrócony z fabryki nie musi być metodą o bezpiecznych wątkach, ponieważ zażądano nowe wystąpienie z fabryki dla każdego zastosowania.
+O ile nie określono inaczej, wszelkie zwracane obiekty muszą być bezpieczne wątkowo, ponieważ mogą być używane jako pojedyncze. W wielu przypadkach zwracanym obiektem jest fabryka, w której przypadku sama fabryka musi być bezpieczna wątkowo, ale obiekt zwrócony z fabryki nie musi być bezpieczny wątkowo, ponieważ nowe wystąpienie jest wymagane od fabryki dla każdego użycia.
 
-Ten artykuł zawiera szczegółowe informacje o sposobie implementacji IDbDependencyResolver, ale zamiast tego działa jako odwołanie dla typów usługi (oznacza to, że interfejs i podstawowej klasy typy), dla których EF wywołuje GetService i semantyka obiekt klucza dla każdego z nich wywołuje.
+Ten artykuł nie zawiera pełnych informacji na temat implementowania IDbDependencyResolver, ale zamiast tego działa jako odwołanie do typów usług (czyli interfejsów i typów klas podstawowych), dla których EF wywołuje metodę GetService i semantykę obiektu klucza dla każdej z tych elementów Rozmowa.
 
-## <a name="systemdataentityidatabaseinitializertcontext"></a>System.Data.Entity.IDatabaseInitializer < TContext\>  
+## <a name="systemdataentityidatabaseinitializertcontext"></a>System. Data. Entity. IDatabaseInitializer < TContext\>  
 
-**Wprowadzona w wersji**: EF6.0.0  
+**Wprowadzona wersja**: Dr 6.0.0  
 
-**Obiekt zwrócony**: Inicjator bazy danych dla typu podanym kontekście  
+**Zwrócony obiekt**: inicjator bazy danych dla danego typu kontekstu  
 
-**Klucz**: nie jest używany; będzie miał wartość null  
+**Klucz**: nieużywany; będzie mieć wartość null  
 
-## <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a>FUNC < System.Data.Entity.Migrations.Sql.MigrationSqlGenerator\>  
+## <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a>Func < System. Data. Entity. migrations. SQL. MigrationSqlGenerator\>  
 
-**Wprowadzona w wersji**: EF6.0.0
+**Wprowadzona wersja**: Dr 6.0.0
 
-**Obiekt zwrócony**: fabrykę do tworzenia generator SQL, który może służyć do migracji i inne akcje, które powodują bazy danych ma zostać utworzony, takie jak tworzenie bazy danych z inicjatorami bazy danych.  
+**Zwrócony obiekt**: Fabryka do tworzenia generatora SQL, który może służyć do migracji i innych akcji, które powodują utworzenie bazy danych, takich jak tworzenie bazy danych z inicjatorami bazy danych.  
 
-**Klucz**: ciąg zawierający nazwę niezmienną dostawcy ADO.NET, określanie typu bazy danych, dla którego zostanie wygenerowany SQL. Na przykład generator programu SQL Server SQL jest zwracana dla klucza "System.Data.SqlClient".  
-
->[!NOTE]
-> Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
-
-## <a name="systemdataentitycorecommondbproviderservices"></a>System.Data.Entity.Core.Common.DbProviderServices  
-
-**Wprowadzona w wersji**: EF6.0.0  
-
-**Obiekt zwrócony**: Dostawca EF do użycia dla danego dostawcy o niezmiennej nazwie  
-
-**Klucz**: ciąg zawierający nazwę niezmienną dostawcy ADO.NET, określanie typu bazy danych, dla której dostawca jest wymagana. Na przykład dostawca programu SQL Server jest zwracana dla klucza "System.Data.SqlClient".  
+**Klucz**: ciąg zawierający niezmienną nazwę dostawcy ADO.NET określającą typ bazy danych, dla której zostanie wygenerowany program SQL Server. Na przykład SQL Server Generator SQL jest zwracany dla klucza "System. Data. SqlClient".  
 
 >[!NOTE]
-> Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
+> Aby uzyskać więcej informacji na temat usług związanych z dostawcą w programie EF6, zobacz sekcję [model dostawcy Ef6](~/ef6/fundamentals/providers/provider-model.md) .  
 
-## <a name="systemdataentityinfrastructureidbconnectionfactory"></a>System.Data.Entity.Infrastructure.IDbConnectionFactory  
+## <a name="systemdataentitycorecommondbproviderservices"></a>System. Data. Entity. Core. Common. DbProviderServices  
 
-**Wprowadzona w wersji**: EF6.0.0  
+**Wprowadzona wersja**: Dr 6.0.0  
 
-**Obiekt zwrócony**: fabryka połączenia, który będzie używany podczas EF, tworzenia połączenia z bazą danych według Konwencji. Oznacza to gdy nie połączenia lub parametry połączenia znajduje się do programu EF, a nie ciągu połączenia można znaleźć w pliku app.config lub web.config, następnie ta usługa służy do tworzenia połączenia zgodnie z Konwencją. Zmiana fabryka połączenia można zezwolić EF użyć innego typu bazy danych (na przykład SQL Server Compact Edition) domyślnie.  
+**Zwrócony obiekt**: dostawca EF do użycia dla danej niezmiennej nazwy dostawcy  
 
-**Klucz**: nie jest używany; będzie miał wartość null  
-
->[!NOTE]
-> Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
-
-## <a name="systemdataentityinfrastructureimanifesttokenservice"></a>System.Data.Entity.Infrastructure.IManifestTokenService  
-
-**Wprowadzona w wersji**: EF6.0.0  
-
-**Obiekt zwrócony**: usługi, który można wygenerować token manifestu dostawcy z połączenia. Ta usługa jest zwykle używana na dwa sposoby. Po pierwsze może służyć w celu uniknięcia Code First połączenie z bazą danych, podczas tworzenia modelu. Po drugie może służyć do wymuszenia Code First na budowanie modelu na potrzeby wersji konkretnej bazy danych — na przykład, aby wymusić model dla programu SQL Server 2005, nawet jeśli czasami jest używany program SQL Server 2008.  
-
-**Okres istnienia obiektu**: pojedyncze — ten sam obiekt może być używana wiele razy, a jednocześnie przez inne wątki  
-
-**Klucz**: nie jest używany; będzie miał wartość null  
-
-## <a name="systemdataentityinfrastructureidbproviderfactoryservice"></a>System.Data.Entity.Infrastructure.IDbProviderFactoryService  
-
-**Wprowadzona w wersji**: EF6.0.0  
-
-**Obiekt zwrócony**: usługi, który można uzyskać fabryki dostawcy z danego połączenia. W .NET 4.5 dostawca jest publicznie dostępny z poziomu połączenia. W .NET 4 Domyślna implementacja tej usługi używa niektóre heurystyki w celu odnalezienia pasującego dostawcy. Jeśli te nie powiodą się następnie nową metodę implementacji tej usługi można zarejestrować zapewniające odpowiednie rozwiązanie.  
-
-**Klucz**: nie jest używany; będzie miał wartość null  
-
-## <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a>FUNC < DbContext, System.Data.Entity.Infrastructure.IDbModelCacheKey\>  
-
-**Wprowadzona w wersji**: EF6.0.0  
-
-**Obiekt zwrócony**: fabryki, który zostanie wygenerowany klucz pamięci podręcznej modelu dla danego kontekstu. Domyślnie program EF buforuje jednego modelu dla typu DbContext dla dostawcy. Inną implementację tej usługi można dodać inne informacje, takie jak nazwa schematu do klucza pamięci podręcznej.  
-
-**Klucz**: nie jest używany; będzie miał wartość null  
-
-## <a name="systemdataentityspatialdbspatialservices"></a>System.Data.Entity.Spatial.DbSpatialServices  
-
-**Wprowadzona w wersji**: EF6.0.0  
-
-**Obiekt zwrócony**: EF przestrzenne dostawcy, który dodaje obsługę podstawowych EF dostawcy typów przestrzennych geometry i położenia geograficznego.  
-
-**Klucz**: DbSptialServices zostanie poproszony o na dwa sposoby. Po pierwsze, właściwe dla dostawcy usług przestrzennych, są żądane przy użyciu obiektu DbProviderInfo (zawierający niezmiennej token nazwy, a manifestu) jako klucza. Po drugie DbSpatialServices można monit o wpisanie bez klucza. Służy to rozwiązać "globalne przestrzenne dostawcę" który jest używany podczas tworzenia autonomicznego DbGeography lub DbGeometry typów.  
+**Klucz**: ciąg zawierający nazwę niezmiennej dostawcy ADO.NET określającą typ bazy danych, dla której jest wymagany dostawca. Na przykład dostawca SQL Server jest zwracany dla klucza "System. Data. SqlClient".  
 
 >[!NOTE]
-> Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
+> Aby uzyskać więcej informacji na temat usług związanych z dostawcą w programie EF6, zobacz sekcję [model dostawcy Ef6](~/ef6/fundamentals/providers/provider-model.md) .  
 
-## <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a>FUNC < System.Data.Entity.Infrastructure.IDbExecutionStrategy\>  
+## <a name="systemdataentityinfrastructureidbconnectionfactory"></a>System. Data. Entity. Infrastructure. IDbConnectionFactory  
 
-**Wprowadzona w wersji**: EF6.0.0  
+**Wprowadzona wersja**: Dr 6.0.0  
 
-**Obiekt zwrócony**: fabryki, aby utworzyć usługę, która umożliwia dostawcy zaimplementować ponownych prób lub inne zachowanie, gdy zapytań i poleceń, które są wykonywane względem bazy danych. Jeśli nie dostarczono żadnej implementacji, EF będzie po prostu wykonaj polecenia i propagowanie wyjątki zgłaszane. Dla programu SQL Server ta usługa służy do zapewnienia zasady ponawiania, co jest szczególnie przydatne, jeśli działających w odniesieniu do serwerów bazy danych opartej na chmurze, takich jak SQL Azure.  
+**Zwrócony obiekt**: Fabryka połączeń, która będzie używana podczas tworzenia połączenia z bazą danych za pomocą Konwencji EF. Oznacza to, że w przypadku braku połączenia lub parametrów połączenia z EF nie można odnaleźć parametrów połączenia w pliku App. config lub Web. config. Ta usługa jest używana do tworzenia połączenia według Konwencji. Zmiana fabryki połączeń może pozwolić, aby EF domyślnie używała innego typu bazy danych (na przykład SQL Server Compact Edition).  
 
-**Klucz**: obiekt ExecutionStrategyKey, który zawiera nazwę niezmienną dostawcy i opcjonalnie nazwy serwera, dla której będzie służyć strategii wykonywania.  
-
->[!NOTE]
-> Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
-
-## <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a>FUNC < DbConnection, string, System.Data.Entity.Migrations.History.HistoryContext\>  
-
-**Wprowadzona w wersji**: EF6.0.0  
-
-**Obiekt zwrócony**: fabrykę, która umożliwia dostawcy skonfigurować mapowanie HistoryContext do `__MigrationHistory` tabeli używanej przez migracje EF. HistoryContext jest pierwszy typu DbContext kodu i można skonfigurować przy użyciu normalnych wygodnego interfejsu API można zmienić elementów, takich jak nazwy tabeli i specyfikacji mapowania kolumn.  
-
-**Klucz**: nie jest używany; będzie miał wartość null  
+**Klucz**: nieużywany; będzie mieć wartość null  
 
 >[!NOTE]
-> Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
+> Aby uzyskać więcej informacji na temat usług związanych z dostawcą w programie EF6, zobacz sekcję [model dostawcy Ef6](~/ef6/fundamentals/providers/provider-model.md) .  
 
-## <a name="systemdatacommondbproviderfactory"></a>System.Data.Common.DbProviderFactory  
+## <a name="systemdataentityinfrastructureimanifesttokenservice"></a>System. Data. Entity. Infrastructure. IManifestTokenService  
 
-**Wprowadzona w wersji**: EF6.0.0  
+**Wprowadzona wersja**: Dr 6.0.0  
 
-**Obiekt zwrócony**: Dostawca ADO.NET do użycia dla danego dostawcy o niezmiennej nazwie.  
+**Zwrócony obiekt**: usługa, która może generować token manifestu dostawcy z połączenia. Ta usługa jest zwykle używana na dwa sposoby. Po pierwsze, można go użyć, aby uniknąć Code First łączenia się z bazą danych podczas kompilowania modelu. Następnie można go użyć do wymuszenia Code First tworzenia modelu dla określonej wersji bazy danych — na przykład, aby wymusić model dla SQL Server 2005, nawet jeśli czasami SQL Server 2008 jest używany.  
 
-**Klucz**: ciąg zawierający nazwę niezmienną dostawcy ADO.NET  
+**Okres istnienia obiektu**: pojedynczy — ten sam obiekt może być wielokrotnie używany i jednocześnie przez różne wątki  
+
+**Klucz**: nieużywany; będzie mieć wartość null  
+
+## <a name="systemdataentityinfrastructureidbproviderfactoryservice"></a>System. Data. Entity. Infrastructure. IDbProviderFactoryService  
+
+**Wprowadzona wersja**: Dr 6.0.0  
+
+**Zwrócony obiekt**: usługa, która może uzyskać fabrykę dostawcy z danego połączenia. W przypadku programu .NET 4,5 dostawca jest publicznie dostępny w ramach połączenia. W programie .NET 4 domyślna implementacja tej usługi używa pewnych algorytmów heurystycznych w celu znalezienia pasującego dostawcy. Jeśli te błędy zakończą się niepowodzeniem, można zarejestrować nową implementację tej usługi, aby zapewnić odpowiednie rozwiązanie.  
+
+**Klucz**: nieużywany; będzie mieć wartość null  
+
+## <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a>Func < DbContext, system. Data. Entity. Infrastructure. IDbModelCacheKey\>  
+
+**Wprowadzona wersja**: Dr 6.0.0  
+
+**Zwrócony obiekt**: Fabryka, która będzie generować klucz pamięci podręcznej modelu dla danego kontekstu. Domyślnie EF zapisuje w pamięci podręcznej jeden model na typ kontekstu dbdla każdego dostawcy. Inna implementacja tej usługi może służyć do dodawania innych informacji, takich jak nazwa schematu, do klucza pamięci podręcznej.  
+
+**Klucz**: nieużywany; będzie mieć wartość null  
+
+## <a name="systemdataentityspatialdbspatialservices"></a>System. Data. Entity. przestrzenny. DbSpatialServices  
+
+**Wprowadzona wersja**: Dr 6.0.0  
+
+**Zwrócony obiekt**: dostawca przestrzenny EF, który dodaje obsługę podstawowego dostawcy EF dla typów przestrzennych i geograficznych.  
+
+**Klucz**: DbSptialServices jest proszony na dwa sposoby. Najpierw żąda się usług przestrzennych specyficznych dla dostawcy przy użyciu obiektu DbProviderInfo (który zawiera nazwę niezmienną i token manifestu) jako klucz. Po drugie, DbSpatialServices może być poproszony o brak klucza. Służy do rozpoznawania globalnego dostawcy przestrzennego, który jest używany podczas tworzenia autonomicznych typów DbGeography lub DbGeometry.  
 
 >[!NOTE]
-> Ta usługa nie jest zazwyczaj zmieniany bezpośrednio od implementacji domyślnej jest używana normalnej rejestracji dostawcy ADO.NET. Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
+> Aby uzyskać więcej informacji na temat usług związanych z dostawcą w programie EF6, zobacz sekcję [model dostawcy Ef6](~/ef6/fundamentals/providers/provider-model.md) .  
 
-## <a name="systemdataentityinfrastructureiproviderinvariantname"></a>System.Data.Entity.Infrastructure.IProviderInvariantName  
+## <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a>Func < System. Data. Entity. Infrastructure. IDbExecutionStrategy\>  
 
-**Wprowadzona w wersji**: EF6.0.0  
+**Wprowadzona wersja**: Dr 6.0.0  
 
-**Obiekt zwrócony**: usługa, która jest używana do określenia dla danego typu DbProviderFactory nazwę niezmienną dostawcy. Domyślna implementacja tej usługi używa rejestracji dostawcy ADO.NET. Oznacza to, że jeśli dostawcy ADO.NET nie jest zarejestrowany w normalny sposób, ponieważ DbProviderFactory jest rozwiązywany za EF, następnie również będzie wymagany do rozwiązania tej usługi.  
+**Zwrócony obiekt**: Fabryka do tworzenia usługi, która umożliwia dostawcy wdrożenie ponownych prób lub inne zachowanie w przypadku wykonywania zapytań i poleceń względem bazy danych. Jeśli nie podano implementacji, EF po prostu wykona polecenia i propaguje wszystkie zgłoszone wyjątki. W przypadku SQL Server ta usługa jest używana w celu zapewnienia zasad ponawiania, która jest szczególnie przydatna w przypadku uruchamiania na serwerach bazy danych opartych na chmurze, takich jak SQL Azure.  
 
-**Klucz**: DbProviderFactory wystąpienia, dla których niezmienna nazwa jest wymagana.  
+**Klucz**: obiekt ExecutionStrategyKey, który zawiera niezmienną nazwę dostawcy i opcjonalnie nazwę serwera, dla którego zostanie użyta strategia wykonywania.  
 
 >[!NOTE]
-> Zobacz szczegółowe informacje na temat związane z dostawcą usług w EF6 [modelu dostawca EF6](~/ef6/fundamentals/providers/provider-model.md) sekcji.  
+> Aby uzyskać więcej informacji na temat usług związanych z dostawcą w programie EF6, zobacz sekcję [model dostawcy Ef6](~/ef6/fundamentals/providers/provider-model.md) .  
 
-## <a name="systemdataentitycoremappingviewgenerationiviewassemblycache"></a>System.Data.Entity.Core.Mapping.ViewGeneration.IViewAssemblyCache  
+## <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a>Func < DbConnection, String, system. Data. Entity. migrations. history. HistoryContext\>  
 
-**Wprowadzona w wersji**: EF6.0.0  
+**Wprowadzona wersja**: Dr 6.0.0  
 
-**Obiekt zwrócony**: pamięć podręczna zestawów, które zawierają wstępnie wygenerowanych widoków. Zazwyczaj służy zamiennika umożliwiające EF wiedzieć, zestawy, które zawierają wstępnie wygenerowanych widoków bez żadnych odnajdywania.  
+**Zwrócony obiekt**: Fabryka, która pozwala dostawcy konfigurować mapowanie HistoryContext do tabeli `__MigrationHistory` używanej przez migracje EF. HistoryContext to Code First DbContext i można go skonfigurować przy użyciu normalnego interfejsu API Fluent, aby zmienić elementy, takie jak nazwa tabeli i specyfikacje mapowania kolumn.  
 
-**Klucz**: nie jest używany; będzie miał wartość null  
+**Klucz**: nieużywany; będzie mieć wartość null  
 
-## <a name="systemdataentityinfrastructurepluralizationipluralizationservice"></a>System.Data.Entity.Infrastructure.Pluralization.IPluralizationService
+>[!NOTE]
+> Aby uzyskać więcej informacji na temat usług związanych z dostawcą w programie EF6, zobacz sekcję [model dostawcy Ef6](~/ef6/fundamentals/providers/provider-model.md) .  
 
-**Wprowadzona w wersji**: EF6.0.0  
+## <a name="systemdatacommondbproviderfactory"></a>System. Data. Common. DbProviderFactory  
 
-**Obiekt zwrócony**: Usługa używana przez EF w liczbie mnogiej do nazw końcówek. Domyślnie usługa angielskiej pluralizacja jest używana.  
+**Wprowadzona wersja**: Dr 6.0.0  
 
-**Klucz**: nie jest używany; będzie miał wartość null  
+**Zwrócony obiekt**: dostawca ADO.NET do użycia dla danej niezmiennej nazwy dostawcy.  
 
-## <a name="systemdataentityinfrastructureinterceptionidbinterceptor"></a>System.Data.Entity.Infrastructure.Interception.IDbInterceptor  
+**Klucz**: ciąg zawierający niezmienną nazwę dostawcy ADO.NET  
 
-**Wprowadzona w wersji**: EF6.0.0
+>[!NOTE]
+> Ta usługa nie jest zwykle zmieniana bezpośrednio od czasu implementacji domyślnej przy użyciu standardowej rejestracji dostawcy ADO.NET. Aby uzyskać więcej informacji na temat usług związanych z dostawcą w programie EF6, zobacz sekcję [model dostawcy Ef6](~/ef6/fundamentals/providers/provider-model.md) .  
 
-**Obiekty zwrócone**: wszelkie interceptory, które powinny być rejestrowane podczas uruchamiania aplikacji. Należy zauważyć, że te obiekty są żądane za pomocą wywołania funkcji GetServices i interceptory wszystkie zwrócone przez dowolnego mechanizmu rozpoznawania zależności zostanie zarejestrowana.
+## <a name="systemdataentityinfrastructureiproviderinvariantname"></a>System. Data. Entity. Infrastructure. IProviderInvariantName  
 
-**Klucz**: nie jest używany; będzie miał wartość null.  
+**Wprowadzona wersja**: Dr 6.0.0  
 
-## <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a>FUNC < System.Data.Entity.DbContext, akcja < ciąg\>, System.Data.Entity.Infrastructure.Interception.DatabaseLogFormatter\>  
+**Zwrócony obiekt**: usługa, która jest używana do określenia niezmiennej nazwy dostawcy dla danego typu DbProviderFactory. Domyślna implementacja tej usługi używa rejestracji dostawcy ADO.NET. Oznacza to, że jeśli dostawca ADO.NET nie jest zarejestrowany w normalny sposób, ponieważ DbProviderFactory jest rozpoznawany przez EF, konieczne będzie również rozwiązanie tej usługi.  
 
-**Wprowadzona w wersji**: EF6.0.0  
+**Key**: Wystąpienie DbProviderFactory, dla którego wymagana jest nazwa niezmienna.  
 
-**Obiekt zwrócony**: fabrykę, która będzie służyć do tworzenia elementu formatującego dziennika bazy danych, który będzie używany podczas kontekstu. Database.Log właściwość jest ustawiona w danym kontekście.  
+>[!NOTE]
+> Aby uzyskać więcej informacji na temat usług związanych z dostawcą w programie EF6, zobacz sekcję [model dostawcy Ef6](~/ef6/fundamentals/providers/provider-model.md) .  
 
-**Klucz**: nie jest używany; będzie miał wartość null.  
+## <a name="systemdataentitycoremappingviewgenerationiviewassemblycache"></a>System. Data. Entity. Core. Mapping. ViewGeneration. IViewAssemblyCache  
 
-## <a name="funcsystemdataentitydbcontext"></a>FUNC < System.Data.Entity.DbContext\>  
+**Wprowadzona wersja**: Dr 6.0.0  
 
-**Wprowadzona w wersji**: EF6.1.0  
+**Zwrócony obiekt**: pamięć podręczna zestawów, które zawierają wstępnie wygenerowane widoki. Zastąpienie jest zwykle używane do informowania EF o tym, które zestawy zawierają wstępnie wygenerowane widoki, bez konieczności odnajdywania.  
 
-**Obiekt zwrócony**: fabrykę, która będzie służyć do tworzenia wystąpień kontekstu dla migracji, gdy kontekst nie jest dostępny konstruktor bez parametrów.  
+**Klucz**: nieużywany; będzie mieć wartość null  
 
-**Klucz**: typ obiektu dla typu pochodnego typu DbContext potrzeby fabrykę.  
+## <a name="systemdataentityinfrastructurepluralizationipluralizationservice"></a>System. Data. Entity. Infrastructure. pluralizacja. IPluralizationService
 
-## <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a>FUNC < System.Data.Entity.Core.Metadata.Edm.IMetadataAnnotationSerializer\>  
+**Wprowadzona wersja**: Dr 6.0.0  
 
-**Wprowadzona w wersji**: EF6.1.0  
+**Zwrócony obiekt**: Usługa używana przez EF do pluralize i nazw nazwom. Domyślnie używana jest usługa pluralizacja w języku angielskim.  
 
-**Obiekt zwrócony**: fabrykę, która będzie służyć do utworzyć serializatorów serializacji silnie typizowane niestandardowe adnotacje taki sposób, że może być serializowany i desterilized do formatu XML do użycia w migracji Code First.  
+**Klucz**: nieużywany; będzie mieć wartość null  
 
-**Klucz**: Nazwa adnotacji, który jest serializowany lub deserializowany.  
+## <a name="systemdataentityinfrastructureinterceptionidbinterceptor"></a>System. Data. Entity. Infrastructure. przechwytując. IDbInterceptor  
 
-## <a name="funcsystemdataentityinfrastructuretransactionhandler"></a>FUNC < System.Data.Entity.Infrastructure.TransactionHandler\>  
+**Wprowadzona wersja**: Dr 6.0.0
 
-**Wprowadzona w wersji**: EF6.1.0  
+**Zwrócone obiekty**: wszystkie Interceptory, które powinny być zarejestrowane podczas uruchamiania aplikacji. Należy zauważyć, że te obiekty są żądane przy użyciu wywołania GetServices i wszystkich przechwyceń zwracanych przez dowolny program rozpoznawania zależności zostanie zarejestrowany.
 
-**Obiekt zwrócony**: fabrykę, która będzie służyć do tworzenie programów do obsługi transakcji, tak aby specjalnej obsługi można zastosować w sytuacjach, takich jak obsługa zatwierdzenia awarie.  
+**Klucz**: nieużywany; będzie mieć wartość null.  
 
-**Klucz**: obiekt ExecutionStrategyKey, który zawiera nazwę niezmienną dostawcy i opcjonalnie nazwy serwera, dla której będzie używany program obsługi transakcji.  
+## <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a>Func < System. Data. Entity. DbContext, Akcja < ciąg\>, system. Data. Entity. Infrastructure. przechwytując. DatabaseLogFormatter\>  
+
+**Wprowadzona wersja**: Dr 6.0.0  
+
+**Zwrócony obiekt**: Fabryka, która zostanie użyta do utworzenia programu formatującego dziennika bazy danych, który będzie używany w przypadku kontekstu. Właściwość Database. log jest ustawiona w danym kontekście.  
+
+**Klucz**: nieużywany; będzie mieć wartość null.  
+
+## <a name="funcsystemdataentitydbcontext"></a>Func < System. Data. Entity. DbContext\>  
+
+**Wprowadzona wersja**: Dr 6.1.0  
+
+**Zwrócony obiekt**: Fabryka, która będzie używana do tworzenia wystąpień kontekstu dla migracji, gdy kontekst nie ma dostępnego konstruktora bez parametrów.  
+
+**Key**: obiekt Type dla typu pochodnego DbContext, dla którego jest wymagana fabryka.  
+
+## <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a>Func < System. Data. Entity. Core. Metadata. Edm. IMetadataAnnotationSerializer\>  
+
+**Wprowadzona wersja**: Dr 6.1.0  
+
+**Zwrócony obiekt**: Fabryka, która będzie używana do tworzenia serializatorów do serializacji niestandardowych adnotacji o jednoznacznie określonym typie, które mogą być serializowane i desterylizowane w kodzie XML do użycia w migracje Code First.  
+
+**Key**: nazwa adnotacji, która jest serializowana lub deserializowana.  
+
+## <a name="funcsystemdataentityinfrastructuretransactionhandler"></a>Func < System. Data. Entity. Infrastructure. TransactionHandler\>  
+
+**Wprowadzona wersja**: Dr 6.1.0  
+
+**Zwrócony obiekt**: Fabryka, która będzie używana do tworzenia programów obsługi dla transakcji, dzięki czemu można zastosować obsługę specjalną w przypadku sytuacji, takich jak obsługa niepowodzeń zatwierdzeń.  
+
+**Klucz**: obiekt ExecutionStrategyKey, który zawiera niezmienną nazwę dostawcy i opcjonalnie nazwę serwera, dla którego zostanie użyta procedura obsługi transakcji.  

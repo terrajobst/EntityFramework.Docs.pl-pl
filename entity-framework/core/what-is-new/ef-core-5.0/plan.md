@@ -3,12 +3,12 @@ title: Planowanie dla Entity Framework Core 5,0
 author: ajcvickers
 ms.date: 01/14/2020
 uid: core/what-is-new/ef-core-5.0/plan.md
-ms.openlocfilehash: 0472841fdcd105ec8ea38db062c6768510b8735d
-ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
+ms.openlocfilehash: c5b7300c61c2f668b6f9393ae51bf9ebddf330a7
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76125383"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417877"
 ---
 # <a name="plan-for-entity-framework-core-50"></a>Planowanie dla Entity Framework Core 5,0
 
@@ -27,7 +27,7 @@ EF Core 5,0 jest planowane do uruchamiania na dowolnej platformie .NET 5,0 w opa
 
 EF Core 5,0 nie będzie działać na .NET Framework.
 
-### <a name="breaking-changes"></a>Fundamentalne zmiany
+### <a name="breaking-changes"></a>Zmiany powodujące niezgodność
 
 EF Core 5,0 będzie zawierać pewne istotne zmiany, ale będą znacznie mniej surowe niż w przypadku EF Core 3,0. Naszym celem jest umożliwienie nieprzerwanego aktualizowania większości aplikacji.
 
@@ -47,11 +47,13 @@ Rozmiar koszulki: L
 
 Stan: w toku
 
-Funkcja wiele-do-wielu jest najbardziej żądaną funkcją (~ 407 głosów) w zaległości usługi GitHub. Obsługa relacji wiele-do-wielu można podzielić na trzy główne obszary:
+Funkcja wiele-do-wielu jest [najbardziej żądaną funkcją](https://github.com/aspnet/EntityFrameworkCore/issues/1368) (~ 407 głosów) w zaległości usługi GitHub.
 
-* Pomiń właściwości nawigacji. Umożliwiają one korzystanie z modelu na potrzeby zapytań itp. bez odwołania do podstawowej jednostki tabeli sprzężeń.
-* Typy jednostek zbioru właściwości. Umożliwiają one użycie standardowego typu CLR (np. `Dictionary`) w przypadku wystąpień jednostek, w taki sposób, że jawny typ CLR nie jest wymagany dla każdego typu jednostki.
-* Cukier pozwala na łatwą konfigurację relacji wiele-do-wielu.
+Obsługa relacji wiele-do-wielu w całości jest śledzona jako [#10508](https://github.com/aspnet/EntityFrameworkCore/issues/10508). Można to podzielić na trzy główne obszary:
+
+* Pomiń właściwości nawigacji. Umożliwiają one korzystanie z modelu na potrzeby zapytań itp. bez odwołania do podstawowej jednostki tabeli sprzężeń. ([#19003](https://github.com/aspnet/EntityFrameworkCore/issues/19003))
+* Typy jednostek zbioru właściwości. Umożliwiają one użycie standardowego typu CLR (np. `Dictionary`) w przypadku wystąpień jednostek, w taki sposób, że jawny typ CLR nie jest wymagany dla każdego typu jednostki. (Rozciągnij dla 5,0: [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914).)
+* Cukier pozwala na łatwą konfigurację relacji wiele-do-wielu. (Rozciągnij dla 5,0).
 
 Uważamy, że najbardziej znaczący blok dla tych, które chcą uzyskać pomoc techniczną wiele-do-wielu, nie ma możliwości używania "naturalnych" relacji bez odwołujących się do tabeli sprzężenia w logice biznesowej, takiej jak zapytania. Typ jednostki połączonej tabeli może nadal istnieć, ale nie powinien się on znajdować w sposób logiki biznesowej. To dlatego, że wybrano opcję pominięcia właściwości nawigacji dla 5,0.
 
@@ -122,7 +124,7 @@ Obecnie wielu deweloperów migruje swoje bazy danych podczas uruchamiania aplika
 * Wiele wątków/procesów/serwerów może próbować przeprowadzić migrację bazy danych współbieżnie
 * Aplikacje mogą próbować uzyskać dostęp do niespójnego stanu, gdy jest to wykonywane
 * Zwykle uprawnienia bazy danych do modyfikacji schematu nie należy przyznawać do wykonania aplikacji
-* Jego twarda próba powrotu do stanu czystego, jeśli coś się nie udaje
+* Jeśli coś się nie stanie, trudno wrócić do stanu czystego
 
 Chcemy zapewnić lepsze środowisko w tym miejscu, które pozwala na łatwe Migrowanie bazy danych w czasie wdrażania. Powinno to być:
 
@@ -170,7 +172,7 @@ Rozmiar koszulki: L
 
 Stan: w toku
 
-W EF Core planujemy udoskonalić nasz pakiet testów wydajności i wprowadzić ukierunkowane ulepszenia wydajności środowiska uruchomieniowego. Ponadto planujemy ukończenie nowego interfejsu API tworzenia wsadowego ADO.NET, który został utworzony w ramach cyklu wydania 3,0. Ponadto w warstwie ADO.NET planujemy dodatkowe ulepszenia wydajności dla dostawcy Npgsql.
+W przypadku EF Core planujemy udoskonalić nasz pakiet testów wydajnościowych i wprowadzić ukierunkowane ulepszenia wydajności środowiska uruchomieniowego. Ponadto planujemy ukończenie nowego interfejsu API tworzenia wsadowego ADO.NET, który został utworzony w ramach cyklu wydania 3,0. Ponadto w warstwie ADO.NET planujemy dodatkowe ulepszenia wydajności dla dostawcy Npgsql.
 
 W ramach tej pracy zaplanowano również dodanie ADO.NET/EF podstawowych liczników wydajności i innych elementów diagnostycznych odpowiednio do potrzeb.
 
@@ -178,7 +180,7 @@ W ramach tej pracy zaplanowano również dodanie ADO.NET/EF podstawowych licznik
 
 Dokument potencjalnego klienta: @ajcvickers
 
-Śledzone przez [#1920](https://github.com/aspnet/EntityFramework.Docs/issues/1920)
+Śledzone przez [#1920](https://github.com/dotnet/EntityFramework.Docs/issues/1920)
 
 Rozmiar koszulki: L
 
@@ -194,7 +196,7 @@ Tutaj warto ułatwić zrozumienie, co się dzieje w wewnętrznych EF Core. Może
 
 Dokument potencjalnego klienta: @bricelam
 
-Śledzone przez [#1675](https://github.com/aspnet/EntityFramework.Docs/issues/1675)
+Śledzone przez [#1675](https://github.com/dotnet/EntityFramework.Docs/issues/1675)
 
 Rozmiar koszulki: M
 
@@ -206,7 +208,7 @@ Zespół EF również jest właścicielem dostawcy ADO.NET Microsoft. Data. sqli
 
 Dokument potencjalnego klienta: @ajcvickers
 
-Śledzone przez [problemy w repozytorium docs w obszarze kontrolnym 5,0](https://github.com/aspnet/EntityFramework.Docs/issues?utf8=%E2%9C%93&q=is%3Aissue+milestone%3A5.0.0+)
+Śledzone przez [problemy w repozytorium docs w obszarze kontrolnym 5,0](https://github.com/dotnet/EntityFramework.Docs/issues?utf8=%E2%9C%93&q=is%3Aissue+milestone%3A5.0.0+)
 
 Rozmiar koszulki: L
 
@@ -252,6 +254,6 @@ Są to poprawki i udoskonalenia błędów, które **nie** są obecnie planowane 
 
 Ponadto zawsze należy wziąć pod uwagę [najczęstsze problemy związane](https://github.com/dotnet/efcore/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc) z planowaniem. Wszystkie te problemy w wersji są zawsze bolesnym, ale potrzebujemy realistycznego planu dla zasobów, które mamy.
 
-## <a name="feedback"></a>Opinie
+## <a name="feedback"></a>Opinia
 
 Twoja opinia na temat planowania jest ważna. Najlepszym sposobem na wskazanie znaczenia problemu jest zagłosowanie (kciuki) dla tego problemu w serwisie GitHub. Te dane zostaną następnie [przetworzone do procesu planowania](../release-planning.md) dla kolejnej wersji.

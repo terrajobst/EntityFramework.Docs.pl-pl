@@ -3,12 +3,12 @@ title: Obsługa konfliktów współbieżności — EF Core
 author: rowanmiller
 ms.date: 03/03/2018
 uid: core/saving/concurrency
-ms.openlocfilehash: b72fa472698e76e18f155cf96b738b0e193eee0f
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: a1d1a5a11d482f9104691aa3c072dbd1c548e9f1
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73654615"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417591"
 ---
 # <a name="handling-concurrency-conflicts"></a>Obsługa konfliktów współbieżności
 
@@ -16,7 +16,7 @@ ms.locfileid: "73654615"
 > Ta strona dokumentuje sposób działania współbieżności w EF Core oraz sposób obsługi konfliktów współbieżności w aplikacji. Zobacz [tokeny współbieżności](xref:core/modeling/concurrency) , aby uzyskać szczegółowe informacje na temat konfigurowania tokenów współbieżności w modelu.
 
 > [!TIP]
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Concurrency/) tego artykułu można wyświetlić w witrynie GitHub.
+> [Przykład](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/Concurrency/) tego artykułu można wyświetlić w witrynie GitHub.
 
 _Współbieżność bazy danych_ odnosi się do sytuacji, w których wiele procesów lub użytkowników uzyskuje dostęp lub zmienia te same dane w bazie danych w tym samym czasie. _Kontrola współbieżności_ odnosi się do określonych mechanizmów używanych do zapewnienia spójności danych w obecności współbieżnych zmian.
 
@@ -24,7 +24,7 @@ EF Core implementuje _optymistyczną kontrolę współbieżności_, co oznacza, 
 
 ## <a name="how-concurrency-control-works-in-ef-core"></a>Jak działa kontrola współbieżności w EF Core
 
-Właściwości skonfigurowane jako tokeny współbieżności są używane do implementowania optymistycznej kontroli współbieżności: za każdym razem, gdy operacja aktualizowania lub usuwania jest wykonywana podczas `SaveChanges`, wartość tokenu współbieżności w bazie danych jest porównywana z odczytaniem oryginalnej wartości. przez EF Core.
+Właściwości skonfigurowane jako tokeny współbieżności są używane do implementowania optymistycznej kontroli współbieżności: za każdym razem, gdy operacja aktualizowania lub usuwania jest wykonywana podczas `SaveChanges`, wartość tokenu współbieżności w bazie danych jest porównywana z oryginalną wartością odczytywaną przez EF Core.
 
 - Jeśli wartości są takie same, operacja może zostać ukończona.
 - Jeśli wartości nie są zgodne, EF Core zakłada, że inny użytkownik wykonał operację powodującą konflikt i przerywa bieżącą transakcję.

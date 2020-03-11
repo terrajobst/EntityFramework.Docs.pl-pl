@@ -4,22 +4,22 @@ author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
-ms.openlocfilehash: 5cfb05041f04246712fb699f58b407f70a75ce92
-ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
+ms.openlocfilehash: e01bd146c4dfe7a8d36b641cb52ae366fddd8239
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72445967"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417761"
 ---
 # <a name="client-vs-server-evaluation"></a>Klient a wersja ewaluacyjna serwera
 
-Zgodnie z ogólną zasadą Entity Framework Core próbuje w miarę możliwości oszacować zapytanie na serwerze. EF Core konwertuje części zapytania na parametry, które mogą być oceniane po stronie klienta. Pozostała część zapytania (wraz z wygenerowanymi parametrami) jest podawana dostawcy bazy danych w celu ustalenia równoważnej kwerendy bazy danych, która ma zostać obliczona na serwerze. EF Core obsługuje częściową ocenę klienta w projekcji najwyższego poziomu (zasadniczo jest to ostatnie wywołanie `Select()`). Jeśli projekcja najwyższego poziomu w zapytaniu nie może zostać przetłumaczona na serwer, EF Core pobierze wymagane dane z serwera i Oceń pozostałe części zapytania na kliencie. Jeśli EF Core wykryje wyrażenie w innym miejscu niż projekcja najwyższego poziomu, którego nie można przetłumaczyć na serwer, wówczas zgłasza wyjątek czasu wykonania. Zobacz, [jak działa zapytanie](xref:core/querying/how-query-works) , aby zrozumieć, jak EF Core określa, czego nie można przetłumaczyć na serwer.
+Zgodnie z ogólną zasadą Entity Framework Core próbuje w miarę możliwości oszacować zapytanie na serwerze. EF Core konwertuje części zapytania na parametry, które mogą być oceniane po stronie klienta. Pozostała część zapytania (wraz z wygenerowanymi parametrami) jest podawana dostawcy bazy danych w celu ustalenia równoważnej kwerendy bazy danych, która ma zostać obliczona na serwerze. EF Core obsługuje częściową ocenę klienta w projekcji najwyższego poziomu (zasadniczo jest to ostatnie wywołanie do `Select()`). Jeśli projekcja najwyższego poziomu w zapytaniu nie może zostać przetłumaczona na serwer, EF Core pobierze wymagane dane z serwera i Oceń pozostałe części zapytania na kliencie. Jeśli EF Core wykryje wyrażenie w innym miejscu niż projekcja najwyższego poziomu, którego nie można przetłumaczyć na serwer, wówczas zgłasza wyjątek czasu wykonania. Zobacz, [jak działa zapytanie](xref:core/querying/how-query-works) , aby zrozumieć, jak EF Core określa, czego nie można przetłumaczyć na serwer.
 
 > [!NOTE]
 > Przed wersjami 3,0 Entity Framework Core obsługiwaną ocenę klienta w dowolnym miejscu zapytania. Aby uzyskać więcej informacji, zobacz [sekcję poprzednie wersje](#previous-versions).
 
 > [!TIP]
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) tego artykułu można wyświetlić w witrynie GitHub.
+> [Przykład](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying) tego artykułu można wyświetlić w witrynie GitHub.
 
 ## <a name="client-evaluation-in-the-top-level-projection"></a>Ocena klienta w projekcji najwyższego poziomu
 
@@ -42,7 +42,7 @@ Może być konieczne jawne wymuszenie oceny klienta w niektórych przypadkach, t
 - Ilość danych jest mała, co oznacza, że Ocena na kliencie nie wiąże się z ogromnymi karami za wydajność.
 - Używany operator LINQ nie ma żadnego tłumaczenia po stronie serwera.
 
-W takich przypadkach można jawnie zadecydować o ocenie klienta, wywołując metody, takie jak `AsEnumerable` lub `ToList` (`AsAsyncEnumerable` lub `ToListAsync` dla Async). Za pomocą `AsEnumerable` można przesyłać strumieniowo wyniki, ale użycie `ToList` spowodowałoby buforowanie przez utworzenie listy, która również pobiera dodatkową pamięć. Jeśli jednak wyliczasz wiele razy, przechowywanie wyników na liście pomoże więcej, ponieważ istnieje tylko jedno zapytanie do bazy danych. W zależności od określonego użycia należy oszacować, która metoda jest bardziej przydatna w przypadku.
+W takich przypadkach można jawnie zadecydować o ocenie klienta, wywołując metody takie jak `AsEnumerable` lub `ToList` (`AsAsyncEnumerable` lub `ToListAsync` dla Async). Za pomocą `AsEnumerable` można przesyłać strumieniowo wyniki, ale użycie `ToList` spowodowałoby buforowanie przez utworzenie listy, która również zajmuje dodatkową pamięć. Jeśli jednak wyliczasz wiele razy, przechowywanie wyników na liście pomoże więcej, ponieważ istnieje tylko jedno zapytanie do bazy danych. W zależności od określonego użycia należy oszacować, która metoda jest bardziej przydatna w przypadku.
 
 [!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ExplicitClientEval)]
 
@@ -60,7 +60,7 @@ Poniższa sekcja ma zastosowanie do wersji EF Core przed 3,0.
 
 Starsze wersje EF Core obsługują ocenę klienta w dowolnej części zapytania — a nie tylko projekcję najwyższego poziomu. Dlatego, że zapytania podobne do jednego ogłoszono w sekcji [nieobsługiwana wersja ewaluacyjna klienta](#unsupported-client-evaluation) działały prawidłowo. Ponieważ takie zachowanie może spowodować problemy z wydajnością, EF Core rejestrować ostrzeżenia oceny klienta. Aby uzyskać więcej informacji o wyświetlaniu danych wyjściowych rejestrowania, zobacz [Rejestrowanie](xref:core/miscellaneous/logging).
 
-Opcjonalnie EF Core można zmienić zachowanie domyślne, aby zgłosić wyjątek lub nic nie robić podczas oceny klienta (z wyjątkiem w projekcji). Wyjątek zgłaszający zachowanie mógłby być podobny do zachowania w 3,0. Aby zmienić zachowanie, należy skonfigurować ostrzeżenia podczas konfigurowania opcji dla kontekstu — zwykle w `DbContext.OnConfiguring` lub w `Startup.cs`, jeśli używasz ASP.NET Core.
+Opcjonalnie EF Core można zmienić zachowanie domyślne, aby zgłosić wyjątek lub nic nie robić podczas oceny klienta (z wyjątkiem w projekcji). Wyjątek zgłaszający zachowanie mógłby być podobny do zachowania w 3,0. Aby zmienić zachowanie, należy skonfigurować ostrzeżenia podczas konfigurowania opcji dla kontekstu — zwykle w `DbContext.OnConfiguring`lub w `Startup.cs`, jeśli używasz ASP.NET Core.
 
 ```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

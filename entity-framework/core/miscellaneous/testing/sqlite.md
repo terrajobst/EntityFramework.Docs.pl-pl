@@ -1,54 +1,54 @@
 ---
-title: Testowanie za pomocą SQLite — EF Core
+title: Testowanie przy użyciu oprogramowania SQLite-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 7a2b75e2-1875-4487-9877-feff0651b5a6
 uid: core/miscellaneous/testing/sqlite
-ms.openlocfilehash: e8ff204a09d50064b4f0d4376f02b05c8681ac25
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: f7f847d8c766c0d4d7577ea6760ee72a17f84933
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562536"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417303"
 ---
-# <a name="testing-with-sqlite"></a>Testowanie za pomocą SQLite
+# <a name="testing-with-sqlite"></a>Testowanie za pomocą systemu SQLite
 
-Bazy danych SQLite ma trybie w pamięci, która pozwala na potrzeby pisania testów przeciwko relacyjnej bazy danych bez konieczności operacji bazy danych SQLite.
+Program SQLite ma tryb w pamięci, który umożliwia używanie oprogramowania SQLite do pisania testów względem relacyjnej bazy danych, bez konieczności wykonywania dodatkowych operacji bazy danych.
 
 > [!TIP]  
-> Można wyświetlić w tym artykule [przykładowe](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing) w witrynie GitHub
+> [Przykład](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing) tego artykułu można wyświetlić w witrynie GitHub
 
 ## <a name="example-testing-scenario"></a>Przykładowy scenariusz testowania
 
-Należy wziąć pod uwagę następujące usługa, która umożliwia wykonywanie operacji związanych z blogów kodu aplikacji. Używa wewnętrznie `DbContext` łączący się z bazą danych programu SQL Server. Należałoby wymiany tego kontekstu, aby połączyć się z bazą danych SQLite w pamięci, możemy napisać efektywne testy dla tej usługi bez konieczności modyfikowania kodu lub wykonać dużo pracy, aby utworzyć test podwójnego kontekstu.
+Należy wziąć pod uwagę następujące usługi, dzięki którym kod aplikacji może wykonywać pewne operacje związane ze blogami. Wewnętrznie używa `DbContext`, które nawiązuje połączenie z bazą danych SQL Server. Warto przystąpić do zamiany tego kontekstu w celu nawiązania połączenia z bazą danych programu SQLite w pamięci, dzięki czemu możemy pisać wydajne testy dla tej usługi bez konieczności modyfikowania kodu lub wykonywania wielu zadań, aby utworzyć test w podwójnej części kontekstu.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BlogService.cs)]
 
-## <a name="get-your-context-ready"></a>Przygotuj kontekstu
+## <a name="get-your-context-ready"></a>Przygotuj swój kontekst
 
-### <a name="avoid-configuring-two-database-providers"></a>Należy unikać konfigurowania dwóch dostawców bazy danych
+### <a name="avoid-configuring-two-database-providers"></a>Unikaj konfigurowania dwóch dostawców baz danych
 
-W testach ma zewnętrznie skonfigurować kontekst do użycia dostawcy InMemory. Jeśli konfigurujesz dostawcy bazy danych przez zastąpienie `OnConfiguring` w kontekstu, następnie należy dodać niektórych kod warunkowy, aby upewnić się, można tylko skonfigurować dostawcy bazy danych, gdy nie została już skonfigurowana.
+W testach zamierzasz zewnętrznie skonfigurować kontekst do korzystania z dostawcy inMemory. W przypadku konfigurowania dostawcy bazy danych przez zastępowanie `OnConfiguring` w kontekście, należy dodać kod warunkowy, aby upewnić się, że tylko dostawca bazy danych nie został jeszcze skonfigurowany.
 
 > [!TIP]  
-> Jeśli używasz platformy ASP.NET Core, następnie nie należy tego kodu od dostawcy bazy danych skonfigurowano poza kontekstem (w pliku Startup.cs).
+> Jeśli używasz ASP.NET Core, ten kod nie powinien być potrzebny, ponieważ dostawca bazy danych jest skonfigurowany poza kontekstem (w Startup.cs).
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#OnConfiguring)]
 
 ### <a name="add-a-constructor-for-testing"></a>Dodaj Konstruktor do testowania
 
-Najprostszym sposobem, aby umożliwić testowanie z inną bazą danych jest zmodyfikowanie kontekst ujawniać Konstruktor, który akceptuje `DbContextOptions<TContext>`.
+Najprostszym sposobem na włączenie testowania względem innej bazy danych jest zmodyfikowanie kontekstu, aby uwidocznić konstruktora, który akceptuje `DbContextOptions<TContext>`.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#Constructors)]
 
 > [!TIP]  
-> `DbContextOptions<TContext>` informuje kontekstu, wszystkie jego ustawienia, takie jak której bazy danych, aby nawiązać połączenie. Jest to ten sam obiekt, który jest wbudowana, uruchamiając metoda OnConfiguring w kontekście usługi.
+> `DbContextOptions<TContext>` informuje kontekst wszystkich jego ustawień, takich jak baza danych, z którą ma zostać nawiązane połączenie. Jest to ten sam obiekt, który jest zbudowany przez uruchomienie metody onconfiguring w Twoim kontekście.
 
 ## <a name="writing-tests"></a>Pisanie testów
 
-Kluczem do testowania przy użyciu tego dostawcy jest możliwość opowiadania kontekstu do używania bazy danych SQLite i kontrolowanie zakresu bazy danych w pamięci. Zakres bazy danych jest kontrolowana przez otwierające i zamykające połączenia. Baza danych jest ograniczony do czasu trwania, że połączenie jest otwarte. Zazwyczaj chcesz czyste bazy danych dla każdej metody testowej.
+Klucz do testowania przy użyciu tego dostawcy to możliwość poinformowania kontekstu o konieczności użycia oprogramowania SQLite i kontrolowania zakresu bazy danych w pamięci. Zakres bazy danych jest kontrolowany przez otwieranie i zamykanie połączenia. Baza danych jest objęta zakresem czasu, przez który połączenie jest otwarte. Zwykle potrzebna jest czysta baza danych dla każdej metody testowej.
 
 >[!TIP]
-> Aby użyć `SqliteConnection()` i `.UseSqlite()` metodę rozszerzenia, odwołanie do pakietu NuGet [Microsoft.EntityFrameworkCore.Sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/).
+> Aby użyć `SqliteConnection()` i metody rozszerzenia `.UseSqlite()`, odwołuje się do pakietu NuGet [Microsoft. EntityFrameworkCore. sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/).
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/TestProject/SQLite/BlogServiceTests.cs)]

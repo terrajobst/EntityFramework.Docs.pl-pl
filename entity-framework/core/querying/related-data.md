@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: bfabe8fd5b0a64edd5d97baff3beab9d712f1c20
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 915aaa41beb495a046f2d6260e9c3b174d5f3031
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73654632"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417678"
 ---
 # <a name="loading-related-data"></a>Ładowanie powiązanych danych
 
@@ -20,7 +20,7 @@ Entity Framework Core umożliwia używanie właściwości nawigacji w modelu do 
 * **Ładowanie z opóźnieniem** oznacza, że powiązane dane są w sposób niewidoczny do załadowania z bazy danych podczas uzyskiwania dostępu do właściwości nawigacji.
 
 > [!TIP]  
-> [Przykład](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) tego artykułu można wyświetlić w witrynie GitHub.
+> [Przykład](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying) tego artykułu można wyświetlić w witrynie GitHub.
 
 ## <a name="eager-loading"></a>Ładowanie eager
 
@@ -114,7 +114,7 @@ Zawartość `School` nawigacji dla wszystkich osób, które są uczniami, może 
   context.People.Include("School").ToList()
   ```
 
-## <a name="explicit-loading"></a>Jawne ładowanie
+## <a name="explicit-loading"></a>jawne ładowanie
 
 Można jawnie załadować właściwość nawigacji za pośrednictwem interfejsu API `DbContext.Entry(...)`.
 
@@ -134,7 +134,7 @@ Można również filtrować powiązane jednostki, które są ładowane do pamię
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#NavQueryFiltered)]
 
-## <a name="lazy-loading"></a>Ładowanie z opóźnieniem
+## <a name="lazy-loading"></a>ładowanie z opóźnieniem
 
 Najprostszym sposobem użycia ładowania z opóźnieniem jest zainstalowanie pakietu [Microsoft. EntityFrameworkCore. proxy](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) i włączenie go przy użyciu wywołania do `UseLazyLoadingProxies`. Na przykład:
 

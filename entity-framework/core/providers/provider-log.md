@@ -7,11 +7,11 @@ ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
 ms.openlocfilehash: b911a2da493e20c4e4ce6f1e25024bd0efd38b44
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656127"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417823"
 ---
 # <a name="provider-impacting-changes"></a>Zmiany wpływające na dostawcę
 
@@ -19,13 +19,13 @@ Ta strona zawiera linki do żądań ściągnięcia wykonanych w repozytorium EF 
 
 Uruchamiamy ten dziennik z zmianami z 2,1 do 2,2. Przed 2,1 korzystamy z [`providers-beware`](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) i [`providers-fyi`](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) etykiet dotyczących problemów i żądań ściągnięcia.
 
-## <a name="22-----30"></a>2,2---> 3,0
+## <a name="22-----30"></a>2.2 ---> 3.0
 
 Należy zauważyć, że wiele [zmian na poziomie aplikacji](../what-is-new/ef-core-3.0/breaking-changes.md) również ma wpływ na dostawców.
 
 * <https://github.com/aspnet/EntityFrameworkCore/pull/14022>
   * Usunięto przestarzałe interfejsy API i zwinięte przeciążenia parametrów opcjonalnych
-  * Usunięto DatabaseColumn. GetUnderlyingStoreType ()
+  * Removed DatabaseColumn.GetUnderlyingStoreType()
 * <https://github.com/aspnet/EntityFrameworkCore/pull/14589>
   * Usunięto przestarzałe interfejsy API
 * <https://github.com/aspnet/EntityFrameworkCore/pull/15044>
@@ -65,7 +65,7 @@ Należy zauważyć, że wiele [zmian na poziomie aplikacji](../what-is-new/ef-co
 * <https://github.com/aspnet/EntityFrameworkCore/pull/15288>
   * Umieszczanie danych zostało rozsiane w publicznym interfejsie API, aby uniknąć konieczności używania typów wewnętrznych. Ma to wpływ tylko na dostawców nierelacyjnych, ponieważ umieszczanie jest obsługiwane przez podstawową klasę relacyjną dla wszystkich dostawców relacyjnych.
 
-## <a name="21-----22"></a>2,1---> 2,2
+## <a name="21-----22"></a>2.1 ---> 2.2
 
 ### <a name="test-only-changes"></a>Zmiany wyłącznie testowe
 

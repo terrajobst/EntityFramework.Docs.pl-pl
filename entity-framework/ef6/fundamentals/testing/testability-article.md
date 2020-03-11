@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 9430e2ab-261c-4e8e-8545-2ebc52d7a247
 ms.openlocfilehash: 28ec5446ce9faf98fb8fff141832236d70b29daf
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181577"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416451"
 ---
 # <a name="testability-and-entity-framework-40"></a>Testowanie i Entity Framework 4,0
 Scott
@@ -497,7 +497,7 @@ Później przejdziemy do testowania opartego na interakcji. Testowanie oparte na
 
 W pewnym momencie w aplikacji sieci Web ASP.NET MVC firma Microsoft może chcieć wyświetlić informacje pracownika i dołączyć karty czasu powiązane z pracownikami. Na przykład może być wyświetlany ekran podsumowania karty czasu, który pokazuje nazwisko pracownika i łączną liczbę kart czasu w systemie. Istnieje kilka metod zaimplementowania tej funkcji.
 
-### <a name="projection"></a>Rzut
+### <a name="projection"></a>Projekcja
 
 Jednym z prostych metod tworzenia podsumowania jest konstruowanie modelu przeznaczonego dla informacji, które chcemy wyświetlić w widoku. W tym scenariuszu model może wyglądać podobnie do poniższego.
 

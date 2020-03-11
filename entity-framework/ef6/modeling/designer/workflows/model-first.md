@@ -4,16 +4,16 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: e1b9c319-bb8a-4417-ac94-7890f257e7f6
 ms.openlocfilehash: 1b37805beb3d33f0b6dad2577a8abb3ea8f7b1e4
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182442"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418106"
 ---
 # <a name="model-first"></a>Model First
 Ten film wideo i przewodnik krok po kroku zawierają wprowadzenie do Model First opracowywania przy użyciu Entity Framework. Model First umożliwia utworzenie nowego modelu przy użyciu Entity Framework Designer, a następnie wygenerowanie schematu bazy danych z modelu. Model jest przechowywany w pliku EDMX (rozszerzenie EDMX) i można go przeglądać i edytować w Entity Framework Designer. Klasy, z którymi można korzystać w aplikacji, są generowane automatycznie na podstawie pliku EDMX.
 
-## <a name="watch-the-video"></a>Obejrzyj wideo
+## <a name="watch-the-video"></a>Obejrzyj film
 Ten film wideo i przewodnik krok po kroku zawierają wprowadzenie do Model First opracowywania przy użyciu Entity Framework. Model First umożliwia utworzenie nowego modelu przy użyciu Entity Framework Designer, a następnie wygenerowanie schematu bazy danych z modelu. Model jest przechowywany w pliku EDMX (rozszerzenie EDMX) i można go przeglądać i edytować w Entity Framework Designer. Klasy, z którymi można korzystać w aplikacji, są generowane automatycznie na podstawie pliku EDMX.
 
 **Przedstawione przez**: [Rowan Miller](https://romiller.com/)
@@ -30,11 +30,11 @@ W przypadku korzystania z programu Visual Studio 2010 należy również zainstal
 
 Aby zachować prostotę, możemy utworzyć podstawową aplikację konsolową, która używa Model First do uzyskiwania dostępu do danych:
 
--   Otwórz program Visual Studio
+-   Otwórz program Visual Studio.
 -   **Plik —&gt; nowy&gt; projekt...**
 -   Wybierz pozycję **Windows** z menu po lewej stronie i **aplikacji konsolowej**
 -   Wprowadź **ModelFirstSample** jako nazwę
--   Wybierz **przycisk OK**
+-   Kliknij przycisk **OK**
 
 ## <a name="2-create-model"></a>2. Utwórz model
 
@@ -189,7 +189,7 @@ Zaczniemy od dodania nowej jednostki użytkownika do naszego modelu.
 Mamy już zaktualizowany model i jesteśmy gotowi do zaktualizowania bazy danych, aby pomieścić nasz nowy typ jednostki użytkownika.
 
 -   Kliknij prawym przyciskiem myszy powierzchnię projektu i wybierz polecenie **Generuj bazę danych na podstawie modelu...** , Entity Framework obliczy skrypt, aby odtworzyć schemat w oparciu o zaktualizowany model.
--   Kliknij przycisk **Zakończ** .
+-   Kliknij przycisk **Zakończ**
 -   Można otrzymywać ostrzeżenia o zastępowaniu istniejącego skryptu DDL oraz o mapowaniu i magazynowaniu elementów modelu, a następnie kliknąć przycisk **tak** dla obu tych ostrzeżeń
 -   Zaktualizowany skrypt SQL służący do tworzenia bazy danych jest otwarty dla Ciebie  
     *Wygenerowany skrypt spowoduje porzucenie wszystkich istniejących tabel, a następnie ponowne utworzenie schematu od podstaw. Może to współdziałać z programowaniem lokalnym, ale nie jest zdolny do wypychania zmian w bazie danych, która została już wdrożona. Jeśli musisz opublikować zmiany w bazie danych, która została już wdrożona, musisz edytować skrypt lub użyć narzędzia do porównywania schematów, aby obliczyć skrypt migracji.*
