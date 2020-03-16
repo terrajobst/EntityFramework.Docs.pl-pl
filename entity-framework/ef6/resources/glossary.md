@@ -5,17 +5,17 @@ ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
 uid: ef6/resources/glossary
 ms.openlocfilehash: df0da4a68b3d2c882d9673417ee5fe335eccae2b
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656159"
+ms.lasthandoff: 03/15/2020
+ms.locfileid: "79402202"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework słownik
 ## <a name="code-first"></a>Code First
 Tworzenie modelu Entity Framework przy użyciu kodu. Model może kierować do istniejącej bazy danych lub nowej bazy danych.
 
-## <a name="context"></a>Context
+## <a name="context"></a>Kontekst
 Klasa, która reprezentuje sesję z bazą danych, umożliwiając wykonywanie zapytań i zapisywanie danych. Kontekst pochodzi z klasy DbContext lub ObjectContext.
 
 ## <a name="convention-code-first"></a>Konwencja (Code First)
@@ -36,7 +36,7 @@ Klasa lub obiekt reprezentujący dane aplikacji, takie jak klienci, produkty i z
 ## <a name="entity-data-model"></a>Entity Data Model
 Model, który opisuje jednostki i relacje między nimi. Dr używa modelu EDM do opisywania model koncepcyjny, dla którego programy deweloperskie. Program EDM kompiluje w modelu relacji jednostki wprowadzonym przez Dr. Peterowi Chen. Model EDM został pierwotnie opracowany z myślą o podstawowym celu przetworzenia wspólnego modelu danych w ramach zestawu technologii deweloperskich i serwerowych firmy Microsoft. EDM jest również używany jako część protokołu OData.
 
-## <a name="explicit-loading"></a>Jawne ładowanie
+## <a name="explicit-loading"></a>jawne ładowanie
 Wzorzec ładowania powiązanych danych w przypadku ładowania powiązanych obiektów przez wywołanie interfejsu API.
 
 ## <a name="fluent-api"></a>Interfejs API Fluent
@@ -48,10 +48,10 @@ Skojarzenie między jednostkami, w których właściwość reprezentująca klucz
 ## <a name="identifying-relationship"></a>Identyfikowanie relacji
 Relacja, w której klucz podstawowy jednostki głównej jest częścią klucza podstawowego jednostki zależnej. W tym rodzaju relacji jednostka zależna nie może istnieć bez jednostki podmiotu zabezpieczeń.
 
-## <a name="independent-association"></a>Niezależne skojarzenie
+## <a name="independent-association"></a>niezależne skojarzenie
 Skojarzenie między jednostkami, w których nie ma właściwości reprezentującej klucz obcy w klasie jednostki zależnej. Na przykład Klasa produktu zawiera relację do kategorii, ale nie ma właściwości IDKategorii. Entity Framework śledzi stan skojarzenia niezależnie od stanu jednostek na dwa punkty końcowe skojarzenia.
 
-## <a name="lazy-loading"></a>Ładowanie z opóźnieniem
+## <a name="lazy-loading"></a>ładowanie z opóźnieniem
 Wzorzec ładowania powiązanych danych, w przypadku których obiekty powiązane są automatycznie ładowane podczas uzyskiwania dostępu do właściwości nawigacji.
 
 ## <a name="model-first"></a>Model First

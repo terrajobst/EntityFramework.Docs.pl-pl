@@ -5,11 +5,11 @@ author: AndriySvyryd
 ms.date: 11/21/2019
 uid: core/modeling/relationships
 ms.openlocfilehash: 6d68e813cec6c989e8e4cb848f8740489645c65c
-ms.sourcegitcommit: 89567d08c9d8bf9c33bb55a62f17067094a4065a
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77051410"
+ms.lasthandoff: 03/15/2020
+ms.locfileid: "79402167"
 ---
 # <a name="relationships"></a>Relacje
 
@@ -58,7 +58,7 @@ Poniższy kod przedstawia relację "jeden do wielu" między `Blog` i `Post`
 
 * `Post.Blog` jest właściwością nawigacji odwrotnej `Blog.Posts` (i odwrotnie)
 
-## <a name="conventions"></a>Konwencje
+## <a name="conventions"></a>Konwencja
 
 Domyślnie relacja zostanie utworzona, gdy w typie zostanie wykryta właściwość nawigacji. Właściwość jest uznawana za właściwość nawigacji, jeśli typ wskazujący nie może być mapowany jako typ skalarny przez bieżącego dostawcę bazy danych.
 
@@ -118,13 +118,13 @@ Zobacz [Kaskada Delete](../saving/cascade-delete.md) , aby uzyskać więcej info
 
 ## <a name="manual-configuration"></a>Konfiguracja ręczna
 
-### <a name="fluent-apitabfluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
+### <a name="fluent-api"></a>[Interfejs API Fluent](#tab/fluent-api)
 
 Aby skonfigurować relację w interfejsie API Fluent, należy rozpocząć od zidentyfikowania właściwości nawigacji, które tworzą relację. `HasOne` lub `HasMany` identyfikuje właściwość nawigacji dla typu jednostki, w którym rozpoczyna się konfiguracja. Następnie utworzysz łańcuch wywołań do `WithOne` lub `WithMany`, aby zidentyfikować nawigację odwrotną. `HasOne`/`WithOne` są używane do właściwości nawigacji referencyjnej i `HasMany`/`WithMany` są używane na potrzeby właściwości nawigacji kolekcji.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NoForeignKey.cs?name=NoForeignKey&highlight=8-10)]
 
-### <a name="data-annotationstabdata-annotations"></a>[Adnotacje danych](#tab/data-annotations)
+### <a name="data-annotations"></a>[Adnotacje danych](#tab/data-annotations)
 
 Możesz użyć adnotacji danych, aby skonfigurować sposób pary właściwości nawigacji dla jednostek zależnych i głównych. Jest to zazwyczaj wykonywane, gdy istnieje więcej niż jedna para właściwości nawigacji między dwoma typami jednostek.
 
@@ -146,19 +146,19 @@ Jeśli masz tylko jedną właściwość nawigacji, istnieją bezparametryczne pr
 
 ### <a name="foreign-key"></a>Klucz obcy
 
-#### <a name="fluent-api-simple-keytabfluent-api-simple-key"></a>[Interfejs API Fluent (klucz prosty)](#tab/fluent-api-simple-key)
+#### <a name="fluent-api-simple-key"></a>[Interfejs API Fluent (klucz prosty)](#tab/fluent-api-simple-key)
 
 Korzystając z interfejsu API Fluent, można skonfigurować właściwość, która powinna być używana jako właściwość klucza obcego dla danej relacji:
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ForeignKey.cs?name=ForeignKey&highlight=11)]
 
-#### <a name="fluent-api-composite-keytabfluent-api-composite-key"></a>[Interfejs API Fluent (klucz złożony)](#tab/fluent-api-composite-key)
+#### <a name="fluent-api-composite-key"></a>[Interfejs API Fluent (klucz złożony)](#tab/fluent-api-composite-key)
 
 Korzystając z interfejsu API Fluent, można skonfigurować właściwości, które mają być używane jako złożone właściwości klucza obcego dla danej relacji:
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositeForeignKey.cs?name=CompositeForeignKey&highlight=13)]
 
-#### <a name="data-annotations-simple-keytabdata-annotations-simple-key"></a>[Adnotacje danych (klucz prosty)](#tab/data-annotations-simple-key)
+#### <a name="data-annotations-simple-key"></a>[Adnotacje danych (klucz prosty)](#tab/data-annotations-simple-key)
 
 Możesz użyć adnotacji danych, aby skonfigurować właściwość, która powinna być używana jako właściwość klucza obcego dla danej relacji. Zwykle jest to wykonywane, gdy właściwość klucza obcego nie zostanie odnaleziona według Konwencji:
 
@@ -196,11 +196,11 @@ Nie trzeba podawać właściwości nawigacji. Możesz po prostu podać klucz obc
 
 Jeśli chcesz, aby klucz obcy odwołuje się do właściwości innej niż klucz podstawowy, możesz użyć interfejsu API Fluent, aby skonfigurować właściwość klucza podmiotu zabezpieczeń. Właściwość, którą konfigurujesz jako klucz podmiotu zabezpieczeń, zostanie automatycznie skonfigurowana jako [klucz alternatywny](alternate-keys.md).
 
-#### <a name="simple-keytabsimple-key"></a>[Klucz prosty](#tab/simple-key)
+#### <a name="simple-key"></a>[Klucz prosty](#tab/simple-key)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/PrincipalKey.cs?name=PrincipalKey&highlight=11)]
 
-#### <a name="composite-keytabcomposite-key"></a>[Klucz złożony](#tab/composite-key)
+#### <a name="composite-key"></a>[Klucz złożony](#tab/composite-key)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositePrincipalKey.cs?name=CompositePrincipalKey&highlight=11)]
 
