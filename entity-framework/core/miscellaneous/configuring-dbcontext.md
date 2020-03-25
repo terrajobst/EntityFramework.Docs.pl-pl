@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 3ab90d46b7a4476044e5ea38eaf04f995708e7bf
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 53b38f288cd45e66d68ebcc3b6066646d59b0262
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78416670"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136189"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurowanie klasy DbContext
 
@@ -186,9 +186,9 @@ Zawsze Czekaj na EF Core metod asynchronicznych.
 
 Metoda rozszerzenia [`AddDbContext`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) domyślnie rejestruje typy `DbContext` z [okresem istnienia w zakresie](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes) .
 
-Jest to bezpieczne z równoczesnych problemów z dostępem w aplikacjach ASP.NET Core, ponieważ w danym momencie istnieje tylko jeden wątek wykonujący każde żądanie klienta, a ponieważ każde żądanie pobiera oddzielny zakres iniekcji zależności (i w związku z tym oddzielnym wystąpieniem `DbContext`).
+Jest to bezpieczne z równoczesnych problemów z dostępem w większości aplikacji ASP.NET Core, ponieważ w danym momencie istnieje tylko jeden wątek wykonujący każde żądanie klienta, a ponieważ każde żądanie pobiera oddzielny zakres iniekcji zależności (i w związku z tym oddzielnym wystąpieniem `DbContext`). W przypadku modelu hostingu serwera Blazor jedno żądanie logiczne jest używane do obsługi obwodu użytkownika Blazor i w związku z tym w przypadku użycia domyślnego zakresu iniekcji dostępne jest tylko jedno wystąpienie DbContext o określonym zakresie.
 
-Jednak każdy kod, który jawnie wykonuje wiele wątków równolegle, powinien mieć pewność, że wystąpienia `DbContext` nie są nigdy dostępne jednocześnie.
+Każdy kod, który jawnie wykonuje wiele wątków równolegle, powinien mieć pewność, że `DbContext` wystąpienia nie są kiedykolwiek dostępne jednocześnie.
 
 Przy użyciu iniekcji zależności można to osiągnąć przez zarejestrowanie kontekstu jako zakresu i Tworzenie zakresów (przy użyciu `IServiceScopeFactory`) dla każdego wątku lub przez zarejestrowanie `DbContext` jako przejściowego (przy użyciu przeciążenia `AddDbContext`, które przyjmuje parametr `ServiceLifetime`).
 

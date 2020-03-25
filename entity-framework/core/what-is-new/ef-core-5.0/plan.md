@@ -3,12 +3,12 @@ title: Planowanie dla Entity Framework Core 5,0
 author: ajcvickers
 ms.date: 01/14/2020
 uid: core/what-is-new/ef-core-5.0/plan.md
-ms.openlocfilehash: c5b7300c61c2f668b6f9393ae51bf9ebddf330a7
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 8b4ca32524869019c04d5a4d4d55967f68181cd7
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78417877"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136216"
 ---
 # <a name="plan-for-entity-framework-core-50"></a>Planowanie dla Entity Framework Core 5,0
 
@@ -67,7 +67,7 @@ Lider deweloperów: @AndriySvyryd
 
 Rozmiar koszulki: XL
 
-Stan: nie uruchomiono
+Stan: w toku
 
 Wykonujemy TPT, ponieważ jest to zarówno wysoce żądana funkcja (~ 254 głosów; trzecia ogólna), ponieważ wymaga ona pewnych zmian niskiego poziomu, które są odpowiednie dla ogólnego charakteru planu .NET 5. Oczekujemy, że spowoduje to powstanie istotnych zmian dla dostawców baz danych, chociaż powinny one być znacznie mniej surowe niż zmiany wymagane przez 3,0.
 
@@ -79,7 +79,7 @@ Lider deweloperów: @maumar
 
 Rozmiar koszulki: M
 
-Stan: nie uruchomiono
+Stan: w toku
 
 Filtrowanie include to wysoce żądana funkcja (~ 317 głosów; druga ogólna), która nie jest ogromną ilością pracy, i że firma Microsoft uważa, że nie będzie można zablokować lub ułatwić wielu scenariuszy, które obecnie wymagają filtrów na poziomie modelu lub bardziej złożonych zapytań.
 
@@ -91,7 +91,7 @@ Potencjalni deweloperzy: @maumar i @smitpatel
 
 Rozmiar koszulki: L
 
-Stan: nie uruchomiono
+Stan: w toku
 
 Wprowadziliśmy postępy we wcześniejszych wersjach na potrzeby obsługi nieprzetworzonych, typów i niezwiązanych z programem SQL. Istnieją jednak zarówno luki, jak i niespójności w sposób, w jaki wszystko działa razem jako całość. Celem 5,0 jest rozwiązanie tego problemu i utworzenie dobrego środowiska do definiowania, migrowania i korzystania z różnych typów jednostek oraz skojarzonych z nimi zapytań i artefaktów baz danych. Może to również dotyczyć aktualizacji skompilowanego interfejsu API zapytań.
 
@@ -184,7 +184,7 @@ Dokument potencjalnego klienta: @ajcvickers
 
 Rozmiar koszulki: L
 
-Stan: nie uruchomiono
+Stan: w toku
 
 Tutaj warto ułatwić zrozumienie, co się dzieje w wewnętrznych EF Core. Może to być przydatne dla każdej osoby korzystającej z EF Core, ale podstawową motywacją jest ułatwienie użytkownikom zewnętrznym:
 

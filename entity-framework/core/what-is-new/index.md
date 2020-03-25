@@ -4,12 +4,12 @@ author: ajcvickers
 ms.date: 03/03/2020
 ms.assetid: C21F89EE-FB08-4ED9-A2A0-76CB7656E6E4
 uid: core/what-is-new/index
-ms.openlocfilehash: 2c41f65d1fead8430a39c6230a0f22506686504e
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 7b58b4de0eb8d9575f77e0b147da017eabad1867
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78417960"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136229"
 ---
 # <a name="ef-core-releases-and-planning"></a>EF Core wersje i planowanie
 
@@ -57,10 +57,12 @@ Te dane zostaną następnie przetworzone do procesu planowania dla kolejnej wers
 
 ### <a name="get-it-now"></a>Pobierz teraz!
 
-Pakiety EF Core 5,0 są **teraz dostępne** jako [codzienne kompilacje](https://github.com/aspnet/AspNetCore/blob/master/docs/DailyBuilds.md). 
+Pakiety EF Core 5,0 są **teraz dostępne** jako
 
-Korzystanie z codziennych kompilacji to doskonały sposób znajdowania problemów i przesyłania opinii jak najszybciej, jak to możliwe.
+* [Codzienne kompilacje](https://github.com/dotnet/aspnetcore/blob/master/docs/DailyBuilds.md)
+  * Wszystkie najnowsze funkcje i poprawki błędów. Ogólnie bardzo stabilne; 57000 + testy są uruchamiane dla każdej kompilacji.
+* [Wersje zapoznawcze dotyczące narzędzia NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
+  * Opóźnienie za kompilacje codzienne, ale są testowane do pracy z odpowiednimi wersjami zapoznawczymi ASP.NET Core i .NET Core.
+
+Korzystanie z wersji zapoznawczych lub codziennych kompilacji jest doskonałym sposobem znajdowania problemów i przesyłania opinii tak szybko, jak to możliwe.
 Wkrótce otrzymamy taką opinię, tym bardziej prawdopodobnie będzie to możliwe przed następną oficjalną wersją.
-Pracujemy nad utrzymaniem codziennych kompilacji w dobrym kształcie przez uruchomienie ponad 56 000 testów dla każdej platformy dla każdej kompilacji.
-
-Pakiety wersji zapoznawczej będą wysyłane do programu NuGet później w ciągu roku.

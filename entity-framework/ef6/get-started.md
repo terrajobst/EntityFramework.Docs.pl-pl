@@ -4,12 +4,12 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 66ce9113-81d2-480f-8c16-d00ec405b2f7
 uid: ef6/get-started
-ms.openlocfilehash: 74ae347af3c386639631f28ccb2ddbe9f444953a
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 729dea2c474c35f638ccaf6673550f76e88e2667
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78416316"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136264"
 ---
 # <a name="get-started-with-entity-framework-6"></a>Wprowadzenie do Entity Framework 6
 
@@ -25,7 +25,7 @@ Ten przewodnik zawiera kolekcję linków do wybranych artykułów dokumentacji, 
 
   Czy wolisz określić model EF piszący kod lub pola i linie rysowania?
 Czy zamierzasz użyć EF do mapowania obiektów do istniejącej bazy danych, czy chcesz, aby program Dr utworzył bazę danych dostosowaną do Twoich obiektów?
-Tutaj dowiesz się więcej na temat dwóch różnych metod korzystania z EF6: Dr Designer i Code First.
+Dowiesz się więcej na temat dwóch różnych metod korzystania z EF6: Dr Designer i Code First.
 Upewnij się, że obserwujemy dyskusję i Obejrzyj film wideo dotyczący różnic.
 
 * [Praca z klasą DbContext](~/ef6/fundamentals/working-with-dbcontext.md)

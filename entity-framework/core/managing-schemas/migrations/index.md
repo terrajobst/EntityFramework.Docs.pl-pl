@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: dc0c1ae1a03c98c6f230557dc0bdd4d29ec191dd
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 190057daed61c58c1f89ee8d775913458e413a50
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78416857"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136197"
 ---
 # <a name="migrations"></a>Migracje
 
@@ -215,15 +215,43 @@ Podczas debugowania migracji lub wdrażania ich w produkcyjnej bazie danych wart
 
 ### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
+#### <a name="basic-usage"></a>Podstawowe użycie
 ```dotnetcli
 dotnet ef migrations script
 ```
 
+#### <a name="with-from-to-implied"></a>Z opcją od (do implikowanego)
+Spowoduje to wygenerowanie skryptu SQL z tej migracji do najnowszej migracji.
+```dotnetcli
+dotnet ef migrations script 20190725054716_Add_new_tables
+```
+
+#### <a name="with-from-and-to"></a>Z i do
+Spowoduje to wygenerowanie skryptu SQL z migracji `from` do określonej `to` migracji.
+```dotnetcli
+dotnet ef migrations script 20190725054716_Add_new_tables 20190829031257_Add_audit_table
+```
+Można użyć `from`, który jest nowszy niż `to` w celu wygenerowania skryptu wycofywania. *Weź pod uwagę potencjalne scenariusze utraty danych.*
+
 ### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
+#### <a name="basic-usage"></a>Podstawowe użycie
 ``` powershell
 Script-Migration
 ```
+
+#### <a name="with-from-to-implied"></a>Z opcją od (do implikowanego)
+Spowoduje to wygenerowanie skryptu SQL z tej migracji do najnowszej migracji.
+```powershell
+Script-Migration 20190725054716_Add_new_tables
+```
+
+#### <a name="with-from-and-to"></a>Z i do
+Spowoduje to wygenerowanie skryptu SQL z migracji `from` do określonej `to` migracji.
+```powershell
+Script-Migration 20190725054716_Add_new_tables 20190829031257_Add_audit_table
+```
+Można użyć `from`, który jest nowszy niż `to` w celu wygenerowania skryptu wycofywania. *Weź pod uwagę potencjalne scenariusze utraty danych.*
 
 ***
 
