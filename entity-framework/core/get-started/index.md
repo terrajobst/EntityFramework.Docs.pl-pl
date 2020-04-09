@@ -1,107 +1,107 @@
 ---
-title: Wprowadzenie — EF Core
+title: Wprowadzenie - EF Core
 author: rick-anderson
 ms.date: 09/17/2019
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
 ms.openlocfilehash: 0e7a1ee159cdf5b72448fe6d73c972975b1ab95b
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78416884"
 ---
-# <a name="getting-started-with-ef-core"></a>Wprowadzenie z EF Core
+# <a name="getting-started-with-ef-core"></a>Wprowadzenie do EF Core
 
-W tym samouczku utworzysz aplikację konsolową .NET Core, która zapewnia dostęp do danych w bazie danych programu SQLite przy użyciu Entity Framework Core.
+W tym samouczku utworzysz aplikację konsoli .NET Core, która wykonuje dostęp do danych w bazie danych SQLite przy użyciu programu Entity Framework Core.
 
-Możesz wykonać czynności opisane w samouczku za pomocą programu Visual Studio w systemie Windows lub za pomocą interfejs wiersza polecenia platformy .NET Core w systemie Windows, macOS lub Linux.
+Możesz wykonać samouczek przy użyciu programu Visual Studio w systemie Windows lub przy użyciu interfejsu wiersza polecenia .NET Core w systemie Windows, macOS lub Linux.
 
-[Zapoznaj się z przykładem tego artykułu w witrynie GitHub](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/GetStarted).
+[Zobacz przykład tego artykułu na GitHub](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/GetStarted).
 
 ## <a name="prerequisites"></a>Wymagania wstępne
 
 Zainstaluj następujące oprogramowanie:
 
-### <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[Interfejs wiersza polecenia platformy .NET Core](#tab/netcore-cli)
 
-* [Zestaw .NET Core SDK](https://www.microsoft.com/net/download/core).
+* [.NET Core SDK](https://www.microsoft.com/net/download/core).
 
-### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Program Visual Studio](#tab/visual-studio)
 
-* [Program Visual Studio 2019 w wersji 16,3 lub nowszej](https://www.visualstudio.com/downloads/) z tym obciążeniem:
-  * **Programowanie dla wielu platform w środowisku .NET Core** (w innych zestawach **narzędzi**)
+* [Visual Studio 2019 w wersji 16.3 lub nowszej](https://www.visualstudio.com/downloads/) z tym obciążeniem:
+  * **.NET Core rozwoju między platformami** (w obszarze **Inne zestawy narzędzi)**
 
 ---
 
 ## <a name="create-a-new-project"></a>Tworzenie nowego projektu
 
-### <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[Interfejs wiersza polecenia platformy .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet new console -o EFGetStarted
 cd EFGetStarted
 ```
 
-### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Program Visual Studio](#tab/visual-studio)
 
 * Otwórz program Visual Studio.
-* Kliknij pozycję **Utwórz nowy projekt**
-* Wybierz pozycję **aplikacja konsoli (.NET Core)** z **C#** tagiem i kliknij przycisk **dalej** .
-* Wprowadź **EFGetStarted** dla nazwy i kliknij przycisk **Utwórz** .
+* Kliknij **pozycję Utwórz nowy projekt**
+* Wybierz **aplikację konsoli (.NET Core)** z tagiem **C#** i kliknij przycisk **Dalej**
+* Wprowadź **EFGetStarted** dla nazwy i kliknij przycisk **Utwórz**
 
 ---
 
-## <a name="install-entity-framework-core"></a>Zainstaluj Entity Framework Core
+## <a name="install-entity-framework-core"></a>Instalowanie rdzenia struktury encji
 
-Aby zainstalować EF Core, należy zainstalować pakiet dla dostawców usługi EF Core Database, które mają być przeznaczone do celów. W tym samouczku jest używane oprogramowanie SQLite, ponieważ jest ono wykonywane na wszystkich platformach obsługiwanych przez platformę .NET Core. Aby uzyskać listę dostępnych dostawców, zobacz [dostawcy bazy danych](../providers/index.md).
+Aby zainstalować EF Core, należy zainstalować pakiet dla dostawców baz danych EF Core, które mają być kierowane. Ten samouczek używa SQLite, ponieważ działa na wszystkich platformach, które obsługują program .NET Core. Aby uzyskać listę dostępnych dostawców, zobacz [Dostawcy baz danych](../providers/index.md).
 
-### <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[Interfejs wiersza polecenia platformy .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 ```
 
-### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Program Visual Studio](#tab/visual-studio)
 
-* **Narzędzia > Menedżera pakietów NuGet > konsoli Menedżera pakietów**
+* **Narzędzia > Konsoli menedżera pakietów NuGet > pakietów**
 * Uruchom następujące polecenia:
 
   ``` PowerShell
   Install-Package Microsoft.EntityFrameworkCore.Sqlite
   ```
 
-Porada: Możesz także zainstalować pakiety, klikając prawym przyciskiem myszy projekt i wybierając pozycję **Zarządzaj pakietami NuGet** .
+Wskazówka: Możesz również zainstalować pakiety, klikając prawym przyciskiem myszy projekt i wybierając **pozycję Zarządzaj pakietami NuGet**
 
 ---
 
 ## <a name="create-the-model"></a>Tworzenie modelu
 
-Zdefiniuj klasę kontekstu i klasy jednostek, które tworzą model.
+Zdefiniuj klasy kontekstu i klasy jednostek, które tworzą model.
 
-### <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[Interfejs wiersza polecenia platformy .NET Core](#tab/netcore-cli)
 
-* W katalogu projektu Utwórz **model.cs** z następującym kodem
+* W katalogu projektu utwórz **Model.cs** z następującym kodem
 
-### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Program Visual Studio](#tab/visual-studio)
 
-* Kliknij prawym przyciskiem myszy projekt i wybierz polecenie **Dodaj klasy >**
-* Wprowadź **model.cs** jako nazwę, a następnie kliknij przycisk **Dodaj** .
+* Kliknij prawym przyciskiem myszy projekt i wybierz pozycję **Dodaj klasę >**
+* Wprowadź **Model.cs** jako nazwę i kliknij przycisk **Dodaj**
 * Zastąp zawartość pliku następującym kodem
 
 ---
 
 [!code-csharp[Main](../../../samples/core/GetStarted/Model.cs)]
 
-EF Core [może również odtworzyć](../managing-schemas/scaffolding.md) model z istniejącej bazy danych.
+EF Core można również [odtworzyć](../managing-schemas/scaffolding.md) modelu z istniejącej bazy danych.
 
-Porada: w rzeczywistej aplikacji należy umieścić każdą klasę w osobnym pliku i umieścić [Parametry połączenia](../miscellaneous/connection-strings.md) w pliku konfiguracyjnym lub zmiennej środowiskowej. Aby zachować ten samouczek, wszystko jest zawarte w jednym pliku.
+Wskazówka: W prawdziwej aplikacji można umieścić każdą klasę w osobnym pliku i umieścić [ciąg połączenia](../miscellaneous/connection-strings.md) w pliku konfiguracyjnym lub zmiennej środowiskowej. Aby samouczek był prosty, wszystko jest zawarte w jednym pliku.
 
 ## <a name="create-the-database"></a>Tworzenie bazy danych
 
-Poniższe kroki służą do tworzenia bazy [danych programu.](xref:core/managing-schemas/migrations/index)
+Poniższe kroki używają [migracji](xref:core/managing-schemas/migrations/index) do tworzenia bazy danych.
 
-### <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[Interfejs wiersza polecenia platformy .NET Core](#tab/netcore-cli)
 
 * Uruchom następujące polecenia:
 
@@ -112,11 +112,11 @@ Poniższe kroki służą do tworzenia bazy [danych programu.](xref:core/managing
   dotnet ef database update
   ```
 
-  Spowoduje to zainstalowanie programu [dotnet EF](../miscellaneous/cli/dotnet.md) i pakietu projektowego, który jest wymagany do uruchomienia polecenia w projekcie. Polecenie `migrations` tworzy szkielet migracji w celu utworzenia początkowego zestawu tabel dla modelu. `database update` polecenie tworzy bazę danych i stosuje do niej nową migrację.
+  Spowoduje to zainstalowanie [dotnet ef](../miscellaneous/cli/dotnet.md) i pakietu projektowego, który jest wymagany do uruchomienia polecenia w projekcie. Polecenie `migrations` tworzy szkielety migracji w celu utworzenia początkowego zestawu tabel dla modelu. Polecenie `database update` tworzy bazę danych i stosuje do niej nową migrację.
 
-### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Program Visual Studio](#tab/visual-studio)
 
-* Uruchom następujące polecenia w **konsoli Menedżera pakietów**
+* Uruchamianie następujących poleceń w **konsoli Menedżera pakietów**
 
   ``` PowerShell
   Install-Package Microsoft.EntityFrameworkCore.Tools
@@ -124,30 +124,30 @@ Poniższe kroki służą do tworzenia bazy [danych programu.](xref:core/managing
   Update-Database
   ```
 
-  Spowoduje to zainstalowanie [narzędzi PMC dla EF Core](../miscellaneous/cli/powershell.md). Polecenie `Add-Migration` tworzy szkielet migracji w celu utworzenia początkowego zestawu tabel dla modelu. `Update-Database` polecenie tworzy bazę danych i stosuje do niej nową migrację.
+  Spowoduje to zainstalowanie [narzędzi PMC dla EF Core](../miscellaneous/cli/powershell.md). Polecenie `Add-Migration` tworzy szkielety migracji w celu utworzenia początkowego zestawu tabel dla modelu. Polecenie `Update-Database` tworzy bazę danych i stosuje do niej nową migrację.
 
 ---
 
-## <a name="create-read-update--delete"></a>Tworzenie, odczytywanie, aktualizowanie & Usuwanie
+## <a name="create-read-update--delete"></a>Tworzenie, czytanie, aktualizowanie & usuwanie
 
-* Otwórz *program.cs* i Zastąp zawartość następującym kodem:
+* Otwórz *Program.cs* i zastąp zawartość następującym kodem:
 
   [!code-csharp[Main](../../../samples/core/GetStarted/Program.cs)]
 
-## <a name="run-the-app"></a>Uruchamianie aplikacji
+## <a name="run-the-app"></a>Uruchomienie aplikacji
 
-### <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[Interfejs wiersza polecenia platformy .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet run
 ```
 
-### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Program Visual Studio](#tab/visual-studio)
 
-Program Visual Studio używa niespójnego katalogu roboczego podczas uruchamiania aplikacji konsolowych platformy .NET Core. (zobacz [dotnet/Project-System # 3619](https://github.com/dotnet/project-system/issues/3619)) Powoduje to zgłaszanie wyjątku: *nie ma takiej tabeli: blogi*. Aby zaktualizować katalog roboczy:
+Visual Studio używa niespójnego katalogu roboczego podczas uruchamiania aplikacji konsoli .NET Core. (patrz [dotnet/project-system#3619)](https://github.com/dotnet/project-system/issues/3619) Powoduje to wyjątek jest zgłaszany: *nie ma takiej tabeli: Blogi*. Aby zaktualizować katalog roboczy:
 
-* Kliknij prawym przyciskiem myszy projekt i wybierz polecenie **Edytuj plik projektu**
-* Po prostu poniżej właściwości *TargetFramework* Dodaj następujące elementy:
+* Kliknij prawym przyciskiem myszy projekt i wybierz pozycję **Edytuj plik projektu**
+* Tuż poniżej *właściwości TargetFramework* dodaj następujące elementy:
 
   ``` XML
   <StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
@@ -157,13 +157,13 @@ Program Visual Studio używa niespójnego katalogu roboczego podczas uruchamiani
 
 Teraz możesz uruchomić aplikację:
 
-* **Debugowanie > uruchamiane bez debugowania**
+* **> debugowania start bez debugowania**
 
 ---
 
 ## <a name="next-steps"></a>Następne kroki
 
-* Postępuj zgodnie z [samouczkiem ASP.NET Core](/aspnet/core/data/ef-rp/intro) , aby użyć EF Core w aplikacji sieci Web
+* Postępuj zgodnie z [samouczkiem ASP.NET Core,](/aspnet/core/data/ef-rp/intro) aby używać ef core w aplikacji sieci web
 * Dowiedz się więcej o [wyrażeniach zapytań LINQ](/dotnet/csharp/programming-guide/concepts/linq/basic-linq-query-operations)
-* [Skonfiguruj model](xref:core/modeling/index) , aby określić elementy, takie jak [wymagana](xref:core/modeling/entity-properties#required-and-optional-properties) i [Maksymalna długość](xref:core/modeling/entity-properties#maximum-length)
-* Użyj [migracji](xref:core/managing-schemas/migrations/index) , aby zaktualizować schemat bazy danych po zmianie modelu
+* [Konfigurowanie modelu](xref:core/modeling/index) w celu określenia [1, najaśniku i](xref:core/modeling/entity-properties#required-and-optional-properties) [maksymalnej długości](xref:core/modeling/entity-properties#maximum-length)
+* Aktualizowanie schematu bazy danych po zmianie modelu za pomocą [migracji](xref:core/managing-schemas/migrations/index)

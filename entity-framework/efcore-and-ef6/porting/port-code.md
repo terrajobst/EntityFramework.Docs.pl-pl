@@ -1,37 +1,37 @@
 ---
-title: Przenoszenie z EF6 do EF Core-Porting model-EF oparty na kodzie
+title: Przenoszenie z EF6 do EF Core — przenoszenie modelu opartego na kodzie — EF
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 2dce1a50-7d84-4856-abf6-2763dd9be99d
 uid: efcore-and-ef6/porting/port-code
 ms.openlocfilehash: 0a99eac2091c07d8bcf7d4e5e4bdc2afcaeee810
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78419638"
 ---
-# <a name="porting-an-ef6-code-based-model-to-ef-core"></a>Przenoszenie modelu opartego na kodzie EF6 do EF Core
+# <a name="porting-an-ef6-code-based-model-to-ef-core"></a>Przenoszenie modelu opartego na kodzie EF6 do ef core
 
-Jeśli przeczytasz wszystkie zastrzeżenia i wszystko jest gotowe do portu, Oto kilka wytycznych, które ułatwią Ci rozpoczęcie pracy.
+Jeśli przeczytałeś wszystkie zastrzeżenia i jesteś gotowy do portu, oto kilka wskazówek, które pomogą Ci rozpocząć pracę.
 
-## <a name="install-ef-core-nuget-packages"></a>Zainstaluj EF Core pakiety NuGet
+## <a name="install-ef-core-nuget-packages"></a>Instalowanie pakietów EF Core NuGet
 
-Aby użyć EF Core, należy zainstalować pakiet NuGet dla dostawcy bazy danych, którego chcesz użyć. Na przykład podczas określania wartości docelowej SQL Server należy zainstalować `Microsoft.EntityFrameworkCore.SqlServer`. Aby uzyskać szczegółowe informacje, zobacz [dostawcy bazy danych](../../core/providers/index.md) .
+Aby użyć EF Core, należy zainstalować pakiet NuGet dla dostawcy bazy danych, którego chcesz użyć. Na przykład podczas kierowania na program `Microsoft.EntityFrameworkCore.SqlServer`SQL Server należy zainstalować program . Zobacz [dostawców baz danych, aby](../../core/providers/index.md) uzyskać szczegółowe informacje.
 
-Jeśli planujesz używać migracji, należy również zainstalować pakiet `Microsoft.EntityFrameworkCore.Tools`.
+Jeśli planujesz używać migracji, należy również zainstalować `Microsoft.EntityFrameworkCore.Tools` pakiet.
 
-Warto pozostawić zainstalowany pakiet NuGet EF6 (EntityFramework), ponieważ EF Core i EF6 mogą być używane obok siebie w tej samej aplikacji. Jeśli jednak nie zamierzasz korzystać z EF6 w żadnych obszarach aplikacji, dezinstalacja pakietu pomoże Ci w wydaniu błędów kompilacji dla fragmentów kodu, które wymagają uwagi.
+Jest w porządku, aby pozostawić ef6 NuGet pakiet (EntityFramework) zainstalowany, jak EF Core i EF6 mogą być używane obok siebie w tej samej aplikacji. Jednak jeśli nie zamierzasz używać EF6 w żadnych obszarach aplikacji, a następnie odinstalowanie pakietu pomoże dać błędy kompilacji na kawałki kodu, które wymagają uwagi.
 
-## <a name="swap-namespaces"></a>Zamień przestrzenie nazw
+## <a name="swap-namespaces"></a>Zamienianie obszarów nazw
 
-Większość interfejsów API, które są używane w EF6, znajduje się w przestrzeni nazw `System.Data.Entity` (i powiązanych podrzędnych przestrzeni nazw). Pierwsza zmiana kodu polega na zamianie na przestrzeń nazw `Microsoft.EntityFrameworkCore`. Zwykle zaczynasz od pochodnego pliku kodu kontekstu, a następnie z tego powodu wykorzystasz błędy kompilacji w miarę ich występowania.
+Większość interfejsów API używanych w u `System.Data.Entity` ef6 znajdują się w obszarze nazw (i powiązanych pod-obszarów nazw). Pierwszą zmianą kodu jest `Microsoft.EntityFrameworkCore` zamiana na obszar nazw. Zazwyczaj należy rozpocząć od pliku kodu kontekstu pochodnego, a następnie wypracować stamtąd, adresowanie błędów kompilacji, jak występują.
 
 ## <a name="context-configuration-connection-etc"></a>Konfiguracja kontekstu (połączenie itp.)
 
-Zgodnie z opisem w temacie upewnij się, że [EF Core będzie działała dla aplikacji](ensure-requirements.md), EF Core ma mniej Magic wokół wykrywania bazy danych w celu nawiązania połączenia. Należy przesłonić metodę `OnConfiguring` w kontekście pochodnym i skonfigurować połączenie z bazą danych przy użyciu interfejsu API specyficznego dla dostawcy bazy danych.
+Zgodnie z opisem w [Ensure EF Core will work for Your Application](ensure-requirements.md), EF Core ma mniej magii wokół wykrywania bazy danych, aby połączyć się z. Należy zastąpić `OnConfiguring` metodę w kontekście pochodnym i użyć interfejsu API specyficznego dla dostawcy bazy danych do skonfigurowania połączenia z bazą danych.
 
-Większość aplikacji EF6 przechowuje parametry połączenia w pliku `App/Web.config` aplikacji. W EF Core należy odczytać te parametry połączenia za pomocą interfejsu API `ConfigurationManager`. Może być konieczne dodanie odwołania do zestawu programu `System.Configuration` Framework, aby można było używać tego interfejsu API.
+Większość aplikacji EF6 przechowuje parametry `App/Web.config` połączenia w pliku aplikacji. W EF Core odczytasz ten `ConfigurationManager` ciąg połączenia przy użyciu interfejsu API. Może być konieczne dodanie odwołania `System.Configuration` do zestawu framework, aby móc korzystać z tego interfejsu API.
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -48,14 +48,14 @@ public class BloggingContext : DbContext
 
 ## <a name="update-your-code"></a>Aktualizowanie kodu
 
-W tym momencie jest kwestią rozwiązywania błędów kompilacji i przeglądania kodu, aby sprawdzić, czy zmiany zachowania wpłyną na Ciebie.
+W tym momencie jest to kwestia adresowania błędów kompilacji i przeglądania kodu, aby sprawdzić, czy zmiany zachowania będą miały wpływ na Ciebie.
 
 ## <a name="existing-migrations"></a>Istniejące migracje
 
-Nie istnieje naprawdę możliwy do przenoszenia istniejących EF6 migracji do EF Core.
+Nie ma naprawdę wykonalny sposób na przeniesienie istniejących migracji EF6 do EF Core.
 
-Jeśli to możliwe, najlepiej założyć, że wszystkie poprzednie migracje z EF6 zostały zastosowane do bazy danych, a następnie rozpocznij migrację schematu z tego punktu przy użyciu EF Core. W tym celu należy użyć `Add-Migration` polecenie, aby dodać migrację po przeprowadzeniu modelu do EF Core. Następnie można usunąć cały kod z `Up` i `Down` metod migracji szkieletowej. Kolejne migracje zostaną porównane z modelem, gdy początkowa migracja została poddana migracji.
+Jeśli to możliwe, najlepiej jest założyć, że wszystkie poprzednie migracje z EF6 zostały zastosowane do bazy danych, a następnie rozpocząć migrację schematu z tego punktu przy użyciu EF Core. Aby to zrobić, należy `Add-Migration` użyć polecenia, aby dodać migracji, gdy model jest przeniesiony do EF Core. Następnie należy usunąć cały `Up` kod `Down` z i metody migracji szkieletu. Kolejne migracje zostaną porównane z modelem, gdy ta początkowa migracja została szkieletowa.
 
-## <a name="test-the-port"></a>Testowanie portu
+## <a name="test-the-port"></a>Przetestuj port
 
-Tak samo, jak Twoja aplikacja kompiluje, nie oznacza, że została pomyślnie przeniesiono do EF Core. Należy przetestować wszystkie obszary aplikacji, aby upewnić się, że żadna zmiana zachowania nie miała negatywnego wpływu na aplikację.
+Tylko dlatego, że aplikacja kompiluje, nie oznacza, że jest pomyślnie przeniesiony do EF Core. Należy przetestować wszystkie obszary aplikacji, aby upewnić się, że żadna ze zmian zachowania nie wpłynęła negatywnie na aplikację.

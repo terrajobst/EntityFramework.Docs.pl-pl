@@ -1,15 +1,15 @@
 ---
-title: Zapisywanie danych — EF6
+title: Zapisywanie danych - EF6
 author: divega
 ms.date: 07/05/2018
 ms.assetid: C7744A30-8655-4EF8-8657-F5B796D1EB7E
 ms.openlocfilehash: e39e5f9e8960f910f597f6aba89939ff77bad768
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78416954"
 ---
-# <a name="saving-data-with-entity-framework-6"></a>Zapisywanie danych przy użyciu Entity Framework 6
+# <a name="saving-data-with-entity-framework-6"></a>Zapisywanie danych za pomocą entity framework 6
 
-W tej sekcji znajdują się informacje o możliwościach śledzenia zmian w programie Dr oraz o tym, co się stanie, gdy wywołasz metody SaveChanges, aby zachować wszelkie zmiany w obiektach w bazie danych.
+W tej sekcji można znaleźć informacje na temat możliwości śledzenia zmian EF i co się dzieje, gdy wywołasz SaveChanges utrwalić wszelkie zmiany w obiektach w bazie danych.

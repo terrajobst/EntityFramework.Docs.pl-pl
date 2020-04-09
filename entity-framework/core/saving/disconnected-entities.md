@@ -1,144 +1,144 @@
 ---
-title: Rozłączone jednostki — EF Core
+title: Odłączone jednostki — EF Core
 author: ajcvickers
 ms.author: avickers
 ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 uid: core/saving/disconnected-entities
 ms.openlocfilehash: 421531e68ac98c0553938f1c24892701f22fef3c
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78417598"
 ---
-# <a name="disconnected-entities"></a>Rozłączone jednostki
+# <a name="disconnected-entities"></a>Odłączone encje
 
-Wystąpienie DbContext automatycznie śledzi jednostki zwrócone z bazy danych. Zmiany wprowadzone w tych jednostkach zostaną następnie wykryte, gdy zostanie wywołana metody SaveChanges i baza danych zostanie zaktualizowana w razie potrzeby. Szczegóły można znaleźć w temacie Podstawowe dane dotyczące [zapisywania](basic.md) i [pokrewnych danych](related-data.md) .
+Wystąpienie DbContext będzie automatycznie śledzić jednostki zwrócone z bazy danych. Zmiany wprowadzone w tych jednostkach zostaną wykryte po wywołaniu savechanges i aktualizacji bazy danych w razie potrzeby. Szczegółowe informacje można znaleźć w [podstawowych danych zapisu](basic.md) i [powiązanych danych.](related-data.md)
 
-Jednak czasami do jednostek są wysyłane zapytania przy użyciu jednego wystąpienia kontekstu, a następnie zapisane przy użyciu innego wystąpienia. Często zdarza się to w scenariuszach "rozłączonych", takich jak aplikacja sieci Web, do której są wysyłane zapytania, wysyłany do klienta, modyfikowane, wysyłane z powrotem do serwera w żądaniu, a następnie zapisane. W takim przypadku drugie wystąpienie kontekstu musi wiedzieć, czy jednostki są nowe (powinny być wstawiane) czy istniejące (należy je zaktualizować).
+Jednak czasami jednostki są wyszukiwane przy użyciu jednego wystąpienia kontekstu, a następnie zapisywane przy użyciu innego wystąpienia. Dzieje się tak często w scenariuszach "rozłączonych", takich jak aplikacja sieci web, w której jednostki są poszukiwane, wysyłane do klienta, modyfikowane, wysyłane z powrotem do serwera w żądaniu, a następnie zapisywane. W takim przypadku drugie wystąpienie kontekstu musi wiedzieć, czy jednostki są nowe (powinny być wstawiane) lub istniejące (powinny być aktualizowane).
 
 <!-- markdownlint-disable MD028 -->
 > [!TIP]
-> [Przykład](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/Disconnected/) tego artykułu można wyświetlić w witrynie GitHub.
+> Możesz wyświetlić [ten](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/Disconnected/) przykład artykułu na GitHub.
 
 > [!TIP]
-> EF Core może śledzić tylko jedno wystąpienie dowolnej jednostki z daną wartością klucza podstawowego. Najlepszym sposobem na uniknięcie tego problemu jest użycie kontekstu krótkotrwałego dla każdej jednostki pracy w taki sposób, że kontekst zaczyna puste, ma dołączone jednostki, zapisuje te jednostki, a następnie kontekst zostaje usunięty i odrzucony.
+> EF Core może śledzić tylko jedno wystąpienie dowolnej jednostki o danej wartości klucza podstawowego. Najlepszym sposobem uniknięcia tego problemu jest użycie kontekstu krótkotrwałego dla każdej jednostki pracy, tak aby kontekst zaczyna się pusty, ma jednostki dołączone do niego, zapisuje te jednostki, a następnie kontekst jest usuwany i odrzucany.
 <!-- markdownlint-enable MD028 -->
 
 ## <a name="identifying-new-entities"></a>Identyfikowanie nowych jednostek
 
 ### <a name="client-identifies-new-entities"></a>Klient identyfikuje nowe jednostki
 
-Najprostszym przypadkiem, w którym należy się zająć, jest to, kiedy klient informuje serwer o tym, czy jednostka jest nowa czy istniejąca. Na przykład często żądanie wstawienia nowej jednostki różni się od żądania zaktualizowania istniejącej jednostki.
+Najprostszym przypadkiem do czynienia jest, gdy klient informuje serwer, czy jednostka jest nowy lub istniejących. Na przykład często żądanie wstawienia nowej jednostki różni się od żądania aktualizacji istniejącej jednostki.
 
-Pozostała część tej sekcji obejmuje przypadki, w których konieczne jest określenie w inny sposób, czy należy wstawić czy zaktualizować.
+Pozostała część tej sekcji obejmuje przypadki, w których konieczne jest określenie w inny sposób, czy wstawić lub zaktualizować.
 
-### <a name="with-auto-generated-keys"></a>Z kluczami generowanymi automatycznie
+### <a name="with-auto-generated-keys"></a>Z automatycznie generowanymi klawiszami
 
-Wartość automatycznie generowanego klucza może być często używana do określenia, czy należy wstawić lub zaktualizować jednostkę. Jeśli klucz nie został ustawiony (oznacza to, że nadal ma wartość domyślną CLR o wartości null, zero itp.), jednostka musi być nowa i musi wstawiać. Z drugiej strony, jeśli wartość klucza została ustawiona, należy ją wcześniej zapisać i teraz wymaga aktualizacji. Innymi słowy, jeśli klucz ma wartość, jednostka została zbadana, wysłana do klienta i teraz ponownie zostanie zaktualizowana.
+Wartość automatycznie wygenerowanego klucza może być często używana do określenia, czy jednostka musi zostać wstawiona lub zaktualizowana. Jeśli klucz nie został ustawiony (oznacza to, że nadal ma domyślną wartość CLR null, zero itp.), jednostka musi być nowa i wymaga wstawienia. Z drugiej strony, jeśli wartość klucza została ustawiona, musi ona być już wcześniej zapisana, a teraz wymaga aktualizacji. Innymi słowy, jeśli klucz ma wartość, a następnie jednostka została zapytana, wysłane do klienta, a teraz wrócić do aktualizacji.
 
-Jeśli wiadomo, że typ jednostki jest znany:
+Łatwo jest sprawdzić, czy nie ustawiono klucza, gdy typ jednostki jest znany:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#IsItNewSimple)]
 
-Jednakże EF ma wbudowaną metodę, aby to zrobić dla dowolnego typu jednostki i typu klucza:
+Jednak EF ma również wbudowany sposób, aby to zrobić dla dowolnego typu jednostki i typu klucza:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#IsItNewGeneral)]
 
 > [!TIP]  
-> Klucze są ustawiane, gdy tylko jednostki są śledzone przez kontekst, nawet jeśli jednostka jest w stanie dodany. Ułatwia to przechodzenie grafu jednostek i decydowanie o tym, co należy zrobić z każdym z nich, na przykład w przypadku korzystania z interfejsu API TrackGraph. Wartość klucza powinna być używana tylko w sposób przedstawiony tutaj _przed_ wywołaniem do śledzenia jednostki.
+> Klucze są ustawiane tak szybko, jak jednostki są śledzone przez kontekst, nawet jeśli jednostka jest w stanie Dodane. Pomaga to podczas przechodzenia przez wykres jednostek i podejmowania decyzji, co zrobić z każdym, takich jak podczas korzystania z interfejsu API TrackGraph. Wartość klucza powinna być używana tylko w sposób pokazany w tym miejscu _przed_ każdym wywołaniem do śledzenia jednostki.
 
-### <a name="with-other-keys"></a>Z innymi kluczami
+### <a name="with-other-keys"></a>Z innymi klawiszami
 
-Aby identyfikować nowe jednostki w przypadku, gdy wartości kluczy nie są generowane automatycznie, jest wymagany inny mechanizm. Istnieją dwa ogólne podejścia do tego:
+Jakiś inny mechanizm jest potrzebny do identyfikowania nowych jednostek, gdy wartości klucza nie są generowane automatycznie. Istnieją dwa ogólne podejścia do tego:
 
-* Zapytanie dotyczące jednostki
-* Przekaż flagę z klienta
+* Kwerenda dla encji
+* Przekazywanie flagi od klienta
 
-Aby wykonać zapytanie dotyczące jednostki, po prostu Użyj metody Find:
+Aby zbadać encję, wystarczy użyć metody Znajdź:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#IsItNewQuery)]
 
-Ten dokument wykracza poza zakres tego dokumentu, aby pokazać pełen kod przekazywania flagi z klienta. W aplikacji sieci Web zazwyczaj oznacza to, że różne żądania dla różnych akcji lub przekazywanie pewnych stanów w żądaniu są wyodrębniane w kontrolerze.
+Jest poza zakresem tego dokumentu, aby wyświetlić pełny kod do przekazywania flagi od klienta. W aplikacji sieci web zwykle oznacza dokonywanie różnych żądań dla różnych akcji lub przekazywanie niektórych stanów w żądaniu, a następnie wyodrębnianie go w kontrolerze.
 
-## <a name="saving-single-entities"></a>Zapisywanie pojedynczych jednostek
+## <a name="saving-single-entities"></a>Zapisywanie pojedynczych encji
 
-Jeśli wiadomo, czy jest wymagana INSERT lub Update, można odpowiednio użyć opcji Dodaj lub zaktualizuj:
+Jeśli wiadomo, czy potrzebne jest wstawianie lub aktualizowanie, można odpowiednio użyć funkcji Dodaj lub Aktualizuj:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertAndUpdateSingleEntity)]
 
-Jeśli jednak jednostka używa automatycznie generowanych wartości kluczy, metoda Update może być używana w obu przypadkach:
+Jeśli jednak jednostka używa automatycznie generowanych wartości klucza, w obu przypadkach można użyć metody Update:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntity)]
 
-Metoda Update zwykle oznacza jednostkę do aktualizacji, nie wstawiaj. Jeśli jednak jednostka ma automatycznie wygenerowany klucz i żadna wartość klucza nie została ustawiona, jednostka zostanie automatycznie oznaczona do wstawienia.
+Update Metoda zwykle oznacza jednostki do aktualizacji, a nie wstawiania. Jeśli jednak encja ma klucz generowany automatycznie i nie ustawiono żadnej wartości klucza, jednostka jest automatycznie oznaczana do wstawienia.
 
 > [!TIP]  
-> To zachowanie zostało wprowadzone w EF Core 2,0. W przypadku wcześniejszych wersji zawsze konieczne jest jawne wybranie opcji Dodaj lub zaktualizuj.
+> To zachowanie zostało wprowadzone w EF Core 2.0. W przypadku wcześniejszych wydań zawsze należy jawnie wybrać dodaj lub aktualizuj.
 
-Jeśli jednostka nie używa automatycznie generowanych kluczy, aplikacja musi zdecydować, czy jednostka powinna zostać wstawiona lub zaktualizowana: na przykład:
+Jeśli encja nie używa automatycznie generowanych kluczy, aplikacja musi zdecydować, czy encja powinna zostać wstawiona, czy aktualizowana: Na przykład:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntityWithFind)]
 
-Poniżej przedstawiono następujące czynności:
+Kroki są następujące:
 
-* Jeśli funkcja Znajdź zwraca wartość null, baza danych nie zawiera jeszcze blogu o tym IDENTYFIKATORze, więc wywołamy polecenie Dodaj markę do wstawienia.
-* Jeśli funkcja Znajdź zwraca jednostkę, w bazie danych istnieje wartość, a w kontekście jest teraz śledzona Istniejąca jednostka
-  * Następnie użyjemy setValues, aby ustawić wartości dla wszystkich właściwości tej jednostki dla tych, które zostały dostarczone przez klienta.
-  * Wywołanie setValues oznaczy jednostkę, która ma zostać zaktualizowana w razie potrzeby.
+* Jeśli funkcja Znajdź zwraca wartość null, baza danych nie zawiera jeszcze bloga o tym identyfikatorze, więc nazywamy Dodaj oznacz go do wstawienia.
+* Jeśli funkcja Znajdź zwraca encję, istnieje ona w bazie danych, a kontekst jest teraz śledzeniu istniejącej encji
+  * Następnie używamy SetValues, aby ustawić wartości dla wszystkich właściwości tej jednostki na te, które pochodziły od klienta.
+  * Wywołanie SetValues oznaczy encję, która ma zostać zaktualizowana w razie potrzeby.
 
 > [!TIP]  
-> Wartości setValues będą oznaczane jako zmodyfikowane właściwości, które mają różne wartości w monitorowanej jednostce. Oznacza to, że po wysłaniu aktualizacji zostaną zaktualizowane tylko te kolumny, które zostały zmienione w rzeczywistości. (A jeśli nic się nie zmieniło, aktualizacja nie zostanie wysłana wcale.)
+> SetValues oznaczy tylko jako zmodyfikowane właściwości, które mają inne wartości do tych w śledzonej jednostki. Oznacza to, że po wysłaniu aktualizacji zostaną zaktualizowane tylko te kolumny, które faktycznie uległy zmianie. (A jeśli nic się nie zmieniło, żadna aktualizacja nie zostanie wysłana w ogóle.)
 
 ## <a name="working-with-graphs"></a>Praca z wykresami
 
 ### <a name="identity-resolution"></a>Rozpoznawanie tożsamości
 
-Jak wspomniano powyżej, EF Core może śledzić tylko jedno wystąpienie dowolnej jednostki z daną wartością klucza podstawowego. Podczas pracy z wykresami, wykres powinien być utworzony w taki sposób, że niezmienna jest utrzymywana, a kontekst powinien być używany tylko dla jednej jednostki pracy. Jeśli wykres zawiera duplikaty, konieczne będzie przetworzenie wykresu przed wysłaniem go do EF, aby skonsolidować wiele wystąpień w jeden. Może to nie być nieuproszczone miejsce, w którym wystąpienia mają wartości powodujące konflikt i relacje, dlatego konsolidacja duplikatów powinna być wykonywana najszybciej, jak to możliwe w potoku aplikacji, aby uniknąć rozwiązywania konfliktów.
+Jak wspomniano powyżej, EF Core można śledzić tylko jedno wystąpienie dowolnej jednostki z danej wartości klucza podstawowego. Podczas pracy z wykresami wykres powinien być idealnie utworzony w taki sposób, aby ten niezmienny był zachowywany, a kontekst powinien być używany tylko dla jednej jednostki pracy. Jeśli wykres zawiera duplikaty, konieczne będzie przetworzenie wykresu przed wysłaniem go do EF, aby skonsolidować wiele wystąpień w jeden. Może to nie być trywialne, gdy wystąpienia mają sprzeczne wartości i relacje, więc konsolidacji duplikatów należy wykonać tak szybko, jak to możliwe w potoku aplikacji, aby uniknąć rozwiązywania konfliktów.
 
 ### <a name="all-newall-existing-entities"></a>Wszystkie nowe/wszystkie istniejące jednostki
 
-Przykładem pracy z wykresami jest wstawianie lub aktualizowanie blogu wraz z kolekcją skojarzonych wpisów. Jeśli wszystkie jednostki na grafie powinny zostać wstawione lub wszystkie powinny zostać zaktualizowane, proces jest taki sam jak w powyższym obszarze dla pojedynczych jednostek. Na przykład Graf blogów i wpisów utworzonych w następujący sposób:
+Przykładem pracy z wykresami jest wstawianie lub aktualizowanie bloga wraz z jego kolekcją skojarzonych wpisów. Jeśli wszystkie jednostki na wykresie powinny być wstawione lub wszystkie powinny być aktualizowane, proces jest taki sam, jak opisano powyżej dla pojedynczych jednostek. Na przykład wykres blogów i postów utworzonych w ten sposób:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#CreateBlogAndPosts)]
 
-można go wstawić w następujący sposób:
+można wstawić w ten sposób:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertGraph)]
 
-Wywołanie do dodania spowoduje oznaczenie blogu i wszystkich wpisów do wstawienia.
+Wywołanie dodaj oznaczy bloga i wszystkie wpisy, które mają zostać wstawione.
 
-Podobnie, jeśli wszystkie jednostki na grafie muszą zostać zaktualizowane, można użyć aktualizacji:
+Podobnie, jeśli wszystkie jednostki na wykresie muszą zostać zaktualizowane, można użyć aktualizacji:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#UpdateGraph)]
 
-Blog i wszystkie jego wpisy zostaną oznaczone jako do zaktualizowania.
+Blog i wszystkie jego posty zostaną oznaczone jako zaktualizowane.
 
-### <a name="mix-of-new-and-existing-entities"></a>Mieszanie nowych i istniejących jednostek
+### <a name="mix-of-new-and-existing-entities"></a>Połączenie nowych i istniejących podmiotów
 
-Dzięki automatycznie generowanym kluczom aktualizacja może być ponownie używana dla operacji INSERT i Update, nawet jeśli wykres zawiera różne jednostki, które wymagają wstawiania i te, które wymagają aktualizacji:
+W przypadku automatycznie generowanych kluczy aktualizacja może być ponownie używana zarówno dla wstawień, jak i aktualizacji, nawet jeśli wykres zawiera kombinację jednostek wymagających wstawiania i tych, które wymagają aktualizacji:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateGraph)]
 
-Aktualizacja spowoduje oznaczenie dowolnej jednostki w grafie, blogu lub wpisie do wstawienia, jeśli nie ma ustawionej wartości klucza, a wszystkie inne jednostki są oznaczone do aktualizacji.
+Aktualizacja oznaczy dowolną encję na wykresie, blogu lub poście do wstawienia, jeśli nie ma ustawionej wartości klucza, podczas gdy wszystkie inne jednostki są oznaczone do aktualizacji.
 
-Tak jak wcześniej, gdy nie korzystasz z kluczy generowanych automatycznie, można użyć zapytania i niektórych operacji przetwarzania:
+Tak jak poprzednio, gdy nie używa się automatycznie generowanych kluczy, można użyć kwerendy i niektórych przetwarzania:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateGraphWithFind)]
 
-## <a name="handling-deletes"></a>Obsługa usunięć
+## <a name="handling-deletes"></a>Obsługa usuwania
 
-Usuwanie może być trudne do obsłużenia, ponieważ często nie istnieje nieobecność jednostki, ponieważ należy ją usunąć. Jednym ze sposobów postępowania z tym jest użycie "Usuwanie miękkie" w taki sposób, że jednostka jest oznaczona jako usunięta, a nie jest faktycznie usuwana. Następnie usuwane są takie same jak aktualizacje. Usuwanie miękkie można zaimplementować przy użyciu [filtrów zapytań](xref:core/querying/filters).
+Usuwanie może być trudne do obsługi, ponieważ często brak jednostki oznacza, że powinny zostać usunięte. Jednym ze sposobów radzenia sobie z tym jest użycie "nietrwałych usuwania", tak aby jednostka była oznaczona jako usunięta, a nie faktycznie usuwana. Usuwa następnie staje się taka sama jak aktualizacje. Usuwanie nietrwałe można zaimplementować przy użyciu [filtrów zapytań](xref:core/querying/filters).
 
-W przypadku usunięć "true" typowym wzorcem jest użycie rozszerzenia wzorca zapytania, aby wykonać to, co jest zasadniczo różnicą wykresu. Na przykład:
+W przypadku usuwania true wspólnego wzorca jest użycie rozszerzenia wzorca kwerendy do wykonywania tego, co jest zasadniczo różnicy graf. Przykład:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertUpdateOrDeleteGraphWithFind)]
 
-## <a name="trackgraph"></a>TrackGraph
+## <a name="trackgraph"></a>Wykres dresowy
 
-Wewnętrznie, dodawać, dołączać i aktualizować użycie programu Graph-przechodzenie przy użyciu oznaczeń wykonanych dla każdej jednostki w taki sposób, że powinna zostać oznaczona jako dodana (do wstawienia), zmodyfikowana (do aktualizacji), niezmieniona (nic nie dotyczy) lub usunięta (do usunięcia). Ten mechanizm jest udostępniany za pośrednictwem interfejsu API TrackGraph. Załóżmy na przykład, że gdy klient wysyła wykres z tyłu jednostek, ustawia dla każdej jednostki flagę wskazującą, jak powinna być obsługiwana. TrackGraph można następnie użyć do przetworzenia tej flagi:
+Wewnętrznie, Dodaj, Dołącz i Aktualizuj użyj wykresu przechodzenie z określeniem dla każdej jednostki, czy powinien być oznaczony jako Dodane (do wstawiania), Zmodyfikowane (do aktualizacji), Bez zmian (nic nie robić) lub usunięte (do usunięcia). Ten mechanizm jest narażony za pośrednictwem interfejsu API trackgraph. Załóżmy na przykład, że gdy klient odsyła wykres jednostek ustawia niektóre flagi na każdej jednostce wskazując, jak należy obsługiwać. TrackGraph może następnie służyć do przetwarzania tej flagi:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#TrackGraph)]
 
-Flagi są wyświetlane tylko jako część jednostki dla uproszczenia przykładu. Zwykle flagi będą częścią DTO lub innego stanu zawartego w żądaniu.
+Flagi są wyświetlane tylko jako część jednostki dla uproszczenia przykładu. Zazwyczaj flagi będą częścią DTO lub innego stanu uwzględnionego w żądaniu.

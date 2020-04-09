@@ -1,15 +1,15 @@
 ---
 layout: HubPage
-title: Entity Framework-EF
+title: Struktura jednostek — EF
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 6bb12583-c39a-454c-8d83-d2a2793ca9ef
 uid: index
 ms.openlocfilehash: 1643e3c9d1b8565155ebc1c04713a40883d03a07
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78416927"
 ---
 <div id="main" class="v2">
@@ -17,7 +17,7 @@ ms.locfileid: "78416927"
         <h1>Dokumentacja programu Entity Framework</h1>
         <ul class="pivots">
             <li>
-                <a href="#entityfmwk">Entity Framework</a>
+                <a href="#entityfmwk">Struktura jednostek</a>
                 <ul id="entityfmwk">
                     <li>
                         <a href="#entityfmwk1"></a>
@@ -96,7 +96,7 @@ ms.locfileid: "78416927"
                                                 </div>
                                                 <div class="cardText">
                                                     <h3>Przenoszenie do programu EF Core</h3>
-                                                    <p>Wskazówki dotyczące przenoszenia istniejącej aplikacji Dr 6 do EF Core.</p>
+                                                    <p>Wytyczne dotyczące przenoszenia istniejącej aplikacji EF 6 do EF Core.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -129,19 +129,19 @@ ms.locfileid: "78416927"
                                             </div>
                                             <div class="cardText">
                                                 <h3>
-                                                    <a href="/ef/core/">Wprowadzenie</a>
+                                                    <a href="/ef/core/">Rozpocząć</a>
                                                 </h3>
                                                 <p>
-                                                    <a href="/ef/core/">Omówienie</a>
+                                                    <a href="/ef/core/">Przegląd</a>
                                                 </p>
                                                 <p>
                                                     <a href="/ef/core/modeling/">Tworzenie modelu</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/querying/">Tworzenie zapytania o dane</a>
+                                                    <a href="/ef/core/querying/">Dane kwerendy</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/saving/">Zapisywanie danych</a>
+                                                    <a href="/ef/core/saving/">Zapisz dane</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -162,7 +162,7 @@ ms.locfileid: "78416927"
                                                     <a href="/ef/core/get-started/">Samouczki</a>
                                                 </h3>
                                                 <p>
-                                                    <a href="/ef/core/get-started/">więcej…</a>
+                                                    <a href="/ef/core/get-started/">Więcej...</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -183,22 +183,22 @@ ms.locfileid: "78416927"
                                                     <a href="/ef/core/providers/">Dostawcy baz danych</a>
                                                 </h3>
                                                 <p>
-                                                    <a href="/ef/core/providers/sql-server/">SQL Server</a>
+                                                    <a href="/ef/core/providers/sql-server/">Serwer SQL</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/providers/mysql/">MySQL</a>
+                                                    <a href="/ef/core/providers/mysql/">Mysql</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/providers/npgsql/">PostgreSQL</a>
+                                                    <a href="/ef/core/providers/npgsql/">Postgresql</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/providers/sqlite/">SQLite</a>
+                                                    <a href="/ef/core/providers/sqlite/">Sqlite</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/providers/cosmos/">Cosmos</a>
+                                                    <a href="/ef/core/providers/cosmos/">Kosmos</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/providers/">więcej…</a>
+                                                    <a href="/ef/core/providers/">Więcej...</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -216,16 +216,16 @@ ms.locfileid: "78416927"
                                             </div>
                                             <div class="cardText">
                                                 <h3>
-                                                    <a href="https://docs.microsoft.com/dotnet/api/?view=efcore-2.1">Dokumentacja interfejsu API</a>
+                                                    <a href="https://docs.microsoft.com/dotnet/api/?view=efcore-2.1">Odwołanie do interfejsu API</a>
                                                 </h3>
                                                 <p>
-                                                    <a href="https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a>
+                                                    <a href="https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext (DbContext)</a>
                                                 </p>
                                                 <p>
-                                                    <a href="https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbset-1">DbSet&lt;TEntity&gt;</a>
+                                                    <a href="https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbset-1">DbSet&lt;TEntity (DbSet TEntity)&gt;</a>
                                                 </p>
                                                 <p>
-                                                    <a href="https://docs.microsoft.com/dotnet/api/?view=efcore-2.1">więcej…</a>
+                                                    <a href="https://docs.microsoft.com/dotnet/api/?view=efcore-2.1">Więcej...</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -237,7 +237,7 @@ ms.locfileid: "78416927"
                 </ul>
             </li>
             <li>
-                <a href="#ef6x">EF 6</a>
+                <a href="#ef6x">Ef 6</a>
                 <ul id="ef6x">
                     <li>
                         <a href="#ef6x1"></a>

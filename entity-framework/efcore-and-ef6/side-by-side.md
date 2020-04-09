@@ -5,21 +5,21 @@ ms.date: 01/23/2019
 ms.assetid: a06e3c35-110c-4294-a1e2-32d2c31c90a7
 uid: efcore-and-ef6/side-by-side
 ms.openlocfilehash: bcf0a26535c4ec880a9ac25478c987fb683f6d26
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78419645"
 ---
-# <a name="using-ef-core-and-ef6-in-the-same-application"></a>Używanie EF Core i EF6 w tej samej aplikacji
+# <a name="using-ef-core-and-ef6-in-the-same-application"></a>Korzystanie z EF Core i EF6 w tej samej aplikacji
 
-Możliwe jest używanie EF Core i EF6 w tej samej aplikacji lub bibliotece przez zainstalowanie obu pakietów NuGet.
+Istnieje możliwość użycia EF Core i EF6 w tej samej aplikacji lub bibliotece, instalując oba pakiety NuGet.
 
-Niektóre typy mają takie same nazwy w EF Core i EF6 i różnią się tylko przestrzenią nazw, co może spowodować skomplikowanie przy użyciu obu EF Core i EF6 w tym samym pliku kodu. Niejednoznaczność można łatwo usunąć przy użyciu dyrektyw aliasu przestrzeni nazw. Na przykład:
+Niektóre typy mają takie same nazwy w EF Core i EF6 i różnią się tylko przez obszar nazw, co może skomplikować przy użyciu EF Core i EF6 w tym samym pliku kodu. Niejednoznaczność można łatwo usunąć za pomocą dyrektyw aliasów obszaru nazw. Przykład:
 
 ``` csharp
 using Microsoft.EntityFrameworkCore; // use DbContext for EF Core
 using EF6 = System.Data.Entity; // use EF6.DbContext for the EF6 version
 ```
 
-W przypadku przenoszenia istniejącej aplikacji, która ma wiele modeli EF, można selektywnie przenieść niektóre z nich do EF Core i nadal używać EF6 dla innych osób.
+Jeśli przenosisz istniejącą aplikację, która ma wiele modeli EF, można wybrać selektywnie przenieść niektóre z nich do EF Core i kontynuować korzystanie z EF6 dla innych.

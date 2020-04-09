@@ -3,22 +3,22 @@ title: Zarządzanie schematami bazy danych — EF Core
 author: bricelam
 ms.date: 10/30/2017
 ms.openlocfilehash: 2da17865cb0192fb3e6e3396e4ca5f31fde9c52a
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78416306"
 ---
 # <a name="managing-database-schemas"></a>Zarządzanie schematami bazy danych
 
-EF Core oferuje dwa podstawowe sposoby utrzymywania synchronizacji modelu EF Core i schematu bazy danych. Aby wybrać jeden z tych dwóch, zdecyduj, czy model EF Core lub schemat bazy danych jest źródłem prawdy.
+EF Core zapewnia dwa podstawowe sposoby przechowywania modelu EF Core i schematu bazy danych w synchronizacji. Aby wybrać między tymi dwoma, zdecydować, czy model EF Core lub schemat bazy danych jest źródłem prawdy.
 
-Jeśli chcesz, aby model EF Core był źródłem prawdy, użyj [migracji][1]. W miarę wprowadzania zmian w modelu EF Core ta metoda stopniowo stosuje odpowiednie zmiany schematu do bazy danych, tak aby była zgodna z modelem EF Core.
+Jeśli chcesz, aby twój model EF Core był źródłem prawdy, użyj [migrations][1]. W miarę wprowadzania zmian w modelu EF Core, to podejście stopniowo stosuje odpowiednie zmiany schematu do bazy danych, dzięki czemu pozostaje zgodna z modelem EF Core.
 
-Jeśli chcesz, aby schemat bazy danych był źródłem prawdy, [Użyj odtwarzania.][2] Takie podejście umożliwia tworzenie szkieletu DbContext i klas typu jednostki przez odtwarzanie schematu bazy danych do modelu EF Core.
+Użyj [inżynierii odwrotnej,][2] jeśli chcesz, aby schemat bazy danych był źródłem prawdy. Takie podejście umożliwia szkieletowanie DbContext i klasy typu jednostki przez inżynierii odwrotnej schematu bazy danych do modelu EF Core.
 
 > [!NOTE]
-> [Interfejsy API tworzenia i upuszczania][3] mogą również tworzyć schemat bazy danych na podstawie modelu EF Core. Jednak są one głównie do testowania, tworzenia prototypów i innych scenariuszy, w których porzucanie bazy danych jest dopuszczalne.
+> Interfejsy [API tworzenia i upuszczania][3] można również utworzyć schemat bazy danych z modelu EF Core. Jednak są one przede wszystkim do testowania, prototypowania i innych scenariuszy, w których upuszczanie bazy danych jest dopuszczalne.
 
 
   [1]: migrations/index.md

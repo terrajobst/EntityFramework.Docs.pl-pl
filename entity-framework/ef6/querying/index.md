@@ -4,18 +4,18 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 65bb3db2-2226-44af-8864-caa575cf1b46
 ms.openlocfilehash: 29a86817e250a2f53ecaa73e8fa4bf93452f0497
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78417169"
 ---
-# <a name="querying-and-finding-entities"></a>Wykonywanie zapytań i znajdowanie jednostek
-W tym temacie omówiono różne sposoby wykonywania zapytań dotyczących danych przy użyciu Entity Framework, w tym LINQ i metody Find. Techniki przedstawione w tym temacie dotyczą również modeli utworzonych przy użyciu Code First i programu Dr Designer.  
+# <a name="querying-and-finding-entities"></a>Wykonywanie zapytań i znajdowanie encji
+W tym temacie opisano różne sposoby wykonywania zapytań o dane przy użyciu entity framework, w tym LINQ i Find metody. Techniki pokazane w tym temacie stosuje się jednakowo do modeli utworzonych za pomocą Code First i EF Designer.  
 
-## <a name="finding-entities-using-a-query"></a>Znajdowanie jednostek przy użyciu zapytania  
+## <a name="finding-entities-using-a-query"></a>Znajdowanie encji przy użyciu kwerendy  
 
-Nieogólnymi i IDbSet implementują interfejs IQueryable i dlatego mogą być używane jako punkt wyjścia do pisania zapytania LINQ względem bazy danych. To nie jest odpowiednie miejsce do szczegółowego omówienia LINQ, ale poniżej przedstawiono kilka prostych przykładów:  
+DbSet i IDbSet implementują IQueryable i dlatego mogą być używane jako punkt wyjścia do pisania zapytania LINQ w bazie danych. Nie jest to odpowiednie miejsce do dogłębnej dyskusji linq, ale oto kilka prostych przykładów:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -32,30 +32,30 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Należy pamiętać, że Nieogólnymi i IDbSet zawsze tworzą zapytania względem bazy danych i zawsze będą obejmowały rundę do bazy danych, nawet jeśli zwrócona jednostka już istnieje w kontekście. Zapytanie jest wykonywane w odniesieniu do bazy danych, gdy:  
+Należy zauważyć, że DbSet i IDbSet zawsze tworzyć zapytania względem bazy danych i zawsze będzie obejmować podróż w obie strony do bazy danych, nawet jeśli zwrócone jednostki już istnieją w kontekście. Kwerenda jest wykonywana względem bazy danych, gdy:  
 
-- Jest on wyliczany przez instrukcję **foreach** (C#) lub **dla każdej** instrukcji (Visual Basic).  
-- Jest on wyliczany przez operację kolekcji, taką jak [ToArray —](https://msdn.microsoft.com/library/bb298736), [ToDictionary](https://msdn.microsoft.com/library/system.linq.enumerable.todictionary)lub [ToList —](https://msdn.microsoft.com/library/bb342261).  
-- Operatory LINQ, takie jak [First](https://msdn.microsoft.com/library/bb291976) lub [any](https://msdn.microsoft.com/library/bb337697) , są określone w najbardziej zewnętrznej części zapytania.  
-- Następujące metody są wywoływane: Metoda [Load](https://msdn.microsoft.com/library/system.data.entity.dbextensions.load) Extension w Nieogólnymi, [DbEntityEntry. reload](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.reload.aspx)i Database. ExecuteSqlCommand.  
+- Jest wyliczona przez **foreach** (C#) lub **for Each** (Visual Basic) instrukcji.  
+- Jest wyliczona przez operację zbierania, taką jak [ToArray](https://msdn.microsoft.com/library/bb298736), [ToDictionary](https://msdn.microsoft.com/library/system.linq.enumerable.todictionary)lub [ToList](https://msdn.microsoft.com/library/bb342261).  
+- Linq operatorów, takich jak [First](https://msdn.microsoft.com/library/bb291976) lub [Any](https://msdn.microsoft.com/library/bb337697) są określone w najbardziej zewnętrznej części kwerendy.  
+- Następujące metody są wywoływane: [Load](https://msdn.microsoft.com/library/system.data.entity.dbextensions.load) extension method on a DbSet, [DbEntityEntry.Reload](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.reload.aspx)i Database.ExecuteSqlCommand.  
 
-Gdy wyniki są zwracane z bazy danych, obiekty, które nie istnieją w kontekście, są dołączane do kontekstu. Jeśli obiekt znajduje się już w kontekście, zwracany jest istniejący obiekt (bieżące i oryginalne wartości właściwości obiektu w tym wpisie **nie** są zastępowane wartościami bazy danych).  
+Gdy wyniki są zwracane z bazy danych, obiekty, które nie istnieją w kontekście są dołączone do kontekstu. Jeśli obiekt jest już w kontekście, zwracany jest istniejący obiekt (bieżące i oryginalne wartości właściwości obiektu we wpisie **nie** są zastępowane wartościami bazy danych).  
 
-Podczas wykonywania zapytania jednostki, które zostały dodane do kontekstu, ale nie zostały jeszcze zapisane w bazie danych, nie są zwracane jako część zestawu wyników. Aby uzyskać dane, które znajdują się w kontekście, zobacz [dane lokalne](~/ef6/querying/local-data.md).  
+Podczas wykonywania kwerendy jednostki, które zostały dodane do kontekstu, ale nie zostały jeszcze zapisane w bazie danych, nie są zwracane jako część zestawu wyników. Aby uzyskać dane, które są w kontekście, zobacz [Dane lokalne](~/ef6/querying/local-data.md).  
 
-Jeśli zapytanie nie zwraca żadnych wierszy z bazy danych, wynik będzie pustą kolekcją, a nie **wartością null**.  
+Jeśli kwerenda zwraca żadnych wierszy z bazy danych, wynik będzie pustą kolekcją, a nie **null**.  
 
-## <a name="finding-entities-using-primary-keys"></a>Znajdowanie jednostek przy użyciu kluczy podstawowych  
+## <a name="finding-entities-using-primary-keys"></a>Znajdowanie encji przy użyciu kluczy podstawowych  
 
-Metoda Find w Nieogólnymi używa wartości klucza podstawowego, aby próbować znaleźć jednostkę śledzoną przez kontekst. Jeśli jednostka nie zostanie znaleziona w kontekście, zapytanie zostanie wysłane do bazy danych, aby znaleźć w niej jednostkę. Zwracana jest wartość null, jeśli jednostka nie została znaleziona w kontekście lub w bazie danych.  
+Find Metoda na DbSet używa wartości klucza podstawowego, aby spróbować znaleźć jednostkę śledzone przez kontekst. Jeśli jednostka nie zostanie znaleziona w kontekście, kwerenda zostanie wysłana do bazy danych w celu znalezienia tej jednostki. Null jest zwracany, jeśli jednostka nie zostanie znaleziona w kontekście lub w bazie danych.  
 
-Wyszukiwanie różni się od użycia zapytania na dwa znaczące sposoby:  
+Znajdź różni się od używania kwerendy na dwa istotne sposoby:  
 
-- Przepodróżowanie do bazy danych zostanie wykonane tylko wtedy, gdy jednostka z danym kluczem nie zostanie znaleziona w kontekście.  
-- Znajdź zwróci jednostki, które znajdują się w stanie dodany. Oznacza to, że Znajdź zwróci jednostki, które zostały dodane do kontekstu, ale nie zostały jeszcze zapisane w bazie danych.  
+- Podróż w obie strony do bazy danych zostanie dokonana tylko wtedy, gdy jednostka z danym kluczem nie zostanie znaleziona w kontekście.  
+- Znajdź zwróci jednostki, które są w stanie Dodane. Oznacza to, że Find zwróci jednostki, które zostały dodane do kontekstu, ale nie zostały jeszcze zapisane w bazie danych.  
 ### <a name="finding-an-entity-by-primary-key"></a>Znajdowanie jednostki według klucza podstawowego  
 
-Poniższy kod przedstawia niektóre zastosowania wyszukiwania:  
+Poniższy kod pokazuje niektóre zastosowania funkcji Znajdź:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -78,7 +78,7 @@ using (var context = new BloggingContext())
 
 ### <a name="finding-an-entity-by-composite-primary-key"></a>Znajdowanie jednostki według złożonego klucza podstawowego  
 
-Entity Framework umożliwia jednostkom posiadanie kluczy złożonych — to jest klucz składający się z więcej niż jednej właściwości. Można na przykład mieć jednostkę BlogSettings, która reprezentuje ustawienia użytkowników dla określonego bloga. Ze względu na to, że użytkownik będzie miał tylko jeden BlogSettings dla każdego blogu, który można wybrać, aby klucz podstawowy BlogSettings kombinację BlogId i nazwę użytkownika. Poniższy kod próbuje znaleźć BlogSettings z BlogId = 3 i username = "johndoe1987":  
+Entity Framework umożliwia jednostek mają klucze złożone — to klucz, który składa się z więcej niż jednej właściwości. Na przykład można mieć BlogSettings jednostki, która reprezentuje ustawienia użytkowników dla określonego bloga. Ponieważ użytkownik będzie tylko kiedykolwiek jeden BlogSettings dla każdego bloga można wybrać, aby podstawowy klucz BlogSettings połączenie BlogId i nazwa użytkownika. Następujący kod próbuje znaleźć BlogSettings z BlogId = 3 i Nazwa użytkownika = "johndoe1987":  
 
 ``` csharp  
 using (var context = new BloggingContext())
@@ -87,4 +87,4 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Należy pamiętać, że jeśli masz klucze złożone, musisz użyć elementu ColumnAttribute lub interfejsu API Fluent, aby określić kolejność właściwości klucza złożonego. Wywołanie metody Find musi używać tej kolejności podczas określania wartości, które tworzą klucz.  
+Należy zauważyć, że gdy masz klucze złożone, należy użyć ColumnAttribute lub płynnego interfejsu API, aby określić kolejność właściwości klucza złożonego. Wywołanie Find musi używać tej kolejności podczas określania wartości, które tworzą klucz.  

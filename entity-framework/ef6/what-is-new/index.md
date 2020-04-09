@@ -1,43 +1,43 @@
 ---
-title: Co nowego — EF6
+title: Co nowego - EF6
 author: divega
 ms.date: 09/12/2019
 ms.assetid: 41d1f86b-ce66-4bf2-8963-48514406fb4c
 uid: ef6/what-is-new/index
 ms.openlocfilehash: e0367aeefd682434bf520301776bcff4f0e72e06
-ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "80136139"
 ---
-# <a name="whats-new-in-ef6"></a>Co nowego w programie EF6
+# <a name="whats-new-in-ef6"></a>Co nowego w EF6
 
-Zdecydowanie zalecamy użycie najnowszej wydanej wersji Entity Framework, aby uzyskać najnowsze funkcje i największą stabilność.
-Jednak firma Microsoft zdaje sobie sprawę, że może być konieczne użycie poprzedniej wersji lub przeprowadzenie eksperymentu z nowymi ulepszeniami w najnowszej wersji wstępnej.
-Aby zainstalować określone wersje EF, zobacz [Get Entity Framework](~/ef6/fundamentals/install.md).
+Zdecydowanie zaleca się użycie najnowszej wersji wydanej programu Entity Framework, aby zapewnić uzyskanie najnowszych funkcji i najwyższą stabilność.
+Zdajemy sobie jednak sprawę, że może być konieczne użycie poprzedniej wersji lub że warto eksperymentować z nowymi ulepszeniami w najnowszej wersji wstępnej.
+Aby zainstalować określone wersje ef, zobacz [Get Entity Framework](~/ef6/fundamentals/install.md).
 
-## <a name="ef-640"></a>DR 6.4.0
+## <a name="ef-640"></a>EF 6.4.0
 
-Środowisko uruchomieniowe EF 6.4.0 zostało wydane w programie NuGet w grudniu 2019. Głównym celem EF 6,4 jest polerowanie funkcji i scenariuszy, które zostały dostarczone w EF 6,3. Zobacz [listę ważnych poprawek](https://github.com/dotnet/ef6/milestone/14?closed=1) w serwisie GitHub.
+Środowisko uruchomieniowe EF 6.4.0 zostało wydane w nuget w grudniu 2019. Głównym celem EF 6.4 jest polerowanie funkcji i scenariuszy, które zostały dostarczone w EF 6.3. Zobacz [listę ważnych poprawek](https://github.com/dotnet/ef6/milestone/14?closed=1) na Github.
 
-## <a name="ef-630"></a>DR 6.3.0
+## <a name="ef-630"></a>EF 6.3.0
 
-Środowisko uruchomieniowe EF 6.3.0 zostało wydane dla programu NuGet we wrześniu 2019. Głównym celem tej wersji jest ułatwienie migracji istniejących aplikacji korzystających z programu EF 6 do platformy .NET Core 3,0. Społeczność przyczyniła również kilka poprawek i ulepszeń błędów. Aby uzyskać szczegółowe informacje, zobacz problemy zamknięte w każdym 6.3.0 [punktów kontrolnych](https://github.com/aspnet/EntityFramework6/milestones?state=closed) . Poniżej przedstawiono niektóre z bardziej istotnych:
+Środowisko uruchomieniowe EF 6.3.0 zostało wydane w nuget we wrześniu 2019. Głównym celem tej wersji było ułatwienie migracji istniejących aplikacji korzystających z EF 6 do .NET Core 3.0. Społeczność przyczyniła się również kilka poprawek i ulepszeń błędów. Szczegółowe informacje można znaleźć w przypadku problemów zamkniętych w każdym [kamieniu milowym](https://github.com/aspnet/EntityFramework6/milestones?state=closed) 6.3.0. Oto niektóre z bardziej znaczących z nich:
 
-- Obsługa platformy .NET Core 3,0
-  - Pakiet EntityFramework teraz jest przeznaczony dla .NET Standard 2,1 oprócz .NET Framework 4. x.
-  - Oznacza to, że EF 6,3 jest dla wielu platform i jest obsługiwany przez inne systemy operacyjne niż Windows, takie jak Linux i macOS.
-  - Polecenia migracji zostały wprowadzone ponownie w celu wykonania poza procesem i pracują z projektami w stylu zestawu SDK.
-- Obsługa SQL Server HierarchyId.
-- Ulepszona zgodność z Roslyn i NuGet PackageReference.
-- Dodano narzędzie `ef6.exe` do włączania, dodawania, tworzenia skryptów i stosowania migracji z zestawów. Spowoduje to zastąpienie `migrate.exe`.
+- Obsługa platformy .NET Core 3.0
+  - Pakiet EntityFramework jest teraz przeznaczony dla platformy .NET Standard 2.1 oprócz programu .NET Framework 4.x.
+  - Oznacza to, że EF 6.3 jest wieloplatformowy i obsługiwany w innych systemach operacyjnych oprócz Windows, takich jak Linux i macOS.
+  - Polecenia migracji zostały przepisane do wykonywania poza procesem i pracy z projektami w stylu SDK.
+- Obsługa identyfikatora hierarchii programu SQL Server.
+- Poprawiono zgodność z Roslyn i NuGet PackageReference.
+- Dodano `ef6.exe` narzędzie do włączania, dodawania, tworzenia skryptów i stosowania migracji z zestawów. Zastępuje to `migrate.exe`.
 
-### <a name="ef-designer-support"></a>Obsługa projektanta EF
+### <a name="ef-designer-support"></a>Pomoc techniczna dla projektantów EF
 
-Nie jest obecnie obsługiwane korzystanie z programu EF Designer bezpośrednio w projektach .NET Core lub .NET Standard projects lub w .NET Framework projekcie w stylu zestawu SDK. 
+Obecnie nie ma obsługi przy użyciu projektanta EF bezpośrednio w projektach .NET Core lub .NET Standard lub w projekcie .NET Framework w stylu SDK. 
 
-To ograniczenie można obejść przez dodanie pliku EDMX i wygenerowanych klas dla jednostek i DbContext jako połączonych plików do projektu .NET Core 3,0 lub .NET Standard 2,1 w tym samym rozwiązaniu.
+Można obejść to ograniczenie, dodając plik EDMX i wygenerowane klasy dla jednostek i DbContext jako połączone pliki do projektu .NET Core 3.0 lub .NET Standard 2.1 w tym samym rozwiązaniu.
 
 Połączone pliki będą wyglądać następująco w pliku projektu:
 
@@ -50,10 +50,10 @@ Połączone pliki będą wyglądać następująco w pliku projektu:
 </ItemGroup>
 ```
 
-Należy zauważyć, że plik EDMX jest połączony z akcją kompilacji EntityDeploy. Jest to specjalne zadanie MSBuild (teraz zawarte w pakiecie EF 6,3), które ma na celu dodanie modelu EF do zestawu docelowego jako zasobów osadzonych (lub skopiowanie go jako plików w folderze wyjściowym, w zależności od ustawienia przetwarzania artefaktów metadanych w EDMX). Aby uzyskać więcej informacji na temat sposobu uzyskania tego ustawienia, zobacz nasze [przykładowe edmx .NET Core](https://aka.ms/EdmxDotNetCoreSample).
+Należy zauważyć, że plik EDMX jest połączony z jednostką EntityDeploy build akcji. Jest to specjalne zadanie MSBuild (teraz zawarte w pakiecie EF 6.3), który zajmuje się dodawaniem modelu EF do zestawu docelowego jako zasoby osadzone (lub kopiowanie go jako pliki w folderze wyjściowym, w zależności od metadanych artefakt przetwarzania ustawienie w EDMX). Aby uzyskać więcej informacji na temat tego, jak uzyskać tę konfigurację, zobacz nasz [przykład EDMX .NET Core](https://aka.ms/EdmxDotNetCoreSample).
 
-Ostrzeżenie: Upewnij się, że stary styl (tj. styl inny niż zestaw SDK) .NET Framework projektu definiującego plik "Real". edmx jest _wcześniejszy niż_ projekt definiujący łącze wewnątrz pliku. sln. W przeciwnym razie po otwarciu pliku. edmx w projektancie zostanie wyświetlony komunikat o błędzie "Entity Framework nie jest dostępny w platformie docelowej aktualnie określonej dla projektu. Można zmienić platformę docelową projektu lub edytować model w obiekcie xmlediter.
+Ostrzeżenie: upewnij się, że stary styl (tj. nie-SDK stylu) .NET Framework projektu definiowania "prawdziwe" .edmx plik przychodzi _przed_ projektem definiowania łącza wewnątrz pliku .sln. W przeciwnym razie po otwarciu pliku .edmx w projektancie zostanie wyświetlony komunikat o błędzie "Struktura encji nie jest dostępna w ramach docelowej obecnie określonej dla projektu. Można zmienić docelową strukturę projektu lub edytować model w XmlEditor".
 
 ## <a name="past-releases"></a>Poprzednie wydania
 
-Strona [przeszłe wydania](past-releases.md) zawiera archiwum wszystkich poprzednich wersji EF oraz głównych funkcji wprowadzonych w poszczególnych wydaniach.
+Poprzednia [wersja](past-releases.md) strona zawiera archiwum wszystkich poprzednich wersji EF i głównych funkcji, które zostały wprowadzone w każdej wersji.

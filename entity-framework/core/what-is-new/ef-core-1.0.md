@@ -1,81 +1,81 @@
 ---
-title: Co nowego w EF Core 1,0 — EF Core
+title: Co nowego w EF Core 1.0 - EF Core
 author: divega
 ms.date: 10/27/2016
 ms.assetid: 20A25111-AEBE-4BC2-83A5-3F651952DF72
 uid: core/what-is-new/ef-core-1.0
 ms.openlocfilehash: 2cd2a54d75ed3f0caa8b674dfb56babcfcc13592
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: pl-PL
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78417525"
 ---
-# <a name="features-included-in-ef-core-10"></a>Funkcje zawarte w EF Core 1,0
+# <a name="features-included-in-ef-core-10"></a>Funkcje zawarte w EF Core 1.0
 
 ## <a name="platforms"></a>Platformy
 
 ### <a name="net-framework-451"></a>.NET Framework 4.5.1
 
-Obejmuje konsole, WPF, WinForms, ASP.NET 4 itd.
+Zawiera konsolę, WPF, WinForms, ASP.NET 4 itp.
 
-### <a name="net-standard-13"></a>.NET Standard 1,3
+### <a name="net-standard-13"></a>.NET Standard 1.3
 
-Uwzględnienie ASP.NET Core .NET Framework i .NET Core w systemach Windows, OSX i Linux.
+W tym ASP.NET Core kierowania zarówno .NET Framework i .NET Core w systemie Windows, OSX i Linux.
 
-## <a name="modelling"></a>Modelowania
+## <a name="modelling"></a>Modelowanie
 
-### <a name="basic-modelling"></a>Podstawowe modelowanie
+### <a name="basic-modelling"></a>Modelowanie podstawowe
 
-Na podstawie jednostek POCO z właściwościami get/set wspólnych typów skalarnych (`int`, `string`itp.).
+Na podstawie jednostek POCO z właściwościami get/set`int` `string`typowych typów skalarnych ( , itp.).
 
 ### <a name="relationships-and-navigation-properties"></a>Relacje i właściwości nawigacji
 
-Relacje "jeden do wielu" i "jeden do zera" można określić w modelu na podstawie klucza obcego. Właściwości nawigacji prostej kolekcji lub typów referencyjnych mogą być skojarzone z tymi relacjami.
+Relacje jeden do wielu i jeden do zera lub jeden można określić w modelu na podstawie klucza obcego. Właściwości nawigacji typów kolekcji prostej lub odwołania mogą być skojarzone z tymi relacjami.
 
-### <a name="built-in-conventions"></a>Konwencje wbudowane
+### <a name="built-in-conventions"></a>Wbudowane konwencje
 
-Te kompilują początkowy model na podstawie kształtu klas jednostek.
+Te kompilacji modelu początkowego na podstawie kształtu klas jednostki.
 
-### <a name="fluent-api"></a>Interfejs API Fluent
+### <a name="fluent-api"></a>Płynne API
 
-Umożliwia przesłonięcie metody `OnModelCreating` w kontekście w celu dodatkowego skonfigurowania modelu, który został odnaleziony przez Konwencję.
+Umożliwia zastąpienie `OnModelCreating` metody w kontekście, aby dodatkowo skonfigurować model, który został wykryty przez konwencję.
 
 ### <a name="data-annotations"></a>Adnotacje danych
 
-Są atrybutami, które mogą być dodawane do klas jednostek/właściwości i mają wpływ na model EF. Na przykład dodanie `[Required]` pozwoli na dr znać, że właściwość jest wymagana.
+Są atrybuty, które mogą być dodawane do klasy/właściwości jednostki i będzie mieć wpływ na model EF. Na przykład `[Required]` dodanie poinformuje EF, że właściwość jest wymagana.
 
 ### <a name="relational-table-mapping"></a>Mapowanie tabeli relacyjnej
 
-Zezwala na mapowanie jednostek na tabele/kolumny.
+Umożliwia mapowanie elementów do tabel/kolumn.
 
-### <a name="key-value-generation"></a>Generowanie wartości klucza
+### <a name="key-value-generation"></a>Generowanie kluczowych wartości
 
-Obejmuje to generowanie po stronie klienta i generowanie bazy danych.
+W tym generowanie po stronie klienta i generowanie bazy danych.
 
 ### <a name="database-generated-values"></a>Wartości wygenerowane przez bazę danych
 
-Umożliwia generowanie wartości przez bazę danych przy wstawianiu (wartości domyślne) lub aktualizacji (kolumny obliczane).
+Umożliwia generowanie wartości przez bazę danych przy wstawiania (wartości domyślne) lub aktualizacji (kolumny obliczane).
 
-### <a name="sequences-in-sql-server"></a>Sekwencje w SQL Server
+### <a name="sequences-in-sql-server"></a>Sekwencje w programie SQL Server
 
-Umożliwia zdefiniowanie obiektów sekwencji w modelu.
+Umożliwia definiowanie obiektów sekwencji w modelu.
 
-### <a name="unique-constraints"></a>Ograniczenia UNIQUE
+### <a name="unique-constraints"></a>Unique
 
-Umożliwia definiowanie kluczy alternatywnych i możliwość definiowania relacji przeznaczonych dla tego klucza.
+Umożliwia definicję kluczy alternatywnych i możliwość definiowania relacji, które są przeznaczone dla tego klucza.
 
 ### <a name="indexes"></a>Indeksy
 
-Zdefiniowanie indeksów w modelu powoduje automatyczne wprowadzenie indeksów w bazie danych. Obsługiwane są również unikatowe indeksy.
+Definiowanie indeksów w modelu automatycznie wprowadza indeksy w bazie danych. Obsługiwane są również unikatowe indeksy.
 
 ### <a name="shadow-state-properties"></a>Właściwości stanu cienia
 
-Umożliwia zdefiniowanie właściwości w modelu, które nie są zadeklarowane i nie są przechowywane w klasie .NET, ale mogą być śledzone i aktualizowane przez EF Core. Często używane w przypadku właściwości klucza obcego podczas ujawniania ich w obiekcie nie jest to wymagane.
+Umożliwia zdefiniowanie właściwości w modelu, które nie są zadeklarowane i nie są przechowywane w klasie .NET, ale mogą być śledzone i aktualizowane przez EF Core. Często używane dla właściwości klucza obcego podczas wystawiania ich w obiekcie nie jest pożądane.
 
-### <a name="table-per-hierarchy-inheritance-pattern"></a>Wzorzec dziedziczenia na poziomie tabeli
+### <a name="table-per-hierarchy-inheritance-pattern"></a>Wzorzec dziedziczenia tabela na hierarchię
 
-Zezwala, aby jednostki w hierarchii dziedziczenia były zapisywane w pojedynczej tabeli przy użyciu kolumny rozróżniacza, aby identyfikować typy jednostek dla danego rekordu w bazie danych.
+Umożliwia zapisywanie jednostek w hierarchii dziedziczenia w jednej tabeli przy użyciu kolumny rozróżniacza w celu zidentyfikowania ich typu jednostki dla danego rekordu w bazie danych.
 
 ### <a name="model-validation"></a>Walidacja modelu
 
@@ -85,96 +85,96 @@ Wykrywa nieprawidłowe wzorce w modelu i udostępnia przydatne komunikaty o bł�
 
 ### <a name="snapshot-change-tracking"></a>Śledzenie zmian migawek
 
-Zezwala na automatyczne wykrywanie zmian w jednostkach, porównując bieżący stan z kopią (migawką) oryginalnego stanu.
+Umożliwia automatyczne wykrywanie zmian w jednostkach przez porównanie bieżącego stanu z kopią (migawką) stanu oryginalnego.
 
 ### <a name="notification-change-tracking"></a>Śledzenie zmian powiadomień
 
-Umożliwia jednostkom powiadamianie o śledzeniu zmian, gdy wartości właściwości są modyfikowane.
+Umożliwia jednostkom powiadamianie śledzenia zmian, gdy wartości właściwości są modyfikowane.
 
 ### <a name="accessing-tracked-state"></a>Uzyskiwanie dostępu do śledzonego stanu
 
-Za pośrednictwem `DbContext.Entry` i `DbContext.ChangeTracker`.
+Przez `DbContext.Entry` `DbContext.ChangeTracker`i .
 
-### <a name="attaching-detached-entitiesgraphs"></a>Dołączanie odłączonych jednostek/wykresów
+### <a name="attaching-detached-entitiesgraphs"></a>Dołączanie odłączonych elementów/wykresów
 
-Nowy interfejs API `DbContext.AttachGraph` pomaga ponownie dołączyć jednostki do kontekstu w celu zapisania nowych/zmodyfikowanych jednostek.
+Nowy `DbContext.AttachGraph` interfejs API pomaga ponownie dołączyć jednostki do kontekstu w celu zapisania nowych/zmodyfikowanych jednostek.
 
 ## <a name="saving-data"></a>Zapisywanie danych
 
-### <a name="basic-save-functionality"></a>Podstawowe funkcje zapisywania
+### <a name="basic-save-functionality"></a>Podstawowa funkcja zapisywania
 
-Zezwala na utrwalanie zmian wystąpień jednostek w bazie danych.
+Umożliwia utrwalenie zmian w wystąpieniach encji w bazie danych.
 
 ### <a name="optimistic-concurrency"></a>Optymistyczna współbieżność
 
-Chroni przed zastąpieniem zmian wprowadzonych przez innego użytkownika od momentu pobrania danych z bazy danych.
+Chroni przed zastąpieniem zmian wprowadzonych przez innego użytkownika, ponieważ dane zostały pobrane z bazy danych.
 
-### <a name="async-savechanges"></a>Metody SaveChanges Async
+### <a name="async-savechanges"></a>Async SaveChanges
 
-Może zwolnić bieżący wątek, aby przetwarzać inne żądania, podczas gdy baza danych przetwarza polecenia wydane z `SaveChanges`.
+Można zwolnić bieżący wątek do przetwarzania innych żądań, `SaveChanges`podczas gdy baza danych przetwarza polecenia wydane z .
 
 ### <a name="database-transactions"></a>Transakcje bazy danych
 
-Oznacza, że `SaveChanges` jest zawsze niepodzielna (oznacza to, że całkowicie kończy się powodzeniem lub nie wprowadzono żadnych zmian w bazie danych). Istnieją również interfejsy API powiązane z transakcjami umożliwiające udostępnianie transakcji między wystąpieniami kontekstu itd.
+Oznacza, `SaveChanges` że jest zawsze niepodzielny (co oznacza, że albo całkowicie powiedzie się lub nie wprowadza się żadnych zmian w bazie danych). Istnieją również interfejsy API związane z transakcjami, aby umożliwić udostępnianie transakcji między wystąpieniami kontekstu itp.
 
-### <a name="relational-batching-of-statements"></a>Relacyjne: przetwarzanie wsadowe instrukcji
+### <a name="relational-batching-of-statements"></a>Relacyjne: Wsadowanie instrukcji
 
-Zapewnia lepszą wydajność dzięki zbiorom wsadowym wielokrotnego wstawiania/aktualizowania/usuwania w jednej komunikacji jednokierunkowej z bazą danych.
+Zapewnia lepszą wydajność przez wsadowanie wiele wstawiania/aktualizacji / usuwania poleceń w jednym obie strony do bazy danych.
 
 ## <a name="query"></a>Zapytanie
 
 ### <a name="basic-linq-support"></a>Podstawowa obsługa LINQ
 
-Umożliwia korzystanie z programu LINQ do pobierania danych z bazy danych.
+Zapewnia możliwość korzystania z LINQ do pobierania danych z bazy danych.
 
-### <a name="mixed-clientserver-evaluation"></a>Mieszane Obliczanie klienta/serwera
+### <a name="mixed-clientserver-evaluation"></a>Ocena klienta/serwera mieszanego
 
-Włącza zapytania, które mają zawierać logikę, której nie można oszacować w bazie danych i dlatego muszą być oceniane po pobraniu danych do pamięci.
+Umożliwia kwerendy zawierają logikę, która nie może być oceniana w bazie danych i dlatego muszą być oceniane po pobraniu danych do pamięci.
 
-### <a name="notracking"></a>NoTracking
+### <a name="notracking"></a>Notracking
 
-Zapytania umożliwiają szybsze wykonywanie zapytań, gdy kontekst nie musi monitorować zmian w wystąpieniach jednostek (jest to przydatne, jeśli wyniki są tylko do odczytu).
+Kwerendy umożliwia szybsze wykonywanie zapytań, gdy kontekst nie musi monitorować zmian w wystąpieniach jednostki (jest to przydatne, jeśli wyniki są tylko do odczytu).
 
-### <a name="eager-loading"></a>Ładowanie eager
+### <a name="eager-loading"></a>Gorliwy załadunek
 
-Udostępnia metody `Include` i `ThenInclude` do identyfikowania powiązanych danych, które powinny być również pobierane podczas wykonywania zapytań.
+Zawiera `Include` metody `ThenInclude` i metody identyfikowania powiązanych danych, które również powinny być pobierane podczas wykonywania zapytań.
 
-### <a name="async-query"></a>Zapytanie asynchroniczne
+### <a name="async-query"></a>Zapytanie asynchroniowe
 
-Może zwolnić bieżący wątek (i skojarzone zasoby), aby przetwarzać inne żądania, gdy baza danych przetwarza zapytanie.
+Można zwolnić bieżący wątek (i jest skojarzone zasoby) do przetwarzania innych żądań, podczas gdy baza danych przetwarza kwerendę.
 
 ### <a name="raw-sql-queries"></a>Nieprzetworzone zapytania SQL
 
-Udostępnia metodę `DbSet.FromSql` do pobierania danych przy użyciu nieprzetworzonych zapytań SQL. Te zapytania mogą również składać się z użycia LINQ.
+Udostępnia `DbSet.FromSql` metodę używania nieprzetworzonych zapytań SQL do pobierania danych. Te zapytania mogą również składać się przy użyciu LINQ.
 
-## <a name="database-schema-management"></a>Zarządzanie schematami bazy danych
+## <a name="database-schema-management"></a>Zarządzanie schematem bazy danych
 
 ### <a name="database-creationdeletion-apis"></a>Interfejsy API tworzenia/usuwania bazy danych
 
-Są głównie przeznaczone do testowania, gdzie chcesz szybko utworzyć/usunąć bazę danych bez użycia migracji.
+Są przeznaczone głównie do testowania, gdzie chcesz szybko utworzyć/usunąć bazę danych bez użycia migracji.
 
-### <a name="relational-database-migrations"></a>Migracje relacyjnych baz danych
+### <a name="relational-database-migrations"></a>Migracje relacyjnej bazy danych
 
-Zezwól schematowi relacyjnej bazy danych na rozwijanie nadgodzin w miarę zmiany modelu.
+Zezwalaj na schemat relacyjnej bazy danych, aby ewoluować nadgodziny w miarę zmian modelu.
 
-### <a name="reverse-engineer-from-database"></a>Odtwarzanie z bazy danych
+### <a name="reverse-engineer-from-database"></a>Inżynier odwrotny z bazy danych
 
-Szkieletuje model EF oparty na istniejącym schemacie relacyjnej bazy danych.
+Szkielety modelu EF na podstawie istniejącego schematu relacyjnej bazy danych.
 
 ## <a name="database-providers"></a>Dostawcy baz danych
 
-### <a name="sql-server"></a>Oprogramowanie SQL Server
+### <a name="sql-server"></a>SQL Server
 
-Nawiązuje połączenie z Microsoft SQL Server 2008.
+Łączy się z programem Microsoft SQL Server 2008.
 
 ### <a name="sqlite"></a>SQLite
 
-Nawiązuje połączenie z bazą danych programu SQLite 3.
+Łączy się z bazą danych SQLite 3.
 
 ### <a name="in-memory"></a>W pamięci
 
-Program został zaprojektowany tak, aby można było łatwo włączyć testowanie bez łączenia się z rzeczywistą bazą danych.
+Został zaprojektowany, aby łatwo włączyć testowanie bez łączenia się z prawdziwą bazą danych.
 
-### <a name="3rd-party-providers"></a>dostawcy innych firm
+### <a name="3rd-party-providers"></a>Dostawcy zewnętrzni
 
-Kilku dostawców jest dostępnych dla innych aparatów bazy danych. Aby uzyskać pełną listę, zobacz [dostawcy bazy danych](../providers/index.md) .
+Kilku dostawców są dostępne dla innych aparatów baz danych. Zobacz [dostawców baz danych,](../providers/index.md) aby uzyskać pełną listę.
